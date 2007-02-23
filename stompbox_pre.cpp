@@ -1,8 +1,8 @@
 /****************************************************************************
 **
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
+** Copyright (C) 2005-2006 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT-8 Fx FloorBoard".
+** This file is part of "GT6B FX FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -25,12 +25,18 @@
 stompbox_pre::stompbox_pre(QWidget *parent)
     : stompBox(parent)
 {
-	/* PRE */
+	/* PRE  */
 	setImage(":/images/pre.png");
-	setSwitch("07", "00", "00"); 
+	setKnob1("04", "00", "08");
+	setKnob2("04", "00", "0F");
+	setComboBox("04", "00", "02");
+	setButton("04", "00", "00"); 
 };
 
 void stompbox_pre::updateSignal()
 {
-	updateSwitch("07", "00", "00");
+  updateKnob1("04", "00", "08");
+	updateKnob2("04", "00", "0F");
+	updateComboBox("04", "00", "02");
+	updateButton("04", "00", "00");
 };

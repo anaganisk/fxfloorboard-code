@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT-8 FX FloorBoard".
+** This file is part of "GT6B FX FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -23,29 +23,22 @@
 #ifndef MIDIIO_H
 #define MIDIIO_H
 
-#include <QThread>
+#include <QObject>
 #include <QString>
-#include <QStringList>
 #include <QList>
 
-class midiIO: public QThread
+class midiIO: public QObject
 {
 	Q_OBJECT
 
 public:
-	void run();
-	void sendSysxMsg(QString sysxOutMsg, int midiOut, int midiIn);
-	void sendMidi(QString midiMsg, int midiOut);
+	midiIO();
+	~midiIO();
+	
 	QList<QString> getMidiOutDevices();
 	QList<QString> getMidiInDevices();
 
-signals:
-	void errorSignal(QString windowTitle, QString errorMsg);
-	void replyMsg(QString sysxInMsg);
-	void midiFinished();
-	void started();
-	void finished();
-	void terminated();
+	QString sendSysxMsg(QString sysxOut, int midiOut, int midiIn);
 
 private:
 	void queryMidiInDevices();
@@ -59,22 +52,7 @@ private:
 
 	QList<QString> midiOutDevices;
 	QList<QString> midiInDevices;
-
-	/*static void CALLBACK midiCallback(HMIDIIN handle, 
-		UINT wMsg, DWORD dwInstance, 
-		DWORD dwParam1, DWORD dwParam2);*/
-
-	static QString sysxBuffer;
-	static bool dataReceive;
-	static unsigned char SysXFlag;
-	static int count;
-	static unsigned char SysXBuffer[256];
-
-	int midiOut;
-	int midiIn;
-	QString sysxOutMsg;
-	QString sysxInMsg;
-	bool multiple;
 };
 
 #endif // MIDIIO_H
+

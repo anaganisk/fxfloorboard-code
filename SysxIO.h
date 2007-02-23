@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT-8 Fx FloorBoard".
+** This file is part of "GT6B FX FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -45,7 +45,6 @@ public:
 
 	void setFileSource(SysxData fileSource);
 	void setFileSource(QByteArray data);
-	void setFileSource(QString data);
 	void setFileSource(QString hex1, QString hex2, QString hex3, QString hex4);
 	void setFileSource(QString hex1, QString hex2, QString hex3, QString hex4, QString hex5);
 	void setFileName(QString fileName);
@@ -54,53 +53,6 @@ public:
 	QList<QString> getFileSource(QString hex1, QString hex2);
 	QString getCheckSum(int dataSize);
 	QList<QString> correctSysxMsg(QList<QString> sysxMsg);
-	void setConnected(bool connected);
-	bool isConnected();
-	void setDeviceReady(bool status);
-	bool deviceReady();
-	void setDevice(bool isdevice);
-	bool isDevice();
-	void setSyncStatus(bool syncStatus);
-	bool getSyncStatus();
-	void setBank(int bank);
-	void setPatch(int patch);
-	int getBank();
-	int getPatch();
-	void setRequestName(QString requestName);
-	QString getRequestName();
-	QString getPatchChangeMsg(int bank, int patch);
-
-	void sendMidi(QString midiMsg);
-	void sendSysx(QString sysxMsg);
-	void requestPatchName(int bank, int patch);
-	void requestPatch(int bank, int patch);
-	void requestPatchChange(int bank, int patch);
-
-	bool noError();
-	void setNoError(bool status);
-
-public slots:
-	void errorSignal(QString windowTitle, QString errorMsg);
-
-private slots:
-	void returnPatchName(QString sysxMsg);
-	void receiveSysx(QString sysxMsg);
-	void finishedSending();
-	void namePatchChange();
-	void resetDevice(QString sysxMsg);
-	void checkPatchChange(QString name);
-
-signals:
-	void sysxReply(QString sysxMsg);
-	void patchName(QString name);
-	void isFinished();
-	void isChanged();
-
-	void setStatusSymbol(int value);
-	void setStatusProgress(int value);
-    void setStatusMessage(QString message);
-
-	void notConnectedSignal();
 
 protected :
 	SysxIO();
@@ -114,19 +66,6 @@ private:
 	SysxData fileSource;
 	QString fileName;
 
-	bool connected;
-	bool status;
-
-	int bank;
-	int patch;
-	bool isdevice;
-	bool syncStatus;
-	bool noerror;
-	int bankChange;
-	int patchChange;
-	int changeCount;
-
-	QString requestName;
 };
 
 #endif // SYSXIO_H

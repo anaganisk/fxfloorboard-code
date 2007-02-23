@@ -1,8 +1,8 @@
 /****************************************************************************
 **
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
+** Copyright (C) 2005-2006 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT-8 Fx FloorBoard".
+** This file is part of "GT6B FX FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -28,35 +28,20 @@ stompbox_eq::stompbox_eq(QWidget *parent)
 	/* EQ */
 	setImage(":/images/eq.png");
 
-	/*int range1 = midiTable->getRange("Stucture", "08", "00", "03");
-	int range2 = midiTable->getRange("Stucture", "08", "00", "06");
-	int range3 = midiTable->getRange("Stucture", "08", "00", "09");
-	int range4 = midiTable->getRange("Stucture", "08", "00", "0A");
-	int range5 = midiTable->getRange("Stucture", "08", "00", "0C");
-
-	customSlider *slider1 = new customSlider(0, 0, range1, 1, 10, QPoint::QPoint(8, 17), this, "08", "00", "03");
-	customSlider *slider2 = new customSlider(0, 0, range2, 1, 10, QPoint::QPoint(24, 17), this, "08", "00", "06");
-	customSlider *slider3 = new customSlider(0, 0, range3, 1, 10, QPoint::QPoint(40, 17), this, "08", "00", "09");
-	customSlider *slider4 = new customSlider(0, 0, range4, 1, 10, QPoint::QPoint(56, 17), this, "08", "00", "0A");	
-	customSlider *slider5 = new customSlider(0, 0, range5, 1, 10, QPoint::QPoint(79, 17), this, "08", "00", "0C");	
-	customButton *button = new customButton(false, QPoint::QPoint(4, 110), this);
-	customLed *led = new customLed(false, QPoint::QPoint(41, 4), this);
-	QObject::connect(button, SIGNAL(valueChanged(bool)),
-                         led, SLOT(changeValue(bool)));	*/
-	setSlider1("08", "00", "03");
-	setSlider2("08", "00", "06");
-	setSlider3("08", "00", "09");
-	setSlider4("08", "00", "0A");
-	setSlider5("08", "00", "0C");
-	setButton("08", "00", "00");
+	setSlider1("05", "00", "04");
+	setSlider2("05", "00", "07");
+	setSlider3("05", "00", "0A");
+	//setSlider4("05", "00", "0A");
+	setSlider5("05", "00", "0B");
+	setButton("05", "00", "00"); 
 };
 
 void stompbox_eq::updateSignal()
 {
-	updateSlider1("08", "00", "03");
-	updateSlider2("08", "00", "06");
-	updateSlider3("08", "00", "09");
-	updateSlider4("08", "00", "0A");
-	updateSlider5("08", "00", "0C");
-	updateButton("08", "00", "00");
+	updateSlider1("05", "00", "04");
+	updateSlider2("05", "00", "07");
+	updateSlider3("05", "00", "0A");
+	//updateSlider4("05", "00", "0A");
+	updateSlider5("05", "00", "0B");
+	updateButton("05", "00", "00");
 };

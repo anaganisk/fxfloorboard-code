@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT-8 Fx FloorBoard".
+** This file is part of "GT6B FX FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -22,7 +22,6 @@
 
 #include <QtGui>
 #include "customButton.h"
-#include "globalVariables.h"
 
 customButton::customButton(bool active, QPoint buttonPos, QWidget *parent, QString hex1, QString hex2, QString hex3, 
 						   QString imagePath)
@@ -38,39 +37,6 @@ customButton::customButton(bool active, QPoint buttonPos, QWidget *parent, QStri
 	this->buttonPos = buttonPos;
 	setOffset(0);
     setGeometry(buttonPos.x(), buttonPos.y(), buttonSize.width(), buttonSize.height());
-
-	timer = new QTimer(this);
-	QObject::connect(this, SIGNAL( valueChanged(bool, QString, QString, QString) ),
-                this->parent(), SLOT( valueChanged(bool, QString, QString, QString) ));
-};
-
-customButton::customButton(QString text, bool active, QPoint buttonPos, QWidget *parent, 
-						   QString imagePath)
-    : QWidget(parent)
-{
-	this->active = active;
-	this->text = text;
-	this->imagePath = imagePath;
-	QSize imageSize = QPixmap(imagePath).size();
-	this->buttonSize =  QSize(imageSize.width(), imageSize.height()/4);
-	this->buttonPos = buttonPos;
-	setOffset(0);
-    setGeometry(buttonPos.x(), buttonPos.y(), buttonSize.width(), buttonSize.height());
-
-	QFont fontLabel;
-	fontLabel.setFamily("Arial");
-	fontLabel.setBold(true);
-	fontLabel.setPixelSize(9);
-	fontLabel.setStretch(100);
-	
-	QLabel *textLabel = new QLabel(this);
-	textLabel->setText(this->text);
-	textLabel->setFont(fontLabel);
-	textLabel->setAlignment(Qt::AlignCenter);
-	textLabel->setGeometry(0, (buttonSize.height() - textLabel->height())/2, buttonSize.width(), textLabel->height());
-
-	timer = new QTimer(this);
-    QObject::connect(timer, SIGNAL(timeout()), this, SLOT(blink()) );
 
 	QObject::connect(this, SIGNAL( valueChanged(bool, QString, QString, QString) ),
                 this->parent(), SLOT( valueChanged(bool, QString, QString, QString) ));
@@ -116,7 +82,6 @@ void customButton::mouseReleaseEvent(QMouseEvent *event)
 		if(active)
 		{
 			setOffset(0);
-			setBlink(false);
 			emitValue(false);
 		}
 		else
@@ -133,14 +98,7 @@ void customButton::emitValue(bool value)
     this->active = value;
 	//if (value != m_value) {
     //    this->m_value = value;
-		if(this->hex1 == 0 && this->hex2 == 0 && this->hex3 == 0)
-		{
-			emit valueChanged((bool)value);
-		}
-		else
-		{
-			emit valueChanged((bool)value, this->hex1, this->hex2, this->hex3);
-		};
+        emit valueChanged((bool)value, this->hex1, this->hex2, this->hex3);
     //};
 };
 
@@ -170,41 +128,6 @@ void customButton::setValue(bool value)
 	else
 	{
 		setOffset(0);
-	};
-	clearFocus();
-};
-
-void customButton::setBlink(bool value)
-{
-	 if(value)
-	 {
-		timer->start(buttonBlinkInterval);
-	 }
-	 else
-	 {
-		timer->stop();
-		if(active)
-		{
-			setOffset(2);
-		}
-		else
-		{
-			setOffset(0);
-		};
-	 };
-};
-
-void customButton::blink()
-{
-	if(on)
-	{
-		on = false;
-		setOffset(0);
-	}
-	else
-	{
-		on = true;
-		setOffset(2);
 	};
 	clearFocus();
 };

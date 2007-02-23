@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT-8 Fx FloorBoard".
+** This file is part of "GT6B FX FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -25,6 +25,7 @@
 #include <QList>
 #include <QFile>
 #include "XMLWriter.h"
+
 #include <QMessageBox>
 
 Preferences::Preferences() 
@@ -171,7 +172,7 @@ void Preferences::savePreferences()
 
 	QMap<QString, QString> attrs;
 
-	xout.writeComment("Preferences of the GT-8 Fx FloorBoard application.");
+	xout.writeComment("Preferences of the GT6B FX FloorBoard application.");
 	xout.writeOpenTag("Preferences");
 
 	unsigned int aSize = this->metaSearch.size();

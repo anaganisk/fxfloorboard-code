@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT-8 Fx FloorBoard".
+** This file is part of "GT6B FX FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -36,7 +36,7 @@
 #include "stompbox_fx1.h"
 #include "stompbox_cs.h"
 #include "stompbox_wah.h"
-#include "stompbox_lp.h"
+//#include "stompbox_lp.h"
 #include "stompbox_od.h"
 #include "stompbox_pre.h"
 #include "stompbox_eq.h"
@@ -46,7 +46,7 @@
 #include "stompbox_rv.h"
 #include "stompbox_fv.h"
 #include "stompbox_ns.h"
-#include "stompbox_dgt.h"
+//#include "stompbox_dgt.h"
 
 floorBoard::floorBoard(QWidget *parent, 
 						QString imagePathFloor, 
@@ -74,6 +74,9 @@ floorBoard::floorBoard(QWidget *parent,
 
 	bankTreeList *bankList = new bankTreeList(this);
 	
+	QObject::connect(this, SIGNAL( resizeSignal(QRect) ),
+                bankList, SLOT( updateSize(QRect) ) );
+
 	setFloorBoard();
 	initStomps();
 
@@ -88,13 +91,6 @@ floorBoard::floorBoard(QWidget *parent,
 	bar->setDragBarMinOffset(2, 8);
 	bar->setDragBarMaxOffset(offset - panelBarOffset + 5);
 
-	/*floorBoardDisplay *display2 = new floorBoardDisplay(this);
-	display2->setPos(liberainPos);*/
-
-	QObject::connect(this, SIGNAL( resizeSignal(QRect) ),
-                bankList, SLOT( updateSize(QRect) ) );
-	QObject::connect(display, SIGNAL(connectedSignal()), 
-		bankList, SLOT(connectedSignal()));
 	QObject::connect(this, SIGNAL(valueChanged(QString, QString, QString)), 
 		display, SLOT(setValueDisplay(QString, QString, QString)));
 	QObject::connect(panelBar, SIGNAL(resizeSignal(int)), 
@@ -111,11 +107,9 @@ floorBoard::floorBoard(QWidget *parent,
 		this, SIGNAL(updateSignal()));
 	QObject::connect(this, SIGNAL(updateSignal()), 
 		this, SLOT(updateStompBoxes()));
-	QObject::connect(bankList, SIGNAL(patchSelectSignal(int, int)), 
-		display, SLOT(patchSelectSignal(int, int)));
-	QObject::connect(bankList, SIGNAL(patchLoadSignal(int, int)), 
-		display, SLOT(patchLoadSignal(int, int)));
 
+	QObject::connect(this, SIGNAL(setDragBarOffset(QList<int>)), 
+		panelBar, SIGNAL(setDragBarOffset(QList<int>)));
 	QObject::connect(panelBar, SIGNAL(showDragBar(QPoint)), 
 		this, SIGNAL(showDragBar(QPoint)));
 	QObject::connect(panelBar, SIGNAL(hideDragBar()), 
@@ -201,11 +195,6 @@ void floorBoard::setFloorBoard() {
 	QRectF targetInfoBar(offset, 0.0, imageInfoBar.width(), imageInfoBar.height());
 	painter.drawPixmap(targetInfoBar, imageInfoBar, sourceInfoBar);
 
-	// Draw LiberianBar
-	QRectF sourceLiberianBar(0.0, 0.0, imageInfoBar.width(), imageInfoBar.height());
-	QRectF targetLiberianBar(offset, (imageFloor.height() - imageInfoBar.height()) - 2, imageInfoBar.width(), imageInfoBar.height());
-	painter.drawPixmap(targetLiberianBar, imageInfoBar, sourceLiberianBar);
-
 	// Draw stomp boxes background
 	QRectF source(0.0, 0.0, imagestompBG.width(), imagestompBG.height());
 	for(int i=0;i<fxPos.size();i++)
@@ -224,9 +213,6 @@ void floorBoard::setFloorBoard() {
 	
 	QPoint newDisplayPos = QPoint::QPoint(offset, 0);
 	this->displayPos = newDisplayPos;
-
-	/*QPoint newLiberainPos = QPoint::QPoint(offset, floorHeight);
-	this->liberainPos = newLiberainPos;*/
 
 	QRect newBankListRect = QRect::QRect(borderWidth, borderWidth, offset - panelBarOffset - (borderWidth*2), floorHeight - (borderWidth*2));
 	emit resizeSignal(newBankListRect);
@@ -338,7 +324,7 @@ void floorBoard::dropEvent(QDropEvent *event)
 				QString hexValue = QString::number(index, 16).toUpper();
 				if(hexValue.length() < 2) hexValue.prepend("0");
 		
-				sysxIO->setFileSource("11", "00", hexIndex, hexValue);
+				sysxIO->setFileSource("0A", "00", hexIndex, hexValue);
 			};
 		}
 		else
@@ -360,12 +346,7 @@ void floorBoard::dropEvent(QDropEvent *event)
 				filePath.replace(0, filePath.indexOf(removeFromStart) + removeFromStart.length(), "");
 				filePath.truncate(filePath.indexOf(removeFromEnd) + removeFromEnd.length());
 				filePath.replace("%20", " ");
-				
-				SysxIO *sysxIO = SysxIO::Instance();
-				sysxIO->setFileName(filePath);
-				sysxIO->setSyncStatus(false);
-				sysxIO->setDevice(false);
-				
+
 				sysxWriter file;
 				file.setFile(filePath);
 				if(file.readFile())
@@ -396,16 +377,16 @@ void floorBoard::initSize(QSize floorSize)
 	QList<QPoint> fxPos; 
 	
 	unsigned int spacingV = (floorSize.height() - (marginStompBoxesTop + marginStompBoxesBottom)) - (stompSize.height() * 2);
-	unsigned int spacingH = ( (floorSize.width() - offset - (marginStompBoxesWidth * 2)) - (stompSize.width() * 7) ) / 6;
+	unsigned int spacingH = ( (floorSize.width() - offset - (marginStompBoxesWidth * 2)) - (stompSize.width() * 6) ) / 6;
 	//for(unsigned int i=0;i<14;i++)
-	for(int i=13;i>=0;i--)
+	for(int i=11;i>=0;i--)      // chain of 12 items
 	{
 		unsigned int y = marginStompBoxesTop;
 		unsigned int x = marginStompBoxesWidth + (( stompSize.width() + spacingH ) * i);
-		if(i>6)
+		if(i>5)
 		{
 			y = y + stompSize.height() + spacingV;
-			x = x - (( stompSize.width() + spacingH ) * 7);
+			x = x - (( stompSize.width() + spacingH ) * 6);
 		};
 		fxPos.append(QPoint::QPoint(offset + x, y));
 	};
@@ -510,33 +491,26 @@ void floorBoard::setWidth(int dist)
 void floorBoard::initStomps()
 {
 	QList<signed int> fx;
-	fx << 0 << 1 << 2 << 3 << 4 << 5 << 6 << 7 << 8 << 9 << 10 << 11 << 12 << 13;
-	/*   FX   CS   WAH   LP   OD   PRE  EQ   FX2  DD   CE   RV    NS    FV    DGT :depend on midi.xml   */
+	fx << 0 << 1 << 2 << 3 << 4 << 5 << 6 << 7 << 8 << 9 << 10 << 11;
+	/*   FX   CS   WAH  OD   PRE  EQ   FX2  DD   CE   RV    NS    FV  :depend on midi.xml   */
 	this->fx = fx;
 
-	QVector<QString> initStompNames(14);
+	QVector<QString> initStompNames(12);
 	this->stompNames = initStompNames.toList();;
 
-	QVector<stompBox *> initStompBoxes(14);
+	QVector<stompBox *> initStompBoxes(12);
 	this->stompBoxes = initStompBoxes.toList();;
 
 	MidiTable *midiTable = MidiTable::Instance();
-	Midi midimap = midiTable->getMidiMap("Stucture", "11", "00", "00");
+	Midi midimap = midiTable->getMidiMap("Stucture", "0A", "00", "00");
 	QList<int> fxID;
 	QList<QString> fxNAMES;
-	for(int i=0;i<=13;i++)
+	for(int i=0;i<=11;i++)
 	{
 		bool ok;
 		fxID.append(midimap.level.at(i).value.toInt(&ok, 16));
 		fxNAMES.append(midimap.level.at(i).name);
 	};
-
-	/* FX1 */
-	stompBox *fx1 = new stompbox_fx1(this);
-	fx1->setId( fxID.at(fxNAMES.indexOf("FX1")) );
-	fx1->setPos(this->getStompPos(fx1->getId()));
-	this->stompBoxes.replace(fx1->getId(), fx1);
-	this->stompNames.replace(fx1->getId(), "FX1");
 
 	/* COMP */	
 	stompBox *cs = new stompbox_cs(this);
@@ -544,6 +518,13 @@ void floorBoard::initStomps()
 	cs->setPos(this->getStompPos(cs->getId()));
 	this->stompBoxes.replace(cs->getId(), cs);
 	this->stompNames.replace(cs->getId(), "CS");
+	
+	/* FX1 */
+	stompBox *fx1 = new stompbox_fx1(this);
+	fx1->setId( fxID.at(fxNAMES.indexOf("FX1")) );
+	fx1->setPos(this->getStompPos(fx1->getId()));
+	this->stompBoxes.replace(fx1->getId(), fx1);
+	this->stompNames.replace(fx1->getId(), "FX1");
 
 	/* WAH */
 	stompBox *wah = new stompbox_wah(this);
@@ -553,11 +534,11 @@ void floorBoard::initStomps()
 	this->stompNames.replace(wah->getId(), "WAH");
 
 	/* LOOP	*/
-	stompBox *lp = new stompbox_lp(this);
+	/*stompBox *lp = new stompbox_lp(this);
 	lp->setId( fxID.at(fxNAMES.indexOf("LP")) );
 	lp->setPos(this->getStompPos(lp->getId()));
 	this->stompBoxes.replace(lp->getId(), lp);
-	this->stompNames.replace(lp->getId(), "LP");
+	this->stompNames.replace(lp->getId(), "LP");*/
 
 	/* OD/DS */
 	stompBox *od = new stompbox_od(this);
@@ -601,7 +582,7 @@ void floorBoard::initStomps()
 	this->stompBoxes.replace(ce->getId(), ce);
 	this->stompNames.replace(ce->getId(), "CE");
 
-	/* REVERB */
+	/* Speaker Cabnet (ex ReV)*/
 	stompBox *rv = new stompbox_rv(this);
 	rv->setId( fxID.at(fxNAMES.indexOf("RV")) );
 	rv->setPos(this->getStompPos(rv->getId()));
@@ -616,11 +597,11 @@ void floorBoard::initStomps()
 	this->stompNames.replace(ns->getId(), "NS");
 
 	/* D-OUT */
-	stompBox *dgt = new stompbox_dgt(this);
+	/*stompBox *dgt = new stompbox_dgt(this);
 	dgt->setId( fxID.at(fxNAMES.indexOf("DGT")) );
 	dgt->setPos(this->getStompPos(dgt->getId()));
 	this->stompBoxes.replace(dgt->getId(), dgt);
-	this->stompNames.replace(dgt->getId(), "DGT");
+	this->stompNames.replace(dgt->getId(), "DGT");*/
 
 	/* VOLUME */
 	stompBox *fv = new stompbox_fv(this);
@@ -655,13 +636,13 @@ void floorBoard::setStompPos(int index, int order)
 void floorBoard::updateStompBoxes()
 {
 	SysxIO *sysxIO = SysxIO::Instance();
-	QList<QString> fxChain = sysxIO->getFileSource("11", "00");
+	QList<QString> fxChain = sysxIO->getFileSource("0A", "00");
 
 	MidiTable *midiTable = MidiTable::Instance();
 	QList<QString> stompOrder;
-	for(int i=11;i<fxChain.size() - 2;i++ ) 
+	for(int i=10;i<fxChain.size() - 2;i++ ) 
 	{
-		stompOrder.append( midiTable->getMidiMap("Stucture", "11", "00", "00", fxChain.at(i)).name );
+		stompOrder.append( midiTable->getMidiMap("Stucture", "0A", "00", "00", fxChain.at(i)).name );
 	};
 	setStomps(stompOrder);
 };

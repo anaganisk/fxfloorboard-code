@@ -1,8 +1,8 @@
 /****************************************************************************
 **
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
+** Copyright (C) 2005-2006 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT-8 Fx FloorBoard".
+** This file is part of "GT6B FX FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -27,10 +27,12 @@ stompbox_wah::stompbox_wah(QWidget *parent)
 {
 	/* WAH */
 	setImage(":/images/wah.png");
-	setButton("03", "00", "00", QPoint::QPoint(0, 109), ":/images/pedal.png");
+	setButton("02", "00", "00", QPoint::QPoint(0, 109), ":/images/pedal.png");
+	setComboBox("02", "00", "02");
 };
 
 void stompbox_wah::updateSignal()
 {
-	updateButton("03", "00", "00");
+	updateButton("02", "00", "00");
+	updateComboBox("02", "00", "02");
 };

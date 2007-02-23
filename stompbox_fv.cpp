@@ -1,8 +1,8 @@
 /****************************************************************************
 **
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
+** Copyright (C) 2005-2006 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT-8 Fx FloorBoard".
+** This file is part of "GT6B FX FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -27,10 +27,10 @@ stompbox_fv::stompbox_fv(QWidget *parent)
 {
 	/* VOLUME */
 	setImage(":/images/fv.png");
-	setButton("15", "00", "00", QPoint::QPoint(0, 109), ":/images/pedal.png");
+//	setButton("15", "00", "00", QPoint::QPoint(0, 109), ":/images/pedal.png");
 };
 
 void stompbox_fv::updateSignal()
 {
-	updateButton("15", "00", "00");
+//	updateButton("15", "00", "00");
 };

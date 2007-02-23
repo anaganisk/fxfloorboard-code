@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT-8 Fx FloorBoard".
+** This file is part of "GT6B FX FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -25,8 +25,6 @@
 
 #include <QtGui>
 #include <QWidget>
-#include <QTimer>
-#include "customButton.h"
 
 class floorBoardDisplay : public QWidget
 {
@@ -40,55 +38,18 @@ public:
 public slots:
 	void setValueDisplay(QString fxName, QString valueName, QString value);
 	void setPatchDisplay(QString patchName);
-	void setPatchNumDisplay(int bank, int patch);
+	void setPatchNumDisplay(int patchNumber);
 	void setPos(QPoint newPos);
 	void updateDisplay();
-	void loadInitPatch(int index);
-	void connectSignal(bool value);
-	void writeSignal(bool value);
-	void connectionResult(QString);
-	void resetDevice(QString replyMsg);
-	void patchSelectSignal(int bank, int patch);
-	void blinkSellectedPatch(bool active = true);
-	void patchLoadSignal(int bank, int patch);
-	void notConnected();
-
-signals:
-	void currentIndexChanged(int index);
-	void updateSignal();
-	void connectedSignal();
-	void notConnectedSignal();
-
-	void setStatusSymbol(int value);
-	void setStatusProgress(int value);
-    void setStatusMessage(QString message);
 
 private:
 	QPoint pos;
 
-	QFont fontDisplay;
 	QTextEdit *valueDisplay;
 	QTextEdit *patchDisplay;
 	QTextEdit *patchNumDisplay;
-	QComboBox *initPatchComboBox;
 
-	void setInitPatchComboBox(QRect geometry);
-	QList<QString> initPatches;
-
-	customButton *connectButton;
-	customButton *writeButton;
-	customButton *manualButton;
-	customButton *assignButton;
-	customButton *masterButton;
-	customButton *systemButton;
-
-	bool connectButtonActive;
-	bool patchLoadError;
-	QTimer* timer;
-	int blinkCount;
-	int currentBank;
-	int currentPatch;
-	bool currentSyncStatus;
 };
 
 #endif // FLOORBOARDDISPLAY_H
+

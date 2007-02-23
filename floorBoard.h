@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT-8 Fx FloorBoard".
+** This file is part of "GT6B FX FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -37,15 +37,21 @@ public:
 		QString imagePathFloor = ":/images/floor.png",
 		QString imagePathStompBG = ":/images/stompbg.png",
 		QString imagePathInfoBar = ":/images/infobar.png",
-		unsigned int marginStompBoxesTop = 72,
-		unsigned int marginStompBoxesBottom = 72,
+		unsigned int marginStompBoxesTop = 88,
+		unsigned int marginStompBoxesBottom = 50,
 		unsigned int marginStompBoxesWidth = 25,
 		unsigned int panelBarOffset = 10,
 		unsigned int borderWidth = 3,
 		QPoint pos = QPoint::QPoint(0, 0));
 	~floorBoard();
 	QPoint getStompPos(int id);
-
+	void initSize(QSize floorSize);
+	void setSize(QSize newSize);
+	void setFloorBoard();
+	void initStomps();
+	void setStomps(QList<QString> stompOrder);
+	void setStompPos(QString name, int order);
+	void setStompPos(int index, int order);
 
 public slots:
 	void setWidth(int dist);
@@ -71,14 +77,6 @@ protected:
     void dropEvent(QDropEvent *event);
 
 private:
-	void initSize(QSize floorSize);
-	void setSize(QSize newSize);
-	void setFloorBoard();
-	void initStomps();
-	void setStomps(QList<QString> stompOrder);
-	void setStompPos(QString name, int order);
-	void setStompPos(int index, int order);
-
 	QString imagePathFloor;
 	QString imagePathStompBG;
 	QString imagePathInfoBar;
@@ -103,7 +101,6 @@ private:
 	
 	QPoint pos;
 	QPoint displayPos;
-	QPoint liberainPos;
 	QPoint panelBarPos;
 
 	QList<QPoint> fxPos;
@@ -115,3 +112,4 @@ private:
 };
 
 #endif // FLOORBOARD_H
+

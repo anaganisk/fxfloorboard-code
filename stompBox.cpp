@@ -1,8 +1,8 @@
 /****************************************************************************
 **
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
+** Copyright (C) 2005-2006 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT-8 Fx FloorBoard".
+** This file is part of "GT6B FX FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -346,11 +346,11 @@ void stompBox::updateSlider5(QString hex1, QString hex2, QString hex3)
 void stompBox::updateButton(QString hex1, QString hex2, QString hex3)
 {
 	int value = getSourceValue(hex1, hex2, hex3);
-	if(hex1 == "15")
+	/*if(hex1 == "15")
 	{
 		//Exception for the Foot Volume -> it's on when Expresion switch is off.
 		(value==1)?value=0:value=1;
-	};
+	}; */
 	led->setValue((value==1)?true:false);
 	button->setValue((value==1)?true:false);
 };
@@ -366,7 +366,7 @@ void stompBox::valueChanged(int value, QString hex1, QString hex2, QString hex3)
 	MidiTable *midiTable = MidiTable::Instance();
 	Midi items = midiTable->getMidiMap("Stucture", hex1, hex2, hex3);
 	QString fxName, valueName;
-	if(hex1 == "0E") // NoiseSuppressor is part of MASTER -> correcting the name for consistency.
+	if(hex1 == "09") // NoiseSuppressor is part of MASTER -> correcting the name for consistency.
 	{
 		fxName = "Noise Suppressor";
 		valueName = items.desc.remove("NS :");
@@ -438,7 +438,7 @@ int stompBox::getSourceValue(QString hex1, QString hex2, QString hex3)
 	MidiTable *midiTable = MidiTable::Instance();
 
 	bool ok;
-	int value; int dataOffset = 11;
+	int value; int dataOffset = 10;
 	QList<QString> items = getSourceItems(hex1, hex2);
 	if(midiTable->isData("Stucture", hex1, hex2, hex3))
 	{
