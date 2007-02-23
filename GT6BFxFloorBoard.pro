@@ -2,7 +2,7 @@
 ##
 ## Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 ##
-## This file is part of "GT6B FX FloorBoard".
+## This file is part of "GT6B Fx FloorBoard".
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -37,8 +37,8 @@ UI_DIR += ./GeneratedFiles
 
 #Platform dependent file(s)
 win32 {
-	exists("c:/Progra~1/sdk/Lib/WinMM.Lib") {		# <-- Change the path to WinMM.Lib here!
-		LIBS +=  c:/Progra~1/sdk/Lib/WinMM.Lib		# <-- Change the path here also!
+	exists("c:/Progra~1/SDK/lib/WinMM.Lib") {		# <-- Change the path to WinMM.Lib here!
+		LIBS +=  c:/Progra~1/SDK/Lib/WinMM.Lib		# <-- Change the path here also!
 	} else {
 		LIBS +=  WinMM.Lib
 		message("WINMM.LIB IS REQUIRED. IF NOT INSTALLED")
@@ -47,7 +47,9 @@ win32 {
 		message("AFTER INSTALLATION CHANGE THE CORRECT (DOS) PATH IN THE "GT6BFxFloorBoard.pro" FILE")
 	}
 	HEADERS += ./windows/midiIO.h
+##	HEADERS += ./midiIODestroyer.h
 	SOURCES += ./windows/midiIO.cpp
+##	SOURCES += ./midiIODestroyer.cpp
 	INCLUDEPATH += ./windows
 	message(Including Windows specifique headers and sources...)
 }

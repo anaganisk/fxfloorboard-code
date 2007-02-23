@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT6B FX FloorBoard".
+** This file is part of "GT6B Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -24,6 +24,7 @@
 #define BANKTREELIST_H
 
 #include <QWidget>
+#include <QList>
 #include <QTreeWidget>
 
 class bankTreeList : public QWidget
@@ -35,10 +36,44 @@ public:
 
 public slots:
 	void updateSize(QRect newrect);
+	void updatePatchNames(QString replyMsg);
+	void updatePatch(QString patchName);
+	void setClosedItems(QTreeWidgetItem *item);
+	void setOpenItems(QTreeWidgetItem *item);
+	void connectedSignal();
+	void requestPatch();
+	void setItemClicked(QTreeWidgetItem *item, int column);
+	void setItemDoubleClicked(QTreeWidgetItem *item, int column);
+
+signals:
+	void itemExpanded(QTreeWidgetItem *item);
+	void itemCollapsed(QTreeWidgetItem *item);
+	void itemClicked(QTreeWidgetItem *item, int column);
+	void itemDoubleClicked(QTreeWidgetItem *item, int column);
+	void patchSelectSignal(int bank, int patch);
+	void patchLoadSignal(int bank, int patch);
+	void updateSignal();
+
+	void setStatusSymbol(int value);
+	void setStatusProgress(int value);
+    void setStatusMessage(QString message);
+
+	void notConnectedSignal();
 
 private:
+	void updateTree(QTreeWidgetItem *item);
+	void closeChildren(QTreeWidgetItem *item);
+	QTreeWidget* newTreeList();
+	QList<QTreeWidgetItem*> openBankTreeItems;
+	QList<QTreeWidgetItem*> openPatchTreeItems;
+	QList<QTreeWidgetItem*> currentPatchTreeItems;
+	QPalette getPal();
+	QFont getFont();
 	QTreeWidget* treeList;
+	QPalette pal;
+	QFont font;
+	int itemIndex;
+	int listIndex;
 };
 
 #endif // BANKTREELIST_H
-

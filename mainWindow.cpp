@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT6B FX FloorBoard".
+** This file is part of "GT6B Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -24,6 +24,7 @@
 #include "mainWindow.h"
 #include "Preferences.h"
 #include "preferencesDialog.h"
+#include "statusBarWidget.h"
 #include "SysxIO.h"
 
 mainWindow::mainWindow(QWidget *parent)
@@ -36,7 +37,7 @@ mainWindow::mainWindow(QWidget *parent)
 {
 	fxsBoard = new floorBoard(this);
 	
-	this->setWindowTitle("GT-6B FX FloorBoard");
+	this->setWindowTitle("GT6B Fx FloorBoard");
 	//this->setCentralWidget(fxsBoard);
 	
 	this->createActions();
@@ -67,19 +68,19 @@ mainWindow::~mainWindow()
 		if(preferences->getPreferences("Window", "Restore", "sidepanel")=="true" &&
 			preferences->getPreferences("Window", "Collapsed", "bool")=="true")
 		{
-			width = QString::number(this->width(), 10);
-			posx = QString::number(this->x(), 10);
+			width = QString::number(this->geometry().width(), 10);
+			posx = QString::number(this->geometry().x(), 10);
 		}
 		else
 		{
 			bool ok;
 			width = preferences->getPreferences("Window", "Size", "minwidth");
-			posx = QString::number(this->x()+((this->width()-width.toInt(&ok,10))/2), 10);
+			posx = QString::number(this->geometry().x()+((this->geometry().width()-width.toInt(&ok,10))/2), 10);
 		};
 		preferences->setPreferences("Window", "Position", "x", posx);
-		preferences->setPreferences("Window", "Position", "y", QString::number(this->y(), 10));
+		preferences->setPreferences("Window", "Position", "y", QString::number(this->geometry().y(), 10));
 		preferences->setPreferences("Window", "Size", "width", width);
-		preferences->setPreferences("Window", "Size", "height", QString::number(this->height(), 10));
+		preferences->setPreferences("Window", "Size", "height", QString::number(this->geometry().height(), 10));
 	}
 	else
 	{
@@ -126,12 +127,12 @@ void mainWindow::createActions()
 	settingsAct->setStatusTip(tr("...."));
 	connect(settingsAct, SIGNAL(triggered()), this, SLOT(settings()));
 
-	helpAct = new QAction(/*QIcon(":/images/help.png"),*/ tr("GT6B FX FloorBoard &Help"), this);
+	helpAct = new QAction(/*QIcon(":/images/help.png"),*/ tr("GT6B Fx FloorBoard &Help"), this);
 	helpAct->setShortcut(tr("Ctrl+F1"));
 	helpAct->setStatusTip(tr("....."));
 	connect(helpAct, SIGNAL(triggered()), this, SLOT(help()));
 
-	homepageAct = new QAction(/*QIcon(":/images/home.png"),*/ tr("GT6B FX FloorBoard &Webpage"), this);
+	homepageAct = new QAction(/*QIcon(":/images/home.png"),*/ tr("GT6B Fx FloorBoard &Webpage"), this);
 	homepageAct->setStatusTip(tr("........"));
 	connect(homepageAct, SIGNAL(triggered()), this, SLOT(homepage()));
 
@@ -185,9 +186,22 @@ void mainWindow::createMenus()
 
 void mainWindow::createStatusBar()
 {
+	SysxIO *sysxIO = SysxIO::Instance();
+
+	statusBarWidget *statusInfo = new statusBarWidget(this);
+	statusInfo->setStatusSymbol(0);
+	statusInfo->setStatusMessage(tr("Not connected"));
+
+	QObject::connect(sysxIO, SIGNAL(setStatusSymbol(int)),
+                statusInfo, SLOT(setStatusSymbol(int)));
+	QObject::connect(sysxIO, SIGNAL(setStatusProgress(int)),
+                statusInfo, SLOT(setStatusProgress(int)));;
+	QObject::connect(sysxIO, SIGNAL(setStatusMessage(QString)),
+                statusInfo, SLOT(setStatusMessage(QString)));
+
 	statusBar = new QStatusBar;
+	statusBar->addWidget(statusInfo);
 	statusBar->setSizeGripEnabled(false);
-	statusBar->showMessage(tr("Ready"));
 };
 
 /* FILE MENU */
@@ -209,6 +223,9 @@ void mainWindow::open()
 			// DO SOMETHING AFTER READING THE FILE (UPDATE THE GUI)
 			SysxIO *sysxIO = SysxIO::Instance();
 			sysxIO->setFileSource(file.getFileSource());
+			sysxIO->setFileName(fileName);
+			sysxIO->setSyncStatus(false);
+			sysxIO->setDevice(false);
 
 			emit updateSignal();
 		};
@@ -219,6 +236,9 @@ void mainWindow::save()
 {
 	Preferences *preferences = Preferences::Instance();
 	QString dir = preferences->getPreferences("General", "Files", "dir");
+
+	SysxIO *sysxIO = SysxIO::Instance();
+	file.setFile(sysxIO->getFileName());
 
 	if(file.getFileName().isEmpty())
 	{
@@ -342,7 +362,7 @@ void mainWindow::about()
 	if(file.open(QIODevice::ReadOnly))
 	{	
 		QMessageBox::about(this, tr("GT6B Fx FloorBoard - About"), 
-			"GT6B FX FloorBoard, " + tr("version") + " " + version + "\n" + file.readAll());
+			"GT6B Fx FloorBoard, " + tr("version") + " " + version + "\n" + file.readAll());
 	};
 };
 

@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT-8 Fx FloorBoard".
+** This file is part of "GT6B Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -34,19 +34,19 @@
 ****************************************************************************/
 
 /* General Parameters */
-const QString idRequestString = "F07E000601F7";		// Indentity Request (GT-8).
-const QString idReplyPatern = "F07E000602";			// Returned device id message must contain/match this (QRegExp or a string without spaces and all caps).
+const QString idRequestString = "F000000000F7";		// Indentity Request (GT6B).
+const QString idReplyPatern = "F000000000";			// Returned device id message must contain/match this (QRegExp or a string without spaces and all caps).
 const int buttonBlinkInterval = 250;				// The interval (ms) the led on buttons blink.
 
 /* Sysex Message Parameters */
-const int sysxAddressOffset = 7;	// Offset (starts at 0) where the address information starts in a sysx message.
-const int sysxDataOffset = 11;		// Offset (starts at 0) where the data starts in a sysx message.
-const int checksumStart = 7;		// Offset where we start calculating the checksum (Normally this is the address offset).
+const int sysxAddressOffset = 6;	// Offset (starts at 0) where the address information starts in a sysx message.
+const int sysxDataOffset = 10;		// Offset (starts at 0) where the data starts in a sysx message.
+const int checksumStart = 6;		// Offset where we start calculating the checksum (Normally this is the address offset).
 const int checksumStop = -1;		// Offset where we stop calculating the checksum (negative numbers mean we count from the end).
 
 /* Patches and Banks */
-const int bankTotalUser = 35;		// Number of user (editable) banks.
-const int bankTotalAll = 85;		// Number of total banks.
+const int bankTotalUser = 20;		// Number of user (editable) banks.
+const int bankTotalAll = 30;		// Number of total banks.
 const int patchPerBank = 4;			// Number of patches in a bank.
 
 /* Midi Send & Receive */

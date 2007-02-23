@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT6B FX FloorBoard".
+** This file is part of "GT6B Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
 	splashImage.setMask(splashMask);
 
 	customSplashScreen *splash = new customSplashScreen(splashImage);
-	splash->setMessageRect(QRect::QRect(148, 340, 332, 14)); // Setting the message position.
+	splash->setMessageRect(QRect::QRect(148, 300, 332, 14)); // Setting the message position.
 
 	QFont splashFont;
 	splashFont.setFamily("Arial");
@@ -66,7 +66,7 @@ int main(int argc, char *argv[])
 	has started running, it is necessary to periodically call. */
 	app.processEvents(); 
 
-	splash->showStatusMessage(QObject::tr("Starting..."));
+	splash->showStatusMessage(QObject::tr("Initializing..."));
 	mainWindow window;// = new mainWindow;
 
 	app.processEvents(); 
@@ -99,7 +99,7 @@ int main(int argc, char *argv[])
 
 	app.processEvents(); 
 
-	//window.show(); // need to show the windows to get the size of it before that it doesn't exist
+	//window.show(); // need to show the windows to get the size of it, before that it doesn't exist
 	//int windowWidth = window.width();                  
 	//int windowHeight = window.height();
 
@@ -145,9 +145,9 @@ int main(int argc, char *argv[])
 		{
 			windowHeight = preferences->getPreferences("Window", "Size", "height").toInt(&ok, 10);
 		};
-		window.setGeometry(x_str.toInt(&ok, 10), y_str.toInt(&ok, 10), windowWidth, windowHeight);
-		//window.resize(QSize(windowWidth, windowHeight));
-		//window.move(x_str.toInt(&ok, 10), y_str.toInt(&ok, 10));
+		//window.setGeometry(x_str.toInt(&ok, 10), y_str.toInt(&ok, 10), windowWidth, windowHeight);
+		window.resize(QSize(windowWidth, windowHeight));
+		window.move(x_str.toInt(&ok, 10), y_str.toInt(&ok, 10));
 	}
 	else
 	{
@@ -170,5 +170,21 @@ int main(int argc, char *argv[])
 
 	window.show();
 	splash->finish(&window);
+
+	/* PREVIEW WARNING 
+	QMessageBox *msgBox = new QMessageBox();
+	msgBox->setWindowTitle(QObject::tr("Warning this is a preview!"));
+	msgBox->setIcon(QMessageBox::Warning);
+	msgBox->setTextFormat(Qt::RichText);
+	QString msgText;
+	msgText.append("<font size='+1'><b>");
+	msgText.append(QObject::tr("This software is currently under development!"));
+	msgText.append("<b></font><br>");
+	msgText.append(QObject::tr("Please make sure to back up your patches and stored banks before you continue."));
+	msgBox->setText(msgText);
+	msgBox->setStandardButtons(QMessageBox::Ok);
+	msgBox->exec(); */
+	/* END WARNING */
+
 	return app.exec();
 };

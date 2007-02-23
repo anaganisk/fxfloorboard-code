@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT6B FX FloorBoard".
+** This file is part of "GT6B Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -59,6 +59,16 @@ public:
 	QString getValue(QString root, QString hex1, QString hex2, QString hex3, QString hex4);
 	bool isData(QString root, QString hex1, QString hex2, QString hex3);
 	QString rangeToValue(Midi range, QString value);
+	QString getHeader(bool receive);
+	QString getFooter();
+	QString getSize(QString hex1, QString hex2, QString hex3);
+	QString getSize(QString hex1, QString hex2);
+	QString getSize();
+	QString dataRequest(QString hex1, QString hex2, QString hex3);
+	QString dataChange(QString hex1, QString hex2, QString hex3, QString hex4);
+	QString nameRequest(int bank, int patch);
+	QString getCheckSum(int dataSize);
+	QString patchRequest(int bank, int patch);
 	
 protected:
 	MidiTable();
@@ -74,4 +84,3 @@ private:
 };
 
 #endif // MIDITABLE_H
-

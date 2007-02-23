@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT6B FX FloorBoard".
+** This file is part of "GT6B Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -24,6 +24,7 @@
 #define CUSTOMBUTTON_H
 
 #include <QWidget>
+#include <QTimer>
 
 class customButton : public QWidget
 {
@@ -34,14 +35,25 @@ public:
 		bool active = false,
 		QPoint buttonPos = QPoint::QPoint(0, 0),
 		QWidget *parent = 0,
-		QString hex1 = "void",
-		QString hex2 = "void",
-		QString hex3 = "void",
+		QString hex1 = 0,
+		QString hex2 = 0,
+		QString hex3 = 0,
 		QString imagePath = ":/images/button.png");
+	customButton(
+		QString text,
+		bool active = false,
+		QPoint buttonPos = QPoint::QPoint(0, 0),
+		QWidget *parent = 0,
+		QString imagePath = ":/images/pushbutton.png");
 	void setValue(bool value);
+	void setBlink(bool value);
+
+public slots:
+	void blink();
 
 signals:
 	void valueChanged(bool value, QString hex1, QString hex2, QString hex3);
+	void valueChanged(bool value);
 
 protected:
 	void paintEvent(QPaintEvent *event);
@@ -57,7 +69,13 @@ private:
 	QString hex2;
 	QString hex3;
 
+	QString text;
+
 	bool active;
+
+	QTimer* timer;
+	bool on;
+
 	//bool m_value;
 	QString imagePath;
 	QSize buttonSize;
@@ -67,4 +85,3 @@ private:
 };
 
 #endif // CUSTOMBUTTON_H
-
