@@ -517,16 +517,44 @@ QString MidiTable::dataChange(QString hex1, QString hex2, QString hex3, QString 
 	QString sysxMsg;
 	sysxMsg.append(getHeader(false));
 	
-	sysxMsg.append("0B"); //hex1
-	sysxMsg.append("00"); //hex2
+	sysxMsg.append("0D");
+	sysxMsg.append("00");
 
 	sysxMsg.append(hex1);
-	sysxMsg.append(hex2);
+	//sysxMsg.append(hex2);
+	sysxMsg.append(hex3);
 
 	sysxMsg.append(hex4);
 
 	int dataSize = 0; bool ok;
-	for(int i=sysxAddressOffset;i<sysxMsg.size();++i)
+	for(int i=checksumOffset;i<sysxMsg.size();++i)
+	{
+		dataSize += sysxMsg.mid(i, 2).toInt(&ok, 16);
+		i++;
+	};	
+	sysxMsg.append(getCheckSum(dataSize));
+
+	sysxMsg.append(getFooter());
+	return sysxMsg;
+};
+
+QString MidiTable::dataChange(QString hex1, QString hex2, QString hex3, QString hex4, QString hex5)
+{
+	QString sysxMsg;
+	sysxMsg.append(getHeader(false));
+	
+	sysxMsg.append("0D");
+	sysxMsg.append("00");
+
+	sysxMsg.append(hex1);
+	//sysxMsg.append(hex2);
+	sysxMsg.append(hex3);
+
+	sysxMsg.append(hex4);
+	sysxMsg.append(hex5);
+
+	int dataSize = 0; bool ok;
+	for(int i=checksumOffset;i<sysxMsg.size();++i)
 	{
 		dataSize += sysxMsg.mid(i, 2).toInt(&ok, 16);
 		i++;
@@ -557,7 +585,7 @@ QString MidiTable::nameRequest(int bank, int patch)
 	}
 	else
 	{
-		addr1 = "0B";
+		addr1 = "0D";
 		addr2 = "00";
 	};
 
@@ -573,7 +601,7 @@ QString MidiTable::nameRequest(int bank, int patch)
 	sysxMsg.append(getSize(hex1, hex2));
 
 	int dataSize = 0;
-	for(int i=sysxAddressOffset;i<sysxMsg.size();++i)
+	for(int i=checksumOffset;i<sysxMsg.size();++i)
 	{
 		dataSize += sysxMsg.mid(i, 2).toInt(&ok, 16);
 		i++;
@@ -604,7 +632,7 @@ QString MidiTable::patchRequest(int bank, int patch)
 	}
 	else
 	{
-		addr1 = "0B";
+		addr1 = "0D";
 		addr2 = "00";
 	};
 
@@ -620,7 +648,7 @@ QString MidiTable::patchRequest(int bank, int patch)
 	sysxMsg.append(getSize());
 
 	int dataSize = 0;
-	for(int i=sysxAddressOffset;i<sysxMsg.size();++i)
+	for(int i=checksumOffset;i<sysxMsg.size();++i)
 	{
 		dataSize += sysxMsg.mid(i, 2).toInt(&ok, 16);
 		i++;

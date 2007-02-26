@@ -85,7 +85,7 @@ void SysxIO::setFileSource(QByteArray data)
 		unsigned int nextn = (int)nextbyte;
 		QString nexthex = QString::number(nextn, 16).toUpper();
 		if (nexthex.length() < 2) nexthex.prepend("0");
-		if(offset > 5 && nexthex != "F7")
+		if(offset >= checksumOffset && nexthex != "F7")
 		{		
 			dataSize += n;
 		};
@@ -167,24 +167,26 @@ void SysxIO::setFileSource(QString data)
 void SysxIO::setFileSource(QString hex1, QString hex2, QString hex3, QString hex4)
 {
 	bool ok;
-	int dataOffset = sysxDataOffset;
-	int index = hex3.toInt(&ok, 16) + dataOffset;
+	int index = hex3.toInt(&ok, 16) + sysxDataOffset;
 	QString address;
 	address.append(hex1);
 	address.append(hex2);
-	QList<QString> sysxMsg = this->fileSource.hex.at(this->fileSource.address.indexOf(address));
-	sysxMsg.replace(index, hex4);
+	QList<QString> sysxList = this->fileSource.hex.at(this->fileSource.address.indexOf(address));
+	sysxList.replace(index, hex4);
 
 	int dataSize = 0;
-	for(int i=sysxMsg.size() - 3; i>6;i--)
+	for(int i=sysxList.size() - 3; i>=checksumOffset;i--)
 	{
-		dataSize += sysxMsg.at(i).toInt(&ok, 16);
+		dataSize += sysxList.at(i).toInt(&ok, 16);
 	};
-	sysxMsg.replace(sysxMsg.size() - 2, getCheckSum(dataSize));
+	sysxList.replace(sysxList.size() - 2, getCheckSum(dataSize));
 
-	this->fileSource.hex.replace(this->fileSource.address.indexOf(address), sysxMsg);
+	this->fileSource.hex.replace(this->fileSource.address.indexOf(address), sysxList);
 
-	if(this->isConnected() && this->deviceReady())
+	MidiTable *midiTable = MidiTable::Instance();
+	QString sysxMsg = midiTable->dataChange(hex1, hex2, hex3, hex4);
+
+	if(this->isConnected() && this->deviceReady() && this->getSyncStatus())
 	{
 		this->setDeviceReady(false);
 
@@ -192,51 +194,158 @@ void SysxIO::setFileSource(QString hex1, QString hex2, QString hex3, QString hex
 		emit setStatusProgress(0);
 		emit setStatusMessage("Sending");
 
-		MidiTable *midiTable = MidiTable::Instance();
-		QString sysxMsg = midiTable->dataChange(hex1, hex2, hex3, hex4);
+		QObject::connect(this, SIGNAL(sysxReply(QString)),	
+			this, SLOT(resetDevice(QString)));
+		
+		this->sendSysx(sysxMsg);
+	}
+	else if(this->isConnected())
+	{
+		this->sendSpooler.append(sysxMsg);
+	};
+};
+
+
+void SysxIO::setFileSource(QString hex1, QString hex2, QString hex3, QString hex4, QString hex5)
+{
+	bool ok;
+	QString address;
+	address.append(hex1);
+	address.append(hex2);
+	QList<QString> sysxList = this->fileSource.hex.at(this->fileSource.address.indexOf(address));
+	int index = hex3.toInt(&ok, 16) + sysxDataOffset;
+	sysxList.replace(index, hex4);
+	sysxList.replace(index + 1, hex5);
+
+	int dataSize = 0;
+	for(int i=sysxList.size() - 3; i>=checksumOffset;i--)
+	{
+		dataSize += sysxList.at(i).toInt(&ok, 16);
+	};
+	sysxList.replace(sysxList.size() - 2, getCheckSum(dataSize));
+
+	this->fileSource.hex.replace(this->fileSource.address.indexOf(address), sysxList);
+
+	MidiTable *midiTable = MidiTable::Instance();
+	QString sysxMsg = midiTable->dataChange(hex1, hex2, hex3, hex4, hex5);
+
+	if(this->isConnected() && this->deviceReady() && this->getSyncStatus())
+	{
+		this->setDeviceReady(false);
+
+		emit setStatusSymbol(2);
+		emit setStatusProgress(0);
+		emit setStatusMessage("Sending");
 
 		QObject::connect(this, SIGNAL(sysxReply(QString)),	
 			this, SLOT(resetDevice(QString)));
 		
 		this->sendSysx(sysxMsg);
+	}
+	else if(this->isConnected())
+	{
+		this->sendSpooler.append(sysxMsg);
+	};
+};
+
+void SysxIO::setFileSource(QString hex1, QString hex2, QList<QString> hexData)
+{
+	QString address;
+	address.append(hex1);
+	address.append(hex2);
+
+	QList<QString> sysxList = this->fileSource.hex.at(this->fileSource.address.indexOf(address));
+	if(hexData.size() + sysxDataOffset + 2 == sysxList.size())
+	{
+		bool ok;
+		for(int i=0; i<hexData.size();++i)
+		{
+			sysxList.replace(i + sysxDataOffset, hexData.at(i));
+		};
+
+		int dataSize = 0;
+		for(int i=sysxList.size() - 3; i>=checksumOffset;i--)
+		{
+			dataSize += sysxList.at(i).toInt(&ok, 16);
+		};
+		sysxList.replace(sysxList.size() - 2, getCheckSum(dataSize));
+
+		this->fileSource.hex.replace(this->fileSource.address.indexOf(address), sysxList);
+
+		QString sysxMsg;
+		for(int i=0;i<sysxList.size();++i)
+		{
+			sysxMsg.append(sysxList.at(i));
+		};
+
+		if(this->isConnected() && this->deviceReady() && this->getSyncStatus())
+		{
+			this->setDeviceReady(false);
+
+			emit setStatusSymbol(2);
+			emit setStatusProgress(0);
+			emit setStatusMessage("Sending");
+
+			QObject::connect(this, SIGNAL(sysxReply(QString)),	
+				this, SLOT(resetDevice(QString)));
+			
+			this->sendSysx(sysxMsg);
+		}
+		else if(this->isConnected())
+		{
+			this->sendSpooler.append(sysxMsg);
+		};
 	};
 };
 
 /************************ resetDevice() ******************************
 * Reset the device after sending a sysexmesage.
+* And starts to processes the spooler if the device is free.
 **********************************************************************/
 void SysxIO::resetDevice(QString replyMsg) 
 {
-	QObject::disconnect(this, SIGNAL(sysxReply(QString)),	
+	if(this->sendSpooler.size() == 0)
+	{
+		QObject::disconnect(this, SIGNAL(sysxReply(QString)),	
 			this, SLOT(resetDevice(QString)));
 
-	this->setDeviceReady(true);	// Free the device after finishing interaction.
+		this->setDeviceReady(true);	// Free the device after finishing interaction.
 
-	emit setStatusSymbol(1);
-	emit setStatusProgress(0);
-	emit setStatusMessage("Ready");
+		emit setStatusSymbol(1);
+		emit setStatusProgress(0);
+		emit setStatusMessage("Ready");
+	}
+	else
+	{
+		processSpooler();
+	};
 };
 
-void SysxIO::setFileSource(QString hex1, QString hex2, QString hex3, QString hex4, QString hex5)
+/************************ processSpooler() ******************************
+* Send message that are in the spooler due to that the device was busy.
+* And eliminates multiple messages where only the valye changes.
+**********************************************************************/
+void SysxIO::processSpooler() 
 {
-	bool ok;
-	int dataOffset = sysxDataOffset;
-	QString address;
-	address.append(hex1);
-	address.append(hex2);
-	QList<QString> sysxMsg = this->fileSource.hex.at(this->fileSource.address.indexOf(address));
-	int index = hex3.toInt(&ok, 16) + dataOffset;
-	sysxMsg.replace(index, hex4);
-	sysxMsg.replace(index + 1, hex5);
-
-	int dataSize = 0;
-	for(int i=sysxMsg.size() - 2; i>6;i--)
+	QString sysxMsg;
+	for(int i=0; i<this->sendSpooler.size(); ++i)
 	{
-		dataSize += sysxMsg.at(i).toInt(&ok, 16);
+		if(i + 1 < this->sendSpooler.size())
+		{
+			QString currentMsg = this->sendSpooler.at(i).left(2 * 3);
+			QString nextMsg = this->sendSpooler.at(i + 1).left(2 * 3);
+			if(currentMsg != nextMsg)
+			{
+				sysxMsg.append(this->sendSpooler.at(i));
+			};
+		}
+		else
+		{
+			sysxMsg.append(this->sendSpooler.at(i));
+		};		
 	};
-	sysxMsg.replace(sysxMsg.size() - 2, getCheckSum(dataSize));
-
-	this->fileSource.hex.replace(this->fileSource.address.indexOf(address), sysxMsg);
+	this->sendSysx(sysxMsg);
+	this->sendSpooler.clear();
 };
 
 void SysxIO::setFileName(QString fileName)
@@ -274,13 +383,15 @@ QList<QString> SysxIO::getFileSource(QString hex1, QString hex2)
 
 QString SysxIO::getCheckSum(int dataSize)
 {
-	bool ok;
+	/*bool ok;
 	QString base = "80";
 	int sum = dataSize % base.toInt(&ok, 16);
 	if(sum!=0) sum = base.toInt(&ok, 16) - sum;
 	QString checksum = QString::number(sum, 16).toUpper();
 	if(checksum.length()<2) checksum.prepend("0");
-	return checksum;
+	return checksum;*/
+	MidiTable *midiTable = MidiTable::Instance();
+	return midiTable->getCheckSum(dataSize);
 };
 
 QList<QString> SysxIO::correctSysxMsg(QList<QString> sysxMsg)
@@ -335,7 +446,7 @@ QList<QString> SysxIO::correctSysxMsg(QList<QString> sysxMsg)
 	};
 	
 	int dataSize = 0;
-	for(int i=sysxMsg.size() - 1; i>=sysxAddressOffset-1;i--)
+	for(int i=sysxMsg.size() - 1; i>=checksumOffset;i--)
 	{
 		dataSize += sysxMsg.at(i).toInt(&ok, 16);
 	};
@@ -552,7 +663,7 @@ void SysxIO::checkPatchChange(QString name)
 			emit setStatusProgress(0);
 			emit setStatusMessage(tr("Ready"));	
 
-			QMessageBox *msgBox = new QMessageBox();
+			/*QMessageBox *msgBox = new QMessageBox();
 			msgBox->setWindowTitle(tr("GT6B Fx FloorBoard"));
 			msgBox->setIcon(QMessageBox::Warning);
 			msgBox->setTextFormat(Qt::RichText);
@@ -565,7 +676,7 @@ void SysxIO::checkPatchChange(QString name)
 			msgBox->setInformativeText(tr("This is a known bug, it occures when changing the bank 'LSB'.\n"
 				"For an unkown reason it didn't change."));
 			msgBox->setStandardButtons(QMessageBox::Ok);
-			msgBox->exec();
+			msgBox->exec();*/
 		};
 	};
 };

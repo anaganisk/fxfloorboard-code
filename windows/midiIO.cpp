@@ -41,6 +41,11 @@ midiIO::midiIO()
                 sysxIO, SIGNAL(setStatusMessage(QString)));
 	QObject::connect(this, SIGNAL(errorSignal(QString, QString)),
                 sysxIO, SLOT(errorSignal(QString, QString)));
+
+	QObject::connect(this, SIGNAL(replyMsg(QString)),
+		sysxIO, SLOT(receiveSysx(QString)));
+	QObject::connect(this, SIGNAL(midiFinished()),	
+			sysxIO, SLOT(finishedSending()));
 };
 /*********************** queryMidiOutDevices() *****************************
  * Retrieves all MIDI Out devices installed on your system and stores them 
@@ -119,7 +124,6 @@ QString midiIO::getMidiOutErrorMsg(unsigned long err)
 
 	this->dataReceive = false;
 	return errorMsg;
-	exit();
 };
 
 /************************* getMidiInErrorMsg() ***************************
@@ -150,7 +154,6 @@ QString midiIO::getMidiInErrorMsg(unsigned long err)
 	};
 
 	return errorMsg;
-	exit();
 };
 
 /*********************** sendMsg() **********************************
@@ -394,7 +397,7 @@ void midiIO::run()
 						}
 						else
 						{
-							while(dataReceive && count < 1) // count is in case we get stuck
+							while(dataReceive && count < minWait) // count is in case we get stuck
 							{
 								//printf("Waiting for data.... \r\n");
 								Sleep(receiveTimeout);
@@ -535,7 +538,10 @@ void midiIO::sendMidi(QString midiMsg, int midiOut)
 
 				/* Output the midi command */
 				midiOutShortMsg(outHandle, midi);
-				Sleep(sendTimeout);
+
+				/* Give it some time to process the midi 
+				message before sending the next*/
+				Sleep(processTimeout);
 			};
 		}
 		else  
@@ -549,10 +555,9 @@ void midiIO::sendMidi(QString midiMsg, int midiOut)
 			/* Output the midi command */
 			midiOutShortMsg(outHandle, midi);
 		};	
-
 		/* Give it some time to finish else there is a change that 
 		the device is closed before finishing the transmission */
-		Sleep(sendTimeout);
+		Sleep(processTimeout);
 
 		/* Close the MIDI device */
 		midiOutClose(outHandle);

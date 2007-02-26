@@ -23,6 +23,7 @@
 #include "stompBox.h"
 #include "MidiTable.h"
 #include "SysxIO.h"
+#include "globalVariables.h"
 
 stompBox::stompBox(QWidget *parent, unsigned int id, QString imagePath, QPoint stompPos)
     : QWidget(parent)
@@ -293,7 +294,7 @@ void stompBox::setButton(QString hex1, QString hex2, QString hex3, QPoint pos, Q
 
 void stompBox::setSwitch(QString hex1, QString hex2, QString hex3)
 {
-	switchbutton = new customSwitch(false, QPoint::QPoint(5, 41), this, hex1, hex2, hex3);	
+//	switchbutton = new customSwitch(false, QPoint::QPoint(5, 41), this, hex1, hex2, hex3);	
 };
 
 QList<QString> stompBox::getSourceItems(QString hex1, QString hex2)
@@ -305,7 +306,13 @@ QList<QString> stompBox::getSourceItems(QString hex1, QString hex2)
 
 void stompBox::updateComboBox(QString hex1, QString hex2, QString hex3)
 {	
+	QObject::disconnect(comboBox, SIGNAL(currentIndexChanged(int)), // To prevent sending a signal when loading a patch.
+                this, SLOT(valueChanged(int)));
+	
 	setComboBoxCurrentIndex(getSourceValue(hex1, hex2, hex3));
+
+	QObject::connect(comboBox, SIGNAL(currentIndexChanged(int)),
+                this, SLOT(valueChanged(int)));
 };
 
 void stompBox::updateKnob1(QString hex1, QString hex2, QString hex3)
@@ -345,21 +352,21 @@ void stompBox::updateSlider5(QString hex1, QString hex2, QString hex3)
 
 void stompBox::updateButton(QString hex1, QString hex2, QString hex3)
 {
-	int value = getSourceValue(hex1, hex2, hex3);
+	/*int value = getSourceValue(hex1, hex2, hex3);
 	if(hex1 == "15")
 	{
 		//Exception for the Foot Volume -> it's on when Expresion switch is off.
-		(value==1)?value=0:value=1;
+		(value==1)?value=0:value=1; 
 	};
 	led->setValue((value==1)?true:false);
-	button->setValue((value==1)?true:false);
+	button->setValue((value==1)?true:false); */
 };
 
-void stompBox::updateSwitch(QString hex1, QString hex2, QString hex3)
+/*void stompBox::updateSwitch(QString hex1, QString hex2, QString hex3)
 {
 	int value = getSourceValue(hex1, hex2, hex3);
 	switchbutton->setValue((value==1)?true:false);
-};
+}; */
 
 void stompBox::valueChanged(int value, QString hex1, QString hex2, QString hex3)
 {
@@ -438,19 +445,19 @@ int stompBox::getSourceValue(QString hex1, QString hex2, QString hex3)
 	MidiTable *midiTable = MidiTable::Instance();
 
 	bool ok;
-	int value; int dataOffset = 10;
+	int value;
 	QList<QString> items = getSourceItems(hex1, hex2);
 	if(midiTable->isData("Stucture", hex1, hex2, hex3))
 	{
 		int maxRange = QString("7F").toInt(&ok, 16) + 1;
-		int listindex = dataOffset + QString(hex3).toInt(&ok, 16);
+		int listindex = sysxDataOffset + QString(hex3).toInt(&ok, 16);
 		int valueData1 = items.at(listindex).toInt(&ok, 16);
 		int valueData2 = items.at(listindex + 1).toInt(&ok, 16);
 		value = (valueData1 * maxRange) + valueData2;
 	}
 	else
 	{
-		value = items.at(dataOffset + QString(hex3).toInt(&ok, 16)).toInt(&ok, 16);
+		value = items.at(sysxDataOffset + QString(hex3).toInt(&ok, 16)).toInt(&ok, 16);
 	};
 	return value;
 };

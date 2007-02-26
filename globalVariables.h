@@ -34,15 +34,14 @@
 ****************************************************************************/
 
 /* General Parameters */
-const QString idRequestString = "F000000000F7";		// Indentity Request (GT6B).
-const QString idReplyPatern = "F000000000";			// Returned device id message must contain/match this (QRegExp or a string without spaces and all caps).
+const QString idRequestString = "F0410000501100000000000000016EF7";		// Indentity Request (GT6B).
+const QString idReplyPatern = "F0410000501200000000057BF7";			// Returned device id message must contain/match this (QRegExp or a string without spaces and all caps).
 const int buttonBlinkInterval = 250;				// The interval (ms) the led on buttons blink.
 
 /* Sysex Message Parameters */
 const int sysxAddressOffset = 6;	// Offset (starts at 0) where the address information starts in a sysx message.
 const int sysxDataOffset = 10;		// Offset (starts at 0) where the data starts in a sysx message.
-const int checksumStart = 6;		// Offset where we start calculating the checksum (Normally this is the address offset).
-const int checksumStop = -1;		// Offset where we stop calculating the checksum (negative numbers mean we count from the end).
+const int checksumOffset = 6;		// Offset (starts at 0) where we start calculating the checksum (Normally this is the address offset).
 
 /* Patches and Banks */
 const int bankTotalUser = 20;		// Number of user (editable) banks.
@@ -50,9 +49,10 @@ const int bankTotalAll = 30;		// Number of total banks.
 const int patchPerBank = 4;			// Number of patches in a bank.
 
 /* Midi Send & Receive */
-const int midiTimeout = 250;		// Time (ms) the device needs to process a MIDI message before sending the next.
+const int midiTimeout = 2000;		// Time (ms) the device needs to process a MIDI message before sending the next.
+const int processTimeout = 25;		// Time (ms) the device needs to process a MIDI message before closing the device.
 const int sendTimeout = 25;			// Time (ms) the device needs to process a SYSEX message before sending the next.
-const int receiveTimeout = 100;		// Time (ms) we wait between sysex messages for the next one to be received.
+const int receiveTimeout = 100;		// Time (ms) we wait between SYSEX messages for the next one to be received.
 const int maxWait = 4;				// Maximum times we loop through the receive handel before we give up the waiting.
 const int minWait = 2;				// Minimum times we loop through the receive handel before we give up the waiting.
 const int maxRetry = 10;			// Maximum times we retry to load a patch in case of a transfer error .

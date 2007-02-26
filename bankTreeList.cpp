@@ -338,17 +338,43 @@ QTreeWidget* bankTreeList::newTreeList()
 	//user->setIcon(...);
 
     QList<QTreeWidgetItem *> userBankRanges;
-    for (int a=1; a<=20; a++)
+    for (int a=1; a<=10; a++)
 	{
 		QTreeWidgetItem* bankRange = new QTreeWidgetItem; // don't pass a parent here!
-		bankRange->setText(0, QString::QString("Bank U-").append(QString::number(a, 10)).append(" - U-").append(QString::number(a+4, 10)) );
+		bankRange->setText(0, QString::QString("Bank U ").append(QString::number(a, 10)).append(" - U ").append(QString::number(a-6, 10)) );
 		bankRange->setWhatsThis(0, "");
 		//bankRange->setIcon(...);
 
 		for (int b=a; b<=(a+4); b++)
 		{
 			QTreeWidgetItem* bank = new QTreeWidgetItem(bankRange);
-			bank->setText(0, QString::QString("Bank U-").append(QString::number(b, 10)));
+			bank->setText(0, QString::QString("Bank U ").append(QString::number(b, 10)));
+			bank->setWhatsThis(0, "");
+			//bank->setIcon(...);
+
+			for (int c=1; c<=4; c++)
+			{
+				QTreeWidgetItem* patch = new QTreeWidgetItem(bank);
+				patch->setText(0, QString::QString("Patch ").append(QString::number(c, 10)));
+				patch->setWhatsThis(0, "");
+				//patch->setIcon(...);
+		  };
+		};
+		userBankRanges << bankRange;
+		a += 4;
+	};
+		  //QList<QTreeWidgetItem *> userBankRanges;
+    for (int a=11; a<=20; a++)
+	{
+		QTreeWidgetItem* bankRange = new QTreeWidgetItem; // don't pass a parent here!
+		bankRange->setText(0, QString::QString("Bank u ").append(QString::number(a-10, 10)).append(" - u ").append(QString::number(a-16, 10)) );
+		bankRange->setWhatsThis(0, "");
+		//bankRange->setIcon(...);
+
+		for (int b=a; b<=(a+4); b++)
+		{
+			QTreeWidgetItem* bank = new QTreeWidgetItem(bankRange);
+			bank->setText(0, QString::QString("Bank u ").append(QString::number(b-10, 10)));
 			bank->setWhatsThis(0, "");
 			//bank->setIcon(...);
 
@@ -360,7 +386,6 @@ QTreeWidget* bankTreeList::newTreeList()
 				//patch->setIcon(...);
 			};
 		};
-	
 		userBankRanges << bankRange;
 		a += 4;
 	};
@@ -376,14 +401,14 @@ QTreeWidget* bankTreeList::newTreeList()
     for (int a=21; a<=30; a++)
 	{
 		QTreeWidgetItem* bankRange = new QTreeWidgetItem; // don't pass a parent here!
-		bankRange->setText(0, QString::QString("Bank P-").append(QString::number(a-20, 10)).append(" - P-").append(QString::number(a-16, 10)) );
+		bankRange->setText(0, QString::QString("Bank P ").append(QString::number(a-20, 10)).append(" - P ").append(QString::number(a-26, 10)) );
 		bankRange->setWhatsThis(0, "");
 		//bankRange->setIcon(...);
 
 		for (int b=a; b<=(a+4); b++)
 		{
 			QTreeWidgetItem* bank = new QTreeWidgetItem(bankRange);
-			bank->setText(0, QString::QString("Bank P-").append(QString::number(b-20, 10)));
+			bank->setText(0, QString::QString("Bank P ").append(QString::number(b-20, 10)));
 			bank->setWhatsThis(0, "");
 			//bank->setIcon(...);
 
@@ -445,22 +470,23 @@ void bankTreeList::setItemDoubleClicked(QTreeWidgetItem *item, int column)
 	if(item->childCount() == 0 && sysxIO->deviceReady() && sysxIO->isConnected()) 
 		// Make sure it's a patch (Patches are the last in line so no children).
 	{
+		emit setStatusSymbol(2);
+		emit setStatusProgress(0);
+		emit setStatusMessage(tr("Sending"));
+		
 		sysxIO->setDeviceReady(false);
-
-		bool ok;
 		sysxIO->setRequestName(item->text(0));	// Set the name of the patch we are going to load, so we can check if we have loaded the correct patch at the end.
 
+		bool ok;
 		int bank = item->parent()->text(0).section(" ", 1, 1).trimmed().toInt(&ok, 10); // Get the bank
 		int patch = item->parent()->indexOfChild(item) + 1;								// and the patch number.
-
+		
+		emit patchLoadSignal(bank, patch); // Tell to stop blinking a sellected patch and prepare to load this one instead.
+		
 		QObject::disconnect(sysxIO, SIGNAL(isChanged()),	
 			this, SLOT(requestPatch()));
 		QObject::connect(sysxIO, SIGNAL(isChanged()),	// Connect the isChanged message
 			this, SLOT(requestPatch()));				// to requestPatch.
-
-		emit setStatusSymbol(2);
-		emit setStatusMessage(tr("Sending"));
-		emit patchLoadSignal(bank, patch); // Tell to stop blinking a sellected patch and prepare to load this one instead.
 
 		sysxIO->requestPatchChange(bank, patch);
 	};

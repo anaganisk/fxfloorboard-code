@@ -51,7 +51,6 @@ HEADERS += ./globalVariables.h \
     ./customLed.h \
     ./customSlider.h \
     ./customSplashScreen.h \
-    ./customSwitch.h \
     ./dragBar.h \
     ./floorBoard.h \
     ./floorBoardDisplay.h \
@@ -92,7 +91,6 @@ SOURCES += ./main.cpp \
     ./customLed.cpp \
     ./customSlider.cpp \
     ./customSplashScreen.cpp \
-    ./customSwitch.cpp \
     ./dragBar.cpp \
     ./floorBoard.cpp \
     ./floorBoardDisplay.cpp \

@@ -30,7 +30,7 @@
 #include "customLed.h"
 #include "customDial.h"
 #include "customSlider.h"
-#include "customSwitch.h"
+//#include "customSwitch.h"
 
 class stompBox : public QWidget
 {
@@ -116,7 +116,7 @@ private:
 	customSlider *slider5;
 	customButton *button;
 	customLed *led;
-	customSwitch *switchbutton;
+//	customSwitch *switchbutton;
 	QComboBox *comboBox;
 
 	QString hex1;
