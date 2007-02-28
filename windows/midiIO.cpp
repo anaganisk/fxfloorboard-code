@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT6B Fx FloorBoard".
+** This file is part of "GT-6B Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -505,7 +505,7 @@ void midiIO::showErrorMsg(QString errorMsg, QString type)
 	{
 		windowTitle = tr("GT6B Fx FloorBoard - Midi Input Error");
 	};*/
-	windowTitle = tr("GT6B Fx FloorBoard");
+	windowTitle = tr("GT-6B Fx FloorBoard");
 
 	emit errorSignal(windowTitle, errorMsg);
 };

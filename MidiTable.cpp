@@ -2,7 +2,7 @@
 ** 
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved. 
 ** 
-** This file is part of "GT6B Fx FloorBoard". 
+** This file is part of "GT-6B Fx FloorBoard". 
 ** 
 ** This program is free software; you can redistribute it and/or modify 
 ** it under the terms of the GNU General Public License as published by 
@@ -517,7 +517,7 @@ QString MidiTable::dataChange(QString hex1, QString hex2, QString hex3, QString 
 	QString sysxMsg;
 	sysxMsg.append(getHeader(false));
 	
-	sysxMsg.append("0D");
+	sysxMsg.append("0B");
 	sysxMsg.append("00");
 
 	sysxMsg.append(hex1);
@@ -543,7 +543,7 @@ QString MidiTable::dataChange(QString hex1, QString hex2, QString hex3, QString 
 	QString sysxMsg;
 	sysxMsg.append(getHeader(false));
 	
-	sysxMsg.append("0D");
+	sysxMsg.append("0B");
 	sysxMsg.append("00");
 
 	sysxMsg.append(hex1);
@@ -585,7 +585,7 @@ QString MidiTable::nameRequest(int bank, int patch)
 	}
 	else
 	{
-		addr1 = "0D";
+		addr1 = "0B";
 		addr2 = "00";
 	};
 
@@ -632,7 +632,7 @@ QString MidiTable::patchRequest(int bank, int patch)
 	}
 	else
 	{
-		addr1 = "0D";
+		addr1 = "0B";
 		addr2 = "00";
 	};
 

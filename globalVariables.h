@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT6B Fx FloorBoard".
+** This file is part of "GT-6B Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -34,8 +34,8 @@
 ****************************************************************************/
 
 /* General Parameters */
-const QString idRequestString = "F0410000501100000000000000016EF7";		// Indentity Request (GT6B).
-const QString idReplyPatern = "F0410000501200000000057BF7";			// Returned device id message must contain/match this (QRegExp or a string without spaces and all caps).
+const QString idRequestString = "F07E000601F7";		// Indentity Request (GT6B).
+const QString idReplyPatern = "";			// Returned device id message must contain/match this (QRegExp or a string without spaces and all caps).
 const int buttonBlinkInterval = 250;				// The interval (ms) the led on buttons blink.
 
 /* Sysex Message Parameters */
@@ -49,8 +49,8 @@ const int bankTotalAll = 30;		// Number of total banks.
 const int patchPerBank = 4;			// Number of patches in a bank.
 
 /* Midi Send & Receive */
-const int midiTimeout = 2000;		// Time (ms) the device needs to process a MIDI message before sending the next.
-const int processTimeout = 25;		// Time (ms) the device needs to process a MIDI message before closing the device.
+const int midiSendTimeout = 25;	    // Time (ms) the device needs to process a MIDI message before sending the next.
+const int midiTimeout = 250;		// Time (ms) the device needs to process a MIDI message before closing the device.
 const int sendTimeout = 25;			// Time (ms) the device needs to process a SYSEX message before sending the next.
 const int receiveTimeout = 100;		// Time (ms) we wait between SYSEX messages for the next one to be received.
 const int maxWait = 4;				// Maximum times we loop through the receive handel before we give up the waiting.

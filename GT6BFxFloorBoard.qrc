@@ -7,6 +7,7 @@
         <file>images/ce.png</file>
         <file>images/cs.png</file>
         <file>images/dd.png</file>
+        <file>images/dgt.png</file>
         <file>images/dragbar.png</file>
         <file>images/eq.png</file>
         <file>images/floor.png</file>
@@ -18,6 +19,7 @@
         <file>images/knob.png</file>
         <file>images/led.png</file>
         <file>images/ledbutton.png</file>
+        <file>images/lp.png</file>
         <file>images/midi.png</file>
         <file>images/ns.png</file>
         <file>images/od.png</file>
@@ -31,7 +33,9 @@
         <file>images/sliderbutton.png</file>
         <file>images/splash.png</file>
         <file>images/splashmask.png</file>
+        <file>images/statusbarsymbols.png</file>
         <file>images/stompbg.png</file>
+        <file>images/switch.png</file>
         <file>images/wah.png</file>
         <file>images/window.png</file>
         <file>images/windowicon.png</file>

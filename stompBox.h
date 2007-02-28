@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT6B Fx FloorBoard".
+** This file is part of "GT-6B Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -30,7 +30,7 @@
 #include "customLed.h"
 #include "customDial.h"
 #include "customSlider.h"
-//#include "customSwitch.h"
+#include "customSwitch.h"
 
 class stompBox : public QWidget
 {
@@ -116,7 +116,7 @@ private:
 	customSlider *slider5;
 	customButton *button;
 	customLed *led;
-//	customSwitch *switchbutton;
+	customSwitch *switchbutton;
 	QComboBox *comboBox;
 
 	QString hex1;

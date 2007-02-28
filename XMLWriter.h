@@ -1,6 +1,6 @@
 /****************************************************************************
 ** Filename: XMLWriter.h
-** Last updated [dd/mm/yyyy]: 19/08/2005
+** Last updated [dd/mm/yyyy]:  19/08/2005
 **
 ** Class for XML file generation [Requires Qt4 - QtCore module].
 **

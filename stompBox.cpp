@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT6B Fx FloorBoard".
+** This file is part of "GT-6B Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -124,9 +124,15 @@ void stompBox::mouseMoveEvent(QMouseEvent *event)
 			
 			if (drag->start(Qt::MoveAction) != Qt::MoveAction)
 			{
+				event->ignore();
 				show();
 			};
 
+			if(drag->source() != drag->target())
+			{
+				event->ignore();
+				show();
+			};
 		};
 	};
 };
@@ -294,7 +300,7 @@ void stompBox::setButton(QString hex1, QString hex2, QString hex3, QPoint pos, Q
 
 void stompBox::setSwitch(QString hex1, QString hex2, QString hex3)
 {
-//	switchbutton = new customSwitch(false, QPoint::QPoint(5, 41), this, hex1, hex2, hex3);	
+	switchbutton = new customSwitch(false, QPoint::QPoint(5, 41), this, hex1, hex2, hex3);	
 };
 
 QList<QString> stompBox::getSourceItems(QString hex1, QString hex2)
@@ -352,21 +358,21 @@ void stompBox::updateSlider5(QString hex1, QString hex2, QString hex3)
 
 void stompBox::updateButton(QString hex1, QString hex2, QString hex3)
 {
-	/*int value = getSourceValue(hex1, hex2, hex3);
+	int value = getSourceValue(hex1, hex2, hex3);
 	if(hex1 == "15")
 	{
 		//Exception for the Foot Volume -> it's on when Expresion switch is off.
-		(value==1)?value=0:value=1; 
+		(value==1)?value=0:value=1;
 	};
 	led->setValue((value==1)?true:false);
-	button->setValue((value==1)?true:false); */
+	button->setValue((value==1)?true:false);
 };
 
-/*void stompBox::updateSwitch(QString hex1, QString hex2, QString hex3)
+void stompBox::updateSwitch(QString hex1, QString hex2, QString hex3)
 {
 	int value = getSourceValue(hex1, hex2, hex3);
 	switchbutton->setValue((value==1)?true:false);
-}; */
+};
 
 void stompBox::valueChanged(int value, QString hex1, QString hex2, QString hex3)
 {

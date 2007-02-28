@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT6B Fx FloorBoard".
+** This file is part of "GT-6B Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -32,6 +32,7 @@
 #include "MidiTable.h"
 #include "sysxWriter.h"
 #include "SysxIO.h"
+#include "globalVariables.h"
 
 #include "stompbox_fx1.h"
 #include "stompbox_cs.h"
@@ -267,7 +268,7 @@ void floorBoard::dragMoveEvent(QDragMoveEvent *event)
             event->setDropAction(Qt::MoveAction);
 			event->accept();
         } else {
-            event->acceptProposedAction();
+            //event->acceptProposedAction();
         };
     } else {
         event->ignore();
@@ -556,7 +557,7 @@ void floorBoard::initStomps()
 	lp->setId( fxID.at(fxNAMES.indexOf("LP")) );
 	lp->setPos(this->getStompPos(lp->getId()));
 	this->stompBoxes.replace(lp->getId(), lp);
-	this->stompNames.replace(lp->getId(), "LP");*/
+	this->stompNames.replace(lp->getId(), "LP"); */
 
 	/* OD/DS */
 	stompBox *od = new stompbox_od(this);
@@ -658,7 +659,7 @@ void floorBoard::updateStompBoxes()
 
 	MidiTable *midiTable = MidiTable::Instance();
 	QList<QString> stompOrder;
-	for(int i=10;i<fxChain.size() - 2;i++ ) 
+	for(int i=sysxDataOffset;i<fxChain.size() - 2;i++ ) 
 	{
 		stompOrder.append( midiTable->getMidiMap("Stucture", "0A", "00", "00", fxChain.at(i)).name );
 	};

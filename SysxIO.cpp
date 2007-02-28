@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT6B Fx FloorBoard".
+** This file is part of "GT-6B Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -20,6 +20,7 @@
 **
 ****************************************************************************/
 
+#include <QApplication>
 #include <QMessageBox>
 #include "SysxIO.h"
 #include "SysxIODestroyer.h"
@@ -37,6 +38,8 @@ SysxIO::SysxIO()
 	this->setSyncStatus(false);
 	this->setBank(0);
 	this->setPatch(0);
+	this->setLoadedBank(0);
+	this->setLoadedPatch(0);
 	this->changeCount = 0;
 };
 
@@ -106,8 +109,6 @@ void SysxIO::setFileSource(QByteArray data)
 				errorString.append("\n");
 				errorList.append(errorString);
 
-				int dataSize1 = dataSize;
-
 				sysxBuffer = correctSysxMsg(sysxBuffer);
 			};
 		};
@@ -126,7 +127,7 @@ void SysxIO::setFileSource(QByteArray data)
 	{
 		QMessageBox *msgBox = new QMessageBox();
 		//msgBox->setWindowTitle(tr("GT6B Fx FloorBoard - Checksum Error"));
-		msgBox->setWindowTitle(tr("GT6B Fx FloorBoard"));
+		msgBox->setWindowTitle(tr("GT-6B Fx FloorBoard"));
 		msgBox->setIcon(QMessageBox::Warning);
 		msgBox->setTextFormat(Qt::RichText);
 		QString msgText;
@@ -204,7 +205,6 @@ void SysxIO::setFileSource(QString hex1, QString hex2, QString hex3, QString hex
 		this->sendSpooler.append(sysxMsg);
 	};
 };
-
 
 void SysxIO::setFileSource(QString hex1, QString hex2, QString hex3, QString hex4, QString hex5)
 {
@@ -527,6 +527,24 @@ int SysxIO::getPatch(){
 	return this->patch;	
 };
 
+void SysxIO::setLoadedBank(int bank)
+{
+	this->loadedBank = bank;	
+};
+
+void SysxIO::setLoadedPatch(int patch)
+{
+	this->loadedPatch = patch;	
+};
+
+int SysxIO::getLoadedBank(){
+	return this->loadedBank;	
+};
+
+int SysxIO::getLoadedPatch(){
+	return this->loadedPatch;	
+};
+
 /*********************** getRequestName() ***********************************
 * Set the name for check of the patch that we are going to load.
 ***************************************************************************/
@@ -588,8 +606,9 @@ void SysxIO::sendMidi(QString midiMsg)
 void SysxIO::finishedSending()
 {
 	emit isFinished();
+	/*emit setStatusSymbol(1);
 	emit setStatusProgress(0);
-	emit setStatusMessage(tr("[Midi finished]"));
+	emit setStatusMessage(tr("Ready"));*/
 
 	//this->namePatchChange();
 };
@@ -599,6 +618,10 @@ void SysxIO::finishedSending()
 ****************************************************************************/
 void SysxIO::requestPatchChange(int bank, int patch)
 {
+	/*emit setStatusSymbol(2);
+	emit setStatusProgress(0);
+	emit setStatusMessage(tr("Sending"));*/
+	
 	this->bankChange = bank;
 	this->patchChange = patch;
 
@@ -607,8 +630,6 @@ void SysxIO::requestPatchChange(int bank, int patch)
 	
 	QString midiMsg = getPatchChangeMsg(bank, patch);
 	this->sendMidi(midiMsg);
-
-	emit setStatusMessage(tr("Sending"));
 };
   
 /***************************** namePatchChange() *************************
@@ -625,8 +646,6 @@ void SysxIO::namePatchChange()
 		this, SLOT(checkPatchChange(QString)));		
 	
 	this->requestPatchName(0, 0);
-
-	emit setStatusMessage(tr("Receiving"));
 };
 
 /***************************** checkPatchChange() *************************
@@ -656,6 +675,8 @@ void SysxIO::checkPatchChange(QString name)
 		}
 		else
 		{
+			QObject::disconnect(this, SIGNAL(isChanged()));
+			
 			this->changeCount = 0;
 			this->setDeviceReady(true); // Free the device after finishing interaction.
 			
@@ -663,8 +684,12 @@ void SysxIO::checkPatchChange(QString name)
 			emit setStatusProgress(0);
 			emit setStatusMessage(tr("Ready"));	
 
+			emit patchChangeFailed();
+
+			QApplication::beep();
+
 			/*QMessageBox *msgBox = new QMessageBox();
-			msgBox->setWindowTitle(tr("GT6B Fx FloorBoard"));
+			msgBox->setWindowTitle(tr("GT-6B Fx FloorBoard"));
 			msgBox->setIcon(QMessageBox::Warning);
 			msgBox->setTextFormat(Qt::RichText);
 			QString msgText;

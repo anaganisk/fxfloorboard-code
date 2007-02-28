@@ -60,5 +60,5 @@ GT6B FxFloorBoard Copyright (C)2006 2007 Uco Mesdag <ucomesdag@gmail.com>.
 GT6B FxFloorBoard Copyright (C)2006 2007 Colin Willcocks <gumtownbassman@yahoo.com>.
 
 Windows(TM), Windows 95(TM), Windows 98(TM), Windows ME(TM), Windows NT(TM), 
-Windows 2000(TM) and Windows XP(TM) are Copyright (C)Microsoft Corporation. 
+Windows 2000(TM) and Windows XP(TM) and Windows Vista(TM) are Copyright (C)Microsoft Corporation. 
 All rights reserved.
