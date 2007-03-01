@@ -1227,7 +1227,59 @@
 				</DATA>
 			</LSB>
 		</LSB>
-		<LSB value="07" name="Delay" abbr="DD" desc="DD" longdesc="">
+		<LSB value="07" name="Chorus" abbr="CE" desc="CE" longdesc="">
+			<LSB value="00" name="" abbr="" desc="Address MSB" longdesc="">
+				<DATA value="00" name="" abbr="" desc="On/Off" longdesc="">
+					<PARAM value="00" name="Off" desc="" longdesc=""/>
+					<PARAM value="01" name="On" desc="" longdesc=""/>
+				</DATA>
+				<DATA value="01" name="" abbr="" desc="(Reserved)" longdesc=""/>
+				<DATA value="02" name="" abbr="" desc="Mode" longdesc="">
+					<PARAM value="00" name="Mono" desc="Mono" longdesc=""/>
+					<PARAM value="01" name="Stereo1" desc="Stereo 1" longdesc=""/>
+					<PARAM value="02" name="Stereo2" desc="Stereo 2" longdesc=""/>
+				</DATA>
+				<DATA value="03" name="" abbr="" desc="Rate" longdesc="">
+					<PARAM value="range" name="00/64/00/100" desc=" %" longdesc=""/>
+					<PARAM value="65" name="whole note" desc="" longdesc=""/>
+					<PARAM value="66" name="doted half note" desc="" longdesc=""/>
+					<PARAM value="67" name="whole note triplet" desc="" longdesc=""/>
+					<PARAM value="68" name="half note" desc="" longdesc=""/>
+					<PARAM value="69" name="doted quarter note" desc="" longdesc=""/>
+					<PARAM value="6A" name="half note triplet" desc="" longdesc=""/>
+					<PARAM value="6B" name="quarter note" desc="" longdesc=""/>
+					<PARAM value="6C" name="doted eighth note" desc="" longdesc=""/>
+					<PARAM value="6D" name="quarter note triplet" desc="" longdesc=""/>
+					<PARAM value="6E" name="eighth note" desc="" longdesc=""/>
+					<PARAM value="6F" name="doted sixteenth note" desc="" longdesc=""/>
+					<PARAM value="70" name="eighth note triplet" desc="" longdesc=""/>
+					<PARAM value="71" name="sixteenth note" desc="" longdesc=""/>
+				</DATA>
+				<DATA value="04" name="" abbr="" desc="Depth" longdesc="">
+					<PARAM value="range" name="00/64/00/100" desc=" %" longdesc=""/>
+				</DATA>
+				<DATA value="05" name="" abbr="" desc="Pre Delay" longdesc="">
+					<PARAM value="range" name="00/50/0.0/40.0" desc=" mS" longdesc=""/>
+				</DATA>
+				<DATA value="06" name="" abbr="" desc="Low Cut" longdesc="">
+					<PARAM value="00" name="FLAT" desc="" longdesc=""/>
+					<PARAM value="01" name="55.0Hz" desc="" longdesc=""/>
+					<PARAM value="02" name="110Hz" desc="" longdesc=""/>
+					<PARAM value="03" name="165Hz" desc="" longdesc=""/>
+					<PARAM value="04" name="200Hz" desc="" longdesc=""/>
+					<PARAM value="05" name="280Hz" desc="" longdesc=""/>
+					<PARAM value="06" name="340Hz" desc="" longdesc=""/>
+					<PARAM value="07" name="400Hz" desc="" longdesc=""/>
+					<PARAM value="08" name="500Hz" desc="" longdesc=""/>
+					<PARAM value="09" name="630Hz" desc="" longdesc=""/>
+					<PARAM value="0A" name="800Hz" desc="" longdesc=""/>
+				</DATA>
+				<DATA value="07" name="" abbr="" desc="Effect Level" longdesc="">
+					<PARAM value="range" name="00/64/00/100" desc=" %" longdesc=""/>
+				</DATA>
+			</LSB>
+		</LSB>
+		<LSB value="08" name="Delay" abbr="DD" desc="DD" longdesc="">
 			<LSB value="00" name="" abbr="" desc="Address MSB" longdesc="">
 				<DATA value="00" name="" abbr="" desc="On/Off" longdesc="">
 					<PARAM value="00" name="Off" desc="" longdesc=""/>
@@ -1346,58 +1398,6 @@
 				</DATA>
 				<DATA value="17" name="" abbr="" desc="SOS :(reserved)" longdesc=""/>
 				<DATA value="18" name="" abbr="" desc="SOS :(reserved)" longdesc=""/>
-			</LSB>
-		</LSB>
-		<LSB value="08" name="Chorus" abbr="CE" desc="CE" longdesc="">
-			<LSB value="00" name="" abbr="" desc="Address MSB" longdesc="">
-				<DATA value="00" name="" abbr="" desc="On/Off" longdesc="">
-					<PARAM value="00" name="Off" desc="" longdesc=""/>
-					<PARAM value="01" name="On" desc="" longdesc=""/>
-				</DATA>
-				<DATA value="01" name="" abbr="" desc="(Reserved)" longdesc=""/>
-				<DATA value="02" name="" abbr="" desc="Mode" longdesc="">
-					<PARAM value="00" name="Mono" desc="Mono" longdesc=""/>
-					<PARAM value="01" name="Stereo1" desc="Stereo 1" longdesc=""/>
-					<PARAM value="02" name="Stereo2" desc="Stereo 2" longdesc=""/>
-				</DATA>
-				<DATA value="03" name="" abbr="" desc="Rate" longdesc="">
-					<PARAM value="range" name="00/64/00/100" desc=" %" longdesc=""/>
-					<PARAM value="65" name="whole note" desc="" longdesc=""/>
-					<PARAM value="66" name="doted half note" desc="" longdesc=""/>
-					<PARAM value="67" name="whole note triplet" desc="" longdesc=""/>
-					<PARAM value="68" name="half note" desc="" longdesc=""/>
-					<PARAM value="69" name="doted quarter note" desc="" longdesc=""/>
-					<PARAM value="6A" name="half note triplet" desc="" longdesc=""/>
-					<PARAM value="6B" name="quarter note" desc="" longdesc=""/>
-					<PARAM value="6C" name="doted eighth note" desc="" longdesc=""/>
-					<PARAM value="6D" name="quarter note triplet" desc="" longdesc=""/>
-					<PARAM value="6E" name="eighth note" desc="" longdesc=""/>
-					<PARAM value="6F" name="doted sixteenth note" desc="" longdesc=""/>
-					<PARAM value="70" name="eighth note triplet" desc="" longdesc=""/>
-					<PARAM value="71" name="sixteenth note" desc="" longdesc=""/>
-				</DATA>
-				<DATA value="04" name="" abbr="" desc="Depth" longdesc="">
-					<PARAM value="range" name="00/64/00/100" desc=" %" longdesc=""/>
-				</DATA>
-				<DATA value="05" name="" abbr="" desc="Pre Delay" longdesc="">
-					<PARAM value="range" name="00/50/0.0/40.0" desc=" mS" longdesc=""/>
-				</DATA>
-				<DATA value="06" name="" abbr="" desc="Low Cut" longdesc="">
-					<PARAM value="00" name="FLAT" desc="" longdesc=""/>
-					<PARAM value="01" name="55.0Hz" desc="" longdesc=""/>
-					<PARAM value="02" name="110Hz" desc="" longdesc=""/>
-					<PARAM value="03" name="165Hz" desc="" longdesc=""/>
-					<PARAM value="04" name="200Hz" desc="" longdesc=""/>
-					<PARAM value="05" name="280Hz" desc="" longdesc=""/>
-					<PARAM value="06" name="340Hz" desc="" longdesc=""/>
-					<PARAM value="07" name="400Hz" desc="" longdesc=""/>
-					<PARAM value="08" name="500Hz" desc="" longdesc=""/>
-					<PARAM value="09" name="630Hz" desc="" longdesc=""/>
-					<PARAM value="0A" name="800Hz" desc="" longdesc=""/>
-				</DATA>
-				<DATA value="07" name="" abbr="" desc="Effect Level" longdesc="">
-					<PARAM value="range" name="00/64/00/100" desc=" %" longdesc=""/>
-				</DATA>
 			</LSB>
 		</LSB>
 		<LSB value="09" name="Master" abbr="MSTR" desc="MSTR" longdesc="">
