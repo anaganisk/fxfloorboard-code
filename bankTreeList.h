@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT-6B Fx FloorBoard".
+** This file is part of "GT6B Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -42,6 +42,7 @@ public slots:
 	void setOpenItems(QTreeWidgetItem *item);
 	void connectedSignal();
 	void requestPatch();
+	void requestPatch(int bank, int patch);
 	void setItemClicked(QTreeWidgetItem *item, int column);
 	void setItemDoubleClicked(QTreeWidgetItem *item, int column);
 

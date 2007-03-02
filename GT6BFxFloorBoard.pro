@@ -2,7 +2,7 @@
 ##
 ## Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 ##
-## This file is part of "GT-6B Fx FloorBoard".
+## This file is part of "GT6B Fx FloorBoard".
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -21,19 +21,21 @@
 #############################################################################
 
 TEMPLATE = app
-TARGET = GT6BFxFloorBoard
-DESTDIR = ./Release
-QT += xml
-CONFIG += release
+
 CONFIG += static
 CONFIG += embed_manifest_exe
-INCLUDEPATH += ./GeneratedFiles \
-    ./GeneratedFiles/Release \
-    .
+CONFIG += release
+TARGET = "GT6B Fx FloorBoard"
+DESTDIR = ./release
+MOC_DIR += ./generatedfiles/release
+OBJECTS_DIR += release
+UI_DIR += ./generatedfiles
+INCLUDEPATH += ./generatedfiles \
+	./generatedfiles/release \
+	.
 DEPENDPATH += .
-MOC_DIR += ./GeneratedFiles/Release
-OBJECTS_DIR += Release
-UI_DIR += ./GeneratedFiles
+QT += xml
+
 
 #Platform dependent file(s)
 win32 {
@@ -44,12 +46,12 @@ win32 {
 		message("WINMM.LIB IS REQUIRED. IF NOT INSTALLED")
 		message("PLEASE DOWNLOAD AND INSTALL PLATFORM SDK FROM:")
 		message("http://www.microsoft.com/downloads/details.aspx?familyid=0BAF2B35-C656-4969-ACE8-E4C0C0716ADB&displaylang=en")
-		message("AFTER INSTALLATION CHANGE THE CORRECT (DOS) PATH IN THE "GT6BFxFloorBoard.pro" FILE")
+		message("AFTER INSTALLATION CHANGE THE CORRECT (DOS) PATH IN THE "GT-8FxFloorBoard.pro" FILE")
 	}
 	HEADERS += ./windows/midiIO.h
 	SOURCES += ./windows/midiIO.cpp
 	INCLUDEPATH += ./windows
-	message(Including Windows specifique headers and sources...)
+	message(Including Windows specific headers and sources...)
 }
 linux-g++ {
 	HEADERS += ./linux/midiIO.h

@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT-6B Fx FloorBoard".
+** This file is part of "GT6B Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -100,10 +100,10 @@ void SysxIO::setFileSource(QByteArray data)
 			{
 				QString errorString;
 				errorString.append(tr("Address") + ": ");
-				errorString.append(sysxBuffer.at(6) + " ");
-				errorString.append(sysxBuffer.at(7) + " ");
-				errorString.append(sysxBuffer.at(8) + " ");
-				errorString.append(sysxBuffer.at(9) + " - ");
+				errorString.append(sysxBuffer.at(sysxAddressOffset) + " ");
+				errorString.append(sysxBuffer.at(sysxAddressOffset +1) + " ");
+				errorString.append(sysxBuffer.at(sysxAddressOffset + 2) + " ");
+				errorString.append(sysxBuffer.at(sysxAddressOffset + 3) + " - ");
 				errorString.append(tr("checksum") + " (" + checksum + ") ");
 				errorString.append(tr("should have been") + " (" + getCheckSum(dataSize) + ")");
 				errorString.append("\n");
@@ -127,7 +127,7 @@ void SysxIO::setFileSource(QByteArray data)
 	{
 		QMessageBox *msgBox = new QMessageBox();
 		//msgBox->setWindowTitle(tr("GT6B Fx FloorBoard - Checksum Error"));
-		msgBox->setWindowTitle(tr("GT-6B Fx FloorBoard"));
+		msgBox->setWindowTitle(tr("GT6B Fx FloorBoard"));
 		msgBox->setIcon(QMessageBox::Warning);
 		msgBox->setTextFormat(Qt::RichText);
 		QString msgText;
@@ -404,7 +404,7 @@ QList<QString> SysxIO::correctSysxMsg(QList<QString> sysxMsg)
 	MidiTable *midiTable = MidiTable::Instance();
 	for(int i=sysxDataOffset;i<sysxMsg.size() - 3;i++)
 	{
-		if(i==12) i++; // is reserved memmory address on the GT6B so we skip it.
+		if(i==sysxDataOffset + 1) i++; // is reserved memmory address on the GT6B so we skip it.
 		
 		QString address3 = QString::number(i - sysxDataOffset, 16).toUpper();
 		if(address3.length()<2) address3.prepend("0");
@@ -567,7 +567,7 @@ QString SysxIO::getRequestName()
 QString SysxIO::getPatchChangeMsg(int bank, int patch)
 {
 	int bankOffset = ((bank - 1) * patchPerBank) + (patch - 1);
-	int bankSize = 100;
+	int bankSize = 100; // Size of items that go in a bank ( != patch address wich equals 127 ).
 	int bankMsbNum = (int)(bankOffset / bankSize);
 	int programChangeNum = bankOffset - (bankSize * bankMsbNum);
 	QString bankMsb = QString::number(bankMsbNum, 16);
@@ -689,7 +689,7 @@ void SysxIO::checkPatchChange(QString name)
 			QApplication::beep();
 
 			/*QMessageBox *msgBox = new QMessageBox();
-			msgBox->setWindowTitle(tr("GT-6B Fx FloorBoard"));
+			msgBox->setWindowTitle(tr("GT6B Fx FloorBoard"));
 			msgBox->setIcon(QMessageBox::Warning);
 			msgBox->setTextFormat(Qt::RichText);
 			QString msgText;

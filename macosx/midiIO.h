@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT-6B Fx FloorBoard".
+** This file is part of "GT6B FX FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -59,6 +59,10 @@ private:
 
 	QList<QString> midiOutDevices;
 	QList<QString> midiInDevices;
+
+	/*static void CALLBACK midiCallback(HMIDIIN handle, 
+		UINT wMsg, DWORD dwInstance, 
+		DWORD dwParam1, DWORD dwParam2);*/
 
 	static QString sysxBuffer;
 	static bool dataReceive;

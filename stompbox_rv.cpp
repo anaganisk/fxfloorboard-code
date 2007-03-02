@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005-2006 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT-6B Fx FloorBoard".
+** This file is part of "GT6B FX FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -27,16 +27,12 @@ stompbox_rv::stompbox_rv(QWidget *parent)
 {
 	/* REVERB */
 	setImage(":/images/rv.png");
-	//setKnob1("0D", "00", "00");
-	//setKnob2("0D", "00", "00");
 	setComboBox("04", "00", "12");
 	setButton("04", "00", "10");
 };
 
 void stompbox_rv::updateSignal()
 {
-	//updateKnob1("0D", "00", "00");
-	//updateKnob2("0D", "00", "00");
 	updateComboBox("04", "00", "12");
 	updateButton("04", "00", "10");
 };

@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005-2006 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT-6B Fx FloorBoard".
+** This file is part of "GT6B FX FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -31,7 +31,7 @@ stompbox_eq::stompbox_eq(QWidget *parent)
 	setSlider1("05", "00", "04");
 	setSlider2("05", "00", "07");
 	setSlider3("05", "00", "0A");
-	//setSlider4("05", "00", "0A");
+	////setSlider4("05", "00", "0A");
 	setSlider5("05", "00", "0B");
 	setButton("05", "00", "00"); 
 };
@@ -41,7 +41,7 @@ void stompbox_eq::updateSignal()
 	updateSlider1("05", "00", "04");
 	updateSlider2("05", "00", "07");
 	updateSlider3("05", "00", "0A");
-	//updateSlider4("05", "00", "0A");
+	////updateSlider4("05", "00", "0A");
 	updateSlider5("05", "00", "0B");
 	updateButton("05", "00", "00");
 };

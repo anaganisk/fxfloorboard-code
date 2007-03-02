@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT-6B Fx FloorBoard".
+** This file is part of "GT6B Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -88,7 +88,7 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
 	str.append("<html><body>");
 	str.append("<table width='143' cellspacing='0' cellpadding='0' border='0'><tr><td align='center'>");
 	str.append("<table width='140' cellspacing='0' cellpadding='0' border='0'><tr><td colspan='2' align='left'>");
-	str.append("GT-6B Fx FloorBoard");
+	str.append("GT6B Fx FloorBoard");
 	str.append("</td></tr><tr><td align='left' valign='top'><font size='-1'>");
 	str.append(tr("version"));
 	str.append("</font></td><td align='right' valign='top'><font size='-1'>");
@@ -200,7 +200,7 @@ void floorBoardDisplay::setPatchDisplay(QString patchName)
 			if(this->patchLoadError)
 			{
 				QMessageBox *msgBox = new QMessageBox();
-				msgBox->setWindowTitle(tr("GT-6B Fx FloorBoard"));
+				msgBox->setWindowTitle(tr("GT6B Fx FloorBoard"));
 				msgBox->setIcon(QMessageBox::Warning);
 				msgBox->setTextFormat(Qt::RichText);
 				QString msgText;
@@ -541,7 +541,7 @@ void floorBoardDisplay::connectionResult(QString sysxMsg)
 			emit setStatusMessage(tr("Not connected"));
 
 			QMessageBox *msgBox = new QMessageBox();
-			msgBox->setWindowTitle(tr("GT-6B Fx FloorBoard"));
+			msgBox->setWindowTitle(tr("GT6B Fx FloorBoard"));
 			msgBox->setIcon(QMessageBox::Warning);
 			msgBox->setTextFormat(Qt::RichText);
 			QString msgText;
@@ -563,7 +563,7 @@ void floorBoardDisplay::connectionResult(QString sysxMsg)
 			emit setStatusMessage(tr("Not connected"));
 
 			QMessageBox *msgBox = new QMessageBox();
-			msgBox->setWindowTitle(tr("GT-6B Fx FloorBoard"));
+			msgBox->setWindowTitle(tr("GT6B Fx FloorBoard"));
 			msgBox->setIcon(QMessageBox::Warning);
 			msgBox->setTextFormat(Qt::RichText);
 			QString msgText;
@@ -584,15 +584,15 @@ void floorBoardDisplay::connectionResult(QString sysxMsg)
 
 void floorBoardDisplay::writeSignal(bool value)
 {
-	this->writeButton->setBlink(true);
 	
 	SysxIO *sysxIO = SysxIO::Instance();
 	if(sysxIO->isConnected() && sysxIO->deviceReady()) /* Check if we are connected and if the device is free. */
 	{
+	 this->writeButton->setBlink(true);
 		if(sysxIO->getBank() == 0) /* Check if a bank is sellected. */
 		{
 			QMessageBox *msgBox = new QMessageBox();
-			msgBox->setWindowTitle(tr("GT-6B Fx FloorBoard"));
+			msgBox->setWindowTitle(tr("GT6B Fx FloorBoard"));
 			msgBox->setIcon(QMessageBox::Warning);
 			msgBox->setTextFormat(Qt::RichText);
 			QString msgText;
@@ -642,7 +642,7 @@ void floorBoardDisplay::writeSignal(bool value)
 				if(sysxIO->getBank() > bankTotalUser) // Preset banks are NOT writable so we check.
 				{
 					QMessageBox *msgBox = new QMessageBox();
-					msgBox->setWindowTitle(tr("GT-6B Fx FloorBoard"));
+					msgBox->setWindowTitle(tr("GT6B Fx FloorBoard"));
 					msgBox->setIcon(QMessageBox::Warning);
 					msgBox->setTextFormat(Qt::RichText);
 					QString msgText;
@@ -660,7 +660,7 @@ void floorBoardDisplay::writeSignal(bool value)
 				else /* User bank so we can write to it after confirmation to overwrite stored data. */
 				{
 					QMessageBox *msgBox = new QMessageBox();
-					msgBox->setWindowTitle(tr("GT-6B Fx FloorBoard"));
+					msgBox->setWindowTitle(tr("GT6B Fx FloorBoard"));
 					msgBox->setIcon(QMessageBox::Warning);
 					msgBox->setTextFormat(Qt::RichText);
 					QString msgText;
@@ -709,9 +709,14 @@ void floorBoardDisplay::writeSignal(bool value)
 			msgBox->exec();*/
 		};
 	}
-	else /* We are NOT connected OR/AND the device was NOT free. */
+else if(sysxIO->isConnected() != true) /* We are NOT connected */
 	{
 		notConnected();
+		 } 
+                else /* The device was NOT free. */ 
+           { 
+                   //emit notConnected(); 
+
 	};
 
 };

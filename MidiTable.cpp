@@ -2,7 +2,7 @@
 ** 
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved. 
 ** 
-** This file is part of "GT-6B Fx FloorBoard". 
+** This file is part of "GT6B Fx FloorBoard". 
 ** 
 ** This program is free software; you can redistribute it and/or modify 
 ** it under the terms of the GNU General Public License as published by 
@@ -578,18 +578,18 @@ QString MidiTable::nameRequest(int bank, int patch)
 		int addrMaxSize = QString("80").toInt(&ok, 16);
 		int n = (int)(patchOffset / addrMaxSize);
 		
-		addr1 = QString::number(8 + n, 16).toUpper();
+		addr1 = QString::number(6 + n, 16).toUpper();
 		addr2 = QString::number(patchOffset - (addrMaxSize * n), 16).toUpper();
 		if (addr1.length() < 2) addr1.prepend("0");
 		if (addr2.length() < 2) addr2.prepend("0");
 	}
 	else
 	{
-		addr1 = "0B";
+		addr1 = "0B";  // temp write buffer
 		addr2 = "00";
 	};
 
-	QString hex1 = "12";
+	QString hex1 = "0B";    // names memory location
 	QString hex2 = "00";
 
 	QString sysxMsg;
@@ -625,7 +625,7 @@ QString MidiTable::patchRequest(int bank, int patch)
 		int addrMaxSize = QString("80").toInt(&ok, 16);
 		int n = (int)(patchOffset / addrMaxSize);
 		
-		addr1 = QString::number(8 + n, 16).toUpper();
+		addr1 = QString::number(6 + n, 16).toUpper();
 		addr2 = QString::number(patchOffset - (addrMaxSize * n), 16).toUpper();
 		if (addr1.length() < 2) addr1.prepend("0");
 		if (addr2.length() < 2) addr2.prepend("0");

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Preferences of the GT6B Fx FloorBoard application. -->
+<Preferences>
+	<General>
+		<Application version="0.0a"/>
+		<Donate url="http://sourceforge.net/donate/index.php?group_id=171049"/>
+		<Files dir=""/>
+		<Help url="http://sourceforge.net/forum/forum.php?forum_id=585786"/>
+		<Language code="en"/>
+		<Webpage url="http://fxfloorboard.sourceforge.net/"/>
+	</General>
+	<Midi>
+		<MidiIn device="0"/>
+		<MidiOut device="2"/>
+	</Midi>
+	<Window>
+		<Collapsed bool="false" defaultwidth="975" width=""/>
+		<Position x="" y=""/>
+		<Restore sidepanel="false" window="false"/>
+		<Size height="" minheight="548" minwidth="788" width=""/>
+		<Splash bool="true"/>
+	</Window>
+</Preferences>

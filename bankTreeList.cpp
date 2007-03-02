@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT-6B Fx FloorBoard".
+** This file is part of "GT6B Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -341,14 +341,14 @@ QTreeWidget* bankTreeList::newTreeList()
     for (int a=1; a<=20; a++)
 	{
 		QTreeWidgetItem* bankRange = new QTreeWidgetItem; // don't pass a parent here!
-		bankRange->setText(0, QString::QString("Bank ").append(QString::number(a, 10)).append(" - ").append(QString::number(a+4, 10)) );
+		bankRange->setText(0, QString::QString("Bank U ").append(QString::number(a, 10)).append(" - U ").append(QString::number(a+4, 10)) );
 		bankRange->setWhatsThis(0, "");
 		//bankRange->setIcon(...);
 
 		for (int b=a; b<=(a+4); b++)
 		{
 			QTreeWidgetItem* bank = new QTreeWidgetItem(bankRange);
-			bank->setText(0, QString::QString("Bank ").append(QString::number(b, 10)));
+			bank->setText(0, QString::QString("Bank U ").append(QString::number(b, 10)));
 			bank->setWhatsThis(0, "");
 			//bank->setIcon(...);
 
@@ -375,14 +375,14 @@ QTreeWidget* bankTreeList::newTreeList()
     for (int a=21; a<=30; a++)
 	{
 		QTreeWidgetItem* bankRange = new QTreeWidgetItem; // don't pass a parent here!
-		bankRange->setText(0, QString::QString("Bank ").append(QString::number(a, 10)).append(" - ").append(QString::number(a+4, 10)) );
+		bankRange->setText(0, QString::QString("Bank P ").append(QString::number(a, 10)).append(" - P ").append(QString::number(a+4, 10)) );
 		bankRange->setWhatsThis(0, "");
 		//bankRange->setIcon(...);
 
 		for (int b=a; b<=(a+4); b++)
 		{
 			QTreeWidgetItem* bank = new QTreeWidgetItem(bankRange);
-			bank->setText(0, QString::QString("Bank ").append(QString::number(b, 10)));
+			bank->setText(0, QString::QString("Bank P ").append(QString::number(b, 10)));
 			bank->setWhatsThis(0, "");
 			//bank->setIcon(...);
 
