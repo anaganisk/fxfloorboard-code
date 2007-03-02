@@ -329,7 +329,7 @@ QTreeWidget* bankTreeList::newTreeList()
 	newTreeList->setFont(getFont());
 	
 	QStringList headers;
-	headers << "Boss GT6B";
+	headers << "Boss GT-6B";
     newTreeList->setHeaderLabels(headers);
 
 	QTreeWidgetItem *user = new QTreeWidgetItem(newTreeList);
@@ -337,11 +337,11 @@ QTreeWidget* bankTreeList::newTreeList()
 	user->setWhatsThis(0, "User Banks");
 	//user->setIcon(...);
 
-    QList<QTreeWidgetItem *> userBankRanges;
-    for (int a=1; a<=20; a++)
+QList<QTreeWidgetItem *> userBankRanges;
+    for (int a=1; a<=10; a++)
 	{
 		QTreeWidgetItem* bankRange = new QTreeWidgetItem; // don't pass a parent here!
-		bankRange->setText(0, QString::QString("Bank U ").append(QString::number(a, 10)).append(" - U ").append(QString::number(a+4, 10)) );
+		bankRange->setText(0, QString::QString("Bank U ").append(QString::number(a, 10)).append(" - U ").append(QString::number(a-6, 10)) );
 		bankRange->setWhatsThis(0, "");
 		//bankRange->setIcon(...);
 
@@ -349,6 +349,32 @@ QTreeWidget* bankTreeList::newTreeList()
 		{
 			QTreeWidgetItem* bank = new QTreeWidgetItem(bankRange);
 			bank->setText(0, QString::QString("Bank U ").append(QString::number(b, 10)));
+			bank->setWhatsThis(0, "");
+			//bank->setIcon(...);
+
+			for (int c=1; c<=4; c++)
+			{
+				QTreeWidgetItem* patch = new QTreeWidgetItem(bank);
+				patch->setText(0, QString::QString("Patch ").append(QString::number(c, 10)));
+				patch->setWhatsThis(0, "");
+				//patch->setIcon(...);
+		  };
+		};
+		userBankRanges << bankRange;
+		a += 4;
+	};
+		  //QList<QTreeWidgetItem *> userBankRanges;
+    for (int a=11; a<=20; a++)
+	{
+		QTreeWidgetItem* bankRange = new QTreeWidgetItem; // don't pass a parent here!
+		bankRange->setText(0, QString::QString("Bank u ").append(QString::number(a-10, 10)).append(" - u ").append(QString::number(a-16, 10)) );
+		bankRange->setWhatsThis(0, "");
+		//bankRange->setIcon(...);
+
+		for (int b=a; b<=(a+4); b++)
+		{
+			QTreeWidgetItem* bank = new QTreeWidgetItem(bankRange);
+			bank->setText(0, QString::QString("Bank u ").append(QString::number(b-10, 10)));
 			bank->setWhatsThis(0, "");
 			//bank->setIcon(...);
 
@@ -375,14 +401,14 @@ QTreeWidget* bankTreeList::newTreeList()
     for (int a=21; a<=30; a++)
 	{
 		QTreeWidgetItem* bankRange = new QTreeWidgetItem; // don't pass a parent here!
-		bankRange->setText(0, QString::QString("Bank P ").append(QString::number(a, 10)).append(" - P ").append(QString::number(a+4, 10)) );
+		bankRange->setText(0, QString::QString("Bank P ").append(QString::number(a-20, 10)).append(" - P ").append(QString::number(a-26, 10)) );
 		bankRange->setWhatsThis(0, "");
 		//bankRange->setIcon(...);
 
 		for (int b=a; b<=(a+4); b++)
 		{
 			QTreeWidgetItem* bank = new QTreeWidgetItem(bankRange);
-			bank->setText(0, QString::QString("Bank P ").append(QString::number(b, 10)));
+			bank->setText(0, QString::QString("Bank P ").append(QString::number(b-20, 10)));
 			bank->setWhatsThis(0, "");
 			//bank->setIcon(...);
 

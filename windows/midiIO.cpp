@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT-6B Fx FloorBoard".
+** This file is part of "GT6B Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -348,7 +348,7 @@ void midiIO::run()
 
 	/* Check if we are going to receive something on sending */
 	bool receive;
-	(this->sysxOutMsg.mid(12, 2) != "12")? receive = true: receive = false;
+	(this->sysxOutMsg.mid(11, 2) != "12")? receive = true: receive = false;
 
 	if(receive==true)
 	{
@@ -505,7 +505,7 @@ void midiIO::showErrorMsg(QString errorMsg, QString type)
 	{
 		windowTitle = tr("GT6B Fx FloorBoard - Midi Input Error");
 	};*/
-	windowTitle = tr("GT-6B Fx FloorBoard");
+	windowTitle = tr("GT6B Fx FloorBoard");
 
 	emit errorSignal(windowTitle, errorMsg);
 };
@@ -541,7 +541,7 @@ void midiIO::sendMidi(QString midiMsg, int midiOut)
 
 				/* Give it some time to process the midi 
 				message before sending the next*/
-				Sleep(processTimeout);
+				Sleep(midiSendTimeout);
 			};
 		}
 		else  
@@ -555,9 +555,10 @@ void midiIO::sendMidi(QString midiMsg, int midiOut)
 			/* Output the midi command */
 			midiOutShortMsg(outHandle, midi);
 		};	
+
 		/* Give it some time to finish else there is a change that 
 		the device is closed before finishing the transmission */
-		Sleep(processTimeout);
+		Sleep(midiTimeout);
 
 		/* Close the MIDI device */
 		midiOutClose(outHandle);
