@@ -27,6 +27,7 @@ stompbox_pre::stompbox_pre(QWidget *parent)
 {
 	/* PRE  */
 	setImage(":/images/pre.png");
+	setLSB("04", "00");
 	setKnob1("04", "00", "08");
 	setKnob2("04", "00", "0F");
 	setComboBox("04", "00", "02");

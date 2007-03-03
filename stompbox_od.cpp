@@ -27,6 +27,7 @@ stompbox_od::stompbox_od(QWidget *parent)
 {
 	/* OD/DS */
 	setImage(":/images/od.png");
+	setLSB("03", "00");
 	setKnob1("03", "00", "03");
 	setKnob2("03", "00", "06");
 	setComboBox("03", "00", "02");

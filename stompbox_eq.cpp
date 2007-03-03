@@ -27,7 +27,7 @@ stompbox_eq::stompbox_eq(QWidget *parent)
 {
 	/* EQ */
 	setImage(":/images/eq.png");
-
+  setLSB("05", "00");
 	setSlider1("05", "00", "04");
 	setSlider2("05", "00", "07");
 	setSlider3("05", "00", "0A");

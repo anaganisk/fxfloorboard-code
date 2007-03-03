@@ -42,8 +42,8 @@
 				<DATA value="02" name="" abbr="" desc="Type">
 					<PARAM value="00" name="Boss Comp" desc="Boss Comp" longdesc="Boss Comp"/>
 					<PARAM value="01" name="D-Comp" desc="D-Comp" longdesc="D-Comp"/>
-					<PARAM value="01" name="Rack 160D" desc="Rack 160D" longdesc="Rack 160D"/>
-					<PARAM value="01" name="Vtg Rack U" desc="Vtg Rack U" longdesc="Vtg Rack U"/>
+					<PARAM value="02" name="Rack 160D" desc="Rack 160D" longdesc="Rack 160D"/>
+					<PARAM value="03" name="Vtg Rack U" desc="Vtg Rack U" longdesc="Vtg Rack U"/>
 				</DATA>
 				<DATA value="03" name="" abbr="" desc="Attack">
 					<PARAM value="range" name="00/64/00/100" desc=" %"/>
@@ -292,14 +292,14 @@
 				</DATA>
 			</LSB>
 		</LSB>
-		<LSB value="04" name="Pre-Amp/Spkr" abbr="PRE" desc="Address LSB" longdesc="">
+		<LSB value="04" name="PreAmp + Spkr Cab" abbr="PRE" desc="Address LSB" longdesc="">
 			<LSB value="00" name="" abbr="" desc="Address MSB" longdesc="">
-				<DATA value="00" name="" abbr="" desc="PRE :On/Off" longdesc="">
+				<DATA value="00" name="Pre-Amp" abbr="" desc="PRE :On/Off" longdesc="">
 					<PARAM value="00" name="Off" desc="" longdesc=""/>
 					<PARAM value="01" name="On" desc="" longdesc=""/>
 				</DATA>
-				<DATA value="01" name="" abbr="" desc="(Reserved)" longdesc=""/>
-				<DATA value="02" name="" abbr="" desc="PRE :PreAmp Type" longdesc="">
+				<DATA value="01" name="Pre-Amp" abbr="" desc="(Reserved)" longdesc=""/>
+				<DATA value="02" name="Pre-Amp" abbr="" desc="PRE :PreAmp Type" longdesc="">
 					<PARAM value="00" name="Flip Top" desc="Flip Top"/>
 					<PARAM value="01" name="B Man" desc="B Man"/>
 					<PARAM value="02" name="Bass 360" desc="Bass 360"/>
@@ -307,63 +307,63 @@
 					<PARAM value="04" name="Session" desc="Session"/>
 					<PARAM value="05" name="Concert 810" desc="Concert 810"/>
 				</DATA>
-				<DATA value="03" name="" abbr="" desc="PRE :Bright" longdesc="">
+				<DATA value="03" name="Pre-Amp" abbr="" desc="PRE :Bright" longdesc="">
 					<PARAM value="00" name="Off" desc="Off"/>
 					<PARAM value="01" name="On" desc="On"/>
 				</DATA>
-				<DATA value="04" name="" abbr="" desc="PRE :Deep" longdesc="">
+				<DATA value="04" name="Pre-Amp" abbr="" desc="PRE :Deep" longdesc="">
 					<PARAM value="00" name="Off" desc="Off"/>
 					<PARAM value="01" name="On" desc="On"/>
 				</DATA>
-				<DATA value="05" name="" abbr="" desc="PRE :Response" longdesc="">
+				<DATA value="05" name="Pre-Amp" abbr="" desc="PRE :Response" longdesc="">
 					<PARAM value="00" name="Bass" desc="Bass"/>
 					<PARAM value="01" name="Flat" desc="Flat"/>
 				</DATA>
-				<DATA value="06" name="" abbr="" desc="PRE :Enhancer" longdesc="">
+				<DATA value="06" name="Pre-Amp" abbr="" desc="PRE :Enhancer" longdesc="">
 					<PARAM value="range" name="00/64/00/100" desc=" %"/>
 				</DATA>
-				<DATA value="07" name="" abbr="" desc="PRE :Shape" longdesc="">
+				<DATA value="07" name="Pre-Amp" abbr="" desc="PRE :Shape" longdesc="">
 					<PARAM value="00" name="Off" desc="Off"/>
 					<PARAM value="01" name="1" desc="1"/>
 					<PARAM value="02" name="2" desc="2"/>
 				</DATA>
-				<DATA value="08" name="" abbr="" desc="PRE :Gain" longdesc="">
+				<DATA value="08" name="Pre-Amp" abbr="" desc="PRE :Gain" longdesc="">
 					<PARAM value="range" name="00/64/00/100" desc=" %" longdesc=""/>
 				</DATA>
-				<DATA value="09" name="" abbr="" desc="PRE :Treble" longdesc="">
+				<DATA value="09" name="Pre-Amp" abbr="" desc="PRE :Treble" longdesc="">
 					<PARAM value="range" name="00/64/-50/+50" desc=" %"/>
 				</DATA>
-				<DATA value="0A" name="" abbr="" desc="PRE :Ultra Hi" longdesc="">
+				<DATA value="0A" name="Pre-Amp" abbr="" desc="PRE :Ultra Hi" longdesc="">
 					<PARAM value="00" name="Off" desc="Off"/>
 					<PARAM value="01" name="On" desc="On"/>
 				</DATA>
-				<DATA value="0B" name="" abbr="" desc="PRE :Mid" longdesc="">
+				<DATA value="0B" name="Pre-Amp" abbr="" desc="PRE :Mid" longdesc="">
 					<PARAM value="range" name="00/64/-50/+50" desc=" %"/>
 				</DATA>
-				<DATA value="0C" name="" abbr="" desc="PRE :Mid Frequency" longdesc="">
+				<DATA value="0C" name="Pre-Amp" abbr="" desc="PRE :Mid Frequency" longdesc="">
 					<PARAM value="00" name="220 Hz" desc=""/>
 					<PARAM value="01" name="800 Hz" desc=""/>
 					<PARAM value="02" name="3.0 kHz" desc=""/>
 				</DATA>
-				<DATA value="0D" name="" abbr="" desc="PRE :Bass" longdesc="">
+				<DATA value="0D" name="Pre-Amp" abbr="" desc="PRE :Bass" longdesc="">
 					<PARAM value="range" name="00/64/-50/+50" desc=" %"/>
 				</DATA>
-				<DATA value="0E" name="" abbr="" desc="PRE :Ultra Low" longdesc="">
+				<DATA value="0E" name="Pre-Amp" abbr="" desc="PRE :Ultra Low" longdesc="">
 					<PARAM value="00" name="-"/>
 					<PARAM value="01" name="0"/>
 					<PARAM value="02" name="+"/>
 				</DATA>
-				<DATA value="0F" name="" abbr="" desc="PRE :Level" longdesc="">
+				<DATA value="0F" name="Pre-Amp" abbr="" desc="PRE :Level" longdesc="">
 					<PARAM value="range" name="00/64/00/100" desc=" %" longdesc=""/>
 				</DATA>
-				<DATA value="10" name="" abbr="" desc="SPKR :On/Off" longdesc="">
+				<DATA value="10" name="Speaker Cabnet" abbr="" desc="SPKR :On/Off" longdesc="">
 					<PARAM value="00" name="Off" desc=""/>
 					<PARAM value="01" name="On" desc=""/>
 				</DATA>
-				<DATA value="11" name="" abbr="" desc="SPK :(reserved)" longdesc="">
+				<DATA value="11" name="Speaker Cabnet" abbr="" desc="SPK :(reserved)" longdesc="">
 					<PARAM value="00" desc="" longdesc=""/>
 				</DATA>
-				<DATA value="12" name="" abbr="" desc="SPKR :Cabinet Type" longdesc="">
+				<DATA value="12" name="Speaker Cabnet" abbr="" desc="SPKR :Cabinet Type" longdesc="">
 					<PARAM value="00" name='1x15"' desc='1x15"'/>
 					<PARAM value="01" name='1x18"' desc='1x18"'/>
 					<PARAM value="02" name='2x15"' desc='2x15"'/>
@@ -371,18 +371,18 @@
 					<PARAM value="04" name='8x10"' desc='8x10"'/>
 					<PARAM value="05" name="Original" desc="Original"/>
 				</DATA>
-				<DATA value="13" name="" abbr="" desc="SPKR :Mic Setting" longdesc="">
+				<DATA value="13" name="Speaker Cabnet" abbr="" desc="SPKR :Mic Setting" longdesc="">
 					<PARAM value="00" name="Off Mic" desc="" longdesc=""/>
 					<PARAM value="01" name="On Mic" desc="" longdesc=""/>
 				</DATA>
-				<DATA value="14" name="" abbr="" desc="SPKR :Mic Level" longdesc="">
+				<DATA value="14" name="Speaker Cabnet" abbr="" desc="SPKR :Mic Level" longdesc="">
 					<PARAM value="00" name="Center" desc=""/>
 					<PARAM value="range" name="01/0A/01/10" desc=" cm"/>
 				</DATA>
-				<DATA value="15" name="" abbr="" desc="SPKR :Direct Level" longdesc="">
+				<DATA value="15" name="Speaker Cabnet" abbr="" desc="SPKR :Direct Level" longdesc="">
 					<PARAM value="range" name="00/64/00/100" desc=" %" longdesc=""/>
 				</DATA>
-				<DATA value="16" name="" abbr="" desc="SPKR :Link PreAmp" longdesc="">
+				<DATA value="16" name="Speaker Cabnet" abbr="" desc="SPKR :Link PreAmp" longdesc="">
 					<PARAM value="00" name="Off" desc=""/>
 					<PARAM value="01" name="On" desc=""/>
 				</DATA>
@@ -1279,7 +1279,7 @@
 				</DATA>
 			</LSB>
 		</LSB>
-		<LSB value="08" name="Delay" abbr="DD" desc="DD" longdesc="">
+		<LSB value="08" name="Delay/Rev/SoS" abbr="DD" desc="DD" longdesc="">
 			<LSB value="00" name="" abbr="" desc="Address MSB" longdesc="">
 				<DATA value="00" name="" abbr="" desc="On/Off" longdesc="">
 					<PARAM value="00" name="Off" desc="" longdesc=""/>

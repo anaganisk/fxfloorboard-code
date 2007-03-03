@@ -27,6 +27,7 @@ stompbox_ce::stompbox_ce(QWidget *parent)
 {
 	/* Chorus */
 	setImage(":/images/ce.png");
+	setLSB("07", "00");
 	setKnob1("07", "00", "03");
 	setKnob2("07", "00", "04");
 	setComboBox("07", "00", "02");
