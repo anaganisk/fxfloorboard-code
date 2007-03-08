@@ -36,6 +36,7 @@ SysxIO::SysxIO()
 	this->setDevice(false);
 	this->setDeviceReady(true);
 	this->setSyncStatus(false);
+	this->setNoError(true);
 	this->setBank(0);
 	this->setPatch(0);
 	this->setLoadedBank(0);
@@ -567,7 +568,7 @@ QString SysxIO::getRequestName()
 QString SysxIO::getPatchChangeMsg(int bank, int patch)
 {
 	int bankOffset = ((bank - 1) * patchPerBank) + (patch - 1);
-	int bankSize = 100; // Size of items that go in a bank ( != patch address wich equals 127 ).
+	int bankSize = 127; // Size of items that go in a bank ( != patch address wich equals 127 ).
 	int bankMsbNum = (int)(bankOffset / bankSize);
 	int programChangeNum = bankOffset - (bankSize * bankMsbNum);
 	QString bankMsb = QString::number(bankMsbNum, 16);
@@ -577,8 +578,8 @@ QString SysxIO::getPatchChangeMsg(int bank, int patch)
 	if (programChange.length() < 2) programChange.prepend("0");
 
 	QString midiMsg;
-	midiMsg.append("0x00"+bankMsb+"00B0");			// MSB		
-	midiMsg.append("0x000010B0");					// LSB -> not used!
+	//midiMsg.append("0x00"+bankMsb+"00B0");			// MSB		
+	//midiMsg.append("0x000010B0");					// LSB -> not used!
 	midiMsg.append("0x0000"+programChange+"C0");	// Program Controle
 
 	return midiMsg;

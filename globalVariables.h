@@ -55,7 +55,7 @@ const int sendTimeout = 25;			// Time (ms) the device needs to process a SYSEX m
 const int receiveTimeout = 100;		// Time (ms) we wait between SYSEX messages for the next one to be received.
 const int maxWait = 4;				// Maximum times we loop through the receive handel before we give up the waiting.
 const int minWait = 2;				// Minimum times we loop through the receive handel before we give up the waiting.
-const int maxRetry = 4;			// Maximum times we retry to load a patch in case of a transfer error .
+const int maxRetry = 2;			// Maximum times we retry to load a patch in case of a transfer error .
 
 /* Patch Sellection (Used when copying patches) */
 const int sellectionBlinks = 5;				// Times we blink to indicate we have sellected a patch before returning.

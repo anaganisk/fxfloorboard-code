@@ -337,44 +337,18 @@ QTreeWidget* bankTreeList::newTreeList()
 	user->setWhatsThis(0, "User Banks");
 	//user->setIcon(...);
 
-QList<QTreeWidgetItem *> userBankRanges;
-    for (int a=1; a<=10; a++)
+    QList<QTreeWidgetItem *> userBankRanges;
+    for (int a=1; a<=20; a++)
 	{
 		QTreeWidgetItem* bankRange = new QTreeWidgetItem; // don't pass a parent here!
-		bankRange->setText(0, QString::QString("Bank U ").append(QString::number(a, 10)).append(" - U ").append(QString::number(a-6, 10)) );
+		bankRange->setText(0, QString::QString("Bank U").append(QString::number(a, 10)).append(" - U").append(QString::number(a+4, 10)) );
 		bankRange->setWhatsThis(0, "");
 		//bankRange->setIcon(...);
 
 		for (int b=a; b<=(a+4); b++)
 		{
 			QTreeWidgetItem* bank = new QTreeWidgetItem(bankRange);
-			bank->setText(0, QString::QString("Bank U ").append(QString::number(b, 10)));
-			bank->setWhatsThis(0, "");
-			//bank->setIcon(...);
-
-			for (int c=1; c<=4; c++)
-			{
-				QTreeWidgetItem* patch = new QTreeWidgetItem(bank);
-				patch->setText(0, QString::QString("Patch ").append(QString::number(c, 10)));
-				patch->setWhatsThis(0, "");
-				//patch->setIcon(...);
-		  };
-		};
-		userBankRanges << bankRange;
-		a += 4;
-	};
-		  //QList<QTreeWidgetItem *> userBankRanges;
-    for (int a=11; a<=20; a++)
-	{
-		QTreeWidgetItem* bankRange = new QTreeWidgetItem; // don't pass a parent here!
-		bankRange->setText(0, QString::QString("Bank u ").append(QString::number(a-10, 10)).append(" - u ").append(QString::number(a-16, 10)) );
-		bankRange->setWhatsThis(0, "");
-		//bankRange->setIcon(...);
-
-		for (int b=a; b<=(a+4); b++)
-		{
-			QTreeWidgetItem* bank = new QTreeWidgetItem(bankRange);
-			bank->setText(0, QString::QString("Bank u ").append(QString::number(b-10, 10)));
+			bank->setText(0, QString::QString("Bank ").append(QString::number(b, 10)));
 			bank->setWhatsThis(0, "");
 			//bank->setIcon(...);
 
@@ -401,14 +375,14 @@ QList<QTreeWidgetItem *> userBankRanges;
     for (int a=21; a<=30; a++)
 	{
 		QTreeWidgetItem* bankRange = new QTreeWidgetItem; // don't pass a parent here!
-		bankRange->setText(0, QString::QString("Bank P ").append(QString::number(a-20, 10)).append(" - P ").append(QString::number(a-26, 10)) );
+		bankRange->setText(0, QString::QString("Bank P").append(QString::number(a-20, 10)).append(" - P").append(QString::number(a-16, 10)) );
 		bankRange->setWhatsThis(0, "");
 		//bankRange->setIcon(...);
 
 		for (int b=a; b<=(a+4); b++)
 		{
 			QTreeWidgetItem* bank = new QTreeWidgetItem(bankRange);
-			bank->setText(0, QString::QString("Bank P ").append(QString::number(b-20, 10)));
+			bank->setText(0, QString::QString("Bank P").append(QString::number(b, 10)));
 			bank->setWhatsThis(0, "");
 			//bank->setIcon(...);
 
@@ -561,7 +535,7 @@ void bankTreeList::updatePatch(QString replyMsg)
 	if(replyMsg != "" && replyMsg.size()/2 == 684)
 	{
 		sysxIO->setFileSource(replyMsg);		// Set the source to the data received.
-		sysxIO->setFileName(tr("GT6B patch"));	// Set the file name to GT6B patch forthe display.
+		sysxIO->setFileName(tr("GT-6B patch"));	// Set the file name to GT-6B patch for the display.
 		sysxIO->setDevice(true);				// Patch received from the device so this is set to true.
 		sysxIO->setSyncStatus(true);			// We can't be more in sync than right now! :)
 
@@ -664,9 +638,9 @@ void bankTreeList::updatePatchNames(QString name)
 		emit setStatusSymbol(3);
 		emit setStatusMessage(tr("Receiving"));
 
-		if(name != "") // If not empty we can asume that we did receive a patch name.
+		if(name == "") // cjw !=  If not empty we can asume that we did receive a patch name.
 		{
-			this->currentPatchTreeItems.at(listIndex)->child(itemIndex)->setText(0, name); // Set the patch name of the item in the tree list.
+			this->currentPatchTreeItems.at(listIndex)->child(itemIndex)->setText(0, "Hello");//cjw name); // Set the patch name of the item in the tree list.
 			if(itemIndex >= patchPerBank - 1) // If we reach the last patch in this bank we need to increment the bank and restart at patch 1.
 			{
 				this->listIndex++;

@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT6B Fx FloorBoard".
+** This file is part of "GT-8 Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -348,7 +348,7 @@ void midiIO::run()
 
 	/* Check if we are going to receive something on sending */
 	bool receive;
-	(this->sysxOutMsg.mid(11, 2) != "12")? receive = true: receive = false;
+	(this->sysxOutMsg.mid(12, 2) != "12")? receive = true: receive = false;
 
 	if(receive==true)
 	{
@@ -499,13 +499,13 @@ void midiIO::showErrorMsg(QString errorMsg, QString type)
 	QString windowTitle;
 	/*if(type == "out")
 	{
-		windowTitle = tr("GT6B Fx FloorBoard - Midi Output Error");
+		windowTitle = tr("GT-8 Fx FloorBoard - Midi Output Error");
 	}
 	else if(type == "in")
 	{
-		windowTitle = tr("GT6B Fx FloorBoard - Midi Input Error");
+		windowTitle = tr("GT-8 Fx FloorBoard - Midi Input Error");
 	};*/
-	windowTitle = tr("GT6B Fx FloorBoard");
+	windowTitle = tr("GT-8 Fx FloorBoard");
 
 	emit errorSignal(windowTitle, errorMsg);
 };

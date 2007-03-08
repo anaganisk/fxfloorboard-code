@@ -10,11 +10,11 @@
 		<Webpage url="http://fxfloorboard.sourceforge.net/"/>
 	</General>
 	<Midi>
-		<MidiIn device="0"/>
-		<MidiOut device="2"/>
+		<MidiIn device="1"/>
+		<MidiOut device="1"/>
 	</Midi>
 	<Window>
-		<Collapsed bool="false" defaultwidth="975" width=""/>
+		<Collapsed bool="true" defaultwidth="975" width=""/>
 		<Position x="" y=""/>
 		<Restore sidepanel="false" window="false"/>
 		<Size height="" minheight="548" minwidth="788" width=""/>

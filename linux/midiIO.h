@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT6B FX FloorBoard".
+** This file is part of "GT-8 FX FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -33,6 +33,7 @@ class midiIO: public QThread
 	Q_OBJECT
 
 public:
+	midiIO();
 	void run();
 	void sendSysxMsg(QString sysxOutMsg, int midiOut, int midiIn);
 	void sendMidi(QString midiMsg, int midiOut);
@@ -46,6 +47,10 @@ signals:
 	void started();
 	void finished();
 	void terminated();
+
+	void setStatusSymbol(int value);
+	void setStatusProgress(int value);
+    void setStatusMessage(QString message);
 
 private:
 	void queryMidiInDevices();
@@ -70,11 +75,11 @@ private:
 	static int count;
 	static unsigned char SysXBuffer[256];
 
+	bool multiple;
 	int midiOut;
 	int midiIn;
 	QString sysxOutMsg;
-	QString sysxInMsg;
-	bool multiple;
+	QString sysxInMsg;	
 };
 
 #endif // MIDIIO_H

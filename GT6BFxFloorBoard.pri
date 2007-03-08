@@ -22,29 +22,8 @@
 
 #Header files
 HEADERS += ./globalVariables.h \
-    ./stompBox.h \
-    ./stompbox_ce.h \
-    ./stompbox_cs.h \
-    ./stompbox_dd.h \
-    ./stompbox_eq.h \
-    ./stompbox_fv.h \
-    ./stompbox_fx1.h \
-    ./stompbox_fx2.h \
-    ./stompbox_ns.h \
-    ./stompbox_od.h \
-    ./stompbox_pre.h \
-    ./stompbox_rv.h \
-    ./stompbox_wah.h \
-    ./Preferences.h \
-    ./PreferencesDestroyer.h \
-    ./preferencesDialog.h \
-    ./preferencesPages.h \
-    ./MidiTable.h \
-    ./MidiTableDestroyer.h \
-    ./SysxIO.h \
-    ./SysxIODestroyer.h \
-    ./sysxWriter.h \
-    ./XMLWriter.h \
+    ./mainWindow.h \
+    ./renameDialog.h \
     ./bankTreeList.h \
     ./customButton.h \
     ./customDial.h \
@@ -57,35 +36,38 @@ HEADERS += ./globalVariables.h \
     ./floorBoardDisplay.h \
     ./floorPanelBar.h \
     ./floorPanelBarButton.h \
-    ./mainWindow.h \
+    ./renameWidget.h \
     ./statusBarSymbol.h \
-    ./statusBarWidget.h
+    ./statusBarWidget.h \
+    ./stompBox.h \
+    ./stompbox_ce.h \
+    ./stompbox_cs.h \
+    ./stompbox_dd.h \
+  #  ./stompbox_dgt.h \
+    ./stompbox_eq.h \
+    ./stompbox_fv.h \
+    ./stompbox_fx1.h \
+    ./stompbox_fx2.h \
+ #   ./stompbox_lp.h \
+    ./stompbox_ns.h \
+    ./stompbox_od.h \
+    ./stompbox_pre.h \
+    ./stompbox_rv.h \
+    ./stompbox_wah.h \
+    ./MidiTable.h \
+    ./MidiTableDestroyer.h \
+    ./SysxIO.h \
+    ./SysxIODestroyer.h \
+    ./sysxWriter.h \
+    ./XMLWriter.h \
+    ./Preferences.h \
+    ./PreferencesDestroyer.h \
+    ./preferencesDialog.h \
+    ./preferencesPages.h
 
 #Source files
 SOURCES += ./main.cpp \
-    ./stompBox.cpp \
-    ./stompbox_ce.cpp \
-    ./stompbox_cs.cpp \
-    ./stompbox_dd.cpp \
-    ./stompbox_eq.cpp \
-    ./stompbox_fv.cpp \
-    ./stompbox_fx1.cpp \
-    ./stompbox_fx2.cpp \
-    ./stompbox_ns.cpp \
-    ./stompbox_od.cpp \
-    ./stompbox_pre.cpp \
-    ./stompbox_rv.cpp \
-    ./stompbox_wah.cpp \
-    ./Preferences.cpp \
-    ./PreferencesDestroyer.cpp \
-    ./preferencesDialog.cpp \
-    ./preferencesPages.cpp \
-    ./MidiTable.cpp \
-    ./MidiTableDestroyer.cpp \
-    ./SysxIO.cpp \
-    ./SysxIODestroyer.cpp \
-    ./sysxWriter.cpp \
-    ./XMLWriter.cpp \
+    ./mainWindow.cpp \
     ./bankTreeList.cpp \
     ./customButton.cpp \
     ./customDial.cpp \
@@ -98,9 +80,35 @@ SOURCES += ./main.cpp \
     ./floorBoardDisplay.cpp \
     ./floorPanelBar.cpp \
     ./floorPanelBarButton.cpp \
-    ./mainWindow.cpp \
+    ./renameDialog.cpp \
+    ./renameWidget.cpp \
     ./statusBarSymbol.cpp \
-    ./statusBarWidget.cpp
+    ./statusBarWidget.cpp \
+    ./stompBox.cpp \
+    ./stompbox_ce.cpp \
+    ./stompbox_cs.cpp \
+    ./stompbox_dd.cpp \
+  #  ./stompbox_dgt.cpp \
+    ./stompbox_eq.cpp \
+    ./stompbox_fv.cpp \
+    ./stompbox_fx1.cpp \
+    ./stompbox_fx2.cpp \
+  #  ./stompbox_lp.cpp \
+    ./stompbox_ns.cpp \
+    ./stompbox_od.cpp \
+    ./stompbox_pre.cpp \
+    ./stompbox_rv.cpp \
+    ./stompbox_wah.cpp \
+    ./MidiTable.cpp \
+    ./MidiTableDestroyer.cpp \
+    ./SysxIO.cpp \
+    ./SysxIODestroyer.cpp \
+    ./sysxWriter.cpp \
+    ./XMLWriter.cpp \
+    ./Preferences.cpp \
+    ./PreferencesDestroyer.cpp \
+    ./preferencesDialog.cpp \
+    ./preferencesPages.cpp
 
 #Resource file(s)
-RESOURCES += ./GT6BFxFloorBoard.qrc
+RESOURCES += GT6BFxFloorBoard.qrc
