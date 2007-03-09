@@ -611,7 +611,7 @@ void SysxIO::finishedSending()
 	emit setStatusProgress(0);
 	emit setStatusMessage(tr("Ready"));*/
 
-	//this->namePatchChange();
+	this->namePatchChange();
 };
 
 /***************************** requestPatchChange() *************************
@@ -758,7 +758,7 @@ void SysxIO::returnPatchName(QString sysxMsg)
 	QString name; 
 	if(sysxMsg != "")
 	{		
-		MidiTable *midiTable = MidiTable::Instance();
+		/*MidiTable *midiTable = MidiTable::Instance();   cjw
 		 
 		int count = 0;
 		int dataStartOffset = sysxDataOffset;
@@ -772,13 +772,13 @@ void SysxIO::returnPatchName(QString sysxMsg)
 			hex4 = sysxMsg.mid(i, 2);;
 			name.append( midiTable->getValue("Stucture", hex1, hex2, hex3, hex4) );
 			i++;
-		};
+		}; */
 	};
-	emit patchName(name.trimmed());
+	emit patchName("name");//name.trimmed());     cjw    
 	/*emit setStatusSymbol(3);
 	emit setStatusProgress(0);
 	emit setStatusMessage("Receiving");*/
-};
+}; 
 
 /***************************** requestPatch() ******************************
 * Send a patch request. Result will be send directly with receiveSysx signal

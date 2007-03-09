@@ -580,7 +580,7 @@ void bankTreeList::connectedSignal()
 	SysxIO *sysxIO = SysxIO::Instance();
 	if(this->openPatchTreeItems.size() != 0 && sysxIO->deviceReady() && sysxIO->isConnected())
 	{
-		sysxIO->setDeviceReady(false);
+		 sysxIO->setDeviceReady(false);
 
 		this->listIndex = 0;
 		this->itemIndex = 0;
@@ -595,7 +595,7 @@ void bankTreeList::connectedSignal()
 		qSort(this->currentPatchTreeItems);
 
 		this->updatePatchNames("");
-	};
+	};  
 };
 
 /********************************** updateTree() ********************************
@@ -638,9 +638,9 @@ void bankTreeList::updatePatchNames(QString name)
 		emit setStatusSymbol(3);
 		emit setStatusMessage(tr("Receiving"));
 
-		if(name == "") // cjw !=  If not empty we can asume that we did receive a patch name.
+		if(name != "") // cjw !=  If not empty we can asume that we did receive a patch name.
 		{
-			this->currentPatchTreeItems.at(listIndex)->child(itemIndex)->setText(0, "Hello");//cjw name); // Set the patch name of the item in the tree list.
+			this->currentPatchTreeItems.at(listIndex)->child(itemIndex)->setText(0, name); // Set the patch name of the item in the tree list.
 			if(itemIndex >= patchPerBank - 1) // If we reach the last patch in this bank we need to increment the bank and restart at patch 1.
 			{
 				this->listIndex++;

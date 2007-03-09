@@ -550,7 +550,7 @@ void floorBoardDisplay::connectionResult(QString sysxMsg)
 			msgBox->setTextFormat(Qt::RichText);
 			QString msgText;
 			msgText.append("<font size='+1'><b>");
-			msgText.append(tr("The device connected is not a Boss GT6B Bass Effects Processor."));
+			msgText.append(tr("The device connected is not a Boss GT-6B Bass Effects Processor."));
 			msgText.append("<b></font>");
 			msgBox->setText(msgText);
 			msgBox->setStandardButtons(QMessageBox::Ok);
@@ -572,7 +572,9 @@ void floorBoardDisplay::connectionResult(QString sysxMsg)
 			msgBox->setTextFormat(Qt::RichText);
 			QString msgText;
 			msgText.append("<font size='+1'><b>");
-			msgText.append(tr("The Boss GT6B Bass Effects Processor was not found."));
+			msgText.append(tr("The Boss GT-6B Bass Effects Processor was not found."));
+			msgText.append("<b></font><br>");
+			msgText.append(tr("Ensure the GT-6B is selected to Bulk Load for data retrival."));
 			msgText.append("<b></font>");
 			msgBox->setText(msgText);
 			msgBox->setStandardButtons(QMessageBox::Ok);
