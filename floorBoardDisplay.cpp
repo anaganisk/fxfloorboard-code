@@ -56,7 +56,7 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
 	this->fontDisplay = fontDisplay;
 
 	QTextEdit *patchNumDisplay = new QTextEdit(this);
-	patchNumDisplay->setGeometry(25, 5, 50, 34);
+	patchNumDisplay->setGeometry(17, 5, 55, 34);
 	patchNumDisplay->setFont(fontDisplay);
 	patchNumDisplay->setPalette(pal);
 	patchNumDisplay->setReadOnly(true);
@@ -71,7 +71,7 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
 	this->patchNumDisplay = patchNumDisplay;
 
 	QTextEdit *patchDisplay = new QTextEdit(this);
-	patchDisplay->setGeometry(85, 5, 150, 34);
+	patchDisplay->setGeometry(82, 5, 156, 34);
 	patchDisplay->setFont(fontDisplay);
 	patchDisplay->setPalette(pal);
 	patchDisplay->setReadOnly(true);
@@ -92,7 +92,7 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
 	str.append("<html><body>");
 	str.append("<table width='143' cellspacing='0' cellpadding='0' border='0'><tr><td align='center'>");
 	str.append("<table width='140' cellspacing='0' cellpadding='0' border='0'><tr><td colspan='2' align='left'>");
-	str.append("GT6B Fx FloorBoard");
+	str.append("GT-6B Fx FloorBoard");
 	str.append("</td></tr><tr><td align='left' valign='top'><font size='-1'>");
 	str.append(tr("version"));
 	str.append("</font></td><td align='right' valign='top'><font size='-1'>");
@@ -204,7 +204,7 @@ void floorBoardDisplay::setPatchDisplay(QString patchName)
 			if(this->patchLoadError)
 			{
 				QMessageBox *msgBox = new QMessageBox();
-				msgBox->setWindowTitle(tr("GT6B Fx FloorBoard"));
+				msgBox->setWindowTitle(tr("GT-6B Fx FloorBoard"));
 				msgBox->setIcon(QMessageBox::Warning);
 				msgBox->setTextFormat(Qt::RichText);
 				QString msgText;
@@ -246,11 +246,20 @@ void floorBoardDisplay::setPatchNumDisplay(int bank, int patch)
 		str.append("<table cellspacing='0' cellpadding='0' border='0'><tr>");
 		str.append("<td align='right' valign='middle'>");
 		str.append("<font "+color+"size='+2'>");
-		if(bank < 10)
-		{
-			str.append("0");
-		};
-		str.append(QString::number(bank, 10));
+		if(bank < 11)
+		{ str.append("U"); }
+		else if(bank < 21)
+		{ str.append("u"); }
+		else 
+		{ str.append("P"); };
+		if (bank < 10)
+		{str.append(QString::number(bank, 10));}
+		else if (bank < 20)
+		{str.append(QString::number(bank-10, 10));}
+	    else if (bank < 30)
+		{str.append(QString::number(bank-20, 10));}
+		else 
+		{str.append(QString::number(bank-30, 10));};
 		str.append("</font>");
 		str.append("</td><td align='center' valign='middle'>");
 		str.append("<font "+color+"size='+1'>");
@@ -545,7 +554,7 @@ void floorBoardDisplay::connectionResult(QString sysxMsg)
 			emit setStatusMessage(tr("Not connected"));
 
 			QMessageBox *msgBox = new QMessageBox();
-			msgBox->setWindowTitle(tr("GT6B Fx FloorBoard"));
+			msgBox->setWindowTitle(tr("GT-6B Fx FloorBoard"));
 			msgBox->setIcon(QMessageBox::Warning);
 			msgBox->setTextFormat(Qt::RichText);
 			QString msgText;
@@ -567,7 +576,7 @@ void floorBoardDisplay::connectionResult(QString sysxMsg)
 			emit setStatusMessage(tr("Not connected"));
 
 			QMessageBox *msgBox = new QMessageBox();
-			msgBox->setWindowTitle(tr("GT6B Fx FloorBoard"));
+			msgBox->setWindowTitle(tr("GT-6B Fx FloorBoard"));
 			msgBox->setIcon(QMessageBox::Warning);
 			msgBox->setTextFormat(Qt::RichText);
 			QString msgText;
@@ -598,7 +607,7 @@ void floorBoardDisplay::writeSignal(bool value)
 		if(sysxIO->getBank() == 0) /* Check if a bank is sellected. */
 		{
 			QMessageBox *msgBox = new QMessageBox();
-			msgBox->setWindowTitle(tr("GT6B Fx FloorBoard"));
+			msgBox->setWindowTitle(tr("GT-6B Fx FloorBoard"));
 			msgBox->setIcon(QMessageBox::Warning);
 			msgBox->setTextFormat(Qt::RichText);
 			QString msgText;
@@ -617,7 +626,7 @@ void floorBoardDisplay::writeSignal(bool value)
 			sysxIO->setDeviceReady(false);			// Reserve the device for interaction.
 
 			if(!sysxIO->getSyncStatus())			// Check if the data is allready in sync. with the device.
-			{	/* If not we send the data to the (temp) buffer. So we don't change the patch default address "0D 00". */
+			{	/* If not we send the data to the (temp) buffer. So we don't change the patch default address "0B 00". */
 
 				
 				if(sysxIO->getBank() != sysxIO->getLoadedBank() || sysxIO->getPatch() != sysxIO->getLoadedPatch())// Check if a different patch is sellected
@@ -648,7 +657,7 @@ void floorBoardDisplay::writeSignal(bool value)
 				if(sysxIO->getBank() > bankTotalUser) // Preset banks are NOT writable so we check.
 				{
 					QMessageBox *msgBox = new QMessageBox();
-					msgBox->setWindowTitle(tr("GT6B Fx FloorBoard"));
+					msgBox->setWindowTitle(tr("GT-6B Fx FloorBoard"));
 					msgBox->setIcon(QMessageBox::Warning);
 					msgBox->setTextFormat(Qt::RichText);
 					QString msgText;
@@ -666,7 +675,7 @@ void floorBoardDisplay::writeSignal(bool value)
 				else /* User bank so we can write to it after confirmation to overwrite stored data. */
 				{
 					QMessageBox *msgBox = new QMessageBox();
-					msgBox->setWindowTitle(tr("GT6B Fx FloorBoard"));
+					msgBox->setWindowTitle(tr("GT-6B Fx FloorBoard"));
 					msgBox->setIcon(QMessageBox::Warning);
 					msgBox->setTextFormat(Qt::RichText);
 					QString msgText;
@@ -674,7 +683,7 @@ void floorBoardDisplay::writeSignal(bool value)
 					msgText.append(tr("You have chosen to write the patch permanently into memory."));
 					msgText.append("<b></font><br>");
 					msgText.append(tr("This will overwrite the patch currently stored at this location\n"
-						"and can't be undone."));
+						"and can't be undone.------- Ensure Bulk Load Mode is selected"));
 					msgBox->setInformativeText(tr("Are you sure you want to continue?"));
 					msgBox->setText(msgText);
 					msgBox->setStandardButtons(QMessageBox::Yes | QMessageBox::No);
@@ -780,7 +789,7 @@ void floorBoardDisplay::writeToMemory()
 	int addrMaxSize = QString("80").toInt(&ok, 16);
 	int n = (int)(patchOffset / addrMaxSize);
 	
-	QString addr1 = QString::number(8 + n, 16).toUpper();
+	QString addr1 = QString::number(6 + n, 16).toUpper();
 	QString addr2 = QString::number(patchOffset - (addrMaxSize * n), 16).toUpper();
 	
 	for(int i=0;i<patchData.size();++i)

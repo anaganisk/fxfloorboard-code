@@ -171,7 +171,7 @@ void Preferences::savePreferences()
 
 	QMap<QString, QString> attrs;
 
-	xout.writeComment("Preferences of the GT6B Fx FloorBoard application.");
+	xout.writeComment("Preferences of the GT-6B Fx FloorBoard application.");
 	xout.writeOpenTag("Preferences");
 
 	unsigned int aSize = this->metaSearch.size();

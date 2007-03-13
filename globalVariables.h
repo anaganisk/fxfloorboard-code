@@ -35,7 +35,7 @@
 
 /* General Parameters */
 const QString idRequestString = "F041000050110000000000000001F7";		// Indentity Request (GT6B).
-const QString idReplyPatern = "F0410000501200000000";			// Returned device id message must contain/match this (QRegExp or a string without spaces and all caps).
+const QString idReplyPatern = "";//"F0410000501200000000";			// Returned device id message must contain/match this (QRegExp or a string without spaces and all caps).
 const int buttonBlinkInterval = 250;				// The interval (ms) the led on buttons blink.
 
 /* Sysex Message Parameters */

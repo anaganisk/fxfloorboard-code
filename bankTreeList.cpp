@@ -341,12 +341,20 @@ QTreeWidget* bankTreeList::newTreeList()
     for (int a=1; a<=20; a++)
 	{
 		QTreeWidgetItem* bankRange = new QTreeWidgetItem; // don't pass a parent here!
-		bankRange->setText(0, QString::QString("Bank U").append(QString::number(a, 10)).append(" - U").append(QString::number(a+4, 10)) );
+		if (a<=5)
+		{bankRange->setText(0, QString::QString("Bank U1-U5"));}
+		else if (a<=10)
+		{bankRange->setText(0, QString::QString("Bank U6-U0"));}
+		else if (a<=15)
+		{bankRange->setText(0, QString::QString("Bank u1-u5"));}
+		else
+		{bankRange->setText(0, QString::QString("Bank u6-u0"));};
 		bankRange->setWhatsThis(0, "");
 		//bankRange->setIcon(...);
 
 		for (int b=a; b<=(a+4); b++)
-		{
+		//for (int d=b; d<=b;)
+				{
 			QTreeWidgetItem* bank = new QTreeWidgetItem(bankRange);
 			bank->setText(0, QString::QString("Bank ").append(QString::number(b, 10)));
 			bank->setWhatsThis(0, "");
@@ -359,10 +367,10 @@ QTreeWidget* bankTreeList::newTreeList()
 				patch->setWhatsThis(0, "");
 				//patch->setIcon(...);
 			};
-		};
+		}; 
 		userBankRanges << bankRange;
 		a += 4;
-	};
+		};
 	user->addChildren(userBankRanges);
 
 
@@ -375,14 +383,14 @@ QTreeWidget* bankTreeList::newTreeList()
     for (int a=21; a<=30; a++)
 	{
 		QTreeWidgetItem* bankRange = new QTreeWidgetItem; // don't pass a parent here!
-		bankRange->setText(0, QString::QString("Bank P").append(QString::number(a-20, 10)).append(" - P").append(QString::number(a-16, 10)) );
+		bankRange->setText(0, QString::QString("Bank P").append(QString::number(a, 10)).append("-P").append(QString::number(a+4, 10)) );
 		bankRange->setWhatsThis(0, "");
 		//bankRange->setIcon(...);
 
 		for (int b=a; b<=(a+4); b++)
 		{
 			QTreeWidgetItem* bank = new QTreeWidgetItem(bankRange);
-			bank->setText(0, QString::QString("Bank P").append(QString::number(b, 10)));
+			bank->setText(0, QString::QString("Bank ").append(QString::number(b, 10)));
 			bank->setWhatsThis(0, "");
 			//bank->setIcon(...);
 
@@ -532,7 +540,7 @@ void bankTreeList::updatePatch(QString replyMsg)
 		this, SLOT(updatePatch(QString)));		
 	
 	replyMsg = replyMsg.remove(" ").toUpper();
-	if(replyMsg != "" && replyMsg.size()/2 == 684)
+	if(replyMsg == "" )//&& replyMsg.size()/2 == 684) // cjw
 	{
 		sysxIO->setFileSource(replyMsg);		// Set the source to the data received.
 		sysxIO->setFileName(tr("GT-6B patch"));	// Set the file name to GT-6B patch for the display.

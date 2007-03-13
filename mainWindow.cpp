@@ -37,7 +37,7 @@ mainWindow::mainWindow(QWidget *parent)
 {
 	fxsBoard = new floorBoard(this);
 	
-	this->setWindowTitle("GT6B Fx FloorBoard");
+	this->setWindowTitle("GT-6B Fx FloorBoard");
 	//this->setCentralWidget(fxsBoard);
 	
 	this->createActions();
@@ -127,12 +127,12 @@ void mainWindow::createActions()
 	settingsAct->setStatusTip(tr("...."));
 	connect(settingsAct, SIGNAL(triggered()), this, SLOT(settings()));
 
-	helpAct = new QAction(/*QIcon(":/images/help.png"),*/ tr("GT6B Fx FloorBoard &Help"), this);
+	helpAct = new QAction(/*QIcon(":/images/help.png"),*/ tr("GT-6B Fx FloorBoard &Help"), this);
 	helpAct->setShortcut(tr("Ctrl+F1"));
 	helpAct->setStatusTip(tr("....."));
 	connect(helpAct, SIGNAL(triggered()), this, SLOT(help()));
 
-	homepageAct = new QAction(/*QIcon(":/images/home.png"),*/ tr("GT6B Fx FloorBoard &Webpage"), this);
+	homepageAct = new QAction(/*QIcon(":/images/home.png"),*/ tr("GT-6B Fx FloorBoard &Webpage"), this);
 	homepageAct->setStatusTip(tr("........"));
 	connect(homepageAct, SIGNAL(triggered()), this, SLOT(homepage()));
 
@@ -361,8 +361,8 @@ void mainWindow::about()
 	QFile file(":about"); 
 	if(file.open(QIODevice::ReadOnly))
 	{	
-		QMessageBox::about(this, tr("GT6B Fx FloorBoard - About"), 
-			"GT6B Fx FloorBoard, " + tr("version") + " " + version + "\n" + file.readAll());
+		QMessageBox::about(this, tr("GT-6B Fx FloorBoard - About"), 
+			"GT-6B Fx FloorBoard, " + tr("version") + " " + version + "\n" + file.readAll());
 	};
 };
 
