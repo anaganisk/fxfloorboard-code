@@ -24,6 +24,7 @@
 #include <QFile>
 #include <QDir>
 #include <QRegExp>
+#include <QChar>
 #include "floorBoardDisplay.h"
 #include "Preferences.h"
 #include "MidiTable.h"
@@ -213,8 +214,8 @@ void floorBoardDisplay::setPatchDisplay(QString patchName)
 				msgText.append("<b></font><br>");
 				msgText.append(tr("An incorrect patch has been loaded. Please try to load the patch again."));
 				msgBox->setText(msgText);
-				msgBox->setInformativeText(tr("This is a known bug, it occures when changing the bank 'LSB'.\n"
-					"For an unkown reason it didn't change."));
+				/*msgBox->setInformativeText(tr("This is a known bug, it occures when changing the bank 'LSB'.\n"
+					"For an unkown reason it didn't change."));*/
 				msgBox->setStandardButtons(QMessageBox::Ok);
 				msgBox->exec();
 
@@ -284,14 +285,30 @@ void floorBoardDisplay::updateDisplay()
 	SysxIO *sysxIO = SysxIO::Instance();
 	QList<QString> nameArray = sysxIO->getFileSource("0B", "00");
 
-	MidiTable *midiTable = MidiTable::Instance();
-	QString patchName;
+	//MidiTable *midiTable = MidiTable::Instance();
+	QString name;
 	for(int i=sysxDataOffset;i<nameArray.size() - 2;i++ )
-	{
-		patchName.append( midiTable->getMidiMap("Stucture", "0B", "00", "00", nameArray.at(i)).name);
-	};	
+		{
+		//name.append( midiTable->getMidiMap("Stucture", "0B", "00", "00", nameArray.at(i)).name );
 
-	patchName = patchName.trimmed();
+		QString hexStr = nameArray.at(i);
+		if(hexStr == "7E")
+		{
+			name.append((QChar)(0x2192));
+		}
+		else if (hexStr == "7F")
+		{
+			name.append((QChar)(0x2190));
+		}
+		else
+	{
+		bool ok;
+		name.append( (char)(hexStr.toInt(&ok, 16)) );
+	 };
+  };	
+
+	QString patchName = name.trimmed();
+	sysxIO->setCurrentPatchName(patchName);
 	if(sysxIO->getRequestName().trimmed() != patchName.trimmed())
 	{
 		this->patchLoadError = true;
@@ -301,13 +318,19 @@ void floorBoardDisplay::updateDisplay()
 		this->patchLoadError = false;
 	};
 
-	patchName.replace("<", "&lt;");
-	patchName.replace(">", "&gt;");
+	//patchName.replace("<", "&lt;");
+	//patchName.replace(">", "&gt;");
 	int maxWidth = patchDisplay->width() - 2;
 	int nameWidth = QFontMetrics(fontDisplay).width(patchName);
 
-	patchName.replace("&lt;", "<font face='Verdana'>&lt;</font>");
-	patchName.replace("&gt;", "<font face='Verdana'>&gt;</font>");
+	QString replace1 = (QChar)(0x2192);
+	replace1.prepend("<font face='Lucida Console,Arial, Verdana'>");
+	replace1.append("</font>");
+	QString replace2 = (QChar)(0x2190);
+	replace2.prepend("<font face='Lucida Console,Arial, Verdana'>");
+	replace2.append("</font>");
+	patchName.replace((QChar)(0x2192), replace1);
+	patchName.replace((QChar)(0x2190), replace2);
 	patchName.replace("-", "<font face='Verdana'>-</font>");
 
 	if(nameWidth > maxWidth)
@@ -534,8 +557,8 @@ void floorBoardDisplay::connectionResult(QString sysxMsg)
 			emit connectedSignal();
 
 			emit setStatusSymbol(1);
-			emit setStatusProgress(0);
 			emit setStatusMessage(tr("Ready"));
+			emit setStatusProgress(0);
 
 			if(sysxIO->getBank() != 0)
 			{
@@ -545,13 +568,15 @@ void floorBoardDisplay::connectionResult(QString sysxMsg)
 		}
 		else if(!sysxMsg.isEmpty())
 		{
-			this->connectButton->setBlink(false);
+			/*this->connectButton->setBlink(false);
 			this->connectButton->setValue(false);
 			sysxIO->setConnected(false);
 
 			emit setStatusSymbol(0);
 			emit setStatusProgress(0);
-			emit setStatusMessage(tr("Not connected"));
+			emit setStatusMessage(tr("Not connected"));*/
+			
+      notConnected();
 
 			QMessageBox *msgBox = new QMessageBox();
 			msgBox->setWindowTitle(tr("GT-6B Fx FloorBoard"));
@@ -567,13 +592,15 @@ void floorBoardDisplay::connectionResult(QString sysxMsg)
 		}
 		else
 		{
-			this->connectButton->setBlink(false);
+			/*this->connectButton->setBlink(false);
 			this->connectButton->setValue(false);
 			sysxIO->setConnected(false);
 
 			emit setStatusSymbol(0);
 			emit setStatusProgress(0);
-			emit setStatusMessage(tr("Not connected"));
+			emit setStatusMessage(tr("Not connected"));*/
+			
+			notConnected();
 
 			QMessageBox *msgBox = new QMessageBox();
 			msgBox->setWindowTitle(tr("GT-6B Fx FloorBoard"));
@@ -599,11 +626,13 @@ void floorBoardDisplay::connectionResult(QString sysxMsg)
 
 void floorBoardDisplay::writeSignal(bool value)
 {
+	value; // not used;
 	
 	SysxIO *sysxIO = SysxIO::Instance();
 	if(sysxIO->isConnected() && sysxIO->deviceReady()) /* Check if we are connected and if the device is free. */
 	{
 	 this->writeButton->setBlink(true);
+	 
 		if(sysxIO->getBank() == 0) /* Check if a bank is sellected. */
 		{
 			QMessageBox *msgBox = new QMessageBox();
@@ -632,7 +661,7 @@ void floorBoardDisplay::writeSignal(bool value)
 				if(sysxIO->getBank() != sysxIO->getLoadedBank() || sysxIO->getPatch() != sysxIO->getLoadedPatch())// Check if a different patch is sellected
 				{															// else load the selected one.
 					emit setStatusSymbol(2);
-					emit setStatusProgress(0);
+					//emit setStatusProgress(0);
 					emit setStatusMessage("Sending");
 					
 					int bank = sysxIO->getBank();
@@ -731,9 +760,7 @@ else if(sysxIO->isConnected() != true) /* We are NOT connected */
                 else /* The device was NOT free. */ 
            { 
                    //emit notConnected(); 
-
 	};
-
 };
 
 void floorBoardDisplay::writeToBuffer() 
@@ -747,7 +774,7 @@ void floorBoardDisplay::writeToBuffer()
 	QList<QString> patchAddress = sysxIO->getFileSource().address;
 
 	emit setStatusSymbol(2);
-	emit setStatusProgress(0);
+	//emit setStatusProgress(0);
 	emit setStatusMessage(tr("Sending"));
 
 	for(int i=0;i<patchData.size();++i) // Prepare the data to be send at ones.
@@ -777,7 +804,7 @@ void floorBoardDisplay::writeToMemory()
 	QList<QString> patchAddress = sysxIO->getFileSource().address;
 
 	emit setStatusSymbol(2);
-	emit setStatusProgress(0);
+	//emit setStatusProgress(0);
 	emit setStatusMessage(tr("Sending"));
 
 	int bank = sysxIO->getBank();
@@ -837,6 +864,7 @@ void floorBoardDisplay::resetDevice(QString replyMsg)
 	SysxIO *sysxIO = SysxIO::Instance();
 	QObject::disconnect(sysxIO, SIGNAL(sysxReply(QString)),	
 				this, SLOT(resetDevice(QString)));
+				
 				          if(sysxIO->getBank() != sysxIO->getLoadedBank() || sysxIO->getPatch() != sysxIO->getLoadedPatch()) 
                              { 
                    sysxIO->setLoadedBank(sysxIO->getBank()); 

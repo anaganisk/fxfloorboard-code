@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT6B Fx FloorBoard".
+** This file is part of "GT-8 Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -74,6 +74,8 @@ public:
 	void setRequestName(QString requestName);
 	QString getRequestName();
 	QString getPatchChangeMsg(int bank, int patch);
+	void setCurrentPatchName(QString patchName);
+	QString getCurrentPatchName();
 
 	void sendMidi(QString midiMsg);
 	void sendSysx(QString sysxMsg);
@@ -83,6 +85,10 @@ public:
 
 	bool noError();
 	void setNoError(bool status);
+
+	void emitStatusSymbol(int value);
+	void emitStatusProgress(int value);
+    void emitStatusMessage(QString message);
 
 public slots:
 	void errorSignal(QString windowTitle, QString errorMsg);
@@ -138,6 +144,7 @@ private:
 	int changeCount;
 
 	QString requestName;
+	QString currentName;
 	QList<QString> sendSpooler;
 };
 

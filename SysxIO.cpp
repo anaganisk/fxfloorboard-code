@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT6B Fx FloorBoard".
+** This file is part of "GT-6B Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -102,7 +102,7 @@ void SysxIO::setFileSource(QByteArray data)
 				QString errorString;
 				errorString.append(tr("Address") + ": ");
 				errorString.append(sysxBuffer.at(sysxAddressOffset) + " ");
-				errorString.append(sysxBuffer.at(sysxAddressOffset +1) + " ");
+				errorString.append(sysxBuffer.at(sysxAddressOffset + 1) + " ");
 				errorString.append(sysxBuffer.at(sysxAddressOffset + 2) + " ");
 				errorString.append(sysxBuffer.at(sysxAddressOffset + 3) + " - ");
 				errorString.append(tr("checksum") + " (" + checksum + ") ");
@@ -127,8 +127,8 @@ void SysxIO::setFileSource(QByteArray data)
 	if(!errorList.isEmpty())
 	{
 		QMessageBox *msgBox = new QMessageBox();
-		//msgBox->setWindowTitle(tr("GT6B Fx FloorBoard - Checksum Error"));
-		msgBox->setWindowTitle(tr("GT6B Fx FloorBoard"));
+		//msgBox->setWindowTitle(tr("GT-6B Fx FloorBoard - Checksum Error"));
+		msgBox->setWindowTitle(tr("GT-6B Fx FloorBoard"));
 		msgBox->setIcon(QMessageBox::Warning);
 		msgBox->setTextFormat(Qt::RichText);
 		QString msgText;
@@ -136,9 +136,9 @@ void SysxIO::setFileSource(QByteArray data)
 		msgText.append(tr("The file opened contains one or more incorrect checksums."));
 		msgText.append("<b></font><br>");
 		msgText.append(tr("The incorrect values have been corrected where possible.\n" 
-			"If correction was inpossible then some settings might have been reset to zero."));
+			"If correction was impossible then some settings might have been reset to zero."));
 		msgBox->setText(msgText);
-		msgBox->setInformativeText(tr("Please verify the patch settings for consistency."));
+		msgBox->setInformativeText(tr("Be aware of possible inconsistencies in this patch!"));
 		msgBox->setDetailedText(errorList);
 		msgBox->setStandardButtons(QMessageBox::Ok);
 		msgBox->exec();
@@ -193,7 +193,7 @@ void SysxIO::setFileSource(QString hex1, QString hex2, QString hex3, QString hex
 		this->setDeviceReady(false);
 
 		emit setStatusSymbol(2);
-		emit setStatusProgress(0);
+		//emit setStatusProgress(0);
 		emit setStatusMessage("Sending");
 
 		QObject::connect(this, SIGNAL(sysxReply(QString)),	
@@ -235,7 +235,7 @@ void SysxIO::setFileSource(QString hex1, QString hex2, QString hex3, QString hex
 		this->setDeviceReady(false);
 
 		emit setStatusSymbol(2);
-		emit setStatusProgress(0);
+		//emit setStatusProgress(0);
 		emit setStatusMessage("Sending");
 
 		QObject::connect(this, SIGNAL(sysxReply(QString)),	
@@ -284,7 +284,7 @@ void SysxIO::setFileSource(QString hex1, QString hex2, QList<QString> hexData)
 			this->setDeviceReady(false);
 
 			emit setStatusSymbol(2);
-			emit setStatusProgress(0);
+			//emit setStatusProgress(0);
 			emit setStatusMessage("Sending");
 
 			QObject::connect(this, SIGNAL(sysxReply(QString)),	
@@ -313,8 +313,8 @@ void SysxIO::resetDevice(QString replyMsg)
 		this->setDeviceReady(true);	// Free the device after finishing interaction.
 
 		emit setStatusSymbol(1);
-		emit setStatusProgress(0);
 		emit setStatusMessage("Ready");
+		emit setStatusProgress(0);
 	}
 	else
 	{
@@ -324,7 +324,7 @@ void SysxIO::resetDevice(QString replyMsg)
 
 /************************ processSpooler() ******************************
 * Send message that are in the spooler due to that the device was busy.
-* And eliminates multiple messages where only the valye changes.
+* And eliminates multiple messages where only the value changes.
 **********************************************************************/
 void SysxIO::processSpooler() 
 {
@@ -405,7 +405,7 @@ QList<QString> SysxIO::correctSysxMsg(QList<QString> sysxMsg)
 	MidiTable *midiTable = MidiTable::Instance();
 	for(int i=sysxDataOffset;i<sysxMsg.size() - 3;i++)
 	{
-		if(i==sysxDataOffset + 1) i++; // is reserved memmory address on the GT6B so we skip it.
+		if(i==sysxDataOffset + 1) i++; // is reserved memmory address on the GT-6B so we skip it.
 		
 		QString address3 = QString::number(i - sysxDataOffset, 16).toUpper();
 		if(address3.length()<2) address3.prepend("0");
@@ -554,7 +554,7 @@ void SysxIO::setRequestName(QString requestName)
 	this->requestName = requestName;	
 };
 
-/*********************** getRequestName() ***********************************
+/*********************** returnRequestName() ***********************************
 * Return the name for check of the patch that should have been loaded.
 ***************************************************************************/
 QString SysxIO::getRequestName()
@@ -611,7 +611,7 @@ void SysxIO::finishedSending()
 	emit setStatusProgress(0);
 	emit setStatusMessage(tr("Ready"));*/
 
-	this->namePatchChange();
+	//this->namePatchChange();  //cjw
 };
 
 /***************************** requestPatchChange() *************************
@@ -671,7 +671,7 @@ void SysxIO::checkPatchChange(QString name)
 			this->requestPatchChange(bankChange, patchChange);
 
 			emit setStatusSymbol(2);
-			emit setStatusProgress(0);
+			
 			emit setStatusMessage("Sending");
 		}
 		else
@@ -682,15 +682,15 @@ void SysxIO::checkPatchChange(QString name)
 			this->setDeviceReady(true); // Free the device after finishing interaction.
 			
 			emit setStatusSymbol(1);
-			emit setStatusProgress(0);
 			emit setStatusMessage(tr("Ready"));	
+			emit setStatusProgress(0);
 
 			emit patchChangeFailed();
 
 			QApplication::beep();
 
 			/*QMessageBox *msgBox = new QMessageBox();
-			msgBox->setWindowTitle(tr("GT6B Fx FloorBoard"));
+			msgBox->setWindowTitle(tr("GT-8 Fx FloorBoard"));
 			msgBox->setIcon(QMessageBox::Warning);
 			msgBox->setTextFormat(Qt::RichText);
 			QString msgText;
@@ -758,27 +758,43 @@ void SysxIO::returnPatchName(QString sysxMsg)
 	QString name; 
 	if(sysxMsg != "")
 	{		
-		/*MidiTable *midiTable = MidiTable::Instance();   cjw
+		//MidiTable *midiTable = MidiTable::Instance();    
 		 
-		int count = 0;
+		//int count = 0;
 		int dataStartOffset = sysxDataOffset;
 		QString hex1, hex2, hex3, hex4;
 		for(int i=dataStartOffset*2; i<sysxMsg.size()-(2*2);++i)
 		{
-			hex1 = sysxMsg.mid((sysxAddressOffset + 2)*2, 2);
+			/*hex1 = sysxMsg.mid((sysxAddressOffset + 2)*2, 2);
 			hex2 = sysxMsg.mid((sysxAddressOffset + 3)*2, 2);
 			hex3 = QString::number(count, 16).toUpper();
 			if (hex3.length() < 2) hex3.prepend("0");
-			hex4 = sysxMsg.mid(i, 2);;
-			name.append( midiTable->getValue("Stucture", hex1, hex2, hex3, hex4) );
+			hex4 = sysxMsg.mid(i, 2);
+			name.append( midiTable->getValue("Stucture", hex1, hex2, hex3, hex4) );*/
+
+			QString hexStr = sysxMsg.mid(i, 2);
+			if(hexStr == "7E")
+			{
+				name.append((QChar)(0x2192));
+			}
+			else if (hexStr == "7F")
+			{
+				name.append((QChar)(0x2190));
+			}
+			else
+			{
+				bool ok;
+				name.append( (char)(hexStr.toInt(&ok, 16)) );
+			};
+
 			i++;
-		}; */
+		};
 	};
-	emit patchName("name");//name.trimmed());     cjw    
+	emit patchName(name.trimmed());
 	/*emit setStatusSymbol(3);
 	emit setStatusProgress(0);
 	emit setStatusMessage("Receiving");*/
-}; 
+};
 
 /***************************** requestPatch() ******************************
 * Send a patch request. Result will be send directly with receiveSysx signal
@@ -815,7 +831,7 @@ void SysxIO::errorSignal(QString windowTitle, QString errorMsg)
 /***************************** noError() ******************************
 * Error flag set on midi error to prevent (double) connexion faillure 
 * messages and a midi messages.
-****************************************************************************/
+************************************************************************/
 bool SysxIO::noError()
 {
 	return this->noerror;	
@@ -824,4 +840,38 @@ bool SysxIO::noError()
 void SysxIO::setNoError(bool status)
 {
 	this->noerror = status;
+};
+
+/***************************** CurrentPatchName() ******************************
+* This is to make it possible to verify the patch name that we are trying to receive 
+* corresponds in case we had a name change that was not yet written permanantly
+* to the device. (See floorBoardDisplay.cpp for more info)
+************************************************************************/
+void SysxIO::setCurrentPatchName(QString patchName)
+{
+	this->currentName = patchName;	
+};
+
+QString SysxIO::getCurrentPatchName()
+{
+	return this->currentName;	
+};
+
+/***************************** emit() *********************************
+* Added to make status update possible from static methods and classes 
+* like the CALLBACK in midiIO.
+************************************************************************/
+void SysxIO::emitStatusSymbol(int value)
+{
+	emit setStatusSymbol(value);
+};
+
+void SysxIO::emitStatusProgress(int value)
+{
+	emit setStatusProgress(value);
+};
+
+void SysxIO::emitStatusMessage(QString message)
+{
+	emit setStatusMessage(message);
 };

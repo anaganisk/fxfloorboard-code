@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT6B Fx FloorBoard".
+** This file is part of "GT-8 Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -41,7 +41,7 @@ public:
 		QString hex1 = "void",
 		QString hex2 = "void",
 		QString hex3 = "void",
-		QString imagePath = ":/images/knob.png",
+		QString imagePath = ":/images/stompknob.png",
 		unsigned int imageRange = 62);
 	void setValue(int value);
 
