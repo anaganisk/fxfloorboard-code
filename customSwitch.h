@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT6B Fx FloorBoard".
+** This file is part of "GT-8 Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -20,23 +20,51 @@
 **
 ****************************************************************************/
 
-#ifndef STOMPBOX_FX1_H
-#define STOMPBOX_FX1_H
+#ifndef CUSTOMSWITCH_H
+#define CUSTOMSWITCH_H
 
-#include <QtGui>
 #include <QWidget>
-#include "stompBox.h"
 
-class stompbox_fx1 : public stompBox
+class customSwitch : public QWidget
 {
     Q_OBJECT
 
 public:
-	stompbox_fx1(QWidget *parent);
-	void setEditPages();
-  
-public slots:
-	void updateSignal();
+    customSwitch(
+		bool active = false,
+		QPoint switchPos = QPoint::QPoint(0, 0),
+		QWidget *parent = 0,
+		QString hex1 = "void",
+		QString hex2 = "void",
+		QString hex3 = "void",
+		QString imagePath = ":/images/ampswitch.png");
+	void setValue(bool value);
 
-	};
-#endif // STOMPBOX_FX1_H
+signals:
+	void valueChanged(bool newValue, QString hex1, QString hex2, QString hex3);
+
+protected:
+	void paintEvent(QPaintEvent *event);
+	void mousePressEvent(QMouseEvent *event);
+	void mouseReleaseEvent(QMouseEvent *event);
+	void mouseMoveEvent(QMouseEvent *event);
+
+private:
+	void setOffset(signed int imageNr);
+	void emitValue(bool value);
+
+	QString hex1;
+	QString hex2;
+	QString hex3;
+
+	bool active;
+	bool m_value;
+	QString imagePath;
+	QSize switchSize;
+	unsigned int imageRange;
+	QPoint switchPos; 
+	QPoint dragStartPosition;
+	signed int yOffset;
+};
+
+#endif // CUSTOMSWITCH_H

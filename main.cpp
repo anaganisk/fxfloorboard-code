@@ -69,7 +69,9 @@ int main(int argc, char *argv[])
 	splash->showStatusMessage(QObject::tr("Initializing..."));
 	mainWindow window;// = new mainWindow;
 
-	app.processEvents(); 
+	QObject::connect( &window, SIGNAL(closed()), &app, SLOT(quit()) );
+	
+   app.processEvents(); 
 
 	splash->showStatusMessage(QObject::tr("Checking license file..."));
 	if(!QFile("license.txt").exists())

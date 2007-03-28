@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT6B Fx FloorBoard".
+** This file is part of "GT-8 Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -20,64 +20,44 @@
 **
 ****************************************************************************/
 
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef EDITWINDOW_H
+#define EDITWINDOW_H
 
 #include <QMainWindow>
-#include "floorBoard.h"
-#include "sysxWriter.h"
-#include "MidiTable.h"
+#include <QtGui>
+#include "editPage.h"
 
-class mainWindow : public QWidget
-//class mainWindow : public QMainWindow
+class editWindow : public QWidget
 {
     Q_OBJECT
 
 public:
-    mainWindow(QWidget *parent = 0);
-	~mainWindow();
+    editWindow(QWidget *parent = 0);
+	~editWindow();
 	void closeEvent(QCloseEvent* ce);
+
+	void setLSB(QString hex1, QString hex2);
+	void setWindow(QString title);
+	QString getTitle();
+	void addPage();
+	editPage* page();
 
 signals:
 	void updateSignal();
-	void closed();
 
 public slots:
-	void updateSize(QSize floorSize, QSize oldFloorSize);
-	void open();
-	void save();
-	void saveAs();
-	void settings();
-	void help();
-	void homepage();
-	void donate();
-	void license();
-	void about();
+
+protected:
+	void paintEvent(QPaintEvent *event);
 
 private:
-	void createActions();
-	void createMenus();
-	void createStatusBar();
-
-	QMenuBar *menuBar;
-	QStatusBar *statusBar;
-	QMenu *fileMenu;
-	QMenu *toolsMenu;
-	QMenu *helpMenu;
-	QAction *openAct;
-	QAction *saveAct;
-	QAction *saveAsAct;
-	QAction *exitAct;
-	QAction *settingsAct;
-	QAction *helpAct;
-	QAction *homepageAct;
-	QAction *donationAct;
-	QAction *licenseAct;
-	QAction *aboutAct;
-	QAction *aboutQtAct;
-
-	sysxWriter file;
-	floorBoard *fxsBoard;
+	QPixmap image;
+	QString hex1;
+	QString hex2;
+	QLabel* title;
+	QStackedWidget* pagesWidget;
+	QComboBox* pageComboBox;
+	editPage* tempPage;
 };
 
-#endif // MAINWINDOW_H
+#endif // EDITWINDOW_H

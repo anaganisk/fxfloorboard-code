@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT6B Fx FloorBoard".
+** This file is part of "GT-8 Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -20,23 +20,34 @@
 **
 ****************************************************************************/
 
-#ifndef STOMPBOX_FX1_H
-#define STOMPBOX_FX1_H
+#ifndef EDITPAGE_H
+#define EDITPAGE_H
 
-#include <QtGui>
 #include <QWidget>
-#include "stompBox.h"
+#include <QtGui>
+#include "customSwitch.h"
+#include "customDial.h"
 
-class stompbox_fx1 : public stompBox
+class editPage : public QWidget
 {
     Q_OBJECT
 
 public:
-	stompbox_fx1(QWidget *parent);
-	void setEditPages();
-  
-public slots:
+    editPage(QWidget *parent = 0);
+	
+	void addKnob(QPoint pos);
+	void addSwitch(QPoint pos);
+	void addComboBox(QPoint pos);
+	void addLabel(QString text, QPoint pos);
+
+protected:
+	void paintEvent(QPaintEvent *event);
+
+signals:
 	void updateSignal();
 
-	};
-#endif // STOMPBOX_FX1_H
+private:
+	int currentIndex;
+};
+
+#endif // EDITPAGE_H

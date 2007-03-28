@@ -25,12 +25,13 @@
 
 #include <QtGui>
 #include "MidiTable.h"
-
+#include "editWindow.h"
 #include "customButton.h"
 #include "customLed.h"
 #include "customDial.h"
 #include "customSlider.h"
-//#include "customSwitch.h"
+#include "customSwitch.h"
+#include "editPage.h"
 
 class stompBox : public QWidget
 {
@@ -70,10 +71,14 @@ public:
 	void updateSlider5(QString hex1, QString hex2, QString hex3);
 	void updateComboBox(QString hex1, QString hex2, QString hex3);
 	void updateButton(QString hex1, QString hex2, QString hex3);
-	//void updateSwitch(QString hex1, QString hex2, QString hex3);
+	void updateSwitch(QString hex1, QString hex2, QString hex3);
 
 	void setComboBoxCurrentIndex(int index);
 	unsigned int getId();
+
+  virtual void setEditPages() {};
+	editWindow* editDetails();
+
 
 	QPalette getPal();
 	QFont getFont();
@@ -93,12 +98,15 @@ protected:
 	void paintEvent(QPaintEvent *event);
 	void mousePressEvent(QMouseEvent *event);
 	void mouseMoveEvent(QMouseEvent *event);
+	void mouseDoubleClickEvent(QMouseEvent *event);
 
 private:
 	void emitValueChanged(QString hex1, QString hex2, QString hex3, QString valueHex);
-	QList<QString> getSourceItems(QString hex1, QString hex2);
 	int getSourceValue(QString hex1, QString hex2, QString hex3);
-	QString imagePath;
+	QList<QString> getSourceItems(QString hex1, QString hex2);
+	
+  editWindow *editDialog;
+  QString imagePath;
 	QSize stompSize;
 	QPoint stompPos; 
 	unsigned int id;
@@ -118,12 +126,14 @@ private:
 	customSlider *slider5;
 	customButton *button;
 	customLed *led;
-	//customSwitch *switchbutton;
+	customSwitch *switchbutton;
 	QComboBox *comboBox;
 
 	QString hex1;
 	QString hex2;
 	QString hex3;
+	
+	QString fxName;
 };
 
 #endif // STOMPBOX_H

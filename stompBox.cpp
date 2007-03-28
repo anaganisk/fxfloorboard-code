@@ -57,7 +57,9 @@ stompBox::stompBox(QWidget *parent, unsigned int id, QString imagePath, QPoint s
 
 	this->setFixedSize(stompSize);
 
-	QObject::connect(this, SIGNAL( valueChanged(QString, QString, QString) ),
+  this->editDialog = new editWindow;	
+  
+  QObject::connect(this, SIGNAL( valueChanged(QString, QString, QString) ),
                 this->parent(), SIGNAL( valueChanged(QString, QString, QString) ));
 	
 	QObject::connect(this->parent(), SIGNAL( updateStompOffset(signed int) ),
@@ -79,10 +81,31 @@ void stompBox::paintEvent(QPaintEvent *)
 	painter.drawPixmap(target, image, source);
 };
 
+editWindow* stompBox::editDetails()
+{
+	return this->editDialog;
+};
+
 void stompBox::mousePressEvent(QMouseEvent *event) 
 { 
 	if (event->button() == Qt::LeftButton) this->dragStartPosition = event->pos(); 
 	emitValueChanged(this->hex1, this->hex2, "00", "void");
+};
+
+void stompBox::mouseDoubleClickEvent(QMouseEvent *event)
+{
+	event;
+	if(this->editDialog->getTitle().isEmpty())
+	{
+		QRect windowRect = this->parentWidget()->parentWidget()->frameGeometry();
+
+		int x = (windowRect.x() + (windowRect.width() / 2)) - (this->editDialog->width() / 2);
+		int y = (windowRect.y() + (windowRect.height() / 2)) - (this->editDialog->height() / 2);
+
+		this->editDialog->move(x, y);
+	};
+	this->editDialog->setWindow(this->fxName);
+	this->editDialog->show();
 };
 
 void stompBox::mouseMoveEvent(QMouseEvent *event)
@@ -188,6 +211,7 @@ void stompBox::setLSB(QString hex1, QString hex2)
 {
 	this->hex1 = hex1;
 	this->hex2 = hex2;
+	this->editDialog->setLSB(hex1, hex2);
 };
 
 void stompBox::setComboBox(QString hex1, QString hex2, QString hex3, QRect geometry)
@@ -305,10 +329,10 @@ void stompBox::setButton(QString hex1, QString hex2, QString hex3, QPoint pos, Q
 				led, SLOT(changeValue(bool)));	
 };
 
-/* void stompBox::setSwitch(QString hex1, QString hex2, QString hex3)
+ void stompBox::setSwitch(QString hex1, QString hex2, QString hex3)
 {
 	switchbutton = new customSwitch(false, QPoint::QPoint(5, 41), this, hex1, hex2, hex3);	
-}; */
+}; 
 
 QList<QString> stompBox::getSourceItems(QString hex1, QString hex2)
 {
@@ -374,12 +398,12 @@ void stompBox::updateButton(QString hex1, QString hex2, QString hex3)
 	led->setValue((value==1)?true:false);
 	button->setValue((value==1)?true:false);
 };
-/*
+
 void stompBox::updateSwitch(QString hex1, QString hex2, QString hex3)
 {
 	int value = getSourceValue(hex1, hex2, hex3);
 	switchbutton->setValue((value==1)?true:false);
-};  */
+};  
 
 void stompBox::valueChanged(int value, QString hex1, QString hex2, QString hex3)
 {
@@ -470,7 +494,7 @@ int stompBox::getSourceValue(QString hex1, QString hex2, QString hex3)
 
 void stompBox::emitValueChanged(QString hex1, QString hex2, QString hex3, QString valueHex)
 {
-	QString fxName, valueName, valueStr;
+	QString valueName, valueStr;
 	if(hex1 != "void" && hex2 != "void")
 	{
 		MidiTable *midiTable = MidiTable::Instance();
@@ -479,7 +503,7 @@ void stompBox::emitValueChanged(QString hex1, QString hex2, QString hex3, QStrin
 			Midi items = midiTable->getMidiMap("Stucture", hex1, hex2, hex3);
 			if(hex1 == "09") // NoiseSuppressor is part of MASTER -> correcting the name for consistency.
 			{
-				fxName = "Noise Suppressor";
+				this->fxName = "Noise Suppressor";
 				if(items.desc == "NS :Effect")
 				{
 					valueName = "On/Off";
@@ -491,7 +515,7 @@ void stompBox::emitValueChanged(QString hex1, QString hex2, QString hex3, QStrin
 			}
 			else
 			{
-				fxName = midiTable->getMidiMap("Stucture", hex1).name;
+				this->fxName = midiTable->getMidiMap("Stucture", hex1).name;
 				if(items.desc.contains(":"))
 				{
 					valueName = items.desc.section(":", 1, 1);
@@ -507,11 +531,11 @@ void stompBox::emitValueChanged(QString hex1, QString hex2, QString hex3, QStrin
 		{
 			if(hex1 == "09") // NoiseSuppressor is part of MASTER -> correcting the name for consistency.
 			{
-				fxName = "Noise Suppressor";
+				this->fxName = "Noise Suppressor";
 			}
 			else if(this->hex1 == "0C") // Expression Pedal -> correcting the name for consistency.
 			{
-				fxName = "Foot Volume";
+				this->fxName = "Foot Volume";
 			}
 			else
 			{
@@ -523,6 +547,6 @@ void stompBox::emitValueChanged(QString hex1, QString hex2, QString hex3, QStrin
 	{
 		fxName = "Bugger!!!";
 	};
-	emit valueChanged(fxName, valueName, valueStr);
+	emit valueChanged(this->fxName, valueName, valueStr);
 };
 
