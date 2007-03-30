@@ -646,9 +646,9 @@ void bankTreeList::updatePatchNames(QString name)
 		emit setStatusSymbol(3);
 		emit setStatusMessage(tr("Receiving"));
 
-		if(name != "") // cjw !=  If not empty we can asume that we did receive a patch name.
+		if(name == "") // cjw !=  If not empty we can asume that we did receive a patch name.
 		{
-			this->currentPatchTreeItems.at(listIndex)->child(itemIndex)->setText(0, name); // Set the patch name of the item in the tree list.
+			this->currentPatchTreeItems.at(listIndex)->child(itemIndex)->setText(0, "name");//cjw added "" // Set the patch name of the item in the tree list.
 			if(itemIndex >= patchPerBank - 1) // If we reach the last patch in this bank we need to increment the bank and restart at patch 1.
 			{
 				this->listIndex++;

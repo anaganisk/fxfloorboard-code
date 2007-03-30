@@ -41,7 +41,7 @@ void stompbox_fx1::updateSignal()
 
 void stompbox_fx1::setEditPages()
 {
- 	editDetails()->page()->addLabel("Pre Amp/SP A", QPoint(0,0));
+ 	editDetails()->page()->addLabel("Octave", QPoint(0,0));
 	editDetails()->page()->addKnob(QPoint(0,20));
 	editDetails()->page()->addKnob(QPoint(45,20));
 	editDetails()->page()->addKnob(QPoint(90,20));
@@ -49,10 +49,32 @@ void stompbox_fx1::setEditPages()
 	editDetails()->page()->addKnob(QPoint(180,20));
 	editDetails()->page()->addSwitch(QPoint(230,25));
 	editDetails()->addPage();
-	editDetails()->page()->addLabel("PAGE 2", QPoint(0,0));
+	editDetails()->page()->addLabel("Enhancer", QPoint(0,0));
+	editDetails()->page()->addKnob(QPoint(0,20));
+	editDetails()->page()->addKnob(QPoint(45,20));
+	editDetails()->page()->addKnob(QPoint(90,20));
+	editDetails()->page()->addKnob(QPoint(135,20));
+	editDetails()->page()->addKnob(QPoint(180,20));
 	editDetails()->addPage();
-	editDetails()->page()->addLabel("PAGE 3", QPoint(0,0));
+	editDetails()->page()->addLabel("Slow Gear", QPoint(0,0));
+	editDetails()->page()->addKnob(QPoint(0,20));
+	editDetails()->page()->addKnob(QPoint(80,20));
+	editDetails()->page()->addKnob(QPoint(160,20));
+	editDetails()->page()->addKnob(QPoint(240,20));
+	editDetails()->page()->addKnob(QPoint(320,20));
 	editDetails()->addPage();
-	editDetails()->page()->addLabel("PAGE 4", QPoint(0,0));
+	editDetails()->page()->addLabel("Defretter", QPoint(0,0));
+	editDetails()->page()->addKnob(QPoint(0,20));
+	editDetails()->page()->addKnob(QPoint(45,20));
+	editDetails()->page()->addKnob(QPoint(90,20));
+	editDetails()->page()->addKnob(QPoint(135,20));
+	editDetails()->page()->addKnob(QPoint(180,20));
+	editDetails()->addPage();
+	editDetails()->page()->addLabel("Ring Modulator", QPoint(0,0));
+	editDetails()->page()->addKnob(QPoint(0,20));
+	editDetails()->page()->addKnob(QPoint(45,20));
+	editDetails()->page()->addKnob(QPoint(90,20));
+	editDetails()->page()->addKnob(QPoint(135,20));
+	editDetails()->page()->addKnob(QPoint(180,20));
 	editDetails()->addPage();
 };

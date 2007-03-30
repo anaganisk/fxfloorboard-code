@@ -34,6 +34,7 @@ stompbox_eq::stompbox_eq(QWidget *parent)
 	////setSlider4("05", "00", "0A");
 	setSlider5("05", "00", "0B");
 	setButton("05", "00", "00"); 
+	setEditPages();
 };
 
 void stompbox_eq::updateSignal()
@@ -44,4 +45,37 @@ void stompbox_eq::updateSignal()
 	////updateSlider4("05", "00", "0A");
 	updateSlider5("05", "00", "0B");
 	updateButton("05", "00", "00");
+};
+
+void stompbox_eq::setEditPages()
+{
+    editDetails()->page()->addLabel("_________Low Eq________", QPoint(20,0));
+	editDetails()->page()->addKnob(QPoint(0,30));
+	editDetails()->page()->addLabel("Q", QPoint(17,15));
+	editDetails()->page()->addKnob(QPoint(80,30));
+	editDetails()->page()->addLabel("Freq", QPoint(88,15));
+	editDetails()->page()->addKnob(QPoint(160,30));
+	editDetails()->page()->addLabel("Level", QPoint(164,15));
+	
+	editDetails()->page()->addLabel("_________Mid Eq_________", QPoint(20,100));
+	editDetails()->page()->addKnob(QPoint(0,130));
+	editDetails()->page()->addLabel("Q", QPoint(17,115));
+	editDetails()->page()->addKnob(QPoint(80,130));
+	editDetails()->page()->addLabel("Freq", QPoint(88,115));
+	editDetails()->page()->addKnob(QPoint(160,130));
+	editDetails()->page()->addLabel("Level", QPoint(164,115));
+	
+	editDetails()->page()->addLabel("_________High Eq________", QPoint(20,200));
+	editDetails()->page()->addKnob(QPoint(0,230));
+	editDetails()->page()->addLabel("Q", QPoint(17,215));
+	editDetails()->page()->addKnob(QPoint(80,230));
+	editDetails()->page()->addLabel("Freq", QPoint(88,215));
+	editDetails()->page()->addKnob(QPoint(160,230));
+	editDetails()->page()->addLabel("Level", QPoint(164,215));
+	
+	editDetails()->page()->addKnob(QPoint(264,230));
+	editDetails()->page()->addLabel("EQ Level", QPoint(264,215));
+	editDetails()->page()->addSwitch(QPoint(264,30));
+	editDetails()->page()->addLabel("Fx On/Off", QPoint(254,15));
+	editDetails()->addPage();
 };
