@@ -547,6 +547,11 @@ void stompBox::emitValueChanged(QString hex1, QString hex2, QString hex3, QStrin
 	{
 		fxName = "Bugger!!!";
 	};
+	//Midi items = midiTable->getMidiMap("Stucture", hex1, hex2, hex3);
+			if(hex1 == "04" && hex3 >= "10") // NoiseSuppressor is part of MASTER -> correcting the name for consistency.
+			{
+				this->fxName = "Speaker Cabinet";
+			}
 	emit valueChanged(this->fxName, valueName, valueStr);
 };
 

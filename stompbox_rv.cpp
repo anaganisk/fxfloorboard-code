@@ -28,12 +28,16 @@ stompbox_rv::stompbox_rv(QWidget *parent)
 	/* REVERB */
 	setImage(":/images/rv.png");
 	setLSB("04", "00");
+	setKnob1("04", "00", "14");
+	setKnob2("04", "00", "15");
 	setComboBox("04", "00", "12");
 	setButton("04", "00", "10");
 };
 
 void stompbox_rv::updateSignal()
 {
+	updateKnob1("04", "00", "14");
+	updateKnob2("04", "00", "15");
 	updateComboBox("04", "00", "12");
 	updateButton("04", "00", "10");
 };

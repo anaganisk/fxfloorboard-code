@@ -292,7 +292,7 @@
 				</DATA>
 			</LSB>
 		</LSB>
-		<LSB value="04" name="PreAmp + Spkr Cab" abbr="PRE" desc="Address LSB" longdesc="">
+		<LSB value="04" name="Pre Amplifier" abbr="PRE" desc="Address LSB" longdesc="">
 			<LSB value="00" name="" abbr="" desc="Address MSB" longdesc="">
 				<DATA value="00" name="Pre-Amp" abbr="" desc="PRE :On/Off" longdesc="">
 					<PARAM value="00" name="Off" desc="" longdesc=""/>
@@ -372,12 +372,11 @@
 					<PARAM value="05" name="Original" desc="Original"/>
 				</DATA>
 				<DATA value="13" name="Speaker Cabnet" abbr="" desc="SPKR :Mic Setting" longdesc="">
-					<PARAM value="00" name="Off Mic" desc="" longdesc=""/>
-					<PARAM value="01" name="On Mic" desc="" longdesc=""/>
-				</DATA>
-				<DATA value="14" name="Speaker Cabnet" abbr="" desc="SPKR :Mic Level" longdesc="">
 					<PARAM value="00" name="Center" desc=""/>
 					<PARAM value="range" name="01/0A/01/10" desc=" cm"/>
+				</DATA>
+				<DATA value="14" name="Speaker Cabnet" abbr="" desc="SPKR :Mic Level" longdesc="">
+					<PARAM value="range" name="00/64/00/100" desc=" %" longdesc=""/>
 				</DATA>
 				<DATA value="15" name="Speaker Cabnet" abbr="" desc="SPKR :Direct Level" longdesc="">
 					<PARAM value="range" name="00/64/00/100" desc=" %" longdesc=""/>
