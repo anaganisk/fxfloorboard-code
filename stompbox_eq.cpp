@@ -50,32 +50,32 @@ void stompbox_eq::updateSignal()
 void stompbox_eq::setEditPages()
 {
     editDetails()->page()->addLabel("_________Low Eq________", QPoint(20,0));
-	editDetails()->page()->addKnob(QPoint(0,30));
-	editDetails()->page()->addLabel("Q", QPoint(17,15));
-	editDetails()->page()->addKnob(QPoint(80,30));
-	editDetails()->page()->addLabel("Freq", QPoint(88,15));
-	editDetails()->page()->addKnob(QPoint(160,30));
-	editDetails()->page()->addLabel("Level", QPoint(164,15));
+	editDetails()->page()->addKnob(QPoint(0,30), "05", "00", "02");
+	//editDetails()->page()->addLabel("Q", QPoint(17,15));
+	editDetails()->page()->addKnob(QPoint(80,30), "05", "00", "03");
+	//editDetails()->page()->addLabel("Freq", QPoint(88,15));
+	editDetails()->page()->addKnob(QPoint(160,30), "05", "00", "04");
+	//editDetails()->page()->addLabel("Level", QPoint(164,15));
 	
 	editDetails()->page()->addLabel("_________Mid Eq_________", QPoint(20,100));
-	editDetails()->page()->addKnob(QPoint(0,130));
-	editDetails()->page()->addLabel("Q", QPoint(17,115));
-	editDetails()->page()->addKnob(QPoint(80,130));
-	editDetails()->page()->addLabel("Freq", QPoint(88,115));
-	editDetails()->page()->addKnob(QPoint(160,130));
-	editDetails()->page()->addLabel("Level", QPoint(164,115));
+	editDetails()->page()->addKnob(QPoint(0,130), "05", "00", "05");
+	//editDetails()->page()->addLabel("Q", QPoint(17,115));
+	editDetails()->page()->addKnob(QPoint(80,130), "05", "00", "06");
+	//editDetails()->page()->addLabel("Freq", QPoint(88,115));
+	editDetails()->page()->addKnob(QPoint(160,130), "05", "00", "07");
+	//editDetails()->page()->addLabel("Level", QPoint(164,115));
 	
 	editDetails()->page()->addLabel("_________High Eq________", QPoint(20,200));
-	editDetails()->page()->addKnob(QPoint(0,230));
-	editDetails()->page()->addLabel("Q", QPoint(17,215));
-	editDetails()->page()->addKnob(QPoint(80,230));
-	editDetails()->page()->addLabel("Freq", QPoint(88,215));
-	editDetails()->page()->addKnob(QPoint(160,230));
-	editDetails()->page()->addLabel("Level", QPoint(164,215));
+	editDetails()->page()->addKnob(QPoint(0,230), "05", "00", "08");
+	//editDetails()->page()->addLabel("Q", QPoint(17,215));
+	editDetails()->page()->addKnob(QPoint(80,230), "05", "00", "09");
+	//editDetails()->page()->addLabel("Freq", QPoint(88,215));
+	editDetails()->page()->addKnob(QPoint(160,230), "05", "00", "0A");
+	//editDetails()->page()->addLabel("Level", QPoint(164,215));
 	
-	editDetails()->page()->addKnob(QPoint(264,230));
-	editDetails()->page()->addLabel("EQ Level", QPoint(264,215));
-	editDetails()->page()->addSwitch(QPoint(264,30));
-	editDetails()->page()->addLabel("Fx On/Off", QPoint(254,15));
-	editDetails()->addPage();
+	editDetails()->page()->addKnob(QPoint(264,230), "05", "00", "0B");
+	//editDetails()->page()->addLabel("EQ Level", QPoint(264,215));
+	editDetails()->page()->addKnob(QPoint(264,30), "05", "00", "00");
+	//editDetails()->page()->addLabel("Fx On/Off", QPoint(254,15));
+	editDetails()->addPage(); 
 };

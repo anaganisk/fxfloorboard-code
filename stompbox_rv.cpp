@@ -32,6 +32,7 @@ stompbox_rv::stompbox_rv(QWidget *parent)
 	setKnob2("04", "00", "15");
 	setComboBox("04", "00", "12");
 	setButton("04", "00", "10");
+	setEditPages();
 };
 
 void stompbox_rv::updateSignal()
@@ -40,4 +41,17 @@ void stompbox_rv::updateSignal()
 	updateKnob2("04", "00", "15");
 	updateComboBox("04", "00", "12");
 	updateButton("04", "00", "10");
+};
+
+
+void stompbox_rv::setEditPages()
+{
+	editDetails()->page()->addKnob(QPoint(0,20), "04", "00", "10");
+	editDetails()->page()->addKnob(QPoint(55,20), "04", "00", "12");
+	editDetails()->page()->addKnob(QPoint(110,20), "04", "00", "13");
+	editDetails()->page()->addKnob(QPoint(165,20), "04", "00", "14");
+	editDetails()->page()->addKnob(QPoint(220,20), "04", "00", "15");
+	editDetails()->page()->addKnob(QPoint(275,20), "04", "00", "16");
+	//editDetails()->page()->addKnob(QPoint(325,20), "04", "00", "16");
+	editDetails()->addPage();
 };

@@ -58,7 +58,9 @@ public slots:
 	void writeToBuffer();
 	void writeToMemory();
 
-signals:
+	void valueChanged(bool value, QString hex1, QString hex2, QString hex3); // Not used.
+  
+  signals:
 	void currentIndexChanged(int index);
 	void updateSignal();
 	void connectedSignal();

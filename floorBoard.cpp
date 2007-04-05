@@ -49,8 +49,11 @@
 #include "stompbox_ns.h"
 //#include "stompbox_dgt.h"
 
+
 floorBoard::floorBoard(QWidget *parent, 
+
 						QString imagePathFloor, 
+						//QString imagePathFloor2,//cjw
 						QString imagePathStompBG, 
 						QString imagePathInfoBar,
 						unsigned int marginStompBoxesTop, 
@@ -61,8 +64,8 @@ floorBoard::floorBoard(QWidget *parent,
 						QPoint pos)
     : QWidget(parent)
 {
-
 	this->imagePathFloor = imagePathFloor;
+	//this->imagePathFloor2 = imagePathFloor2;   //cjw
 	this->imagePathStompBG = imagePathStompBG;
 	this->imagePathInfoBar = imagePathInfoBar;
 
@@ -183,12 +186,24 @@ void floorBoard::paintEvent(QPaintEvent *)
 };
 
 void floorBoard::setFloorBoard() {
-	QPixmap imageFloor(imagePathFloor);
+
+	
+	
 	QPixmap imagestompBG(imagePathStompBG);
 	QPixmap imageInfoBar(imagePathInfoBar);
+	/*if(connectButtonActive == true)
+{
+	(imagePathFloor) = (imagePathFloor);
+		}
+	else //if(connectButtonActive == false)
+{
+	(imagePathFloor) =(imagePathFloor2);
+		} */  //cjw
+	QPixmap imageFloor(imagePathFloor);
 	QPixmap buffer = imageFloor;
 	QPainter painter(&buffer);
 
+	this->offset = imageFloor.width() - imageInfoBar.width();
 	this->offset = imageFloor.width() - imageInfoBar.width();
 	this->infoBarWidth = imageInfoBar.width();
 	this->stompSize = imagestompBG.size();

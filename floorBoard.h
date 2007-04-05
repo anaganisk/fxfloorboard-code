@@ -35,6 +35,7 @@ public:
     floorBoard(
 		QWidget *parent = 0,
 		QString imagePathFloor = ":/images/floor.png",
+		//QString imagePathFloor2 = ":/images/floor2.png", //cjw
 		QString imagePathStompBG = ":/images/stompbg.png",
 		QString imagePathInfoBar = ":/images/infobar.png",
 		unsigned int marginStompBoxesTop = 72,
@@ -78,7 +79,9 @@ private:
 	void setStompPos(QString name, int order);
 	void setStompPos(int index, int order);
 
+	QString imageFloor;
 	QString imagePathFloor;
+	//QString imagePathFloor2;  //cjw
 	QString imagePathStompBG;
 	QString imagePathInfoBar;
 
@@ -111,6 +114,7 @@ private:
 
 	QList<stompBox*> stompBoxes;
 	QList<QString> stompNames;
+	bool connectButtonActive;
 };
 
 #endif // FLOORBOARD_H

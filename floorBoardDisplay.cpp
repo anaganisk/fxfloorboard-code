@@ -25,6 +25,7 @@
 #include <QDir>
 #include <QRegExp>
 #include <QChar>
+//#include "floorBoard.h"   //cjw
 #include "floorBoardDisplay.h"
 #include "Preferences.h"
 #include "MidiTable.h"
@@ -964,3 +965,11 @@ void floorBoardDisplay::notConnected()
 	sysxIO->setSyncStatus(false);	
 	sysxIO->setDeviceReady(true);	// Free the device after finishing interaction.	
 };
+
+void floorBoardDisplay::valueChanged(bool value, QString hex1, QString hex2, QString hex3)
+{
+	value;
+	hex1;
+	hex2;
+	hex3;
+}; 

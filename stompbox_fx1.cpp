@@ -42,39 +42,34 @@ void stompbox_fx1::updateSignal()
 void stompbox_fx1::setEditPages()
 {
  	editDetails()->page()->addLabel("Octave", QPoint(0,0));
-	editDetails()->page()->addKnob(QPoint(0,20));
-	editDetails()->page()->addKnob(QPoint(45,20));
-	editDetails()->page()->addKnob(QPoint(90,20));
-	editDetails()->page()->addKnob(QPoint(135,20));
-	editDetails()->page()->addKnob(QPoint(180,20));
-	editDetails()->page()->addSwitch(QPoint(230,25));
+	editDetails()->page()->addKnob(QPoint(0,20), "01", "00", "03");
+	editDetails()->page()->addKnob(QPoint(45,20), "01", "00", "04");
+	//editDetails()->page()->addSwitch(QPoint(230,25));
 	editDetails()->addPage();
+
 	editDetails()->page()->addLabel("Enhancer", QPoint(0,0));
-	editDetails()->page()->addKnob(QPoint(0,20));
-	editDetails()->page()->addKnob(QPoint(45,20));
-	editDetails()->page()->addKnob(QPoint(90,20));
-	editDetails()->page()->addKnob(QPoint(135,20));
-	editDetails()->page()->addKnob(QPoint(180,20));
+	editDetails()->page()->addKnob(QPoint(0,20), "01", "00", "07");
+	editDetails()->page()->addKnob(QPoint(45,20), "01", "00", "08");
+	editDetails()->page()->addKnob(QPoint(90,20), "01", "00", "09");
+    //editDetails()->page()->addSwitch(QPoint(230,25));
 	editDetails()->addPage();
+
 	editDetails()->page()->addLabel("Slow Gear", QPoint(0,0));
-	editDetails()->page()->addKnob(QPoint(0,20));
-	editDetails()->page()->addKnob(QPoint(80,20));
-	editDetails()->page()->addKnob(QPoint(160,20));
-	editDetails()->page()->addKnob(QPoint(240,20));
-	editDetails()->page()->addKnob(QPoint(320,20));
+	editDetails()->page()->addKnob(QPoint(0,20), "01", "00", "0C");
+	editDetails()->page()->addKnob(QPoint(80,20), "01", "00", "0D");
 	editDetails()->addPage();
+
 	editDetails()->page()->addLabel("Defretter", QPoint(0,0));
-	editDetails()->page()->addKnob(QPoint(0,20));
-	editDetails()->page()->addKnob(QPoint(45,20));
-	editDetails()->page()->addKnob(QPoint(90,20));
-	editDetails()->page()->addKnob(QPoint(135,20));
-	editDetails()->page()->addKnob(QPoint(180,20));
+	editDetails()->page()->addKnob(QPoint(0,20), "01", "00", "0E");
+	editDetails()->page()->addKnob(QPoint(45,20), "01", "00", "0F");
+	editDetails()->page()->addKnob(QPoint(90,20), "01", "00", "10");
+	editDetails()->page()->addKnob(QPoint(135,20), "01", "00", "11");
 	editDetails()->addPage();
+
 	editDetails()->page()->addLabel("Ring Modulator", QPoint(0,0));
-	editDetails()->page()->addKnob(QPoint(0,20));
-	editDetails()->page()->addKnob(QPoint(45,20));
-	editDetails()->page()->addKnob(QPoint(90,20));
-	editDetails()->page()->addKnob(QPoint(135,20));
-	editDetails()->page()->addKnob(QPoint(180,20));
-	editDetails()->addPage();
+	editDetails()->page()->addKnob(QPoint(0,20), "01", "00", "12");
+	editDetails()->page()->addKnob(QPoint(45,20), "01", "00", "13");
+	editDetails()->page()->addKnob(QPoint(90,20), "01", "00", "14");
+	editDetails()->page()->addKnob(QPoint(135,20), "01", "00", "15");
+    editDetails()->addPage(); 
 };
