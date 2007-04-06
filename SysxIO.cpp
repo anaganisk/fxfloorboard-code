@@ -579,7 +579,7 @@ int SysxIO::getLoadedPatch(){
 ***************************************************************************/
 void SysxIO::setRequestName(QString requestName)
 {
-	this->requestName = requestName;	
+	//this->requestName = requestName;	
 };
 
 /*********************** returnRequestName() ***********************************
@@ -674,7 +674,7 @@ void SysxIO::namePatchChange()
 	QObject::connect(this, SIGNAL(patchName(QString)),
 		this, SLOT(checkPatchChange(QString)));		
 	
-	this->requestPatchName(0, 0);
+	this->requestPatchName(0, 0);  //cjw
 };
 
 /***************************** checkPatchChange() *************************
@@ -691,7 +691,7 @@ void SysxIO::checkPatchChange(QString name)
 		emit isChanged();
 		this->changeCount = 0;
 	}
-	else
+/*	else
 	{
 		if(changeCount < maxRetry)
 		{
@@ -715,7 +715,7 @@ void SysxIO::checkPatchChange(QString name)
 
 			emit patchChangeFailed();
 
-			QApplication::beep();
+			QApplication::beep();*/ //cjw
 
 			/*QMessageBox *msgBox = new QMessageBox();
 			msgBox->setWindowTitle(tr("GT-8 Fx FloorBoard"));
@@ -731,8 +731,8 @@ void SysxIO::checkPatchChange(QString name)
 				"For an unkown reason it didn't change."));
 			msgBox->setStandardButtons(QMessageBox::Ok);
 			msgBox->exec();*/
-		};
-	};
+		//};
+	//};
 };
 
 /***************************** sendSysx() ***********************************
@@ -767,12 +767,12 @@ void SysxIO::requestPatchName(int bank, int patch)
 			this, SLOT(returnPatchName(QString)));
 	
 	QObject::connect(this, SIGNAL(sysxReply(QString)),	// Connect the result of the request
-		this, SLOT(returnPatchName(QString)));			// to returnPatchName function.
+		this, SLOT(returnPatchName(QString)));	    	// to returnPatchName function.
 	
 	/* Patch name request. */
 	MidiTable *midiTable = MidiTable::Instance();
 	QString sysxMsg = midiTable->nameRequest(bank, patch);
-	sendSysx(sysxMsg);
+	sendSysx(sysxMsg); //cjw
 };
 
 /***************************** returnPatchName() ***************************
@@ -792,7 +792,7 @@ void SysxIO::returnPatchName(QString sysxMsg)
 		int dataStartOffset = sysxDataOffset;
 		QString hex1, hex2, hex3, hex4;
 		for(int i=dataStartOffset*2; i<sysxMsg.size()-(2*2);++i)
-		{
+		{ 
 			/*hex1 = sysxMsg.mid((sysxAddressOffset + 2)*2, 2);
 			hex2 = sysxMsg.mid((sysxAddressOffset + 3)*2, 2);
 			hex3 = QString::number(count, 16).toUpper();

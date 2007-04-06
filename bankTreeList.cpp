@@ -438,7 +438,7 @@ void bankTreeList::setItemClicked(QTreeWidgetItem *item, int column)
 			int patch = item->parent()->indexOfChild(item) + 1;
 
 			emit patchSelectSignal(bank, patch);
-			sysxIO->setRequestName(item->text(0));	// Set the name of the patch we have sellected in case we load it.
+			//sysxIO->setRequestName(item->text(0));	// Set the name of the patch we have sellected in case we load it.
 		};
 	};
 };
@@ -646,7 +646,7 @@ void bankTreeList::updatePatchNames(QString name)
 		emit setStatusSymbol(3);
 		emit setStatusMessage(tr("Receiving"));
 
-		if(name == "") // cjw !=  If not empty we can asume that we did receive a patch name.
+		/*if(name == "") // cjw !=  If not empty we can asume that we did receive a patch name.
 		{
 			this->currentPatchTreeItems.at(listIndex)->child(itemIndex)->setText(0, "name");//cjw added "" // Set the patch name of the item in the tree list.
 			if(itemIndex >= patchPerBank - 1) // If we reach the last patch in this bank we need to increment the bank and restart at patch 1.
@@ -654,13 +654,13 @@ void bankTreeList::updatePatchNames(QString name)
 				this->listIndex++;
 				this->itemIndex = 0;
 			}
-			else
-			{
+			else */ 
+			{ 
 				this->itemIndex++;
-			};
+			//};
 		};
 
-		if(listIndex < currentPatchTreeItems.size()) // Aslong as we have items in the list we continue, duh! :)
+		/*if(listIndex < currentPatchTreeItems.size()) // As long as we have items in the list we continue, duh! :)
 		{		
 			bool ok;
 			int bank = this->currentPatchTreeItems.at(listIndex)->text(0).section(" ", 1, 1).trimmed().toInt(&ok, 10);
@@ -668,11 +668,11 @@ void bankTreeList::updatePatchNames(QString name)
 
 			sysxIO->requestPatchName(bank, patch); // The patch name request.
 		}
-		else
+		else*/  //cjw
 		{
 			sysxIO->setDeviceReady(true);
 
-			this->currentPatchTreeItems.clear(); // We are done so we can safely reset items taht need to be named.
+			this->currentPatchTreeItems.clear(); // We are done so we can safely reset items that need to be named.
 			this->listIndex = 0;
 			this->itemIndex = 0;
 

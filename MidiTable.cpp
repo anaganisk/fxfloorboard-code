@@ -607,7 +607,7 @@ QString MidiTable::nameRequest(int bank, int patch)
 		i++;
 	};	
 	sysxMsg.append(getCheckSum(dataSize));
-	sysxMsg.append(getFooter());
+	sysxMsg.append(getFooter()); 
 
 	return sysxMsg;
 };

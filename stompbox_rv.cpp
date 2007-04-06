@@ -52,6 +52,5 @@ void stompbox_rv::setEditPages()
 	editDetails()->page()->addKnob(QPoint(165,20), "04", "00", "14");
 	editDetails()->page()->addKnob(QPoint(220,20), "04", "00", "15");
 	editDetails()->page()->addKnob(QPoint(275,20), "04", "00", "16");
-	//editDetails()->page()->addKnob(QPoint(325,20), "04", "00", "16");
 	editDetails()->addPage();
 };
