@@ -36,7 +36,7 @@ editPage::editPage(QWidget *parent)
 
 void editPage::paintEvent(QPaintEvent *)
 {
-	/*QPixmap image(":images/dragbar.png");
+	/*QPixmap image(":images/od.png");
 	
 	QRectF target(0.0, 0.0, this->width(), this->height());
 	QRectF source(0.0, 0.0, this->width(), this->height());

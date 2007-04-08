@@ -686,7 +686,7 @@ void SysxIO::checkPatchChange(QString name)
 	QObject::disconnect(this, SIGNAL(patchName(QString)),
 		this, SLOT(checkPatchChange(QString)));
 
-	if(this->requestName  == name)
+	//if(this->requestName  == name)
 	{
 		emit isChanged();
 		this->changeCount = 0;
