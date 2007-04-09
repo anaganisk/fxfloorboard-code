@@ -16,7 +16,7 @@
 **
 ** You should have received a copy of the GNU General Public License along
 ** with this program; if not, write to the Free Software Foundation, Inc.,
-** 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+** 51 Franklin Street, Fifth Floor, Boston, MA 0210C-1301 USA.
 **
 ****************************************************************************/
 
@@ -41,35 +41,154 @@ void stompbox_fx1::updateSignal()
 
 void stompbox_fx1::setEditPages()
 {
- 	editDetails()->page()->addLabel("Octave", QPoint(0,0));
-	editDetails()->page()->addKnob(QPoint(0,20), "01", "00", "03");
-	editDetails()->page()->addKnob(QPoint(45,20), "01", "00", "04");
-	//editDetails()->page()->addSwitch(QPoint(230,25));
+	
+	editDetails()->page()->newGroupBox("Octave");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "03", "turbo");
+	editDetails()->page()->addKnob(0, 1, 1, 1, "01", "00", "04");
+	editDetails()->page()->addGroupBox(1, 0, 1, 1);
+	editDetails()->addPage();  // PAGE 1 ABOVE
+
+	editDetails()->page()->newGroupBox("Enhancer");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "07", "turbo");
+	editDetails()->page()->addKnob(0, 1, 1, 1, "01", "00", "08");
+	editDetails()->page()->addKnob(0, 2, 1, 1, "01", "00", "09");
+	editDetails()->page()->addGroupBox(1, 0, 1, 1);
+	editDetails()->addPage();  // PAGE 2 ABOVE
+
+	editDetails()->page()->newGroupBox("Slow Gear");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "0C", "turbo");
+	editDetails()->page()->addKnob(0, 1, 1, 1, "01", "00", "0D");
+	editDetails()->page()->addGroupBox(1, 0, 1, 1);
+	editDetails()->addPage();  // PAGE 3 ABOVE
+
+	editDetails()->page()->newGroupBox("Defretter");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "0E", "turbo");
+	editDetails()->page()->addKnob(0, 1, 1, 1, "01", "00", "0F");
+	editDetails()->page()->addKnob(0, 2, 1, 1, "01", "00", "10", "turbo");
+	editDetails()->page()->addKnob(0, 3, 1, 1, "01", "00", "11");
+	editDetails()->page()->addGroupBox(1, 0, 1, 1);
+	editDetails()->addPage();  // PAGE 4 ABOVE
+
+	editDetails()->page()->newGroupBox("Ring Modulator");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "12", "turbo");
+	editDetails()->page()->addKnob(0, 1, 1, 1, "01", "00", "13");
+	editDetails()->page()->addKnob(0, 2, 1, 1, "01", "00", "14", "turbo");
+	editDetails()->page()->addKnob(0, 3, 1, 1, "01", "00", "15");
+	editDetails()->page()->addGroupBox(1, 0, 1, 1);
+	editDetails()->addPage();  // PAGE 5 ABOVE
+
+
+
+	/*editDetails()->page()->newGroupBox("FX1-Octave");
+
+	editDetails()->page()->newGroupBox("Octave");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "03", "turbo");
+	editDetails()->page()->addKnob(0, 1, 1, 1, "01", "00", "04");
+
+	editDetails()->page()->newGroupBox("Pre Amp/SP B");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "0C", "turbo");
+	editDetails()->page()->addKnob(0, 1, 1, 1, "01", "00", "0C");
+	editDetails()->page()->addKnob(0, 2, 1, 1, "01", "00", "0C");
+	editDetails()->page()->addKnob(0, 3, 1, 1, "01", "00", "0C");
+	editDetails()->page()->addKnob(0, 4, 1, 1, "01", "00", "0C");
+	editDetails()->page()->addGroupBox(1, 0, 1, 5);
+
+	editDetails()->page()->newGroupBox("Pre Amp/SP C");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "0C", "turbo");
+	editDetails()->page()->addKnob(0, 1, 1, 1, "01", "00", "0C");
+	editDetails()->page()->addKnob(0, 2, 1, 1, "01", "00", "0C");
+	editDetails()->page()->addKnob(0, 3, 1, 1, "01", "00", "0C");
+	editDetails()->page()->addKnob(0, 4, 1, 1, "01", "00", "0C");
+	editDetails()->page()->addGroupBox(2, 0, 1, 5);
+
+	editDetails()->page()->addGroupBox(0, 0, 1, 1);
+
+	editDetails()->page()->addGroupBox(0, 0, 1, 1);
+	editDetails()->addPage(); // PAGE 1 ABOVE
+	
+	
+	editDetails()->page()->newGroupBox("GROUP A");
+
+	editDetails()->page()->newGroupBox("Pre Amp/SP A");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "07", "turbo");
+	editDetails()->page()->addKnob(0, 1, 1, 1, "01", "00", "08");
+	editDetails()->page()->addKnob(0, 2, 1, 1, "01", "00", "09");
+	editDetails()->page()->addKnob(0, 3, 1, 1, "01", "00", "0C");
+	editDetails()->page()->addKnob(0, 4, 1, 1, "01", "00", "0C");
+	editDetails()->page()->addGroupBox(0, 0, 1, 1);
+
+	editDetails()->page()->newGroupBox("Pre Amp/SP B");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "0C", "turbo");
+	editDetails()->page()->addKnob(0, 1, 1, 1, "01", "00", "0C");
+	editDetails()->page()->addKnob(0, 2, 1, 1, "01", "00", "0C");
+	editDetails()->page()->addKnob(0, 3, 1, 1, "01", "00", "0C");
+	editDetails()->page()->addKnob(0, 4, 1, 1, "01", "00", "0C");
+	editDetails()->page()->addGroupBox(1, 0, 1, 1);
+
+	editDetails()->page()->newGroupBox("Pre Amp/SP C");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "0C", "turbo");
+	editDetails()->page()->addKnob(0, 1, 1, 1, "01", "00", "0C");
+	editDetails()->page()->addKnob(0, 2, 1, 1, "01", "00", "0C");
+	editDetails()->page()->addKnob(0, 3, 1, 1, "01", "00", "0C");
+	editDetails()->page()->addKnob(0, 4, 1, 1, "01", "00", "0C");
+	editDetails()->page()->addGroupBox(2, 0, 1, 1);
+	editDetails()->page()->addGroupBox(0, 0, 1, 1);
+	editDetails()->addPage();  //PAGE 2 ABOVE  */
+
+
+	/*editDetails()->page()->newGroupBox("Pre Amp/SP A");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "07", "turbo");
+	editDetails()->page()->addKnob(0, 1, 1, 1, "01", "00", "08");
+	editDetails()->page()->addKnob(0, 2, 1, 1, "01", "00", "09");
+	editDetails()->page()->addKnob(0, 3, 1, 1, "01", "00", "0C");
+	editDetails()->page()->addKnob(0, 4, 1, 1, "01", "00", "0C");
+	editDetails()->page()->addGroupBox(0, 0, 1, 1);
+
+	editDetails()->page()->newGroupBox("Pre Amp/SP B");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "0C", "turbo");
+	editDetails()->page()->addKnob(0, 1, 1, 1, "01", "00", "0C");
+	editDetails()->page()->addKnob(0, 2, 1, 1, "01", "00", "0C");
+	editDetails()->page()->addKnob(0, 3, 1, 1, "01", "00", "0C");
+	editDetails()->page()->addKnob(0, 4, 1, 1, "01", "00", "0C");
+	editDetails()->page()->addGroupBox(1, 0, 1, 1);
+	editDetails()->addPage();  // PAGE 3 ABOVE
+
+
+	editDetails()->page()->newGroupBox("GROUP A");
+
+	editDetails()->page()->newGroupBox("Pre Amp/SP A");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "07", "turbo");
+	editDetails()->page()->addKnob(0, 1, 1, 1, "01", "00", "08");
+	editDetails()->page()->addKnob(0, 2, 1, 1, "01", "00", "09");
+	editDetails()->page()->addKnob(0, 3, 1, 1, "01", "00", "0C");
+	editDetails()->page()->addKnob(0, 4, 1, 1, "01", "00", "0C");
+
+	editDetails()->page()->newGroupBox("Pre Amp/SP B");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "0C", "turbo");
+	editDetails()->page()->addKnob(0, 1, 1, 1, "01", "00", "0C");
+	editDetails()->page()->addKnob(0, 2, 1, 1, "01", "00", "0C");
+	editDetails()->page()->addKnob(0, 3, 1, 1, "01", "00", "0C");
+	editDetails()->page()->addKnob(0, 4, 1, 1, "01", "00", "0C");
+	editDetails()->page()->addGroupBox(1, 0, 1, 5);
+
+	editDetails()->page()->addGroupBox(0, 0, 1, 1);
+
+	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->addPage();
 
-	editDetails()->page()->addLabel("Enhancer", QPoint(0,0));
-	editDetails()->page()->addKnob(QPoint(0,20), "01", "00", "07");
-	editDetails()->page()->addKnob(QPoint(45,20), "01", "00", "08");
-	editDetails()->page()->addKnob(QPoint(90,20), "01", "00", "09");
-    //editDetails()->page()->addSwitch(QPoint(230,25));
-	editDetails()->addPage();
 
-	editDetails()->page()->addLabel("Slow Gear", QPoint(0,0));
-	editDetails()->page()->addKnob(QPoint(0,20), "01", "00", "0C");
-	editDetails()->page()->addKnob(QPoint(80,20), "01", "00", "0D");
-	editDetails()->addPage();
+	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "07", "turbo");
+	editDetails()->page()->addKnob(0, 1, 1, 1, "01", "00", "08");
+	editDetails()->page()->addKnob(0, 2, 1, 1, "01", "00", "09");
+	editDetails()->page()->addKnob(0, 3, 1, 1, "01", "00", "0C");
+	editDetails()->page()->addKnob(0, 4, 1, 1, "01", "00", "0C");
 
-	editDetails()->page()->addLabel("Defretter", QPoint(0,0));
-	editDetails()->page()->addKnob(QPoint(0,20), "01", "00", "0E");
-	editDetails()->page()->addKnob(QPoint(45,20), "01", "00", "0F");
-	editDetails()->page()->addKnob(QPoint(90,20), "01", "00", "10");
-	editDetails()->page()->addKnob(QPoint(135,20), "01", "00", "11");
-	editDetails()->addPage();
 
-	editDetails()->page()->addLabel("Ring Modulator", QPoint(0,0));
-	editDetails()->page()->addKnob(QPoint(0,20), "01", "00", "12");
-	editDetails()->page()->addKnob(QPoint(45,20), "01", "00", "13");
-	editDetails()->page()->addKnob(QPoint(90,20), "01", "00", "14");
-	editDetails()->page()->addKnob(QPoint(135,20), "01", "00", "15");
-    editDetails()->addPage(); 
+	editDetails()->page()->addKnob(1, 0, 1, 1, "01", "00", "0C", "turbo");
+	editDetails()->page()->addKnob(1, 1, 1, 1, "01", "00", "0C");
+	editDetails()->page()->addKnob(1, 2, 1, 1, "01", "00", "0C");
+	editDetails()->page()->addKnob(1, 3, 1, 1, "01", "00", "0C");
+	editDetails()->page()->addKnob(1, 4, 1, 1, "01", "00", "0C");
+
+	editDetails()->addPage();*/
 };

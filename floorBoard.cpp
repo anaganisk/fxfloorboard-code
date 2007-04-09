@@ -49,11 +49,8 @@
 #include "stompbox_ns.h"
 //#include "stompbox_dgt.h"
 
-
 floorBoard::floorBoard(QWidget *parent, 
-
 						QString imagePathFloor, 
-						//QString imagePathFloor2,//cjw
 						QString imagePathStompBG, 
 						QString imagePathInfoBar,
 						unsigned int marginStompBoxesTop, 
@@ -64,8 +61,8 @@ floorBoard::floorBoard(QWidget *parent,
 						QPoint pos)
     : QWidget(parent)
 {
+
 	this->imagePathFloor = imagePathFloor;
-	//this->imagePathFloor2 = imagePathFloor2;   //cjw
 	this->imagePathStompBG = imagePathStompBG;
 	this->imagePathInfoBar = imagePathInfoBar;
 
@@ -92,6 +89,9 @@ floorBoard::floorBoard(QWidget *parent,
 	bar->setDragBarMinOffset(2, 8);
 	bar->setDragBarMaxOffset(offset - panelBarOffset + 5);
 
+	this->editDialog = new editWindow(this);
+	this->editDialog->hide();
+	
 	/*floorBoardDisplay *display2 = new floorBoardDisplay(this);
 	display2->setPos(liberainPos);*/
 
@@ -186,24 +186,12 @@ void floorBoard::paintEvent(QPaintEvent *)
 };
 
 void floorBoard::setFloorBoard() {
-
-	
-	
+	QPixmap imageFloor(imagePathFloor);	
 	QPixmap imagestompBG(imagePathStompBG);
 	QPixmap imageInfoBar(imagePathInfoBar);
-	/*if(connectButtonActive == true)
-{
-	(imagePathFloor) = (imagePathFloor);
-		}
-	else //if(connectButtonActive == false)
-{
-	(imagePathFloor) =(imagePathFloor2);
-		} */  //cjw
-	QPixmap imageFloor(imagePathFloor);
 	QPixmap buffer = imageFloor;
 	QPainter painter(&buffer);
 
-	this->offset = imageFloor.width() - imageInfoBar.width();
 	this->offset = imageFloor.width() - imageInfoBar.width();
 	this->infoBarWidth = imageInfoBar.width();
 	this->stompSize = imagestompBG.size();
@@ -494,6 +482,7 @@ void floorBoard::setSize(QSize newSize)
 	emit resizeSignal(newBankListRect);
 	
 	emit sizeChanged(floorSize, oldFloorSize);
+	this->centerEditDialog();
 };
 
 void floorBoard::setWidth(int dist)
@@ -503,7 +492,7 @@ void floorBoard::setWidth(int dist)
 	{
 		newSize = minSize;
 		this->colapseState = false;
-		emit setCollapseState(false);
+		emit setCollapseState(false);	
 	}
 	else if(floorSize.width() + dist > maxSize.width())
 	{
@@ -519,7 +508,7 @@ void floorBoard::setWidth(int dist)
 		this->colapseState = true;
 		emit setCollapseState(true);
 	};
-	setSize(newSize);
+	this->setSize(newSize);
 };
 
 void floorBoard::initStomps()
@@ -679,4 +668,19 @@ void floorBoard::updateStompBoxes()
 		stompOrder.append( midiTable->getMidiMap("Stucture", "0A", "00", "00", fxChain.at(i)).name );
 	};
 	setStomps(stompOrder);
+	};
+
+void floorBoard::setEditDialog(editWindow* editDialog)
+{
+	this->editDialog = editDialog;
+	this->editDialog->setParent(this);
+	this->centerEditDialog();
+	this->editDialog->show();
+};
+
+void floorBoard::centerEditDialog()
+{
+	int x = this->displayPos.x() + (((this->floorSize.width() - this->displayPos.x()) - this->editDialog->width()) / 2);
+	int y = this->pos.y() + ((this->floorSize.height() - this->editDialog->height()) / 2);
+	this->editDialog->move(x, y);
 };

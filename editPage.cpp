@@ -22,11 +22,18 @@
 
 #include "editPage.h"
 #include <QLabel>
+#include "customSwitch.h"
 #include "customControlKnob.h"
 
 editPage::editPage(QWidget *parent)
     : QWidget(parent)
 {
+	this->layout = new QGridLayout;
+	this->layout->setMargin(0);	
+	this->layout->setSpacing(0);
+
+	this->groupBoxMode = false;
+
 	/*QObject::connect(this->parent(), SIGNAL( dialogUpdateSignal() ),
                 this, SIGNAL( dialogUpdateSignal() ));*/
 
@@ -36,7 +43,7 @@ editPage::editPage(QWidget *parent)
 
 void editPage::paintEvent(QPaintEvent *)
 {
-	/*QPixmap image(":images/od.png");
+	/*QPixmap image(":images/dragbar.png");
 	
 	QRectF target(0.0, 0.0, this->width(), this->height());
 	QRectF source(0.0, 0.0, this->width(), this->height());
@@ -45,11 +52,20 @@ void editPage::paintEvent(QPaintEvent *)
 	painter.drawPixmap(target, image, source);*/
 };
 
-void editPage::addKnob(QPoint pos, QString hex1, QString hex2, QString hex3, 
-					   QString background, QString direction, int lenght)
+void editPage::addKnob(int row, int column, int rowSpan, int columnSpan,
+					   QString hex1, QString hex2, QString hex3, 
+					   QString background, QString direction, int lenght, 
+					   Qt::Alignment alignment)
 {
 	customControlKnob *knob = new customControlKnob(this, hex1, hex2, hex3, background, direction, lenght);
-	knob->move(pos);
+	if(this->groupBoxMode)
+	{
+		this->groupBoxLayout->addWidget(knob, row, column, rowSpan, columnSpan, alignment);
+	}
+	else
+	{
+		this->layout->addWidget(knob, row, column, rowSpan, columnSpan, alignment);
+	};
 };
 
 void editPage::addSwitch(QPoint pos)
@@ -94,3 +110,113 @@ void editPage::valueChanged(bool value, QString hex1, QString hex2, QString hex3
 	hex2;
 	hex3;
 }; 
+
+void editPage::newGroupBox(QString title)
+{
+	if(this->groupBoxMode)
+	{
+		if(this->groupBoxIndex == 0 && this->groupBoxLevel != 0)
+		{
+			this->parentBoxDif++;
+
+
+
+
+		};
+		this->groupBoxLevel++;
+		this->groupBoxIndex++;
+	}
+	else
+	{
+		this->groupBoxLevel = 0;
+		this->groupBoxIndex = 0;
+		this->parentBoxDif = 0;
+	};
+	this->groupBoxIndexList.append(this->groupBoxLevel);
+
+	this->groupBox = new QGroupBox;
+	this->groupBoxes.append(this->groupBox);
+
+	this->groupBoxLayout = new QGridLayout;
+	this->groupBoxLayout->setMargin(5);
+	this->groupBoxLayout->setSpacing(0);
+	this->groupBoxLayout->setAlignment(Qt::AlignCenter);
+	this->groupBoxLayouts.append(this->groupBoxLayout);
+	
+	QFont groupBoxFont;
+	groupBoxFont.setFamily("Arial");
+	groupBoxFont.setBold(true);
+	groupBoxFont.setPixelSize(12);
+	groupBoxFont.setStretch(105);
+
+	QPalette groupBoxPal;
+	groupBoxPal.setColor(this->groupBox->foregroundRole(), Qt::white);
+
+	this->groupBox->setPalette(groupBoxPal);
+	this->groupBox->setFont(groupBoxFont);
+	this->groupBox->setTitle(title);
+	this->groupBoxMode = true;
+};
+
+void editPage::addGroupBox(int row, int column, int rowSpan, int columnSpan)
+{
+	int currentIndex = this->groupBoxIndexList.at(this->groupBoxIndex);
+
+
+
+	
+	int layoutIndex = this->groupBoxLayouts.size() - (this->groupBoxLevel - currentIndex) - 1;
+	int boxesIndex = this->groupBoxes.size() - (this->groupBoxLevel - currentIndex) - 1;
+	int parentIndex = this->groupBoxes.size() - this->groupBoxLevel - 1;
+
+	int removeIndex = this->groupBoxIndexList.indexOf(currentIndex);
+	this->groupBoxIndexList.removeAt(removeIndex);
+	for(int i = removeIndex; i < this->groupBoxIndexList.size() - 1; ++i)
+	{
+		this->groupBoxIndexList.move(i + 1, i);
+
+	};
+
+
+
+
+
+
+
+	QString snork = this->groupBoxes.at(boxesIndex)->title();
+	this->groupBoxes.at(boxesIndex)->setLayout(this->groupBoxLayouts.at(layoutIndex));
+
+
+
+
+
+	
+	if(this->groupBoxIndex == 0)
+	{
+		this->layout->addWidget(this->groupBoxes.at(parentIndex), row, column, rowSpan, columnSpan);
+		this->groupBoxLevel = 0;
+		this->groupBoxIndexList.clear();
+		this->groupBoxMode = false;
+	}
+	else
+	{
+		this->groupBoxLayouts.at(layoutIndex - 1 - this->parentBoxDif)->addWidget(this->groupBoxes.at(boxesIndex), row, column, rowSpan, columnSpan);
+
+		this->groupBoxIndex--;
+	};
+};
+
+void editPage::setGridLayout()
+{
+	QHBoxLayout *strechedLayout = new QHBoxLayout;
+	strechedLayout->addStretch();
+	strechedLayout->addLayout(this->layout);
+	strechedLayout->addStretch();
+
+	QVBoxLayout *mainLayout = new QVBoxLayout;
+	mainLayout->addStretch();
+	mainLayout->addLayout(strechedLayout);
+	mainLayout->addStretch();
+	
+	this->setLayout(mainLayout);
+};

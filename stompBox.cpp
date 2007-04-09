@@ -57,7 +57,7 @@ stompBox::stompBox(QWidget *parent, unsigned int id, QString imagePath, QPoint s
 
 	this->setFixedSize(stompSize);
 
-  this->editDialog = new editWindow;	
+  this->editDialog = new editWindow();	
   
   QObject::connect(this, SIGNAL( valueChanged(QString, QString, QString) ),
                 this->parent(), SIGNAL( valueChanged(QString, QString, QString) ));
@@ -68,17 +68,14 @@ stompBox::stompBox(QWidget *parent, unsigned int id, QString imagePath, QPoint s
 	QObject::connect(this->parent(), SIGNAL( updateSignal() ),
                 this, SLOT( updateSignal() ));
                 
-                	QObject::connect(this->parent(), SIGNAL( updateSignal() ),
-                this->editDialog, SIGNAL( dialogUpdateSignal() ));
-
-	QObject::connect(this, SIGNAL( dialogUpdateSignal() ),
-                this->editDialog, SIGNAL( dialogUpdateSignal() ));
-
 	QObject::connect(this->editDialog, SIGNAL( updateSignal() ),
                 this, SLOT( updateSignal() ));
 
 	QObject::connect(this->editDialog, SIGNAL( updateSignal() ),
                 this, SLOT( setDisplayToFxName() ));
+                
+                	QObject::connect(this, SIGNAL( setEditDialog(editWindow*) ),
+                this->parent(), SLOT( setEditDialog(editWindow*) ));
 };
 
 void stompBox::paintEvent(QPaintEvent *)
@@ -100,27 +97,24 @@ editWindow* stompBox::editDetails()
 
 void stompBox::mousePressEvent(QMouseEvent *event) 
 { 
-	if (event->button() == Qt::LeftButton) this->dragStartPosition = event->pos(); 
 	emitValueChanged(this->hex1, this->hex2, "00", "void");
+	
+		if (event->button() == Qt::LeftButton) 
+	{
+		this->dragStartPosition = event->pos(); 
+	}
+	else if (event->button() == Qt::RightButton)
+	{
+		this->editDialog->setWindow(this->fxName);
+		emit setEditDialog(this->editDialog);
+	};
 };
 
 void stompBox::mouseDoubleClickEvent(QMouseEvent *event)
 {
 	event;
-	if(this->editDialog->getTitle().isEmpty())
-	{
-		QRect windowRect = this->parentWidget()->parentWidget()->frameGeometry();
-
-		int x = (windowRect.x() + (windowRect.width() / 2)) - (this->editDialog->width() / 2);
-		int y = (windowRect.y() + (windowRect.height() / 2)) - (this->editDialog->height() / 2);
-
-		this->editDialog->move(x, y);
-	};
 	this->editDialog->setWindow(this->fxName);
-	this->editDialog->show();
-	this->editDialog->showNormal();
-	this->editDialog->raise();	
-	this->editDialog->activateWindow();
+	emit setEditDialog(this->editDialog);
 };
 
 void stompBox::mouseMoveEvent(QMouseEvent *event)

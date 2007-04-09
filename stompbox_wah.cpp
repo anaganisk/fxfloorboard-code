@@ -41,7 +41,7 @@ void stompbox_wah::updateSignal()
 
 void stompbox_wah::setEditPages()
 {
- 	editDetails()->page()->addLabel("WH - Pedal Wah", QPoint(0,0));
+ 	/*editDetails()->page()->addLabel("WH - Pedal Wah", QPoint(0,0));
 	editDetails()->page()->addKnob(QPoint(0,20), "02", "00", "03");
 	editDetails()->page()->addKnob(QPoint(45,20), "02", "00", "04");
 	editDetails()->page()->addKnob(QPoint(90,20), "02", "00", "05");
@@ -64,5 +64,5 @@ void stompbox_wah::setEditPages()
 	editDetails()->page()->addKnob(QPoint(45,20), "01", "00", "08");
 	editDetails()->page()->addKnob(QPoint(90,20), "01", "00", "09");
     //editDetails()->page()->addSwitch(QPoint(230,25));
-	editDetails()->addPage();
+	editDetails()->addPage();*/
 };

@@ -49,7 +49,33 @@ void stompbox_eq::updateSignal()
 
 void stompbox_eq::setEditPages()
 {
-    editDetails()->page()->addLabel("_________Low Eq________", QPoint(20,0));
+	editDetails()->page()->newGroupBox("High EQ");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "05", "00", "08", "turbo"); //Q
+	editDetails()->page()->addKnob(0, 1, 1, 1, "05", "00", "09");          //freq
+	editDetails()->page()->addKnob(0, 2, 1, 1, "05", "00", "0A", "turbo"); //level
+	editDetails()->page()->addGroupBox(0, 2, 1, 1);
+
+	editDetails()->page()->newGroupBox("Mid EQ");
+	editDetails()->page()->addKnob(1, 0, 1, 1, "05", "00", "05", "turbo"); //Q
+	editDetails()->page()->addKnob(1, 1, 1, 1, "05", "00", "06");          //freq
+	editDetails()->page()->addKnob(1, 2, 1, 1, "05", "00", "07", "turbo"); //level
+	editDetails()->page()->addGroupBox(1, 1, 1, 1);
+	
+	editDetails()->page()->newGroupBox("Low EQ");
+	editDetails()->page()->addKnob(2, 0, 1, 1, "05", "00", "02", "turbo"); //Q
+	editDetails()->page()->addKnob(2, 1, 1, 1, "05", "00", "03");          //freq
+	editDetails()->page()->addKnob(2, 2, 1, 1, "05", "00", "04", "turbo"); //level
+	editDetails()->page()->addGroupBox(2, 0, 1, 1);
+
+	editDetails()->page()->newGroupBox("Equaliser");
+	editDetails()->page()->addKnob(2, 0, 1, 1, "05", "00", "0B");          //level
+	editDetails()->page()->addKnob(2, 1, 1, 1, "05", "00", "00");          //on/off
+
+	editDetails()->page()->addGroupBox(2, 2, 1, 1);
+	editDetails()->addPage();  // PAGE 1 ABOVE 
+
+
+  /*  editDetails()->page()->addLabel("_________Low Eq________", QPoint(20,0));
 	editDetails()->page()->addKnob(QPoint(0,30), "05", "00", "02");
 	//editDetails()->page()->addLabel("Q", QPoint(17,15));
 	editDetails()->page()->addKnob(QPoint(80,30), "05", "00", "03");
@@ -77,5 +103,5 @@ void stompbox_eq::setEditPages()
 	//editDetails()->page()->addLabel("EQ Level", QPoint(264,215));
 	editDetails()->page()->addKnob(QPoint(264,30), "05", "00", "00");
 	//editDetails()->page()->addLabel("Fx On/Off", QPoint(254,15));
-	editDetails()->addPage(); 
+	editDetails()->addPage(); */
 };
