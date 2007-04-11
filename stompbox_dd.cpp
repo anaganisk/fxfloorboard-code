@@ -52,5 +52,39 @@ void stompbox_dd::updateSignal()
 void stompbox_dd::setEditPages()
 {
     
-	
+editDetails()->page()->newGroupBox("Rev/Delay/SoS");
+	editDetails()->page()->newGroupBox("Reverb");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "08", "00", "03", "turbo");//rev type
+	editDetails()->page()->addKnob(0, 1, 1, 1, "08", "00", "04");         //rev time
+	editDetails()->page()->addKnob(0, 2, 1, 1, "08", "00", "05", "turbo");//pre delay
+	editDetails()->page()->addKnob(0, 3, 1, 1, "08", "00", "06");         //low cut
+	editDetails()->page()->addKnob(0, 4, 1, 1, "08", "00", "07", "turbo");//high cut
+	editDetails()->page()->addKnob(0, 5, 1, 1, "08", "00", "08");         //density
+	editDetails()->page()->addKnob(0, 6, 1, 1, "08", "00", "09", "turbo");//rev level
+	editDetails()->page()->addGroupBox(1, 0, 1, 1);
+	editDetails()->page()->addGroupBox(0, 0, 1, 1);
+	editDetails()->addPage();  // PAGE 1 ABOVE
+
+	editDetails()->page()->newGroupBox("Rev/Delay/SoS");
+	editDetails()->page()->newGroupBox("Delay");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "08", "00", "0B", "turbo");//delay type
+	editDetails()->page()->addKnob(0, 1, 1, 1, "08", "00", "0C");         //delay time
+	editDetails()->page()->addKnob(0, 2, 1, 1, "08", "00", "0D", "turbo");//time fine
+	editDetails()->page()->addKnob(0, 3, 1, 1, "08", "00", "0E");         //tap time
+	editDetails()->page()->addKnob(0, 4, 1, 1, "08", "00", "0F", "turbo");//feedback
+	editDetails()->page()->addKnob(0, 5, 1, 1, "08", "00", "10", "turbo");//high cut
+	editDetails()->page()->addKnob(0, 6, 1, 1, "08", "00", "11");         //level
+	editDetails()->page()->addGroupBox(1, 0, 1, 1);
+	editDetails()->page()->addGroupBox(0, 0, 1, 1);
+	editDetails()->addPage();  // PAGE 2 ABOVE
+
+	editDetails()->page()->newGroupBox("Rev/Delay/SoS");
+	editDetails()->page()->newGroupBox("Sound on Sound");
+	editDetails()->page()->addKnob(0, 0, 2, 1, "08", "00", "13");         //sos mode
+	editDetails()->page()->addKnob(0, 1, 2, 1, "08", "00", "14");         //sos quantize
+	editDetails()->page()->addKnob(0, 2, 2, 1, "08", "00", "15");         //sos tempo
+	editDetails()->page()->addKnob(0, 3, 2, 1, "08", "00", "16", "turbo");//sos level
+	editDetails()->page()->addGroupBox(1, 0, 2, 1);
+	editDetails()->page()->addGroupBox(0, 0, 1, 1);
+	editDetails()->addPage();  // PAGE 3 ABOVE	
 };

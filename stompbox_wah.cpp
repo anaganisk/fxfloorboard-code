@@ -41,7 +41,39 @@ void stompbox_wah::updateSignal()
 
 void stompbox_wah::setEditPages()
 {
- 	/*editDetails()->page()->addLabel("WH - Pedal Wah", QPoint(0,0));
+ 	editDetails()->page()->newGroupBox("Pedal Wah");
+	editDetails()->page()->addKnob(0, 0, 2, 1, "02", "00", "02", "turbo");  //wah select
+	editDetails()->page()->addKnob(0, 1, 1, 1, "02", "00", "03", "turbo");  //wah type
+	editDetails()->page()->addKnob(0, 2, 1, 1, "02", "00", "04");           //pedal pos
+	editDetails()->page()->addKnob(0, 3, 1, 1, "02", "00", "05");           //level
+	editDetails()->page()->addGroupBox(1, 0, 1, 1);
+	editDetails()->addPage();  // PAGE 1 ABOVE
+
+	editDetails()->page()->newGroupBox("Touch Wah");
+	editDetails()->page()->addKnob(0, 0, 2, 1, "02", "00", "02", "turbo");  //wah select
+	editDetails()->page()->addKnob(0, 1, 1, 1, "02", "00", "06", "turbo");  //mode
+	editDetails()->page()->addKnob(0, 2, 1, 1, "02", "00", "07");           //polarity
+	editDetails()->page()->addKnob(0, 3, 1, 1, "02", "00", "08");           //sensitivity
+	editDetails()->page()->addKnob(0, 4, 1, 1, "02", "00", "09", "turbo");  //freq
+	editDetails()->page()->addKnob(0, 5, 1, 1, "02", "00", "0A");           //peak
+	editDetails()->page()->addKnob(0, 6, 1, 1, "02", "00", "0B");           //depth
+    editDetails()->page()->addKnob(0, 7, 1, 1, "02", "00", "0C");           //level
+	editDetails()->page()->addGroupBox(1, 0, 1, 1);
+	editDetails()->addPage();  // PAGE 2 ABOVE
+
+	editDetails()->page()->newGroupBox("Auto Wah");
+	editDetails()->page()->addKnob(0, 0, 2, 1, "02", "00", "02", "turbo");  //wah select
+	editDetails()->page()->addKnob(0, 1, 1, 1, "02", "00", "0D");           //mode
+	editDetails()->page()->addKnob(0, 2, 1, 1, "02", "00", "0E", "turbo");  //rate
+	editDetails()->page()->addKnob(0, 3, 1, 1, "02", "00", "0F");           //depth
+	editDetails()->page()->addKnob(0, 4, 1, 1, "02", "00", "10", "turbo");  //freq
+	editDetails()->page()->addKnob(0, 5, 1, 1, "02", "00", "11");           //peak
+	editDetails()->page()->addKnob(0, 6, 1, 1, "02", "00", "12");           //polarity
+	editDetails()->page()->addKnob(0, 7, 1, 1, "02", "00", "13");           //sensitivity
+	editDetails()->page()->addKnob(0, 8, 1, 1, "02", "00", "14");           //level
+	editDetails()->page()->addGroupBox(1, 0, 1, 1);
+	editDetails()->addPage();  // PAGE 3 ABOVE
+	/*editDetails()->page()->addLabel("WH - Pedal Wah", QPoint(0,0));
 	editDetails()->page()->addKnob(QPoint(0,20), "02", "00", "03");
 	editDetails()->page()->addKnob(QPoint(45,20), "02", "00", "04");
 	editDetails()->page()->addKnob(QPoint(90,20), "02", "00", "05");

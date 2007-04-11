@@ -543,6 +543,10 @@ void stompBox::emitValueChanged(QString hex1, QString hex2, QString hex3, QStrin
 			{
 				this->fxName = "Speaker Cabinet";
 			}
+		if(hex1 == "04" && hex3 <= "0F" && hex3 >= "01") // Rename the Pre amp to Speaker Cabinet, shared memory location
+			{
+				this->fxName = "Pre Amplifier";
+			}
 			
 	emit dialogUpdateSignal();
 	emit valueChanged(this->fxName, valueName, valueStr);

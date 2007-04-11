@@ -46,6 +46,15 @@ void stompbox_rv::updateSignal()
 
 void stompbox_rv::setEditPages()
 {
+	editDetails()->page()->newGroupBox("Speaker");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "04", "00", "12", "turbo");//type
+	editDetails()->page()->addKnob(0, 1, 1, 1, "04", "00", "13");         //mic setting
+	editDetails()->page()->addKnob(0, 2, 1, 1, "04", "00", "14", "turbo");//mic level
+	editDetails()->page()->addKnob(0, 3, 1, 1, "04", "00", "15", "turbo");//direct level
+	editDetails()->page()->addKnob(0, 4, 1, 1, "04", "00", "16");         //link
+	editDetails()->page()->addGroupBox(1, 0, 1, 1);
+	editDetails()->addPage();  // PAGE 1 ABOVE
+
 	/*editDetails()->page()->addKnob(QPoint(0,20), "04", "00", "10");
 	editDetails()->page()->addKnob(QPoint(55,20), "04", "00", "12");
 	editDetails()->page()->addKnob(QPoint(110,20), "04", "00", "13");

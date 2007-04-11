@@ -45,6 +45,14 @@ void stompbox_od::updateSignal()
 
 void stompbox_od::setEditPages()
 {
-    
+   	editDetails()->page()->newGroupBox("Overdrive/Distortion");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "03", "00", "02", "turbo");//type
+	editDetails()->page()->addKnob(0, 1, 1, 1, "03", "00", "03");         //drive
+	editDetails()->page()->addKnob(0, 2, 1, 1, "03", "00", "04", "turbo");//bass
+	editDetails()->page()->addKnob(0, 3, 1, 1, "03", "00", "05");         //treble
+	editDetails()->page()->addKnob(0, 4, 1, 1, "03", "00", "06");         //effect level
+	editDetails()->page()->addKnob(0, 5, 1, 1, "03", "00", "07");         //direct level
+	editDetails()->page()->addGroupBox(1, 0, 1, 1);
+	editDetails()->addPage();  // PAGE 4 ABOVE 
 	
 };
