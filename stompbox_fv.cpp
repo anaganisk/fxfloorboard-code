@@ -28,17 +28,28 @@ stompbox_fv::stompbox_fv(QWidget *parent)
 	/* VOLUME */
 	setImage(":/images/fv.png");
 	setLSB("0C", "00");
-//	setButton("15", "00", "00", QPoint::QPoint(0, 109), ":/images/pedal.png");
+//	setButton("0C", "00", "00", QPoint::QPoint(0, 109), ":/images/pedal.png");
 	setEditPages();
 };
 
 void stompbox_fv::updateSignal()
 {
-//	updateButton("15", "00", "00");
+//	updateButton("0C", "00", "00");
 };
 
 void stompbox_fv::setEditPages()
 {
-    
+    editDetails()->page()->newGroupBox("Expression Pedal");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "0C", "00", "01", "turbo");//foot volume minimum
+	editDetails()->page()->addKnob(0, 1, 1, 1, "0C", "00", "02");         //foot volume maximum
+	editDetails()->page()->addGroupBox(0, 1, 1, 2);
+	editDetails()->page()->newGroupBox("Expression Pedal Switch");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "0D", "00", "00", "turbo");//on/off
+	editDetails()->page()->addKnob(0, 1, 1, 1, "0D", "00", "02");         //target
+	//editDetails()->page()->addKnob(0, 2, 1, 1, "0D", "00", "04", "turbo");//
+	//editDetails()->page()->addKnob(0, 3, 1, 1, "0D", "00", "15", "turbo");//
+	//editDetails()->page()->addKnob(0, 4, 1, 1, "0D", "00", "16");         //
+	editDetails()->page()->addGroupBox(1, 0, 1, 4);
+	editDetails()->addPage();  // PAGE ABOVE   
 	
 };

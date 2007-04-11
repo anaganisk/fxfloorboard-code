@@ -399,7 +399,7 @@ void floorBoard::initSize(QSize floorSize)
 	QList<QPoint> fxPos; 
 	
 	unsigned int spacingV = (floorSize.height() - (marginStompBoxesTop + marginStompBoxesBottom)) - (stompSize.height() * 2);
-	unsigned int spacingH = ( (floorSize.width() - offset - (marginStompBoxesWidth * 2)) - (stompSize.width() * 6) ) / 6;
+	unsigned int spacingH = ( (floorSize.width() - offset - (marginStompBoxesWidth * 1)) - (stompSize.width() * 6) ) / 6;
 	//for(unsigned int i=0;i<14;i++)
 	for(int i=11;i>=0;i--)
 	{
