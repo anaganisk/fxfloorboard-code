@@ -47,7 +47,7 @@ void stompbox_wah::setEditPages()
 	editDetails()->page()->addKnob(0, 2, 1, 1, "02", "00", "04");           //pedal pos
 	editDetails()->page()->addKnob(0, 3, 1, 1, "02", "00", "05");           //level
 	editDetails()->page()->addGroupBox(1, 0, 1, 1);
-	editDetails()->addPage();  // PAGE 1 ABOVE
+	editDetails()->addPage("02", "00", "02");  // PAGE 1 ABOVE
 
 	editDetails()->page()->newGroupBox("Touch Wah");
 	editDetails()->page()->addKnob(0, 0, 2, 1, "02", "00", "02", "turbo");  //wah select
@@ -59,7 +59,7 @@ void stompbox_wah::setEditPages()
 	editDetails()->page()->addKnob(0, 6, 1, 1, "02", "00", "0B");           //depth
     editDetails()->page()->addKnob(0, 7, 1, 1, "02", "00", "0C");           //level
 	editDetails()->page()->addGroupBox(1, 0, 1, 1);
-	editDetails()->addPage();  // PAGE 2 ABOVE
+	editDetails()->addPage("02", "00", "02");  // PAGE 2 ABOVE
 
 	editDetails()->page()->newGroupBox("Auto Wah");
 	editDetails()->page()->addKnob(0, 0, 2, 1, "02", "00", "02", "turbo");  //wah select
@@ -72,7 +72,7 @@ void stompbox_wah::setEditPages()
 	editDetails()->page()->addKnob(0, 7, 1, 1, "02", "00", "13");           //sensitivity
 	editDetails()->page()->addKnob(0, 8, 1, 1, "02", "00", "14");           //level
 	editDetails()->page()->addGroupBox(1, 0, 1, 1);
-	editDetails()->addPage();  // PAGE 3 ABOVE
+	editDetails()->addPage("02", "00", "02");  // PAGE 3 ABOVE
 	/*editDetails()->page()->addLabel("WH - Pedal Wah", QPoint(0,0));
 	editDetails()->page()->addKnob(QPoint(0,20), "02", "00", "03");
 	editDetails()->page()->addKnob(QPoint(45,20), "02", "00", "04");

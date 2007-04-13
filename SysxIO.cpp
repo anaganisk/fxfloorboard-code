@@ -768,11 +768,11 @@ void SysxIO::requestPatchName(int bank, int patch)
 	
 	QObject::connect(this, SIGNAL(sysxReply(QString)),	// Connect the result of the request
 		this, SLOT(returnPatchName(QString)));	    	// to returnPatchName function.
-	
-	/* Patch name request. */
-	MidiTable *midiTable = MidiTable::Instance();
+	emit isChanged(); // cjw added to stop name requests on patch change
+	/* Patch name request.*/
+	/*MidiTable *midiTable = MidiTable::Instance();
 	QString sysxMsg = midiTable->nameRequest(bank, patch);
-	sendSysx(sysxMsg); //cjw
+	sendSysx(sysxMsg); //cjw */
 };
 
 /***************************** returnPatchName() ***************************

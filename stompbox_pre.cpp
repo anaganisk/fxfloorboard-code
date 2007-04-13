@@ -58,7 +58,7 @@ void stompbox_pre::setEditPages()
 	editDetails()->page()->addKnob(0, 7, 1, 1, "04", "00", "0F");         //level
 	editDetails()->page()->addGroupBox(1, 0, 1, 1);
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
-	editDetails()->addPage();  // PAGE 1 ABOVE
+	editDetails()->addPage("04", "00", "02");  // PAGE 1 ABOVE
 
 	editDetails()->page()->newGroupBox("Pre Amplifier");
 	editDetails()->page()->newGroupBox("B Man");
@@ -71,7 +71,7 @@ void stompbox_pre::setEditPages()
 	editDetails()->page()->addKnob(0, 6, 1, 1, "04", "00", "0F");         //level
 	editDetails()->page()->addGroupBox(1, 0, 1, 1);
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
-	editDetails()->addPage();  // PAGE 2 ABOVE
+	editDetails()->addPage("04", "00", "02");  // PAGE 2 ABOVE
 
 	editDetails()->page()->newGroupBox("Pre Amplifier");
 	editDetails()->page()->newGroupBox("Bass 360");
@@ -82,7 +82,7 @@ void stompbox_pre::setEditPages()
 	editDetails()->page()->addKnob(0, 4, 1, 1, "04", "00", "0F");         //level
 	editDetails()->page()->addGroupBox(1, 0, 1, 1);
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
-	editDetails()->addPage();  // PAGE 3 ABOVE
+	editDetails()->addPage("04", "00", "02");  // PAGE 3 ABOVE
 
 	editDetails()->page()->newGroupBox("Pre Amplifier");
 	editDetails()->page()->newGroupBox("T.E.");
@@ -95,7 +95,7 @@ void stompbox_pre::setEditPages()
 	editDetails()->page()->addKnob(0, 6, 1, 1, "04", "00", "0F");         //level
 	editDetails()->page()->addGroupBox(1, 0, 1, 1);
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
-	editDetails()->addPage();  // PAGE 4 ABOVE	
+	editDetails()->addPage("04", "00", "02");  // PAGE 4 ABOVE	
 
 	editDetails()->page()->newGroupBox("Pre Amplifier");
 	editDetails()->page()->newGroupBox("Session");
@@ -108,7 +108,7 @@ void stompbox_pre::setEditPages()
 	editDetails()->page()->addKnob(0, 6, 1, 1, "04", "00", "0F");         //level
 	editDetails()->page()->addGroupBox(1, 0, 1, 1);
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
-	editDetails()->addPage();  // PAGE 5 ABOVE	
+	editDetails()->addPage("04", "00", "02");  // PAGE 5 ABOVE	
 
 	editDetails()->page()->newGroupBox("Pre Amplifier");
 	editDetails()->page()->newGroupBox("Concert 810");
@@ -124,5 +124,5 @@ void stompbox_pre::setEditPages()
 	editDetails()->page()->addKnob(0, 9, 1, 1, "04", "00", "0F");         //level
 	editDetails()->page()->addGroupBox(1, 0, 1, 1);
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
-	editDetails()->addPage();  // PAGE 6 ABOVE
+	editDetails()->addPage("04", "00", "02");  // PAGE 6 ABOVE
 };

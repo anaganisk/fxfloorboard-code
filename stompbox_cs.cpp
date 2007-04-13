@@ -51,20 +51,20 @@ void stompbox_cs::setEditPages()
 	editDetails()->page()->addKnob(0, 2, 1, 1, "00", "00", "09", "turbo");// tone
 	editDetails()->page()->addKnob(0, 3, 1, 1, "00", "00", "0A");         //level
 	editDetails()->page()->addGroupBox(1, 0, 1, 1);
-	editDetails()->addPage();  // PAGE 1 ABOVE
+	editDetails()->addPage("00", "00", "02");  // PAGE 1 ABOVE
 
 	editDetails()->page()->newGroupBox("D-Comp");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "00", "00", "05", "turbo");//sustain
 	editDetails()->page()->addKnob(0, 1, 1, 1, "00", "00", "0A");         //level
 	editDetails()->page()->addGroupBox(1, 0, 1, 1);
-	editDetails()->addPage();  // PAGE 2 ABOVE
+	editDetails()->addPage("00", "00", "02");  // PAGE 2 ABOVE
 
 	editDetails()->page()->newGroupBox("Rack 160D");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "00", "00", "04", "turbo");//threshold
 	editDetails()->page()->addKnob(0, 1, 1, 1, "00", "00", "06");         //ratio
 	editDetails()->page()->addKnob(0, 2, 1, 1, "00", "00", "0A");         //level
 	editDetails()->page()->addGroupBox(1, 0, 1, 1);
-	editDetails()->addPage();  // PAGE 3 ABOVE
+	editDetails()->addPage("00", "00", "02");  // PAGE 3 ABOVE
 
 	editDetails()->page()->newGroupBox("Vtg Rack U");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "00", "00", "03", "turbo");//attack
@@ -73,6 +73,6 @@ void stompbox_cs::setEditPages()
 	editDetails()->page()->addKnob(0, 3, 1, 1, "00", "00", "08");         //release
 	editDetails()->page()->addKnob(0, 4, 1, 1, "00", "00", "0A");         //level
 	editDetails()->page()->addGroupBox(1, 0, 1, 1);
-	editDetails()->addPage();  // PAGE 4 ABOVE
+	editDetails()->addPage("00", "00", "02");  // PAGE 4 ABOVE
 	
 };

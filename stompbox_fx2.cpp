@@ -53,7 +53,7 @@ void stompbox_fx2::setEditPages()
 	editDetails()->page()->addKnob(0, 7, 1, 1, "06", "00", "0A");         //level
 	editDetails()->page()->addGroupBox(1, 0, 1, 8);
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
-	editDetails()->addPage();  // PAGE 1 ABOVE
+	editDetails()->addPage("06", "00", "02");  // PAGE 1 ABOVE
 
 	editDetails()->page()->newGroupBox("FX 2");
 	editDetails()->page()->newGroupBox("Flanger");
@@ -66,7 +66,7 @@ void stompbox_fx2::setEditPages()
 	editDetails()->page()->addKnob(0, 6, 1, 1, "06", "00", "10", "turbo");//level
 	editDetails()->page()->addGroupBox(1, 0, 1, 7);
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
-	editDetails()->addPage();  // PAGE 2 ABOVE
+	editDetails()->addPage("06", "00", "02");  // PAGE 2 ABOVE
 
 	editDetails()->page()->newGroupBox("Harmonizer");
 	editDetails()->page()->newGroupBox("Harmony 1");
@@ -86,7 +86,7 @@ void stompbox_fx2::setEditPages()
 	editDetails()->page()->addKnob(0, 9, 1, 1, "06", "00", "1C");         //direct level
 	editDetails()->page()->addGroupBox(2, 1, 1, 1);
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
-	editDetails()->addPage();  // PAGE 3 ABOVE
+	editDetails()->addPage("06", "00", "02");  // PAGE 3 ABOVE
 
 	editDetails()->page()->newGroupBox("Pitch Shifter");
 	editDetails()->page()->newGroupBox("Pitch 1");
@@ -109,7 +109,7 @@ void stompbox_fx2::setEditPages()
 	editDetails()->page()->addKnob(0, 12, 1, 1, "06", "00", "2B", "turbo");//direct level
 	editDetails()->page()->addGroupBox(2, 1, 1, 1);
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
-	editDetails()->addPage();  // PAGE 4 ABOVE	
+	editDetails()->addPage("06", "00", "02");  // PAGE 4 ABOVE	
 	//if (hex3 == "04"){
 	editDetails()->page()->newGroupBox("FX 2");
 	editDetails()->page()->newGroupBox("Pitch Bend");
@@ -120,7 +120,7 @@ void stompbox_fx2::setEditPages()
 	editDetails()->page()->addKnob(0, 4, 1, 1, "06", "00", "30", "turbo");//direct level
 	editDetails()->page()->addGroupBox(1, 0, 1, 5);
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
-	editDetails()->addPage(); //}; // PAGE 5 ABOVE	
+	editDetails()->addPage("06", "00", "02"); //}; // PAGE 5 ABOVE	
 
 	
 	editDetails()->page()->newGroupBox("Chorus");
@@ -140,7 +140,7 @@ void stompbox_fx2::setEditPages()
 	editDetails()->page()->addKnob(0, 8, 1, 1, "06", "00", "39");         //high level
 	editDetails()->page()->addGroupBox(1, 0, 1, 5);
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
-	editDetails()->addPage();  // PAGE 6 ABOVE  
+	editDetails()->addPage("06", "00", "02");  // PAGE 6 ABOVE  
 
 	editDetails()->page()->newGroupBox("Auto Slap");
 	editDetails()->page()->addKnob(0, 1, 1, 1, "06", "00", "3A", "turbo");//phrase
@@ -150,14 +150,14 @@ void stompbox_fx2::setEditPages()
 	editDetails()->page()->addKnob(0, 5, 1, 1, "06", "00", "3F", "turbo");//effect level
 	editDetails()->page()->addKnob(0, 6, 1, 1, "06", "00", "40");         //direct level
 	editDetails()->page()->addGroupBox(0, 0, 1, 6);
-	editDetails()->addPage();  // PAGE 7 ABOVE
+	editDetails()->addPage("06", "00", "02");  // PAGE 7 ABOVE
 	
 	editDetails()->page()->newGroupBox("Short Digital Delay");
 	editDetails()->page()->addKnob(0, 1, 1, 1, "06", "00", "43", "turbo");//delay time
 	editDetails()->page()->addKnob(0, 2, 1, 1, "06", "00", "45");         //feedback
 	editDetails()->page()->addKnob(0, 3, 1, 1, "06", "00", "46", "turbo");//effect
 	editDetails()->page()->addGroupBox(0, 0, 1, 3);
-	editDetails()->addPage();  // PAGE 8 ABOVE
+	editDetails()->addPage("06", "00", "02");  // PAGE 8 ABOVE
 
     editDetails()->page()->newGroupBox("Vibrato");
 	editDetails()->page()->addKnob(0, 1, 1, 1, "06", "00", "47", "turbo");//rate
@@ -165,7 +165,7 @@ void stompbox_fx2::setEditPages()
 	editDetails()->page()->addKnob(0, 3, 1, 1, "06", "00", "49", "turbo");//trigger
 	editDetails()->page()->addKnob(0, 4, 1, 1, "06", "00", "4A");         //rise time
 	editDetails()->page()->addGroupBox(0, 0, 1, 6);
-	editDetails()->addPage();  // PAGE 9 ABOVE
+	editDetails()->addPage("06", "00", "02");  // PAGE 9 ABOVE
 
     editDetails()->page()->newGroupBox("FX 2");
 	editDetails()->page()->newGroupBox("Humanizer");
@@ -180,7 +180,7 @@ void stompbox_fx2::setEditPages()
 	editDetails()->page()->addKnob(0, 8, 1, 1, "06", "00", "53", "turbo");//level
 	editDetails()->page()->addGroupBox(1, 0, 1, 9);
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
-	editDetails()->addPage();  // PAGE 10 ABOVE
+	editDetails()->addPage("06", "00", "02");  // PAGE 10 ABOVE
 
 	 editDetails()->page()->newGroupBox("Tremolo/Pan");
 	editDetails()->page()->addKnob(0, 1, 1, 1, "06", "00", "54", "turbo");//mode
@@ -188,7 +188,7 @@ void stompbox_fx2::setEditPages()
 	editDetails()->page()->addKnob(0, 3, 1, 1, "06", "00", "56", "turbo");//rate
 	editDetails()->page()->addKnob(0, 4, 1, 1, "06", "00", "57");         //depth
 	editDetails()->page()->addGroupBox(0, 0, 1, 6);
-	editDetails()->addPage();  // PAGE 11 ABOVE
+	editDetails()->addPage("06", "00", "02");  // PAGE 11 ABOVE
 
      editDetails()->page()->newGroupBox("Bass Synth");
 	editDetails()->page()->newGroupBox("");
@@ -214,5 +214,5 @@ void stompbox_fx2::setEditPages()
 	editDetails()->page()->addKnob(0, 8, 1, 1, "06", "00", "69", "turbo");//pedal position
 	editDetails()->page()->addGroupBox(2, 0, 1, 9);
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
-	editDetails()->addPage();  // PAGE 12 ABOVE
+	editDetails()->addPage("06", "00", "02");  // PAGE 12 ABOVE
 };

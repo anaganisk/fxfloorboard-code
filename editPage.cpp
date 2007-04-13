@@ -35,9 +35,9 @@ editPage::editPage(QWidget *parent)
 	this->groupBoxMode = false;
 
 	/*QObject::connect(this->parent(), SIGNAL( dialogUpdateSignal() ),
-                this, SIGNAL( dialogUpdateSignal() ));*/
+                this, SIGNAL( dialogUpdateSignal() ));
 
-	/*QObject::connect(this, SIGNAL( updateSignal() ),
+	QObject::connect(this, SIGNAL( updateSignal() ),
                 this->parent(), SIGNAL( updateSignal() ));*/
 };
 
@@ -163,8 +163,8 @@ void editPage::addGroupBox(int row, int column, int rowSpan, int columnSpan)
 	int currentIndex = this->groupBoxIndexList.at(this->groupBoxIndex);
 
 
-
 	
+
 	int layoutIndex = this->groupBoxLayouts.size() - (this->groupBoxLevel - currentIndex) - 1;
 	int boxesIndex = this->groupBoxes.size() - (this->groupBoxLevel - currentIndex) - 1;
 	int parentIndex = this->groupBoxes.size() - this->groupBoxLevel - 1;
@@ -187,10 +187,10 @@ void editPage::addGroupBox(int row, int column, int rowSpan, int columnSpan)
 	this->groupBoxes.at(boxesIndex)->setLayout(this->groupBoxLayouts.at(layoutIndex));
 
 
-
-
-
 	
+
+
+
 	if(this->groupBoxIndex == 0)
 	{
 		this->layout->addWidget(this->groupBoxes.at(parentIndex), row, column, rowSpan, columnSpan);

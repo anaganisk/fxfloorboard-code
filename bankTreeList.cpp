@@ -459,7 +459,7 @@ void bankTreeList::setItemDoubleClicked(QTreeWidgetItem *item, int column)
 		emit setStatusMessage(tr("Sending"));
 		
 		sysxIO->setDeviceReady(false);
-		sysxIO->setRequestName(item->text(0));	// Set the name of the patch we are going to load, so we can check if we have loaded the correct patch at the end.
+		// cjw sysxIO->setRequestName(item->text(0));	// Set the name of the patch we are going to load, so we can check if we have loaded the correct patch at the end.
 
 		bool ok;
 		int bank = item->parent()->text(0).section(" ", 1, 1).trimmed().toInt(&ok, 10); // Get the bank

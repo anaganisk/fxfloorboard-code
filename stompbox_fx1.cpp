@@ -46,20 +46,20 @@ void stompbox_fx1::setEditPages()
 	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "03", "turbo");
 	editDetails()->page()->addKnob(0, 1, 1, 1, "01", "00", "04");
 	editDetails()->page()->addGroupBox(1, 0, 1, 1);
-	editDetails()->addPage();  // PAGE 1 ABOVE
+	editDetails()->addPage("01", "00", "02");  // PAGE 1 ABOVE
 
 	editDetails()->page()->newGroupBox("Enhancer");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "07", "turbo");
 	editDetails()->page()->addKnob(0, 1, 1, 1, "01", "00", "08");
 	editDetails()->page()->addKnob(0, 2, 1, 1, "01", "00", "09");
 	editDetails()->page()->addGroupBox(1, 0, 1, 1);
-	editDetails()->addPage();  // PAGE 2 ABOVE
+	editDetails()->addPage("01", "00", "02");  // PAGE 2 ABOVE
 
 	editDetails()->page()->newGroupBox("Slow Gear");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "0C", "turbo");
 	editDetails()->page()->addKnob(0, 1, 1, 1, "01", "00", "0D");
 	editDetails()->page()->addGroupBox(1, 0, 1, 1);
-	editDetails()->addPage();  // PAGE 3 ABOVE
+	editDetails()->addPage("01", "00", "02");  // PAGE 3 ABOVE
 
 	editDetails()->page()->newGroupBox("Defretter");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "0E", "turbo");
@@ -67,7 +67,7 @@ void stompbox_fx1::setEditPages()
 	editDetails()->page()->addKnob(0, 2, 1, 1, "01", "00", "10", "turbo");
 	editDetails()->page()->addKnob(0, 3, 1, 1, "01", "00", "11");
 	editDetails()->page()->addGroupBox(1, 0, 1, 1);
-	editDetails()->addPage();  // PAGE 4 ABOVE
+	editDetails()->addPage("01", "00", "02");  // PAGE 4 ABOVE
 
 	editDetails()->page()->newGroupBox("Ring Modulator");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "12", "turbo");
@@ -75,7 +75,7 @@ void stompbox_fx1::setEditPages()
 	editDetails()->page()->addKnob(0, 2, 1, 1, "01", "00", "14", "turbo");
 	editDetails()->page()->addKnob(0, 3, 1, 1, "01", "00", "15");
 	editDetails()->page()->addGroupBox(1, 0, 1, 1);
-	editDetails()->addPage();  // PAGE 5 ABOVE
+	editDetails()->addPage("01", "00", "02");  // PAGE 5 ABOVE
 
 
 

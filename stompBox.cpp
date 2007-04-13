@@ -71,7 +71,10 @@ stompBox::stompBox(QWidget *parent, unsigned int id, QString imagePath, QPoint s
 	QObject::connect(this->editDialog, SIGNAL( updateSignal() ),
                 this, SLOT( updateSignal() ));
 
-	QObject::connect(this->editDialog, SIGNAL( updateSignal() ),
+	QObject::connect(this, SIGNAL( dialogUpdateSignal() ),
+                this->editDialog, SIGNAL( dialogUpdateSignal() ));
+                
+  QObject::connect(this->editDialog, SIGNAL( updateSignal() ),
                 this, SLOT( setDisplayToFxName() ));
                 
                 	QObject::connect(this, SIGNAL( setEditDialog(editWindow*) ),
@@ -442,8 +445,7 @@ SysxIO *sysxIO = SysxIO::Instance(); bool ok;
 		sysxIO->setFileSource(hex1, hex2, hex3, valueHex);
 	};
 	
-		emitValueChanged(hex1, hex2, hex3, valueHex);
-		
+		emitValueChanged(hex1, hex2, hex3, valueHex);		
 };
 
 void stompBox::valueChanged(bool value, QString hex1, QString hex2, QString hex3)
@@ -452,10 +454,10 @@ void stompBox::valueChanged(bool value, QString hex1, QString hex2, QString hex3
 	(value)? valueInt=1: valueInt=0;
 	QString valueHex = QString::number(valueInt, 16).toUpper();
 	if(valueHex.length() < 2) valueHex.prepend("0");
-
 	
 	SysxIO *sysxIO = SysxIO::Instance();
 	sysxIO->setFileSource(hex1, hex2, hex3, valueHex);
+	
 	emitValueChanged(hex1, hex2, hex3, valueHex);
 };
 
