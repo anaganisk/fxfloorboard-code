@@ -49,6 +49,10 @@ void stompbox_eq::updateSignal()
 
 void stompbox_eq::setEditPages()
 {
+    editDetails()->page()->newGroupBox("Effect");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "05", "00", "00");        //on/off
+	editDetails()->page()->addGroupBox(2, 0, 1, 1);
+
 	editDetails()->page()->newGroupBox("High EQ");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "05", "00", "08", "turbo"); //Q
 	editDetails()->page()->addKnob(0, 1, 1, 1, "05", "00", "09");          //freq
@@ -59,17 +63,17 @@ void stompbox_eq::setEditPages()
 	editDetails()->page()->addKnob(1, 0, 1, 1, "05", "00", "05", "turbo"); //Q
 	editDetails()->page()->addKnob(1, 1, 1, 1, "05", "00", "06");          //freq
 	editDetails()->page()->addKnob(1, 2, 1, 1, "05", "00", "07", "turbo"); //level
-	editDetails()->page()->addGroupBox(1, 1, 1, 1);
+	editDetails()->page()->addGroupBox(0, 1, 1, 1);
 	
 	editDetails()->page()->newGroupBox("Low EQ");
 	editDetails()->page()->addKnob(2, 0, 1, 1, "05", "00", "02", "turbo"); //Q
 	editDetails()->page()->addKnob(2, 1, 1, 1, "05", "00", "03");          //freq
 	editDetails()->page()->addKnob(2, 2, 1, 1, "05", "00", "04", "turbo"); //level
-	editDetails()->page()->addGroupBox(2, 0, 1, 1);
+	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 
-	editDetails()->page()->newGroupBox("Equaliser");
+	editDetails()->page()->newGroupBox("Output");
 	editDetails()->page()->addKnob(2, 0, 1, 1, "05", "00", "0B");          //level
-	editDetails()->page()->addKnob(2, 1, 1, 1, "05", "00", "00");          //on/off
+	//editDetails()->page()->addKnob(2, 2, 1, 1, "05", "00", "00");          //on/off
 
 	editDetails()->page()->addGroupBox(2, 2, 1, 1);
 	editDetails()->addPage();  // PAGE 1 ABOVE 

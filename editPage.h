@@ -26,7 +26,6 @@
 #include <QWidget>
 #include <QtGui>
 
-
 class editPage : public QWidget
 {
     Q_OBJECT
@@ -42,18 +41,35 @@ public:
 		QString direction = "bottom", 
 		int lenght = 45,
 		Qt::Alignment alignment = 0);
-	void addSwitch(QPoint pos);
-	void addComboBox(QPoint pos);
-	void addLabel(QString text, QPoint pos);
-	void newGroupBox(QString title);
+	void addSwitch(int row, int column, int rowSpan, int columnSpan,
+		QString hex1 = "void",
+		QString hex2 = "void",
+		QString hex3 = "void",
+		QString direction = "bottom",
+		Qt::Alignment alignment = 0);
+	void addComboBox(int row, int column, int rowSpan, int columnSpan,
+		QString hex1 = "void",
+		QString hex2 = "void",
+		QString hex3 = "void",
+		QString direction = "bottom",
+		Qt::Alignment alignment = 0);
+	void addLabel(int row, int column, int rowSpan, int columnSpan, QString text, Qt::Alignment alignment = 0);
+	void newGroupBox(QString title, Qt::Alignment alignment = Qt::AlignCenter);
 	void addGroupBox(int row, int column, int rowSpan, int columnSpan);
 	void setGridLayout();
+	void newStackControl(int id, 
+		int row, int column, int rowSpan, int columnSpan,
+		Qt::Alignment alignment = 0);
+	void addStackControl();
+	void newStackField(int id);
+	void addStackField();
 
 protected:
 	void paintEvent(QPaintEvent *event);
 
 public slots:
-		void valueChanged(bool value, QString hex1, QString hex2, QString hex3); // Not used.
+	void valueChanged(bool value, QString hex1, QString hex2, QString hex3); // Not used.
+	void updateDialog(int index);
 
 signals:
 	void dialogUpdateSignal();
@@ -66,12 +82,16 @@ private:
 	QList<QGroupBox*> groupBoxes;
 	QGridLayout* groupBoxLayout;
 	QGroupBox* groupBox;
+	QList<int> groupBoxIndexList;
 	bool groupBoxMode;
 	int groupBoxLevel;
 	int groupBoxIndex;
-
-	int parentBoxDif;
-	QList<int> groupBoxIndexList;
+	int parentBoxDif;	
+	QList<QStackedWidget*> stackedFields;
+	QGridLayout* stackField;
+	bool stackControlMode;
+	bool stackFieldMode;
+	int stackFieldId;
 };
 
 #endif // EDITPAGE_H

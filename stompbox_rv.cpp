@@ -46,20 +46,25 @@ void stompbox_rv::updateSignal()
 
 void stompbox_rv::setEditPages()
 {
+	editDetails()->page()->newGroupBox("Effect");
+	editDetails()->page()->addSwitch(0, 1, 1, 1, "04", "00", "10");       //on/off
+	editDetails()->page()->addGroupBox(1, 0, 1, 1);
+	
 	editDetails()->page()->newGroupBox("Speaker");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "04", "00", "12", "turbo");//type
+	editDetails()->page()->addComboBox(0, 0, 1, 1, "04", "00", "12");     //type
 	editDetails()->page()->addKnob(0, 1, 1, 1, "04", "00", "13");         //mic setting
+	editDetails()->page()->addGroupBox(1, 1, 1, 1);
+
+	editDetails()->page()->newGroupBox("PreAmp to Spkr Lock");
+	editDetails()->page()->addComboBox(0, 2, 1, 1, "04", "00", "16");         //link
+	editDetails()->page()->addGroupBox(1, 2, 1, 1);
+
+
+    editDetails()->page()->newGroupBox("Output");
 	editDetails()->page()->addKnob(0, 2, 1, 1, "04", "00", "14", "turbo");//mic level
 	editDetails()->page()->addKnob(0, 3, 1, 1, "04", "00", "15", "turbo");//direct level
-	editDetails()->page()->addKnob(0, 4, 1, 1, "04", "00", "16");         //link
-	editDetails()->page()->addGroupBox(1, 0, 1, 1);
+	editDetails()->page()->addGroupBox(1, 3, 1, 1);
 	editDetails()->addPage();  // PAGE 1 ABOVE
 
-	/*editDetails()->page()->addKnob(QPoint(0,20), "04", "00", "10");
-	editDetails()->page()->addKnob(QPoint(55,20), "04", "00", "12");
-	editDetails()->page()->addKnob(QPoint(110,20), "04", "00", "13");
-	editDetails()->page()->addKnob(QPoint(165,20), "04", "00", "14");
-	editDetails()->page()->addKnob(QPoint(220,20), "04", "00", "15");
-	editDetails()->page()->addKnob(QPoint(275,20), "04", "00", "16");
-	editDetails()->addPage();*/
+	
 };

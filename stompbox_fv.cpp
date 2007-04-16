@@ -40,15 +40,15 @@ void stompbox_fv::updateSignal()
 void stompbox_fv::setEditPages()
 {
     editDetails()->page()->newGroupBox("Expression Pedal");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "0C", "00", "01", "turbo");//foot volume minimum
+	editDetails()->page()->addKnob(0, 0, 1, 1, "0C", "00", "01");         //foot volume minimum
 	editDetails()->page()->addKnob(0, 1, 1, 1, "0C", "00", "02");         //foot volume maximum
-	editDetails()->page()->addGroupBox(0, 1, 1, 2);
+	editDetails()->page()->addGroupBox(0, 0, 1, 2);
 	editDetails()->page()->newGroupBox("Expression Pedal Switch");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "0D", "00", "00", "turbo");//on/off
-	//editDetails()->page()->addKnob(0, 1, 1, 1, "0D", "00", "02");         //target
-	//editDetails()->page()->addKnob(0, 2, 1, 1, "0D", "00", "04", "turbo");//
-	//editDetails()->page()->addKnob(0, 3, 1, 1, "0D", "00", "15", "turbo");//
-	//editDetails()->page()->addKnob(0, 4, 1, 1, "0D", "00", "16");         //
+	editDetails()->page()->addComboBox(0, 0, 1, 1, "0D", "00", "00");    //on/off
+	editDetails()->page()->addKnob(0, 1, 1, 1, "0D", "00", "02", "normal", "right", 120);//target
+	//editDetails()->page()->addKnob(0, 2, 1, 1, "0D", "00", "04", "turbo");       // target min
+	//editDetails()->page()->addKnob(0, 3, 1, 1, "0D", "00", "06", "turbo");    //  target max
+	editDetails()->page()->addComboBox(0, 4, 1, 1, "0D", "00", "08");         // source mode
 	editDetails()->page()->addGroupBox(1, 0, 1, 2);
 	editDetails()->addPage();  // PAGE ABOVE   
 	

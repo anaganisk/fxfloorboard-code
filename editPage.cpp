@@ -24,15 +24,21 @@
 #include <QLabel>
 #include "customSwitch.h"
 #include "customControlKnob.h"
+#include "customControlLabel.h"
+#include "customControlSwitch.h"
+#include "customControlListMenu.h"
 
 editPage::editPage(QWidget *parent)
     : QWidget(parent)
 {
 	this->layout = new QGridLayout;
-	this->layout->setMargin(0);	
-	this->layout->setSpacing(0);
+	//this->layout->setAlignment(Qt::AlignCenter);
+	this->layout->setMargin(5);	
+	this->layout->setSpacing(5);
 
 	this->groupBoxMode = false;
+	this->stackControlMode = false;
+	this->stackFieldMode = false;
 
 	/*QObject::connect(this->parent(), SIGNAL( dialogUpdateSignal() ),
                 this, SIGNAL( dialogUpdateSignal() ));
@@ -62,45 +68,85 @@ void editPage::addKnob(int row, int column, int rowSpan, int columnSpan,
 	{
 		this->groupBoxLayout->addWidget(knob, row, column, rowSpan, columnSpan, alignment);
 	}
+	else if(this->stackFieldMode)
+	{
+		this->stackField->addWidget(knob, row, column, rowSpan, columnSpan, alignment);
+	}
 	else
 	{
 		this->layout->addWidget(knob, row, column, rowSpan, columnSpan, alignment);
 	};
 };
 
-void editPage::addSwitch(QPoint pos)
+void editPage::addSwitch(int row, int column, int rowSpan, int columnSpan,
+		QString hex1,
+		QString hex2,
+		QString hex3,
+		QString direction,
+		Qt::Alignment alignment)
 {
-	bool on = true;
-	QString hex1 = "00";
-	QString hex2 = "00";
-	QString hex3 = "00";
-	QString imagePath(":/images/switch.png");
-	customSwitch *switchbutton = new customSwitch(on, pos, this, hex1, hex2, hex3, imagePath);	
+	customControlSwitch *switchbutton = new customControlSwitch(this, hex1, hex2, hex3, direction);
+	if(this->groupBoxMode)
+	{
+		this->groupBoxLayout->addWidget(switchbutton, row, column, rowSpan, columnSpan, alignment);
+	}
+	else if(this->stackFieldMode)
+	{
+		this->stackField->addWidget(switchbutton, row, column, rowSpan, columnSpan, alignment);
+	}
+	else
+	{
+		this->layout->addWidget(switchbutton, row, column, rowSpan, columnSpan, alignment);
+	};
 };
 
-void editPage::addComboBox(QPoint pos)
+void editPage::addComboBox(int row, int column, int rowSpan, int columnSpan,
+		QString hex1,
+		QString hex2,
+		QString hex3,
+		QString direction,
+		Qt::Alignment alignment)
 {
 	
+	customControlListMenu *combobox = new customControlListMenu(this, hex1, hex2, hex3);
+	if(this->stackControlMode)
+	{
+		QObject::connect(combobox, SIGNAL( currentIndexChanged(int) ),
+                this->stackedFields.at(this->stackFieldId), SLOT( setCurrentIndex(int) ));
+		QObject::connect(combobox, SIGNAL( currentIndexChanged(int) ),
+                this, SLOT( updateDialog(int) ));
+	};
+	if(this->groupBoxMode)
+	{
+		this->groupBoxLayout->addWidget(combobox, row, column, rowSpan, columnSpan, alignment);
+	}
+	else if(this->stackFieldMode)
+	{
+		this->stackField->addWidget(combobox, row, column, rowSpan, columnSpan, alignment);
+	}
+	else
+	{
+		this->layout->addWidget(combobox, row, column, rowSpan, columnSpan, alignment);
+	};
 };
 
-void editPage::addLabel(QString text, QPoint pos)
+void editPage::addLabel(int row, int column, int rowSpan, int columnSpan, QString text, Qt::Alignment alignment)
 {
-	QLabel *newLabel = new QLabel(this);
+	customControlLabel *label = new customControlLabel(this);
+	label->setText(text);
 
-	QFont labelFont;
-	labelFont.setFamily("Arial");
-	labelFont.setBold(true);
-	labelFont.setPixelSize(12);
-	labelFont.setStretch(105);
-
-	QPalette palette;
-	palette.setColor(newLabel->foregroundRole(), Qt::white);
-
-	newLabel->setPalette(palette);
-	newLabel->setFont(labelFont);
-
-	newLabel->setText(text);
-	newLabel->move(pos);
+	if(this->groupBoxMode)
+	{
+		this->groupBoxLayout->addWidget(label, row, column, rowSpan, columnSpan, alignment);
+	}
+	else if(this->stackFieldMode)
+	{
+		this->stackField->addWidget(label, row, column, rowSpan, columnSpan, alignment);
+	}
+	else
+	{
+		this->layout->addWidget(label, row, column, rowSpan, columnSpan, alignment);
+	};
 };
 
 void editPage::valueChanged(bool value, QString hex1, QString hex2, QString hex3)
@@ -111,17 +157,13 @@ void editPage::valueChanged(bool value, QString hex1, QString hex2, QString hex3
 	hex3;
 }; 
 
-void editPage::newGroupBox(QString title)
+void editPage::newGroupBox(QString title, Qt::Alignment alignment)
 {
 	if(this->groupBoxMode)
 	{
 		if(this->groupBoxIndex == 0 && this->groupBoxLevel != 0)
 		{
 			this->parentBoxDif++;
-
-
-
-
 		};
 		this->groupBoxLevel++;
 		this->groupBoxIndex++;
@@ -139,8 +181,8 @@ void editPage::newGroupBox(QString title)
 
 	this->groupBoxLayout = new QGridLayout;
 	this->groupBoxLayout->setMargin(5);
-	this->groupBoxLayout->setSpacing(0);
-	this->groupBoxLayout->setAlignment(Qt::AlignCenter);
+	this->groupBoxLayout->setSpacing(5);
+	this->groupBoxLayout->setAlignment(alignment);
 	this->groupBoxLayouts.append(this->groupBoxLayout);
 	
 	QFont groupBoxFont;
@@ -161,10 +203,7 @@ void editPage::newGroupBox(QString title)
 void editPage::addGroupBox(int row, int column, int rowSpan, int columnSpan)
 {
 	int currentIndex = this->groupBoxIndexList.at(this->groupBoxIndex);
-
-
 	
-
 	int layoutIndex = this->groupBoxLayouts.size() - (this->groupBoxLevel - currentIndex) - 1;
 	int boxesIndex = this->groupBoxes.size() - (this->groupBoxLevel - currentIndex) - 1;
 	int parentIndex = this->groupBoxes.size() - this->groupBoxLevel - 1;
@@ -174,34 +213,28 @@ void editPage::addGroupBox(int row, int column, int rowSpan, int columnSpan)
 	for(int i = removeIndex; i < this->groupBoxIndexList.size() - 1; ++i)
 	{
 		this->groupBoxIndexList.move(i + 1, i);
-
 	};
-
-
-
-
-
-
 
 	QString snork = this->groupBoxes.at(boxesIndex)->title();
 	this->groupBoxes.at(boxesIndex)->setLayout(this->groupBoxLayouts.at(layoutIndex));
-
-
 	
-
-
-
 	if(this->groupBoxIndex == 0)
 	{
-		this->layout->addWidget(this->groupBoxes.at(parentIndex), row, column, rowSpan, columnSpan);
+		if(this->stackFieldMode)
+		{
+			this->stackField->addWidget(this->groupBoxes.at(parentIndex), row, column, rowSpan, columnSpan);
+		}
+		else
+		{
+			this->layout->addWidget(this->groupBoxes.at(parentIndex), row, column, rowSpan, columnSpan);
+		};
 		this->groupBoxLevel = 0;
 		this->groupBoxIndexList.clear();
 		this->groupBoxMode = false;
-	}
+	} 
 	else
 	{
 		this->groupBoxLayouts.at(layoutIndex - 1 - this->parentBoxDif)->addWidget(this->groupBoxes.at(boxesIndex), row, column, rowSpan, columnSpan);
-
 		this->groupBoxIndex--;
 	};
 };
@@ -219,4 +252,43 @@ void editPage::setGridLayout()
 	mainLayout->addStretch();
 	
 	this->setLayout(mainLayout);
+};
+
+void editPage::newStackControl(int id,
+	int row, int column, int rowSpan, int columnSpan,
+	Qt::Alignment alignment)
+{
+	this->stackControlMode = true;
+	this->stackFieldId = id;
+	QStackedWidget *newStackField = new QStackedWidget;
+	this->stackedFields.insert(this->stackFieldId, newStackField);
+	
+	this->layout->addWidget(this->stackedFields.at(this->stackFieldId), row, column, rowSpan, columnSpan);
+};
+
+void editPage::addStackControl()
+{
+	this->stackControlMode = false;
+};
+	
+void editPage::newStackField(int id)
+{
+	this->stackFieldMode = true;
+	this->stackField = new QGridLayout;
+	this->stackField->setMargin(0);
+	this->stackField->setSpacing(5);
+	this->stackField->setAlignment(Qt::AlignTop | Qt::AlignLeft);
+};
+
+void editPage::addStackField()
+{
+	this->stackFieldMode = false;
+	QWidget *tmpWidget = new QWidget;
+	tmpWidget->setLayout(this->stackField);
+	this->stackedFields.at(this->stackFieldId)->addWidget(tmpWidget);
+};
+
+void editPage::updateDialog(int index)
+{
+	emit dialogUpdateSignal();
 };

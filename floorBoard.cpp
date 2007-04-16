@@ -333,7 +333,9 @@ void floorBoard::dropEvent(QDropEvent *event)
 				setStompPos(stompId, destIndex);
 			};
 
-			SysxIO *sysxIO = SysxIO::Instance();
+			if(orgIndex != destIndex) // Prevent sending data when stomp was dropped in the same place.
+			{
+      SysxIO *sysxIO = SysxIO::Instance();
 			QList<QString> hexData;
 			for(int index=0;index<fx.size();index++)
 			{
@@ -343,6 +345,7 @@ void floorBoard::dropEvent(QDropEvent *event)
 				hexData.append(fxHexValue);
 			};
 			sysxIO->setFileSource("0A", "00", hexData);
+			};
 		}
 		else
 		{

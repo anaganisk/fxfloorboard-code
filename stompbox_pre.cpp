@@ -45,8 +45,16 @@ void stompbox_pre::updateSignal()
 
 void stompbox_pre::setEditPages()
 {
-    
-    editDetails()->page()->newGroupBox("Pre Amplifier");
+    //editDetails()->page()->newGroupBox("Pre Amplifier");
+
+    editDetails()->page()->newGroupBox("Pre-Amp Effect");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "04", "00", "00");
+	editDetails()->page()->newStackControl(0, 0, 1, 2, 1);
+	editDetails()->page()->addComboBox(1, 0, 1, 1, "04", "00", "02");
+	editDetails()->page()->addStackControl();
+	editDetails()->page()->addGroupBox(1, 0, 1, 1);
+	
+	editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Flip Top");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "04", "00", "08", "turbo");//gain
 	editDetails()->page()->addKnob(0, 1, 1, 1, "04", "00", "0D");         //bass
@@ -56,11 +64,10 @@ void stompbox_pre::setEditPages()
 	editDetails()->page()->addKnob(0, 5, 1, 1, "04", "00", "05");         //response
 	editDetails()->page()->addKnob(0, 6, 1, 1, "04", "00", "03", "turbo");//bright
 	editDetails()->page()->addKnob(0, 7, 1, 1, "04", "00", "0F");         //level
-	editDetails()->page()->addGroupBox(1, 0, 1, 1);
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
-	editDetails()->addPage("04", "00", "02");  // PAGE 1 ABOVE
+	editDetails()->page()->addGroupBox(1, 1, 1, 1);
+	editDetails()->page()->addStackField();  // PAGE 1 ABOVE
 
-	editDetails()->page()->newGroupBox("Pre Amplifier");
+	editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("B Man");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "04", "00", "08", "turbo");//gain
 	editDetails()->page()->addKnob(0, 1, 1, 1, "04", "00", "0D");         //bass
@@ -69,22 +76,21 @@ void stompbox_pre::setEditPages()
 	editDetails()->page()->addKnob(0, 4, 1, 1, "04", "00", "09", "turbo");//treble
 	editDetails()->page()->addKnob(0, 5, 1, 1, "04", "00", "04", "turbo");//deep
 	editDetails()->page()->addKnob(0, 6, 1, 1, "04", "00", "0F");         //level
-	editDetails()->page()->addGroupBox(1, 0, 1, 1);
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
-	editDetails()->addPage("04", "00", "02");  // PAGE 2 ABOVE
+	editDetails()->page()->addGroupBox(1, 1, 1, 1);
+	editDetails()->page()->addStackField();  // PAGE 2 ABOVE
 
-	editDetails()->page()->newGroupBox("Pre Amplifier");
+	
+	editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Bass 360");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "04", "00", "08", "turbo");//gain
 	editDetails()->page()->addKnob(0, 1, 1, 1, "04", "00", "0D");         //bass
 	editDetails()->page()->addKnob(0, 2, 1, 1, "04", "00", "0B", "turbo");//mid
 	editDetails()->page()->addKnob(0, 3, 1, 1, "04", "00", "09", "turbo");//treble
 	editDetails()->page()->addKnob(0, 4, 1, 1, "04", "00", "0F");         //level
-	editDetails()->page()->addGroupBox(1, 0, 1, 1);
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
-	editDetails()->addPage("04", "00", "02");  // PAGE 3 ABOVE
+	editDetails()->page()->addGroupBox(1, 1, 1, 1);
+	editDetails()->page()->addStackField();  // PAGE 3 ABOVE
 
-	editDetails()->page()->newGroupBox("Pre Amplifier");
+	editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("T.E.");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "04", "00", "08", "turbo");//gain
 	editDetails()->page()->addKnob(0, 1, 1, 1, "04", "00", "0D");         //bass
@@ -93,11 +99,10 @@ void stompbox_pre::setEditPages()
 	editDetails()->page()->addKnob(0, 4, 1, 1, "04", "00", "09", "turbo");//treble
 	editDetails()->page()->addKnob(0, 5, 1, 1, "04", "00", "07", "turbo");//pre shape
 	editDetails()->page()->addKnob(0, 6, 1, 1, "04", "00", "0F");         //level
-	editDetails()->page()->addGroupBox(1, 0, 1, 1);
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
-	editDetails()->addPage("04", "00", "02");  // PAGE 4 ABOVE	
+	editDetails()->page()->addGroupBox(1, 1, 1, 1);
+	editDetails()->page()->addStackField();  // PAGE 4 ABOVE	
 
-	editDetails()->page()->newGroupBox("Pre Amplifier");
+	editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Session");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "04", "00", "08", "turbo");//gain
 	editDetails()->page()->addKnob(0, 1, 1, 1, "04", "00", "0D");         //bass
@@ -106,11 +111,10 @@ void stompbox_pre::setEditPages()
 	editDetails()->page()->addKnob(0, 4, 1, 1, "04", "00", "09", "turbo");//treble
 	editDetails()->page()->addKnob(0, 5, 1, 1, "04", "00", "06", "turbo");//enhancer
 	editDetails()->page()->addKnob(0, 6, 1, 1, "04", "00", "0F");         //level
-	editDetails()->page()->addGroupBox(1, 0, 1, 1);
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
-	editDetails()->addPage("04", "00", "02");  // PAGE 5 ABOVE	
+	editDetails()->page()->addGroupBox(1, 1, 1, 1);
+	editDetails()->page()->addStackField();  // PAGE 5 ABOVE	
 
-	editDetails()->page()->newGroupBox("Pre Amplifier");
+	editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Concert 810");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "04", "00", "08", "turbo");//gain
 	editDetails()->page()->addKnob(0, 1, 1, 1, "04", "00", "0E", "turbo");//ultra low
@@ -122,7 +126,8 @@ void stompbox_pre::setEditPages()
 	editDetails()->page()->addKnob(0, 7, 1, 1, "04", "00", "03", "turbo");//bright
 	editDetails()->page()->addKnob(0, 8, 1, 1, "04", "00", "0A");         //ultra high
 	editDetails()->page()->addKnob(0, 9, 1, 1, "04", "00", "0F");         //level
-	editDetails()->page()->addGroupBox(1, 0, 1, 1);
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
-	editDetails()->addPage("04", "00", "02");  // PAGE 6 ABOVE
+	editDetails()->page()->addGroupBox(1, 1, 1, 1);
+	editDetails()->page()->addStackField();// PAGE 6 ABOVE
+	//editDetails()->page()->addGroupBox(0, 0, 1, 1);
+	editDetails()->addPage();
 };

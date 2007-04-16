@@ -45,14 +45,25 @@ void stompbox_ce::updateSignal()
 
 void stompbox_ce::setEditPages()
 {
+    editDetails()->page()->newGroupBox("Effect");
+	editDetails()->page()->addSwitch(0, 0, 2, 1, "07", "00", "00");
+	editDetails()->page()->addComboBox(0, 1, 2, 1, "07", "00", "02");
+	editDetails()->page()->addGroupBox(1, 0, 1, 1);
+
     editDetails()->page()->newGroupBox("Chorus");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "07", "00", "02", "turbo"); //mode
-	editDetails()->page()->addKnob(0, 1, 1, 1, "07", "00", "03");          //rate
+	//editDetails()->page()->addKnob(0, 0, 1, 1, "07", "00", "02", "turbo"); //mode
+	editDetails()->page()->addKnob(0, 1, 1, 1, "07", "00", "03", "normal","right", 105);          //rate
 	editDetails()->page()->addKnob(0, 2, 1, 1, "07", "00", "04", "turbo"); //depth
 	editDetails()->page()->addKnob(0, 3, 1, 1, "07", "00", "05");          //predelay
+    editDetails()->page()->addGroupBox(1, 1, 1, 1);
+
+    editDetails()->page()->newGroupBox("Filter");
 	editDetails()->page()->addKnob(0, 4, 1, 1, "07", "00", "06", "turbo"); //low cut
+	editDetails()->page()->addGroupBox(1, 2, 1, 1);
+
+    editDetails()->page()->newGroupBox("Output");
 	editDetails()->page()->addKnob(0, 5, 1, 1, "07", "00", "07");          //effect level
-	editDetails()->page()->addGroupBox(1, 0, 1, 1);
+	editDetails()->page()->addGroupBox(1, 3, 1, 1);
 	editDetails()->addPage();  // PAGE 1 ABOVE 
 	
 };
