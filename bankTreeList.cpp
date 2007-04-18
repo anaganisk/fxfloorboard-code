@@ -539,7 +539,7 @@ void bankTreeList::updatePatch(QString replyMsg)
 		this, SLOT(updatePatch(QString)));		
 	
 	replyMsg = replyMsg.remove(" ").toUpper();
-	if(replyMsg != ""  && replyMsg.size()/2 == 684) // cjw
+	if(replyMsg != "")//  && replyMsg.size()/2 == 684) // cjw
 	{
 		sysxIO->setFileSource(replyMsg);		// Set the source to the data received.
 		sysxIO->setFileName(tr("GT-6B patch"));	// Set the file name to GT-6B patch for the display.

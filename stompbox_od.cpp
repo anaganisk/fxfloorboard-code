@@ -57,12 +57,12 @@ void stompbox_od::setEditPages()
 	editDetails()->page()->addKnob(0, 0, 1, 1, "03", "00", "03");         //drive
 	editDetails()->page()->addGroupBox(1, 1, 1, 1);
 	editDetails()->page()->newGroupBox("Tone");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "03", "00", "04", "turbo");//bass
+	editDetails()->page()->addKnob(0, 1, 1, 1, "03", "00", "04");         //bass
 	editDetails()->page()->addKnob(0, 2, 1, 1, "03", "00", "05");         //treble
 	editDetails()->page()->addGroupBox(1, 2, 1, 1);
 	editDetails()->page()->newGroupBox("Output");
-	editDetails()->page()->addKnob(0, 3, 1, 1, "03", "00", "06");         //effect level
-	editDetails()->page()->addKnob(0, 4, 1, 1, "03", "00", "07");         //direct level
+	editDetails()->page()->addKnob(0, 3, 1, 1, "03", "00", "06", "turbo");//effect level
+	editDetails()->page()->addKnob(0, 4, 1, 1, "03", "00", "07", "turbo");//direct level
 	editDetails()->page()->addGroupBox(1, 3, 1, 1);
 	editDetails()->page()->addStackField();  // PAGE 1 ABOVE 
 
@@ -71,12 +71,12 @@ void stompbox_od::setEditPages()
 	editDetails()->page()->addKnob(0, 0, 1, 1, "03", "00", "03");         //drive
 	editDetails()->page()->addGroupBox(1, 1, 1, 1);
 	editDetails()->page()->newGroupBox("Tone");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "03", "00", "04", "turbo");//bass
+	editDetails()->page()->addKnob(0, 1, 1, 1, "03", "00", "04");         //bass
 	editDetails()->page()->addKnob(0, 2, 1, 1, "03", "00", "05");         //treble
 	editDetails()->page()->addGroupBox(1, 2, 1, 1);
 	editDetails()->page()->newGroupBox("Output");
-	editDetails()->page()->addKnob(0, 3, 1, 1, "03", "00", "06");         //effect level
-	editDetails()->page()->addKnob(0, 4, 1, 1, "03", "00", "07");         //direct level
+	editDetails()->page()->addKnob(0, 3, 1, 1, "03", "00", "06", "turbo");//effect level
+	editDetails()->page()->addKnob(0, 4, 1, 1, "03", "00", "07", "turbo");//direct level
 	editDetails()->page()->addGroupBox(1, 3, 1, 1);
 	editDetails()->page()->addStackField();  // PAGE 2 ABOVE 
 
@@ -85,12 +85,12 @@ void stompbox_od::setEditPages()
 	editDetails()->page()->addKnob(0, 0, 1, 1, "03", "00", "03");         //drive
 	editDetails()->page()->addGroupBox(1, 1, 1, 1);
 	editDetails()->page()->newGroupBox("Tone");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "03", "00", "04", "turbo");//bass
+	editDetails()->page()->addKnob(0, 1, 1, 1, "03", "00", "04");         //bass
 	editDetails()->page()->addKnob(0, 2, 1, 1, "03", "00", "05");         //treble
 	editDetails()->page()->addGroupBox(1, 2, 1, 1);
 	editDetails()->page()->newGroupBox("Output");
-	editDetails()->page()->addKnob(0, 3, 1, 1, "03", "00", "06");         //effect level
-	editDetails()->page()->addKnob(0, 4, 1, 1, "03", "00", "07");         //direct level
+	editDetails()->page()->addKnob(0, 3, 1, 1, "03", "00", "06", "turbo");//effect level
+	editDetails()->page()->addKnob(0, 4, 1, 1, "03", "00", "07", "turbo");//direct level
 	editDetails()->page()->addGroupBox(1, 3, 1, 1);
 	editDetails()->page()->addStackField();  // PAGE 3 ABOVE 
 
@@ -99,12 +99,12 @@ void stompbox_od::setEditPages()
 	editDetails()->page()->addKnob(0, 0, 1, 1, "03", "00", "03");         //drive
 	editDetails()->page()->addGroupBox(1, 1, 1, 1);
 	editDetails()->page()->newGroupBox("Tone");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "03", "00", "04", "turbo");//bass
+	editDetails()->page()->addKnob(0, 1, 1, 1, "03", "00", "04");         //bass
 	editDetails()->page()->addKnob(0, 2, 1, 1, "03", "00", "05");         //treble
 	editDetails()->page()->addGroupBox(1, 2, 1, 1);
 	editDetails()->page()->newGroupBox("Output");
-	editDetails()->page()->addKnob(0, 3, 1, 1, "03", "00", "06");         //effect level
-	editDetails()->page()->addKnob(0, 4, 1, 1, "03", "00", "07");         //direct level
+	editDetails()->page()->addKnob(0, 3, 1, 1, "03", "00", "06", "turbo");//effect level
+	editDetails()->page()->addKnob(0, 4, 1, 1, "03", "00", "07", "turbo");//direct level
 	editDetails()->page()->addGroupBox(1, 3, 1, 1);
 	editDetails()->page()->addStackField();  // PAGE 4 ABOVE 
 
@@ -113,12 +113,12 @@ void stompbox_od::setEditPages()
 	editDetails()->page()->addKnob(0, 0, 1, 1, "03", "00", "03");         //drive
 	editDetails()->page()->addGroupBox(1, 1, 1, 1);
 	editDetails()->page()->newGroupBox("Tone");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "03", "00", "04", "turbo");//bass
+	editDetails()->page()->addKnob(0, 1, 1, 1, "03", "00", "04");         //bass
 	editDetails()->page()->addKnob(0, 2, 1, 1, "03", "00", "05");         //treble
 	editDetails()->page()->addGroupBox(1, 2, 1, 1);
 	editDetails()->page()->newGroupBox("Output");
-	editDetails()->page()->addKnob(0, 3, 1, 1, "03", "00", "06");         //effect level
-	editDetails()->page()->addKnob(0, 4, 1, 1, "03", "00", "07");         //direct level
+	editDetails()->page()->addKnob(0, 3, 1, 1, "03", "00", "06", "turbo");//effect level
+	editDetails()->page()->addKnob(0, 4, 1, 1, "03", "00", "07", "turbo");//direct level
 	editDetails()->page()->addGroupBox(1, 3, 1, 1);
 	editDetails()->page()->addStackField();  // PAGE 5 ABOVE 
 
@@ -127,12 +127,12 @@ void stompbox_od::setEditPages()
 	editDetails()->page()->addKnob(0, 0, 1, 1, "03", "00", "03");         //drive
 	editDetails()->page()->addGroupBox(1, 1, 1, 1);
 	editDetails()->page()->newGroupBox("Tone");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "03", "00", "04", "turbo");//bass
+	editDetails()->page()->addKnob(0, 1, 1, 1, "03", "00", "04");         //bass
 	editDetails()->page()->addKnob(0, 2, 1, 1, "03", "00", "05");         //treble
 	editDetails()->page()->addGroupBox(1, 2, 1, 1);
 	editDetails()->page()->newGroupBox("Output");
-	editDetails()->page()->addKnob(0, 3, 1, 1, "03", "00", "06");         //effect level
-	editDetails()->page()->addKnob(0, 4, 1, 1, "03", "00", "07");         //direct level
+	editDetails()->page()->addKnob(0, 3, 1, 1, "03", "00", "06", "turbo");//effect level
+	editDetails()->page()->addKnob(0, 4, 1, 1, "03", "00", "07", "turbo");//direct level
 	editDetails()->page()->addGroupBox(1, 3, 1, 1);
 	editDetails()->page()->addStackField();  // PAGE 6 ABOVE 
 
@@ -141,12 +141,12 @@ void stompbox_od::setEditPages()
 	editDetails()->page()->addKnob(0, 0, 1, 1, "03", "00", "03");         //drive
 	editDetails()->page()->addGroupBox(1, 1, 1, 1);
 	editDetails()->page()->newGroupBox("Tone");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "03", "00", "04", "turbo");//bass
+	editDetails()->page()->addKnob(0, 1, 1, 1, "03", "00", "04");         //bass
 	editDetails()->page()->addKnob(0, 2, 1, 1, "03", "00", "05");         //treble
 	editDetails()->page()->addGroupBox(1, 2, 1, 1);
 	editDetails()->page()->newGroupBox("Output");
-	editDetails()->page()->addKnob(0, 3, 1, 1, "03", "00", "06");         //effect level
-	editDetails()->page()->addKnob(0, 4, 1, 1, "03", "00", "07");         //direct level
+	editDetails()->page()->addKnob(0, 3, 1, 1, "03", "00", "06", "turbo");//effect level
+	editDetails()->page()->addKnob(0, 4, 1, 1, "03", "00", "07", "turbo");//direct level
 	editDetails()->page()->addGroupBox(1, 3, 1, 1);
 	editDetails()->page()->addStackField();  // PAGE 7 ABOVE 
 
@@ -155,12 +155,12 @@ void stompbox_od::setEditPages()
 	editDetails()->page()->addKnob(0, 0, 1, 1, "03", "00", "03");         //drive
 	editDetails()->page()->addGroupBox(1, 1, 1, 1);
 	editDetails()->page()->newGroupBox("Tone");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "03", "00", "04", "turbo");//bass
+	editDetails()->page()->addKnob(0, 1, 1, 1, "03", "00", "04");         //bass
 	editDetails()->page()->addKnob(0, 2, 1, 1, "03", "00", "05");         //treble
 	editDetails()->page()->addGroupBox(1, 2, 1, 1);
 	editDetails()->page()->newGroupBox("Output");
-	editDetails()->page()->addKnob(0, 3, 1, 1, "03", "00", "06");         //effect level
-	editDetails()->page()->addKnob(0, 4, 1, 1, "03", "00", "07");         //direct level
+	editDetails()->page()->addKnob(0, 3, 1, 1, "03", "00", "06", "turbo");//effect level
+	editDetails()->page()->addKnob(0, 4, 1, 1, "03", "00", "07", "turbo");//direct level
 	editDetails()->page()->addGroupBox(1, 3, 1, 1);
 	editDetails()->page()->addStackField();  // PAGE 8 ABOVE 
 
@@ -170,12 +170,12 @@ void stompbox_od::setEditPages()
 	editDetails()->page()->addKnob(0, 0, 1, 1, "03", "00", "03");         //drive
 	editDetails()->page()->addGroupBox(1, 1, 1, 1);
 	editDetails()->page()->newGroupBox("Tone");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "03", "00", "04", "turbo");//bass
+	editDetails()->page()->addKnob(0, 1, 1, 1, "03", "00", "04");         //bass
 	editDetails()->page()->addKnob(0, 2, 1, 1, "03", "00", "05");         //treble
 	editDetails()->page()->addGroupBox(1, 2, 1, 1);
 	editDetails()->page()->newGroupBox("Output");
-	editDetails()->page()->addKnob(0, 3, 1, 1, "03", "00", "06");         //effect level
-	editDetails()->page()->addKnob(0, 4, 1, 1, "03", "00", "07");         //direct level
+	editDetails()->page()->addKnob(0, 3, 1, 1, "03", "00", "06", "turbo");//effect level
+	editDetails()->page()->addKnob(0, 4, 1, 1, "03", "00", "07", "turbo");//direct level
 	editDetails()->page()->addGroupBox(1, 3, 1, 1);
 	editDetails()->page()->addStackField();  // PAGE 9 ABOVE 
 
@@ -184,12 +184,12 @@ void stompbox_od::setEditPages()
 	editDetails()->page()->addKnob(0, 0, 1, 1, "03", "00", "03");         //drive
 	editDetails()->page()->addGroupBox(1, 1, 1, 1);
 	editDetails()->page()->newGroupBox("Tone");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "03", "00", "04", "turbo");//bass
+	editDetails()->page()->addKnob(0, 1, 1, 1, "03", "00", "04");         //bass
 	editDetails()->page()->addKnob(0, 2, 1, 1, "03", "00", "05");         //treble
 	editDetails()->page()->addGroupBox(1, 2, 1, 1);
 	editDetails()->page()->newGroupBox("Output");
-	editDetails()->page()->addKnob(0, 3, 1, 1, "03", "00", "06");         //effect level
-	editDetails()->page()->addKnob(0, 4, 1, 1, "03", "00", "07");         //direct level
+	editDetails()->page()->addKnob(0, 3, 1, 1, "03", "00", "06", "turbo");//effect level
+	editDetails()->page()->addKnob(0, 4, 1, 1, "03", "00", "07", "turbo");//direct level
 	editDetails()->page()->addGroupBox(1, 3, 1, 1);
 
     /*editDetails()->page()->newGroupBox("Custom");
@@ -206,12 +206,12 @@ void stompbox_od::setEditPages()
 	editDetails()->page()->addKnob(0, 0, 1, 1, "03", "00", "03");         //drive
 	editDetails()->page()->addGroupBox(1, 1, 1, 1);
 	editDetails()->page()->newGroupBox("Tone");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "03", "00", "04", "turbo");//bass
+	editDetails()->page()->addKnob(0, 1, 1, 1, "03", "00", "04");         //bass
 	editDetails()->page()->addKnob(0, 2, 1, 1, "03", "00", "05");         //treble
 	editDetails()->page()->addGroupBox(1, 2, 1, 1);
 	editDetails()->page()->newGroupBox("Output");
-	editDetails()->page()->addKnob(0, 3, 1, 1, "03", "00", "06");         //effect level
-	editDetails()->page()->addKnob(0, 4, 1, 1, "03", "00", "07");         //direct level
+	editDetails()->page()->addKnob(0, 3, 1, 1, "03", "00", "06", "turbo");//effect level
+	editDetails()->page()->addKnob(0, 4, 1, 1, "03", "00", "07", "turbo");//direct level
 	editDetails()->page()->addGroupBox(1, 3, 1, 1);
 	/*editDetails()->page()->newGroupBox("Custom");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "03", "00", "03");         //drive

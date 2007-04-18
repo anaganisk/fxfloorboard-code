@@ -58,12 +58,12 @@ void stompbox_pre::setEditPages()
 	editDetails()->page()->newGroupBox("Flip Top");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "04", "00", "08", "turbo");//gain
 	editDetails()->page()->addKnob(0, 1, 1, 1, "04", "00", "0D");         //bass
-	editDetails()->page()->addKnob(0, 2, 1, 1, "04", "00", "0B", "turbo");//mid
+	editDetails()->page()->addKnob(0, 2, 1, 1, "04", "00", "0B");         //mid
 	editDetails()->page()->addKnob(0, 3, 1, 1, "04", "00", "0C");         //mid freq
-	editDetails()->page()->addKnob(0, 4, 1, 1, "04", "00", "09", "turbo");//treble
-	editDetails()->page()->addKnob(0, 5, 1, 1, "04", "00", "05");         //response
-	editDetails()->page()->addKnob(0, 6, 1, 1, "04", "00", "03", "turbo");//bright
-	editDetails()->page()->addKnob(0, 7, 1, 1, "04", "00", "0F");         //level
+	editDetails()->page()->addKnob(0, 4, 1, 1, "04", "00", "09");         //treble
+	editDetails()->page()->addComboBox(0, 5, 1, 1, "04", "00", "05");     //response
+	editDetails()->page()->addSwitch(0, 6, 1, 1, "04", "00", "03");       //bright
+	editDetails()->page()->addKnob(0, 7, 1, 1, "04", "00", "0F", "turbo");//level
 	editDetails()->page()->addGroupBox(1, 1, 1, 1);
 	editDetails()->page()->addStackField();  // PAGE 1 ABOVE
 
@@ -71,11 +71,11 @@ void stompbox_pre::setEditPages()
 	editDetails()->page()->newGroupBox("B Man");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "04", "00", "08", "turbo");//gain
 	editDetails()->page()->addKnob(0, 1, 1, 1, "04", "00", "0D");         //bass
-	editDetails()->page()->addKnob(0, 2, 1, 1, "04", "00", "0B", "turbo");//mid
+	editDetails()->page()->addKnob(0, 2, 1, 1, "04", "00", "0B");         //mid
 	editDetails()->page()->addKnob(0, 3, 1, 1, "04", "00", "0C");         //mid freq
-	editDetails()->page()->addKnob(0, 4, 1, 1, "04", "00", "09", "turbo");//treble
-	editDetails()->page()->addKnob(0, 5, 1, 1, "04", "00", "04", "turbo");//deep
-	editDetails()->page()->addKnob(0, 6, 1, 1, "04", "00", "0F");         //level
+	editDetails()->page()->addKnob(0, 4, 1, 1, "04", "00", "09");         //treble
+	editDetails()->page()->addSwitch(0, 5, 1, 1, "04", "00", "04");       //deep
+	editDetails()->page()->addKnob(0, 6, 1, 1, "04", "00", "0F", "turbo");//level
 	editDetails()->page()->addGroupBox(1, 1, 1, 1);
 	editDetails()->page()->addStackField();  // PAGE 2 ABOVE
 
@@ -84,9 +84,9 @@ void stompbox_pre::setEditPages()
 	editDetails()->page()->newGroupBox("Bass 360");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "04", "00", "08", "turbo");//gain
 	editDetails()->page()->addKnob(0, 1, 1, 1, "04", "00", "0D");         //bass
-	editDetails()->page()->addKnob(0, 2, 1, 1, "04", "00", "0B", "turbo");//mid
-	editDetails()->page()->addKnob(0, 3, 1, 1, "04", "00", "09", "turbo");//treble
-	editDetails()->page()->addKnob(0, 4, 1, 1, "04", "00", "0F");         //level
+	editDetails()->page()->addKnob(0, 2, 1, 1, "04", "00", "0B");         //mid
+	editDetails()->page()->addKnob(0, 3, 1, 1, "04", "00", "09");         //treble
+	editDetails()->page()->addKnob(0, 4, 1, 1, "04", "00", "0F", "turbo");//level
 	editDetails()->page()->addGroupBox(1, 1, 1, 1);
 	editDetails()->page()->addStackField();  // PAGE 3 ABOVE
 
@@ -94,11 +94,11 @@ void stompbox_pre::setEditPages()
 	editDetails()->page()->newGroupBox("T.E.");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "04", "00", "08", "turbo");//gain
 	editDetails()->page()->addKnob(0, 1, 1, 1, "04", "00", "0D");         //bass
-	editDetails()->page()->addKnob(0, 2, 1, 1, "04", "00", "0B", "turbo");//mid
+	editDetails()->page()->addKnob(0, 2, 1, 1, "04", "00", "0B");         //mid
 	editDetails()->page()->addKnob(0, 3, 1, 1, "04", "00", "0C");         //mid freq
-	editDetails()->page()->addKnob(0, 4, 1, 1, "04", "00", "09", "turbo");//treble
-	editDetails()->page()->addKnob(0, 5, 1, 1, "04", "00", "07", "turbo");//pre shape
-	editDetails()->page()->addKnob(0, 6, 1, 1, "04", "00", "0F");         //level
+	editDetails()->page()->addKnob(0, 4, 1, 1, "04", "00", "09");         //treble
+	editDetails()->page()->addComboBox(0, 5, 1, 1, "04", "00", "07");     //pre shape
+	editDetails()->page()->addKnob(0, 6, 1, 1, "04", "00", "0F", "turbo");//level
 	editDetails()->page()->addGroupBox(1, 1, 1, 1);
 	editDetails()->page()->addStackField();  // PAGE 4 ABOVE	
 
@@ -106,25 +106,25 @@ void stompbox_pre::setEditPages()
 	editDetails()->page()->newGroupBox("Session");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "04", "00", "08", "turbo");//gain
 	editDetails()->page()->addKnob(0, 1, 1, 1, "04", "00", "0D");         //bass
-	editDetails()->page()->addKnob(0, 2, 1, 1, "04", "00", "0B", "turbo");//mid
-	editDetails()->page()->addKnob(0, 3, 1, 1, "04", "00", "0C");         //mid freq
-	editDetails()->page()->addKnob(0, 4, 1, 1, "04", "00", "09", "turbo");//treble
-	editDetails()->page()->addKnob(0, 5, 1, 1, "04", "00", "06", "turbo");//enhancer
-	editDetails()->page()->addKnob(0, 6, 1, 1, "04", "00", "0F");         //level
+	editDetails()->page()->addKnob(0, 2, 1, 1, "04", "00", "0B");         //mid
+	editDetails()->page()->addComboBox(0, 3, 1, 1, "04", "00", "0C");     //mid freq
+	editDetails()->page()->addKnob(0, 4, 1, 1, "04", "00", "09");         //treble
+	editDetails()->page()->addKnob(0, 5, 1, 1, "04", "00", "06");         //enhancer
+	editDetails()->page()->addKnob(0, 6, 1, 1, "04", "00", "0F", "turbo");//level
 	editDetails()->page()->addGroupBox(1, 1, 1, 1);
 	editDetails()->page()->addStackField();  // PAGE 5 ABOVE	
 
 	editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Concert 810");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "04", "00", "08", "turbo");//gain
-	editDetails()->page()->addKnob(0, 1, 1, 1, "04", "00", "0E", "turbo");//ultra low
+	editDetails()->page()->addComboBox(0, 1, 1, 1, "04", "00", "0E");     //ultra low
 	editDetails()->page()->addKnob(0, 2, 1, 1, "04", "00", "0D");         //bass
 	editDetails()->page()->addKnob(0, 3, 1, 1, "04", "00", "0B", "turbo");//mid
 	editDetails()->page()->addKnob(0, 4, 1, 1, "04", "00", "0C");         //mid freq
 	editDetails()->page()->addKnob(0, 5, 1, 1, "04", "00", "09", "turbo");//treble
 	editDetails()->page()->addKnob(0, 6, 1, 1, "04", "00", "05");         //response
-	editDetails()->page()->addKnob(0, 7, 1, 1, "04", "00", "03", "turbo");//bright
-	editDetails()->page()->addKnob(0, 8, 1, 1, "04", "00", "0A");         //ultra high
+	editDetails()->page()->addSwitch(0, 7, 1, 1, "04", "00", "03");       //bright
+	editDetails()->page()->addSwitch(0, 8, 1, 1, "04", "00", "0A");        //ultra high
 	editDetails()->page()->addKnob(0, 9, 1, 1, "04", "00", "0F");         //level
 	editDetails()->page()->addGroupBox(1, 1, 1, 1);
 	editDetails()->page()->addStackField();// PAGE 6 ABOVE

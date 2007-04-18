@@ -77,10 +77,10 @@ void stompbox_fx2::setEditPages()
 	editDetails()->page()->newGroupBox("Harmonizer");
 	editDetails()->page()->newGroupBox("Harmony 1");
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "06", "00", "11");     //voice
-	editDetails()->page()->addComboBox(0, 1, 1, 1, "06", "00", "12");     //hr1 harmony
-	editDetails()->page()->addKnob(0, 2, 1, 1, "06", "00", "13", "turbo");//hr1 pre delay
-	editDetails()->page()->addKnob(0, 3, 1, 1, "06", "00", "15", "turbo");//hr1 feedback
-	editDetails()->page()->addKnob(0, 4, 1, 1, "06", "00", "16");         //hr1 level
+	editDetails()->page()->addComboBox(0, 1, 2, 1, "06", "00", "12");     //hr1 harmony
+	editDetails()->page()->addKnob(0, 3, 1, 1, "06", "00", "13", "turbo");//hr1 pre delay
+	editDetails()->page()->addKnob(0, 4, 1, 1, "06", "00", "15", "turbo");//hr1 feedback
+	editDetails()->page()->addKnob(0, 5, 1, 1, "06", "00", "16");         //hr1 level
 	editDetails()->page()->addGroupBox(1, 0, 1, 5);
 	editDetails()->page()->newGroupBox("Harmony 2");
 	editDetails()->page()->addComboBox(0, 5, 1, 1, "06", "00", "17");     //hr2 harmony

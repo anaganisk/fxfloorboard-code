@@ -50,17 +50,17 @@ void stompbox_wah::setEditPages()
 	
 	editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Pedal Wah");
-	editDetails()->page()->addComboBox(0, 1, 1, 1, "02", "00", "03");       //wah type
-	editDetails()->page()->addKnob(0, 2, 1, 1, "02", "00", "04");           //pedal pos
-	editDetails()->page()->addKnob(0, 3, 1, 1, "02", "00", "05");           //level
-	editDetails()->page()->addGroupBox(1, 0, 1, 1);
+	editDetails()->page()->addComboBox(0, 0, 1, 1, "02", "00", "03");       //wah type
+	editDetails()->page()->addKnob(0, 3, 1, 1, "02", "00", "04");           //pedal pos
+	editDetails()->page()->addKnob(0, 5, 1, 1, "02", "00", "05");           //level
+	editDetails()->page()->addGroupBox(1, 1, 1, 1);
 	editDetails()->page()->addStackField();  // PAGE 1 ABOVE
 
 	
 	editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Touch Wah");
 	editDetails()->page()->addComboBox(0, 1, 1, 1, "02", "00", "06");       //mode
-	editDetails()->page()->addKnob(0, 2, 1, 1, "02", "00", "07");           //polarity
+	editDetails()->page()->addComboBox(0, 2, 1, 1, "02", "00", "07");       //polarity
 	editDetails()->page()->addKnob(0, 3, 1, 1, "02", "00", "08");           //sensitivity
 	editDetails()->page()->addKnob(0, 4, 1, 1, "02", "00", "09", "turbo");  //freq
 	editDetails()->page()->addKnob(0, 5, 1, 1, "02", "00", "0A");           //peak
@@ -73,13 +73,13 @@ void stompbox_wah::setEditPages()
 	editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Auto Wah");
 	editDetails()->page()->addComboBox(0, 1, 1, 1, "02", "00", "0D");       //mode
-	editDetails()->page()->addKnob(0, 2, 1, 1, "02", "00", "0E", "turbo");  //rate
-	editDetails()->page()->addKnob(0, 3, 1, 1, "02", "00", "0F");           //depth
-	editDetails()->page()->addKnob(0, 4, 1, 1, "02", "00", "10", "turbo");  //freq
+	editDetails()->page()->addKnob(0, 2, 1, 1, "02", "00", "0E", "normal", "right", 100);  //rate
+	editDetails()->page()->addKnob(0, 3, 1, 1, "02", "00", "0F", "turbo");  //depth
+	editDetails()->page()->addKnob(0, 4, 1, 1, "02", "00", "10");           //freq
 	editDetails()->page()->addKnob(0, 5, 1, 1, "02", "00", "11");           //peak
-	editDetails()->page()->addKnob(0, 6, 1, 1, "02", "00", "12");           //polarity
-	editDetails()->page()->addKnob(0, 7, 1, 1, "02", "00", "13");           //sensitivity
-	editDetails()->page()->addKnob(0, 8, 1, 1, "02", "00", "14");           //level
+	editDetails()->page()->addComboBox(1, 1, 1, 1, "02", "00", "12");       //polarity
+	editDetails()->page()->addKnob(1, 2, 1, 1, "02", "00", "13");           //sensitivity
+	editDetails()->page()->addKnob(1, 5, 1, 1, "02", "00", "14");           //level
 	editDetails()->page()->addGroupBox(1, 0, 1, 1);
 	editDetails()->page()->addStackField();  // PAGE 3 ABOVE
 	
