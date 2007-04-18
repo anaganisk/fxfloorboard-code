@@ -312,7 +312,7 @@ int SysxIO::getSourceValue(QString hex1, QString hex2, QString hex3)
 	bool ok;
 	int value;
 	QList<QString> items = this->getSourceItems(hex1, hex2);
-	if(midiTable->isData("Stucture", hex1, hex2, hex3))
+	if(midiTable->isData("Structure", hex1, hex2, hex3))
 	{
 		int maxRange = QString("7F").toInt(&ok, 16) + 1;
 		int listindex = sysxDataOffset + QString(hex3).toInt(&ok, 16);
@@ -438,9 +438,9 @@ QList<QString> SysxIO::correctSysxMsg(QList<QString> sysxMsg)
 		QString address3 = QString::number(i - sysxDataOffset, 16).toUpper();
 		if(address3.length()<2) address3.prepend("0");
 		
-		int range = midiTable->getRange("Stucture", address1, address2, address3);
+		int range = midiTable->getRange("Structure", address1, address2, address3);
 
-		if(midiTable->isData("Stucture", address1, address2, address3))
+		if(midiTable->isData("Structure", address1, address2, address3))
 		{	
 			int maxRange = QString("7F").toInt(&ok, 16) + 1; // index starts at 0 -> 0-127 = 128 entry's.
 			int value1 = sysxMsg.at(i).toInt(&ok, 16);
@@ -579,7 +579,7 @@ int SysxIO::getLoadedPatch(){
 ***************************************************************************/
 void SysxIO::setRequestName(QString requestName)
 {
-	//this->requestName = requestName;	
+	//this->requestName = requestName;	//cjw
 };
 
 /*********************** returnRequestName() ***********************************
@@ -798,7 +798,7 @@ void SysxIO::returnPatchName(QString sysxMsg)
 			hex3 = QString::number(count, 16).toUpper();
 			if (hex3.length() < 2) hex3.prepend("0");
 			hex4 = sysxMsg.mid(i, 2);
-			name.append( midiTable->getValue("Stucture", hex1, hex2, hex3, hex4) );*/
+			name.append( midiTable->getValue("Structure", hex1, hex2, hex3, hex4) );*/
 
 			QString hexStr = sysxMsg.mid(i, 2);
 			if(hexStr == "7E")

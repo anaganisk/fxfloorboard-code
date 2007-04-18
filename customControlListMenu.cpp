@@ -36,7 +36,7 @@ customControlListMenu::customControlListMenu(QWidget *parent,
 	this->hex3 = hex3;
 
 	MidiTable *midiTable = MidiTable::Instance();
-	Midi items = midiTable->getMidiMap("Stucture", hex1, hex2, hex3);
+	Midi items = midiTable->getMidiMap("Structure", hex1, hex2, hex3);
 	QString labeltxt = items.customdesc;
 	
 	this->label->setPixelSize(9);
@@ -110,13 +110,13 @@ customControlListMenu::customControlListMenu(QWidget *parent,
 
 void customControlListMenu::paintEvent(QPaintEvent *)
 {
-	QPixmap image(":images/dragbar.png");
+	/*QPixmap image(":images/dragbar.png");
 	
 	QRectF target(0.0, 0.0, this->width(), this->height());
 	QRectF source(0.0, 0.0, this->width(), this->height());
 
 	QPainter painter(this);
-	painter.drawPixmap(target, image, source);
+	painter.drawPixmap(target, image, source);*/
 };
 
 void customControlListMenu::setComboBox()
@@ -129,7 +129,7 @@ void customControlListMenu::setComboBox()
 	int itemsCount;
 
 	MidiTable *midiTable = MidiTable::Instance();
-	Midi items = midiTable->getMidiMap("Stucture", hex1, hex2, hex3);
+	Midi items = midiTable->getMidiMap("Structure", hex1, hex2, hex3);
 
 	for(itemsCount=0;itemsCount<items.level.size();itemsCount++ )
 	{
@@ -158,6 +158,7 @@ void customControlListMenu::setComboBox()
 	this->combobox->setFrame(false);
 	this->combobox->setMaxVisibleItems(itemsCount);
 	this->combobox->view()->setMinimumWidth( this->comboWidth );
+	//this->combobox->setMaximumWidth(120);
 };
 
 void customControlListMenu::valueChanged(int index)

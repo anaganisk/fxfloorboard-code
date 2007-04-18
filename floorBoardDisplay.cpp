@@ -25,7 +25,6 @@
 #include <QDir>
 #include <QRegExp>
 #include <QChar>
-//#include "floorBoard.h"   //cjw
 #include "floorBoardDisplay.h"
 #include "Preferences.h"
 #include "MidiTable.h"
@@ -290,7 +289,7 @@ void floorBoardDisplay::updateDisplay()
 	QString name;
 	for(int i=sysxDataOffset;i<nameArray.size() - 2;i++ )
 		{
-		//name.append( midiTable->getMidiMap("Stucture", "0B", "00", "00", nameArray.at(i)).name );
+		//name.append( midiTable->getMidiMap("Structure", "0B", "00", "00", nameArray.at(i)).name );
 
 		QString hexStr = nameArray.at(i);
 		if(hexStr == "7E")
@@ -421,7 +420,8 @@ void floorBoardDisplay::setInitPatchComboBox(QRect geometry)
 	{
 		initPatchesDir = defaultInitPatchesDir;
 	};
-
+	if(initPatchesDir.exists())
+	{		
 	QPalette pal;
 	pal.setColor(QPalette::Base,QColor(0,1,62));
 	pal.setColor(QPalette::Text,QColor(0,255,204));
@@ -448,8 +448,6 @@ void floorBoardDisplay::setInitPatchComboBox(QRect geometry)
 	this->initPatchComboBox = new QComboBox(this);
 	initPatchComboBox->addItem(tr("[ INIT Patches ]"));
 
-	if(initPatchesDir.exists())
-	{		
 		QStringList filters;
 		filters << "*.syx" << "*.syx2";
 		QStringList initPatchesList = initPatchesDir.entryList(filters);
@@ -482,13 +480,13 @@ void floorBoardDisplay::setInitPatchComboBox(QRect geometry)
                 this, SLOT(loadInitPatch(int)));
 		QObject::connect(this, SIGNAL(updateSignal()),
 			this->parent(), SIGNAL(updateSignal()));
-	};
-
+	
 	initPatchComboBox->setGeometry(geometry);
 	initPatchComboBox->setEditable(false);
 	initPatchComboBox->setFont(font);
 	initPatchComboBox->setPalette(pal);
 	initPatchComboBox->setFrame(false);
+};
 };
 
 void floorBoardDisplay::loadInitPatch(int index)

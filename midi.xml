@@ -31,7 +31,7 @@
 			<PARAM value="00" name="" abbr="" desc="Address MSB" customdesc=""/>
 		</DATA>
 	</Address>
-	<Stucture>
+	<Structure>
 		<LSB value="00" name="Compressor" abbr="CS" desc="CS" customdesc="">
 			<LSB value="00" name="" abbr="" desc="Address MSB" customdesc="">
 				<DATA value="00" name="" abbr="" desc="On/Off" customdesc="on/off">
@@ -4152,7 +4152,7 @@
 				</DATA>
 			</LSB>
 		</LSB>
-	</Stucture>
+	</Structure>
 	<Footer>
 		<DATA value="00" abbr="" desc="" customdesc="">
 			<PARAM value="F7" name="EOX" desc="End Of Exclusive" customdesc=""/>

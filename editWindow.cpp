@@ -164,7 +164,7 @@ void editWindow::addPage(QString hex1, QString hex2, QString hex3, QString hex4)
 	if(hex1 != "void" && hex2 != "void" && hex3 != "void")
 	{
 		MidiTable *midiTable = MidiTable::Instance();
-		Midi items = midiTable->getMidiMap("Stucture", hex1, hex2, hex3);
+		Midi items = midiTable->getMidiMap("Structure", hex1, hex2, hex3);
 		
 		int itemsCount;
 		if(hex4 == "void")

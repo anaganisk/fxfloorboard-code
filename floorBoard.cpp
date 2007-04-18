@@ -528,7 +528,7 @@ void floorBoard::initStomps()
 	this->stompBoxes = initStompBoxes.toList();;
 
 	MidiTable *midiTable = MidiTable::Instance();
-	Midi midimap = midiTable->getMidiMap("Stucture", "0A", "00", "00");
+	Midi midimap = midiTable->getMidiMap("Structure", "0A", "00", "00");
 	QList<int> fxID;
 	QList<QString> fxNAMES;
 	for(int i=0;i<=11;i++)
@@ -668,7 +668,7 @@ void floorBoard::updateStompBoxes()
 	QList<QString> stompOrder;
 	for(int i=sysxDataOffset;i<fxChain.size() - 2;i++ ) 
 	{
-		stompOrder.append( midiTable->getMidiMap("Stucture", "0A", "00", "00", fxChain.at(i)).name );
+		stompOrder.append( midiTable->getMidiMap("Structure", "0A", "00", "00", fxChain.at(i)).name );
 	};
 	setStomps(stompOrder);
 	};
