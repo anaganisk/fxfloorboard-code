@@ -43,21 +43,18 @@ void stompbox_wah::setEditPages()
 {
  	editDetails()->page()->newGroupBox("Effect");
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "02", "00", "00");
-	editDetails()->page()->newStackControl(0, 0, 1, 2, 1);
-	editDetails()->page()->addComboBox(1, 0, 1, 1, "02", "00", "02");
-	editDetails()->page()->addStackControl();
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
-	
-	editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Pedal Wah");
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "02", "00", "03");       //wah type
 	editDetails()->page()->addKnob(0, 3, 1, 1, "02", "00", "04");           //pedal pos
 	editDetails()->page()->addKnob(0, 5, 1, 1, "02", "00", "05");           //level
-	editDetails()->page()->addGroupBox(1, 1, 1, 1);
-	editDetails()->page()->addStackField();  // PAGE 1 ABOVE
+	editDetails()->page()->addGroupBox(1, 0, 1, 1);
+	editDetails()->addPage("02", "00", "02", "00");  // PAGE 1 ABOVE
 
 	
-	editDetails()->page()->newStackField(0);
+	editDetails()->page()->newGroupBox("Effect");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "02", "00", "00");
+	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->page()->newGroupBox("Touch Wah");
 	editDetails()->page()->addComboBox(0, 1, 1, 1, "02", "00", "06");       //mode
 	editDetails()->page()->addComboBox(0, 2, 1, 1, "02", "00", "07");       //polarity
@@ -67,10 +64,12 @@ void stompbox_wah::setEditPages()
 	editDetails()->page()->addKnob(0, 6, 1, 1, "02", "00", "0B");           //depth
     editDetails()->page()->addKnob(0, 7, 1, 1, "02", "00", "0C");           //level
 	editDetails()->page()->addGroupBox(1, 0, 1, 1);
-	editDetails()->page()->addStackField();  // PAGE 2 ABOVE
+	editDetails()->addPage("02", "00", "02", "01");  // PAGE 2 ABOVE
 
 	
-	editDetails()->page()->newStackField(0);
+	editDetails()->page()->newGroupBox("Effect");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "02", "00", "00");
+	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->page()->newGroupBox("Auto Wah");
 	editDetails()->page()->addComboBox(0, 1, 1, 1, "02", "00", "0D");       //mode
 	editDetails()->page()->addKnob(0, 2, 1, 1, "02", "00", "0E", "normal", "right", 100);  //rate
@@ -81,7 +80,6 @@ void stompbox_wah::setEditPages()
 	editDetails()->page()->addKnob(1, 2, 1, 1, "02", "00", "13");           //sensitivity
 	editDetails()->page()->addKnob(1, 5, 1, 1, "02", "00", "14");           //level
 	editDetails()->page()->addGroupBox(1, 0, 1, 1);
-	editDetails()->page()->addStackField();  // PAGE 3 ABOVE
+	editDetails()->addPage("02", "00", "02", "02");  // PAGE 3 ABOVE
 	
-	editDetails()->addPage();	
-};
+	};

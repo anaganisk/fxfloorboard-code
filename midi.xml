@@ -373,7 +373,7 @@
 				</DATA>
 				<DATA value="13" name="Speaker Cabnet" abbr="" desc="SPKR :Mic Setting" customdesc="mic pos">
 					<PARAM value="00" name="Center" desc=""/>
-					<PARAM value="range" name="01/0A/00/09" desc=" cm"/>
+					<PARAM value="range" name="01/0A/01/10" desc=" cm"/>
 				</DATA>
 				<DATA value="14" name="Speaker Cabnet" abbr="" desc="SPKR :Mic Level" customdesc="mic level">
 					<PARAM value="range" name="00/64/00/100" desc=" %" customdesc=""/>
@@ -1063,8 +1063,8 @@
 					<PARAM value="range" name="00/64/00/100" desc=" %" customdesc=""/>
 				</DATA>
 				<DATA value="49" name="" abbr="" desc="VIB :Trigger" customdesc="trigger">
-					<PARAM value="00" name="Off" desc="" customdesc="Off"/>
-					<PARAM value="01" name="On" desc="" customdesc="On"/>
+					<PARAM value="00" name="Off" desc="" customdesc=" Off "/>
+					<PARAM value="01" name="On" desc="" customdesc="  On "/>
 				</DATA>
 				<DATA value="4A" name="" abbr="" desc="VIB : rise time" customdesc="rise">
 					<PARAM value="range" name="00/64/00/100" desc=" %" customdesc=""/>
@@ -1089,8 +1089,8 @@
 					<PARAM value="04" name="u" desc="" customdesc="    U"/>
 				</DATA>
 				<DATA value="4E" name="" abbr="" desc="HMN :Trigger" customdesc="trigger">
-					<PARAM value="00" name="Off" desc="" customdesc="Off"/>
-					<PARAM value="01" name="On" desc="" customdesc="On"/>
+					<PARAM value="00" name="Off" desc="" customdesc=" Off "/>
+					<PARAM value="01" name="On" desc="" customdesc="  On "/>
 				</DATA>
 				<DATA value="4F" name="" abbr="" desc="HMN :Sens" customdesc="sens">
 					<PARAM value="range" name="00/64/00/100" desc="" customdesc=""/>
@@ -1159,7 +1159,7 @@
 				<DATA value="5A" name="" abbr="" desc="SYN:PWM Rate" customdesc="pwm rate">
 					<PARAM value="range" name="00/64/00/100" desc="%" customdesc=""/>
 				</DATA>
-				<DATA value="5B" name="" abbr="" desc="SYN:PWM Depth" customdesc="pwm depth">
+				<DATA value="5B" name="" abbr="" desc="SYN:PWM Depth" customdesc="pwm dpth">
 					<PARAM value="range" name="00/64/00/100" desc=" %" customdesc=""/>
 				</DATA>
 				<DATA value="5C" name="" abbr="" desc="SYN :Noise Level" customdesc="noise">
@@ -1303,7 +1303,7 @@
 					<PARAM value="range" name="00/64/00/100" desc=" mS" customdesc=""/>
 				</DATA>
 				<DATA value="06" name="" abbr="" desc="REV :Low Cut" customdesc="low cut">
-					<PARAM value="00" name="FLAT" desc="" customdesc=""/>
+					<PARAM value="00" name=" Flat" desc="" customdesc=""/>
 					<PARAM value="01" name="55.0Hz" desc="" customdesc=""/>
 					<PARAM value="02" name="110Hz" desc="" customdesc=""/>
 					<PARAM value="03" name="165Hz" desc="" customdesc=""/>
@@ -1325,7 +1325,7 @@
 					<PARAM value="06" name="6.00kHz" desc="" customdesc=""/>
 					<PARAM value="07" name="8.00kHz" desc="" customdesc=""/>
 					<PARAM value="08" name="11.0kHz" desc="" customdesc=""/>
-					<PARAM value="09" name="Flat" desc="" customdesc=""/>
+					<PARAM value="09" name="  Flat" desc="" customdesc=""/>
 				</DATA>
 				<DATA value="08" name="" abbr="" desc="REV :Density" customdesc="density">
 					<PARAM value="range" name="00/0A/00/10" desc="" customdesc=""/>
@@ -1380,8 +1380,8 @@
 				</DATA>
 				<DATA value="12" name="" abbr="" desc="DLY :(reserved)" customdesc=""/>
 				<DATA value="13" name="" abbr="" desc="SOS :Mode" customdesc="mode">
-					<PARAM value="00" name="HiQuality" desc="HiQuality" customdesc=""/>
-					<PARAM value="01" name="LongTime" desc="LongTime" customdesc=""/>
+					<PARAM value="00" name="HiQuality" desc="Hi Quality" customdesc=""/>
+					<PARAM value="01" name="LongTime" desc="Long Time" customdesc=""/>
 				</DATA>
 				<DATA value="14" name="" abbr="" desc="SOS :Quantize" customdesc="quantize">
 					<PARAM value="00" name="Off" desc="" customdesc=""/>
@@ -1400,25 +1400,25 @@
 		</LSB>
 		<LSB value="09" name="Master" abbr="MSTR" desc="MSTR" customdesc="">
 			<LSB value="00" name="" abbr="" desc="Address MSB" customdesc="">
-				<DATA value="00" name="" abbr="" desc="NS :Effect" customdesc="">
-					<PARAM value="00" name="Off" desc="" customdesc=""/>
-					<PARAM value="01" name="On" desc="" customdesc=""/>
+				<DATA value="00" name="" abbr="" desc="NS :Effect" customdesc="on/off">
+					<PARAM value="00" name="Off" desc="" customdesc="Off"/>
+					<PARAM value="01" name="On" desc="" customdesc="On"/>
 				</DATA>
-				<DATA value="01" name="" abbr="" desc="NS :Threshold" customdesc="">
+				<DATA value="01" name="" abbr="" desc="NS :Threshold" customdesc="threshld">
 					<PARAM value="range" name="00/64/00/100" desc=" %" customdesc=""/>
 				</DATA>
-				<DATA value="02" name="" abbr="" desc="NS :Release" customdesc="">
+				<DATA value="02" name="" abbr="" desc="NS :Release" customdesc="release">
 					<PARAM value="range" name="00/64/00/100" desc=" %" customdesc=""/>
 				</DATA>
-				<DATA value="03" name="" abbr="" desc="NS :Detect" customdesc="">
-					<PARAM value="00" name="Input" desc="" customdesc=""/>
-					<PARAM value="01" name="Ns Input" desc="" customdesc=""/>
-					<PARAM value="03" name="FV Out" desc="" customdesc=""/>
+				<DATA value="03" name="" abbr="" desc="NS :Detect" customdesc="detect">
+					<PARAM value="00" name="Input" desc="Input" customdesc="Input"/>
+					<PARAM value="01" name="Ns Input" desc="NS Input" customdesc="NS Input"/>
+					<PARAM value="03" name="FV Out" desc="FV Output" customdesc="FV Output"/>
 				</DATA>
-				<DATA value="04" name="" abbr="" desc="Patch Level" customdesc="">
-					<PARAM value="range" name="00/64/00/200" desc="0 - 200" customdesc=""/>
+				<DATA value="04" name="" abbr="" desc="Patch Level" customdesc="FX master">
+					<PARAM value="range" name="00/64/00/200" desc=" %" customdesc=""/>
 				</DATA>
-				<DATA value="05" name="" abbr="" desc="Master BPM" customdesc="">
+				<DATA value="05" name="" abbr="" desc="Master BPM" customdesc="master BPM">
 					<DATA value="00" name="" abbr="" desc="Master BPM(LSB)" customdesc="">
 						<PARAM value="range" name="00/7F/40/167" desc="40 - 250" customdesc="bpm"/>
 					</DATA>
@@ -1426,8 +1426,8 @@
 						<PARAM value="range" name="00/52/168/250" desc="40 - 250" customdesc="bpm"/>
 					</DATA>
 				</DATA>
-				<DATA value="07" name="" abbr="" desc="FV :Level" customdesc="">
-					<PARAM value="range" name="00/64/00/100" desc="0 - 100" customdesc=""/>
+				<DATA value="07" name="" abbr="" desc="FV :Level" customdesc="FV Level">
+					<PARAM value="range" name="00/64/00/100" desc=" %" customdesc=""/>
 				</DATA>
 			</LSB>
 		</LSB>

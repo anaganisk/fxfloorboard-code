@@ -156,6 +156,12 @@ void MidiTable::loadMidiMap()
 		this->midiMap.level.append(section); 
         node = node.nextSibling(); 
     }; 
+    }; 
+
+Midi MidiTable::getMidiMap(QString root)
+{
+	Midi section = midiMap.level.at( midiMap.id.indexOf(root) );
+	return section;
 }; 
 
 Midi MidiTable::getMidiMap(QString root, QString hex1)
@@ -338,7 +344,7 @@ QString MidiTable::rangeToValue(Midi range, QString hex)
 				double max = rangeList.at(3).toDouble(&ok);
 				double dataRange = max - min;
 				double range = end - start;
-				double result = ((double)valueInt * (dataRange / range)) + min;
+				double result = ((double)valueInt * (dataRange / range)) + (min - start);
 				int precision;
 				if(rangeList.at(3).contains("."))
 				{

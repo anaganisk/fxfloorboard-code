@@ -44,52 +44,64 @@ void stompbox_fx1::setEditPages()
 	
 	editDetails()->page()->newGroupBox("Effect");
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "00");
-	editDetails()->page()->newStackControl(0, 0, 1, 2, 1);
-	editDetails()->page()->addComboBox(1, 0, 1, 1, "01", "00", "02");
-	editDetails()->page()->addStackControl();
+	//editDetails()->page()->addComboBox(1, 0, 1, 1, "01", "00", "02");
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
-
-	editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Octave");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "03", "turbo");
 	editDetails()->page()->addKnob(0, 1, 1, 1, "01", "00", "04", "turbo");
 	editDetails()->page()->addGroupBox(1, 0, 1, 1);
-	editDetails()->page()->addStackField();  // PAGE 1 ABOVE
+	editDetails()->addPage("01", "00", "02", "00");
+	  // PAGE 1 ABOVE
 
-	editDetails()->page()->newStackField(0);
+	editDetails()->page()->newGroupBox("Effect");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "00");
+	//editDetails()->page()->addComboBox(1, 0, 1, 1, "01", "00", "02");
+	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->page()->newGroupBox("Enhancer");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "07");
 	editDetails()->page()->addKnob(0, 1, 1, 1, "01", "00", "08");
 	editDetails()->page()->addKnob(0, 2, 1, 1, "01", "00", "09");
 	editDetails()->page()->addGroupBox(1, 0, 1, 1);
-	editDetails()->page()->addStackField();  // PAGE 2 ABOVE
+	editDetails()->addPage("01", "00", "02", "01");  // PAGE 2 ABOVE
 
-	editDetails()->page()->newStackField(0);
+	
+	editDetails()->page()->newGroupBox("Effect");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "00");
+	//editDetails()->page()->addComboBox(1, 0, 1, 1, "01", "00", "02");
+	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->page()->newGroupBox("Slow Gear");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "0C");
 	editDetails()->page()->addKnob(0, 1, 1, 1, "01", "00", "0D");
 	editDetails()->page()->addGroupBox(1, 0, 1, 1);
-	editDetails()->page()->addStackField();  // PAGE 3 ABOVE
+	editDetails()->addPage("01", "00", "02", "02");  // PAGE 3 ABOVE
 
-	editDetails()->page()->newStackField(0);
+	
+	editDetails()->page()->newGroupBox("Effect");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "00");
+	//editDetails()->page()->addComboBox(1, 0, 1, 1, "01", "00", "02");
+	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->page()->newGroupBox("Defretter");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "0E");
 	editDetails()->page()->addKnob(0, 1, 1, 1, "01", "00", "0F");
 	editDetails()->page()->addKnob(0, 2, 1, 1, "01", "00", "10", "turbo");
 	editDetails()->page()->addKnob(0, 3, 1, 1, "01", "00", "11", "turbo");
 	editDetails()->page()->addGroupBox(1, 0, 1, 1);
-	editDetails()->page()->addStackField();  // PAGE 4 ABOVE
+	editDetails()->addPage("01", "00", "02", "03");  // PAGE 4 ABOVE
 
-	editDetails()->page()->newStackField(0);
+	
+	editDetails()->page()->newGroupBox("Effect");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "00");
+	//editDetails()->page()->addComboBox(1, 0, 1, 1, "01", "00", "02");
+	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->page()->newGroupBox("Ring Modulator");
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "01", "00", "12");      //mode
 	editDetails()->page()->addKnob(0, 1, 1, 1, "01", "00", "13");
 	editDetails()->page()->addKnob(0, 2, 1, 1, "01", "00", "14", "turbo"); //effect
 	editDetails()->page()->addKnob(0, 3, 1, 1, "01", "00", "15", "turbo"); // direct
 	editDetails()->page()->addGroupBox(1, 0, 1, 1);
-	editDetails()->page()->addStackField();// PAGE 5 ABOVE
+	editDetails()->addPage("01", "00", "02", "04");// PAGE 5 ABOVE
 
-	editDetails()->addPage();  
+	
 
 
 

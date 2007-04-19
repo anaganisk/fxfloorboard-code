@@ -420,6 +420,7 @@ void floorBoardDisplay::setInitPatchComboBox(QRect geometry)
 	{
 		initPatchesDir = defaultInitPatchesDir;
 	};
+	
 	if(initPatchesDir.exists())
 	{		
 	QPalette pal;
@@ -447,6 +448,7 @@ void floorBoardDisplay::setInitPatchComboBox(QRect geometry)
 
 	this->initPatchComboBox = new QComboBox(this);
 	initPatchComboBox->addItem(tr("[ INIT Patches ]"));
+
 
 		QStringList filters;
 		filters << "*.syx" << "*.syx2";
@@ -970,4 +972,4 @@ void floorBoardDisplay::valueChanged(bool value, QString hex1, QString hex2, QSt
 	hex1;
 	hex2;
 	hex3;
-}; 
+};

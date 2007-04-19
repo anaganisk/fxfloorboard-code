@@ -554,7 +554,6 @@ void stompBox::emitValueChanged(QString hex1, QString hex2, QString hex3, QStrin
 				this->fxName = "Pre Amplifier";
 			}
 			
-	emit dialogUpdateSignal();
 	emit valueChanged(this->fxName, valueName, valueStr);
 };
 

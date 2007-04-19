@@ -168,10 +168,28 @@ void SysxIO::setFileSource(QString data)
 
 void SysxIO::setFileSource(QString hex1, QString hex2, QString hex3, QString hex4)
 {
+	MidiTable *midiTable = MidiTable::Instance();
 	bool ok;
-	int index = hex3.toInt(&ok, 16) + sysxDataOffset;
+	
+	QString sourceHex1 = hex1;
+	QString sourceHex3 = hex3;
+	if(hex1 != "00")
+	{
+		QString prevHex = QString::number((hex1.toInt(&ok, 16) - 1), 16).toUpper();
+		if(prevHex.length() < 2) prevHex.prepend("0");
+		if(midiTable->getMidiMap("Structure").id.contains(prevHex))
+		{
+			if(midiTable->getMidiMap("Structure", hex1).name == midiTable->getMidiMap("Structure", prevHex).name)
+			{
+				sourceHex1 = prevHex;
+				sourceHex3 = QString::number(hex3.toInt(&ok, 16) + QString("7F").toInt(&ok, 16) + 1, 16);
+			};
+		};
+	};
+	
+	int index = sourceHex3.toInt(&ok, 16) + sysxDataOffset;
 	QString address;
-	address.append(hex1);
+	address.append(sourceHex1);
 	address.append(hex2);
 	QList<QString> sysxList = this->fileSource.hex.at(this->fileSource.address.indexOf(address));
 	sysxList.replace(index, hex4);
@@ -185,7 +203,6 @@ void SysxIO::setFileSource(QString hex1, QString hex2, QString hex3, QString hex
 
 	this->fileSource.hex.replace(this->fileSource.address.indexOf(address), sysxList);
 
-	MidiTable *midiTable = MidiTable::Instance();
 	QString sysxMsg = midiTable->dataChange(hex1, hex2, hex3, hex4);
 
 	if(this->isConnected() && this->deviceReady() && this->getSyncStatus())
@@ -209,12 +226,30 @@ void SysxIO::setFileSource(QString hex1, QString hex2, QString hex3, QString hex
 
 void SysxIO::setFileSource(QString hex1, QString hex2, QString hex3, QString hex4, QString hex5)
 {
+	MidiTable *midiTable = MidiTable::Instance();
 	bool ok;
+	
+	QString sourceHex1 = hex1;
+	QString sourceHex3 = hex3;
+	if(hex1 != "00")
+	{
+		QString prevHex = QString::number((hex1.toInt(&ok, 16) - 1), 16).toUpper();
+		if(prevHex.length() < 2) prevHex.prepend("0");
+		if(midiTable->getMidiMap("Structure").id.contains(prevHex))
+		{
+			if(midiTable->getMidiMap("Structure", hex1).name == midiTable->getMidiMap("Structure", prevHex).name)
+			{
+				sourceHex1 = prevHex;
+				sourceHex3 = QString::number(hex3.toInt(&ok, 16) + QString("7F").toInt(&ok, 16) + 1, 16);
+			};
+		};
+	};
+
 	QString address;
-	address.append(hex1);
+	address.append(sourceHex1);
 	address.append(hex2);
 	QList<QString> sysxList = this->fileSource.hex.at(this->fileSource.address.indexOf(address));
-	int index = hex3.toInt(&ok, 16) + sysxDataOffset;
+	int index = sourceHex3.toInt(&ok, 16) + sysxDataOffset;
 	sysxList.replace(index, hex4);
 	sysxList.replace(index + 1, hex5);
 
@@ -227,7 +262,6 @@ void SysxIO::setFileSource(QString hex1, QString hex2, QString hex3, QString hex
 
 	this->fileSource.hex.replace(this->fileSource.address.indexOf(address), sysxList);
 
-	MidiTable *midiTable = MidiTable::Instance();
 	QString sysxMsg = midiTable->dataChange(hex1, hex2, hex3, hex4, hex5);
 
 	if(this->isConnected() && this->deviceReady() && this->getSyncStatus())
@@ -310,6 +344,21 @@ int SysxIO::getSourceValue(QString hex1, QString hex2, QString hex3)
 	MidiTable *midiTable = MidiTable::Instance();
 
 	bool ok;
+	
+	if(hex1 != "01")
+	{
+		QString prevHex = QString::number((hex1.toInt(&ok, 16) - 1), 16).toUpper();
+		if(prevHex.length() < 2) prevHex.prepend("0");
+		if(midiTable->getMidiMap("Structure").id.contains(prevHex))
+		{
+			if(midiTable->getMidiMap("Structure", hex1).name == midiTable->getMidiMap("Structure", prevHex).name)
+			{
+				hex1 = prevHex;
+				hex3 = QString::number(hex3.toInt(&ok, 16) + QString("7F").toInt(&ok, 16) + 1, 16);
+			};
+		};
+	};
+
 	int value;
 	QList<QString> items = this->getSourceItems(hex1, hex2);
 	if(midiTable->isData("Structure", hex1, hex2, hex3))
@@ -639,7 +688,7 @@ void SysxIO::finishedSending()
 	emit setStatusProgress(0);
 	emit setStatusMessage(tr("Ready"));*/
 
-	//this->namePatchChange();  //cjw
+	//this->namePatchChange(); 
 };
 
 /***************************** requestPatchChange() *************************
@@ -674,7 +723,7 @@ void SysxIO::namePatchChange()
 	QObject::connect(this, SIGNAL(patchName(QString)),
 		this, SLOT(checkPatchChange(QString)));		
 	
-	this->requestPatchName(0, 0);  //cjw
+	this->requestPatchName(0, 0);
 };
 
 /***************************** checkPatchChange() *************************

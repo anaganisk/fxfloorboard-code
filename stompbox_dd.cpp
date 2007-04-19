@@ -53,63 +53,64 @@ void stompbox_dd::setEditPages()
 {
 	editDetails()->page()->newGroupBox("Effect");
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "08", "00", "00");
-	editDetails()->page()->newStackControl(0, 0, 1, 2, 1);
-	editDetails()->page()->addComboBox(1, 0, 1, 1, "08", "00", "02");
-	editDetails()->page()->addStackControl();
 	editDetails()->page()->addGroupBox(1, 0, 1, 1);
-	
-
-	editDetails()->page()->newStackField(0);
-	editDetails()->page()->newGroupBox("Reverb");
-	editDetails()->page()->addComboBox(0, 0, 1, 1, "08", "00", "03");//rev type
+    editDetails()->page()->newGroupBox("Reverb");
+	editDetails()->page()->addComboBox(0, 0, 1, 1, "08", "00", "03");     //rev type
 	editDetails()->page()->addKnob(0, 1, 1, 1, "08", "00", "04");         //rev time
-	editDetails()->page()->addKnob(0, 2, 1, 1, "08", "00", "05", "turbo");//pre delay
-	editDetails()->page()->addKnob(0, 5, 1, 1, "08", "00", "08");         //density
+	editDetails()->page()->addKnob(0, 2, 1, 1, "08", "00", "05");         //pre delay
+	editDetails()->page()->addKnob(0, 5, 1, 1, "08", "00", "08", "turbo");//density
     editDetails()->page()->addGroupBox(1, 1, 1, 1);
 
 	editDetails()->page()->newGroupBox("Filter");
 	editDetails()->page()->addKnob(0, 3, 1, 1, "08", "00", "06");         //low cut
-	editDetails()->page()->addKnob(0, 4, 1, 1, "08", "00", "07", "turbo");//high cut
+	editDetails()->page()->addKnob(0, 4, 1, 1, "08", "00", "07");         //high cut
     editDetails()->page()->addGroupBox(1, 2, 1, 1);
 	
 	editDetails()->page()->newGroupBox("Output");
 	editDetails()->page()->addKnob(0, 6, 1, 1, "08", "00", "09", "turbo");//rev level
 	editDetails()->page()->addGroupBox(1, 3, 1, 1);
-	editDetails()->page()->addStackField();  // PAGE 1 ABOVE
+	editDetails()->addPage("08", "00", "02", "00");  // PAGE 1 ABOVE
 
 
-	editDetails()->page()->newStackField(0);
+	editDetails()->page()->newGroupBox("Effect");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "08", "00", "00");
+	editDetails()->page()->addGroupBox(1, 0, 1, 1);
 	editDetails()->page()->newGroupBox("Delay");
-	editDetails()->page()->addComboBox(0, 0, 1, 1, "08", "00", "0B");//delay type
+	//editDetails()->page()->newStackControl(1, 0, 1, 2, 1);
+	editDetails()->page()->addComboBox(0, 0, 1, 1, "08", "00", "0B");     //delay type
+	//editDetails()->page()->addStackControl();
 	editDetails()->page()->addGroupBox(1, 1, 1, 1);
 
+	
 	editDetails()->page()->newGroupBox("Time");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "08", "00", "0C","normal","right", 60);         //delay time
-	editDetails()->page()->addKnob(0, 2, 1, 1, "08", "00", "0D", "turbo");//time fine
+	editDetails()->page()->addKnob(0, 1, 1, 1, "08", "00", "0C","normal","right", 60);//delay time
+	editDetails()->page()->addKnob(0, 2, 1, 1, "08", "00", "0D");         //time fine
 	editDetails()->page()->addKnob(0, 3, 1, 1, "08", "00", "0E");         //tap time
 	editDetails()->page()->addKnob(0, 4, 1, 1, "08", "00", "0F", "turbo");//feedback
     editDetails()->page()->addGroupBox(1, 2, 1, 1);
+	
 
 	editDetails()->page()->newGroupBox("Filter");
-	editDetails()->page()->addKnob(0, 5, 1, 1, "08", "00", "10", "turbo");//high cut
+	editDetails()->page()->addKnob(0, 5, 1, 1, "08", "00", "10");         //high cut
 	editDetails()->page()->addGroupBox(1, 3, 1, 1);
 
 	editDetails()->page()->newGroupBox("Output");
-	editDetails()->page()->addKnob(0, 6, 1, 1, "08", "00", "11");         //level
+	editDetails()->page()->addKnob(0, 6, 1, 1, "08", "00", "11", "turbo");//level
 	editDetails()->page()->addGroupBox(1, 4, 1, 1);
-	editDetails()->page()->addStackField();// PAGE 2 ABOVE
+	editDetails()->addPage("08", "00", "02", "01");// PAGE 2 ABOVE
 
 
-	editDetails()->page()->newStackField(0);
+	editDetails()->page()->newGroupBox("Effect");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "08", "00", "00");
+	editDetails()->page()->addGroupBox(1, 0, 1, 1);
 	editDetails()->page()->newGroupBox("Sound on Sound");
-	editDetails()->page()->addComboBox(0, 0, 2, 1, "08", "00", "13");         //sos mode
-	editDetails()->page()->addKnob(0, 1, 2, 1, "08", "00", "14");         //sos quantize
-	editDetails()->page()->addKnob(0, 2, 2, 1, "08", "00", "15","normal","right", 60);         //sos tempo
+	editDetails()->page()->addComboBox(0, 0, 2, 1, "08", "00", "13");        //sos mode
+	editDetails()->page()->addSwitch(0, 1, 2, 1, "08", "00", "14");          //sos quantize
+	editDetails()->page()->addKnob(0, 2, 2, 1, "08", "00", "15","normal","right", 60);//sos tempo
 	editDetails()->page()->addGroupBox(1, 1, 1, 1);
 	editDetails()->page()->newGroupBox("Output");
-	editDetails()->page()->addKnob(0, 3, 2, 1, "08", "00", "16", "turbo");//sos level
+	editDetails()->page()->addKnob(0, 3, 2, 1, "08", "00", "16", "turbo");   //sos level
 	editDetails()->page()->addGroupBox(1, 2, 1, 1);
-    editDetails()->page()->addStackField();// PAGE 3 ABOVE
+    editDetails()->addPage("08", "00", "02", "02");// PAGE 3 ABOVE
 
-	editDetails()->addPage();  	
-};
+	};

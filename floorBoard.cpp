@@ -678,6 +678,7 @@ void floorBoard::setEditDialog(editWindow* editDialog)
 	this->editDialog = editDialog;
 	this->editDialog->setParent(this);
 	this->centerEditDialog();
+	this->editDialog->pageUpdateSignal();
 	this->editDialog->show();
 };
 
