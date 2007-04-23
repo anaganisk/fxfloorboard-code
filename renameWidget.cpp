@@ -47,7 +47,7 @@ void renameWidget::updateName(QString name)
 	SysxIO *sysxIO = SysxIO::Instance();
 
 	QList<QString> hexData; bool ok;
-	for(int i=0; i<16; ++i)
+	for(int i=0; i<14; ++i)
 	{
 		if(i<name.size())
 		{
@@ -73,7 +73,7 @@ void renameWidget::updateName(QString name)
 			hexData.append("20");
 		};
 	};
-	sysxIO->setFileSource("12", "00", hexData);
+	sysxIO->setFileSource("0B", "00", hexData);
 	sysxIO->setCurrentPatchName(name);
 
 	emit nameChanged(name);

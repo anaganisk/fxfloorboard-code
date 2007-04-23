@@ -48,7 +48,7 @@ void stompbox_fv::setEditPages()
 	editDetails()->page()->addGroupBox(1, 0, 1, 4);
 	editDetails()->page()->newGroupBox("Expression Pedal Switch");
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "0D", "00", "00");    //on/off
-	editDetails()->page()->addKnob(0, 1, 1, 1, "0D", "00", "02", "normal", "right", 135);//target
+	//editDetails()->page()->addKnob(0, 1, 1, 1, "0D", "00", "02", "normal", "right", 135);//target
 	//editDetails()->page()->addKnob(0, 2, 1, 1, "0D", "00", "04", "turbo");       // target min
 	//editDetails()->page()->addKnob(0, 3, 1, 1, "0D", "00", "06", "turbo");    //  target max
 	editDetails()->page()->addComboBox(0, 4, 1, 1, "0D", "00", "08");         // source mode

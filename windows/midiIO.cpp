@@ -443,7 +443,7 @@ void midiIO::run()
 			}
 			else if(sizeChunk == "00001F00") // Patch Request
 			{
-				bytesTotal = 1010;
+				bytesTotal = 684;
 			};
 			
 			HMIDIIN			inHandle;
@@ -595,7 +595,7 @@ void midiIO::showErrorMsg(QString errorMsg, QString type)
 	{
 		windowTitle = tr("GT-8 Fx FloorBoard - Midi Input Error");
 	};*/
-	windowTitle = tr("GT-8 Fx FloorBoard");
+	windowTitle = tr("GT-6B Fx FloorBoard");
 
 	emit errorSignal(windowTitle, errorMsg);
 };

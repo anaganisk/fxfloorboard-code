@@ -48,7 +48,7 @@ void stompbox_pre::setEditPages()
     //editDetails()->page()->newGroupBox("Pre Amplifier");
 
     editDetails()->page()->newGroupBox("Pre-Amp Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "04", "00", "00");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "04", "00", "00", "middle", Qt::AlignCenter);
 	editDetails()->page()->addGroupBox(1, 0, 1, 1);
 	
 	editDetails()->page()->newGroupBox("Flip Top");
@@ -58,14 +58,14 @@ void stompbox_pre::setEditPages()
 	editDetails()->page()->addKnob(0, 3, 1, 1, "04", "00", "0C");         //mid freq
 	editDetails()->page()->addKnob(0, 4, 1, 1, "04", "00", "09");         //treble
 	editDetails()->page()->addComboBox(0, 5, 1, 1, "04", "00", "05");     //response
-	editDetails()->page()->addSwitch(0, 6, 1, 1, "04", "00", "03");       //bright
+	editDetails()->page()->addSwitch(0, 6, 1, 1, "04", "00", "03", "middle", Qt::AlignCenter);       //bright
 	editDetails()->page()->addKnob(0, 7, 1, 1, "04", "00", "0F", "turbo");//level
 	editDetails()->page()->addGroupBox(1, 1, 1, 1);
 	editDetails()->addPage("04", "00", "02", "00");
 	  // PAGE 1 ABOVE
 
 	editDetails()->page()->newGroupBox("Pre-Amp Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "04", "00", "00");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "04", "00", "00", "middle", Qt::AlignCenter);
 	editDetails()->page()->addGroupBox(1, 0, 1, 1);
 	editDetails()->page()->newGroupBox("B Man");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "04", "00", "08", "turbo");//gain
@@ -73,7 +73,7 @@ void stompbox_pre::setEditPages()
 	editDetails()->page()->addKnob(0, 2, 1, 1, "04", "00", "0B");         //mid
 	editDetails()->page()->addKnob(0, 3, 1, 1, "04", "00", "0C");         //mid freq
 	editDetails()->page()->addKnob(0, 4, 1, 1, "04", "00", "09");         //treble
-	editDetails()->page()->addSwitch(0, 5, 1, 1, "04", "00", "04");       //deep
+	editDetails()->page()->addSwitch(0, 5, 1, 1, "04", "00", "04", "middle", Qt::AlignCenter);       //deep
 	editDetails()->page()->addKnob(0, 6, 1, 1, "04", "00", "0F", "turbo");//level
 	editDetails()->page()->addGroupBox(1, 1, 1, 1);
 	editDetails()->addPage("04", "00", "02", "01");
@@ -81,7 +81,7 @@ void stompbox_pre::setEditPages()
 
 	
 	editDetails()->page()->newGroupBox("Pre-Amp Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "04", "00", "00");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "04", "00", "00", "middle", Qt::AlignCenter);
 	editDetails()->page()->addGroupBox(1, 0, 1, 1);
 	editDetails()->page()->newGroupBox("Bass 360");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "04", "00", "08", "turbo");//gain
@@ -94,7 +94,7 @@ void stompbox_pre::setEditPages()
 	  // PAGE 3 ABOVE
 
 	editDetails()->page()->newGroupBox("Pre-Amp Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "04", "00", "00");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "04", "00", "00", "middle", Qt::AlignCenter);
 	editDetails()->page()->addGroupBox(1, 0, 1, 1);
 	editDetails()->page()->newGroupBox("T.E.");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "04", "00", "08", "turbo");//gain
@@ -109,7 +109,7 @@ void stompbox_pre::setEditPages()
 	  // PAGE 4 ABOVE	
 
 	editDetails()->page()->newGroupBox("Pre-Amp Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "04", "00", "00");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "04", "00", "00", "middle", Qt::AlignCenter);
 	editDetails()->page()->addGroupBox(1, 0, 1, 1);
 	editDetails()->page()->newGroupBox("Session");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "04", "00", "08", "turbo");//gain
@@ -124,7 +124,7 @@ void stompbox_pre::setEditPages()
 	  // PAGE 5 ABOVE	
 
 	editDetails()->page()->newGroupBox("Pre-Amp Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "04", "00", "00");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "04", "00", "00", "middle", Qt::AlignCenter);
 	editDetails()->page()->addGroupBox(1, 0, 1, 1);
 	editDetails()->page()->newGroupBox("Concert 810");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "04", "00", "08", "turbo");//gain
@@ -134,8 +134,8 @@ void stompbox_pre::setEditPages()
 	editDetails()->page()->addKnob(0, 4, 1, 1, "04", "00", "0C");         //mid freq
 	editDetails()->page()->addKnob(0, 5, 1, 1, "04", "00", "09", "turbo");//treble
 	editDetails()->page()->addKnob(0, 6, 1, 1, "04", "00", "05");         //response
-	editDetails()->page()->addSwitch(0, 7, 1, 1, "04", "00", "03");       //bright
-	editDetails()->page()->addSwitch(0, 8, 1, 1, "04", "00", "0A");        //ultra high
+	editDetails()->page()->addSwitch(0, 7, 1, 1, "04", "00", "03", "middle", Qt::AlignCenter);       //bright
+	editDetails()->page()->addSwitch(0, 8, 1, 1, "04", "00", "0A", "middle", Qt::AlignCenter);        //ultra high
 	editDetails()->page()->addKnob(0, 9, 1, 1, "04", "00", "0F");         //level
 	editDetails()->page()->addGroupBox(1, 1, 1, 1);
 	editDetails()->addPage("04", "00", "02", "05");

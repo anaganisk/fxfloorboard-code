@@ -539,10 +539,10 @@ void bankTreeList::updatePatch(QString replyMsg)
 		this, SLOT(updatePatch(QString)));		
 	
 	replyMsg = replyMsg.remove(" ").toUpper();
-	if(replyMsg != "")//  && replyMsg.size()/2 == 684) // cjw
+	if(replyMsg != "" && replyMsg.size()/2 == 684) // cjw
 	{
 		sysxIO->setFileSource(replyMsg);		// Set the source to the data received.
-		sysxIO->setFileName(tr("GT-6B patch"));	// Set the file name to GT-6B patch for the display.
+		sysxIO->setFileName(tr("GT-6B received patch"));	// Set the file name to GT-6B patch for the display.
 		sysxIO->setDevice(true);				// Patch received from the device so this is set to true.
 		sysxIO->setSyncStatus(true);			// We can't be more in sync than right now! :)
 
@@ -552,12 +552,27 @@ void bankTreeList::updatePatch(QString replyMsg)
 		emit updateSignal();
 		emit setStatusProgress(0);
 	}
-	else
+	if(replyMsg != "" && replyMsg.size()/2 != 684) // cjw
+	//else
 	{
-		emit notConnectedSignal();				// No message returned so connection must be lost.
+		//emit notConnectedSignal();				// No message returned so connection must be lost.
+		/* NO-REPLY WARNING */
+	QMessageBox *msgBox = new QMessageBox();
+	msgBox->setWindowTitle(QObject::tr("Warning - Patch data not received!"));
+	msgBox->setIcon(QMessageBox::Warning);
+	msgBox->setTextFormat(Qt::RichText);
+	QString msgText;
+	msgText.append("<font size='+1'><b>");
+	msgText.append(QObject::tr("Patch data transfer in-complete!"));
+	msgText.append("<b></font><br>");
+	msgText.append(QObject::tr("Please make sure the GT-6B is connected correctly and re-try."));
+	msgBox->setText(msgText);
+	msgBox->setStandardButtons(QMessageBox::Ok);
+	msgBox->exec();
+	/* END WARNING */
 	};
 
-	/* DEBUGGING OUTPUT 
+	 /*DEBUGGING OUTPUT 
 	QString snork;
 	for(int i=0;i<replyMsg.size();++i)
 	{
@@ -646,18 +661,18 @@ void bankTreeList::updatePatchNames(QString name)
 		emit setStatusSymbol(3);
 		emit setStatusMessage(tr("Receiving"));
 
-		/*if(name == "") // cjw !=  If not empty we can asume that we did receive a patch name.
+		/*if(name != "") // cjw !=  If not empty we can asume that we did receive a patch name.
 		{
-			this->currentPatchTreeItems.at(listIndex)->child(itemIndex)->setText(0, "name");//cjw added "" // Set the patch name of the item in the tree list.
+			this->currentPatchTreeItems.at(listIndex)->child(itemIndex)->setText(0, name);//cjw added "" // Set the patch name of the item in the tree list.
 			if(itemIndex >= patchPerBank - 1) // If we reach the last patch in this bank we need to increment the bank and restart at patch 1.
 			{
 				this->listIndex++;
 				this->itemIndex = 0;
 			}
-			else */ 
+			else */
 			{ 
 				this->itemIndex++;
-			//};
+		//	};
 		};
 
 		/*if(listIndex < currentPatchTreeItems.size()) // As long as we have items in the list we continue, duh! :)
@@ -668,7 +683,7 @@ void bankTreeList::updatePatchNames(QString name)
 
 			sysxIO->requestPatchName(bank, patch); // The patch name request.
 		}
-		else*/  //cjw
+		else  *///cjw
 		{
 			sysxIO->setDeviceReady(true);
 

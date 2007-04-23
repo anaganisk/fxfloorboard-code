@@ -47,7 +47,7 @@ void stompbox_rv::updateSignal()
 void stompbox_rv::setEditPages()
 {
 	editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 1, 1, 1, "04", "00", "10");       //on/off
+	editDetails()->page()->addSwitch(0, 1, 1, 1, "04", "00", "10", "middle", Qt::AlignCenter);       //on/off
 	editDetails()->page()->addGroupBox(1, 0, 1, 1);
 	
 	editDetails()->page()->newGroupBox("Speaker");

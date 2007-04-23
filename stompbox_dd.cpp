@@ -52,7 +52,7 @@ void stompbox_dd::updateSignal()
 void stompbox_dd::setEditPages()
 {
 	editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "08", "00", "00");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "08", "00", "00", "middle", Qt::AlignCenter);
 	editDetails()->page()->addGroupBox(1, 0, 1, 1);
     editDetails()->page()->newGroupBox("Reverb");
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "08", "00", "03");     //rev type
@@ -71,21 +71,22 @@ void stompbox_dd::setEditPages()
 	editDetails()->page()->addGroupBox(1, 3, 1, 1);
 	editDetails()->addPage("08", "00", "02", "00");  // PAGE 1 ABOVE
 
-
+//-------------------------------- DELAY ------------------------------------------------//
 	editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "08", "00", "00");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "08", "00", "00", "middle", Qt::AlignCenter);
 	editDetails()->page()->addGroupBox(1, 0, 1, 1);
 	editDetails()->page()->newGroupBox("Delay");
-	//editDetails()->page()->newStackControl(1, 0, 1, 2, 1);
+	editDetails()->page()->newStackControl(0);
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "08", "00", "0B");     //delay type
-	//editDetails()->page()->addStackControl();
+	editDetails()->page()->addStackControl();
 	editDetails()->page()->addGroupBox(1, 1, 1, 1);
 
 	
 	editDetails()->page()->newGroupBox("Time");
 	editDetails()->page()->addKnob(0, 1, 1, 1, "08", "00", "0C","normal","right", 60);//delay time
 	editDetails()->page()->addKnob(0, 2, 1, 1, "08", "00", "0D");         //time fine
-	editDetails()->page()->addKnob(0, 3, 1, 1, "08", "00", "0E");         //tap time
+	editDetails()->page()->insertStackField(0, 0, 3, 1, 1);
+	
 	editDetails()->page()->addKnob(0, 4, 1, 1, "08", "00", "0F", "turbo");//feedback
     editDetails()->page()->addGroupBox(1, 2, 1, 1);
 	
@@ -97,15 +98,22 @@ void stompbox_dd::setEditPages()
 	editDetails()->page()->newGroupBox("Output");
 	editDetails()->page()->addKnob(0, 6, 1, 1, "08", "00", "11", "turbo");//level
 	editDetails()->page()->addGroupBox(1, 4, 1, 1);
+
+	editDetails()->page()->newStackField(0);
+	editDetails()->page()->addStackField();
+    editDetails()->page()->newStackField(0);
+	editDetails()->page()->addKnob(0, 3, 1, 1, "08", "00", "0E");         //tap time
+	editDetails()->page()->addStackField();
+	
 	editDetails()->addPage("08", "00", "02", "01");// PAGE 2 ABOVE
 
-
+//------------------------- Sound on Sound -----------------------------------------------//
 	editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "08", "00", "00");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "08", "00", "00", "middle", Qt::AlignCenter);
 	editDetails()->page()->addGroupBox(1, 0, 1, 1);
 	editDetails()->page()->newGroupBox("Sound on Sound");
 	editDetails()->page()->addComboBox(0, 0, 2, 1, "08", "00", "13");        //sos mode
-	editDetails()->page()->addSwitch(0, 1, 2, 1, "08", "00", "14");          //sos quantize
+	editDetails()->page()->addSwitch(0, 1, 2, 1, "08", "00", "14", "middle", Qt::AlignCenter);          //sos quantize
 	editDetails()->page()->addKnob(0, 2, 2, 1, "08", "00", "15","normal","right", 60);//sos tempo
 	editDetails()->page()->addGroupBox(1, 1, 1, 1);
 	editDetails()->page()->newGroupBox("Output");

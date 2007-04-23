@@ -46,7 +46,7 @@ void stompbox_cs::updateSignal()
 void stompbox_cs::setEditPages()
 {
 	editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "00", "00", "00");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "00", "00", "00", "middle", Qt::AlignCenter);
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 
     editDetails()->page()->newGroupBox("Boss Comp");
@@ -59,7 +59,7 @@ void stompbox_cs::setEditPages()
 
 
 	editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "00", "00", "00");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "00", "00", "00", "middle", Qt::AlignCenter);
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
     editDetails()->page()->newGroupBox("D-Comp");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "00", "00", "05", "turbo");//sustain
@@ -69,7 +69,7 @@ void stompbox_cs::setEditPages()
 
 
     editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "00", "00", "00");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "00", "00", "00", "middle", Qt::AlignCenter);
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->page()->newGroupBox("Rack 160D");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "00", "00", "04", "turbo");//threshold
@@ -81,7 +81,7 @@ void stompbox_cs::setEditPages()
 
 
 	editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "00", "00", "00");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "00", "00", "00", "middle", Qt::AlignCenter);
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->page()->newGroupBox("Vtg Rack U");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "00", "00", "03", "turbo");//attack

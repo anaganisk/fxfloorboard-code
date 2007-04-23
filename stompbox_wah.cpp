@@ -42,7 +42,7 @@ void stompbox_wah::updateSignal()
 void stompbox_wah::setEditPages()
 {
  	editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "02", "00", "00");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "02", "00", "00", "middle", Qt::AlignCenter);
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->page()->newGroupBox("Pedal Wah");
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "02", "00", "03");       //wah type
@@ -53,7 +53,7 @@ void stompbox_wah::setEditPages()
 
 	
 	editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "02", "00", "00");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "02", "00", "00", "middle", Qt::AlignCenter);
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->page()->newGroupBox("Touch Wah");
 	editDetails()->page()->addComboBox(0, 1, 1, 1, "02", "00", "06");       //mode
@@ -68,7 +68,7 @@ void stompbox_wah::setEditPages()
 
 	
 	editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "02", "00", "00");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "02", "00", "00", "middle", Qt::AlignCenter);
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->page()->newGroupBox("Auto Wah");
 	editDetails()->page()->addComboBox(0, 1, 1, 1, "02", "00", "0D");       //mode
@@ -81,5 +81,6 @@ void stompbox_wah::setEditPages()
 	editDetails()->page()->addKnob(1, 5, 1, 1, "02", "00", "14");           //level
 	editDetails()->page()->addGroupBox(1, 0, 1, 1);
 	editDetails()->addPage("02", "00", "02", "02");  // PAGE 3 ABOVE
+	
 	
 	};

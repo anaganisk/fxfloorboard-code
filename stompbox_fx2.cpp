@@ -42,7 +42,7 @@ void stompbox_fx2::updateSignal()
 void stompbox_fx2::setEditPages()
 {
     editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00", "middle", Qt::AlignCenter);
 	editDetails()->page()->addGroupBox(0, 0, 1, 8);
 	editDetails()->page()->newGroupBox("Phaser");
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "06", "00", "03");     //type
@@ -57,7 +57,7 @@ void stompbox_fx2::setEditPages()
 	editDetails()->addPage("06", "00", "02", "00");  // PAGE 1 ABOVE
 
 	editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00", "middle", Qt::AlignCenter);
 	editDetails()->page()->addGroupBox(0, 0, 1, 7);
 	editDetails()->page()->newGroupBox("Flanger");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "06", "00", "0B", "turbo");//rate
@@ -71,28 +71,50 @@ void stompbox_fx2::setEditPages()
     editDetails()->addPage("06", "00", "02", "01");  // PAGE 2 ABOVE
 
 	editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00", "middle", Qt::AlignCenter);
+	editDetails()->page()->newStackControl(0);
+	editDetails()->page()->addComboBox(0, 1, 1, 1, "06", "00", "11");     //voice
+	editDetails()->page()->addStackControl();
 	editDetails()->page()->addGroupBox(0, 0, 1, 5);
 	editDetails()->page()->newGroupBox("Harmony 1");
-	editDetails()->page()->addComboBox(0, 0, 1, 1, "06", "00", "11");     //voice
-	editDetails()->page()->addComboBox(0, 1, 2, 1, "06", "00", "12");     //hr1 harmony
-	editDetails()->page()->addKnob(0, 3, 1, 1, "06", "00", "13", "turbo");//hr1 pre delay
-	editDetails()->page()->addKnob(0, 4, 1, 1, "06", "00", "15", "turbo");//hr1 feedback
-	editDetails()->page()->addKnob(0, 5, 1, 1, "06", "00", "16");         //hr1 level
+	editDetails()->page()->addComboBox(0, 0, 2, 1, "06", "00", "12");     //hr1 harmony
+	
+	editDetails()->page()->addKnob(0, 2, 1, 1, "06", "00", "13", "turbo");//hr1 pre delay
+	editDetails()->page()->addKnob(0, 3, 1, 1, "06", "00", "15", "turbo");//hr1 feedback
+	editDetails()->page()->addKnob(0, 4, 1, 1, "06", "00", "16");         //hr1 level
 	editDetails()->page()->addGroupBox(1, 0, 1, 5);
-	editDetails()->page()->newGroupBox("Harmony 2");
-	editDetails()->page()->addComboBox(0, 5, 1, 1, "06", "00", "17");     //hr2 harmony
-	editDetails()->page()->addKnob(0, 6, 1, 1, "06", "00", "18");         //hr2 pre delay
-	editDetails()->page()->addKnob(0, 7, 1, 1, "06", "00", "1A", "turbo");//hr2 level
-	editDetails()->page()->addGroupBox(2, 0, 1, 3);
+
+	editDetails()->page()->insertStackField(0, 2, 0, 1, 1);
+
+	
 	editDetails()->page()->newGroupBox("Output");
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "06", "00", "1B");     //key
 	editDetails()->page()->addKnob(0, 1, 1, 1, "06", "00", "1C");         //direct level
 	editDetails()->page()->addGroupBox(2, 3, 1, 2);
+
+	editDetails()->page()->newStackField(0);
+	editDetails()->page()->addStackField();
+	
+	editDetails()->page()->newStackField(0);
+	editDetails()->page()->newGroupBox("Harmony 2");
+	editDetails()->page()->addComboBox(0, 0, 1, 1, "06", "00", "17");     //hr2 harmony
+	editDetails()->page()->addKnob(0, 1, 1, 1, "06", "00", "18");         //hr2 pre delay
+	editDetails()->page()->addKnob(0, 2, 1, 1, "06", "00", "1A", "turbo");//hr2 level
+	editDetails()->page()->addGroupBox(2, 0, 1, 3);
+	editDetails()->page()->addStackField();
+
+	editDetails()->page()->newStackField(0);
+	editDetails()->page()->newGroupBox("Harmony 2");
+	editDetails()->page()->addComboBox(0, 0, 1, 1, "06", "00", "17");     //hr2 harmony
+	editDetails()->page()->addKnob(0, 1, 1, 1, "06", "00", "18");         //hr2 pre delay
+	editDetails()->page()->addKnob(0, 2, 1, 1, "06", "00", "1A", "turbo");//hr2 level
+	editDetails()->page()->addGroupBox(2, 0, 1, 3);
+	editDetails()->page()->addStackField();
+
 	editDetails()->addPage("06", "00", "02", "02");  // PAGE 3 ABOVE
 
 	editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00", "middle", Qt::AlignCenter);
 	editDetails()->page()->addGroupBox(0, 0, 1, 8);
 	editDetails()->page()->newGroupBox("Pitch 1");
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "06", "00", "1D");     //voice
@@ -116,7 +138,7 @@ void stompbox_fx2::setEditPages()
 	editDetails()->addPage("06", "00", "02", "03");  // PAGE 4 ABOVE	
 	
 	editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00", "middle", Qt::AlignCenter);
 	editDetails()->page()->addGroupBox(0, 0, 1, 6);
 	editDetails()->page()->newGroupBox("Pitch Bend");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "06", "00", "2C", "turbo");//PITCH MIN
@@ -131,7 +153,7 @@ void stompbox_fx2::setEditPages()
 
 	
 	editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00", "middle", Qt::AlignCenter);
 	editDetails()->page()->addGroupBox(0, 0, 1, 6);
 	editDetails()->page()->newGroupBox("X-over freq");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "06", "00", "31", "turbo");//x-over freq
@@ -151,7 +173,7 @@ void stompbox_fx2::setEditPages()
 	editDetails()->addPage("06", "00", "02", "05");  // PAGE 6 ABOVE  
 
 	editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00", "middle", Qt::AlignCenter);
 	editDetails()->page()->addGroupBox(0, 0, 1, 4);
 	editDetails()->page()->newGroupBox("Auto Slap");
 	editDetails()->page()->addComboBox(0, 1, 1, 1, "06", "00", "3A");     //phrase
@@ -166,7 +188,7 @@ void stompbox_fx2::setEditPages()
 	editDetails()->addPage("06", "00", "02", "06");  // PAGE 7 ABOVE
 	
 	editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 2, "06", "00", "00");
+	editDetails()->page()->addSwitch(0, 0, 1, 2, "06", "00", "00", "middle", Qt::AlignCenter);
 	editDetails()->page()->addGroupBox(0, 0, 1, 5);
 	editDetails()->page()->newGroupBox("Delay");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "06", "00", "43", "turbo");//delay time
@@ -178,7 +200,7 @@ void stompbox_fx2::setEditPages()
 	editDetails()->addPage("06", "00", "02", "07");  // PAGE 8 ABOVE
 
     editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00", "middle", Qt::AlignCenter);
 	editDetails()->page()->addGroupBox(0, 0, 1, 4);
 	editDetails()->page()->newGroupBox("Vibrato");
 	editDetails()->page()->addKnob(0, 1, 1, 1, "06", "00", "47", "turbo");//rate
@@ -189,7 +211,7 @@ void stompbox_fx2::setEditPages()
 	editDetails()->addPage("06", "00", "02", "08");  // PAGE 9 ABOVE
 
     editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00", "middle", Qt::AlignCenter);
 	editDetails()->page()->addGroupBox(0, 0, 1, 9);
 	editDetails()->page()->newGroupBox("Humanizer");
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "06", "00", "4B");     //mode
@@ -205,7 +227,7 @@ void stompbox_fx2::setEditPages()
 	editDetails()->addPage("06", "00", "02", "09");  // PAGE 10 ABOVE
 
 	editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00", "middle", Qt::AlignCenter);
 	editDetails()->page()->addGroupBox(0, 0, 1, 4);
 	editDetails()->page()->newGroupBox("Tremolo/Pan");
 	editDetails()->page()->addComboBox(0, 1, 1, 1, "06", "00", "54");     //mode
@@ -216,32 +238,119 @@ void stompbox_fx2::setEditPages()
 	editDetails()->addPage("06", "00", "02", "0A");// PAGE 11 ABOVE
 
     editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00");
-	editDetails()->page()->addGroupBox(0, 0, 1, 9);
-	//editDetails()->page()->newGroupBox("Bass Synth");
-	editDetails()->page()->newGroupBox("Bass Synth");
-	editDetails()->page()->addComboBox(0, 0, 1, 1, "06", "00", "58");     //wave
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00", "middle", Qt::AlignCenter);
+	editDetails()->page()->newStackControl(0);
+	editDetails()->page()->addComboBox(0, 1, 1, 1, "06", "00", "58", "middle", Qt::AlignCenter);     //wave
+	editDetails()->page()->addStackControl();
+	editDetails()->page()->addGroupBox(0, 0, 1, 2);
+	
+    editDetails()->page()->insertStackField(0, 1, 0, 1, 1);
+
+	editDetails()->page()->newStackField(0);
+	editDetails()->page()->newGroupBox("Square Wave");
 	editDetails()->page()->addComboBox(0, 1, 1, 1, "06", "00", "59");     //octave
 	editDetails()->page()->addKnob(0, 2, 1, 1, "06", "00", "5A", "turbo");//pwm rate
 	editDetails()->page()->addKnob(0, 3, 1, 1, "06", "00", "5B");         //pwm depth
 	editDetails()->page()->addKnob(0, 4, 1, 1, "06", "00", "5C", "turbo");//noise level
 	editDetails()->page()->addKnob(0, 5, 1, 1, "06", "00", "5D");         //sensitivity
 	editDetails()->page()->addComboBox(0, 6, 1, 1, "06", "00", "5E");     //hold
-	editDetails()->page()->addComboBox(0, 7, 1, 1, "06", "00", "5F");     //attack trigger
+	//editDetails()->page()->addComboBox(0, 7, 1, 1, "06", "00", "5F");     //attack trigger
 	editDetails()->page()->addKnob(0, 8, 1, 1, "06", "00", "60", "turbo");//resonance
 	editDetails()->page()->addGroupBox(1, 0, 1, 9);
-	editDetails()->page()->newGroupBox("Bass Synth");
+	editDetails()->page()->newGroupBox("Synth Filter");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "06", "00", "61", "turbo");//cutoff freq
 	editDetails()->page()->addKnob(0, 1, 1, 1, "06", "00", "62");         //depth
 	editDetails()->page()->addKnob(0, 2, 1, 1, "06", "00", "63", "turbo");//decay
-	editDetails()->page()->addKnob(0, 3, 1, 1, "06", "00", "64");         //synth level
-	editDetails()->page()->addKnob(0, 4, 1, 1, "06", "00", "65", "turbo");//direct level
-	editDetails()->page()->addComboBox(0, 5, 1, 1, "06", "00", "66");     //bend
-	editDetails()->page()->addKnob(0, 6, 1, 1, "06", "00", "67", "turbo");//pitch min
-	editDetails()->page()->addKnob(0, 7, 1, 1, "06", "00", "68");         //pitch max
-	editDetails()->page()->addKnob(0, 8, 1, 1, "06", "00", "69", "turbo");//pedal position
-	editDetails()->page()->addGroupBox(2, 0, 1, 9);
-	//editDetails()->page()->addGroupBox(1, 0, 1, 1);
-	editDetails()->addPage("06", "00", "02", "0B");// PAGE 12 ABOVE
+	editDetails()->page()->addComboBox(0, 3, 1, 1, "06", "00", "66");     //bend
+	editDetails()->page()->addKnob(0, 4, 1, 1, "06", "00", "67", "turbo");//pitch min
+	editDetails()->page()->addKnob(0, 5, 1, 1, "06", "00", "68");         //pitch max
+	editDetails()->page()->addKnob(0, 6, 1, 1, "06", "00", "69", "turbo");//pedal position
+	editDetails()->page()->addGroupBox(2, 0, 1, 7);
+	editDetails()->page()->newGroupBox("Output");
+	editDetails()->page()->addKnob(0, 7, 1, 1, "06", "00", "64");         //synth level
+	editDetails()->page()->addKnob(0, 8, 1, 1, "06", "00", "65", "turbo");//direct level
+	editDetails()->page()->addGroupBox(2, 7, 1, 2);
+	editDetails()->page()->addStackField();
+
+	editDetails()->page()->newStackField(0);
+	editDetails()->page()->newGroupBox("Saw Wave");
+	editDetails()->page()->addComboBox(0, 0, 1, 1, "06", "00", "59");     //octave
+	//editDetails()->page()->addKnob(0, 2, 1, 1, "06", "00", "5A", "turbo");//pwm rate
+	//editDetails()->page()->addKnob(0, 3, 1, 1, "06", "00", "5B");         //pwm depth
+	editDetails()->page()->addKnob(0, 1, 1, 1, "06", "00", "5C", "turbo");//noise level
+	editDetails()->page()->addKnob(0, 2, 1, 1, "06", "00", "5D");         //sensitivity
+	editDetails()->page()->addComboBox(0, 3, 1, 1, "06", "00", "5E");     //hold
+	//editDetails()->page()->addComboBox(0, 7, 1, 1, "06", "00", "5F");     //attack trigger
+	editDetails()->page()->addKnob(0, 4, 1, 1, "06", "00", "60", "turbo");//resonance
+	editDetails()->page()->addGroupBox(1, 0, 1, 4);
+	editDetails()->page()->newGroupBox("Synth Filter");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "06", "00", "61", "turbo");//cutoff freq
+	editDetails()->page()->addKnob(0, 1, 1, 1, "06", "00", "62");         //depth
+	editDetails()->page()->addKnob(0, 2, 1, 1, "06", "00", "63", "turbo");//decay
+	editDetails()->page()->addComboBox(0, 3, 1, 1, "06", "00", "66");     //bend
+	editDetails()->page()->addKnob(0, 4, 1, 1, "06", "00", "67", "turbo");//pitch min
+	editDetails()->page()->addKnob(0, 5, 1, 1, "06", "00", "68");         //pitch max
+	editDetails()->page()->addKnob(0, 6, 1, 1, "06", "00", "69", "turbo");//pedal position
+	editDetails()->page()->addGroupBox(2, 0, 1, 6);
+	editDetails()->page()->newGroupBox("Output");
+	editDetails()->page()->addKnob(0, 7, 1, 1, "06", "00", "64");         //synth level
+	editDetails()->page()->addKnob(0, 8, 1, 1, "06", "00", "65", "turbo");//direct level
+	editDetails()->page()->addGroupBox(2, 7, 1, 2);
+	editDetails()->page()->addStackField();
+
+	editDetails()->page()->newStackField(0);
+	editDetails()->page()->newGroupBox("Brass Wave");
+	//editDetails()->page()->addComboBox(0, 1, 1, 1, "06", "00", "59");     //octave
+	//editDetails()->page()->addKnob(0, 2, 1, 1, "06", "00", "5A", "turbo");//pwm rate
+	//editDetails()->page()->addKnob(0, 3, 1, 1, "06", "00", "5B");         //pwm depth
+	editDetails()->page()->addKnob(0, 0, 1, 1, "06", "00", "5C", "turbo");//noise level
+	editDetails()->page()->addKnob(0, 1, 1, 1, "06", "00", "5D");         //sensitivity
+	//editDetails()->page()->addComboBox(0, 6, 1, 1, "06", "00", "5E");     //hold
+	editDetails()->page()->addComboBox(0, 2, 1, 1, "06", "00", "5F");     //attack trigger
+	editDetails()->page()->addKnob(0, 3, 1, 1, "06", "00", "60", "turbo");//resonance
+	editDetails()->page()->addGroupBox(1, 0, 1, 4);
+	editDetails()->page()->newGroupBox("Synth Filter");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "06", "00", "61", "turbo");//cutoff freq
+	editDetails()->page()->addKnob(0, 1, 1, 1, "06", "00", "62");         //depth
+	editDetails()->page()->addKnob(0, 2, 1, 1, "06", "00", "63", "turbo");//decay
+	//editDetails()->page()->addComboBox(0, 3, 1, 1, "06", "00", "66");     //bend
+	//editDetails()->page()->addKnob(0, 4, 1, 1, "06", "00", "67", "turbo");//pitch min
+	//editDetails()->page()->addKnob(0, 5, 1, 1, "06", "00", "68");         //pitch max
+	//editDetails()->page()->addKnob(0, 6, 1, 1, "06", "00", "69", "turbo");//pedal position
+	editDetails()->page()->addGroupBox(2, 0, 1, 3);
+	editDetails()->page()->newGroupBox("Output");
+	editDetails()->page()->addKnob(0, 7, 1, 1, "06", "00", "64");         //synth level
+	editDetails()->page()->addKnob(0, 8, 1, 1, "06", "00", "65", "turbo");//direct level
+	editDetails()->page()->addGroupBox(2, 7, 1, 2);
+	editDetails()->page()->addStackField();
+
+	editDetails()->page()->newStackField(0);
+	editDetails()->page()->newGroupBox("Bow Wave");
+	//editDetails()->page()->addComboBox(0, 1, 1, 1, "06", "00", "59");     //octave
+	//editDetails()->page()->addKnob(0, 2, 1, 1, "06", "00", "5A", "turbo");//pwm rate
+	//editDetails()->page()->addKnob(0, 3, 1, 1, "06", "00", "5B");         //pwm depth
+	editDetails()->page()->addKnob(0, 0, 1, 1, "06", "00", "5C", "turbo");//noise level
+	editDetails()->page()->addKnob(0, 1, 1, 1, "06", "00", "5D");         //sensitivity
+	//editDetails()->page()->addComboBox(0, 6, 1, 1, "06", "00", "5E");     //hold
+	editDetails()->page()->addComboBox(0, 2, 1, 1, "06", "00", "5F");     //attack trigger
+	editDetails()->page()->addKnob(0, 3, 1, 1, "06", "00", "60", "turbo");//resonance
+	editDetails()->page()->addGroupBox(1, 0, 1, 4);
+	editDetails()->page()->newGroupBox("Synth Filter");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "06", "00", "61", "turbo");//cutoff freq
+	editDetails()->page()->addKnob(0, 1, 1, 1, "06", "00", "62");         //depth
+	editDetails()->page()->addKnob(0, 2, 1, 1, "06", "00", "63", "turbo");//decay
+	//editDetails()->page()->addComboBox(0, 3, 1, 1, "06", "00", "66");     //bend
+	//editDetails()->page()->addKnob(0, 4, 1, 1, "06", "00", "67", "turbo");//pitch min
+	//editDetails()->page()->addKnob(0, 5, 1, 1, "06", "00", "68");         //pitch max
+	//editDetails()->page()->addKnob(0, 6, 1, 1, "06", "00", "69", "turbo");//pedal position
+	editDetails()->page()->addGroupBox(2, 0, 1, 3);
+	editDetails()->page()->newGroupBox("Output");
+	editDetails()->page()->addKnob(0, 7, 1, 1, "06", "00", "64");         //synth level
+	editDetails()->page()->addKnob(0, 8, 1, 1, "06", "00", "65", "turbo");//direct level
+	editDetails()->page()->addGroupBox(2, 7, 1, 2);
+	editDetails()->page()->addStackField();
+
+	editDetails()->addPage("06", "00", "02", "0B");// PAGE 12 ABOVE 
+
 	
 };

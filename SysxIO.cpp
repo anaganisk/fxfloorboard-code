@@ -205,20 +205,20 @@ void SysxIO::setFileSource(QString hex1, QString hex2, QString hex3, QString hex
 
 	QString sysxMsg = midiTable->dataChange(hex1, hex2, hex3, hex4);
 
-	if(this->isConnected() && this->deviceReady() && this->getSyncStatus())
+	/*if(this->isConnected() && this->deviceReady() && this->getSyncStatus())
 	{
 		this->setDeviceReady(false);
 
 		emit setStatusSymbol(2);
 		//emit setStatusProgress(0);
-		emit setStatusMessage("Sending");
+		emit setStatusMessage("Sending sysxio 214");
 
 		QObject::connect(this, SIGNAL(sysxReply(QString)),	
 			this, SLOT(resetDevice(QString)));
 		
-		this->sendSysx(sysxMsg);
+		this->sendSysx(sysxMsg);  //cjw
 	}
-	else if(this->isConnected())
+	else */if(this->isConnected())
 	{
 		this->sendSpooler.append(sysxMsg);
 	};
@@ -270,7 +270,7 @@ void SysxIO::setFileSource(QString hex1, QString hex2, QString hex3, QString hex
 
 		emit setStatusSymbol(2);
 		//emit setStatusProgress(0);
-		emit setStatusMessage("Sending");
+		emit setStatusMessage("Sending sysxio 273");
 
 		QObject::connect(this, SIGNAL(sysxReply(QString)),	
 			this, SLOT(resetDevice(QString)));
@@ -319,7 +319,7 @@ void SysxIO::setFileSource(QString hex1, QString hex2, QList<QString> hexData)
 
 			emit setStatusSymbol(2);
 			//emit setStatusProgress(0);
-			emit setStatusMessage("Sending");
+			emit setStatusMessage("Sending sysxio 322");
 
 			QObject::connect(this, SIGNAL(sysxReply(QString)),	
 				this, SLOT(resetDevice(QString)));
@@ -735,7 +735,7 @@ void SysxIO::checkPatchChange(QString name)
 	QObject::disconnect(this, SIGNAL(patchName(QString)),
 		this, SLOT(checkPatchChange(QString)));
 
-	//if(this->requestName  == name)
+	//if(this->requestName  == name)  //cjw
 	{
 		emit isChanged();
 		this->changeCount = 0;

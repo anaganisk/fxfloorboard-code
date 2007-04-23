@@ -43,7 +43,7 @@ void stompbox_fx1::setEditPages()
 {
 	
 	editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "00");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "00", "middle", Qt::AlignCenter);
 	//editDetails()->page()->addComboBox(1, 0, 1, 1, "01", "00", "02");
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->page()->newGroupBox("Octave");
@@ -54,7 +54,7 @@ void stompbox_fx1::setEditPages()
 	  // PAGE 1 ABOVE
 
 	editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "00");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "00", "middle", Qt::AlignCenter);
 	//editDetails()->page()->addComboBox(1, 0, 1, 1, "01", "00", "02");
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->page()->newGroupBox("Enhancer");
@@ -66,7 +66,7 @@ void stompbox_fx1::setEditPages()
 
 	
 	editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "00");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "00", "middle", Qt::AlignCenter);
 	//editDetails()->page()->addComboBox(1, 0, 1, 1, "01", "00", "02");
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->page()->newGroupBox("Slow Gear");
@@ -77,7 +77,7 @@ void stompbox_fx1::setEditPages()
 
 	
 	editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "00");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "00", "middle", Qt::AlignCenter);
 	//editDetails()->page()->addComboBox(1, 0, 1, 1, "01", "00", "02");
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->page()->newGroupBox("Defretter");
@@ -90,7 +90,7 @@ void stompbox_fx1::setEditPages()
 
 	
 	editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "00");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "00", "middle", Qt::AlignCenter);
 	//editDetails()->page()->addComboBox(1, 0, 1, 1, "01", "00", "02");
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->page()->newGroupBox("Ring Modulator");

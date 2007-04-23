@@ -50,7 +50,7 @@ void stompbox_eq::updateSignal()
 void stompbox_eq::setEditPages()
 {
     editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "05", "00", "00");        //on/off
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "05", "00", "00", "middle", Qt::AlignCenter);        //on/off
 	editDetails()->page()->addGroupBox(2, 0, 1, 1);
 
 	editDetails()->page()->newGroupBox("High EQ");
