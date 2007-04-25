@@ -382,7 +382,11 @@ QTreeWidget* bankTreeList::newTreeList()
     for (int a=21; a<=30; a++)
 	{
 		QTreeWidgetItem* bankRange = new QTreeWidgetItem; // don't pass a parent here!
-		bankRange->setText(0, QString::QString("Bank P").append(QString::number(a, 10)).append("-P").append(QString::number(a+4, 10)) );
+		//bankRange->setText(0, QString::QString("Bank P").append(QString::number(a, 10)).append("-P").append(QString::number(a+4, 10)) );
+		if (a<=25)
+		{bankRange->setText(0, QString::QString("Bank P1-P5"));}
+		else
+		{bankRange->setText(0, QString::QString("Bank P6-P0"));};
 		bankRange->setWhatsThis(0, "");
 		//bankRange->setIcon(...);
 
@@ -438,7 +442,7 @@ void bankTreeList::setItemClicked(QTreeWidgetItem *item, int column)
 			int patch = item->parent()->indexOfChild(item) + 1;
 
 			emit patchSelectSignal(bank, patch);
-			//sysxIO->setRequestName(item->text(0));	// Set the name of the patch we have sellected in case we load it.
+			sysxIO->setRequestName(item->text(0));	// Set the name of the patch we have sellected in case we load it.
 		};
 	};
 };
@@ -465,11 +469,13 @@ void bankTreeList::setItemDoubleClicked(QTreeWidgetItem *item, int column)
 		int bank = item->parent()->text(0).section(" ", 1, 1).trimmed().toInt(&ok, 10); // Get the bank
 		int patch = item->parent()->indexOfChild(item) + 1;								// and the patch number.
 		
-		if(bank == sysxIO->getLoadedBank() && patch == sysxIO->getLoadedPatch())
-		{
-			requestPatch(bank, patch);
+		//if(bank == sysxIO->getLoadedBank() && patch == sysxIO->getLoadedPatch())
+		{  
+            sysxIO->requestPatchChange(bank, patch);
+			requestPatch(bank, patch);         // this one requests patch direct from patch memory location
+			sysxIO->setRequestName(item->text(0));	// cjw from above...Set the name of the patch we are going to load, so we can check if we have loaded the correct patch at the end.
 		}
-		else
+		/*else
 		{
 			emit patchLoadSignal(bank, patch); // Tell to stop blinking a sellected patch and prepare to load this one instead.
 			
@@ -479,11 +485,11 @@ void bankTreeList::setItemDoubleClicked(QTreeWidgetItem *item, int column)
 				this, SLOT(requestPatch()));				// to requestPatch.
 
 			sysxIO->requestPatchChange(bank, patch);
-		};
+		};*/
 	};
 };
 /*********************** requestPatch() *******************************
- * Does the actual requesting of the patch data and hands the 
+ * Does the actual requesting of the patch data and hands the     requests patch from temp buffer
  * reception over to updatePatch function.
  **********************************************************************/
 void bankTreeList::requestPatch() 
@@ -497,16 +503,16 @@ void bankTreeList::requestPatch()
 	{
 		QObject::connect(sysxIO, SIGNAL(sysxReply(QString)),	// Connect the result of the request
 			this, SLOT(updatePatch(QString)));					// to updatePatch function.
-
+                                                                  
 		emit setStatusSymbol(3);
 		//emit setStatusProgress(0);
-		emit setStatusMessage(tr("Receiving"));
+		emit setStatusMessage(tr("Receiving bankTreelist 507"));
 		
 		sysxIO->requestPatch(0, 0);
-	};
+	};  
 };
 
-void bankTreeList::requestPatch(int bank, int patch) 
+void bankTreeList::requestPatch(int bank, int patch)             // requests patch from patch memory address directly
 {
 	SysxIO *sysxIO = SysxIO::Instance();
 	if(sysxIO->isConnected())
@@ -516,7 +522,7 @@ void bankTreeList::requestPatch(int bank, int patch)
 
 		emit setStatusSymbol(3);
 		//emit setStatusProgress(0);
-		emit setStatusMessage(tr("Receiving"));
+		emit setStatusMessage(tr("Receiving bTl 523"));
 		
 		sysxIO->requestPatch(bank, patch);
 	};
@@ -529,7 +535,7 @@ void bankTreeList::requestPatch(int bank, int patch)
 void bankTreeList::updatePatch(QString replyMsg)
 {
 	emit setStatusSymbol(1);
-	emit setStatusMessage(tr("Ready"));
+	emit setStatusMessage(tr("Ready bTreelist 536"));
 
 	SysxIO *sysxIO = SysxIO::Instance();
 
@@ -542,7 +548,7 @@ void bankTreeList::updatePatch(QString replyMsg)
 	if(replyMsg != "" && replyMsg.size()/2 == 684) // cjw
 	{
 		sysxIO->setFileSource(replyMsg);		// Set the source to the data received.
-		sysxIO->setFileName(tr("GT-6B received patch"));	// Set the file name to GT-6B patch for the display.
+		sysxIO->setFileName(tr("GT-6B patch"));	// Set the file name to GT-6B patch for the display.
 		sysxIO->setDevice(true);				// Patch received from the device so this is set to true.
 		sysxIO->setSyncStatus(true);			// We can't be more in sync than right now! :)
 
@@ -659,20 +665,20 @@ void bankTreeList::updatePatchNames(QString name)
 	if(sysxIO->isConnected())
 	{
 		emit setStatusSymbol(3);
-		emit setStatusMessage(tr("Receiving"));
+		emit setStatusMessage(tr("Receiving bTl 666"));
 
-		/*if(name != "") // cjw !=  If not empty we can asume that we did receive a patch name.
+		//if(name != "") //  cjw If not empty we can asume that we did receive a patch name.
 		{
-			this->currentPatchTreeItems.at(listIndex)->child(itemIndex)->setText(0, name);//cjw added "" // Set the patch name of the item in the tree list.
+			this->currentPatchTreeItems.at(listIndex)->child(itemIndex)->setText(0, name);// Set the patch name of the item in the tree list.
 			if(itemIndex >= patchPerBank - 1) // If we reach the last patch in this bank we need to increment the bank and restart at patch 1.
 			{
 				this->listIndex++;
 				this->itemIndex = 0;
 			}
-			else */
+			else 
 			{ 
 				this->itemIndex++;
-		//	};
+			};
 		};
 
 		/*if(listIndex < currentPatchTreeItems.size()) // As long as we have items in the list we continue, duh! :)
@@ -681,9 +687,10 @@ void bankTreeList::updatePatchNames(QString name)
 			int bank = this->currentPatchTreeItems.at(listIndex)->text(0).section(" ", 1, 1).trimmed().toInt(&ok, 10);
 			int patch = itemIndex + 1 ;
 
-			sysxIO->requestPatchName(bank, patch); // The patch name request.
-		}
-		else  *///cjw
+			//sysxIO->requestPatchName(bank, patch); // The patch name request.
+		} 
+	
+		else */ //cjw
 		{
 			sysxIO->setDeviceReady(true);
 
@@ -692,7 +699,7 @@ void bankTreeList::updatePatchNames(QString name)
 			this->itemIndex = 0;
 
 			emit setStatusSymbol(1);
-			emit setStatusMessage(tr("Ready"));
+			emit setStatusMessage(tr("Ready bTl 699"));
 			emit setStatusProgress(0);
 		};
 	};

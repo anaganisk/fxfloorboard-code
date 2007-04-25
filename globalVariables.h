@@ -35,7 +35,7 @@
 
 /* General Parameters */
 const QString idRequestString = "F041000050110000000000000001F7";		// Indentity Request (GT6B).
-const QString idReplyPatern = "F0410000501200000000";			// Returned device id message must contain/match this (QRegExp or a string without spaces and all caps).
+const QString idReplyPatern = "";//F0410000501200000000";			// Returned device id message must contain/match this (QRegExp or a string without spaces and all caps).
 const int buttonBlinkInterval = 250;				// The interval (ms) the led on buttons blink.
 
 /* Sysex Message Parameters */
@@ -50,10 +50,10 @@ const int patchPerBank = 4;			// Number of patches in a bank.
 
 /* Midi Send & Receive */
 const int midiSendTimeout = 25;	    // Time (ms) the device needs to process a MIDI message before sending the next.
-const int midiTimeout = 50;		    // Time (ms) the device needs to process a MIDI message before closing the device.
+const int midiTimeout = 40;		    // Time (ms) the device needs to process a MIDI message before closing the device.
 const int sendTimeout = 25;			// Time (ms) the device needs to process a SYSEX message before sending the next.
-const int receiveTimeout = 850;		// Time (ms) we wait between SYSEX messages for the next one to be received.
-const int maxWait = 4;				// Maximum times we loop through the receive handel before we give up the waiting.
+const int receiveTimeout = 900;		// Time (ms) we wait between SYSEX messages for the next one to be received.
+const int maxWait = 10;				// Maximum times we loop through the receive handel before we give up the waiting.
 const int minWait = 2;				// Minimum times we loop through the receive handel before we give up the waiting.
 const int maxRetry = 2;			// Maximum times we retry to load a patch in case of a transfer error .
 

@@ -441,7 +441,7 @@ void midiIO::run()
 			{
 				bytesTotal += 2;
 			}
-			else if(sizeChunk == "00001F00") // Patch Request
+			else if(sizeChunk == "00000001") // Patch Request
 			{
 				bytesTotal = 684;
 			};

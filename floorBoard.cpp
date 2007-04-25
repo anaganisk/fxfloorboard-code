@@ -518,7 +518,7 @@ void floorBoard::initStomps()
 {
 	QList<signed int> fx;
 	fx << 0 << 1 << 2 << 3 << 4 << 5 << 6 << 7 << 8 << 9 << 10 << 11;
-	/*   FX   CS   WAH   LP   OD   PRE  EQ   FX2  DD   CE   RV    NS    FV    DGT :depend on midi.xml   */
+	/*   FX   CS   WAH  OD   PRE  EQ   FX2  DD   CE   RV    NS    FV  :depend on midi.xml   */
 	this->fx = fx;
 
 	QVector<QString> initStompNames(12);
