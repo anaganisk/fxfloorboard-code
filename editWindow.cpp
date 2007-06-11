@@ -54,7 +54,14 @@ editWindow::editWindow(QWidget *parent)
 	comboBoxLabelFont.setFamily("Arial");
 	comboBoxLabelFont.setBold(true);
 	comboBoxLabelFont.setPixelSize(12);
+	#ifdef Q_OS_UNIX
+	comboBoxLabelFont.setStretch(90);		
+	#endif
+
+	#ifdef Q_OS_WIN
 	comboBoxLabelFont.setStretch(105);
+	#endif
+	
 
 	QPalette comboBoxLabelPalette;
 	comboBoxLabelPalette.setColor(this->comboBoxLabel->foregroundRole(), Qt::white);
@@ -85,7 +92,14 @@ editWindow::editWindow(QWidget *parent)
 	comboFont.setFamily("Arial");
 	comboFont.setBold(true);
 	comboFont.setPixelSize(10);
+	#ifdef Q_OS_UNIX
+	comboFont.setStretch(90);		
+	#endif
+
+	#ifdef Q_OS_WIN
 	comboFont.setStretch(110);
+	#endif
+	
 
 	this->pageComboBox->setEditable(false);
 	this->pageComboBox->setFont(comboFont);

@@ -212,7 +212,7 @@ void stompbox_od::setEditPages()
 	//editDetails()->page()->addKnob(0, 3, 1, 1, "03", "00", "06");         //effect level
 	//editDetails()->page()->addKnob(0, 4, 1, 1, "03", "00", "07");         //direct level 
 	//editDetails()->page()->addGroupBox(2, 1, 1, 1);
-	//editDetails()->addPage("03", "00", "02", "09");  // PAGE 10 ABOVE 
+	editDetails()->addPage("03", "00", "02", "09");  // PAGE 10 ABOVE 
 
 	editDetails()->page()->newGroupBox("Effect");
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "03", "00", "00", "middle", Qt::AlignCenter);

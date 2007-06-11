@@ -188,7 +188,14 @@ void editPage::newGroupBox(QString title, Qt::Alignment alignment)
 	groupBoxFont.setFamily("Arial");
 	groupBoxFont.setBold(true);
 	groupBoxFont.setPixelSize(12);
+	#ifdef Q_OS_UNIX
+	groupBoxFont.setStretch(90);		
+	#endif
+
+	#ifdef Q_OS_WIN
 	groupBoxFont.setStretch(105);
+	#endif
+	
 
 	QPalette groupBoxPal;
 	groupBoxPal.setColor(this->groupBox->foregroundRole(), Qt::white);
@@ -296,63 +303,64 @@ void editPage::newStackField(int id, Qt::Alignment alignment)
 	this->stackField->setAlignment(alignment);
 };
 
-void editPage::newStackField(int id, QList<int> fieldIndexes, int items, Qt::Alignment alignment)
-{
-	this->fieldIndexes.clear();
-	this->fieldIndexes = fieldIndexes;
-	this->fieldItems = items;
-	this->stackFieldMode = true;
-	this->stackFieldId = id;
-	this->stackField = new QGridLayout;
-	this->stackField->setMargin(0);
-	this->stackField->setSpacing(0);
-	this->stackField->setAlignment(alignment);
-};
+
+
+
+
+
+
+
+
+
+
+
+
 
 void editPage::addStackField()
 {
 	this->stackFieldMode = false;
 
-	
-	if(!this->fieldIndexes.isEmpty())
-	{
-		for(int i=0;i<this->fieldIndexes.size();++i)
-		{
 
-			QWidget *tmpWidget = new QWidget;
-			tmpWidget->setLayout(this->stackField);
-			this->stackedFields.at(this->stackFieldId)->insertWidget(this->fieldIndexes.at(i), tmpWidget);
 
-			if((i + 1) < this->fieldIndexes.size())
-			{
-				if((this->fieldIndexes.at(i) + 1) < this->fieldIndexes.at(i + 1))
-				{
-					for(int n=(this->fieldIndexes.at(i) + 1);n<this->fieldIndexes.at(i + 1);++n)
-					{
-						QWidget *emptyWidget = new QWidget;
-						this->stackedFields.at(this->stackFieldId)->insertWidget(n, emptyWidget);
-					};
-				};
-			};
-		};
-		if(this->fieldItems > (this->fieldIndexes.last() + 1))
-		{
-			for(int n=(this->fieldIndexes.last() + 1);n<this->fieldItems;++n)
-			{
-				QWidget *emptyWidget = new QWidget;
-				this->stackedFields.at(this->stackFieldId)->insertWidget(n, emptyWidget);
-			};
-		};
-	}
-	else
-	{
-		QWidget *tmpWidget = new QWidget;
-		tmpWidget->setLayout(this->stackField);
-		this->stackedFields.at(this->stackFieldId)->addWidget(tmpWidget);
-	};
+
+
+
+
+	QWidget *tmpWidget = new QWidget;
+	tmpWidget->setLayout(this->stackField);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	this->stackedFields.at(this->stackFieldId)->addWidget(tmpWidget);
+
 };
 
 void editPage::updateDialog(int index)
 {
+	index;
 	emit dialogUpdateSignal();
 };

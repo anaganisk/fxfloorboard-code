@@ -63,8 +63,14 @@ customControlListMenu::customControlListMenu(QWidget *parent,
 	this->comboFont.setFamily("Arial");
 	this->comboFont.setBold(true);
 	this->comboFont.setPixelSize(10);
-	this->comboFont.setStretch(110);
+	#ifdef Q_OS_UNIX
+	this->comboFont.setStretch(90);		
+	#endif
 
+	#ifdef Q_OS_WIN
+	this->comboFont.setStretch(110);
+	#endif
+	
 	setComboBox();
 	
 	QPoint labelPos, comboboxPos;

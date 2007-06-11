@@ -61,7 +61,14 @@ customButton::customButton(QString text, bool active, QPoint buttonPos, QWidget 
 	fontLabel.setFamily("Arial");
 	fontLabel.setBold(true);
 	fontLabel.setPixelSize(9);
+	#ifdef Q_OS_UNIX
+	fontLabel.setStretch(90);		
+	#endif
+
+	#ifdef Q_OS_WIN
 	fontLabel.setStretch(100);
+	#endif
+	
 	
 	QLabel *textLabel = new QLabel(this);
 	textLabel->setText(this->text);

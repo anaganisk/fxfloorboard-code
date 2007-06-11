@@ -34,7 +34,14 @@ customControlLabel::customControlLabel(QWidget *parent)
 	this->labelFont.setFamily("Arial");
 	this->labelFont.setBold(true);
 	this->labelFont.setPixelSize(12);
+	#ifdef Q_OS_UNIX
+	this->labelFont.setStretch(90);		
+	#endif
+
+	#ifdef Q_OS_WIN
 	this->labelFont.setStretch(105);
+	#endif
+	
 	this->labelPal.setColor(this->label->foregroundRole(), Qt::white);
 	this->label->setPalette(labelPal);
 	this->label->setFont(this->labelFont);

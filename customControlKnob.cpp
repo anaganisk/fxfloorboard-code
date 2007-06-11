@@ -110,7 +110,14 @@ customControlKnob::customControlKnob(QWidget *parent,
 	displayFont.setFamily("Arial");
 	displayFont.setBold(false);
 	displayFont.setPixelSize(10);
-	displayFont.setStretch(110);	
+	#ifdef Q_OS_UNIX
+	displayFont.setStretch(90);		
+	#endif
+
+	#ifdef Q_OS_WIN
+	displayFont.setStretch(110);
+	#endif
+		
 	
 	QPalette displayPal;
 	displayPal.setColor(QPalette::Base,QColor(0,1,62));
