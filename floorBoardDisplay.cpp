@@ -20,135 +20,62 @@
 **
 ****************************************************************************/
 
-#include <QFileInfo>
-#include <QFile>
-#include <QDir>
-#include <QRegExp>
 #include <QChar>
 #include "floorBoardDisplay.h"
 #include "Preferences.h"
 #include "MidiTable.h"
 #include "SysxIO.h"
-#include "sysxWriter.h"
 #include "renameWidget.h"
 #include "globalVariables.h"
 
 floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
     : QWidget(parent)
 {
+	this->pos = pos;
+  this->timer = new QTimer(this);
+	this->patchLoadError = false;
+	this->blinkCount = 0;
+	
+		this->patchNumDisplay = new customDisplay(QRect(25, 5, 50, 34), this);
+	this->patchNumDisplay->setLabelPosition(true);
+	this->patchNumDisplay->setMainObjectName("bankMain");
+	this->patchNumDisplay->setSubObjectName("bankSub");
+	this->patchDisplay = new customDisplay(QRect(85, 5, 150, 34), this);
+	this->patchDisplay->setMainObjectName("nameMain");
+	this->patchDisplay->setSubObjectName("nameSub");
+	this->valueDisplay = new customDisplay(QRect(245, 5, 150, 34), this);
+	this->valueDisplay->setMainObjectName("valueMain");
+	this->valueDisplay->setSubObjectName("valueSub");
+	
 	Preferences *preferences = Preferences::Instance();
 	QString version = preferences->getPreferences("General", "Application", "version");
+	this->patchDisplay->setMainText("GT-6B Fx FloorBoard");
+	this->patchDisplay->setSubText("version", version);
 
-	QObject::connect(this->parent(), SIGNAL(updateSignal()), this, SLOT(updateDisplay()));
-	
-	this->pos = pos;
-
-	QPalette pal;
-	pal.setColor(QPalette::Base,QColor(0,1,62));
-	pal.setColor(QPalette::Text,QColor(0,255,204));
-	pal.setColor(QPalette::Highlight,QColor(0,1,62));
-	pal.setColor(QPalette::HighlightedText,QColor(0,255,204));
-
-	QFont fontDisplay;
-	fontDisplay.setFamily("Arial");
-	fontDisplay.setBold(true);
-	fontDisplay.setPixelSize(11);
-	fontDisplay.setStretch(140);
-	this->fontDisplay = fontDisplay;
-
-	QTextEdit *patchNumDisplay = new QTextEdit(this);
-	patchNumDisplay->setGeometry(17, 5, 55, 34);
-	patchNumDisplay->setFont(fontDisplay);
-	patchNumDisplay->setPalette(pal);
-	patchNumDisplay->setReadOnly(true);
-	patchNumDisplay->setAcceptRichText(true);
-	patchNumDisplay->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-	patchNumDisplay->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-	patchNumDisplay->setLineWrapMode(QTextEdit::NoWrap);
-	patchNumDisplay->setAlignment(Qt::AlignCenter);
-	patchNumDisplay->setDisabled(true);
-	patchNumDisplay->setLineWidth(0);
-	patchNumDisplay->setContentsMargins(0, 0, 0, 0);
-	this->patchNumDisplay = patchNumDisplay;
-
-	QTextEdit *patchDisplay = new QTextEdit(this);
-	patchDisplay->setGeometry(82, 5, 156, 34);
-	patchDisplay->setFont(fontDisplay);
-	patchDisplay->setPalette(pal);
-	patchDisplay->setReadOnly(true);
-	patchDisplay->setAcceptRichText(true);
-	patchDisplay->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-	patchDisplay->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-	patchDisplay->setLineWrapMode(QTextEdit::NoWrap);
-	patchDisplay->setAlignment(Qt::AlignJustify);
-	patchDisplay->setDisabled(true);
-	patchDisplay->setLineWidth(0);
-	patchDisplay->setContentsMargins(0, 0, 0, 0);
-	this->patchDisplay = patchDisplay;
-	
-	renameWidget *nameEdit = new renameWidget(this); 
+	initPatch = new initPatchListMenu(QRect(405, 24, 168, 15), this);
+  renameWidget *nameEdit = new renameWidget(this); 
   nameEdit->setGeometry(85, 5, 150, 34); 
 
-  QString str;
-	str.append("<html><body>");
-	str.append("<table width='143' cellspacing='0' cellpadding='0' border='0'><tr><td align='center'>");
-	str.append("<table width='140' cellspacing='0' cellpadding='0' border='0'><tr><td colspan='2' align='left'>");
-	str.append("GT-6B Fx FloorBoard");
-	str.append("</td></tr><tr><td align='left' valign='top'><font size='-1'>");
-	str.append(tr("version"));
-	str.append("</font></td><td align='right' valign='top'><font size='-1'>");
-	str.append(version);
-	str.append("</font></td></tr></table>");
-	str.append("</td></tr></table>");
-	str.append("</body></html>");
-	patchDisplay->setHtml(str);
-
-	QTextEdit *valueDisplay = new QTextEdit(this);
-	valueDisplay->setGeometry(245, 5, 150, 34);
-	valueDisplay->setFont(fontDisplay);
-	valueDisplay->setPalette(pal);
-	valueDisplay->setReadOnly(true);
-	valueDisplay->setAcceptRichText(true);
-	valueDisplay->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-	valueDisplay->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-	valueDisplay->setLineWrapMode(QTextEdit::NoWrap);
-	valueDisplay->setAlignment(Qt::AlignJustify);
-	valueDisplay->setDisabled(true);
-	valueDisplay->setLineWidth(0);
-	valueDisplay->setContentsMargins(0, 0, 0, 0);
-	this->valueDisplay = valueDisplay;
-
-	this->connectButton = new customButton(tr("Connect"), false, QPoint(405, 5), this, ":/images/greenledbutton.png");
-	this->writeButton = new customButton(tr("Write/Sync"), false, QPoint(494, 5), this, ":/images/ledbutton.png");
+ 	this->connectButton = new customButton(tr("Request Mode"), false, QPoint(405, 5), this, ":/images/greenledbutton.png");
+	this->writeButton = new customButton(tr("Write/Send"), false, QPoint(494, 5), this, ":/images/ledbutton.png");
 	//this->manualButton = new customButton(tr("Manual"), false, QPoint(583, 5), this, ":/images/ledbutton.png");
 	//this->assignButton = new customButton(tr("Assign"), false, QPoint(583, 24), this, ":/images/pushbutton.png");
 	//this->masterButton = new customButton(tr("Master"), false, QPoint(672, 5), this, ":/images/pushbutton.png");
 	//this->systemButton = new customButton(tr("System"), false, QPoint(672, 24), this, ":/images/pushbutton.png");
 
+	SysxIO *sysxIO = SysxIO::Instance();
+	QObject::connect(this, SIGNAL(setStatusSymbol(int)), sysxIO, SIGNAL(setStatusSymbol(int)));
+	QObject::connect(this, SIGNAL(setStatusProgress(int)), sysxIO, SIGNAL(setStatusProgress(int)));
+	QObject::connect(this, SIGNAL(setStatusMessage(QString)), sysxIO, SIGNAL(setStatusMessage(QString)));
+
+  QObject::connect(sysxIO, SIGNAL(notConnectedSignal()), this, SLOT(notConnected()));
+	QObject::connect(this, SIGNAL(notConnectedSignal()), this, SLOT(notConnected()));
+
+	QObject::connect(this->parent(), SIGNAL(updateSignal()), this, SLOT(updateDisplay()));
+
 	QObject::connect(this->connectButton, SIGNAL(valueChanged(bool)), this, SLOT(connectSignal(bool)));
 	QObject::connect(this->writeButton, SIGNAL(valueChanged(bool)), this, SLOT(writeSignal(bool)));
-
-	setInitPatchComboBox(QRect(405, 24, 168, 15));
-	this->patchLoadError = false;
-
-	timer = new QTimer(this);
-
-	SysxIO *sysxIO = SysxIO::Instance();
-
-	this->blinkCount = 0;
-
-	QObject::connect(this, SIGNAL(setStatusSymbol(int)),
-                sysxIO, SIGNAL(setStatusSymbol(int)));
-	QObject::connect(this, SIGNAL(setStatusProgress(int)),
-                sysxIO, SIGNAL(setStatusProgress(int)));
-	QObject::connect(this, SIGNAL(setStatusMessage(QString)),
-                sysxIO, SIGNAL(setStatusMessage(QString)));
-
-	QObject::connect(sysxIO, SIGNAL(notConnectedSignal()),
-                this, SLOT(notConnected()));
-	QObject::connect(this, SIGNAL(notConnectedSignal()),
-                this, SLOT(notConnected()));
-};
+  };
 
 QPoint floorBoardDisplay::getPos()
 {
@@ -163,17 +90,8 @@ void floorBoardDisplay::setPos(QPoint newPos)
 
 void floorBoardDisplay::setValueDisplay(QString fxName, QString valueName, QString value)
 {
-	QString str;
-	str.append("<html><body>");
-	str.append("<table width='140' cellspacing='0' cellpadding='0' border='0'><tr><td colspan='2' align='left'>");
-	str.append(fxName);
-	str.append("</td></tr><tr><td align='left' valign='top'><font size='-1'>");
-	str.append(valueName);
-	str.append("</font></td><td align='right' valign='top'><font size='-1'>");
-	str.append(value);
-	str.append("</font></td></tr></table>");
-	str.append("</body></html>");
-	valueDisplay->setHtml(str);
+	this->valueDisplay->setMainText(fxName);
+	this->valueDisplay->setSubText(valueName, value);
 };
 
 void floorBoardDisplay::setPatchDisplay(QString patchName)
@@ -182,16 +100,8 @@ void floorBoardDisplay::setPatchDisplay(QString patchName)
 	if(sysxIO->getFileName() != ":default.syx") // Keep the initial version display if the default.syx is loaded at startup.
 	{
 		QString fileName = sysxIO->getFileName();
-		
-		QString str;
-		str.append("<html><body>");
-		str.append("<table width='140' cellspacing='0' cellpadding='0' border='0'><tr><td align='left'>");
-		str.append(patchName);
-		str.append("</td></tr><tr><td align='left' valign='top'><font size='-1'>");
-		str.append(fileName.section('/', -1, -1));
-		str.append("</font></td></tr></table>");
-		str.append("</body></html>");
-		patchDisplay->setHtml(str);
+		this->patchDisplay->setMainText(patchName);
+		this->patchDisplay->setSubText(fileName.section('/', -1, -1));
 	};
 	if(sysxIO->getFileName() == tr("init patch") || sysxIO->getFileName() == ":default.syx")
 	{
@@ -223,7 +133,7 @@ void floorBoardDisplay::setPatchDisplay(QString patchName)
 				sysxIO->setPatch(0);
 			};
 		};
-		this->initPatchComboBox->setCurrentIndex(0);
+    this->initPatch->setIndex(0);
 	};	
 };
 
@@ -231,22 +141,15 @@ void floorBoardDisplay::setPatchNumDisplay(int bank, int patch)
 {
 	if(bank > 0)
 	{
-		QString str, color;
-		str.append("<html><body>");
-		str.append("<font size='-1'>");
-		if(bank <= bankTotalUser)
+			if(bank <= bankTotalUser)
 		{
-			str.append("<font size='-1'>User</font>");
+		 this->patchNumDisplay->setSubText("User");
 		}
 		else
 		{
-			color = "color='red' ";
-			str.append("<font "+color+"size='-1'>Preset</font>");
+			this->patchNumDisplay->setSubText("Preset");
 		};
-		str.append("</font>");
-		str.append("<table cellspacing='0' cellpadding='0' border='0'><tr>");
-		str.append("<td align='right' valign='middle'>");
-		str.append("<font "+color+"size='+2'>");
+		QString str;
 		if(bank < 11)
 		{ str.append("U"); }
 		else if(bank < 21)
@@ -261,22 +164,13 @@ void floorBoardDisplay::setPatchNumDisplay(int bank, int patch)
 		{str.append(QString::number(bank-20, 10));}
 		else 
 		{str.append(QString::number(bank-30, 10));};
-		str.append("</font>");
-		str.append("</td><td align='center' valign='middle'>");
-		str.append("<font "+color+"size='+1'>");
 		str.append(":");
-		str.append("</font>");
-		str.append("</td><td align='right' valign='middle'>");
-		str.append("<font "+color+"size='+2'>");
 		str.append(QString::number(patch, 10));
-		str.append("</font>");
-		str.append("</td></tr></table>");
-		str.append("</body></html>");
-		patchNumDisplay->setHtml(str);
+	  this->patchNumDisplay->setMainText(str, Qt::AlignCenter);
 	}
 	else
 	{
-		patchNumDisplay->clear();
+		this->patchNumDisplay->clearAll();
 	};
 };
 
@@ -311,7 +205,7 @@ void floorBoardDisplay::updateDisplay()
 	sysxIO->setCurrentPatchName(patchName);
 	if(sysxIO->getRequestName().trimmed() != patchName.trimmed())
 	{
-		this->patchLoadError = true;
+		this->patchLoadError = false;//cjw true;
 	}
 	else
 	{
@@ -320,10 +214,10 @@ void floorBoardDisplay::updateDisplay()
 
 	//patchName.replace("<", "&lt;");
 	//patchName.replace(">", "&gt;");
-	int maxWidth = patchDisplay->width() - 2;
-	int nameWidth = QFontMetrics(fontDisplay).width(patchName);
+	//int maxWidth = patchDisplay->width() - 2;
+	//int nameWidth = QFontMetrics(fontDisplay).width(patchName);
 
-	QString replace1 = (QChar)(0x2192);
+	/*QString replace1 = (QChar)(0x2192);
 	replace1.prepend("<font face='Lucida Console,Arial, Verdana'>");
 	replace1.append("</font>");
 	QString replace2 = (QChar)(0x2190);
@@ -337,20 +231,20 @@ void floorBoardDisplay::updateDisplay()
 	{
 		patchName.prepend("<small>");
 		patchName.append("</small>&nbsp;");
-	};
+	};  */
 
-	setPatchDisplay(patchName);
+	this->setPatchDisplay(patchName);
 	if(sysxIO->isDevice())
 	{
 		int bank = sysxIO->getBank();
 		int patch = sysxIO->getPatch();
-		setPatchNumDisplay(bank, patch);
+		this->setPatchNumDisplay(bank, patch);
 	}
 	else
 	{
-		patchNumDisplay->clear();
+		//this->patchNumDisplay->clearAll();
 	};
-	valueDisplay->clear();
+	this->valueDisplay->clearAll();
 
 	if(sysxIO->isDevice())
 	{
@@ -366,153 +260,26 @@ void floorBoardDisplay::updateDisplay()
 		};
 		int bank = sysxIO->getBank();
 		int patch = sysxIO->getPatch();
-		setPatchNumDisplay(bank, patch);
+		this->setPatchNumDisplay(bank, patch);
 	}
 	else if(sysxIO->getBank() != 0)
 	{
-		if(sysxIO->isConnected())
+		//if(sysxIO->isConnected())
 		{
 			this->writeButton->setBlink(true);
 			this->writeButton->setValue(false);
 		};
 		int bank = sysxIO->getBank();
 		int patch = sysxIO->getPatch();
-		setPatchNumDisplay(bank, patch);
+		this->setPatchNumDisplay(bank, patch);
 	}
-	else
+	/*else
 	{
 		patchNumDisplay->clear();
-		this->writeButton->setBlink(false);
+		this->writeButton->setBlink(false);   //cjw
 		this->writeButton->setValue(false);
-	};
-};
-
-void floorBoardDisplay::setInitPatchComboBox(QRect geometry)
-{
-	Preferences *preferences = Preferences::Instance();
-	QDir initPatchesDir = QDir("Init Patches");
-	if(QFileInfo( initPatchesDir.path().append(".lnk") ).exists())
-	{
-		initPatchesDir.setPath(QFileInfo( initPatchesDir.path().append(".lnk") ).symLinkTarget());
-	};
-
-	QDir defaultPatchesDir = QDir(preferences->getPreferences("General", "Files", "dir").remove(QRegExp("$(/)")));
-	QDir defaultInitPatchesDir = QDir(defaultPatchesDir.path().append("/").append("Init Patches"));
-	if(QFileInfo( defaultInitPatchesDir.path().append(".lnk") ).exists())
-	{
-		defaultInitPatchesDir.setPath(QFileInfo( defaultInitPatchesDir.path().append(".lnk") ).symLinkTarget());
-	};
-
-	// Create a shortcut in the default patch directory.
-	if(defaultPatchesDir.exists() && !defaultInitPatchesDir.exists())
-	{
-		#ifdef Q_OS_UNIX
-			QFile::link(initPatchesDir.absolutePath(), defaultInitPatchesDir.absolutePath());
-		#endif
-
-		#ifdef Q_OS_WIN
-			QFile::link(initPatchesDir.absolutePath(), defaultInitPatchesDir.absolutePath().append(".lnk"));
-		#endif
-	};
-
-	QString snork = defaultInitPatchesDir.path();
-	if(defaultInitPatchesDir.exists())
-	{
-		initPatchesDir = defaultInitPatchesDir;
-	};
-	
-	if(initPatchesDir.exists())
-	{		
-	QPalette pal;
-	pal.setColor(QPalette::Base,QColor(0,1,62));
-	pal.setColor(QPalette::Text,QColor(0,255,204));
-	pal.setColor(QPalette::Highlight,QColor(0,1,62));
-	pal.setColor(QPalette::HighlightedText,QColor(0,255,204));
-
-	pal.setColor(QPalette::Window,QColor(0,1,62));
-	pal.setColor(QPalette::WindowText,QColor(0,255,204));	//List Border
-	pal.setColor(QPalette::Button,QColor(0,1,62));
-	pal.setColor(QPalette::ButtonText,QColor(0,255,204));
-
-	pal.setColor(QPalette::Light,QColor(0,1,62));			//Lighter than Button color.
-	pal.setColor(QPalette::Midlight,QColor(0,1,62));		//Between Button and Light.
-	pal.setColor(QPalette::Dark,QColor(0,1,62));			//Darker than Button.
-	pal.setColor(QPalette::Mid,QColor(0,1,62));				//Between Button and Dark.
-	pal.setColor(QPalette::Shadow,QColor(0,1,62));
-	
-	QFont font;
-	font.setFamily("Arial");
-	font.setBold(true);
-	font.setPixelSize(10);
-	font.setStretch(110);
-
-	this->initPatchComboBox = new QComboBox(this);
-	initPatchComboBox->addItem(tr("[ INIT Patches ]"));
-
-
-		QStringList filters;
-		filters << "*.syx" << "*.syx2";
-		QStringList initPatchesList = initPatchesDir.entryList(filters);
-		
-		int itemsCount;
-		int maxLenght = 0;
-		for(itemsCount=0; itemsCount<initPatchesList.size(); itemsCount++)
-		{
-			QString path = initPatchesDir.absolutePath().append("/").append(initPatchesList.at(itemsCount));
-			this->initPatches.append(path);
-			QString item = initPatchesList.at(itemsCount);
-			item.remove(QRegExp("^[0-9_]+"));
-			item.remove(QRegExp(".{1}(syx|syx2)"));
-			if(!item.contains("INIT_"))
-			{
-				item.prepend(tr("(My INIT) "));
-			};
-			item.remove("INIT_");
-			item.replace("_", " ");
-			item.replace("-!-", "/");
-			initPatchComboBox->addItem(item);
-			int pixelWidth = QFontMetrics(font).width(item);
-			if(maxLenght < pixelWidth) maxLenght = pixelWidth;
-		};	
-
-		initPatchComboBox->setMaxVisibleItems(itemsCount + 1);
-		initPatchComboBox->view()->setMinimumWidth( maxLenght + 25 );		
-
-		QObject::connect(initPatchComboBox, SIGNAL(currentIndexChanged(int)),
-                this, SLOT(loadInitPatch(int)));
-		QObject::connect(this, SIGNAL(updateSignal()),
-			this->parent(), SIGNAL(updateSignal()));
-	
-	initPatchComboBox->setGeometry(geometry);
-	initPatchComboBox->setEditable(false);
-	initPatchComboBox->setFont(font);
-	initPatchComboBox->setPalette(pal);
-	initPatchComboBox->setFrame(false);
-};
-};
-
-void floorBoardDisplay::loadInitPatch(int index)
-{
-	if(index > 0)
-	{
-		QString fileName = this->initPatches.at(index - 1 );
-		if (!fileName.isEmpty())	
-		{
-			sysxWriter file;
-			file.setFile(fileName);  
-			if(file.readFile())
-			{	
-				// DO SOMETHING AFTER READING THE FILE (UPDATE THE GUI)
-				SysxIO *sysxIO = SysxIO::Instance();
-				sysxIO->setFileSource(file.getFileSource());
-				sysxIO->setFileName(tr("init patch"));
-				sysxIO->setSyncStatus(false);
-				sysxIO->setDevice(false);
-				emit updateSignal();
-			};
-		};
-	};
-};
+	};*/
+    };
 
 void floorBoardDisplay::connectSignal(bool value)
 {
@@ -630,6 +397,10 @@ void floorBoardDisplay::writeSignal(bool value)
 	value; // not used;
 	
 	SysxIO *sysxIO = SysxIO::Instance();
+	if((sysxIO->isConnected() == !true) && sysxIO->deviceReady())
+	{
+		writeToBuffer();
+	};
 	if(sysxIO->isConnected() && sysxIO->deviceReady()) /* Check if we are connected and if the device is free. */
 	{
 	 this->writeButton->setBlink(true);
@@ -732,7 +503,7 @@ void floorBoardDisplay::writeSignal(bool value)
 				};
 			};
 
-			/* DEBUGGING OUTPUT 
+			 /*DEBUGGING OUTPUT 
 			QString snork;
 			for(int i=0;i<sysxOut.size();++i)
 			{
@@ -752,11 +523,11 @@ void floorBoardDisplay::writeSignal(bool value)
 			msgBox->setText(snork);
 			msgBox->setStandardButtons(QMessageBox::Ok);
 			msgBox->exec();*/
-		};
+		}; 
 	}
 else if(sysxIO->isConnected() != true) /* We are NOT connected */
 	{
-		notConnected();
+		//notConnected();
 		 } 
                 else /* The device was NOT free. */ 
            { 
@@ -776,24 +547,59 @@ void floorBoardDisplay::writeToBuffer()
 
 	emit setStatusSymbol(2);
 	//emit setStatusProgress(0);
-	emit setStatusMessage(tr("Sending"));
+	emit setStatusMessage(tr("Sending Update"));
 
-	for(int i=0;i<patchData.size();++i) // Prepare the data to be send at ones.
+	int bank = sysxIO->getBank();
+	int patch = sysxIO->getPatch();
+	int patchOffset = (((bank - 1 ) * patchPerBank) + patch) - 1;
+	
+	QString addr1 = QString::number(11, 16).toUpper();
+	QString addr2 = QString::number(0, 16).toUpper();
+	
+	for(int i=0;i<patchData.size();++i)
+	{
+		QList<QString> data = patchData.at(i);
+		for(int x=0;x<data.size();++x)
+		{
+			QString hex;
+			if(x == sysxAddressOffset)
+			{ 
+				hex = addr1;
+			}
+			else if(x == sysxAddressOffset + 1)
+			{
+				hex = addr2;
+			}
+			else
+			{
+				hex = data.at(x);
+			};
+			if (hex.length() < 2) hex.prepend("0");
+			sysxMsg.append(hex);
+		}; 
+	}; /*
+
+	for(int i=0;i<patchData.size();++i) // Prepare the data to be send at once.
 	{
 		QList<QString> data = patchData.at(i);
 		for(int x=0;x<data.size();++x)
 		{
 			sysxMsg.append(data.at(x));
 		};
-	}; 
-	sysxIO->setSyncStatus(true);		// Inadvance of the actuale data transfer we set it allready to sync.
+	}; */
+	sysxIO->setSyncStatus(true);		// In advance of the actual data transfer we set it already to sync.
 	this->writeButton->setBlink(false);	// Sync so we stop blinking the button
-	this->writeButton->setValue(true);	// and activate the write button.
+	this->writeButton->setValue(false);	// and activate the write button.
 
 	QObject::connect(sysxIO, SIGNAL(sysxReply(QString)),	// Connect the result signal 
 		this, SLOT(resetDevice(QString)));					// to a slot that will reset the device after sending.
 
-	sysxIO->sendSysx(sysxMsg);								// Send the data.
+	sysxIO->sendSysx(sysxMsg);	// Send the data.
+
+	emit setStatusSymbol(1);
+	emit setStatusProgress(0);
+	emit setStatusMessage(tr("Ready"));
+	
 };
 
 void floorBoardDisplay::writeToMemory() 
@@ -806,7 +612,7 @@ void floorBoardDisplay::writeToMemory()
 
 	emit setStatusSymbol(2);
 	//emit setStatusProgress(0);
-	emit setStatusMessage(tr("Sending"));
+	emit setStatusMessage(tr("Writing to Patch"));
 
 	int bank = sysxIO->getBank();
 	int patch = sysxIO->getPatch();
@@ -916,7 +722,7 @@ void floorBoardDisplay::blinkSellectedPatch(bool active)
 	{
 		if(blinkCount % 2 == 0)
 		{
-			patchNumDisplay->clear();
+			this->patchNumDisplay->clearAll();
 		}
 		else
 		{
@@ -962,7 +768,7 @@ void floorBoardDisplay::notConnected()
 
 	SysxIO *sysxIO = SysxIO::Instance();
 	sysxIO->setConnected(false);
-	sysxIO->setSyncStatus(false);	
+	sysxIO->setSyncStatus(true);//false);	
 	sysxIO->setDeviceReady(true);	// Free the device after finishing interaction.	
 };
 

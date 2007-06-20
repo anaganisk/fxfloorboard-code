@@ -173,7 +173,7 @@ void SysxIO::setFileSource(QString hex1, QString hex2, QString hex3, QString hex
 	
 	QString sourceHex1 = hex1;
 	QString sourceHex3 = hex3;
-	if(hex1 != "01")
+	if(hex1 != "00")
 	{
 		QString prevHex = QString::number((hex1.toInt(&ok, 16) - 1), 16).toUpper();
 		if(prevHex.length() < 2) prevHex.prepend("0");
@@ -205,20 +205,20 @@ void SysxIO::setFileSource(QString hex1, QString hex2, QString hex3, QString hex
 
 	QString sysxMsg = midiTable->dataChange(hex1, hex2, hex3, hex4);
 
-	if(this->isConnected() && this->deviceReady())// && this->getSyncStatus())  // realtime editing here
+	if(/*this->isConnected() && */this->deviceReady() /*&& this->getSyncStatus()*/)         //realtime editing
 	{
 		this->setDeviceReady(false);
 
 		emit setStatusSymbol(2);
 		//emit setStatusProgress(0);
-		emit setStatusMessage("Sending sysxio 214");
+		emit setStatusMessage("Sending Real-time");
 
 		QObject::connect(this, SIGNAL(sysxReply(QString)),	
 			this, SLOT(resetDevice(QString)));
 		
 		this->sendSysx(sysxMsg);  //cjw
 	}
-	else  if(this->isConnected())
+	else if(this->isConnected())
 	{
 		this->sendSpooler.append(sysxMsg);
 	};
@@ -231,7 +231,7 @@ void SysxIO::setFileSource(QString hex1, QString hex2, QString hex3, QString hex
 	
 	QString sourceHex1 = hex1;
 	QString sourceHex3 = hex3;
-	if(hex1 != "01")
+	if(hex1 != "00")
 	{
 		QString prevHex = QString::number((hex1.toInt(&ok, 16) - 1), 16).toUpper();
 		if(prevHex.length() < 2) prevHex.prepend("0");
@@ -264,20 +264,20 @@ void SysxIO::setFileSource(QString hex1, QString hex2, QString hex3, QString hex
 
 	QString sysxMsg = midiTable->dataChange(hex1, hex2, hex3, hex4, hex5);
 
-	if(this->isConnected() && this->deviceReady() && this->getSyncStatus())
+	if(/*this->isConnected() && */this->deviceReady()/* && this->getSyncStatus()*/)
 	{
 		this->setDeviceReady(false);
 
 		emit setStatusSymbol(2);
 		//emit setStatusProgress(0);
-		emit setStatusMessage("Sending sysxio 273");
+		emit setStatusMessage("Sending");
 
 		QObject::connect(this, SIGNAL(sysxReply(QString)),	
 			this, SLOT(resetDevice(QString)));
 		
 		this->sendSysx(sysxMsg);
 	}
-	else if(this->isConnected())
+	else /*if(this->isConnected())*/
 	{
 		this->sendSpooler.append(sysxMsg);
 	};
@@ -313,20 +313,20 @@ void SysxIO::setFileSource(QString hex1, QString hex2, QList<QString> hexData)
 			sysxMsg.append(sysxList.at(i));
 		};
 
-		if(this->isConnected() && this->deviceReady() && this->getSyncStatus())
+		if(/*this->isConnected() && */this->deviceReady()/* && this->getSyncStatus()*/)  // helps with chain
 		{
 			this->setDeviceReady(false);
 
 			emit setStatusSymbol(2);
 			//emit setStatusProgress(0);
-			emit setStatusMessage("Sending sysxio 322");
+			emit setStatusMessage("Sending Chain");
 
 			QObject::connect(this, SIGNAL(sysxReply(QString)),	
 				this, SLOT(resetDevice(QString)));
 			
 			this->sendSysx(sysxMsg);
 		}
-		else if(this->isConnected())
+		else /*if(this->isConnected())*/
 		{
 			this->sendSpooler.append(sysxMsg);
 		};
@@ -667,7 +667,7 @@ QString SysxIO::getPatchChangeMsg(int bank, int patch)
 ****************************************************************************/
 void SysxIO::sendMidi(QString midiMsg)
 {
-	if(isConnected())
+	//if(isConnected())
 	{
 		Preferences *preferences = Preferences::Instance(); bool ok;
 		int midiOut = preferences->getPreferences("Midi", "MidiOut", "device").toInt(&ok, 10);	// Get midi out device from preferences.
@@ -684,11 +684,11 @@ void SysxIO::sendMidi(QString midiMsg)
 void SysxIO::finishedSending()
 {
 	emit isFinished();
-	/*emit setStatusSymbol(1);
+	emit setStatusSymbol(1);
 	emit setStatusProgress(0);
-	emit setStatusMessage(tr("Ready"));*/
+	emit setStatusMessage(tr("Ready"));
 
-	//this->namePatchChange(); 
+	this->namePatchChange(); 
 };
 
 /***************************** requestPatchChange() *************************
@@ -735,7 +735,7 @@ void SysxIO::checkPatchChange(QString name)
 	QObject::disconnect(this, SIGNAL(patchName(QString)),
 		this, SLOT(checkPatchChange(QString)));
 
-	//if(this->requestName  == name)  //cjw
+	if(this->requestName  == name)  //cjw
 	{
 		emit isChanged();
 		this->changeCount = 0;
@@ -812,16 +812,16 @@ void SysxIO::receiveSysx(QString sysxMsg)
 ****************************************************************************/
 void SysxIO::requestPatchName(int bank, int patch)
 {
-	/*QObject::disconnect(this, SIGNAL(sysxReply(QString)),	
+	QObject::disconnect(this, SIGNAL(sysxReply(QString)),	
 			this, SLOT(returnPatchName(QString)));
 	
 	QObject::connect(this, SIGNAL(sysxReply(QString)),	// Connect the result of the request
 		this, SLOT(returnPatchName(QString)));	    	// to returnPatchName function.
-	//emit isChanged();*/ // cjw added to stop name requests on patch change
+	emit isChanged(); // cjw added to stop name requests on patch change
 	/* Patch name request.*/
-	/*MidiTable *midiTable = MidiTable::Instance();
-	QString sysxMsg = midiTable->nameRequest(bank, patch);
-	sendSysx(sysxMsg); //cjw */
+	//MidiTable *midiTable = MidiTable::Instance();
+	//QString sysxMsg = midiTable->nameRequest(bank, patch);
+	//sendSysx(sysxMsg); //cjw 
 };
 
 /***************************** returnPatchName() ***************************
@@ -833,7 +833,7 @@ void SysxIO::returnPatchName(QString sysxMsg)
 			this, SLOT(returnPatchName(QString)));
 	
 	QString name; 
-	//if(sysxMsg != "")  //cjw
+	if(sysxMsg != "")
 	{		
 		//MidiTable *midiTable = MidiTable::Instance();    
 		 
@@ -847,7 +847,7 @@ void SysxIO::returnPatchName(QString sysxMsg)
 			hex3 = QString::number(count, 16).toUpper();
 			if (hex3.length() < 2) hex3.prepend("0");
 			hex4 = sysxMsg.mid(i, 2);
-			name.append( midiTable->getValue("Structure", hex1, hex2, hex3, hex4) );  //*/
+			name.append( midiTable->getValue("Structure", hex1, hex2, hex3, hex4) );*/
 
 			QString hexStr = sysxMsg.mid(i, 2);
 			if(hexStr == "7E")
