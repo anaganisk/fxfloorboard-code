@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT6B Fx FloorBoard".
+** This file is part of "GT-8 Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -76,12 +76,8 @@ public:
 	void setComboBoxCurrentIndex(int index);
 	unsigned int getId();
 
-  virtual void setEditPages() {};
+	virtual void setEditPages() {};
 	editWindow* editDetails();
-
-
-	QPalette getPal();
-	QFont getFont();
 
 public slots:
 	void updatePos(signed int offsetDif);
@@ -106,17 +102,14 @@ protected:
 private:
 	void emitValueChanged(QString hex1, QString hex2, QString hex3, QString valueHex);
 	
-  editWindow *editDialog;
-  QString imagePath;
+	editWindow *editDialog;
+	QString imagePath;
 	QSize stompSize;
 	QPoint stompPos; 
 	unsigned int id;
 
 	QPoint dragStartPosition;
 	QPixmap image;
-
-	QPalette pal;
-	QFont font;
 
 	customDial *knob1;
 	customDial *knob2;
@@ -128,12 +121,12 @@ private:
 	customButton *button;
 	customLed *led;
 	customSwitch *switchbutton;
-	QComboBox *comboBox;
+	QComboBox *stompComboBox;
 
 	QString hex1;
 	QString hex2;
 	QString hex3;
-	
+
 	QString fxName;
 };
 

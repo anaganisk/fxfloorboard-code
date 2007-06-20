@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT6B Fx FloorBoard".
+** This file is part of "GT-8 Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -31,7 +31,7 @@
 int main(int argc, char *argv[])
 {
 	QApplication app(argc, argv);
-	
+
 	/* Loading translation */
 	QTranslator translator;
 	translator.load("translation");
@@ -70,8 +70,8 @@ int main(int argc, char *argv[])
 	mainWindow window;// = new mainWindow;
 
 	QObject::connect( &window, SIGNAL(closed()), &app, SLOT(quit()) );
-	
-   app.processEvents(); 
+
+	app.processEvents();
 
 	splash->showStatusMessage(QObject::tr("Checking license file..."));
 	if(!QFile("license.txt").exists())
@@ -81,18 +81,19 @@ int main(int argc, char *argv[])
 		file.copy("license.txt");
 		file.close();
 	};
-
+	
 	app.processEvents();
 
 	splash->showStatusMessage(QObject::tr("Loading midi mapping..."));
 	MidiTable *midiTable = MidiTable::Instance();
+	midiTable;
 
 	app.processEvents(); 
 
 	splash->showStatusMessage(QObject::tr("Initializing main window..."));
-	 window.setWindowFlags( Qt::WindowTitleHint 
-                    | Qt::WindowMinimizeButtonHint 
-                    | Qt::MSWindowsFixedSizeDialogHint); 
+	window.setWindowFlags( Qt::WindowTitleHint 
+		| Qt::WindowMinimizeButtonHint 
+		| Qt::MSWindowsFixedSizeDialogHint );
 	window.setWindowIcon(QIcon::QIcon(":/images/windowicon.png"));
 
 	app.processEvents(); 
@@ -167,6 +168,17 @@ int main(int argc, char *argv[])
 		int y = (screenHeight - windowHeight) / 2;
 		window.setGeometry(x, y, window.width(), window.height());
 	};
+	
+	app.processEvents(); 
+
+	if(QFile(":windows.qss").exists())
+	{
+		splash->showStatusMessage(QObject::tr("Loading Stylesheet..."));
+		QFile file(":windows.qss");
+		file.open(QFile::ReadOnly);
+		QString styleSheet = QLatin1String(file.readAll());
+		app.setStyleSheet(styleSheet);
+	}; 
 
 	app.processEvents(); 
 

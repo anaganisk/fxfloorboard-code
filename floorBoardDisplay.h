@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT6B Fx FloorBoard".
+** This file is part of "GT-8 Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -27,6 +27,8 @@
 #include <QWidget>
 #include <QTimer>
 #include "customButton.h"
+#include "customDisplay.h"
+#include "initPatchListMenu.h"
 
 class floorBoardDisplay : public QWidget
 {
@@ -43,7 +45,6 @@ public slots:
 	void setPatchNumDisplay(int bank, int patch);
 	void setPos(QPoint newPos);
 	void updateDisplay();
-	void loadInitPatch(int index);
 	void connectSignal(bool value);
 	void writeSignal(bool value);
 	void connectionResult(QString);
@@ -59,9 +60,8 @@ public slots:
 	void writeToMemory();
 
 	void valueChanged(bool value, QString hex1, QString hex2, QString hex3); // Not used.
-  
-  signals:
-	void currentIndexChanged(int index);
+
+signals:
 	void updateSignal();
 	void connectedSignal();
 	void notConnectedSignal();
@@ -73,14 +73,9 @@ public slots:
 private:
 	QPoint pos;
 
-	QFont fontDisplay;
-	QTextEdit *valueDisplay;
-	QTextEdit *patchDisplay;
-	QTextEdit *patchNumDisplay;
-	QComboBox *initPatchComboBox;
-
-	void setInitPatchComboBox(QRect geometry);
-	QList<QString> initPatches;
+	customDisplay *valueDisplay;
+	customDisplay *patchDisplay;
+	customDisplay *patchNumDisplay;
 
 	customButton *connectButton;
 	customButton *writeButton;
@@ -94,6 +89,8 @@ private:
 	QTimer* timer;
 	int blinkCount;
 	bool currentSyncStatus;
+
+	initPatchListMenu *initPatch;
 };
 
 #endif // FLOORBOARDDISPLAY_H

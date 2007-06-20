@@ -28,11 +28,11 @@
 preferencesDialog::preferencesDialog()
 {
 	contentsWidget = new QListWidget;
-	contentsWidget->setViewMode(QListView::IconMode);
+	contentsWidget->setViewMode(QListView::ListMode);
 	contentsWidget->setIconSize(QSize(55, 50));
 	contentsWidget->setMovement(QListView::Static);
 	contentsWidget->setSpacing(4);
-	contentsWidget->setFixedWidth(70);
+	contentsWidget->setFixedWidth(125);
 
 	GeneralPage *generalSettings = new GeneralPage;
 	MidiPage *midiSettings = new MidiPage;
@@ -81,9 +81,9 @@ preferencesDialog::preferencesDialog()
 void preferencesDialog::createIcons()
 {
 	QListWidgetItem *generalButton = new QListWidgetItem(contentsWidget);
-	generalButton->setIcon(QIcon(":images/general.png"));
 	generalButton->setText(tr("General"));
 	generalButton->setTextAlignment(Qt::AlignHCenter);
+	generalButton->setIcon(QIcon(":images/general.png"));
 	generalButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 
 	QListWidgetItem *midiButton = new QListWidgetItem(contentsWidget);

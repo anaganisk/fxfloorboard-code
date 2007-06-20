@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT6B Fx FloorBoard".
+** This file is part of "GT-8 Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -98,7 +98,7 @@ void customDial::mousePressEvent(QMouseEvent *event)
 void customDial::mouseMoveEvent(QMouseEvent *event)
 {
 	double dataRange = max - min;
-	double range = imageRange - 0;
+	//double range = imageRange - 0;
 	double distY = (double)event->pos().y() - (double)_startpos.y();
 	double numSteps = (int)((distY/1.5) + 0.5);
 	//double numSteps = (int)((distY/2) + 0.5) * (dataRange / range); //Same distance for all.
@@ -192,9 +192,8 @@ void customDial::emitValue(double value)
 {
     if (value != m_value) {
         this->m_value = value;
-		
     };
-    emit valueChanged((int)value, this->hex1, this->hex2, this->hex3);
+	emit valueChanged((int)value, this->hex1, this->hex2, this->hex3);
 };
 
 void customDial::setValue(int value)
