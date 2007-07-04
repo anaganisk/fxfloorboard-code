@@ -303,58 +303,11 @@ void editPage::newStackField(int id, Qt::Alignment alignment)
 	this->stackField->setAlignment(alignment);
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 void editPage::addStackField()
 {
 	this->stackFieldMode = false;
-
-
-
-
-
-
-
 	QWidget *tmpWidget = new QWidget;
 	tmpWidget->setLayout(this->stackField);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	this->stackedFields.at(this->stackFieldId)->addWidget(tmpWidget);
 
 };

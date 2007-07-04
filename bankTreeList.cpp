@@ -316,8 +316,8 @@ QTreeWidget* bankTreeList::newTreeList()
 		{bankRange->setText(0, QString::QString("Bank u1-u5"));}
 		else
 		{bankRange->setText(0, QString::QString("Bank u6-u0"));};
-		bankRange->setWhatsThis(0, "");
-		//bankRange->setIcon(...);
+		bankRange->setWhatsThis(0, "what the ?");
+		//bankRange->setIcon(QIcon(":/images/gt6b_icon_1.png"));
 
 		for (int b=a; b<=(a+4); b++)
 				{
@@ -425,18 +425,18 @@ void bankTreeList::setItemDoubleClicked(QTreeWidgetItem *item, int column)
 		emit setStatusSymbol(2);
 		//emit setStatusProgress(0);
 		emit setStatusMessage(tr("Sending"));
-		
+
 		sysxIO->setDeviceReady(false);
 		 sysxIO->setRequestName(item->text(0));	// Set the name of the patch we are going to load, so we can check if we have loaded the correct patch at the end.
 
 		bool ok;
 		int bank = item->parent()->text(0).section(" ", 1, 1).trimmed().toInt(&ok, 10); // Get the bank
 		int patch = item->parent()->indexOfChild(item) + 1;								// and the patch number.
-		
-		if(bank == sysxIO->getLoadedBank() && patch == sysxIO->getLoadedPatch())
-		{
+
+		/*if(bank == sysxIO->getLoadedBank() && patch == sysxIO->getLoadedPatch())
+		{ */
 			requestPatch(bank, patch);
-		}
+		/*}
 		else
 		{
 			emit patchLoadSignal(bank, patch); // Tell to stop blinking a sellected patch and prepare to load this one instead.
@@ -447,7 +447,7 @@ void bankTreeList::setItemDoubleClicked(QTreeWidgetItem *item, int column)
 				this, SLOT(requestPatch()));				// to requestPatch.
 
 			sysxIO->requestPatchChange(bank, patch);
-		};
+		};*/
 	};
 };
 /*********************** requestPatch() *******************************
@@ -510,7 +510,7 @@ void bankTreeList::updatePatch(QString replyMsg)
 	if(replyMsg != "" && replyMsg.size()/2 == 684) // cjw
 	{
 		sysxIO->setFileSource(replyMsg);		// Set the source to the data received.
-		sysxIO->setFileName(tr("GT-6B received patch"));	// Set the file name to GT-6B patch for the display.
+		sysxIO->setFileName(tr("Patch from GT-6B"));	// Set the file name to GT-6B patch for the display.
 		sysxIO->setDevice(true);				// Patch received from the device so this is set to true.
 		sysxIO->setSyncStatus(true);			// We can't be more in sync than right now! :)
 
@@ -569,7 +569,7 @@ void bankTreeList::updatePatch(QString replyMsg)
 void bankTreeList::connectedSignal()
 {	
 	SysxIO *sysxIO = SysxIO::Instance();
-	if(this->openPatchTreeItems.size() != 0 && sysxIO->deviceReady() /*&& sysxIO->isConnected()*/)
+	if(this->openPatchTreeItems.size() != 0 && sysxIO->deviceReady() && sysxIO->isConnected())
 	{
 		 sysxIO->setDeviceReady(false);
 

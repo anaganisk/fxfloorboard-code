@@ -313,13 +313,13 @@ void SysxIO::setFileSource(QString hex1, QString hex2, QList<QString> hexData)
 			sysxMsg.append(sysxList.at(i));
 		};
 
-		if(/*this->isConnected() && */this->deviceReady()/* && this->getSyncStatus()*/)  // helps with chain
+		if(/*this->isConnected() && */this->deviceReady()/* && this->getSyncStatus()*/)  // helps with chain realtime 
 		{
 			this->setDeviceReady(false);
 
 			emit setStatusSymbol(2);
 			//emit setStatusProgress(0);
-			emit setStatusMessage("Sending Chain");
+			emit setStatusMessage("Sending");
 
 			QObject::connect(this, SIGNAL(sysxReply(QString)),	
 				this, SLOT(resetDevice(QString)));
@@ -735,10 +735,14 @@ void SysxIO::checkPatchChange(QString name)
 	QObject::disconnect(this, SIGNAL(patchName(QString)),
 		this, SLOT(checkPatchChange(QString)));
 
-	if(this->requestName  == name)  //cjw
+	//if(this->requestName  == name)  //cjw
 	{
 		emit isChanged();
 		this->changeCount = 0;
+		    this->setDeviceReady(true); // some extras added 4 lines
+			emit setStatusSymbol(1);
+			emit setStatusMessage(tr("Ready"));	
+			emit setStatusProgress(0);
 	}
 /*	else
 	{

@@ -244,7 +244,7 @@ void midiIO::sendMsg(QString sysxOutMsg, int midiOut)
 		midiOutClose(outHandle); /*For some reason this does the same as midiOutReset()???. 
 								 Or are prepare and unprepareHeaders not doeing there job?*/
 		delete[] sysEx;
-		//emit setStatusProgress(100); Moved to the beginning of the method was too short to display.
+		//emit setStatusProgress(0); //Moved to the beginning of the method was too short to display.
 	}
 	else
 	{
@@ -483,7 +483,7 @@ void midiIO::run()
 								due to the crapy midi api of windows */
 								while(dataReceive || count < maxWait)
 								{
-									Sleep(receiveTimeout);
+									Sleep(receiveTimeoutMultiple);
 									count++;
 								};
 							}
@@ -570,7 +570,7 @@ void midiIO::sendSysxMsg(QString sysxOutMsg, int midiOut, int midiIn)
 {	
 	this->sysxOutMsg = sysxOutMsg.simplified().toUpper().remove("0X").remove(" ");
 	this->multiple = false;
-	if(sysxOutMsg.size() == 34 && sysxOutMsg.mid(sysxOutMsg.size()-8, 2) != "00")
+	if(sysxOutMsg.size() == 32 && sysxOutMsg.mid(sysxOutMsg.size()-6, 2) != "00")
 	{
 		this->multiple = true;
 	};
@@ -587,14 +587,7 @@ void midiIO::sendSysxMsg(QString sysxOutMsg, int midiOut, int midiIn)
 void midiIO::showErrorMsg(QString errorMsg, QString type)
 {
 	QString windowTitle;
-	/*if(type == "out")
-	{
-		windowTitle = tr("GT-8 Fx FloorBoard - Midi Output Error");
-	}
-	else if(type == "in")
-	{
-		windowTitle = tr("GT-8 Fx FloorBoard - Midi Input Error");
-	};*/
+	
 	windowTitle = tr("GT-6B Fx FloorBoard");
 
 	emit errorSignal(windowTitle, errorMsg);

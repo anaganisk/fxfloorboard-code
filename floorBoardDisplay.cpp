@@ -56,8 +56,8 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
   renameWidget *nameEdit = new renameWidget(this); 
   nameEdit->setGeometry(85, 5, 150, 34); 
 
- 	this->connectButton = new customButton(tr("Request Mode"), false, QPoint(405, 5), this, ":/images/greenledbutton.png");
-	this->writeButton = new customButton(tr("Write/Send"), false, QPoint(494, 5), this, ":/images/ledbutton.png");
+ 	this->connectButton = new customButton(tr("Bulk Mode"), false, QPoint(405, 5), this, ":/images/greenledbutton.png");
+	this->writeButton = new customButton(tr("Write/Sync"), false, QPoint(494, 5), this, ":/images/ledbutton.png");
 	//this->manualButton = new customButton(tr("Manual"), false, QPoint(583, 5), this, ":/images/ledbutton.png");
 	//this->assignButton = new customButton(tr("Assign"), false, QPoint(583, 24), this, ":/images/pushbutton.png");
 	//this->masterButton = new customButton(tr("Master"), false, QPoint(672, 5), this, ":/images/pushbutton.png");
@@ -246,7 +246,7 @@ void floorBoardDisplay::updateDisplay()
 	};
 	this->valueDisplay->clearAll();
 
-	if(sysxIO->isDevice())
+	/*if(sysxIO->isDevice() )
 	{
 		if(sysxIO->getBank() > 20)
 		{
@@ -273,7 +273,7 @@ void floorBoardDisplay::updateDisplay()
 		int patch = sysxIO->getPatch();
 		this->setPatchNumDisplay(bank, patch);
 	}
-	/*else
+	else
 	{
 		patchNumDisplay->clear();
 		this->writeButton->setBlink(false);   //cjw
@@ -347,7 +347,7 @@ void floorBoardDisplay::connectionResult(QString sysxMsg)
       notConnected();
 
 			QMessageBox *msgBox = new QMessageBox();
-			msgBox->setWindowTitle(tr("GT-6B Fx FloorBoard"));
+			msgBox->setWindowTitle(tr("GT-6B Fx FloorBoard connection Error !!"));
 			msgBox->setIcon(QMessageBox::Warning);
 			msgBox->setTextFormat(Qt::RichText);
 			QString msgText;
@@ -371,14 +371,18 @@ void floorBoardDisplay::connectionResult(QString sysxMsg)
 			notConnected();
 
 			QMessageBox *msgBox = new QMessageBox();
-			msgBox->setWindowTitle(tr("GT-6B Fx FloorBoard"));
+			msgBox->setWindowTitle(tr("GT-6B Fx FloorBoard connection Error !!"));
 			msgBox->setIcon(QMessageBox::Warning);
 			msgBox->setTextFormat(Qt::RichText);
 			QString msgText;
 			msgText.append("<font size='+1'><b>");
 			msgText.append(tr("The Boss GT-6B Bass Effects Processor was not found."));
 			msgText.append("<b></font><br>");
-			msgText.append(tr("Ensure the GT-6B is selected to Bulk Load for data retrival."));
+			msgText.append(tr("Ensure the GT-6B is selected to Bulk Load for data retrieval-"));
+			msgText.append("<b></font><br>");
+			msgText.append(tr("by pressing UTILITY 4 times and left PARAMETER 3 times."));
+			msgText.append("<b></font><br>");
+			msgText.append(tr("press EXIT when leaving Bulk Mode."));
 			msgText.append("<b></font>");
 			msgBox->setText(msgText);
 			msgBox->setStandardButtons(QMessageBox::Ok);
@@ -394,13 +398,7 @@ void floorBoardDisplay::connectionResult(QString sysxMsg)
 
 void floorBoardDisplay::writeSignal(bool value)
 {
-	value; // not used;
-	
-	SysxIO *sysxIO = SysxIO::Instance();
-	if((sysxIO->isConnected() == !true) && sysxIO->deviceReady())
-	{
-		writeToBuffer();
-	};
+	SysxIO *sysxIO = SysxIO::Instance();	
 	if(sysxIO->isConnected() && sysxIO->deviceReady()) /* Check if we are connected and if the device is free. */
 	{
 	 this->writeButton->setBlink(true);
@@ -494,11 +492,11 @@ void floorBoardDisplay::writeSignal(bool value)
 						
 						writeToMemory();
 					}
-					else
+					else //if(sysxIO->isConnected())
 					{
-						sysxIO->setDeviceReady(true);
+						/*sysxIO->setDeviceReady(true);
 						this->writeButton->setBlink(false);
-						this->writeButton->setValue(true);
+						this->writeButton->setValue(true);*/
 					};					
 				};
 			};
@@ -524,20 +522,18 @@ void floorBoardDisplay::writeSignal(bool value)
 			msgBox->setStandardButtons(QMessageBox::Ok);
 			msgBox->exec();*/
 		}; 
-	}
-else if(sysxIO->isConnected() != true) /* We are NOT connected */
+	  }
+	
+ if((sysxIO->isConnected() == !true) && sysxIO->deviceReady())
 	{
-		//notConnected();
-		 } 
-                else /* The device was NOT free. */ 
-           { 
-                   //emit notConnected(); 
+		writeToBuffer();
 	};
 };
 
 void floorBoardDisplay::writeToBuffer() 
 {
 	SysxIO *sysxIO = SysxIO::Instance();
+	//sysxIO->setDeviceReady(false);			// Reserve the device for interaction.
 	QObject::disconnect(sysxIO, SIGNAL(isChanged()),	
 					this, SLOT(writeToBuffer()));
 
@@ -577,29 +573,19 @@ void floorBoardDisplay::writeToBuffer()
 			if (hex.length() < 2) hex.prepend("0");
 			sysxMsg.append(hex);
 		}; 
-	}; /*
-
-	for(int i=0;i<patchData.size();++i) // Prepare the data to be send at once.
-	{
-		QList<QString> data = patchData.at(i);
-		for(int x=0;x<data.size();++x)
-		{
-			sysxMsg.append(data.at(x));
-		};
-	}; */
+	}; 
 	sysxIO->setSyncStatus(true);		// In advance of the actual data transfer we set it already to sync.
 	this->writeButton->setBlink(false);	// Sync so we stop blinking the button
 	this->writeButton->setValue(false);	// and activate the write button.
 
 	QObject::connect(sysxIO, SIGNAL(sysxReply(QString)),	// Connect the result signal 
 		this, SLOT(resetDevice(QString)));					// to a slot that will reset the device after sending.
-
 	sysxIO->sendSysx(sysxMsg);	// Send the data.
-
+	
 	emit setStatusSymbol(1);
 	emit setStatusProgress(0);
 	emit setStatusMessage(tr("Ready"));
-	
+	sysxIO->setDeviceReady(true);
 };
 
 void floorBoardDisplay::writeToMemory() 
@@ -687,7 +673,7 @@ void floorBoardDisplay::patchSelectSignal(int bank, int patch)
 	if(blinkCount == 0)
 	{
 		currentSyncStatus = sysxIO->getSyncStatus();
-		sysxIO->setSyncStatus(false);
+		sysxIO->setSyncStatus(false);//was false
 		writeButton->setBlink(true);
 	};
 
@@ -742,7 +728,7 @@ void floorBoardDisplay::blinkSellectedPatch(bool active)
 		{
 			writeButton->setBlink(false);
 		};
-		setPatchNumDisplay(sysxIO->getLoadedBank(),  sysxIO->getLoadedPatch());
+		setPatchNumDisplay(bank,patch);//(sysxIO->getLoadedBank(),  sysxIO->getLoadedPatch());
 	};
 };
 

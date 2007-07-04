@@ -595,7 +595,7 @@ QString MidiTable::nameRequest(int bank, int patch)
 		addr2 = "00";
 	};
 
-	QString hex1 = "0B";    // names memory location
+	QString hex1 = "0B";    // patch names memory location
 	QString hex2 = "00";
 
 	QString sysxMsg;
@@ -622,7 +622,7 @@ QString MidiTable::patchRequest(int bank, int patch)
 {
 	bool ok;
 	QString addr1, addr2;
-	if(bank != 0 && patch != 0 && bank <= bankTotalAll && patch <= patchPerBank)
+	if(bank != 0 && patch != 0 && bank <= bankTotalUser && patch <= patchPerBank)  //cjw banktotalAll caused crash on data receive of preset patch, so limited to user
 	{
 		int patchOffset = (((bank - 1 ) * patchPerBank) + patch) - 1;
 		int memmorySize = QString("7F").toInt(&ok, 16) + 1;
@@ -638,7 +638,7 @@ QString MidiTable::patchRequest(int bank, int patch)
 	}
 	else
 	{
-		addr1 = "0A";  //cjw was 0B now in bulk mode
+		addr1 = "0A";  //GT6B temp bulk address
 		addr2 = "00";
 	};
 
