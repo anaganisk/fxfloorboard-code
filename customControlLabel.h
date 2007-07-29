@@ -33,8 +33,6 @@ class customControlLabel : public QWidget
 public:
     customControlLabel(QWidget *parent = 0);
 	void setUpperCase(bool active);
-	void setStretch(int stretch);
-	void setPixelSize(int size);
 	void setAlignment(Qt::Alignment flag);
 	void setButton(bool button);
 	void setImage(QString imagePath);
@@ -58,8 +56,6 @@ signals:
 private:
 	void setSize();
 	QLabel* label;
-	QPalette labelPal;;
-	QFont labelFont;
 	QPixmap image;
 	bool isImage;
 	bool uppercase;

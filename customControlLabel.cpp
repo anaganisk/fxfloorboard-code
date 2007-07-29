@@ -31,20 +31,7 @@ customControlLabel::customControlLabel(QWidget *parent)
 	this->isImage = false;
 	this->offset = 0;
 
-	this->labelFont.setFamily("Arial");
-	this->labelFont.setBold(true);
-	this->labelFont.setPixelSize(12);
-	#ifdef Q_OS_UNIX
-	this->labelFont.setStretch(90);		
-	#endif
-
-	#ifdef Q_OS_WIN
-	this->labelFont.setStretch(105);
-	#endif
-	
-	this->labelPal.setColor(this->label->foregroundRole(), Qt::white);
-	this->label->setPalette(labelPal);
-	this->label->setFont(this->labelFont);
+	this->label->setObjectName("customlabel");
 
 	QHBoxLayout *layout = new QHBoxLayout;
 	layout->addWidget(this->label);
@@ -52,7 +39,8 @@ customControlLabel::customControlLabel(QWidget *parent)
 	QVBoxLayout *mainLayout = new QVBoxLayout;
 	mainLayout->addLayout(layout );
 	mainLayout->setMargin(0);
-	setLayout(mainLayout);
+	this->setLayout(mainLayout);
+	this->setFixedHeight(10);
 };
 
 void customControlLabel::paintEvent(QPaintEvent *)
@@ -65,7 +53,8 @@ void customControlLabel::paintEvent(QPaintEvent *)
 		QPainter painter(this);
 		painter.drawPixmap(target, this->image, source);
 	}
-	/*else
+	/*DRAWS RED BACKGROUND FOR DEBUGGING PURPOSE */
+	/*else 
 	{
 		QPixmap image(":images/dragbar.png");
 	
@@ -110,27 +99,13 @@ void customControlLabel::setText(QString text)
 
 void customControlLabel::setSize()
 {
-	int pixelWidth = QFontMetrics(this->labelFont).width(this->label->text());
+	int pixelWidth = QFontMetrics(this->label->font()).width(this->label->text());
 	this->labelWidth = pixelWidth;
 };
 
 int customControlLabel::getLabelWidth()
 {
 	return this->labelWidth;
-};
-
-void customControlLabel::setStretch(int stretch)
-{
-	this->labelFont.setStretch(stretch);
-	this->label->setFont(this->labelFont);
-	setSize();
-};
-
-void customControlLabel::setPixelSize(int size)
-{
-	this->labelFont.setPixelSize(size);
-	this->label->setFont(this->labelFont);
-	setSize();
 };
 
 void customControlLabel::setButton(bool button)
@@ -186,10 +161,10 @@ void customControlLabel::enterEvent(QEvent *event)
 		}
 		else
 		{
-			this->labelPal.setColor(this->label->foregroundRole(), Qt::white);
-			this->label->setPalette(labelPal);
-			this->labelFont.setUnderline(true);
-			this->label->setFont(this->labelFont);
+			//this->labelPal.setColor(this->label->foregroundRole(), Qt::white);
+			//this->label->setPalette(labelPal);
+			//this->labelFont.setUnderline(true);
+			//this->label->setFont(this->labelFont);
 		};
 	};
 };
@@ -205,10 +180,10 @@ void customControlLabel::leaveEvent( QEvent *event)
 		}
 		else
 		{
-			this->labelPal.setColor(this->label->foregroundRole(), Qt::white);
-			this->label->setPalette(labelPal);
-			this->labelFont.setUnderline(false);
-			this->label->setFont(this->labelFont);
+			//this->labelPal.setColor(this->label->foregroundRole(), Qt::white);
+			//this->label->setPalette(labelPal);
+			//this->labelFont.setUnderline(false);
+			//this->label->setFont(this->labelFont);
 		};
 	};
 };

@@ -842,9 +842,9 @@ void SysxIO::returnPatchName(QString sysxMsg)
 		//MidiTable *midiTable = MidiTable::Instance();    
 		 
 		//int count = 0;
-		int dataStartOffset = sysxDataOffset;
+		int dataStartOffset = sysxNameOffset;   //pointer to start of names in patch file at 404 bytes
 		QString hex1, hex2, hex3, hex4;
-		for(int i=dataStartOffset*2; i<sysxMsg.size()-(2*2);++i)
+		for(int i=dataStartOffset*2; i<14;++i)//i<sysxMsg.size()-(2*2);++i)
 		{ 
 			/*hex1 = sysxMsg.mid((sysxAddressOffset + 2)*2, 2);
 			hex2 = sysxMsg.mid((sysxAddressOffset + 3)*2, 2);

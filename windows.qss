@@ -45,7 +45,7 @@ border-radius: 3px;
 border-color: rgb(150,150,150);
 padding: 0px;
 padding-left: 1px;
-padding-right: 12px;
+padding-right: 18px;
 }
 QComboBox#smallcombo::drop-down {
 border-style: none;
@@ -73,7 +73,7 @@ padding-right: 1px;
 QComboBox#smallcombo QScrollBar:vertical {
 border: none;
 background: rgb(0,1,62);
-width: 9px;
+width: 6px;
 margin: 10px 0px 10px 0px;
 }
 QComboBox#smallcombo QScrollBar::handle:vertical {

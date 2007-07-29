@@ -36,6 +36,41 @@ mainWindow::mainWindow(QWidget *parent)
 	: QMainWindow(parent) */
 {
 	fxsBoard = new floorBoard(this);
+		/* This set the floorboard default style to the "plastique" style, 
+	   as it comes the nearest what the stylesheet uses. */
+	fxsBoard->setStyle(QStyleFactory::create("plastique"));
+
+	/* Loads the stylesheet for the current platform if present */
+	#ifdef Q_OS_WIN
+		if(QFile(":qss/windows.qss").exists())
+		{
+			QFile file(":qss/windows.qss");
+			file.open(QFile::ReadOnly);
+			QString styleSheet = QLatin1String(file.readAll());
+			fxsBoard->setStyleSheet(styleSheet);
+		}; 
+	#endif 
+
+	#ifdef Q_WS_X11
+		if(QFile(":qss/linux.qss").exists())
+		{
+			QFile file(":qss/linux.qss");
+			file.open(QFile::ReadOnly);
+			QString styleSheet = QLatin1String(file.readAll());
+			fxsBoard->setStyleSheet(styleSheet);
+		}; 
+	#endif
+
+	#ifdef Q_WS_MAC
+		if(QFile(":qss/macosx.qss").exists())
+		{
+			QFile file(":qss/macosx.qss");
+			file.open(QFile::ReadOnly);
+			QString styleSheet = QLatin1String(file.readAll());
+			fxsBoard->setStyleSheet(styleSheet);
+		}; 
+	#endif
+	
 	
 	this->setWindowTitle("GT-6B Fx FloorBoard");
 	//this->setCentralWidget(fxsBoard);
@@ -90,6 +125,7 @@ mainWindow::~mainWindow()
 		preferences->setPreferences("Window", "Size", "height", "");
 	};
 	preferences->savePreferences();
+	qDebug() << "SavePrefs" << this << "destructor was called and x is now set to" << preferences->getPreferences("Window", "Position", "x");
 };
 
 void mainWindow::updateSize(QSize floorSize, QSize oldFloorSize)
@@ -190,7 +226,7 @@ void mainWindow::createStatusBar()
 
 	statusBarWidget *statusInfo = new statusBarWidget(this);
 	statusInfo->setStatusSymbol(0);
-	statusInfo->setStatusMessage(tr("Not connected"));
+	statusInfo->setStatusMessage(tr("Idle"));
 
 	QObject::connect(sysxIO, SIGNAL(setStatusSymbol(int)),
                 statusInfo, SLOT(setStatusSymbol(int)));
@@ -372,4 +408,5 @@ void mainWindow::closeEvent(QCloseEvent* ce)
 	preferences->savePreferences();
 	ce->accept();
 	emit closed();
+		qDebug() << "SavePrefs" << this << "Window will be closed and saved preferences will be called";
 };

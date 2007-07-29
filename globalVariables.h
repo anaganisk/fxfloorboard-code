@@ -35,12 +35,13 @@
 
 /* General Parameters */
 const QString idRequestString = "F041000050110000000000000001F7";		// Indentity Request (GT6B).
-const QString idReplyPatern = "F0410000501200000000";			// Returned device id message must contain/match this (QRegExp or a string without spaces and all caps).
+const QString idReplyPatern = "";//F0410000501200000000";			// Returned device id message must contain/match this (QRegExp or a string without spaces and all caps).
 const int buttonBlinkInterval = 250;				// The interval (ms) the led on buttons blink.
 
 /* Sysex Message Parameters */
 const int sysxAddressOffset = 6;	// Offset (starts at 0) where the address information starts in a sysx message.
 const int sysxDataOffset = 10;		// Offset (starts at 0) where the data starts in a sysx message.
+const int sysxNameOffset = 404;		// Offset (starts at 0) where the data starts in a sysx message.
 const int checksumOffset = 6;		// Offset (starts at 0) where we start calculating the checksum (Normally this is the address offset).
 
 /* Patches and Banks */

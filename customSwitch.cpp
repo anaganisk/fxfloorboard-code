@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT6B Fx FloorBoard".
+** This file is part of "GT-8 Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -23,7 +23,7 @@
 #include <QtGui>
 #include "customSwitch.h"
 
-customSwitch::customSwitch(bool active, QPoint switchPos, QWidget *parent, QString hex1, QString hex2, QString hex3,
+customSwitch::customSwitch(bool active, QWidget *parent, QString hex1, QString hex2, QString hex3,
 						   QString imagePath)
     : QWidget(parent)
 {
@@ -36,8 +36,8 @@ customSwitch::customSwitch(bool active, QPoint switchPos, QWidget *parent, QStri
 	this->switchSize = QSize(imageSize.width(), imageSize.height()/2);
 	this->imageRange = 1;
 	this->switchPos = switchPos;
-	setOffset(0);
-    setGeometry(switchPos.x(), switchPos.y(), switchSize.width(), switchSize.height());
+	this->setOffset(0);
+    this->setFixedSize(switchSize);
 
 	QObject::connect(this, SIGNAL( valueChanged(bool, QString, QString, QString) ),
                 this->parent(), SLOT( valueChanged(bool, QString, QString, QString) ));

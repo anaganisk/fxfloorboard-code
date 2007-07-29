@@ -20,6 +20,7 @@
 **
 ****************************************************************************/
 
+#include <alsa/asoundlib.h>
 #include "midiIO.h"
 #include "../SysxIO.h"
 #include "../globalVariables.h"
@@ -47,31 +48,98 @@ midiIO::midiIO()
 	QObject::connect(this, SIGNAL(midiFinished()),	
 			sysxIO, SLOT(finishedSending()));
 };
+
 /*********************** queryMidiOutDevices() *****************************
  * Retrieves all MIDI Out devices installed on your system and stores them 
  * as a QList of QStrings and device id's. 
- *************************************************************************/
-void midiIO::queryMidiOutDevices()
+ *************************************************************************//*void midiIO::alsaDevice()
 {
-	//#define BUFFER_SIZE	100
-	//MIDIOUTCAPS moc;
+    QStringList tmplist;
+    snd_seq_client_info_t *cinfo;
+    snd_seq_port_info_t *pinfo;
+    
+    snd_seq_client_info_alloca(&cinfo);
+    snd_seq_port_info_alloca(&pinfo);
+    snd_seq_client_info_set_client(cinfo, -1);
+   while (snd_seq_query_next_client(m_handle, cinfo) >= 0) {
+	int client = snd_seq_client_info_get_client(cinfo);
+	// skip the system client and ourselves
+	if (client == SND_SEQ_CLIENT_SYSTEM || client == m_client)
+	    continue;
+	snd_seq_port_info_set_client(pinfo, client);
+	snd_seq_port_info_set_port(pinfo, -1);
+	while (snd_seq_query_next_port(m_handle, pinfo) >= 0) {
+	    // we want writeable ports only
+	    if ((snd_seq_port_info_get_capability(pinfo)
+		& (SND_SEQ_PORT_CAP_WRITE | SND_SEQ_PORT_CAP_SUBS_WRITE))
+		!= (SND_SEQ_PORT_CAP_WRITE | SND_SEQ_PORT_CAP_SUBS_WRITE))
+		continue;
+	    QString item = QString("%1:%2")
+			   .arg(snd_seq_client_info_get_name(cinfo))
+			   .arg(snd_seq_port_info_get_port(pinfo));
+	   tmplist += item;
+	}
 
-	//int iNumDevs = midiOutGetNumDevs();
-	//for (int i = 0; i < iNumDevs; i++)
-	//{
-	//	if (!midiOutGetDevCaps(i, &moc, sizeof(MIDIOUTCAPS)))
-	//	{
-	//		/* Convert WCHAR to QString */
-	//		this->midiOutDevices.append(QString::fromWCharArray(moc.szPname));
-	//	};
-	//};
+    }
+};
+*/
 
-	this->midiOutDevices.push_back(QString("Midi not implemented!"));
+
+
+void midiIO::queryMidiOutDevices()
+{ 
+	static snd_seq_t *handle;
+	//static snd_seq_event_t ev;
+	static char my_client, my_port;
+	//char name[16];
+	int status;
+	status=snd_seq_open(&handle, "hw", SND_SEQ_OPEN_OUTPUT, 0);
+	if (status != 0) {
+		//fprintf(stderr, "Open error: %s\n", snd_strerror(status));
+		//exit(1);
+	}
+
+        if ((my_client = snd_seq_client_id(handle))<0) {
+                //fprintf(stderr, "Cannot determine client number: %s\n",
+			//snd_strerror(my_client));
+		//exit(1);
+        }
+	//printf("JMC client id: %i\n", my_client);
+
+	snd_seq_set_client_name(handle, "GT-6BFxFloorBoard Midi Output");
+
+	my_port = snd_seq_create_simple_port(handle, "GT-6B_Fx_FloorBoard output",
+					     SND_SEQ_PORT_CAP_READ |
+					     SND_SEQ_PORT_CAP_SUBS_READ,
+					     SND_SEQ_PORT_TYPE_MIDI_GENERIC |
+					     SND_SEQ_PORT_TYPE_APPLICATION);
+        if (my_port < 0) {
+		//fprintf(stderr, "Can't create port.\n", snd_strerror(my_port));
+                snd_seq_close(handle);
+		//exit(1);
+        }
+	//printf("JMC port number: %i\n", my_port);
+	//this->midiOutDevices(my_port);
+
+       /*
+	 #define BUFFER_SIZE	100
+    	int iNumDevs = snd_seq_set_client_name(handle, "GT-6BFxFloorBoard Midi Output");//midiOutGetNumDevs();
+	for (int i = 0; i < iNumDevs; i++)
+	{
+		if (!midiOutGetDevCaps(i, &pinfo, sizeof(snd_seq_port_info_t)))
+		{
+			// Convert WCHAR to QString 
+			this->midiOutDevices.append(QString::fromWCharArray(pinfo.szPname));
+		};
+	};*/
+	this->midiOutDevices.append(QString(snd_seq_client_id(handle)));
+	//this->midiOutDevices.push_back(QString("Midi yet to be implemented!"));
 };
 
 QList<QString> midiIO::getMidiOutDevices()
 {
-	queryMidiOutDevices();
+	//alsaDevice();	
+	queryMidiOutDevices();	
 	return this->midiOutDevices;
 };
 
@@ -81,7 +149,36 @@ QList<QString> midiIO::getMidiOutDevices()
  *************************************************************************/
 void midiIO::queryMidiInDevices()
 {
-	//#define BUFFER_SIZE	100
+	static snd_seq_t *handle;
+	//static snd_seq_event_t ev;
+	static char my_client, my_port;
+	//char name[16];
+	int status;
+	status=snd_seq_open(&handle, "hw", SND_SEQ_OPEN_INPUT, 0);
+	if (status != 0) {
+		//fprintf(stderr, "Open error: %s\n", snd_strerror(status));
+		//exit(1);
+	}
+
+        if ((my_client = snd_seq_client_id(handle))<0) {
+                //fprintf(stderr, "Cannot determine client number: %s\n",
+			//snd_strerror(my_client));
+		//exit(1);
+        }
+	//printf("JMC client id: %i\n", my_client);
+
+	snd_seq_set_client_name(handle, "GT-6BFxFloorBoard Midi Input");
+
+	my_port = snd_seq_create_simple_port(handle, "GT-6B_Fx_FloorBoard input",
+					     SND_SEQ_PORT_CAP_WRITE |
+					     SND_SEQ_PORT_CAP_SUBS_WRITE,
+					     SND_SEQ_PORT_TYPE_MIDI_GENERIC |
+					     SND_SEQ_PORT_TYPE_APPLICATION);
+        if (my_port < 0) {
+		//fprintf(stderr, "Can't create port.\n", snd_strerror(my_port));
+                snd_seq_close(handle);
+		//exit(1);
+        }//#define BUFFER_SIZE	100
 	//MIDIINCAPS mic;
 
 	//int iNumDevs = midiInGetNumDevs();
@@ -90,11 +187,15 @@ void midiIO::queryMidiInDevices()
 	//	if (!midiInGetDevCaps(i, &mic, sizeof(MIDIINCAPS)))
 	//	{
 	//		/* Convert WCHAR to QString */
-	//		this->midiInDevices.append(QString::fromWCharArray(mic.szPname));
+			this->midiInDevices.append(QString(snd_seq_create_simple_port(handle, "GT-6B_Fx_FloorBoard input",
+					     SND_SEQ_PORT_CAP_WRITE |
+					     SND_SEQ_PORT_CAP_SUBS_WRITE,
+					     SND_SEQ_PORT_TYPE_MIDI_GENERIC |
+					     SND_SEQ_PORT_TYPE_APPLICATION)));
 	//	};
 	//};
 
-	this->midiInDevices.push_back(QString("Midi not implemented!"));
+	//this->midiInDevices.push_back(QString("Midi not implemented!"));
 };
 
 QList<QString> midiIO::getMidiInDevices()
@@ -134,11 +235,11 @@ QString midiIO::getMidiOutErrorMsg(unsigned long err)
  * Retrieves and displays an error message for the passed MIDI In error
  * number. It does this using midiInGetErrorText().
  *************************************************************************/
-QString midiIO::getMidiInErrorMsg(unsigned long err)
-{
+//QString midiIO::getMidiInErrorMsg(unsigned long err)
+//{
 	/*#define BUFFERSIZE 200
 	WCHAR	errMsg[BUFFERSIZE];*/
-	QString errorMsg;
+	//QString errorMsg;
 	
 	/*if (!(err = midiOutGetErrorText(err, &errMsg[0], BUFFERSIZE)))
 	{
@@ -157,16 +258,16 @@ QString midiIO::getMidiInErrorMsg(unsigned long err)
 		errorMsg = tr("Unable to allocate/lock memory!");
 	};*/
 
-	return errorMsg;
-};
+	//return errorMsg;
+//};
 
 /*********************** sendMsg() **********************************
  * Prepares the sysx message before sending on the MIDI Out device. It 
  * converts the message from a QString to a char* and opens, sends 
  * and closes the MIDI device.
  *************************************************************************/
-void midiIO::sendMsg(QString sysxOutMsg, int midiOut)
-{
+//void midiIO::sendMsg(QString sysxOutMsg, int midiOut)
+//{
 	//HMIDIOUT    outHandle;
 	//MIDIHDR     midiHdr;
 	//UINT        err;
@@ -253,7 +354,7 @@ void midiIO::sendMsg(QString sysxOutMsg, int midiOut)
 	//	errorMsg.append(getMidiOutErrorMsg(err));
 	//	showErrorMsg(errorMsg, "out");
 	//};
-};
+//};
 
 /*********************** midiCallback() **********************************
  * Processes the sysex message and handles if yes or no it has to start  
@@ -344,15 +445,15 @@ void midiIO::sendMsg(QString sysxOutMsg, int midiOut)
  *************************************************************************/
 void midiIO::run()
 {
-	//this->SysXFlag = 0;
- //   this->count = 0;
- //   this->dataReceive = false;
- //   this->sysxBuffer = "";
-	//this->sysxInMsg = "";
+      this->SysXFlag = 0;
+      this->count = 0;
+      this->dataReceive = false;
+      this->sysxBuffer = "";
+      this->sysxInMsg = "";
 
-	///* Check if we are going to receive something on sending */
-	//bool receive;
-	//(this->sysxOutMsg.mid(12, 2) != "12")? receive = true: receive = false;
+	/* Check if we are going to receive something on sending */
+	bool receive;
+	(this->sysxOutMsg.mid(12, 2) != "12")? receive = true: receive = false;
 
 	//if(receive==true)
 	//{
@@ -471,10 +572,10 @@ void midiIO::run()
 	//	sendMsg(sysxOutMsg, midiOut);
 	//};
 	//
-	//this->sysxInMsg = sysxInMsg;
-	//emit replyMsg(sysxInMsg);
+	this->sysxInMsg = sysxInMsg;
+	emit replyMsg(sysxInMsg);
 
-	//this->exec();
+	this->exec();
 };
 
 /*********************** sendSysxMsg() ***********************************
@@ -482,7 +583,7 @@ void midiIO::run()
  *************************************************************************/
 void midiIO::sendSysxMsg(QString sysxOutMsg, int midiOut, int midiIn)
 {	
-	/*this->sysxOutMsg = sysxOutMsg.simplified().toUpper().remove("0X").remove(" ");
+	this->sysxOutMsg = sysxOutMsg.simplified().toUpper().remove("0X").remove(" ");
 	this->multiple = false;
 	if(sysxOutMsg.size() == 34 && sysxOutMsg.mid(sysxOutMsg.size()-8, 2) != "00")
 	{
@@ -491,7 +592,7 @@ void midiIO::sendSysxMsg(QString sysxOutMsg, int midiOut, int midiIn)
 	this->midiOut = midiOut;
 	this->midiIn = midiIn;
 
-	start();*/
+	start();
 };
 
 /*********************** showErrorMsg() **********************************
@@ -501,15 +602,8 @@ void midiIO::sendSysxMsg(QString sysxOutMsg, int midiOut, int midiIn)
 void midiIO::showErrorMsg(QString errorMsg, QString type)
 {
 	QString windowTitle;
-	/*if(type == "out")
-	{
-		windowTitle = tr("GT-8 Fx FloorBoard - Midi Output Error");
-	}
-	else if(type == "in")
-	{
-		windowTitle = tr("GT-8 Fx FloorBoard - Midi Input Error");
-	};*/
-	windowTitle = tr("GT-8 Fx FloorBoard");
+
+	windowTitle = tr("GT-6B Fx FloorBoard");
 
 	emit errorSignal(windowTitle, errorMsg);
 };
@@ -577,5 +671,6 @@ void midiIO::sendMidi(QString midiMsg, int midiOut)
 	//	showErrorMsg(errorMsg, "out");
 	//};
 
-	//emit midiFinished();
+	emit midiFinished();
 };
+

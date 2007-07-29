@@ -33,6 +33,7 @@ HEADERS += ./editPage.h \
     ./customControlSwitch.h \
     ./customDial.h \
     ./customDisplay.h \
+    ./customKnob.h \
     ./customLed.h \
     ./customSlider.h \
     ./customSplashScreen.h \
@@ -67,7 +68,8 @@ HEADERS += ./editPage.h \
     ./SysxIO.h \
     ./SysxIODestroyer.h \
     ./sysxWriter.h \
-    ./XMLWriter.h \
+    ./xmlwriter/xmlwriter.h \
+    ./xmlwriter/xmlwriter_p.h \
     ./Preferences.h \
     ./PreferencesDestroyer.h \
     ./preferencesDialog.h \
@@ -86,6 +88,7 @@ SOURCES += ./editPage.cpp \
     ./customControlSwitch.cpp \
     ./customDial.cpp \
     ./customDisplay.cpp \
+    ./customKnob.cpp \
     ./customLed.cpp \
     ./customSlider.cpp \
     ./customSplashScreen.cpp \
@@ -120,7 +123,7 @@ SOURCES += ./editPage.cpp \
     ./SysxIO.cpp \
     ./SysxIODestroyer.cpp \
     ./sysxWriter.cpp \
-    ./XMLWriter.cpp \
+    ./xmlwriter/XMLWriter.cpp \
     ./Preferences.cpp \
     ./PreferencesDestroyer.cpp \
     ./preferencesDialog.cpp \

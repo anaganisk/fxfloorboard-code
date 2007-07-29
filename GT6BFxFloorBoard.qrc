@@ -2,6 +2,10 @@
     <qresource prefix="/" >
         <file>about</file>
         <file>default.syx</file>
+        <file>images/1.png</file>
+        <file>images/2.png</file>
+        <file>images/3.png</file>
+        <file>images/4.png</file>
         <file>images/GT6BFxFloorBoard.png</file>
         <file>images/ampswitch.png</file>
         <file>images/button.png</file>
@@ -10,7 +14,6 @@
         <file>images/collapse.png</file>
         <file>images/cs.png</file>
         <file>images/dd.png</file>
-   
         <file>images/downarrow.png</file>
         <file>images/dragbar.png</file>
         <file>images/dropdown.png</file>
@@ -27,10 +30,9 @@
         <file>images/knob.png</file>
         <file>images/knobbg.png</file>
         <file>images/knobbgn.png</file>
-        <file>images/knobbgt.png</file>        
+        <file>images/knobbgt.png</file>
         <file>images/led.png</file>
         <file>images/ledbutton.png</file>
-    
         <file>images/midi.png</file>
         <file>images/ns.png</file>
         <file>images/od.png</file>
@@ -55,6 +57,8 @@
         <file>license.txt</file>
         <file>midi.xml</file>
         <file>preferences.xml.dist</file>
-        <file>windows.qss</file>
+        <file>qss/linux.qss</file>
+        <file>qss/macosx.qss</file>
+        <file>qss/windows.qss</file>
     </qresource>
 </RCC>

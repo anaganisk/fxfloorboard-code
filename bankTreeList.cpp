@@ -427,7 +427,7 @@ void bankTreeList::setItemDoubleClicked(QTreeWidgetItem *item, int column)
 		emit setStatusMessage(tr("Sending"));
 
 		sysxIO->setDeviceReady(false);
-		 sysxIO->setRequestName(item->text(0));	// Set the name of the patch we are going to load, so we can check if we have loaded the correct patch at the end.
+		sysxIO->setRequestName(item->text(0));	// Set the name of the patch we are going to load, so we can check if we have loaded the correct patch at the end.
 
 		bool ok;
 		int bank = item->parent()->text(0).section(" ", 1, 1).trimmed().toInt(&ok, 10); // Get the bank
@@ -448,7 +448,7 @@ void bankTreeList::setItemDoubleClicked(QTreeWidgetItem *item, int column)
 
 			sysxIO->requestPatchChange(bank, patch);
 		};*/
-	};
+	}
 };
 /*********************** requestPatch() *******************************
  * Does the actual requesting of the patch data and hands the 
@@ -519,6 +519,49 @@ void bankTreeList::updatePatch(QString replyMsg)
     
 		emit updateSignal();
 		emit setStatusProgress(0);
+
+	
+		QList<QString> nameArray = sysxIO->getFileSource("0B", "00");
+
+	//MidiTable *midiTable = MidiTable::Instance();
+	QString name;
+	for(int i=sysxDataOffset;i<nameArray.size() - 2;i++ )
+		{
+		//name.append( midiTable->getMidiMap("Structure", "0B", "00", "00", nameArray.at(i)).name );
+
+		QString hexStr = nameArray.at(i);
+		if(hexStr == "7E")
+		{
+			name.append((QChar)(0x2192));
+		}
+		else if (hexStr == "7F")
+		{
+			name.append((QChar)(0x2190));
+		}
+		else
+	{
+		bool ok;
+		name.append( (char)(hexStr.toInt(&ok, 16)) );
+	 };
+		//int patch = sysxIO->getLoadedPatch();
+		this->listIndex = 0;
+			this->itemIndex = 0;
+		this->currentPatchTreeItems.at(listIndex)->child(itemIndex)->setText(0,name); // Set the patch name of the item in the tree list.
+         // if(itemIndex >= patchPerBank - 1) // If we reach the last patch in this bank we need to increment the bank and restart at patch 1.
+			//{
+				//this->listIndex++;
+				//this->itemIndex = 0;
+			//}
+			//else 
+			//{ 
+			//	this->itemIndex++;
+			//};
+		};
+	//};	
+
+
+
+
 	}
 	if(replyMsg != "" && replyMsg.size()/2 != 684) // cjw
 	//else
@@ -623,39 +666,63 @@ void bankTreeList::updateTree(QTreeWidgetItem *item)
 *********************************************************************************/
 void bankTreeList::updatePatchNames(QString name)
 {
+			
 	SysxIO *sysxIO = SysxIO::Instance();
-	if(sysxIO->isConnected())
-	{
-		emit setStatusSymbol(3);
-		emit setStatusMessage(tr("Receiving names"));
+	/*QList<QString> nameArray = sysxIO->getFileSource("0B", "00");
 
-		/*if(name != "") // cjw !=  If not empty we can asume that we did receive a patch name.
+	//MidiTable *midiTable = MidiTable::Instance();
+	//QString name;
+	for(int i=sysxDataOffset;i<nameArray.size() - 2;i++ )
 		{
-			this->currentPatchTreeItems.at(listIndex)->child(itemIndex)->setText(0, name);//cjw added "" // Set the patch name of the item in the tree list.
+		//name.append( midiTable->getMidiMap("Structure", "0B", "00", "00", nameArray.at(i)).name );
+
+		QString hexStr = nameArray.at(i);
+		if(hexStr == "7E")
+		{
+			name.append((QChar)(0x2192));
+		}
+		else if (hexStr == "7F")
+		{
+			name.append((QChar)(0x2190));
+		}
+		else
+	{
+		bool ok;
+		name.append( (char)(hexStr.toInt(&ok, 16)) );
+	 };
+  };
+		if(name != "") // cjw !=  If not empty we can asume that we did receive a patch name.
+		{
+			this->currentPatchTreeItems.at(listIndex)->child(itemIndex)->setText(0, name); // Set the patch name of the item in the tree list.
 			if(itemIndex >= patchPerBank - 1) // If we reach the last patch in this bank we need to increment the bank and restart at patch 1.
 			{
 				this->listIndex++;
 				this->itemIndex = 0;
 			}
-			else */
+			else 
 			{ 
 				this->itemIndex++;
-		//	};
+			};
 		};
 
-		/*if(listIndex < currentPatchTreeItems.size()) // As long as we have items in the list we continue, duh! :)
+		if(listIndex < currentPatchTreeItems.size()) // As long as we have items in the list we continue, duh! :)
 		{		
 			bool ok;
 			int bank = this->currentPatchTreeItems.at(listIndex)->text(0).section(" ", 1, 1).trimmed().toInt(&ok, 10);
 			int patch = itemIndex + 1 ;
 
 			sysxIO->requestPatchName(bank, patch); // The patch name request.
-		}
-		else  *///cjw
-		{
+	SysxIO *sysxIO = SysxIO::Instance();
+	if(sysxIO->isConnected())
+	{
+		emit setStatusSymbol(3);
+		emit setStatusMessage(tr("Receiving names"));
+	}
+		//else  //cjw
+		{          */
 			sysxIO->setDeviceReady(true);
 
-			this->currentPatchTreeItems.clear(); // We are done so we can safely reset items that need to be named.
+			//this->currentPatchTreeItems.clear(); // We are done so we can safely reset items that need to be named.
 			this->listIndex = 0;
 			this->itemIndex = 0;
 
@@ -663,5 +730,5 @@ void bankTreeList::updatePatchNames(QString name)
 			emit setStatusMessage(tr("Ready"));
 			emit setStatusProgress(0);
 		};
-	};
-};
+	//};
+//};

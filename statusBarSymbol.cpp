@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT6B Fx FloorBoard".
+** This file is part of "GT-8 Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -30,8 +30,6 @@ statusBarSymbol::statusBarSymbol(QWidget *parent, QString imagePath)
 	this->imagePath = imagePath;
 	QSize imageSize = QPixmap(imagePath).size();
 	this->symbolSize =  QSize(imageSize.width()/4, imageSize.height());
-	
-	//this->setGeometry(0, 0, symbolSize.width(), symbolSize.height());
 	this->setFixedSize(symbolSize);
 
 	setOffset(0);

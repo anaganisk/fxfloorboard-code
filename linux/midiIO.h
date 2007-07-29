@@ -27,6 +27,8 @@
 #include <QString>
 #include <QStringList>
 #include <QList>
+#include <alsa/asoundlib.h>
+
 
 class midiIO: public QThread
 {
@@ -39,6 +41,7 @@ public:
 	void sendMidi(QString midiMsg, int midiOut);
 	QList<QString> getMidiOutDevices();
 	QList<QString> getMidiInDevices();
+	QList<QString> tmplist();	
 
 signals:
 	void errorSignal(QString windowTitle, QString errorMsg);
@@ -50,12 +53,13 @@ signals:
 
 	void setStatusSymbol(int value);
 	void setStatusProgress(int value);
-    void setStatusMessage(QString message);
+    	void setStatusMessage(QString message);
 
 private:
+	void alsaDevice();
 	void queryMidiInDevices();
 	void queryMidiOutDevices();
-
+	
 	QString getMidiOutErrorMsg(unsigned long err);
 	QString getMidiInErrorMsg(unsigned long err);
 
@@ -79,7 +83,17 @@ private:
 	int midiOut;
 	int midiIn;
 	QString sysxOutMsg;
-	QString sysxInMsg;	
-};
+	QString sysxInMsg;
+// more
+	
+    int checkAlsaError(int rc, const char *message);
+    void connect_output();
+    void disconnect_output();
+
+    snd_seq_t *m_handle;
+    int m_client;
+    int m_input;
+    int m_output;
+    };
 
 #endif // MIDIIO_H

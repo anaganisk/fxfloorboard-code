@@ -39,8 +39,8 @@ QT += xml
 
 #Platform dependent file(s)
 win32 {
-	exists("c:/Progra~1/sdk/windows/v6.0/Lib/WinMM.Lib") {		# <-- Change the path to WinMM.Lib here!
-		LIBS +=  c:/Progra~1/sdk/windows/v6.0/Lib/WinMM.Lib		# <-- Change the path here also!
+	exists("C:/Progra~1/SDK/Windows/v6.0/Lib/WinMM.Lib") {		# <-- Change the path to WinMM.Lib here!
+		LIBS +=  C:/Progra~1/SDK/Windows/v6.0/Lib/WinMM.Lib		# <-- Change the path here also!
 	} else {
 		LIBS +=  WinMM.Lib
 		message("WINMM.LIB IS REQUIRED. IF NOT INSTALLED")
@@ -54,10 +54,14 @@ win32 {
 	message(Including Windows specific headers and sources...)
 }
 linux-g++ {
+        LIBS += -lasound
+	message("ALSA LIBRARIES SHOULD BE INSTALLED or ERROR will Occur") 
+	message("Please install the ALSA Audio System packages if not present") 	
+ 
 	HEADERS += ./linux/midiIO.h
 	SOURCES += ./linux/midiIO.cpp
 	INCLUDEPATH += ./linux
-	message(Including Linux specifique headers and sources...)
+	message(Including Linux specific headers and sources...)
 }
 macx {
 	HEADERS += ./macosx/midiIO.h

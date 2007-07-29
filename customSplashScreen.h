@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT6B Fx FloorBoard".
+** This file is part of "GT-8 Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -34,8 +34,8 @@ public:
 	customSplashScreen(const QPixmap& pixmap);
 	~customSplashScreen();
 	virtual void drawContents(QPainter *painter);
-	void showStatusMessage(const QString &message, int alignment = Qt::AlignLeft, const QColor &color = Qt::black);
-	void setMessageRect(QRect rect);
+	void showStatusMessage(const QString &message, const QColor &color = Qt::black);
+	void setMessageRect(QRect rect, int alignment = Qt::AlignLeft);
 
 private:
 	QString message;

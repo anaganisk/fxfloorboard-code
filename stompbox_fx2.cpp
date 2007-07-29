@@ -240,7 +240,7 @@ void stompbox_fx2::setEditPages()
     editDetails()->page()->newGroupBox("Effect");
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00", "middle", Qt::AlignCenter);
 	editDetails()->page()->newStackControl(0);
-	editDetails()->page()->addComboBox(0, 1, 1, 1, "06", "00", "58", "middle", Qt::AlignCenter);     //wave
+	editDetails()->page()->addComboBox(0, 1, 1, 1, "06", "00", "58");//, "middle", Qt::AlignCenter);     //wave
 	editDetails()->page()->addStackControl();
 	editDetails()->page()->addGroupBox(0, 0, 1, 2);
 	
