@@ -203,20 +203,22 @@ void stompBox::setComboBox(QString hex1, QString hex2, QString hex3, QRect geome
 	this->hex2 = hex2;
 	this->hex3 = hex3;
 
-	int maxLenght = 0;
-	int itemsCount;
-
 	MidiTable *midiTable = MidiTable::Instance();
 	Midi items = midiTable->getMidiMap("Structure", hex1, hex2, hex3);
 
 	this->stompComboBox = new QComboBox(this);
 	this->stompComboBox->setObjectName("smallcombo");
 	
-	for(itemsCount=0;itemsCount<items.level.size();itemsCount++ )
+	#ifdef Q_OS_WIN
+		int maxLenght = 0;
+	#endif
+
+	int itemcount;
+	for(itemcount=0;itemcount<items.level.size();itemcount++ )
 	{
 		QString item;
-		QString desc = items.level.at(itemsCount).desc;
-		QString customdesc = items.level.at(itemsCount).customdesc;
+		QString desc = items.level.at(itemcount).desc;
+		QString customdesc = items.level.at(itemcount).customdesc;
 		if(!customdesc.isEmpty())
 		{
 			item = customdesc;
@@ -226,16 +228,25 @@ void stompBox::setComboBox(QString hex1, QString hex2, QString hex3, QRect geome
 			item = desc;
 		};
 		this->stompComboBox->addItem(item);
+		
+		#ifdef Q_OS_WIN
+		/* For some reason the simple way doesn't work on Windows... */ 
 		int pixelWidth = QFontMetrics(this->stompComboBox->font()).width(item);
 		if(maxLenght < pixelWidth) maxLenght = pixelWidth;
-	};
+		#endif
+  };
+	
 	this->stompComboBox->setGeometry(geometry);
 	this->stompComboBox->setEditable(false);
 	this->stompComboBox->setFrame(false);
-	this->stompComboBox->setMaxVisibleItems(itemsCount);
+	this->stompComboBox->setMaxVisibleItems(itemcount);
+
+	#ifdef Q_OS_WIN
+	  /* For some reason the simple way doesn't work on Windows... */ 
 	this->stompComboBox->view()->setMinimumWidth( maxLenght + 10 ); // Used to be 35 (scrollbar correction).
-	
-	QObject::connect(this->stompComboBox, SIGNAL(currentIndexChanged(int)),
+		#endif
+		
+   QObject::connect(this->stompComboBox, SIGNAL(currentIndexChanged(int)),
                 this, SLOT(valueChanged(int)));
 };
 
@@ -529,5 +540,3 @@ void stompBox::setDisplayToFxName()
 {
 	emit valueChanged(this->fxName, "", "");
 };
-
-

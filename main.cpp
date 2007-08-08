@@ -52,7 +52,7 @@ int main(int argc, char *argv[])
 
 	splash->setFont(splashFont);
 	splash->setMask(splashMask);
-	splash->setWindowOpacity(0.90);
+	//splash->setWindowOpacity(0.90);
 	splash->setWindowFlags(Qt::WindowStaysOnTopHint | Qt::SplashScreen);
 	
 	Preferences *preferences = Preferences::Instance(); // Load the preferences.
@@ -177,7 +177,7 @@ int main(int argc, char *argv[])
 
 	/* PREVIEW WARNING */
 	QMessageBox *msgBox = new QMessageBox();
-	msgBox->setWindowTitle(QObject::tr("Warning this is a preview!   Build version 070729"));
+	msgBox->setWindowTitle(QObject::tr("Warning this is a preview!   Build version 20070806"));
 	msgBox->setIcon(QMessageBox::Warning);
 	msgBox->setTextFormat(Qt::RichText);
 	QString msgText;

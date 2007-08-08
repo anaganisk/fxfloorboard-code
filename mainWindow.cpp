@@ -36,7 +36,8 @@ mainWindow::mainWindow(QWidget *parent)
 	: QMainWindow(parent) */
 {
 	fxsBoard = new floorBoard(this);
-		/* This set the floorboard default style to the "plastique" style, 
+	
+  	/* This set the floorboard default style to the "plastique" style, 
 	   as it comes the nearest what the stylesheet uses. */
 	fxsBoard->setStyle(QStyleFactory::create("plastique"));
 
@@ -125,8 +126,7 @@ mainWindow::~mainWindow()
 		preferences->setPreferences("Window", "Size", "height", "");
 	};
 	preferences->savePreferences();
-	qDebug() << "SavePrefs" << this << "destructor was called and x is now set to" << preferences->getPreferences("Window", "Position", "x");
-};
+	};
 
 void mainWindow::updateSize(QSize floorSize, QSize oldFloorSize)
 {
@@ -408,5 +408,4 @@ void mainWindow::closeEvent(QCloseEvent* ce)
 	preferences->savePreferences();
 	ce->accept();
 	emit closed();
-		qDebug() << "SavePrefs" << this << "Window will be closed and saved preferences will be called";
 };

@@ -107,6 +107,59 @@ void stompbox_dd::setEditPages()
 	
 	editDetails()->addPage("08", "00", "02", "01");// PAGE 2 ABOVE
 
+	//--------------------------------REVERB & DELAY ------------------------------------------------//
+	editDetails()->page()->newGroupBox("Effect");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "08", "00", "00", "middle", Qt::AlignCenter);
+	editDetails()->page()->addGroupBox(1, 0, 1, 1);
+    editDetails()->page()->newGroupBox("Reverb");
+	editDetails()->page()->addComboBox(0, 0, 1, 1, "08", "00", "03");     //rev type
+	editDetails()->page()->addKnob(0, 1, 1, 1, "08", "00", "04");         //rev time
+	editDetails()->page()->addKnob(0, 2, 1, 1, "08", "00", "05");         //pre delay
+	editDetails()->page()->addKnob(0, 5, 1, 1, "08", "00", "08", "turbo");//density
+    editDetails()->page()->addGroupBox(1, 1, 1, 1);
+
+	editDetails()->page()->newGroupBox("Filter");
+	editDetails()->page()->addKnob(0, 3, 1, 1, "08", "00", "06");         //low cut
+	editDetails()->page()->addKnob(0, 4, 1, 1, "08", "00", "07");         //high cut
+    editDetails()->page()->addGroupBox(1, 2, 1, 1);
+	
+	editDetails()->page()->newGroupBox("Output");
+	editDetails()->page()->addKnob(0, 6, 1, 1, "08", "00", "09", "turbo");//rev level
+	editDetails()->page()->addGroupBox(1, 3, 1, 1);
+
+
+	editDetails()->page()->newGroupBox("Delay");
+	editDetails()->page()->newStackControl(0);
+	editDetails()->page()->addComboBox(0, 0, 1, 1, "08", "00", "0B");     //delay type
+	editDetails()->page()->addStackControl();
+	editDetails()->page()->addGroupBox(2, 0, 1, 1);
+
+	
+	editDetails()->page()->newGroupBox("Time");
+	editDetails()->page()->addKnob(0, 1, 1, 1, "08", "00", "0C","normal","right", 60);//delay time
+	editDetails()->page()->addKnob(0, 2, 1, 1, "08", "00", "0D");         //time fine
+	editDetails()->page()->insertStackField(0, 0, 3, 1, 1);
+	
+	editDetails()->page()->addKnob(0, 4, 1, 1, "08", "00", "0F", "turbo");//feedback
+    editDetails()->page()->addGroupBox(2, 1, 1, 1);
+	
+
+	editDetails()->page()->newGroupBox("Filter");
+	editDetails()->page()->addKnob(0, 5, 1, 1, "08", "00", "10");         //high cut
+	editDetails()->page()->addGroupBox(2, 2, 1, 1);
+
+	editDetails()->page()->newGroupBox("Output");
+	editDetails()->page()->addKnob(0, 6, 1, 1, "08", "00", "11", "turbo");//level
+	editDetails()->page()->addGroupBox(2, 3, 1, 1);
+
+	editDetails()->page()->newStackField(0);
+	editDetails()->page()->addStackField();
+    editDetails()->page()->newStackField(0);
+	editDetails()->page()->addKnob(0, 3, 1, 1, "08", "00", "0E");         //tap time
+	editDetails()->page()->addStackField();
+	
+	editDetails()->addPage("08", "00", "02", "02");// PAGE 3 ABOVE
+
 //------------------------- Sound on Sound -----------------------------------------------//
 	editDetails()->page()->newGroupBox("Effect");
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "08", "00", "00", "middle", Qt::AlignCenter);
@@ -119,6 +172,6 @@ void stompbox_dd::setEditPages()
 	editDetails()->page()->newGroupBox("Output");
 	editDetails()->page()->addKnob(0, 3, 2, 1, "08", "00", "16", "turbo");   //sos level
 	editDetails()->page()->addGroupBox(1, 2, 1, 1);
-    editDetails()->addPage("08", "00", "02", "02");// PAGE 3 ABOVE
+    editDetails()->addPage("08", "00", "02", "03");// PAGE 4 ABOVE  
 
 	};

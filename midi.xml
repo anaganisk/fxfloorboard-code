@@ -1287,7 +1287,8 @@
 				<DATA value="02" name="" abbr="" desc="Rev/Dly/SoS :Fx Select" customdesc="type">
 					<PARAM value="00" name="Reverb" desc="Reverb" customdesc=""/>
 					<PARAM value="01" name="Delay" desc="Delay" customdesc=""/>
-					<PARAM value="02" name="Snd on Snd   " desc="Snd on Snd   " customdesc=""/>
+					<PARAM value="02" name="Rev + Delay" desc="Rev + Delay" customdesc=""/>
+					<PARAM value="03" name="Snd on Snd   " desc="Snd on Snd   " customdesc=""/>
 				</DATA>
 				<DATA value="03" name="" abbr="" desc="REV :Type" customdesc="type">
 					<PARAM value="00" name="Room 1   " desc="Room 1   " customdesc=""/>
