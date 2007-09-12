@@ -657,7 +657,7 @@ QString SysxIO::getPatchChangeMsg(int bank, int patch)
 	QString midiMsg;
 	//midiMsg.append("0x00"+bankMsb+"00B0");			// MSB		
 	//midiMsg.append("0x000010B0");					// LSB -> not used!
-	midiMsg.append("0x0000"+programChange+"C0");	// Program Controle
+	midiMsg.append("C0"+programChange);	// Program Controle
 
 	return midiMsg;
 };
@@ -670,11 +670,12 @@ void SysxIO::sendMidi(QString midiMsg)
 	//if(isConnected())
 	{
 		Preferences *preferences = Preferences::Instance(); bool ok;
-		int midiOut = preferences->getPreferences("Midi", "MidiOut", "device").toInt(&ok, 10);	// Get midi out device from preferences.
+		int midiOutPort = preferences->getPreferences("Midi", "MidiOut", "device").toInt(&ok, 10);	// Get midi out device from preferences.
 		
 		midiIO *midi = new midiIO();
 
-		midi->sendMidi(midiMsg, midiOut);
+		midi->sendMidi(midiMsg, midiOutPort);
+		
 	};
 };
 
@@ -794,12 +795,12 @@ void SysxIO::checkPatchChange(QString name)
 void SysxIO::sendSysx(QString sysxMsg)
 {
 	Preferences *preferences = Preferences::Instance();  bool ok;
-	int midiOut = preferences->getPreferences("Midi", "MidiOut", "device").toInt(&ok, 10);	// Get midi out device from preferences.
-	int midiIn = preferences->getPreferences("Midi", "MidiIn", "device").toInt(&ok, 10);	// Get midi in device from preferences.
+	int midiOutPort = preferences->getPreferences("Midi", "MidiOut", "device").toInt(&ok, 10);	// Get midi out device from preferences.
+	int midiInPort = preferences->getPreferences("Midi", "MidiIn", "device").toInt(&ok, 10);	// Get midi in device from preferences.
 	
 	midiIO *midi = new midiIO();
 
-	midi->sendSysxMsg(sysxMsg, midiOut, midiIn);
+	midi->sendSysxMsg(sysxMsg, midiOutPort, midiInPort);
 };
 
 /***************************** receiveSysx() *******************************

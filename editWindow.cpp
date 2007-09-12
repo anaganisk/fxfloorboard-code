@@ -201,7 +201,7 @@ void editWindow::valueChanged(int index)
 		SysxIO *sysxIO = SysxIO::Instance();
 		sysxIO->setFileSource(this->hex1, this->hex2, this->hex3, valueHex);
 
-		//emit updateDisplay(valueStr);
+		//emit updateDisplay(valuestr);
 		emit updateSignal();
 	};
 };

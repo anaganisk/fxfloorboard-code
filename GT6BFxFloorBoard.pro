@@ -64,9 +64,13 @@ linux-g++ {
 	message(Including Linux specific headers and sources...)
 }
 macx {
+	LIBS += -framework CoreMidi -framework CoreAudio -framework CoreFoundation
+	message("X-Code LIBRARIES SHOULD BE INSTALLED or ERROR will Occur") 
+	message("Please install the X-Code Audio System packages if not present") 
 	HEADERS += ./macosx/midiIO.h
 	SOURCES += ./macosx/midiIO.cpp
 	INCLUDEPATH += ./macosx
+	ICON = GT6BFxFloorBoard.icns
 	message(Including Mac OS X specifique headers and sources...)
 }
 

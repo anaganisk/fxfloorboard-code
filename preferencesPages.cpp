@@ -22,6 +22,7 @@
 
 #include <QtGui>
 #include "midiIO.h"
+#include "RtMidi.h"
 #include "preferencesPages.h"
 #include "Preferences.h"
 

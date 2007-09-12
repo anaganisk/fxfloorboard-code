@@ -73,7 +73,10 @@ HEADERS += ./editPage.h \
     ./Preferences.h \
     ./PreferencesDestroyer.h \
     ./preferencesDialog.h \
-    ./preferencesPages.h 
+    ./preferencesPages.h\
+    ./customComboBox.h\
+    ./windows/RtMidi.h\
+    ./windows/RtError.h
 
 #Source files
 SOURCES += ./editPage.cpp \
@@ -127,7 +130,9 @@ SOURCES += ./editPage.cpp \
     ./Preferences.cpp \
     ./PreferencesDestroyer.cpp \
     ./preferencesDialog.cpp \
-    ./preferencesPages.cpp 
+    ./preferencesPages.cpp\
+    ./customComboBox.cpp\
+    ./windows/RtMidi.cpp 
 
 #Resource file(s)
 RESOURCES += GT6BFxFloorBoard.qrc

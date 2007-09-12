@@ -23,6 +23,9 @@
 #ifndef MIDIIO_H
 #define MIDIIO_H
 
+//#include <windows.h>
+//#include <mmsystem.h>
+#include <CoreMIDI/MIDIServices.h>
 #include <QThread>
 #include <QString>
 #include <QStringList>
@@ -35,10 +38,11 @@ class midiIO: public QThread
 public:
 	midiIO();
 	void run();
-	void sendSysxMsg(QString sysxOutMsg, int midiOut, int midiIn);
-	void sendMidi(QString midiMsg, int midiOut);
+	void sendSysxMsg(QString sysxOutMsg, int midiOutPort, int midiInPort);
+	void sendMidi(QString midiMsg, int midiOutPort);
 	QList<QString> getMidiOutDevices();
 	QList<QString> getMidiInDevices();
+
 
 signals:
 	void errorSignal(QString windowTitle, QString errorMsg);
@@ -60,15 +64,11 @@ private:
 	QString getMidiInErrorMsg(unsigned long err);
 
 	void showErrorMsg(QString errorMsg, QString type);
-	void sendMsg(QString sysxOutMsg, int midiOut);
+	void sendMsg(QString sysxOutMsg, int midiOutPort);
 
 	QList<QString> midiOutDevices;
 	QList<QString> midiInDevices;
-
-	/*static void CALLBACK midiCallback(HMIDIIN handle, 
-		UINT wMsg, DWORD dwInstance, 
-		DWORD dwParam1, DWORD dwParam2);*/
-
+	
 	static QString sysxBuffer;
 	static bool dataReceive;
 	static unsigned char SysXFlag;
@@ -76,8 +76,8 @@ private:
 	static unsigned char SysXBuffer[256];
 
 	bool multiple;
-	int midiOut;
-	int midiIn;
+	int midiOutPort;
+	int midiInPort;
 	QString sysxOutMsg;
 	QString sysxInMsg;	
 };

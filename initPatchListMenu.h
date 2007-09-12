@@ -27,6 +27,7 @@
 #include <QWidget>
 #include <QTimer>
 #include "customButton.h"
+#include "customComboBox.h"
 
 class initPatchListMenu : public QWidget
 {
@@ -45,7 +46,7 @@ signals:
 
 
 private:
-	QComboBox *initPatchComboBox;
+	customComboBox *initPatchComboBox;
 	bool available;
 
 	void setInitPatchComboBox(QRect geometry);

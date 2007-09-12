@@ -378,7 +378,7 @@ void floorBoardDisplay::connectionResult(QString sysxMsg)
 	};
 };
 
-void floorBoardDisplay::writeSignal(bool value)
+void floorBoardDisplay::writeSignal(bool)
 {
 	SysxIO *sysxIO = SysxIO::Instance();	
 	if(sysxIO->isConnected() && sysxIO->deviceReady()) /* Check if we are connected and if the device is free. */

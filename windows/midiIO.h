@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT-8 Fx FloorBoard".
+** This file is part of "GT-8 FX FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -23,9 +23,7 @@
 #ifndef MIDIIO_H
 #define MIDIIO_H
 
-#include <windows.h> // Needed to acces midi and linking against winmm.lib is also needed!!!
-#include <mmsystem.h>
-
+#include <windows.h>
 #include <QThread>
 #include <QString>
 #include <QStringList>
@@ -38,10 +36,11 @@ class midiIO: public QThread
 public:
 	midiIO();
 	void run();
-	void sendSysxMsg(QString sysxOutMsg, int midiOut, int midiIn);
-	void sendMidi(QString midiMsg, int midiOut);
+	void sendSysxMsg(QString sysxOutMsg, int midiOutPort, int midiInPort);
+	void sendMidi(QString midiMsg, int midiOutPort);
 	QList<QString> getMidiOutDevices();
 	QList<QString> getMidiInDevices();
+	
 
 signals:
 	void errorSignal(QString windowTitle, QString errorMsg);
@@ -58,36 +57,26 @@ signals:
 private:
 	void queryMidiInDevices();
 	void queryMidiOutDevices();
-
+	void sendMsg(QString sysxOutMsg, int midiOutPort);
 	QString getMidiOutErrorMsg(unsigned long err);
 	QString getMidiInErrorMsg(unsigned long err);
-
 	void showErrorMsg(QString errorMsg, QString type);
-	void sendMsg(QString sysxOutMsg, int midiOut);
-
+	
 	QList<QString> midiOutDevices;
 	QList<QString> midiInDevices;
-
-	static void CALLBACK midiCallback(HMIDIIN handle, 
-		UINT wMsg, DWORD dwInstance, 
-		DWORD dwParam1, DWORD dwParam2);
-	static void emitProgress(int bytesReceived);
-
+	
 	static QString sysxBuffer;
 	static bool dataReceive;
 	static unsigned char SysXFlag;
 	static int count;
 	static unsigned char SysXBuffer[256];
-	static int bytesTotal;
-
+	
 	bool multiple;
-	int midiOut;
-	int midiIn;
+	int midiOutPort;
+	int midiInPort;
 	QString sysxOutMsg;
 	QString sysxInMsg;
 
-	QString midiMsg;
-	bool midi;
 };
 
 #endif // MIDIIO_H

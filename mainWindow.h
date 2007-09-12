@@ -22,7 +22,6 @@
 
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-
 #include <QMainWindow>
 #include "floorBoard.h"
 #include "sysxWriter.h"

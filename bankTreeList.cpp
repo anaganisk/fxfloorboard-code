@@ -36,7 +36,7 @@ bankTreeList::bankTreeList(QWidget *parent)
 
 	this->treeList = newTreeList();
 	this->treeList->setObjectName("banklist");
-
+  this->setObjectName("banklist");
 	QObject::connect(treeList, SIGNAL(itemExpanded(QTreeWidgetItem*)), 
 			this, SLOT(setOpenItems(QTreeWidgetItem*)));
 	QObject::connect(treeList, SIGNAL(itemCollapsed(QTreeWidgetItem*)), 
@@ -296,7 +296,7 @@ QTreeWidget* bankTreeList::newTreeList()
 	newTreeList->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff); // Qt::ScrollBarAsNeeded
 	
 	QStringList headers;
-	headers << "Boss GT-6B";
+	headers << "        Boss GT-6B";
     newTreeList->setHeaderLabels(headers);
 
 	QTreeWidgetItem *user = new QTreeWidgetItem(newTreeList);
