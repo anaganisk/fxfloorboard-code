@@ -78,6 +78,9 @@ void midiIO::queryMidiOutDevices()
     }
     this->midiOutDevices.append(QString::fromStdString(portName));
   } 
+  if (nPorts == 0) {
+	  this->midiOutDevices.push_back("no midi device available");
+  }
  // Clean up
  cleanup:
   delete midiout;
@@ -117,6 +120,9 @@ void midiIO::queryMidiInDevices()
     }
     this->midiInDevices.append(QString::fromStdString(portName));
   } 
+  if (nPorts == 0) {
+	  this->midiOutDevices.push_back("no midi device available");
+  }
  // Clean up
  cleanup:
   delete midiin;
