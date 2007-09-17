@@ -809,6 +809,31 @@ void SysxIO::sendSysx(QString sysxMsg)
 void SysxIO::receiveSysx(QString sysxMsg)
 {
 	emit sysxReply(sysxMsg);
+		 /*DEBUGGING OUTPUT */
+	if (sysxMsg > 0){
+			QString snork;
+			for(int i=0;i<sysxMsg.size();++i)
+			{
+				snork.append(sysxMsg.mid(i, 2));
+				snork.append(" ");
+				i++;
+			};
+			snork.replace("F7", "F7 }\n");
+			snork.replace("F0", "{ F0");
+			snork.append("\n{ size=");
+			snork.append(QString::number(sysxMsg.size()/2, 10));
+			snork.append("}");	
+			snork.append("\n{sysxoutmsg byte 12 value =");
+			//snork.append(QString::number(sysxOutMsg.mid(12, 2), 10));
+			snork.append("}");	
+
+			QMessageBox *msgBox = new QMessageBox();
+			msgBox->setWindowTitle("dBug Result");
+			msgBox->setIcon(QMessageBox::Information);
+			msgBox->setText(snork);
+			msgBox->setStandardButtons(QMessageBox::Ok);
+			msgBox->exec();
+	}
 };
 
 /***************************** requestPatchName() ***************************
@@ -911,7 +936,7 @@ void SysxIO::errorSignal(QString windowTitle, QString errorMsg)
 };
 
 /***************************** noError() ******************************
-* Error flag set on midi error to prevent (double) connexion faillure 
+* Error flag set on midi error to prevent (double) connection failure 
 * messages and a midi messages.
 ************************************************************************/
 bool SysxIO::noError()
