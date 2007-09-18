@@ -35,7 +35,7 @@
 
 /* General Parameters */
 const QString idRequestString = "F041000050110000000000000001F7";		// Indentity Request (GT6B).
-const QString idReplyPatern = "";//F0410000501200000000";			// Returned device id message must contain/match this (QRegExp or a string without spaces and all caps).
+const QString idReplyPatern = "F0410000501200000000";			// Returned device id message must contain/match this (QRegExp or a string without spaces and all caps).
 const int buttonBlinkInterval = 250;				// The interval (ms) the led on buttons blink.
 
 /* Sysex Message Parameters */
@@ -50,13 +50,10 @@ const int bankTotalAll = 30;		// Number of total banks.
 const int patchPerBank = 4;			// Number of patches in a bank.
 
 /* Midi Send & Receive */
-const int midiSendTimeout = 25;	    // Time (ms) the device needs to process a MIDI message before sending the next.
-const int midiTimeout = 25;		    // Time (ms) the device needs to process a MIDI message before closing the device.
-const int sendTimeout = 25;			// Time (ms) the device needs to process a SYSEX message before sending the next.
-const int receiveTimeout = 5;		// Time (ms) we wait between SYSEX messages for the next one to be received.
-const int receiveTimeoutMultiple = 5; // Time (ms) we wait for received patch to arrive after a request.
-const int maxWait = 1;				// Maximum times we loop through the receive handel before we give up the waiting.
-const int minWait = 1;				// Minimum times we loop through the receive handel before we give up the waiting.
+const int receiveTimeout = 25;		// Time (ms) we wait between SYSEX messages for the next one to be received.
+//const int receiveTimeout = 5; // not used ****Time (ms) we wait for received patch to arrive after a request.
+const int maxWait = 40;				// Maximum times we loop through the receive handle before we give up waiting.(for whole patch)
+const int minWait = 4;				// Minimum times we loop through the receive handle before we give up waiting.(for small data)
 const int maxRetry = 2;			// Maximum times we retry to load a patch in case of a transfer error .
 
 /* Patch Sellection (Used when copying patches) */

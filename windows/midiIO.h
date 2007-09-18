@@ -22,9 +22,9 @@
 
 #ifndef MIDIIO_H
 #define MIDIIO_H
-
-#include <windows.h> // Needed to acces midi and linking against winmm.lib is also needed!!!
-#include <mmsystem.h>
+//#include "RtMidi.h"
+//#include <windows.h> // Needed to acces midi and linking against winmm.lib is also needed!!!
+//#include <mmsystem.h>
 #include <vector>
 #include <QThread>
 #include <QString>
