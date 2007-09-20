@@ -70,6 +70,7 @@ private:
 	QList<QString> midiInDevices;
 
 	static void emitProgress(int bytesReceived);
+	void midiIO::progressFlash();
 
 	static QString sysxBuffer;
 	static bool dataReceive;

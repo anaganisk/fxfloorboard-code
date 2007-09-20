@@ -26,6 +26,8 @@
 #include "RtMidi.h"
 #include <QMessageBox>
 #include <signal.h>
+#include <QSysInfo>
+#include <QTextCodec>
 
 unsigned char midiIO::SysXBuffer[256];
 unsigned char midiIO::SysXFlag = 0;
@@ -93,7 +95,18 @@ void midiIO::queryMidiOutDevices()
       error.printMessage();
       goto cleanup;
     }
+	// if we are running msdos based windows, names convert to unicode
+    if(QSysInfo::WindowsVersion <= QSysInfo::WV_Me) 
+	{
+		char dev = char(i+49);
+		QString outstring = ("un-named midi device: ");
+		outstring.append(dev);
+		this->midiOutDevices.append(outstring);
+	}
+	else
+	{
     this->midiOutDevices.append(QString::fromStdString(portName));
+	}
   } 
   if (nPorts == 0) {
 	  this->midiOutDevices.push_back("no midi device available");
@@ -130,16 +143,28 @@ void midiIO::queryMidiInDevices()
   for ( unsigned int i=0; i<nPorts; i++ ) {
     try {
       portName = midiin->getPortName(i);
-    }
-    catch (RtError &error) {
+		}
+    catch (RtError &error) 
+	{
       error.printMessage();
       goto cleanup;
     }
+  if(QSysInfo::WindowsVersion <= QSysInfo::WV_Me) 
+	{
+		char dev = char(i+49);
+		QString instring = ("un-named midi device: ");
+		instring.append(dev);
+		this->midiInDevices.append(instring);
+	}
+  else
+	{
     this->midiInDevices.append(QString::fromStdString(portName));
-  } 
-  if (nPorts == 0) {
-	  this->midiInDevices.push_back("no midi device available");
+	} 
   }
+  if (nPorts == 0) 
+	{
+	  this->midiInDevices.push_back("no midi device available");
+	 }
  // Clean up
  cleanup:
   delete midiin;
@@ -222,17 +247,18 @@ void midiIO::sendMsg(QString sysxOutMsg, int midiOutPort)
   if ( nPorts == 0 ) {
    // std::cout << "No ports available!\n";
     goto cleanup;
- }
+    }
   try {
         // Open selected port.
         midiMsgOut->openPort(midiOutPort);
-	    // Convert QString to char* (hex value) 
+	       
+      // Convert QString to char* (hex value) 
 		std::vector<unsigned char> message;	
-        message.reserve(256);
+        message.reserve(1024);
 		int msgLength = sysxOutMsg.length()/2;
 		char *ptr  = new char[msgLength];
 		
-		for(int i=0;i<sysxOutMsg.length();++i)
+		for(int i=0;i<msgLength*2;++i)
 		{	
 		    unsigned int n;
 			QString hex = "0x";
@@ -245,14 +271,17 @@ void midiIO::sendMsg(QString sysxOutMsg, int midiOutPort)
 		};
 	midiMsgOut->sendMessage(&message);
 	goto cleanup;
-     }
-catch (RtError &error) {
-	  //error.printMessage();
+	    }
+catch (RtError &error)
+   {
+	  error.printMessage();
 	  goto cleanup;
     }   
    // Clean up
  cleanup:
-	emit setStatusProgress(80);
+	//emit setStatusProgress(100);
+	int msgLength = sysxOutMsg.length()/2;
+		SLEEP(msgLength);
 	midiMsgOut->closePort();
     delete midiMsgOut;	
 	emit midiFinished();
@@ -270,7 +299,7 @@ void midiIO::receiveMsg(QString sysxInMsg, int midiInPort)
 	int bytesReceived = 0;
 		RtMidiIn *midiin = 0;
 		std::vector<unsigned char> message;
-		message.reserve(256);
+		message.reserve(1024);
 		int nBytes, i;
 		double stamp;
 		//RtMidi constructor
@@ -288,8 +317,6 @@ void midiIO::receiveMsg(QString sysxInMsg, int midiInPort)
 			//error.printMessage();
 			goto cleanup;
 		}
-		//send sysx data request here, after midi in port is open.
-		sendMsg(sysxOutMsg, midiOutPort);
 		if(this->multiple = true){loopCount = maxWait;}
 		else {loopCount = minWait;};
 		//don,t ignore sysex messages, but ignore other crap
@@ -297,6 +324,8 @@ void midiIO::receiveMsg(QString sysxInMsg, int midiInPort)
 		//install interupt handler
 		done = false;
 		(void) signal(SIGINT, finish);
+		//send sysx data request here, after midi in port is open.
+		sendMsg(sysxOutMsg, midiOutPort);
 		//periodically check the input queue
 		while ( !done ) {
 			for (int loop = 0; loop<loopCount; loop++)
@@ -339,18 +368,33 @@ void midiIO::run()
 {
 	if(midi) // Check if we are going to send syssex or midi data.
 	{
-		emit setStatusProgress(0); // Reset the progress bar.
+		//emit setStatusProgress(0); // Reset the progress bar.
 			QStringList msgList = midiMsg.split("0x", QString::SkipEmptyParts);
 				for(int i=0;i<msgList.size();++i)
 				{
-					//send the midi message
-					sysxOutMsg = midiMsg;
-					sendMsg(sysxOutMsg, midiOutPort);
 					/* Calculate the percentage and update the progress bar */
 					int percentage = (100/(double)msgList.size()) * (double)(i + 1);
 					emit setStatusProgress(percentage);
+					//send the midi message
+					sysxOutMsg = midiMsg;
+					sendMsg(sysxOutMsg, midiOutPort);
 				};
-		emit setStatusProgress(100); // Finished so we can set the progress bar to 100%.
+		emit setStatusSymbol(2);
+		emit setStatusMessage("Sending");
+		emit setStatusProgress(33); // time wasting sinusidal statusbar progress animation
+		SLEEP(30);
+		emit setStatusProgress(66);
+		SLEEP(60);		
+		emit setStatusProgress(100);
+		SLEEP(100);		
+		emit setStatusProgress(75);
+		SLEEP(100);		
+		emit setStatusProgress(42);
+		SLEEP(150);
+		emit setStatusSymbol(1);
+		emit setStatusProgress(0);
+		emit setStatusMessage(tr("Ready"));
+
 		emit midiFinished(); // We are finished so we send a signal to free the device.		
 	}
 	else
@@ -367,7 +411,8 @@ void midiIO::run()
 
 		if(receive==true)
 		{
-			
+			emit setStatusSymbol(3);
+		emit setStatusMessage(tr("Receiving Data"));
 			/* Get the size of data bytes returned to calculate the progress percentage */
 			bool ok;
 			QString sizeChunk = sysxOutMsg.mid(sysxDataOffset * 2, 4 * 2);
@@ -387,11 +432,29 @@ void midiIO::run()
 			 }
 		else
 		{
+			emit setStatusSymbol(2);
+			emit setStatusMessage("Sending");
 			sendMsg(sysxOutMsg, midiOutPort);
+			
+			
+		
+		//emit setStatusProgress(33); // Finished so we can set the progress bar to 100
+		//SLEEP(10);
+		//emit setStatusProgress(66);
+		//SLEEP(20);		
+		emit setStatusProgress(100);
+		//SLEEP(30);		
+		//emit setStatusProgress(75);
+		//SLEEP(30);		
+		//emit setStatusProgress(42);
+		//SLEEP(50);
 		};
 		
 		this->sysxInMsg = sysxInMsg;
 		emit replyMsg(sysxInMsg);
+		emit setStatusSymbol(1);
+		emit setStatusProgress(0);
+		emit setStatusMessage(tr("Ready"));
 	};
 	this->exec();
 };
@@ -454,3 +517,17 @@ void midiIO::emitProgress(int bytesReceived)
 		sysxIO->emitStatusProgress(percentage);
 	};
 };
+void midiIO::progressFlash()
+{
+	emit setStatusProgress(33); // time wasting sinusidal statusbar progress
+		SLEEP(30);
+		emit setStatusProgress(66);
+		SLEEP(60);		
+		emit setStatusProgress(100);
+		SLEEP(100);		
+		emit setStatusProgress(75);
+		SLEEP(100);		
+		emit setStatusProgress(42);
+		SLEEP(150);
+};
+

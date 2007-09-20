@@ -403,7 +403,6 @@ void bankTreeList::setItemClicked(QTreeWidgetItem *item, int column)
 			bool ok;
 			int bank = item->parent()->text(0).section(" ", 1, 1).trimmed().toInt(&ok, 10);
 			int patch = item->parent()->indexOfChild(item) + 1;
-
 			emit patchSelectSignal(bank, patch);
 			 sysxIO->requestPatchChange(bank, patch); // extra to try patch change
 			//sysxIO->setRequestName(item->text(0));	// Set the name of the patch we have sellected in case we load it.
@@ -431,8 +430,9 @@ void bankTreeList::setItemDoubleClicked(QTreeWidgetItem *item, int column)
 
 		bool ok;
 		int bank = item->parent()->text(0).section(" ", 1, 1).trimmed().toInt(&ok, 10); // Get the bank
+		int bankpointer = item->parent()->text(0).section(" ", 1, 1).trimmed().toInt(&ok, 10);
 		int patch = item->parent()->indexOfChild(item) + 1;								// and the patch number.
-
+		int patchpointer = item->parent()->indexOfChild(item) + 1;	
 		/*if(bank == sysxIO->getLoadedBank() && patch == sysxIO->getLoadedPatch())
 		{ */
 			requestPatch(bank, patch);
@@ -496,8 +496,8 @@ void bankTreeList::requestPatch(int bank, int patch)
  *********************************************************************/
 void bankTreeList::updatePatch(QString replyMsg)
 {
-	emit setStatusSymbol(1);
-	emit setStatusMessage(tr("Ready"));
+	//emit setStatusSymbol(1);
+	//emit setStatusMessage(tr("Ready"));
 
 	SysxIO *sysxIO = SysxIO::Instance();
 
@@ -520,44 +520,38 @@ void bankTreeList::updatePatch(QString replyMsg)
 		emit updateSignal();
 		emit setStatusProgress(0);
 
-	
 		QList<QString> nameArray = sysxIO->getFileSource("0B", "00");
 
-	//MidiTable *midiTable = MidiTable::Instance();
+	MidiTable *midiTable = MidiTable::Instance();
 	QString name;
 	for(int i=sysxDataOffset;i<nameArray.size() - 2;i++ )
 		{
-		//name.append( midiTable->getMidiMap("Structure", "0B", "00", "00", nameArray.at(i)).name );
+		name.append( midiTable->getMidiMap("Structure", "0B", "00", "00", nameArray.at(i)).name );
 
 		QString hexStr = nameArray.at(i);
 		if(hexStr == "7E")
 		{
 			name.append((QChar)(0x2192));
 		}
-		else if (hexStr == "7F")
+		if (hexStr == "7F")
 		{
 			name.append((QChar)(0x2190));
 		}
-		else
-	{
-		bool ok;
-		name.append( (char)(hexStr.toInt(&ok, 16)) );
-	 };
-		//int patch = sysxIO->getLoadedPatch();
-		this->listIndex = 0;
-			this->itemIndex = 0;
-		this->currentPatchTreeItems.at(listIndex)->child(itemIndex)->setText(0,name); // Set the patch name of the item in the tree list.
-         // if(itemIndex >= patchPerBank - 1) // If we reach the last patch in this bank we need to increment the bank and restart at patch 1.
-			//{
-				//this->listIndex++;
-				//this->itemIndex = 0;
-			//}
-			//else 
-			//{ 
-			//	this->itemIndex++;
-			//};
-		};
-	//};	
+
+		//this->listIndex = 0;
+		//this->itemIndex = 0;
+		//this->currentPatchTreeItems.at(listIndex)->child(itemIndex)->setText(0,name); // Set the patch name of the item in the tree list.
+		/* if(itemIndex >= patchPerBank - 1) // If we reach the last patch in this bank we need to increment the bank and restart at patch 1.
+			{
+				this->listIndex++;
+				this->itemIndex = 0;
+			}
+			else 
+			{ 
+				this->itemIndex++;
+			};*/
+		//};
+	};	
 
 
 
@@ -574,7 +568,7 @@ void bankTreeList::updatePatch(QString replyMsg)
 	msgBox->setTextFormat(Qt::RichText);
 	QString msgText;
 	msgText.append("<font size='+1'><b>");
-	msgText.append(QObject::tr("Patch data transfer in-complete!"));
+	msgText.append(QObject::tr("Patch data transfer wrong size"));
 	msgText.append("<b></font><br>");
 	msgText.append(QObject::tr("Please make sure the GT-6B is connected correctly and re-try."));
 	msgBox->setText(msgText);
@@ -668,13 +662,13 @@ void bankTreeList::updatePatchNames(QString name)
 {
 			
 	SysxIO *sysxIO = SysxIO::Instance();
-	/*QList<QString> nameArray = sysxIO->getFileSource("0B", "00");
+	QList<QString> nameArray = sysxIO->getFileSource("0B", "00");
 
-	//MidiTable *midiTable = MidiTable::Instance();
+	MidiTable *midiTable = MidiTable::Instance();
 	//QString name;
 	for(int i=sysxDataOffset;i<nameArray.size() - 2;i++ )
 		{
-		//name.append( midiTable->getMidiMap("Structure", "0B", "00", "00", nameArray.at(i)).name );
+		name.append( midiTable->getMidiMap("Structure", "0B", "00", "00", nameArray.at(i)).name );
 
 		QString hexStr = nameArray.at(i);
 		if(hexStr == "7E")
@@ -688,12 +682,12 @@ void bankTreeList::updatePatchNames(QString name)
 		else
 	{
 		bool ok;
-		name.append( (char)(hexStr.toInt(&ok, 16)) );
+		//name.append( (char)(hexStr.toInt(&ok, 16)) );
 	 };
-  };
-		if(name != "") // cjw !=  If not empty we can asume that we did receive a patch name.
-		{
-			this->currentPatchTreeItems.at(listIndex)->child(itemIndex)->setText(0, name); // Set the patch name of the item in the tree list.
+  };  
+		//if(name != "") // cjw !=  If not empty we can asume that we did receive a patch name.
+		//{
+			//this->currentPatchTreeItems.at(listIndex)->child(itemIndex)->setText(0, name); // Set the patch name of the item in the tree list.
 			if(itemIndex >= patchPerBank - 1) // If we reach the last patch in this bank we need to increment the bank and restart at patch 1.
 			{
 				this->listIndex++;
@@ -703,7 +697,7 @@ void bankTreeList::updatePatchNames(QString name)
 			{ 
 				this->itemIndex++;
 			};
-		};
+		//};
 
 		if(listIndex < currentPatchTreeItems.size()) // As long as we have items in the list we continue, duh! :)
 		{		
@@ -713,22 +707,22 @@ void bankTreeList::updatePatchNames(QString name)
 
 			sysxIO->requestPatchName(bank, patch); // The patch name request.
 	SysxIO *sysxIO = SysxIO::Instance();
-	if(sysxIO->isConnected())
-	{
-		emit setStatusSymbol(3);
-		emit setStatusMessage(tr("Receiving names"));
-	}
+	//if(sysxIO->isConnected())
+	//{
+		//emit setStatusSymbol(3);
+		//emit setStatusMessage(tr("Receiving names"));
+	//}
 		//else  //cjw
-		{          */
+		//{         
 			sysxIO->setDeviceReady(true);
 
 			//this->currentPatchTreeItems.clear(); // We are done so we can safely reset items that need to be named.
-			this->listIndex = 0;
-			this->itemIndex = 0;
+			//this->listIndex = 0;
+			//this->itemIndex = 0;
 
-			emit setStatusSymbol(1);
-			emit setStatusMessage(tr("Ready"));
-			emit setStatusProgress(0);
-		};
-	//};
-//};
+			//emit setStatusSymbol(1);
+			//emit setStatusMessage(tr("Ready"));
+			//emit setStatusProgress(0);
+		//};
+	};
+};

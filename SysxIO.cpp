@@ -211,7 +211,7 @@ void SysxIO::setFileSource(QString hex1, QString hex2, QString hex3, QString hex
 
 		emit setStatusSymbol(2);
 		//emit setStatusProgress(0);
-		emit setStatusMessage("Sending Real-time");
+		emit setStatusMessage("Sending");
 
 		QObject::connect(this, SIGNAL(sysxReply(QString)),	
 			this, SLOT(resetDevice(QString)));
@@ -389,9 +389,9 @@ void SysxIO::resetDevice(QString replyMsg)
 
 		this->setDeviceReady(true);	// Free the device after finishing interaction.
 
-		emit setStatusSymbol(1);
-		emit setStatusMessage("Ready");
-		emit setStatusProgress(0);
+		//emit setStatusSymbol(1);
+		//emit setStatusMessage("Ready");
+		//emit setStatusProgress(0);
 	}
 	else
 	{
@@ -655,9 +655,11 @@ QString SysxIO::getPatchChangeMsg(int bank, int patch)
 	if (programChange.length() < 2) programChange.prepend("0");
 
 	QString midiMsg;
-	//midiMsg.append("0x00"+bankMsb+"00B0");			// MSB		
-	//midiMsg.append("0x000010B0");					// LSB -> not used!
+	
+	//midiMsg.append("B0");	
+	//midiMsg.append("10");// LSB -> not used!
 	midiMsg.append("C0"+programChange);	// Program Controle
+	//midiMsg.append("B0"+bankMsb);			// MSB		
 
 	return midiMsg;
 };
@@ -685,9 +687,9 @@ void SysxIO::sendMidi(QString midiMsg)
 void SysxIO::finishedSending()
 {
 	emit isFinished();
-	emit setStatusSymbol(1);
-	emit setStatusProgress(0);
-	emit setStatusMessage(tr("Ready"));
+	//emit setStatusSymbol(1);
+	//emit setStatusProgress(0);
+	//emit setStatusMessage(tr("Ready"));
 
 	this->namePatchChange(); 
 };
@@ -741,8 +743,8 @@ void SysxIO::checkPatchChange(QString name)
 		emit isChanged();
 		this->changeCount = 0;
 		    this->setDeviceReady(true); // some extras added 4 lines
-			emit setStatusSymbol(1);
-			emit setStatusMessage(tr("Ready"));	
+			//emit setStatusSymbol(1);
+			//emit setStatusMessage(tr("Ready"));	
 			emit setStatusProgress(0);
 	}
 /*	else
@@ -809,7 +811,7 @@ void SysxIO::sendSysx(QString sysxMsg)
 void SysxIO::receiveSysx(QString sysxMsg)
 {
 	emit sysxReply(sysxMsg);
-		 /*DEBUGGING OUTPUT */
+		 /*DEBUGGING OUTPUT 
 	if (sysxMsg > 0){
 			QString snork;
 			for(int i=0;i<sysxMsg.size();++i)
@@ -825,7 +827,7 @@ void SysxIO::receiveSysx(QString sysxMsg)
 			snork.append("}");	
 			snork.append("\n{sysxoutmsg byte 12 value =");
 			//snork.append(QString::number(sysxOutMsg.mid(12, 2), 10));
-			snork.append("}");	
+			//snork.append("}");	
 
 			QMessageBox *msgBox = new QMessageBox();
 			msgBox->setWindowTitle("dBug Result");
@@ -833,7 +835,8 @@ void SysxIO::receiveSysx(QString sysxMsg)
 			msgBox->setText(snork);
 			msgBox->setStandardButtons(QMessageBox::Ok);
 			msgBox->exec();
-	}
+	};*/
+			
 };
 
 /***************************** requestPatchName() ***************************

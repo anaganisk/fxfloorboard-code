@@ -177,7 +177,7 @@ int main(int argc, char *argv[])
 
 	/* PREVIEW WARNING */
 	QMessageBox *msgBox = new QMessageBox();
-	msgBox->setWindowTitle(QObject::tr("Warning this is a preview!   Build version 20070806"));
+	msgBox->setWindowTitle(QObject::tr("Warning this is a preview!   Build version 20070918"));
 	msgBox->setIcon(QMessageBox::Warning);
 	msgBox->setTextFormat(Qt::RichText);
 	QString msgText;

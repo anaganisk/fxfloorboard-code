@@ -591,11 +591,11 @@ QString MidiTable::nameRequest(int bank, int patch)
 	}
 	else
 	{
-		addr1 = "0A";  // temp write buffer
+		addr1 = "0B";  // temp write buffer
 		addr2 = "00";
 	};
 
-	QString hex1 = "00";    // patch names memory location
+	QString hex1 = "0B";    // patch names memory location
 	QString hex2 = "00";
 
 	QString sysxMsg;

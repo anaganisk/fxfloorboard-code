@@ -71,6 +71,8 @@ private:
 	QTreeWidget* treeList;
 	int itemIndex;
 	int listIndex;
+	int patchpointer;
+	int bankpointer;
 };
 
 #endif // BANKTREELIST_H

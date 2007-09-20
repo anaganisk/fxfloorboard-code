@@ -25,8 +25,19 @@
 #include "Preferences.h"
 #include "MidiTable.h"
 #include "SysxIO.h"
+#include "midiIO.h"
 #include "renameWidget.h"
 #include "globalVariables.h"
+
+// Platform-dependent sleep routines.
+#ifdef Q_OS_WIN
+  #include <windows.h>
+  #define SLEEP( milliseconds ) Sleep( (DWORD) milliseconds ) 
+#else // Unix variants
+  #include <unistd.h>
+  #define SLEEP( milliseconds ) usleep( (unsigned long) (milliseconds * 1000.0) )
+#endif
+
 
 floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
     : QWidget(parent)
@@ -58,7 +69,7 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
 
  	this->connectButton = new customButton(tr("Bulk Mode"), false, QPoint(405, 5), this, ":/images/greenledbutton.png");
 	this->writeButton = new customButton(tr("Write/Sync"), false, QPoint(494, 5), this, ":/images/ledbutton.png");
-	this->manualButton = new customButton(tr("dBug"), false, QPoint(583, 5), this, ":/images/ledbutton.png");
+	//this->manualButton = new customButton(tr("dBug"), false, QPoint(583, 5), this, ":/images/ledbutton.png");
 	//this->assignButton = new customButton(tr("Assign"), false, QPoint(583, 24), this, ":/images/pushbutton.png");
 	//this->masterButton = new customButton(tr("Master"), false, QPoint(672, 5), this, ":/images/pushbutton.png");
 	//this->systemButton = new customButton(tr("System"), false, QPoint(672, 24), this, ":/images/pushbutton.png");
@@ -75,6 +86,7 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
 
 	QObject::connect(this->connectButton, SIGNAL(valueChanged(bool)), this, SLOT(connectSignal(bool)));
 	QObject::connect(this->writeButton, SIGNAL(valueChanged(bool)), this, SLOT(writeSignal(bool)));
+	//QObject::connect(this->manualButton, SIGNAL(valueChanged(bool)), this, SLOT(dBugSignal(bool)));
   };
 
 QPoint floorBoardDisplay::getPos()
@@ -306,9 +318,9 @@ void floorBoardDisplay::connectionResult(QString sysxMsg)
 			sysxIO->setConnected(true);
 			emit connectedSignal();
 
-			emit setStatusSymbol(1);
-			emit setStatusMessage(tr("Ready"));
-			emit setStatusProgress(0);
+			//emit setStatusSymbol(1);
+			//emit setStatusMessage(tr("Ready"));
+			//emit setStatusProgress(0);
 
 			if(sysxIO->getBank() != 0)
 			{
@@ -326,7 +338,7 @@ void floorBoardDisplay::connectionResult(QString sysxMsg)
 			emit setStatusProgress(0);
 			emit setStatusMessage(tr("Not connected"));*/
 			
-      notConnected();
+			notConnected();
 
 			QMessageBox *msgBox = new QMessageBox();
 			msgBox->setWindowTitle(tr("GT-6B Fx FloorBoard connection Error !!"));
@@ -523,9 +535,10 @@ void floorBoardDisplay::writeToBuffer()
 	QList< QList<QString> > patchData = sysxIO->getFileSource().hex; // Get the loaded patch data.
 	QList<QString> patchAddress = sysxIO->getFileSource().address;
 
-	emit setStatusSymbol(2);
+		emit setStatusSymbol(2);
 	//emit setStatusProgress(0);
 	emit setStatusMessage(tr("Sending Update"));
+		
 
 	int bank = sysxIO->getBank();
 	int patch = sysxIO->getPatch();
@@ -563,10 +576,20 @@ void floorBoardDisplay::writeToBuffer()
 	QObject::connect(sysxIO, SIGNAL(sysxReply(QString)),	// Connect the result signal 
 		this, SLOT(resetDevice(QString)));					// to a slot that will reset the device after sending.
 	sysxIO->sendSysx(sysxMsg);	// Send the data.
-	
-	emit setStatusSymbol(1);
-	emit setStatusProgress(0);
-	emit setStatusMessage(tr("Ready"));
+		
+		emit setStatusProgress(33); // time wasting sinusidal statusbar progress
+		SLEEP(30);
+		emit setStatusProgress(66);
+		SLEEP(60);		
+		emit setStatusProgress(100);
+		SLEEP(100);		
+		emit setStatusProgress(75);
+		SLEEP(100);		
+		emit setStatusProgress(42);
+		SLEEP(150);
+	//emit setStatusSymbol(1);
+	//emit setStatusProgress(0);
+	//emit setStatusMessage(tr("Ready"));
 	sysxIO->setDeviceReady(true);
 };
 
