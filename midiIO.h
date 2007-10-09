@@ -22,9 +22,6 @@
 
 #ifndef MIDIIO_H
 #define MIDIIO_H
-//#include "RtMidi.h"
-//#include <windows.h> // Needed to acces midi and linking against winmm.lib is also needed!!!
-//#include <mmsystem.h>
 #include <vector>
 #include <QThread>
 #include <QString>
@@ -40,9 +37,10 @@ public:
 	void run();
 	void sendSysxMsg(QString sysxOutMsg, int midiOutport, int midiInPort);
 	void sendMidi(QString midiMsg, int midiOutport);
+	void callbackMsg(QString rxData);
 	QList<QString> getMidiOutDevices();
 	QList<QString> getMidiInDevices();
-
+		
 signals:
 	void errorSignal(QString windowTitle, QString errorMsg);
 	void replyMsg(QString sysxInMsg);
@@ -50,42 +48,30 @@ signals:
 	void started();
 	void finished();
 	void terminated();
-
 	void setStatusSymbol(int value);
 	void setStatusProgress(int value);
     void setStatusMessage(QString message);
-
+		
 private:
 	void queryMidiInDevices();
 	void queryMidiOutDevices();
-
-	QString getMidiOutErrorMsg(unsigned long err);
-	QString getMidiInErrorMsg(unsigned long err);
-
 	void showErrorMsg(QString errorMsg, QString type);
 	void sendMsg(QString sysxOutMsg, int midiOutport);
 	void receiveMsg(QString sysxMsg, int midiInPort);
-
+	QString getMidiOutErrorMsg(unsigned long err);
+	QString getMidiInErrorMsg(unsigned long err);	
 	QList<QString> midiOutDevices;
 	QList<QString> midiInDevices;
-
-	static void emitProgress(int bytesReceived);
-	void midiIO::progressFlash();
-
+	
+	static void emitProgress(int bytesReceived);	
 	static QString sysxBuffer;
 	static bool dataReceive;
-	static unsigned char SysXFlag;
-	static int count;
-	static unsigned char SysXBuffer[256];
 	static int bytesTotal;
-
-	bool multiple;
+	static bool multiple;
 	int midiOutPort;
 	int midiInPort;
 	QString sysxOutMsg;
 	QString sysxInMsg;
-	QString tmp;
-
 	QString midiMsg;
 	bool midi;
 };

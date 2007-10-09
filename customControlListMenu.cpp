@@ -31,7 +31,15 @@ customControlListMenu::customControlListMenu(QWidget *parent,
 {
 	this->label = new customControlLabel(this);
 	this->controlListComboBox = new customComboBox(this);
+#ifdef Q_WS_MAC
+	{
+	this->controlListComboBox->setObjectName("standardcombo");
+	}
+#else
+	{
 	this->controlListComboBox->setObjectName("smallcombo");
+	};
+#endif
 	this->hex1 = hex1;
 	this->hex2 = hex2;
 	this->hex3 = hex3;
@@ -88,7 +96,7 @@ customControlListMenu::customControlListMenu(QWidget *parent,
 
 void customControlListMenu::paintEvent(QPaintEvent *)
 {
-	/*DRAWS RED BACKGROUND FOR DEBUGGING PURPOSE */
+	/*DRAWS RED BACKGROUND FOR DeBugGING PURPOSE */
 	/*QPixmap image(":images/dragbar.png");
 	
 	QRectF target(0.0, 0.0, this->width(), this->height());

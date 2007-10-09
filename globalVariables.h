@@ -50,11 +50,11 @@ const int bankTotalAll = 30;		// Number of total banks.
 const int patchPerBank = 4;			// Number of patches in a bank.
 
 /* Midi Send & Receive */
-const int receiveTimeout = 25;		// Time (ms) we wait between SYSEX messages for the next one to be received.
-//const int receiveTimeout = 5; // not used ****Time (ms) we wait for received patch to arrive after a request.
-const int maxWait = 40;				// Maximum times we loop through the receive handle before we give up waiting.(for whole patch)
-const int minWait = 4;				// Minimum times we loop through the receive handle before we give up waiting.(for small data)
-const int maxRetry = 2;			// Maximum times we retry to load a patch in case of a transfer error .
+const int patchPackets = 23;		// number of sysx packets "F0....F7" which make up a patch.
+const int patchSize = 684;          // size of bytes in a patch.
+//const int maxWait = 40;			// Maximum times we loop through the receive handle before we give up waiting.(for whole patch)
+//const int minWait = 5;			// Minimum times we loop through the receive handle before we give up waiting.(for small data)
+const int maxRetry = 2;				// Maximum times we retry to load a patch in case of a transfer error .
 
 /* Patch Sellection (Used when copying patches) */
 const int sellectionBlinks = 5;				// Times we blink to indicate we have sellected a patch before returning.

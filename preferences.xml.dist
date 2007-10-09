@@ -12,6 +12,9 @@
 	<Midi>
 		<MidiIn device=""/>
 		<MidiOut device=""/>
+		<DBug bool="true"/>
+		<Time set="40"/>
+		<Delay set="25"/>
 	</Midi>
 	<Window>
     <Collapsed bool="false" defaultwidth="975" width=""/>

@@ -309,7 +309,27 @@ void floorBoardDisplay::connectionResult(QString sysxMsg)
 
 	sysxIO->setDeviceReady(true); // Free the device after finishing interaction.
 
-	if(sysxIO->noError())
+		 /*DeBugGING OUTPUT */
+	Preferences *preferences = Preferences::Instance(); // Load the preferences.
+	if(preferences->getPreferences("Midi", "DBug", "bool")=="true")
+	{
+			this->connectButton->setBlink(false);
+			this->connectButton->setValue(true);
+			sysxIO->setConnected(true);
+			emit connectedSignal();
+
+			//emit setStatusSymbol(1);
+			//emit setStatusMessage(tr("Ready"));
+			//emit setStatusProgress(0);
+
+			if(sysxIO->getBank() != 0)
+			{
+				this->writeButton->setBlink(true);
+				this->writeButton->setValue(false);
+			};
+	}
+
+	else if(sysxIO->noError())
 	{
 		if(sysxMsg.contains(idReplyPatern) && connectButtonActive == true)
 		{
@@ -495,7 +515,7 @@ void floorBoardDisplay::writeSignal(bool)
 				};
 			};
 
-			 /*DEBUGGING OUTPUT 
+			 /*DeBugGING OUTPUT 
 			QString snork;
 			for(int i=0;i<sysxOut.size();++i)
 			{

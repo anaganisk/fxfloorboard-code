@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT6B Fx FloorBoard".
+** This file is part of "GT-8 Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -20,32 +20,20 @@
 **
 ****************************************************************************/
 
-#ifndef STATUSBARWIDGET_H
-#define STATUSBARWIDGET_H
+#ifndef CUSTOMCOMBOBOX_H
+#define CUSTOMCOMBOBOX_H
 
-#include <QWidget>
-#include <QLabel>
-#include <QProgressBar>
-#include "statusBarSymbol.h"
+#include <QApplication>
+#include <QComboBox>
+#include <QAbstractItemView>
 
-class statusBarWidget : public QWidget
+class customComboBox : public QComboBox
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    statusBarWidget(QWidget *parent = 0);
-
-public slots:
-	void setStatusMessage(QString message);
-	void setStatusdBugMessage(QString dBug);
-	void setStatusProgress(int value);
-	void setStatusSymbol(int value);
-
-private:
-	QProgressBar *progressBar;
-	statusBarSymbol *symbol;
-	QLabel *label;
-	QLabel *dBuglabel;
+	customComboBox(QWidget *parent = 0);
+	void showPopup();
 };
 
-#endif // STATUSBARWIDGET_H
+#endif // CUSTOMCOMBOBOX_H

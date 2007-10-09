@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT6B Fx FloorBoard".
+** This file is part of "GT-8 Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -20,32 +20,40 @@
 **
 ****************************************************************************/
 
-#ifndef STATUSBARWIDGET_H
-#define STATUSBARWIDGET_H
+#ifndef CUSTOMKNOB_H
+#define CUSTOMKNOB_H
 
 #include <QWidget>
-#include <QLabel>
-#include <QProgressBar>
-#include "statusBarSymbol.h"
+#include <QtGui>
+#include "customDial.h"
 
-class statusBarWidget : public QWidget
+class customKnob : public QWidget
 {
     Q_OBJECT
 
 public:
-    statusBarWidget(QWidget *parent = 0);
+    customKnob(QWidget *parent = 0, 
+		QString hex1 = "void",
+		QString hex2 = "void",
+		QString hex3 = "void",
+		QString background = "normal");
+	void setValue(int value);
 
 public slots:
-	void setStatusMessage(QString message);
-	void setStatusdBugMessage(QString dBug);
-	void setStatusProgress(int value);
-	void setStatusSymbol(int value);
+	void valueChanged(int, QString, QString, QString);
+
+signals:
+	void updateSignal();
+	void updateDisplay(QString text);
+
+protected:
+	void paintEvent(QPaintEvent *event);
 
 private:
-	QProgressBar *progressBar;
-	statusBarSymbol *symbol;
-	QLabel *label;
-	QLabel *dBuglabel;
+	customDial* knob;
+	QString hex1;
+	QString hex2;
+	QString hex3;
 };
 
-#endif // STATUSBARWIDGET_H
+#endif // CUSTOMKNOB_H

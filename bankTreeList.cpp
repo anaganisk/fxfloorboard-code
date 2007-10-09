@@ -577,7 +577,7 @@ void bankTreeList::updatePatch(QString replyMsg)
 	/* END WARNING */
 	};
 
-	 /*DEBUGGING OUTPUT 
+	 /*DeBugGING OUTPUT 
 	QString snork;
 	for(int i=0;i<replyMsg.size();++i)
 	{

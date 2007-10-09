@@ -91,6 +91,7 @@ public:
 	void emitStatusSymbol(int value);
 	void emitStatusProgress(int value);
     void emitStatusMessage(QString message);
+	void emitStatusdBugMessage(QString dBug);
 
 public slots:
 	void errorSignal(QString windowTitle, QString errorMsg);
@@ -112,6 +113,7 @@ signals:
 	void setStatusSymbol(int value);
 	void setStatusProgress(int value);
     void setStatusMessage(QString message);
+	void setStatusdBugMessage(QString dBug);
 
 	void patchChangeFailed();
 

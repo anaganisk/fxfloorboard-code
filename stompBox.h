@@ -48,9 +48,13 @@ public:
 	void setImage(QString imagePath);
 	void setSize(QSize newSize);
 	void setId(unsigned int id);
-
+#ifdef Q_OS_MAC
+	void setComboBox(QString hex1, QString hex2, QString hex3, 
+		QRect geometry = QRect::QRect(5, 75, 88, 20));
+#else
 	void setComboBox(QString hex1, QString hex2, QString hex3, 
 		QRect geometry = QRect::QRect(7, 79, 80, 13));
+#endif
 	void setKnob1(QString hex1, QString hex2, QString hex3);
 	void setKnob2(QString hex1, QString hex2, QString hex3);
 	void setSlider1(QString hex1, QString hex2, QString hex3);

@@ -654,13 +654,10 @@ QString SysxIO::getPatchChangeMsg(int bank, int patch)
 	if (bankMsb.length() < 2) bankMsb.prepend("0");
 	if (programChange.length() < 2) programChange.prepend("0");
 
-	QString midiMsg;
-	
-	//midiMsg.append("B0");	
-	//midiMsg.append("10");// LSB -> not used!
-	midiMsg.append("C0"+programChange);	// Program Controle
-	//midiMsg.append("B0"+bankMsb);			// MSB		
-
+	QString midiMsg = "";
+	//midiMsg.append("B0"+bankMsb+"00");	    // MSB 
+	//midiMsg.append("B01000");				// LSB ->control change -> not used!
+	midiMsg.append("C0"+programChange+"00"); // Program patch Control
 	return midiMsg;
 };
 
@@ -677,6 +674,14 @@ void SysxIO::sendMidi(QString midiMsg)
 		midiIO *midi = new midiIO();
 
 		midi->sendMidi(midiMsg, midiOutPort);
+
+			 /*DeBugGING OUTPUT */
+	if(preferences->getPreferences("Midi", "DBug", "bool")=="true")
+	{
+		QString dBug =("      ");
+		dBug.append(midiMsg);
+		emit setStatusdBugMessage(dBug);
+	}
 		
 	};
 };
@@ -803,6 +808,15 @@ void SysxIO::sendSysx(QString sysxMsg)
 	midiIO *midi = new midiIO();
 
 	midi->sendSysxMsg(sysxMsg, midiOutPort, midiInPort);
+	
+		 /*DeBugGING OUTPUT */
+	if(preferences->getPreferences("Midi", "DBug", "bool")=="true")
+	{
+		QString dBug =("      ");
+		dBug.append(sysxMsg);
+		emit setStatusdBugMessage(dBug);
+	}
+
 };
 
 /***************************** receiveSysx() *******************************
@@ -811,7 +825,10 @@ void SysxIO::sendSysx(QString sysxMsg)
 void SysxIO::receiveSysx(QString sysxMsg)
 {
 	emit sysxReply(sysxMsg);
-		 /*DEBUGGING OUTPUT 
+		 /*DeBugGING OUTPUT */
+	Preferences *preferences = Preferences::Instance(); // Load the preferences.
+	if(preferences->getPreferences("Midi", "DBug", "bool")=="true")
+	{
 	if (sysxMsg > 0){
 			QString snork;
 			for(int i=0;i<sysxMsg.size();++i)
@@ -825,7 +842,7 @@ void SysxIO::receiveSysx(QString sysxMsg)
 			snork.append("\n{ size=");
 			snork.append(QString::number(sysxMsg.size()/2, 10));
 			snork.append("}");	
-			snork.append("\n{sysxoutmsg byte 12 value =");
+			snork.append("\n midi data received");
 			//snork.append(QString::number(sysxOutMsg.mid(12, 2), 10));
 			//snork.append("}");	
 
@@ -835,8 +852,8 @@ void SysxIO::receiveSysx(QString sysxMsg)
 			msgBox->setText(snork);
 			msgBox->setStandardButtons(QMessageBox::Ok);
 			msgBox->exec();
-	};*/
-			
+		};
+	};			
 };
 
 /***************************** requestPatchName() ***************************
@@ -984,4 +1001,9 @@ void SysxIO::emitStatusProgress(int value)
 void SysxIO::emitStatusMessage(QString message)
 {
 	emit setStatusMessage(message);
+};
+
+void SysxIO::emitStatusdBugMessage(QString dBug)
+{
+	emit setStatusdBugMessage(dBug);
 };

@@ -54,6 +54,14 @@ QTreeWidget#banklist::branch:has-children:open {
 image: url(":/images/collapse.png") 1;
 }
 
+/* CUSTOM STANDARD OS QCOMBOBOX STYLE */
+
+QComboBox#standardcombo {
+font-family: Arial;
+font-size: 10px;
+font-weight: bold;
+}
+
 /* CUSTOM QCOMBOBOX STYLE */
 
 QComboBox#smallcombo {

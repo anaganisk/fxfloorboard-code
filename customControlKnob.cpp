@@ -110,7 +110,7 @@ customControlKnob::customControlKnob(QWidget *parent,
 
 void customControlKnob::paintEvent(QPaintEvent *)
 {
-	/*DRAWS RED BACKGROUND FOR DEBUGGING PURPOSE */
+	/*DRAWS RED BACKGROUND FOR DeBugGING PURPOSE */
 	/*QPixmap image(":images/dragbar.png");
 	
 	QRectF target(0.0, 0.0, this->width(), this->height());

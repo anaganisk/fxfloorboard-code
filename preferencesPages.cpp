@@ -71,6 +71,10 @@ MidiPage::MidiPage(QWidget *parent)
 	Preferences *preferences = Preferences::Instance();
 	QString midiInDevice = preferences->getPreferences("Midi", "MidiIn", "device");
 	QString midiOutDevice = preferences->getPreferences("Midi", "MidiOut", "device");
+	QString dBugScreen = preferences->getPreferences("Midi", "DBug", "bool");
+	QString midiTimeSet = preferences->getPreferences("Midi", "Time", "set");
+	QString midiDelaySet = preferences->getPreferences("Midi", "Delay", "set");
+
 	int midiInDeviceID = midiInDevice.toInt(&ok, 10);
 	int midiOutDeviceID = midiOutDevice.toInt(&ok, 10);
 	QList<QString> midiInDevices = midi->getMidiInDevices();
@@ -78,7 +82,7 @@ MidiPage::MidiPage(QWidget *parent)
 	
 	QGroupBox *midiGroup = new QGroupBox(tr("Midi settings"));
 
-	QLabel *descriptionLabel = new QLabel(tr("Select your midi in and out device."));
+	QLabel *mididescriptionLabel = new QLabel(tr("Select your midi in and out device."));
 	QLabel *midiInLabel = new QLabel(tr("Midi in:"));
 	QLabel *midiOutLabel = new QLabel(tr("Midi out:"));
 
@@ -125,7 +129,7 @@ MidiPage::MidiPage(QWidget *parent)
 	midiSelectLayout->addLayout(midiComboLayout);
 	
 	QVBoxLayout *midiDevLayout = new QVBoxLayout;
-	midiDevLayout->addWidget(descriptionLabel);
+	midiDevLayout->addWidget(mididescriptionLabel);
 	midiDevLayout->addSpacing(12);
 	midiDevLayout->addLayout(midiSelectLayout);
 
@@ -133,8 +137,64 @@ MidiPage::MidiPage(QWidget *parent)
 	midiLayout->addLayout(midiDevLayout);
 	midiGroup->setLayout(midiLayout);
 
+
+
+	QGroupBox *dBugScreenGroup = new QGroupBox(tr("dBug mode"));
+
+	QLabel *dBugDescriptionLabel = new QLabel(tr("Debug mode & Timing settings."));
+	QLabel *midiTimeDescriptionLabel = new QLabel(tr("patch receive time."));
+	QLabel *midiDelayDescriptionLabel = new QLabel(tr("short data receive time."));
+
+	QCheckBox *dBugCheckBox = new QCheckBox(tr("deBug Mode"));
+	QSpinBox *midiTimeSpinBox = new QSpinBox;
+	QSpinBox *midiDelaySpinBox = new QSpinBox;
+
+	this->dBugCheckBox = dBugCheckBox;
+	if(dBugScreen=="true")
+	{
+		dBugCheckBox->setChecked(true);
+	};
+	
+	this->midiTimeSpinBox = midiTimeSpinBox;
+	const int maxWait = preferences->getPreferences("Midi", "Time", "set").toInt(&ok, 10);
+	midiTimeSpinBox->setValue(maxWait);
+	midiTimeSpinBox->setRange(5, 100);
+	midiTimeSpinBox->setPrefix("= 40 x ");
+	midiTimeSpinBox->setSuffix(" ms");
+
+	this->midiDelaySpinBox = midiDelaySpinBox;
+	const int minWait = preferences->getPreferences("Midi", "Delay", "set").toInt(&ok, 10);
+	midiDelaySpinBox->setValue(minWait);
+	midiDelaySpinBox->setRange(1, 100);
+	midiDelaySpinBox->setPrefix("= 5 x ");
+	midiDelaySpinBox->setSuffix(" ms");
+
+
+	QVBoxLayout *dBugLabelLayout = new QVBoxLayout;
+	dBugLabelLayout->addWidget(dBugDescriptionLabel);
+	dBugLabelLayout->addWidget(midiTimeDescriptionLabel);
+	dBugLabelLayout->addWidget(midiDelayDescriptionLabel);
+
+	QVBoxLayout *dBugTimeBoxLayout = new QVBoxLayout;
+	dBugTimeBoxLayout->addWidget(dBugCheckBox);
+	dBugTimeBoxLayout->addWidget(midiTimeSpinBox);
+	dBugTimeBoxLayout->addWidget(midiDelaySpinBox);
+
+	QHBoxLayout *dBugSelectLayout = new QHBoxLayout;
+	dBugSelectLayout->addLayout(dBugLabelLayout);
+	dBugSelectLayout->addLayout(dBugTimeBoxLayout);
+
+	QVBoxLayout *dBugScreenLayout = new QVBoxLayout;
+	dBugScreenLayout->addWidget(dBugDescriptionLabel);
+	//dBugScreenLayout->addSpacing(12);
+	dBugScreenLayout->addLayout(dBugSelectLayout);
+
+	dBugScreenGroup->setLayout(dBugScreenLayout);
+
+	
 	QVBoxLayout *mainLayout = new QVBoxLayout;
 	mainLayout->addWidget(midiGroup);
+	mainLayout->addWidget(dBugScreenGroup);
 	mainLayout->addStretch(1);
 	setLayout(mainLayout);
 };
@@ -194,9 +254,12 @@ WindowPage::WindowPage(QWidget *parent)
 	splashScreenLayout->addLayout(splashLayout);
 	splashScreenGroup->setLayout(splashScreenLayout);
 
+	
+
 	QVBoxLayout *mainLayout = new QVBoxLayout;
 	mainLayout->addWidget(windowGroup);
 	mainLayout->addWidget(splashScreenGroup);
+	
 	mainLayout->addStretch(1);
 	setLayout(mainLayout);
 };

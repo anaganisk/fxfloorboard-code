@@ -24,8 +24,8 @@ void RtMidi :: error( RtError::Type type )
   if (type == RtError::WARNING) {
     std::cerr << '\n' << errorString_ << "\n\n";
   }
-  else if (type == RtError::DEBUG_WARNING) {
-#if defined(__RTMIDI_DEBUG__)
+  else if (type == RtError::DeBug_WARNING) {
+#if defined(__RTMIDI_DeBug__)
     std::cerr << '\n' << errorString_ << "\n\n";
 #endif
   }
@@ -553,7 +553,7 @@ void RtMidiOut :: sendMessage( std::vector<unsigned char> *message )
       errorString_ = "RtMidiOut::sendMessage: message size is greater than 3 bytes (and not sysex)!";
       error( RtError::WARNING );
       return;
-    }
+    } 
 
     // Pack MIDI bytes into double word.
     DWORD packet;

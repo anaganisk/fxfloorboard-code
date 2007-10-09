@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT6B Fx FloorBoard".
+** This file is part of "GT-8 Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -20,32 +20,28 @@
 **
 ****************************************************************************/
 
-#ifndef STATUSBARWIDGET_H
-#define STATUSBARWIDGET_H
+#include "customComboBox.h"
 
-#include <QWidget>
-#include <QLabel>
-#include <QProgressBar>
-#include "statusBarSymbol.h"
-
-class statusBarWidget : public QWidget
+customComboBox::customComboBox(QWidget *parent) 
+	: QComboBox(parent)
 {
-    Q_OBJECT
 
-public:
-    statusBarWidget(QWidget *parent = 0);
-
-public slots:
-	void setStatusMessage(QString message);
-	void setStatusdBugMessage(QString dBug);
-	void setStatusProgress(int value);
-	void setStatusSymbol(int value);
-
-private:
-	QProgressBar *progressBar;
-	statusBarSymbol *symbol;
-	QLabel *label;
-	QLabel *dBuglabel;
 };
 
-#endif // STATUSBARWIDGET_H
+void customComboBox::showPopup()
+{
+	QString longestItem = "";
+	for(int i=0;i<this->count();i++)
+	{
+		QString item = this->itemText(i);
+		if(longestItem.size() < item.size()) longestItem = item;
+	};
+	int popupWidth = QFontMetrics( this->font() ).width( longestItem + "--" );
+	this->view()->setMinimumWidth(popupWidth);
+
+	/*if( this->verticalScrollBar()->isVisible() )
+	{
+		this->setMaxVisibleItems(this->maxVisibleItems() - 1);
+	};*/
+	QComboBox::showPopup();
+};

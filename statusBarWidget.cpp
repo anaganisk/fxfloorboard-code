@@ -36,14 +36,21 @@ statusBarWidget::statusBarWidget(QWidget *parent)
 	this->symbol->setValue(0);
 
 	this->label = new QLabel(this);
-	this->label->setFixedWidth(100);
+	this->label->setFixedWidth(80);
 	this->label->setText("");
+
+	this->dBuglabel = new QLabel(this);
+	this->dBuglabel->setFixedWidth(500);
+	this->dBuglabel->setText("");
 
 	QHBoxLayout *widgetLayout = new QHBoxLayout;
 	widgetLayout->setMargin(0);
 	widgetLayout->addWidget(this->progressBar);
 	widgetLayout->addWidget(this->symbol);
 	widgetLayout->addWidget(this->label);
+	widgetLayout->addWidget(this->dBuglabel);
+	
+	
 	widgetLayout->addStretch(0);
 
 	this->setLayout(widgetLayout);
@@ -52,6 +59,11 @@ statusBarWidget::statusBarWidget(QWidget *parent)
 void statusBarWidget::setStatusMessage(QString message)
 {
 	this->label->setText(message);
+};
+
+void statusBarWidget::setStatusdBugMessage(QString dBug)
+{
+	this->dBuglabel->setText(dBug);
 };
 
 void statusBarWidget::setStatusProgress(int value)
@@ -63,3 +75,4 @@ void statusBarWidget::setStatusSymbol(int value)
 {
 	this->symbol->setValue(value);
 };
+

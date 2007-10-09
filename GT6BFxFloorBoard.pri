@@ -63,6 +63,7 @@ HEADERS += ./editPage.h \
     ./stompbox_pre.h \
     ./stompbox_rv.h \
     ./stompbox_wah.h \
+    ./midiIO.h \
     ./MidiTable.h \
     ./MidiTableDestroyer.h \
     ./SysxIO.h \
@@ -74,9 +75,8 @@ HEADERS += ./editPage.h \
     ./PreferencesDestroyer.h \
     ./preferencesDialog.h \
     ./preferencesPages.h \
-    ./customComboBox.h \
-    ./windows/midiIO.h
-
+    ./customComboBox.h 
+  
 #Source files
 SOURCES += ./editPage.cpp \
     ./editWindow.cpp \
@@ -120,6 +120,7 @@ SOURCES += ./editPage.cpp \
     ./stompbox_pre.cpp \
     ./stompbox_rv.cpp \
     ./stompbox_wah.cpp \
+    ./midiIO.cpp \
     ./MidiTable.cpp \
     ./MidiTableDestroyer.cpp \
     ./SysxIO.cpp \
@@ -130,8 +131,7 @@ SOURCES += ./editPage.cpp \
     ./PreferencesDestroyer.cpp \
     ./preferencesDialog.cpp \
     ./preferencesPages.cpp \
-    ./customComboBox.cpp \
-    ./windows/midiIO.cpp
+    ./customComboBox.cpp 
 
 #Resource file(s)
 RESOURCES += GT6BFxFloorBoard.qrc

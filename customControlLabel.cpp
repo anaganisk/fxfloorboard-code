@@ -53,7 +53,7 @@ void customControlLabel::paintEvent(QPaintEvent *)
 		QPainter painter(this);
 		painter.drawPixmap(target, this->image, source);
 	}
-	/*DRAWS RED BACKGROUND FOR DEBUGGING PURPOSE */
+	/*DRAWS RED BACKGROUND FOR DeBugGING PURPOSE */
 	/*else 
 	{
 		QPixmap image(":images/dragbar.png");

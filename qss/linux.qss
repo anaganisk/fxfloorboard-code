@@ -23,7 +23,7 @@
 /* CUSTOM QTREEWIDGET STYLE */
 
 QTreeWidget#banklist {
-font-family: Arial;
+font-family: FreeSans;
 font-size: 10px;
 font-weight: bold;
 color: rgb(0,255,204);
@@ -35,7 +35,7 @@ border-width: 1px;
 border-color: rgb(150,150,150);
 }
 QTreeWidget#banklist QHeaderView::section:only-one {
-font-family: Arial;
+font-family: FreeSans;
 font-size: 11px;
 font-weight: bold;
 color: rgb(0,0,0);
@@ -57,19 +57,15 @@ image: url(":/images/collapse.png") 1;
 /* CUSTOM QCOMBOBOX STYLE */
 
 QComboBox#smallcombo {
-font-family: Arial;
+font-family: FreeSans;
 font-size: 10px;
 font-weight: bold;
-/*font-stretch: 110;*/
 color: rgb(0,255,204);
 background-color: rgb(0,1,62);
-border-style: solid;
-border-width: 1px;
+border: 1px solid gray;
 border-radius: 3px;
-border-color: rgb(150,150,150);
-padding: 0px;
-padding-left: 1px;
-padding-right: 12px;
+padding: 1px 3px 1px 3px;
+min-width: 6em
 }
 QComboBox#smallcombo::drop-down {
 border-style: none;
@@ -79,18 +75,15 @@ image: url(":/images/dropdown.png") 1;
 image-position: center right;
 }
 QComboBox#smallcombo QFrame {
-font-family: Arial;
+font-family: FreeSans;
 font-size: 10px;
 font-weight: bold;
 color: rgb(0,255,204);
 background-color: rgb(0,1,62);
-border-style: solid;
-border-width: 1px;
+border: 1px solid gray;
 border-radius: 3px;
-border-color: rgb(150,150,150);
-padding: 0px;
-padding-left: 1px;
-padding-right: 1px;
+padding: 1px 3px 1px 3px;
+min-width 6em
 }
 
 /* CUSTOM SCROLLBAR STYLE */
@@ -107,7 +100,7 @@ border-width: 1px;
 border-radius: 5px;
 border-color: rgb(0,255,204);
 background: rgb(0,255,204);
-min-height: 40px;
+min-height: 38px;
 max-height: 40px;
 }
 QComboBox#smallcombo QScrollBar::add-line:vertical {
@@ -149,37 +142,37 @@ border-radius: 3px;
 border-color: rgb(150,150,150);
 }
 QLabel#bankMain {
-font-family: Arial;
+font-family: FreeSans;
 font-size: 18px;
 font-weight: bold;
 color: rgb(0,255,204);
 }
 QLabel#bankSub {
-font-family: Arial;
+font-family: FreeSans;
 font-size: 9px;
 font-weight: bold;
 color: rgb(0,255,204);
 }
 QLabel#nameMain {
-font-family: Arial;
+font-family: FreeSans;
 font-size: 14px;
 font-weight: bold;
 color: rgb(0,255,204);
 }
 QLabel#nameSub {
-font-family: Arial;
+font-family: FreeSans;
 font-size: 9px;
 font-weight: bold;
 color: rgb(0,255,204);
 }
 QLabel#valueMain {
-font-family: Arial;
+font-family: FreeSans;
 font-size: 13px;
 font-weight: bold;
 color: rgb(0,255,204);
 }
 QLabel#valueSub {
-font-family: Arial;
+font-family: FreeSans;
 font-size: 9px;
 font-weight: bold;
 color: rgb(0,255,204);
@@ -188,19 +181,19 @@ color: rgb(0,255,204);
 /* CUSTOM LABEL STYLE */
 
 QLabel#display {
-font-family: Arial;
+font-family: FreeSans;
 font-size: 12px;
 font-weight: bold;
 color: rgb(255,255,255);
 }
 QLabel#title {
-font-family: Arial;
+font-family: FreeSans;
 font-size: 16px;
 font-weight: bold;
 color: rgb(255,255,255);
 }
 QLabel#selectlabel {
-font-family: Arial;
+font-family: FreeSans;
 font-size: 10px;
 font-weight: bold;
 color: rgb(255,255,255);
@@ -209,7 +202,7 @@ color: rgb(255,255,255);
 /* CUSTOM BUTTON STYLE */
 
 QLabel#button {
-font-family: Arial;
+font-family: FreeSans;
 font-size: 9px;
 font-weight: bold;
 color: rgb(0,0,0);
@@ -227,7 +220,7 @@ top: -7px;
 left: 5px;
 }
 QGroupBox#groupbox {
-font-family: Arial;
+font-family: FreeSans;
 font-size: 12px;
 font-weight: bold;
 color: rgb(255,255,255);
@@ -237,13 +230,13 @@ border-color:  rgb(255,255,255);
 border-radius: 5px;
 margin-top: 8px;
 padding: 2px;
-background-color: rgb(0,0,0);
+background-color: rgb(200,0,0);
 }
 
 /* CUSTOM CONTROLLABEL STYLE */
 
 QLabel#customlabel {
-font-family: Arial;
+font-family: FreeSans;
 font-size: 9px;
 font-weight: bold;
 color: rgb(255,255,255);
@@ -252,7 +245,7 @@ color: rgb(255,255,255);
 /* CUSTOM CONTROLKNOB STYLE */
 
 QLineEdit#editdisplay {
-font-family: Arial;
+font-family: FreeSans;
 font-size: 10px;
 font-weight: normal;
 color: rgb(0,255,204);

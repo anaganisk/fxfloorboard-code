@@ -25,6 +25,7 @@
 
 #include <QWidget>
 #include <QtGui>
+#include <QSpinBox>
 
 class GeneralPage : public QWidget
 {
@@ -44,6 +45,9 @@ public:
 	MidiPage(QWidget *parent = 0);
 	QComboBox* midiInCombo;
 	QComboBox* midiOutCombo;
+	QCheckBox* dBugCheckBox;
+	QSpinBox* midiTimeSpinBox;
+	QSpinBox* midiDelaySpinBox;
 };
 
 class WindowPage : public QWidget

@@ -25,6 +25,14 @@
 #include "preferencesDialog.h"
 #include "statusBarWidget.h"
 #include "SysxIO.h"
+// Platform-dependent sleep routines.
+#ifdef Q_OS_WIN
+  #include <windows.h>
+  #define SLEEP( milliseconds ) Sleep( (DWORD) milliseconds ) 
+#else // Unix variants & Mac
+  #include <unistd.h>
+  #define SLEEP( milliseconds ) usleep( (unsigned long) (milliseconds * 1000.0) )
+#endif
 
 mainWindow::mainWindow(QWidget *parent)
     : QWidget(parent)
@@ -36,12 +44,11 @@ mainWindow::mainWindow(QWidget *parent)
 {
 	fxsBoard = new floorBoard(this);
 	
-  	/* This set the floorboard default style to the "plastique" style, 
-	   as it comes the nearest what the stylesheet uses. */
-	fxsBoard->setStyle(QStyleFactory::create("plastique"));
-
 	/* Loads the stylesheet for the current platform if present */
 	#ifdef Q_OS_WIN
+		/* This set the floorboard default style to the "plastique" style, 
+	   as it comes the nearest what the stylesheet uses. */
+	fxsBoard->setStyle(QStyleFactory::create("plastique"));
 		if(QFile(":qss/windows.qss").exists())
 		{
 			QFile file(":qss/windows.qss");
@@ -52,6 +59,9 @@ mainWindow::mainWindow(QWidget *parent)
 	#endif 
 
 	#ifdef Q_WS_X11
+		/* This set the floorboard default style to the "plastique" style, 
+	   as it comes the nearest what the stylesheet uses. */
+	fxsBoard->setStyle(QStyleFactory::create("plastique"));
 		if(QFile(":qss/linux.qss").exists())
 		{
 			QFile file(":qss/linux.qss");
@@ -62,6 +72,9 @@ mainWindow::mainWindow(QWidget *parent)
 	#endif
 
 	#ifdef Q_WS_MAC
+		/* This set the floorboard default style to the "macintosh" style, 
+	   as it comes the nearest what the stylesheet uses. */
+	fxsBoard->setStyle(QStyleFactory::create("macintosh"));
 		if(QFile(":qss/macosx.qss").exists())
 		{
 			QFile file(":qss/macosx.qss");
@@ -233,6 +246,8 @@ void mainWindow::createStatusBar()
                 statusInfo, SLOT(setStatusProgress(int)));;
 	QObject::connect(sysxIO, SIGNAL(setStatusMessage(QString)),
                 statusInfo, SLOT(setStatusMessage(QString)));
+	QObject::connect(sysxIO, SIGNAL(setStatusdBugMessage(QString)),
+                statusInfo, SLOT(setStatusdBugMessage(QString)));
 
 	statusBar = new QStatusBar;
 	statusBar->addWidget(statusInfo);
@@ -349,8 +364,12 @@ void mainWindow::settings()
 		QString sidepanel = (dialog->windowSettings->sidepanelCheckBox->checkState())?QString("true"):QString("false");
 		QString window = (dialog->windowSettings->windowCheckBox->checkState())?QString("true"):QString("false");
 		QString splash = (dialog->windowSettings->splashCheckBox->checkState())?QString("true"):QString("false");
+		QString dBug = (dialog->midiSettings->dBugCheckBox->checkState())?QString("true"):QString("false");
 		QString midiIn = QString::number(dialog->midiSettings->midiInCombo->currentIndex() - 1, 10); // -1 because there is a default entry at index 0
 		QString midiOut = QString::number(dialog->midiSettings->midiOutCombo->currentIndex() - 1, 10);
+		QString midiTimeSet =QString::number(dialog->midiSettings->midiTimeSpinBox->value());
+		QString receiveTimeout =QString::number(dialog->midiSettings->midiDelaySpinBox->value());
+
 
 		if(midiIn=="-1") { midiIn = ""; };
 		if(midiOut=="-1") {	midiOut = ""; };
@@ -358,9 +377,13 @@ void mainWindow::settings()
 		preferences->setPreferences("General", "Files", "dir", dir);
 		preferences->setPreferences("Midi", "MidiIn", "device", midiIn);
 		preferences->setPreferences("Midi", "MidiOut", "device", midiOut);
+		preferences->setPreferences("Midi", "DBug", "bool", dBug);
+		preferences->setPreferences("Midi", "Time", "set", midiTimeSet);
+		preferences->setPreferences("Midi", "Delay", "set", receiveTimeout);
 		preferences->setPreferences("Window", "Restore", "sidepanel", sidepanel);
 		preferences->setPreferences("Window", "Restore", "window", window);
 		preferences->setPreferences("Window", "Splash", "bool", splash);
+		
 	};
 };
 
@@ -405,6 +428,7 @@ void mainWindow::closeEvent(QCloseEvent* ce)
 {
 	Preferences *preferences = Preferences::Instance();
 	preferences->savePreferences();
-	ce->accept();
-	emit closed();
+	SLEEP(1000);
+	//ce->accept();
+	//emit closed();
 };
