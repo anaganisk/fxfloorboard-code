@@ -645,7 +645,7 @@ QString SysxIO::getRequestName()
 QString SysxIO::getPatchChangeMsg(int bank, int patch)
 {
 	int bankOffset = ((bank - 1) * patchPerBank) + (patch - 1);
-	int bankSize = 127; // Size of items that go in a bank ( != patch address wich equals 127 ).
+	int bankSize = 120; // Size of items that go in a bank ( != patch address wich equals 127 ).
 	int bankMsbNum = (int)(bankOffset / bankSize);
 	int programChangeNum = bankOffset - (bankSize * bankMsbNum);
 	QString bankMsb = QString::number(bankMsbNum, 16);
@@ -696,7 +696,7 @@ void SysxIO::finishedSending()
 	//emit setStatusProgress(0);
 	//emit setStatusMessage(tr("Ready"));
 
-	this->namePatchChange(); 
+	//this->namePatchChange(); 
 };
 
 /***************************** requestPatchChange() *************************
@@ -731,7 +731,7 @@ void SysxIO::namePatchChange()
 	QObject::connect(this, SIGNAL(patchName(QString)),
 		this, SLOT(checkPatchChange(QString)));		
 	
-	this->requestPatchName(0, 0);
+	//this->requestPatchName(0, 0);
 };
 
 /***************************** checkPatchChange() *************************
@@ -869,9 +869,9 @@ void SysxIO::requestPatchName(int bank, int patch)
 		this, SLOT(returnPatchName(QString)));	    	// to returnPatchName function.
 	emit isChanged(); // cjw added to stop name requests on patch change
 	/* Patch name request.*/
-	//MidiTable *midiTable = MidiTable::Instance();
-	//QString sysxMsg = midiTable->nameRequest(bank, patch);
-	//sendSysx(sysxMsg); //cjw 
+	MidiTable *midiTable = MidiTable::Instance();
+	QString sysxMsg = midiTable->nameRequest(bank, patch);
+	sendSysx(sysxMsg); //cjw 
 };
 
 /***************************** returnPatchName() ***************************
@@ -885,20 +885,10 @@ void SysxIO::returnPatchName(QString sysxMsg)
 	QString name; 
 	if(sysxMsg != "")
 	{		
-		//MidiTable *midiTable = MidiTable::Instance();    
-		 
-		//int count = 0;
-		int dataStartOffset = sysxNameOffset;   //pointer to start of names in patch file at 404 bytes
+		int dataStartOffset = sysxNameOffset;   //pointer to start of names in patch file at 403 bytes
 		QString hex1, hex2, hex3, hex4;
-		for(int i=dataStartOffset*2; i<14;++i)//i<sysxMsg.size()-(2*2);++i)
+		for(int i=dataStartOffset*2; i<(dataStartOffset*2)+28;++i)//i<sysxMsg.size()-(2*2);++i)
 		{ 
-			/*hex1 = sysxMsg.mid((sysxAddressOffset + 2)*2, 2);
-			hex2 = sysxMsg.mid((sysxAddressOffset + 3)*2, 2);
-			hex3 = QString::number(count, 16).toUpper();
-			if (hex3.length() < 2) hex3.prepend("0");
-			hex4 = sysxMsg.mid(i, 2);
-			name.append( midiTable->getValue("Structure", hex1, hex2, hex3, hex4) );*/
-
 			QString hexStr = sysxMsg.mid(i, 2);
 			if(hexStr == "7E")
 			{
@@ -1006,4 +996,8 @@ void SysxIO::emitStatusMessage(QString message)
 void SysxIO::emitStatusdBugMessage(QString dBug)
 {
 	emit setStatusdBugMessage(dBug);
+};
+void SysxIO::errorReturn()
+{
+emit notConnectedSignal();
 };

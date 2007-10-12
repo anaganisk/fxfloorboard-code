@@ -271,9 +271,8 @@ void midiIO::receiveMsg(QString sysxInMsg, int midiInPort)
     goto cleanup;
     }
     try {
-			
-			midiin->openPort(midiInPort);             // open the midi in port
 			midiin->ignoreTypes(false, true, true);  //don,t ignore sysex messages, but ignore other crap
+			midiin->openPort(midiInPort);             // open the midi in port			
 			midiin->setCallback(&midicallback);    // set the callback 
 			sendMsg(sysxOutMsg, midiOutPort);      // send the data request message out	
 			bytesReceived = sysxBuffer.size() / 2;

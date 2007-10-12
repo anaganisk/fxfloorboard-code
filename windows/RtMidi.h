@@ -21,7 +21,7 @@ class RtMidi
   virtual void openPort( unsigned int portNumber = 0 ) = 0;
 
   //! Pure virtual openVirtualPort() function.
-  virtual void openVirtualPort( const std::string portName = std::string( "RtMidi" ) ) = 0;
+  virtual void openVirtualPort( const std::string portName = std::string( "FxFloorBoard Midi" ) ) = 0;
 
   //! Pure virtual getPortCount() function.
   virtual unsigned int getPortCount() = 0;
@@ -98,7 +98,7 @@ class RtMidiIn : public RtMidi
       is currently only supported by the Macintosh OS-X and Linux ALSA
       APIs (the function does nothing for the other APIs).
   */
-  void openVirtualPort( const std::string portName = std::string( "RtMidi Input" ) );
+  void openVirtualPort( const std::string portName = std::string( "FxFloorBoard Midi Input" ) );
 
   //! Set a callback function to be invoked for incoming MIDI messages.
   /*!
@@ -240,7 +240,7 @@ class RtMidiOut : public RtMidi
       exception is thrown if an error occurs while attempting to create
       the virtual port.
   */
-  void openVirtualPort( const std::string portName = std::string( "RtMidi Output" ) );
+  void openVirtualPort( const std::string portName = std::string( "FxFloorBoard Midi Output" ) );
 
   //! Return the number of available MIDI output ports.
   unsigned int getPortCount();

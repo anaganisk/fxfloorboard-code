@@ -15,6 +15,7 @@
 #include <iostream>
 #include <string>
 #include <QMessageBox>
+#include "SysxIO.h"
 
 class RtError
 {
@@ -48,6 +49,8 @@ public:
   //! Prints thrown error message to stderr.
   virtual void printMessage(void) { 
 	  //std::cerr << '\n' << message_ << "\n\n"; 
+	  SysxIO *sysxIO = SysxIO::Instance();
+	  sysxIO->errorReturn();
 	  QString errorType;
 	  errorType.append(type_);
 	  QString errorMsg;

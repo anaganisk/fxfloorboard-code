@@ -47,13 +47,13 @@ RtMidiIn :: RtMidiIn() : RtMidi()
 void RtMidiIn :: setCallback( RtMidiCallback callback, void *userData )
 {
   if ( inputData_.usingCallback ) {
-    errorString_ = "RtMidiIn::setCallback: a callback function is already set!";
+    errorString_ = "FxFloorBoard MidiIn::setCallback: a callback function is already set!";
     error( RtError::WARNING );
     return;
   }
 
   if ( !callback ) {
-    errorString_ = "RtMidiIn::setCallback: callback function value is invalid!";
+    errorString_ = "FxFloorBoard MidiIn::setCallback: callback function value is invalid!";
     error( RtError::WARNING );
     return;
   }
@@ -66,7 +66,7 @@ void RtMidiIn :: setCallback( RtMidiCallback callback, void *userData )
 void RtMidiIn :: cancelCallback()
 {
   if ( !inputData_.usingCallback ) {
-    errorString_ = "RtMidiIn::cancelCallback: no callback function was set!";
+    errorString_ = "FxFloorBoard Midi In::cancelCallback: no callback function was set!";
     error( RtError::WARNING );
     return;
   }
@@ -94,7 +94,7 @@ double RtMidiIn :: getMessage( std::vector<unsigned char> *message )
   message->clear();
 
   if ( inputData_.usingCallback ) {
-    errorString_ = "RtMidiIn::getNextMessage: a user callback is currently set for this port.";
+    errorString_ = "FxFloorBoard Midi In::getNextMessage: a user callback is currently set for this port.";
     error( RtError::WARNING );
     return 0.0;
   }
@@ -218,7 +218,7 @@ static void CALLBACK midiInputCallback( HMIDIOUT hmin,
     if ( apiData->sysexBuffer->dwBytesRecorded > 0 ) {
       MMRESULT result = midiInAddBuffer( apiData->inHandle, apiData->sysexBuffer, sizeof(MIDIHDR) );
       if ( result != MMSYSERR_NOERROR )
-        std::cerr << "\nRtMidiIn::midiInputCallback: error sending sysex to Midi device!!\n\n";
+        std::cerr << "\nFxFloorBoard Midi In::midiInputCallback: error sending sysex to Midi device!!\n\n";
     }
   }
 
@@ -231,7 +231,7 @@ static void CALLBACK midiInputCallback( HMIDIOUT hmin,
     if ( data->queueLimit > data->queue.size() )
       data->queue.push( apiData->message );
     else
-      std::cerr << "\nRtMidiIn: message queue limit reached!!\n\n";
+      std::cerr << "\nFxFloorBoard Midi In: message queue limit reached!!\n\n";
   }
 
   // Clear the vector for the next input message.  Note that doing
@@ -246,7 +246,7 @@ void RtMidiIn :: initialize( void )
   // throw an error since the user can plugin something later.
   unsigned int nDevices = midiInGetNumDevs();
   if ( nDevices == 0 ) {
-    errorString_ = "RtMidiIn::initialize: no MIDI input devices currently available.";
+    errorString_ = "FxFloorBoard Midi In::initialize: no MIDI input devices currently available.";
     error( RtError::WARNING );
   }
 
@@ -260,20 +260,20 @@ void RtMidiIn :: initialize( void )
 void RtMidiIn :: openPort( unsigned int portNumber )
 {
   if ( connected_ ) {
-    errorString_ = "RtMidiIn::openPort: a valid connection already exists!";
+    errorString_ = "FxFloorBoard Midi In::openPort: a valid connection already exists!";
     error( RtError::WARNING );
     return;
   }
 
   unsigned int nDevices = midiInGetNumDevs();
   if (nDevices == 0) {
-    errorString_ = "RtMidiIn::openPort: no MIDI input sources found!";
+    errorString_ = "FxFloorBoard Midi In::openPort: no MIDI input sources found!";
     error( RtError::NO_DEVICES_FOUND );
   }
 
   std::ostringstream ost;
   if ( portNumber >= nDevices ) {
-    ost << "RtMidiIn::openPort: the 'portNumber' argument (" << portNumber << ") is invalid.";
+    ost << "FxFloorBoard Midi In::openPort: the 'portNumber' argument (" << portNumber << ") is invalid.";
     errorString_ = ost.str();
     error( RtError::INVALID_PARAMETER );
   }
@@ -285,7 +285,7 @@ void RtMidiIn :: openPort( unsigned int portNumber )
                                 (DWORD)&inputData_,
                                 CALLBACK_FUNCTION );
   if ( result != MMSYSERR_NOERROR ) {
-    errorString_ = "RtMidiIn::openPort: error creating Windows MM MIDI input port.";
+    errorString_ = "FxFloorBoard Midi In::openPort: error creating Windows MM MIDI input port.";
     error( RtError::DRIVER_ERROR );
   }
 
@@ -298,7 +298,7 @@ void RtMidiIn :: openPort( unsigned int portNumber )
   result = midiInPrepareHeader( data->inHandle, data->sysexBuffer, sizeof(MIDIHDR) );
   if ( result != MMSYSERR_NOERROR ) {
     midiInClose( data->inHandle );
-    errorString_ = "RtMidiIn::openPort: error starting Windows MM MIDI input port (PrepareHeader).";
+    errorString_ = "FxFloorBoard Midi In::openPort: error starting Windows MM MIDI input port (PrepareHeader).";
     error( RtError::DRIVER_ERROR );
   }
 
@@ -306,14 +306,14 @@ void RtMidiIn :: openPort( unsigned int portNumber )
   result = midiInAddBuffer( data->inHandle, data->sysexBuffer, sizeof(MIDIHDR) );
   if ( result != MMSYSERR_NOERROR ) {
     midiInClose( data->inHandle );
-    errorString_ = "RtMidiIn::openPort: error starting Windows MM MIDI input port (AddBuffer).";
+    errorString_ = "FxFloorBoard Midi In::openPort: error starting Windows MM MIDI input port (AddBuffer).";
     error( RtError::DRIVER_ERROR );
   }
 
   result = midiInStart( data->inHandle );
   if ( result != MMSYSERR_NOERROR ) {
     midiInClose( data->inHandle );
-    errorString_ = "RtMidiIn::openPort: error starting Windows MM MIDI input port.";
+    errorString_ = "FxFloorBoard Midi In::openPort: error starting Windows MM MIDI input port.";
     error( RtError::DRIVER_ERROR );
   }
 
@@ -323,7 +323,7 @@ void RtMidiIn :: openPort( unsigned int portNumber )
 void RtMidiIn :: openVirtualPort( std::string portName )
 {
   // This function cannot be implemented for the Windows MM MIDI API.
-  errorString_ = "RtMidiIn::openVirtualPort: cannot be implemented in Windows MM MIDI API!";
+  errorString_ = "FxFloorBoard Midi In::openVirtualPort: cannot be implemented in Windows MM MIDI API!";
   error( RtError::WARNING );
 }
 
@@ -339,7 +339,7 @@ void RtMidiIn :: closePort( void )
     delete [] data->sysexBuffer;
     if ( result != MMSYSERR_NOERROR ) {
       midiInClose( data->inHandle );
-      errorString_ = "RtMidiIn::openPort: error closing Windows MM MIDI input port (midiInUnprepareHeader).";
+      errorString_ = "FxFloorBoard Midi In::openPort: error closing Windows MM MIDI input port (midiInUnprepareHeader).";
       error( RtError::DRIVER_ERROR );
     }
 
@@ -368,7 +368,7 @@ std::string RtMidiIn :: getPortName( unsigned int portNumber )
   unsigned int nDevices = midiInGetNumDevs();
   if ( portNumber >= nDevices ) {
     std::ostringstream ost;
-    ost << "RtMidiIn::getPortName: the 'portNumber' argument (" << portNumber << ") is invalid.";
+    ost << "FxFloorBoard Midi In::getPortName: the 'portNumber' argument (" << portNumber << ") is invalid.";
     errorString_ = ost.str();
     error( RtError::INVALID_PARAMETER );
   }

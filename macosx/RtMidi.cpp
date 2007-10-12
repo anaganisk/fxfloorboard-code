@@ -1,6 +1,6 @@
 // RtMidi: Version 1.0.6
 
-#include "RtMidi.h"
+#include "FxFloorBoard Midi.h"
 #include <sstream>
 
 //*********************************************************************//
@@ -40,13 +40,13 @@ RtMidiIn :: RtMidiIn() : RtMidi()
 void RtMidiIn :: setCallback( RtMidiCallback callback, void *userData )
 {
   if ( inputData_.usingCallback ) {
-    errorString_ = "RtMidiIn::setCallback: a callback function is already set!";
+    errorString_ = "FxFloorBoard MidiIn::setCallback: a callback function is already set!";
     error( RtError::WARNING );
     return;
   }
 
   if ( !callback ) {
-    errorString_ = "RtMidiIn::setCallback: callback function value is invalid!";
+    errorString_ = "FxFloorBoard MidiIn::setCallback: callback function value is invalid!";
     error( RtError::WARNING );
     return;
   }
@@ -59,7 +59,7 @@ void RtMidiIn :: setCallback( RtMidiCallback callback, void *userData )
 void RtMidiIn :: cancelCallback()
 {
   if ( !inputData_.usingCallback ) {
-    errorString_ = "RtMidiIn::cancelCallback: no callback function was set!";
+    errorString_ = "FxFloorBoard MidiIn::cancelCallback: no callback function was set!";
     error( RtError::WARNING );
     return;
   }
@@ -87,7 +87,7 @@ double RtMidiIn :: getMessage( std::vector<unsigned char> *message )
   message->clear();
 
   if ( inputData_.usingCallback ) {
-    errorString_ = "RtMidiIn::getNextMessage: a user callback is currently set for this port.";
+    errorString_ = "FxFloorBoard MidiIn::getNextMessage: a user callback is currently set for this port.";
     error( RtError::WARNING );
     return 0.0;
   }
@@ -278,9 +278,9 @@ void RtMidiIn :: initialize( void )
 {
   // Set up our client.
   MIDIClientRef client;
-  OSStatus result = MIDIClientCreate( CFSTR("RtMidi Input Client"), NULL, NULL, &client );
+  OSStatus result = MIDIClientCreate( CFSTR("FxFloorBoard Midi Input Client"), NULL, NULL, &client );
   if ( result != noErr ) {
-    errorString_ = "RtMidiIn::initialize: error creating OS-X MIDI client object.";
+    errorString_ = "FxFloorBoard MidiIn::initialize: error creating OS-X MIDI client object.";
     error( RtError::DRIVER_ERROR );
   }
 
@@ -295,30 +295,30 @@ void RtMidiIn :: initialize( void )
 void RtMidiIn :: openPort( unsigned int portNumber )
 {
   if ( connected_ ) {
-    errorString_ = "RtMidiIn::openPort: a valid connection already exists!";
+    errorString_ = "FxFloorBoard MidiIn::openPort: a valid connection already exists!";
     error( RtError::WARNING );
     return;
   }
 
   unsigned int nSrc = MIDIGetNumberOfSources();
   if (nSrc < 1) {
-    errorString_ = "RtMidiIn::openPort: no MIDI input sources found!";
+    errorString_ = "FxFloorBoard MidiIn::openPort: no MIDI input sources found!";
     error( RtError::NO_DEVICES_FOUND );
   }
 
   std::ostringstream ost;
   if ( portNumber >= nSrc ) {
-    ost << "RtMidiIn::openPort: the 'portNumber' argument (" << portNumber << ") is invalid.";
+    ost << "FxFloorBoard MidiIn::openPort: the 'portNumber' argument (" << portNumber << ") is invalid.";
     errorString_ = ost.str();
     error( RtError::INVALID_PARAMETER );
   }
 
   MIDIPortRef port;
   CoreMidiData *data = static_cast<CoreMidiData *> (apiData_);
-  OSStatus result = MIDIInputPortCreate( data->client, CFSTR("RtMidi MIDI Input Port"), midiInputCallback, (void *)&inputData_, &port );
+  OSStatus result = MIDIInputPortCreate( data->client, CFSTR("FxFloorBoard Midi MIDI Input Port"), midiInputCallback, (void *)&inputData_, &port );
   if ( result != noErr ) {
     MIDIClientDispose( data->client );
-    errorString_ = "RtMidiIn::openPort: error creating OS-X MIDI input port.";
+    errorString_ = "FxFloorBoard MidiIn::openPort: error creating OS-X MIDI input port.";
     error( RtError::DRIVER_ERROR );
   }
 
@@ -327,7 +327,7 @@ void RtMidiIn :: openPort( unsigned int portNumber )
   if ( endpoint == NULL ) {
     MIDIPortDispose( port );
     MIDIClientDispose( data->client );
-    errorString_ = "RtMidiIn::openPort: error getting MIDI input source reference.";
+    errorString_ = "FxFloorBoard MidiIn::openPort: error getting MIDI input source reference.";
     error( RtError::DRIVER_ERROR );
   }
 
@@ -336,7 +336,7 @@ void RtMidiIn :: openPort( unsigned int portNumber )
   if ( result != noErr ) {
     MIDIPortDispose( port );
     MIDIClientDispose( data->client );
-    errorString_ = "RtMidiIn::openPort: error connecting OS-X MIDI input port.";
+    errorString_ = "FxFloorBoard MidiIn::openPort: error connecting OS-X MIDI input port.";
     error( RtError::DRIVER_ERROR );
   }
 
@@ -356,7 +356,7 @@ void RtMidiIn :: openVirtualPort( const std::string portName )
                                            CFStringCreateWithCString( NULL, portName.c_str(), kCFStringEncodingASCII ),
                                            midiInputCallback, (void *)&inputData_, &endpoint );
   if ( result != noErr ) {
-    errorString_ = "RtMidiIn::openVirtualPort: error creating virtual OS-X MIDI destination.";
+    errorString_ = "FxFloorBoard MidiIn::openVirtualPort: error creating virtual OS-X MIDI destination.";
     error( RtError::DRIVER_ERROR );
   }
 
@@ -398,7 +398,7 @@ std::string RtMidiIn :: getPortName( unsigned int portNumber )
   char name[128];
 
   if ( portNumber >= MIDIGetNumberOfSources() ) {
-    ost << "RtMidiIn::getPortName: the 'portNumber' argument (" << portNumber << ") is invalid.";
+    ost << "FxFloorBoard MidiIn::getPortName: the 'portNumber' argument (" << portNumber << ") is invalid.";
     errorString_ = ost.str();
     error( RtError::INVALID_PARAMETER );
   }
@@ -429,7 +429,7 @@ std::string RtMidiOut :: getPortName( unsigned int portNumber )
   char name[128];
 
   if ( portNumber >= MIDIGetNumberOfDestinations() ) {
-    ost << "RtMidiOut::getPortName: the 'portNumber' argument (" << portNumber << ") is invalid.";
+    ost << "FxFloorBoard MidiOut::getPortName: the 'portNumber' argument (" << portNumber << ") is invalid.";
     errorString_ = ost.str();
     error( RtError::INVALID_PARAMETER );
   }
@@ -446,9 +446,9 @@ void RtMidiOut :: initialize( void )
 {
   // Set up our client.
   MIDIClientRef client;
-  OSStatus result = MIDIClientCreate( CFSTR("RtMidi Output Client"), NULL, NULL, &client );
+  OSStatus result = MIDIClientCreate( CFSTR("FxFloorBoard Midi Output Client"), NULL, NULL, &client );
   if ( result != noErr ) {
-    errorString_ = "RtMidiOut::initialize: error creating OS-X MIDI client object.";
+    errorString_ = "FxFloorBoard MidiOut::initialize: error creating OS-X MIDI client object.";
     error( RtError::DRIVER_ERROR );
   }
 
@@ -462,30 +462,30 @@ void RtMidiOut :: initialize( void )
 void RtMidiOut :: openPort( unsigned int portNumber )
 {
   if ( connected_ ) {
-    errorString_ = "RtMidiOut::openPort: a valid connection already exists!";
+    errorString_ = "FxFloorBoard MidiOut::openPort: a valid connection already exists!";
     error( RtError::WARNING );
     return;
   }
 
   unsigned int nDest = MIDIGetNumberOfDestinations();
   if (nDest < 1) {
-    errorString_ = "RtMidiOut::openPort: no MIDI output destinations found!";
+    errorString_ = "FxFloorBoard MidiOut::openPort: no MIDI output destinations found!";
     error( RtError::NO_DEVICES_FOUND );
   }
 
   std::ostringstream ost;
   if ( portNumber >= nDest ) {
-    ost << "RtMidiOut::openPort: the 'portNumber' argument (" << portNumber << ") is invalid.";
+    ost << "FxFloorBoard MidiOut::openPort: the 'portNumber' argument (" << portNumber << ") is invalid.";
     errorString_ = ost.str();
     error( RtError::INVALID_PARAMETER );
   }
 
   MIDIPortRef port;
   CoreMidiData *data = static_cast<CoreMidiData *> (apiData_);
-  OSStatus result = MIDIOutputPortCreate( data->client, CFSTR("RtMidi Virtual MIDI Output Port"), &port );
+  OSStatus result = MIDIOutputPortCreate( data->client, CFSTR("FxFloorBoard Midi Virtual MIDI Output Port"), &port );
   if ( result != noErr ) {
     MIDIClientDispose( data->client );
-    errorString_ = "RtMidiOut::openPort: error creating OS-X MIDI output port.";
+    errorString_ = "FxFloorBoard MidiOut::openPort: error creating OS-X MIDI output port.";
     error( RtError::DRIVER_ERROR );
   }
 
@@ -494,7 +494,7 @@ void RtMidiOut :: openPort( unsigned int portNumber )
   if ( destination == NULL ) {
     MIDIPortDispose( port );
     MIDIClientDispose( data->client );
-    errorString_ = "RtMidiOut::openPort: error getting MIDI output destination reference.";
+    errorString_ = "FxFloorBoard MidiOut::openPort: error getting MIDI output destination reference.";
     error( RtError::DRIVER_ERROR );
   }
 
@@ -518,7 +518,7 @@ void RtMidiOut :: openVirtualPort( std::string portName )
   CoreMidiData *data = static_cast<CoreMidiData *> (apiData_);
 
   if ( data->endpoint ) {
-    errorString_ = "RtMidiOut::openVirtualPort: a virtual output port already exists!";
+    errorString_ = "FxFloorBoard MidiOut::openVirtualPort: a virtual output port already exists!";
     error( RtError::WARNING );
     return;
   }
@@ -529,7 +529,7 @@ void RtMidiOut :: openVirtualPort( std::string portName )
                                       CFStringCreateWithCString( NULL, portName.c_str(), kCFStringEncodingASCII ),
                                       &endpoint );
   if ( result != noErr ) {
-    errorString_ = "RtMidiOut::initialize: error creating OS-X virtual MIDI source.";
+    errorString_ = "FxFloorBoard MidiOut::initialize: error creating OS-X virtual MIDI source.";
     error( RtError::DRIVER_ERROR );
   }
 
@@ -567,7 +567,7 @@ void RtMidiOut :: sendMessage( std::vector<unsigned char> *message )
   if ( data->endpoint ) {
     result = MIDIReceived( data->endpoint, pktlist );
     if ( result != noErr ) {
-      errorString_ = "RtMidiOut::sendMessage: error sending MIDI to virtual destinations.";
+      errorString_ = "FxFloorBoard MidiOut::sendMessage: error sending MIDI to virtual destinations.";
       error( RtError::WARNING );
     }
   }
@@ -576,7 +576,7 @@ void RtMidiOut :: sendMessage( std::vector<unsigned char> *message )
   if ( connected_ ) {
     result = MIDISend( data->port, data->destinationId, pktlist );
     if ( result != noErr ) {
-      errorString_ = "RtMidiOut::sendMessage: error sending MIDI message to port.";
+      errorString_ = "FxFloorBoard MidiOut::sendMessage: error sending MIDI message to port.";
       error( RtError::WARNING );
     }
   }
