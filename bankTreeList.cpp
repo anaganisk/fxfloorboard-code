@@ -430,9 +430,9 @@ void bankTreeList::setItemDoubleClicked(QTreeWidgetItem *item, int column)
 
 		bool ok;
 		int bank = item->parent()->text(0).section(" ", 1, 1).trimmed().toInt(&ok, 10); // Get the bank
-		int bankpointer = item->parent()->text(0).section(" ", 1, 1).trimmed().toInt(&ok, 10);
+		//int bankpointer = item->parent()->text(0).section(" ", 1, 1).trimmed().toInt(&ok, 10);
 		int patch = item->parent()->indexOfChild(item) + 1;								// and the patch number.
-		int patchpointer = item->parent()->indexOfChild(item) + 1;	
+		//int patchpointer = item->parent()->indexOfChild(item) + 1;	
 		/*if(bank == sysxIO->getLoadedBank() && patch == sysxIO->getLoadedPatch())
 		{ */
 			requestPatch(bank, patch);

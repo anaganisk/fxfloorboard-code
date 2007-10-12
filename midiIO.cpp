@@ -178,62 +178,6 @@ QList<QString> midiIO::getMidiInDevices()
 	return this->midiInDevices;
 };
 
-/************************* getMidiOutErrorMsg() **************************
- * Retrieves and displays an error message for the passed MIDI Out error
- * number. It does this using midiOutGetErrorText().
- *************************************************************************/
-QString midiIO::getMidiOutErrorMsg(unsigned long err)
-{/*
-	#define BUFFERSIZE 200
-	WCHAR	errMsg[BUFFERSIZE];
-	QString errorMsg;
-	
-	if (!(err = midiOutGetErrorText(err, &errMsg[0], BUFFERSIZE)))
-	{
-		errorMsg = QString::fromWCharArray(errMsg);
-	}
-	else if (err == MMSYSERR_BADERRNUM)
-	{
-		errorMsg = tr("Strange error number returned!");
-	}
-	else 
-	{
-		errorMsg = tr("Specified pointer is invalid!");
-	};
-
-	this->dataReceive = false;*/
-	return 0;
-};
-
-/************************* getMidiInErrorMsg() ***************************
- * Retrieves and displays an error message for the passed MIDI In error
- * number. It does this using midiInGetErrorText().
- *************************************************************************/
-QString midiIO::getMidiInErrorMsg(unsigned long err)
-{/*
-	#define BUFFERSIZE 200
-	WCHAR	errMsg[BUFFERSIZE];
-	QString errorMsg;
-	
-	if (!(err = midiOutGetErrorText(err, &errMsg[0], BUFFERSIZE)))
-	{
-		errorMsg = QString::fromWCharArray(errMsg);
-	}
-	else if (err == MMSYSERR_BADERRNUM)
-	{
-		errorMsg = tr("Strange error number returned!");
-	}
-	else if (err == MMSYSERR_INVALPARAM) 
-	{
-		errorMsg = tr("Specified pointer is invalid!");
-	}
-	else 
-	{
-		errorMsg = tr("Unable to allocate/lock memory!");
-	};
-*/
-	return 0;
-};
 
 /*********************** sendMsg() **********************************
  * Prepares the sysx message before sending on the MIDI Out device. It 
@@ -317,9 +261,8 @@ void midiIO::receiveMsg(QString sysxInMsg, int midiInPort)
 	emit setStatusSymbol(3);
 	Preferences *preferences = Preferences::Instance(); bool ok;// Load the preferences.
 	const int maxWait = preferences->getPreferences("Midi", "Time", "set").toInt(&ok, 10);
-	const int minWait = preferences->getPreferences("Midi", "Delay", "set").toInt(&ok, 10);
 	if(multiple){loopCount = maxWait*20;}
-	  else {loopCount = minWait*5;};
+	  else {loopCount = maxWait*5;};
 			int bytesReceived = 0;		
 			RtMidiIn *midiin = new RtMidiIn();		   //RtMidi constructor
 	unsigned int nPorts = midiin->getPortCount();	   // check we have a midiout port
@@ -363,31 +306,27 @@ void midiIO::run()
 {
 	if(midi && midiMsg.size() > 1)	// Check if we are going to send sysx or midi data & have a midi message to send.
 	{
-		//sysxOutMsg = "";
-				
-		/*if (midiMsg.size() == 6){sysxOutMsg = midiMsg;
-								sendMsg(sysxOutMsg, midiOutPort);
-				}
+		if (midiMsg.size() < 6)
+			{
+			sysxOutMsg = midiMsg;   // use the same sending routine as sysx messages.
+		    	sendMsg(sysxOutMsg, midiOutPort);
+		  	}
 	
-		else if (midiMsg.size() > 6){*/
-					int z=0;
-					for(int i=0;i<midiMsg.size()/6;++i) // split the midi control message string into 3 byte packages and send each
-						{
-							sysxOutMsg = midiMsg.mid(z,2);
-							sysxOutMsg.append(midiMsg.mid(z+2,2));  // skip every second byte
-							sysxOutMsg.append(midiMsg.mid(z+4,2));  // skip every second byte
-							
-							
-							sendMsg(sysxOutMsg, midiOutPort);
-							z=(z+6);
-							SLEEP(40);
-						 };
+		else
+			{
+		     	int z=0;
+           	     	for(int i=0;i<midiMsg.size()/6;++i) // split the midi control message string into 3 word packages.
+				{
+			  	 sysxOutMsg = midiMsg.mid(z,2);
+			 	 sysxOutMsg.append(midiMsg.mid(z+2,2));  // skip every second byte
+			 	 sysxOutMsg.append(midiMsg.mid(z+4,2));  // skip every second byte
+			 	 sendMsg(sysxOutMsg, midiOutPort);
+			 	 z=(z+6);
+			 	 SLEEP(60);
+			 	};
 					
-					
-			/*	}
-		else {sysxOutMsg = "";			// midi message size < 3 bytes & not valid.
-	  }; 
-*/
+	 		 }; 
+
 						
 		emit setStatusSymbol(2);
 		emit setStatusMessage("Sending");
@@ -430,9 +369,9 @@ void midiIO::run()
 			{
 				bytesTotal += 2;
 			}
-			else if(sizeChunk == "00000001") // Patch Request
+			else if(sizeChunk == "00000001") // Patch Request data size.
 			{
-				bytesTotal = patchSize;
+				bytesTotal = patchSize;     // progressbar scaled to patch size
 			};
 					dataReceive = true;
 					receiveMsg(sysxInMsg, midiInPort);
@@ -442,7 +381,12 @@ void midiIO::run()
 			emit setStatusSymbol(2);
 			emit setStatusMessage("Sending");
 			sendMsg(sysxOutMsg, midiOutPort);
+			Preferences *preferences = Preferences::Instance(); bool ok;// Load the preferences.
+			const int minWait = preferences->getPreferences("Midi", "Delay", "set").toInt(&ok, 10);
+			emit setStatusProgress(50);
+			SLEEP((100/minWait)*5);
 			emit setStatusProgress(100);
+			SLEEP((100/minWait)*5);
 			emit midiFinished(); // We are finished so we send a signal to free the device.	
 		};		
 		this->sysxInMsg = sysxInMsg;

@@ -139,11 +139,11 @@ MidiPage::MidiPage(QWidget *parent)
 
 
 
-	QGroupBox *dBugScreenGroup = new QGroupBox(tr("dBug mode"));
+	QGroupBox *dBugScreenGroup = new QGroupBox(tr("dBug and timing"));
 
-	QLabel *dBugDescriptionLabel = new QLabel(tr("Debug mode & Timing settings."));
-	QLabel *midiTimeDescriptionLabel = new QLabel(tr("patch receive time."));
-	QLabel *midiDelayDescriptionLabel = new QLabel(tr("short data receive time."));
+	QLabel *dBugDescriptionLabel = new QLabel(tr("Debug mode & midi settings."));
+	QLabel *midiTimeDescriptionLabel = new QLabel(tr("Patch & data receive time."));
+	QLabel *midiDelayDescriptionLabel = new QLabel(tr("Realtime edit send rate."));
 
 	QCheckBox *dBugCheckBox = new QCheckBox(tr("deBug Mode"));
 	QSpinBox *midiTimeSpinBox = new QSpinBox;
@@ -158,16 +158,18 @@ MidiPage::MidiPage(QWidget *parent)
 	this->midiTimeSpinBox = midiTimeSpinBox;
 	const int maxWait = preferences->getPreferences("Midi", "Time", "set").toInt(&ok, 10);
 	midiTimeSpinBox->setValue(maxWait);
-	midiTimeSpinBox->setRange(5, 100);
-	midiTimeSpinBox->setPrefix("= 40 x ");
-	midiTimeSpinBox->setSuffix(" ms");
+	midiTimeSpinBox->setRange(40, 160);
+	midiTimeSpinBox->setSingleStep(5);
+	midiTimeSpinBox->setPrefix("= 20 x ");
+	midiTimeSpinBox->setSuffix(" ms wait");
 
 	this->midiDelaySpinBox = midiDelaySpinBox;
 	const int minWait = preferences->getPreferences("Midi", "Delay", "set").toInt(&ok, 10);
 	midiDelaySpinBox->setValue(minWait);
-	midiDelaySpinBox->setRange(1, 100);
-	midiDelaySpinBox->setPrefix("= 5 x ");
-	midiDelaySpinBox->setSuffix(" ms");
+	midiDelaySpinBox->setRange(1, 30);
+	//midiTimeSpinBox->setSingleStep(5);
+	midiDelaySpinBox->setPrefix("= ");
+	midiDelaySpinBox->setSuffix(" times/second");
 
 
 	QVBoxLayout *dBugLabelLayout = new QVBoxLayout;
@@ -186,7 +188,6 @@ MidiPage::MidiPage(QWidget *parent)
 
 	QVBoxLayout *dBugScreenLayout = new QVBoxLayout;
 	dBugScreenLayout->addWidget(dBugDescriptionLabel);
-	//dBugScreenLayout->addSpacing(12);
 	dBugScreenLayout->addLayout(dBugSelectLayout);
 
 	dBugScreenGroup->setLayout(dBugScreenLayout);
