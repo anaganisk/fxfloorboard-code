@@ -407,6 +407,7 @@ void bankTreeList::setItemClicked(QTreeWidgetItem *item, int column)
 			 sysxIO->requestPatchChange(bank, patch); // extra to try patch change
 			//sysxIO->setRequestName(item->text(0));	// Set the name of the patch we have sellected in case we load it.
 		};
+		
 	};
 };
 
@@ -431,8 +432,8 @@ void bankTreeList::setItemDoubleClicked(QTreeWidgetItem *item, int column)
 		bool ok;
 		int bank = item->parent()->text(0).section(" ", 1, 1).trimmed().toInt(&ok, 10); // Get the bank
 		int patch = item->parent()->indexOfChild(item) + 1;								// and the patch number.
-		/*if(bank == sysxIO->getLoadedBank() && patch == sysxIO->getLoadedPatch())
-		{ */
+		//if(bank == sysxIO->getLoadedBank() && patch == sysxIO->getLoadedPatch())
+		//{ 
 			requestPatch(bank, patch);
 		/*}
 		else
@@ -574,27 +575,6 @@ void bankTreeList::updatePatch(QString replyMsg)
 	msgBox->exec();
 	/* END WARNING */
 	};
-
-	 /*DeBugGING OUTPUT 
-	QString snork;
-	for(int i=0;i<replyMsg.size();++i)
-	{
-		snork.append(replyMsg.mid(i, 2));
-		snork.append(" ");
-		i++;
-	};
-	snork.replace("F7", "F7 }\n");
-	snork.replace("F0", "{ F0");
-	snork.append("\n{ size=");
-	snork.append(QString::number(replyMsg.size()/2, 10));
-	snork.append("}");		
-
-	QMessageBox *msgBox = new QMessageBox();
-	msgBox->setWindowTitle("dBug Result");
-	msgBox->setIcon(QMessageBox::Information);
-	msgBox->setText(snork);
-	msgBox->setStandardButtons(QMessageBox::Ok);
-	msgBox->exec();*/
 };
 
 /********************************** connectedSignal() ****************************
@@ -644,7 +624,7 @@ void bankTreeList::updateTree(QTreeWidgetItem *item)
 			this, SLOT(updatePatchNames(QString)));
 
 		this->currentPatchTreeItems.append(item);
-		this->updatePatchNames("");
+		this->updatePatchNames("");		
 	}
 	else
 	{
@@ -658,32 +638,7 @@ void bankTreeList::updateTree(QTreeWidgetItem *item)
 *********************************************************************************/
 void bankTreeList::updatePatchNames(QString name)
 {
-	/*		
-	SysxIO *sysxIO = SysxIO::Instance();
-	QList<QString> nameArray = sysxIO->getFileSource("0B", "00");
-
-	MidiTable *midiTable = MidiTable::Instance();
-	//QString name;
-	for(int i=sysxDataOffset;i<nameArray.size() - 2;i++ )
-		{
-		name.append( midiTable->getMidiMap("Structure", "0B", "00", "00", nameArray.at(i)).name );
-
-		QString hexStr = nameArray.at(i);
-		if(hexStr == "7E")
-		{
-			name.append((QChar)(0x2192));
-		}
-		else if (hexStr == "7F")
-		{
-			name.append((QChar)(0x2190));
-		}
-		else
-	{
-		bool ok;
-		//name.append( (char)(hexStr.toInt(&ok, 16)) );
-	 };
-  };  */
-		if(name != "") // cjw !=  If not empty we can asume that we did receive a patch name.
+		if(name != "") //  If not empty we can assume that we did receive a patch name.
 		{
 			this->currentPatchTreeItems.at(listIndex)->child(itemIndex)->setText(0, name); // Set the patch name of the item in the tree list.
 			if(itemIndex >= patchPerBank - 1) // If we reach the last patch in this bank we need to increment the bank and restart at patch 1.
@@ -703,16 +658,15 @@ void bankTreeList::updatePatchNames(QString name)
 			int bank = this->currentPatchTreeItems.at(listIndex)->text(0).section(" ", 1, 1).trimmed().toInt(&ok, 10);
 			int patch = itemIndex + 1 ;
 			
-SysxIO *sysxIO = SysxIO::Instance();
-			sysxIO->requestPatchName(bank, patch); // The patch name request.
+		SysxIO *sysxIO = SysxIO::Instance();
+		sysxIO->requestPatchName(bank, patch); // The patch name request.
 	
 	if(sysxIO->isConnected())
 	{
 		emit setStatusSymbol(3);
 		emit setStatusMessage(tr("Receiving names"));
-		sysxIO->setDeviceReady(true);
 	}
-		else  //cjw
+		else  
 		{         
 			sysxIO->setDeviceReady(true);
 
@@ -724,5 +678,7 @@ SysxIO *sysxIO = SysxIO::Instance();
 			emit setStatusMessage(tr("Ready"));
 			emit setStatusProgress(0);
 		};
-	};
+	}
+		else {SysxIO *sysxIO = SysxIO::Instance();
+			  sysxIO->setDeviceReady(true);};
 };

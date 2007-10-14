@@ -92,7 +92,7 @@ public:
 	void emitStatusProgress(int value);
     void emitStatusMessage(QString message);
 	void emitStatusdBugMessage(QString dBug);
-	void SysxIO::errorReturn();
+	void errorReturn();
 
 public slots:
 	void errorSignal(QString windowTitle, QString errorMsg);

@@ -276,7 +276,7 @@ void mainWindow::open()
 			sysxIO->setFileName(fileName);
 			sysxIO->setSyncStatus(false);
 			sysxIO->setDevice(false);
-
+			
 			emit updateSignal();
 		};
 	};

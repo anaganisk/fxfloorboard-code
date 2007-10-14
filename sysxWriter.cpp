@@ -23,6 +23,7 @@
 #include <QFile>
 #include <QDataStream>
 #include <QByteArray>
+#include <QMessageBox>
 #include "sysxWriter.h"	
 
 sysxWriter::sysxWriter() 
@@ -49,12 +50,28 @@ bool sysxWriter::readFile()
 	{
 		QByteArray data = file.readAll();
 
+		if(data.size() == 684){
 		SysxIO *sysxIO = SysxIO::Instance();
 		sysxIO->setFileSource(data);
 		sysxIO->setFileName(this->fileName);
 
 		this->fileSource = sysxIO->getFileSource();
 		return true;
+		}
+		else {
+	QMessageBox *msgBox = new QMessageBox();
+	msgBox->setWindowTitle(QObject::tr("Patch size Error!"));
+	msgBox->setIcon(QMessageBox::Warning);
+	msgBox->setTextFormat(Qt::RichText);
+	QString msgText;
+	msgText.append("<font size='+1'><b>");
+	msgText.append(QObject::tr("This is not a GT-6B patch!"));
+	msgText.append("<b></font><br>");
+	msgText.append(QObject::tr("Patch size not 684 bytes, please try another file."));
+	msgBox->setText(msgText);
+	msgBox->setStandardButtons(QMessageBox::Ok);
+	msgBox->exec();
+			return false;};
 	}
 	else
 	{
