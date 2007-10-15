@@ -50,7 +50,7 @@ public:
 	void setId(unsigned int id);
 #ifdef Q_OS_MAC
 	void setComboBox(QString hex1, QString hex2, QString hex3, 
-		QRect geometry = QRect::QRect(5, 75, 88, 20));
+		QRect geometry = QRect::QRect(4, 75, 88, 20));
 #else
 	void setComboBox(QString hex1, QString hex2, QString hex3, 
 		QRect geometry = QRect::QRect(7, 79, 80, 13));

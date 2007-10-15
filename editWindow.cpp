@@ -43,15 +43,7 @@ editWindow::editWindow(QWidget *parent)
 	this->comboBoxLabel->setVisible(false);
 
 	this->pageComboBox = new QComboBox;
-	#ifdef Q_WS_MAC
-	{
-	this->pageComboBox->setObjectName("standardcombo");
-	}
-#else
-	{
 	this->pageComboBox->setObjectName("smallcombo");
-	};
-#endif
 	this->pageComboBox->setEditable(false);
 	this->pageComboBox->setFrame(false);
 	this->pageComboBox->setVisible(false);

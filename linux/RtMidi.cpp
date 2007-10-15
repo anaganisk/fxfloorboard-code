@@ -37,7 +37,7 @@
 
 // RtMidi: Version 1.0.6
 
-#include "FxFloorBoard Midi.h"
+#include "RtMidi.h"
 #include <sstream>
 
 //*********************************************************************//

@@ -20,7 +20,11 @@
         <file>images/editwindow.png</file>
         <file>images/eq.png</file>
         <file>images/expand.png</file>
+#ifdef Q_OS_MAC
+        <file>images/floor_mac.png</file>
+#else
         <file>images/floor.png</file>
+#endif
         <file>images/fv.png</file>
         <file>images/fx1.png</file>
         <file>images/fx2.png</file>

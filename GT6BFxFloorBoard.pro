@@ -62,7 +62,7 @@ linux-g++ {
 	message("Please install the ALSA Audio System packages if not present") 	
  
 	 HEADERS += ./linux/RtMidi.h \
-	             ./linux/RtError.h \
+	             ./linux/RtError.h 
 	 SOURCES += ./linux/RtMidi.cpp 
 	 INCLUDEPATH += ./linux
 	message(Including Linux specific headers and sources...)
