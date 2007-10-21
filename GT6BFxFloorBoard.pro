@@ -48,9 +48,7 @@ win32 {
 		message("http://www.microsoft.com/downloads/details.aspx?familyid=0BAF2B35-C656-4969-ACE8-E4C0C0716ADB&displaylang=en")
 		message("AFTER INSTALLATION CHANGE THE CORRECT (DOS) PATH IN THE "GT-8FxFloorBoard.pro" FILE")
 	}
-	 HEADERS += ./windows/RtMidi.h \
-	            ./windows/RtError.h 
-	            
+	 HEADERS += 
 	 SOURCES += ./windows/RtMidi.cpp 
 	            
 	 INCLUDEPATH += ./windows
@@ -61,8 +59,7 @@ linux-g++ {
 	message("ALSA LIBRARIES SHOULD BE INSTALLED or ERROR will Occur") 
 	message("Please install the ALSA Audio System packages if not present") 	
  
-	 HEADERS += ./linux/RtMidi.h \
-	             ./linux/RtError.h 
+	 HEADERS += 
 	 SOURCES += ./linux/RtMidi.cpp 
 	 INCLUDEPATH += ./linux
 	message(Including Linux specific headers and sources...)
@@ -71,8 +68,7 @@ macx {
 	LIBS += -framework CoreMidi -framework CoreAudio -framework CoreFoundation
 	message("X-Code LIBRARIES SHOULD BE INSTALLED or ERROR will Occur") 
 	message("Please install the X-Code Audio System packages if not present") 
-	 HEADERS += ./macosx/RtMidi.h \
-	             ./macosx/RtError.h 
+	 HEADERS += 
 	 SOURCES += ./macosx/RtMidi.cpp 
 	 INCLUDEPATH += ./macosx
 	ICON = GT6BFxFloorBoard.icns

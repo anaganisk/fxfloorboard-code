@@ -66,6 +66,8 @@ HEADERS += ./editPage.h \
     ./midiIO.h \
     ./MidiTable.h \
     ./MidiTableDestroyer.h \
+    ./RtError.h \
+    ./RtMidi.h \
     ./SysxIO.h \
     ./SysxIODestroyer.h \
     ./sysxWriter.h \

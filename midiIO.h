@@ -55,7 +55,6 @@ signals:
 private:
 	void queryMidiInDevices();
 	void queryMidiOutDevices();
-	void showErrorMsg(QString errorMsg, QString type);
 	void sendMsg(QString sysxOutMsg, int midiOutport);
 	void receiveMsg(QString sysxMsg, int midiInPort);
 	QString getMidiOutErrorMsg(unsigned long err);
