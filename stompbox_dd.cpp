@@ -53,6 +53,7 @@ void stompbox_dd::setEditPages()
 {
 	editDetails()->page()->newGroupBox("Effect");
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "08", "00", "00", "middle", Qt::AlignCenter);
+	//editDetails()->page()->addComboBox(0, 1, 1, 1, "08", "00", "01");     //Quick Setting
 	editDetails()->page()->addGroupBox(1, 0, 1, 1);
     editDetails()->page()->newGroupBox("Reverb");
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "08", "00", "03");     //rev type

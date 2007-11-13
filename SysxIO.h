@@ -78,6 +78,7 @@ public:
 	QString getPatchChangeMsg(int bank, int patch);
 	void setCurrentPatchName(QString patchName);
 	QString getCurrentPatchName();
+	QString dBug;
 
 	void sendMidi(QString midiMsg);
 	void sendSysx(QString sysxMsg);

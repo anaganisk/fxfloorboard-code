@@ -17,11 +17,6 @@ void RtMidi :: error( RtError::Type type )
   if (type == RtError::WARNING) {
     std::cerr << '\n' << errorString_ << "\n\n";
   }
-  else if (type == RtError::DEBUG_WARNING) {
-#if defined(__RTMIDI_DEBUG__)
-    std::cerr << '\n' << errorString_ << "\n\n";
-#endif
-  }
   else {
     std::cerr << '\n' << errorString_ << "\n\n";
     throw RtError( errorString_, type );
@@ -200,7 +195,7 @@ void midiInputCallback( const MIDIPacketList *list, void *procRef, void *srcRef 
           if ( data->queueLimit > data->queue.size() )
             data->queue.push( message );
           else
-            std::cerr << "\nRtMidiIn: message queue limit reached!!\n\n";
+            std::cerr << "\nFxFloorBoard MidiIn: message queue limit reached!!\n\n";
         }
         message.bytes.clear();
       }
@@ -262,7 +257,7 @@ void midiInputCallback( const MIDIPacketList *list, void *procRef, void *srcRef 
               if ( data->queueLimit > data->queue.size() )
                 data->queue.push( message );
               else
-                std::cerr << "\nRtMidiIn: message queue limit reached!!\n\n";
+                std::cerr << "\nFxFloorBoard MidiIn: message queue limit reached!!\n\n";
             }
             message.bytes.clear();
           }
@@ -308,7 +303,7 @@ void RtMidiIn :: openPort( unsigned int portNumber )
 
   std::ostringstream ost;
   if ( portNumber >= nSrc ) {
-    ost << "FxFloorBoard MidiIn::openPort: the 'portNumber' argument (" << portNumber << ") is invalid.";
+    ost << "FxFloorBoard MidiIn::openPort: the listed device at 'portNumber'(" << portNumber << ") is invalid.";
     errorString_ = ost.str();
     error( RtError::INVALID_PARAMETER );
   }
@@ -398,7 +393,7 @@ std::string RtMidiIn :: getPortName( unsigned int portNumber )
   char name[128];
 
   if ( portNumber >= MIDIGetNumberOfSources() ) {
-    ost << "FxFloorBoard MidiIn::getPortName: the 'portNumber' argument (" << portNumber << ") is invalid.";
+    ost << "FxFloorBoard MidiIn::getPortName: the listed device at 'portNumber'(" << portNumber << ") is invalid.";
     errorString_ = ost.str();
     error( RtError::INVALID_PARAMETER );
   }
@@ -429,7 +424,7 @@ std::string RtMidiOut :: getPortName( unsigned int portNumber )
   char name[128];
 
   if ( portNumber >= MIDIGetNumberOfDestinations() ) {
-    ost << "FxFloorBoard MidiOut::getPortName: the 'portNumber' argument (" << portNumber << ") is invalid.";
+    ost << "FxFloorBoard MidiOut::getPortName: the listed device at 'portNumber'(" << portNumber << ") is invalid.";
     errorString_ = ost.str();
     error( RtError::INVALID_PARAMETER );
   }
@@ -475,7 +470,7 @@ void RtMidiOut :: openPort( unsigned int portNumber )
 
   std::ostringstream ost;
   if ( portNumber >= nDest ) {
-    ost << "FxFloorBoard MidiOut::openPort: the 'portNumber' argument (" << portNumber << ") is invalid.";
+    ost << "FxFloorBoard MidiOut::openPort: the listed device at 'portNumber'(" << portNumber << ") is invalid.";
     errorString_ = ost.str();
     error( RtError::INVALID_PARAMETER );
   }

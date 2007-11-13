@@ -43,13 +43,7 @@ MidiTable* MidiTable::Instance()
         _destroyer.SetMidiTable(_instance); 
     }; 
     return _instance; // address of sole instance 
- 
-    /* Single-threading */ 
-    /* 
-    static Preferences inst; 
-    return &inst; 
-    */ 
-};
+ };
 
 void MidiTable::loadMidiMap() 
 { 
@@ -490,7 +484,7 @@ QString MidiTable::getSize()
 	size.append("00");
 	size.append("00");
 	size.append("00");//cjw(itemSize);
-	size.append("01");
+	size.append("01");//cjw("00");
 	return size;
 };
 
@@ -523,7 +517,7 @@ QString MidiTable::dataChange(QString hex1, QString hex2, QString hex3, QString 
 	QString sysxMsg;
 	sysxMsg.append(getHeader(false));
 	
-	sysxMsg.append("0B");
+	sysxMsg.append(tempDataWrite);
 	sysxMsg.append("00");
 
 	sysxMsg.append(hex1);
@@ -549,7 +543,7 @@ QString MidiTable::dataChange(QString hex1, QString hex2, QString hex3, QString 
 	QString sysxMsg;
 	sysxMsg.append(getHeader(false));
 	
-	sysxMsg.append("0B");
+	sysxMsg.append(tempDataWrite);
 	sysxMsg.append("00");
 
 	sysxMsg.append(hex1);
@@ -591,11 +585,11 @@ QString MidiTable::nameRequest(int bank, int patch)
 	}
 	else
 	{
-		addr1 = "0B";  // temp write buffer
+		addr1 = tempBulkWrite;  // temp write buffer
 		addr2 = "00";
 	};
 
-	QString hex1 = "00";    // patch names memory location// whole patch for gt6b
+	QString hex1 = "0B";    // patch names memory location// whole patch for gt6b
 	QString hex2 = "00";
 
 	QString sysxMsg;
@@ -638,7 +632,7 @@ QString MidiTable::patchRequest(int bank, int patch)
 	}
 	else
 	{
-		addr1 = "0A";  //GT6B temp bulk address
+		addr1 = tempBulkWrite;  //GT6B temp bulk address
 		addr2 = "00";
 	};
 

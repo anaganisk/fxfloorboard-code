@@ -2,19 +2,19 @@
 <!-- Preferences of the GT6B Fx FloorBoard application. -->
 <Preferences>
 	<General>
-		<Application version="0.2b"/>
+		<Application version="beta 20071108"/>
 		<Donate url="http://sourceforge.net/donate/index.php?group_id=171049"/>
 		<Files dir=""/>
 		<Help url="GT-6BEditorManual_E.htm"/>
 		<Language code="en"/>
-		<Webpage url="http://fxfloorboard.sourceforge.net/"/>
+		<Webpage url="http://gtx.tinfoilmusic.net/"/>
 	</General>
 	<Midi>
 		<MidiIn device=""/>
 		<MidiOut device=""/>
-		<DBug bool="true"/>
-		<Time set="850"/>
-		<Delay set="125"/>
+		<DBug bool="false"/>
+		<Time set="45"/>
+		<Delay set="15"/>
 	</Midi>
 	<Window>
     <Collapsed bool="false" defaultwidth="975" width=""/>

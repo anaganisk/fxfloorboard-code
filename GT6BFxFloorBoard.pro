@@ -24,9 +24,15 @@ TEMPLATE = app
 
 CONFIG += static
 CONFIG += embed_manifest_exe
+#ifdef Q_OS_MAC
+CONFIG += release ppc x86
+TARGET = "GT6BFxFloorBoard"
+DESTDIR = ../GT6BFxFloorBoard
+#else
 CONFIG += release
 TARGET = "GT6BFxFloorBoard"
-DESTDIR = ./release
+DESTDIR = ./packager
+#endif
 MOC_DIR += ./generatedfiles/release
 OBJECTS_DIR += release
 UI_DIR += ./generatedfiles

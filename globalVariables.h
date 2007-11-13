@@ -34,6 +34,7 @@
 ****************************************************************************/
 
 /* General Parameters */
+const QString deviceType = "GT-6B";
 const QString idRequestString = "F041000050110000000000000001F7";		// Indentity Request (GT6B).
 const QString idReplyPatern = "F0410000501200000000";			// Returned device id message must contain/match this (QRegExp or a string without spaces and all caps).
 const int buttonBlinkInterval = 250;				// The interval (ms) the led on buttons blink.
@@ -42,6 +43,7 @@ const int buttonBlinkInterval = 250;				// The interval (ms) the led on buttons 
 const int sysxAddressOffset = 6;	// Offset (starts at 0) where the address information starts in a sysx message.
 const int sysxDataOffset = 10;		// Offset (starts at 0) where the data starts in a sysx message.
 const int sysxNameOffset = 403;		// Offset (starts at 0) where the name string starts in a patch message.
+const int nameLength = 14;			// length of the name string.
 const int checksumOffset = 6;		// Offset (starts at 0) where we start calculating the checksum (Normally this is the address offset).
 
 /* Patches and Banks */
@@ -52,12 +54,16 @@ const int patchPerBank = 4;			// Number of patches in a bank.
 /* Midi Send & Receive */
 const int patchPackets = 23;		// number of sysx packets "F0....F7" which make up a patch.
 const int patchSize = 684;          // size of bytes in a patch.
-//const int maxWait = 40;			// Maximum times we loop through the receive handle before we give up waiting.(for whole patch)
-//const int minWait = 5;			// Minimum times we loop through the receive handle before we give up waiting.(for small data)
 const int maxRetry = 2;				// Maximum times we retry to load a patch in case of a transfer error .
 
 /* Patch Sellection (Used when copying patches) */
 const int sellectionBlinks = 5;				// Times we blink to indicate we have sellected a patch before returning.
 const int sellectionBlinkInterval = 500;	// Interval (ms) the item blinks.
+
+/* Patch addresses */
+const QString chainAddress = "0A";
+const QString nameAddress = "0B";
+const QString tempBulkWrite = "0A";
+const QString tempDataWrite = "0B";
 
 #endif // GLOBALVARIABLES_H

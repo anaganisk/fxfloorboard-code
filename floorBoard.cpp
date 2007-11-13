@@ -37,7 +37,6 @@
 #include "stompbox_fx1.h"
 #include "stompbox_cs.h"
 #include "stompbox_wah.h"
-//#include "stompbox_lp.h"
 #include "stompbox_od.h"
 #include "stompbox_pre.h"
 #include "stompbox_eq.h"
@@ -47,7 +46,7 @@
 #include "stompbox_rv.h"
 #include "stompbox_fv.h"
 #include "stompbox_ns.h"
-//#include "stompbox_dgt.h"
+//#include "manual.h"
 
 floorBoard::floorBoard(QWidget *parent, 
 						QString imagePathFloor, 
@@ -344,7 +343,7 @@ void floorBoard::dropEvent(QDropEvent *event)
 
 				hexData.append(fxHexValue);
 			};
-			sysxIO->setFileSource("0A", "00", hexData);
+			sysxIO->setFileSource(chainAddress, "00", hexData);
 			};
 		}
 		else
@@ -403,8 +402,7 @@ void floorBoard::initSize(QSize floorSize)
 	
 	unsigned int spacingV = (floorSize.height() - (marginStompBoxesTop + marginStompBoxesBottom)) - (stompSize.height() * 2);
 	unsigned int spacingH = ( (floorSize.width() - offset - (marginStompBoxesWidth * 1)) - (stompSize.width() * 6) ) / 6;
-	//for(unsigned int i=0;i<14;i++)
-	for(int i=11;i>=0;i--)
+	for(int i=11;i>=0;i--)  // number of devices in chain
 	{
 		unsigned int y = marginStompBoxesTop;
 		unsigned int x = marginStompBoxesWidth + (( stompSize.width() + spacingH ) * i);
@@ -518,7 +516,7 @@ void floorBoard::initStomps()
 {
 	QList<signed int> fx;
 	fx << 0 << 1 << 2 << 3 << 4 << 5 << 6 << 7 << 8 << 9 << 10 << 11;
-	/*   FX   CS   WAH   LP   OD   PRE  EQ   FX2  DD   CE   RV    NS    FV    DGT :depend on midi.xml   */
+	/*   FX   CS   WAH  OD   PRE  EQ   FX2  DD   CE   RV    NS    FV :depend on midi.xml   */
 	this->fx = fx;
 
 	QVector<QString> initStompNames(12);
@@ -528,7 +526,7 @@ void floorBoard::initStomps()
 	this->stompBoxes = initStompBoxes.toList();;
 
 	MidiTable *midiTable = MidiTable::Instance();
-	Midi midimap = midiTable->getMidiMap("Structure", "0A", "00", "00");
+	Midi midimap = midiTable->getMidiMap("Structure", chainAddress, "00", "00");
 	QList<int> fxID;
 	QList<QString> fxNAMES;
 	for(int i=0;i<=11;i++)
@@ -558,13 +556,6 @@ void floorBoard::initStomps()
 	wah->setPos(this->getStompPos(wah->getId()));
 	this->stompBoxes.replace(wah->getId(), wah);
 	this->stompNames.replace(wah->getId(), "WAH");
-
-	/* LOOP	
-	stompBox *lp = new stompbox_lp(this);
-	lp->setId( fxID.at(fxNAMES.indexOf("LP")) );
-	lp->setPos(this->getStompPos(lp->getId()));
-	this->stompBoxes.replace(lp->getId(), lp);
-	this->stompNames.replace(lp->getId(), "LP"); */
 
 	/* OD/DS */
 	stompBox *od = new stompbox_od(this);
@@ -608,7 +599,7 @@ void floorBoard::initStomps()
 	this->stompBoxes.replace(ce->getId(), ce);
 	this->stompNames.replace(ce->getId(), "CE");
 
-	/* REVERB */
+	/* Spkr-Cab */
 	stompBox *rv = new stompbox_rv(this);
 	rv->setId( fxID.at(fxNAMES.indexOf("RV")) );
 	rv->setPos(this->getStompPos(rv->getId()));
@@ -621,13 +612,6 @@ void floorBoard::initStomps()
 	ns->setPos(this->getStompPos(ns->getId()));
 	this->stompBoxes.replace(ns->getId(), ns);
 	this->stompNames.replace(ns->getId(), "NS");
-
-	/* D-OUT 
-	stompBox *dgt = new stompbox_dgt(this);
-	dgt->setId( fxID.at(fxNAMES.indexOf("DGT")) );
-	dgt->setPos(this->getStompPos(dgt->getId()));
-	this->stompBoxes.replace(dgt->getId(), dgt);
-	this->stompNames.replace(dgt->getId(), "DGT");*/
 
 	/* VOLUME */
 	stompBox *fv = new stompbox_fv(this);
@@ -662,16 +646,26 @@ void floorBoard::setStompPos(int index, int order)
 void floorBoard::updateStompBoxes()
 {
 	SysxIO *sysxIO = SysxIO::Instance();
-	QList<QString> fxChain = sysxIO->getFileSource("0A", "00");
+	QList<QString> fxChain = sysxIO->getFileSource(chainAddress, "00");
 
 	MidiTable *midiTable = MidiTable::Instance();
 	QList<QString> stompOrder;
 	for(int i=sysxDataOffset;i<fxChain.size() - 2;i++ ) 
 	{
-		stompOrder.append( midiTable->getMidiMap("Structure", "0A", "00", "00", fxChain.at(i)).name );
+		stompOrder.append( midiTable->getMidiMap("Structure", chainAddress, "00", "00", fxChain.at(i)).name );
 	};
 	setStomps(stompOrder);
 	};
+
+void floorBoard::assignSignal(bool value)
+{
+this->editDialog = editDialog;
+	this->editDialog->setParent(this);
+	this->centerEditDialog();
+	this->editDialog->pageUpdateSignal();
+	this->editDialog->show();
+	
+};
 
 void floorBoard::setEditDialog(editWindow* editDialog)
 {

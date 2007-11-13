@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT6B Fx FloorBoard".
+** This file is part of "GT-x Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -25,6 +25,7 @@
 #include <QByteArray>
 #include <QMessageBox>
 #include "sysxWriter.h"	
+#include "globalVariables.h"
 
 sysxWriter::sysxWriter() 
 {
@@ -50,7 +51,7 @@ bool sysxWriter::readFile()
 	{
 		QByteArray data = file.readAll();
 
-		if(data.size() == 684){
+		if(data.size() == patchSize){
 		SysxIO *sysxIO = SysxIO::Instance();
 		sysxIO->setFileSource(data);
 		sysxIO->setFileName(this->fileName);
@@ -65,9 +66,9 @@ bool sysxWriter::readFile()
 	msgBox->setTextFormat(Qt::RichText);
 	QString msgText;
 	msgText.append("<font size='+1'><b>");
-	msgText.append(QObject::tr("This is not a GT-6B patch!"));
+	msgText.append(QObject::tr("This is not a ") + deviceType + (" patch!"));
 	msgText.append("<b></font><br>");
-	msgText.append(QObject::tr("Patch size not 684 bytes, please try another file."));
+	msgText.append(QObject::tr("Patch size not ") + (QString::number(patchSize, 10)) + (" bytes, please try another file."));
 	msgBox->setText(msgText);
 	msgBox->setStandardButtons(QMessageBox::Ok);
 	msgBox->exec();
@@ -115,3 +116,4 @@ QString sysxWriter::getFileName()
 {
 	return fileName;	
 };
+

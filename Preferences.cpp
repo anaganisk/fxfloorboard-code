@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT6B Fx FloorBoard".
+** This file is part of "GT-x Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -28,6 +28,7 @@
 #include <QHash>
 #include "xmlwriter/xmlwriter.h"
 #include <QMessageBox>
+#include "globalVariables.h"
 
 Preferences::Preferences() 
 {
@@ -61,12 +62,6 @@ Preferences* Preferences::Instance()
 		_destroyer.SetPreferences(_instance);
 	};
 	return _instance; // address of sole instance
-
-	/* Single-threading */
-	/*
-	static Preferences inst;
-	return &inst;
-	*/
 };
 
 QString Preferences::getPreferences(QString prefGroupName, QString prefTypeName, QString prefItemName)
@@ -175,7 +170,7 @@ void Preferences::savePreferences()
 
 	QHash<QString, QString> attrs;
 
-	xout.writeComment("Preferences of the GT-6B Fx FloorBoard application.");
+	xout.writeComment(("Preferences of the ") + deviceType + (" Fx FloorBoard application."));
 	xout.writeOpenTag("Preferences");
 
 	unsigned int aSize = this->metaSearch.size();

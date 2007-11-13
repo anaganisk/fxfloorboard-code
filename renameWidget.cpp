@@ -1,8 +1,8 @@
 /****************************************************************************
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
-**
-** This file is part of "GT-8 Fx FloorBoard".
+** Copyright (C) 2007 Colin Willcocks. included globalvariables
+** This file is part of "GT-x Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -24,6 +24,7 @@
 #include "renameWidget.h"
 #include "renameDialog.h"
 #include "SysxIO.h"
+#include "globalVariables.h"
 
 renameWidget::renameWidget(QWidget *parent)
     : QWidget(parent)
@@ -47,7 +48,7 @@ void renameWidget::updateName(QString name)
 	SysxIO *sysxIO = SysxIO::Instance();
 
 	QList<QString> hexData;
-	for(int i=0; i<14; ++i) //name size = 14 chars
+	for(int i=0; i<nameLength; ++i) //name size from globalVariables
 	{
 		if(i<name.size())
 		{
@@ -73,7 +74,7 @@ void renameWidget::updateName(QString name)
 			hexData.append("20");
 		};
 	};
-	sysxIO->setFileSource("0B", "00", hexData); //patch name address
+	sysxIO->setFileSource(nameAddress, "00", hexData); //patch name address from globalVariables.
 	sysxIO->setCurrentPatchName(name);
 
 	emit nameChanged(name);

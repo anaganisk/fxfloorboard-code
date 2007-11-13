@@ -56,6 +56,7 @@ public slots:
 	void setCollapse();
 	void updateStompBoxes();
 	void setEditDialog(editWindow* editDialog);
+	void assignSignal(bool value);
 
 signals:
 	void valueChanged(QString fxName, QString valueName, QString value);

@@ -55,7 +55,7 @@ public slots:
 	void notConnected();
 
 	void patchChangeFailed();
-
+	//void assignSignal(bool value);
 	void writeToBuffer();
 	void writeToMemory();
 
@@ -91,6 +91,6 @@ private:
 	bool currentSyncStatus;
 
 	initPatchListMenu *initPatch;
-};
+	};
 
 #endif // FLOORBOARDDISPLAY_H

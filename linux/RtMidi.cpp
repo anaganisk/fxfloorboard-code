@@ -54,11 +54,6 @@ void RtMidi :: error( RtError::Type type )
   if (type == RtError::WARNING) {
     std::cerr << '\n' << errorString_ << "\n\n";
   }
-  else if (type == RtError::DEBUG_WARNING) {
-#if defined(__RTMIDI_DEBUG__)
-    std::cerr << '\n' << errorString_ << "\n\n";
-#endif
-  }
   else {
     std::cerr << '\n' << errorString_ << "\n\n";
     throw RtError( errorString_, type );
@@ -208,13 +203,13 @@ extern "C" void *alsaMidiHandler( void *ptr )
   result = snd_midi_event_new( 0, &apiData->coder );
   if ( result < 0 ) {
     data->doInput = false;
-    std::cerr << "\nRtMidiIn::alsaMidiHandler: error initializing MIDI event parser!\n\n";
+    std::cerr << "\nFxFloorBoard MidiIn::alsaMidiHandler: error initializing MIDI event parser!\n\n";
     return 0;
   }
   unsigned char *buffer = (unsigned char *) malloc( apiData->bufferSize );
   if ( buffer == NULL ) {
     data->doInput = false;
-    std::cerr << "\nRtMidiIn::alsaMidiHandler: error initializing buffer memory!\n\n";
+    std::cerr << "\nFxFloorBoard MidiIn::alsaMidiHandler: error initializing buffer memory!\n\n";
     return 0;
   }
   snd_midi_event_init( apiData->coder );
@@ -231,7 +226,7 @@ extern "C" void *alsaMidiHandler( void *ptr )
     // If here, there should be data.
     result = snd_seq_event_input( apiData->seq, &ev );
     if ( result == -ENOSPC ) {
-      std::cerr << "\nRtMidiIn::alsaMidiHandler: MIDI input buffer overrun!\n\n";
+      std::cerr << "\nFxFloorBoard MidiIn::alsaMidiHandler: MIDI input buffer overrun!\n\n";
       continue;
     }
     else if ( result <= 0 ) {
@@ -272,7 +267,7 @@ extern "C" void *alsaMidiHandler( void *ptr )
         buffer = (unsigned char *) malloc( apiData->bufferSize );
         if ( buffer == NULL ) {
           data->doInput = false;
-          std::cerr << "\nRtMidiIn::alsaMidiHandler: error resizing buffer memory!\n\n";
+          std::cerr << "\nFxFloorBoard MidiIn::alsaMidiHandler: error resizing buffer memory!\n\n";
           break;
         }
       }
@@ -281,7 +276,7 @@ extern "C" void *alsaMidiHandler( void *ptr )
       nBytes = snd_midi_event_decode( apiData->coder, buffer, apiData->bufferSize, ev );
       if ( nBytes <= 0 ) {
 #if defined(__RTMIDI_DEBUG__)
-        std::cerr << "\nRtMidiIn::alsaMidiHandler: event parsing error or not a MIDI event!\n\n";
+        std::cerr << "\nFxFloorBoard MidiIn::alsaMidiHandler: event parsing error or not a MIDI event!\n\n";
 #endif
         break;
       }
@@ -331,7 +326,7 @@ extern "C" void *alsaMidiHandler( void *ptr )
       if ( data->queueLimit > data->queue.size() )
         data->queue.push( message );
       else
-        std::cerr << "\nRtMidiIn: message queue limit reached!!\n\n";
+        std::cerr << "\nFxFloorBoard MidiIn: message queue limit reached!!\n\n";
     }
   }
 
@@ -418,7 +413,7 @@ void RtMidiIn :: openPort( unsigned int portNumber )
   std::ostringstream ost;
   AlsaMidiData *data = static_cast<AlsaMidiData *> (apiData_);
   if ( portInfo( data->seq, pinfo, SND_SEQ_PORT_CAP_READ|SND_SEQ_PORT_CAP_SUBS_READ, (int) portNumber ) == 0 ) {
-    ost << "FxFloorBoard MidiIn::openPort: the 'portNumber' argument (" << portNumber << ") is invalid.";
+    ost << "FxFloorBoard MidiIn::openPort: the listed device 'portNumber'(" << portNumber << ") is invalid.";
     errorString_ = ost.str();
     error( RtError::INVALID_PARAMETER );
   }
@@ -678,7 +673,7 @@ void RtMidiOut :: openPort( unsigned int portNumber )
   std::ostringstream ost;
   AlsaMidiData *data = static_cast<AlsaMidiData *> (apiData_);
   if ( portInfo( data->seq, pinfo, SND_SEQ_PORT_CAP_WRITE|SND_SEQ_PORT_CAP_SUBS_WRITE, (int) portNumber ) == 0 ) {
-    ost << "FxFloorBoard MidiOut::openPort: the 'portNumber' argument (" << portNumber << ") is invalid.";
+    ost << "FxFloorBoard MidiOut::openPort: the listed device at 'portNumber'(" << portNumber << ") is invalid.";
     errorString_ = ost.str();
     error( RtError::INVALID_PARAMETER );
   }

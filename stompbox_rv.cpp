@@ -55,7 +55,7 @@ void stompbox_rv::setEditPages()
 	editDetails()->page()->addKnob(0, 1, 1, 1, "04", "00", "13");         //mic setting
 	editDetails()->page()->addGroupBox(1, 1, 1, 1);
 
-	editDetails()->page()->newGroupBox("Pre-Amp to Speaker Lock");
+	editDetails()->page()->newGroupBox("Pre-Amp to Speaker Link");
 	editDetails()->page()->addComboBox(0, 2, 1, 1, "04", "00", "16");     //link
 	editDetails()->page()->addGroupBox(1, 2, 1, 1);
 

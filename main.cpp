@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT-8 Fx FloorBoard".
+** This file is part of "GT-x Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -103,12 +103,6 @@ int main(int argc, char *argv[])
 
 	app.processEvents(); 
 
-	//window.show(); // need to show the windows to get the size of it, before that it doesn't exist
-	//int windowWidth = window.width();                  
-	//int windowHeight = window.height();
-
-	app.processEvents(); 
-
 	int windowWidth, windowHeight;
 	if(preferences->getPreferences("Window", "Collapsed", "bool")=="true" && 
 		preferences->getPreferences("Window", "Restore", "sidepanel")=="true")
@@ -174,10 +168,10 @@ int main(int argc, char *argv[])
 
 	window.show();
 	splash->finish(&window);
-
+#ifdef Q_OS_MAC
 	/* PREVIEW WARNING */
 	QMessageBox *msgBox = new QMessageBox();
-	msgBox->setWindowTitle(QObject::tr("Warning this is a preview!   Build version 20071009"));
+	msgBox->setWindowTitle(QObject::tr("Warning this is a preview!"));
 	msgBox->setIcon(QMessageBox::Warning);
 	msgBox->setTextFormat(Qt::RichText);
 	QString msgText;
@@ -189,6 +183,6 @@ int main(int argc, char *argv[])
 	msgBox->setStandardButtons(QMessageBox::Ok);
 	msgBox->exec();
 	/* END WARNING */
-
+#endif
 	return app.exec();
 };

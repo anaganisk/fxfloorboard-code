@@ -56,12 +56,6 @@ SysxIO* SysxIO::Instance()
 		_destroyer.SetSysxIO(_instance);
 	};
 	return _instance; // address of sole instance
-
-	/* Single-threading */
-	/*
-	static SysxIO inst;
-	return &inst;
-	*/
 };
 
 void SysxIO::setFileSource(SysxData fileSource)
@@ -127,8 +121,7 @@ void SysxIO::setFileSource(QByteArray data)
 	if(!errorList.isEmpty())
 	{
 		QMessageBox *msgBox = new QMessageBox();
-		//msgBox->setWindowTitle(tr("GT-6B Fx FloorBoard - Checksum Error"));
-		msgBox->setWindowTitle(tr("GT-6B Fx FloorBoard"));
+		msgBox->setWindowTitle(deviceType + tr(" Fx FloorBoard"));
 		msgBox->setIcon(QMessageBox::Warning);
 		msgBox->setTextFormat(Qt::RichText);
 		QString msgText;
@@ -318,7 +311,6 @@ void SysxIO::setFileSource(QString hex1, QString hex2, QList<QString> hexData)
 			this->setDeviceReady(false);
 
 			emit setStatusSymbol(2);
-			//emit setStatusProgress(0);
 			emit setStatusMessage("Sending");
 
 			QObject::connect(this, SIGNAL(sysxReply(QString)),	
@@ -628,7 +620,7 @@ int SysxIO::getLoadedPatch(){
 ***************************************************************************/
 void SysxIO::setRequestName(QString requestName)
 {
-	this->requestName = requestName;	//cjw
+	this->requestName = requestName;
 };
 
 /*********************** returnRequestName() ***********************************
@@ -692,11 +684,7 @@ void SysxIO::sendMidi(QString midiMsg)
 void SysxIO::finishedSending()
 {
 	emit isFinished();
-	//emit setStatusSymbol(1);
-	//emit setStatusProgress(0);
-	//emit setStatusMessage(tr("Ready"));
-
-	//this->namePatchChange(); 
+	this->namePatchChange(); 
 };
 
 /***************************** requestPatchChange() *************************
@@ -747,12 +735,9 @@ void SysxIO::checkPatchChange(QString name)
 	{
 		emit isChanged();
 		this->changeCount = 0;
-		    this->setDeviceReady(true); // some extras added 4 lines
-			//emit setStatusSymbol(1);
-			//emit setStatusMessage(tr("Ready"));	
-			emit setStatusProgress(0);
+		    this->setDeviceReady(true); //  extra added  line
 	}
-/*	else
+	/*else
 	{
 		if(changeCount < maxRetry)
 		{
@@ -776,8 +761,8 @@ void SysxIO::checkPatchChange(QString name)
 
 			emit patchChangeFailed();
 
-			QApplication::beep();*/ //cjw
-
+			QApplication::beep(); //cjw
+			*/
 			/*QMessageBox *msgBox = new QMessageBox();
 			msgBox->setWindowTitle(tr("GT-8 Fx FloorBoard"));
 			msgBox->setIcon(QMessageBox::Warning);
@@ -812,8 +797,7 @@ void SysxIO::sendSysx(QString sysxMsg)
 		 /*DeBugGING OUTPUT */
 	if(preferences->getPreferences("Midi", "DBug", "bool")=="true")
 	{
-		QString dBug =("      ");
-		dBug.append(sysxMsg);
+		dBug =(sysxMsg);
 		emit setStatusdBugMessage(dBug);
 	}
 
@@ -843,9 +827,10 @@ void SysxIO::receiveSysx(QString sysxMsg)
 			snork.append(QString::number(sysxMsg.size()/2, 10));
 			snork.append("}");	
 			snork.append("\n midi data received");
-			//snork.append(QString::number(sysxOutMsg.mid(12, 2), 10));
-			//snork.append("}");	
-
+			if (sysxMsg == dBug){
+				snork.append("\n WARNING: midi data received = data sent");
+				snork.append("\n caused by a midi loopback, port change is required");
+			};
 			QMessageBox *msgBox = new QMessageBox();
 			msgBox->setWindowTitle("dBug Result");
 			msgBox->setIcon(QMessageBox::Information);
@@ -867,11 +852,10 @@ void SysxIO::requestPatchName(int bank, int patch)
 	
 	QObject::connect(this, SIGNAL(sysxReply(QString)),	// Connect the result of the request
 		this, SLOT(returnPatchName(QString)));	    	// to returnPatchName function.
-	//emit isChanged(); // cjw added to stop name requests on patch change
 	/* Patch name request.*/
 	MidiTable *midiTable = MidiTable::Instance();
 	QString sysxMsg = midiTable->nameRequest(bank, patch);
-	sendSysx(sysxMsg); //cjw 
+	sendSysx(sysxMsg); 
 };
 
 /***************************** returnPatchName() ***************************
@@ -885,9 +869,9 @@ void SysxIO::returnPatchName(QString sysxMsg)
 	QString name; 
 	if(sysxMsg != "")
 	{		
-		int dataStartOffset = sysxNameOffset;   //pointer to start of names in patch file at 403 bytes
+		int dataStartOffset = sysxNameOffset;   //pointer to start of names in patch file at 403 bytes.
 		QString hex1, hex2, hex3, hex4;
-		for(int i=dataStartOffset*2; i<(dataStartOffset*2)+28;++i)//i<sysxMsg.size()-(2*2);++i)
+		for(int i=dataStartOffset*2; i<(dataStartOffset*2)+(nameLength*2);++i)   //read the length of name string.
 		{ 
 			QString hexStr = sysxMsg.mid(i, 2);
 			if(hexStr == "7E")
@@ -908,9 +892,6 @@ void SysxIO::returnPatchName(QString sysxMsg)
 		};
 	};
 	emit patchName(name.trimmed());
-	/*emit setStatusSymbol(3);
-	emit setStatusProgress(0);
-	emit setStatusMessage("Receiving");*/
 };
 
 /***************************** requestPatch() ******************************

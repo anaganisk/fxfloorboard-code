@@ -40,6 +40,7 @@ public:
 	void callbackMsg(QString rxData);
 	QList<QString> getMidiOutDevices();
 	QList<QString> getMidiInDevices();
+	static void emitProgress(int bytesReceived);
 		
 signals:
 	void errorSignal(QString windowTitle, QString errorMsg);
@@ -62,7 +63,7 @@ private:
 	QList<QString> midiOutDevices;
 	QList<QString> midiInDevices;
 	
-	static void emitProgress(int bytesReceived);	
+		
 	static QString sysxBuffer;
 	static bool dataReceive;
 	static int bytesTotal;

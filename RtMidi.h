@@ -9,8 +9,6 @@
 
 #include "RtError.h"
 #include <string>
-#include <windows.h> // Needed to acces midi and linking against winmm.lib is also needed!!!
-#include <mmsystem.h>
 #include <vector>
 
 class RtMidi

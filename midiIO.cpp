@@ -70,6 +70,7 @@ void midiIO::queryMidiOutDevices()
 {
 	 RtMidiOut *midiout = 0;
 	 std::string portName;
+	 unsigned int outPorts;
   /* RtMidiOut constructor */
   try {
     midiout = new RtMidiOut();
@@ -79,8 +80,8 @@ void midiIO::queryMidiOutDevices()
     goto cleanup;
   }
   /* Check outputs. */ 
-  unsigned int nPorts = midiout->getPortCount();
-  for ( unsigned int i=0; i<nPorts; i++ ) {
+  outPorts = midiout->getPortCount();
+  for ( unsigned int i=0; i<outPorts; i++ ) {
     try {
       portName = midiout->getPortName(i);
     }
@@ -105,7 +106,7 @@ void midiIO::queryMidiOutDevices()
 	this->midiOutDevices.append(QString::fromStdString(portName));
 #endif
   } 
-  if (nPorts == 0) {
+  if (outPorts == 0) {
 	  this->midiOutDevices.push_back("no midi device available");
   }
  // Clean up
@@ -127,6 +128,7 @@ void midiIO::queryMidiInDevices()
 {
 	 RtMidiIn *midiin = 0;
 	 std::string portName;
+	 unsigned int inPorts;
   // RtMidiIn constructor
   try {
     midiin = new RtMidiIn();
@@ -136,8 +138,8 @@ void midiIO::queryMidiInDevices()
     goto cleanup;
   }
   // Check inputs.
-  unsigned int nPorts = midiin->getPortCount();
-  for ( unsigned int i=0; i<nPorts; i++ ) {
+  inPorts = midiin->getPortCount();
+  for ( unsigned int i=0; i<inPorts; i++ ) {
     try {
       portName = midiin->getPortName(i);
 		}
@@ -162,7 +164,7 @@ void midiIO::queryMidiInDevices()
 	this->midiInDevices.append(QString::fromStdString(portName));
 #endif
   }
-  if (nPorts == 0) 
+  if (inPorts == 0) 
 	{
 	  this->midiInDevices.push_back("no midi device available");
 	 }
@@ -185,7 +187,6 @@ QList<QString> midiIO::getMidiInDevices()
  *************************************************************************/
 void midiIO::sendMsg(QString sysxOutMsg, int midiOutPort)
 {
-	//emit setStatusProgress(100);
 	RtMidiOut *midiMsgOut = new RtMidiOut(); 
     // Check available ports.
     unsigned int nPorts = midiMsgOut->getPortCount();
@@ -234,6 +235,7 @@ void midiIO::sendMsg(QString sysxOutMsg, int midiOutPort)
 void midicallback(double deltatime, std::vector<unsigned char> *message, void *userData)
 {			
 		QString rxData;
+			midiIO *midi = new midiIO();
 				unsigned int nBytes = message->size();
 				if (nBytes <=  2) {rxData.append(nBytes);}
 				for ( unsigned int i=0; i<nBytes; i++ )
@@ -241,9 +243,9 @@ void midicallback(double deltatime, std::vector<unsigned char> *message, void *u
 					 int n = ((int)message->at(i));					// convert std::vector to QString
 					 QString hex = QString::number(n, 16).toUpper();
 					 if (hex.length() < 2) hex.prepend("0");
-					 rxData.append(hex);						
+					 rxData.append(hex);
+					midi->emitProgress(nBytes);
 				}	
-				midiIO *midi = new midiIO();
 				midi->callbackMsg(rxData);
 				//SysxIO *sysxIO = SysxIO::Instance();
 			    //sysxIO->emitStatusdBugMessage(sysxBuffer);		
@@ -256,6 +258,7 @@ void midiIO::callbackMsg(QString rxData)
 void midiIO::receiveMsg(QString sysxInMsg, int midiInPort)
 {
 	emit setStatusSymbol(3);
+	emit setStatusProgress(100);
 	Preferences *preferences = Preferences::Instance(); bool ok;// Load the preferences.
 	const int maxWait = preferences->getPreferences("Midi", "Time", "set").toInt(&ok, 10);
 	if(multiple){loopCount = maxWait*20;}
@@ -317,7 +320,7 @@ void midiIO::run()
 			 	 sysxOutMsg.append(midiMsg.mid(z+4,2));  // skip every second byte
 			 	 sendMsg(sysxOutMsg, midiOutPort);
 			 	 z=(z+6);								// advance to the next midi message in the string
-			 	 SLEEP(60);
+			 	 SLEEP(10);
 			 	};
 					
 	 		 }; 
@@ -326,7 +329,7 @@ void midiIO::run()
 		emit setStatusSymbol(2);
 		emit setStatusMessage("Sending");
 		emit setStatusProgress(33); // time wasting sinusidal statusbar progress animation
-		SLEEP(40);
+		SLEEP(40);					//enables short messages to give a viewable progress
 		emit setStatusProgress(66);
 		SLEEP(100);		
 		emit setStatusProgress(100);
@@ -376,10 +379,14 @@ void midiIO::run()
 			sendMsg(sysxOutMsg, midiOutPort);
 			Preferences *preferences = Preferences::Instance(); bool ok;// Load the preferences.
 			const int minWait = preferences->getPreferences("Midi", "Delay", "set").toInt(&ok, 10);
-			emit setStatusProgress(50);  // do the statusbar progress thing
-			SLEEP((100/minWait)*5);		// and wait predetermined time before being able to send more again.
+			emit setStatusProgress(33);  // do the statusbar progress thing
+			SLEEP((100/minWait)*2);		// and wait predetermined time before being able to send more again.
+			emit setStatusProgress(75);
+			SLEEP((100/minWait)*3);
 			emit setStatusProgress(100);
-			SLEEP((100/minWait)*5);
+			SLEEP((100/minWait)*3);
+			emit setStatusProgress(66);
+			SLEEP((100/minWait)*2);
 			emit midiFinished(); // We are finished so we send a signal to free the device.	
 		};		
 		this->sysxInMsg = sysxInMsg;
@@ -388,7 +395,7 @@ void midiIO::run()
 		emit setStatusProgress(0);
 		emit setStatusMessage(tr("Ready"));
 	};
-	this->exec();
+	//this->exec();    /* this was causing an overflow of new threads on each midi event */
 };
 
 /*********************** sendSysxMsg() ***********************************
