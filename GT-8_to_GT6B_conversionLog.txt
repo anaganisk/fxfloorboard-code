@@ -1,0 +1,50 @@
+1. replace images in \images folder and replace icon file with GT6B type
+2. replace stompBox_xxx.cpp files with gt6b ones
+3. text search and replace GT-8 with GT6B in all files
+4. text search and replace Guitar with Bass in all files
+5. replace default.syx and midi.xml files with gt6b ones
+6. floorBoard.cpp comment out #include "stompbox_lp.h" (with //)
+7. floorBoard.cpp comment out #include "stompbox_dgt.h"
+8. change sysxIO->setFileSource("11", "00", hexData); to sysxIO->setFileSource("0A", "00", hexData);
+9. change unsigned int spacingH = ( (floorSize.width() - offset - (marginStompBoxesWidth * 2)) - (stompSize.width() * 7) ) / 6; 
+to 	unsigned int spacingH = ( (floorSize.width() - offset - (marginStompBoxesWidth * 2)) - (stompSize.width() * 6) ) / 6;
+10. change 	for(int i=13;i>=0;i--)  to 	for(int i=11;i>=0;i--)
+11. change if(i>6) to if(i>5)
+12. change x = x - (( stompSize.width() + spacingH ) * 7); to x = x - (( stompSize.width() + spacingH ) * 6);
+13. change fx << 0 << 1 << 2 << 3 << 4 << 5 << 6 << 7 << 8 << 9 << 10 << 11 << 12 << 13; 
+to fx << 0 << 1 << 2 << 3 << 4 << 5 << 6 << 7 << 8 << 9 << 10 << 11;
+14. change 	QVector<QString> initStompNames(14); to 	QVector<QString> initStompNames(12);
+15. change QVector<stompBox *> initStompBoxes(14); to QVector<stompBox *> initStompBoxes(12);
+16. change Midi midimap = midiTable->getMidiMap("Stucture", "11", "00", "00"); 
+to Midi midimap = midiTable->getMidiMap("Stucture", "0A", "00", "00");
+17. change for(int i=0;i<=13;i++) to for(int i=0;i<=11;i++)
+18. comment the LOOP FX
+19. comment out the D-OUT Fx
+20. change QList<QString> fxChain = sysxIO->getFileSource("11", "00"); 
+to QList<QString> fxChain = sysxIO->getFileSource("0A", "00");
+21. change stompOrder.append( midiTable->getMidiMap("Stucture", "11", "00", "00", fxChain.at(i)).name );
+ to stompOrder.append( midiTable->getMidiMap("Stucture", "0A", "00", "00", fxChain.at(i)).name );
+
+22. floorBoardDisplay.cpp change QList<QString> nameArray = sysxIO->getFileSource("12", "00");
+ to QList<QString> nameArray = sysxIO->getFileSource("0B", "00");
+23. change patchName.append( midiTable->getMidiMap("Stucture", "12", "00", "00", nameArray.at(i)).name);
+to patchName.append( midiTable->getMidiMap("Stucture", "0B", "00", "00", nameArray.at(i)).name);
+24. change if(sysxIO->getBank() > 35) to if(sysxIO->getBank() > 20)
+25. MidiTable.cpp replace "0D" with "0B" ( x4) and "12" with "0B"
+26. stompBox.cpp change if(hex1 == "0E") to if(hex1 == "09")
+27. SysxIO.cpp change errorString.append(sysxBuffer.at(7) + " "); to errorString.append(sysxBuffer.at(6) + " ");
+28. change errorString.append(sysxBuffer.at(8) + " "); to errorString.append(sysxBuffer.at(7) + " ");
+29. change errorString.append(sysxBuffer.at(9) + " "); to errorString.append(sysxBuffer.at(8) + " ");
+30. change errorString.append(sysxBuffer.at(10) + " - "); to errorString.append(sysxBuffer.at(9) + " - ");
+31 globalVariables.h change const QString idReplyPatern = "F07E000602";
+   to const QString idReplyPatern = "";
+32. change const int sysxAddressOffset = 7; to const int sysxAddressOffset = 6;
+33. change const int sysxDataOffset = 11; to const int sysxDataOffset = 10;
+34. change const int checksumOffset = 7; to const int checksumOffset = 6;
+35. change const int bankTotalUser = 35; to const int bankTotalUser = 20;
+36. change const int bankTotalAll = 85;`to const int bankTotalAll = 30;
+37. bankTreeList.cpp change for (int a=1; a<=35; a++) to for (int a=1; a<=20; a++)
+38. change for (int a=36; a<=85; a++) to for (int a=21; a<=30; a++)
+39. change if(replyMsg != "" && replyMsg.size()/2 == 1010) to if(replyMsg != "" && replyMsg.size()/2 == 684)
+
+37. 
