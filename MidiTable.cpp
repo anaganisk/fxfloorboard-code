@@ -499,9 +499,9 @@ QString MidiTable::getCheckSum(int dataSize)
 	bool ok;
 	QString base = "80";
 	int sum = dataSize % base.toInt(&ok, 16);
-	if(sum!=0) sum = base.toInt(&ok, 16) - sum;
+	if(sum!=0){ sum = base.toInt(&ok, 16) - sum; };
 	QString checksum = QString::number(sum, 16).toUpper();
-	if(checksum.length()<2) checksum.prepend("0");
+	if(checksum.length()<2) { checksum.prepend("0"); };
 	return checksum;
 };
 
@@ -533,11 +533,8 @@ QString MidiTable::dataChange(QString hex1, QString hex2, QString hex3, QString 
 	sysxMsg.append(hex4);
 
 	int dataSize = 0; bool ok;
-	for(int i=checksumOffset;i<sysxMsg.size();++i)
-	{
-		dataSize += sysxMsg.mid(i, 2).toInt(&ok, 16);
-		i++;
-	};	
+	for(int i=checksumOffset;i<sysxMsg.size()-1;++i)
+	{ dataSize += sysxMsg.mid(i*2, 2).toInt(&ok, 16);i++; };	
 	sysxMsg.append(getCheckSum(dataSize));
 
 	sysxMsg.append(getFooter());
@@ -560,11 +557,8 @@ QString MidiTable::dataChange(QString hex1, QString hex2, QString hex3, QString 
 	sysxMsg.append(hex5);
 
 	int dataSize = 0; bool ok;
-	for(int i=checksumOffset;i<sysxMsg.size();++i)
-	{
-		dataSize += sysxMsg.mid(i, 2).toInt(&ok, 16);
-		i++;
-	};	
+	for(int i=checksumOffset;i<sysxMsg.size()-1;++i)
+	{ dataSize += sysxMsg.mid(i*2, 2).toInt(&ok, 16);i++; };	
 	sysxMsg.append(getCheckSum(dataSize));
 
 	sysxMsg.append(getFooter());
@@ -607,11 +601,8 @@ QString MidiTable::nameRequest(int bank, int patch)
 	sysxMsg.append(getSize(hex1, hex2));
 
 	int dataSize = 0;
-	for(int i=checksumOffset;i<sysxMsg.size();++i)
-	{
-		dataSize += sysxMsg.mid(i, 2).toInt(&ok, 16);
-		i++;
-	};	
+	for(int i=checksumOffset;i<sysxMsg.size()-1;++i)
+	{ dataSize += sysxMsg.mid(i*2, 2).toInt(&ok, 16);i++;	};	
 	sysxMsg.append(getCheckSum(dataSize));
 	sysxMsg.append(getFooter());
 
@@ -654,11 +645,8 @@ QString MidiTable::patchRequest(int bank, int patch)
 	sysxMsg.append(getSize());
 
 	int dataSize = 0;
-	for(int i=checksumOffset;i<sysxMsg.size();++i)
-	{
-		dataSize += sysxMsg.mid(i, 2).toInt(&ok, 16);
-		i++;
-	};	
+	for(int i=checksumOffset;i<sysxMsg.size()-1;++i)
+	{ dataSize += sysxMsg.mid(i*2, 2).toInt(&ok, 16);i++; };	
 	sysxMsg.append(getCheckSum(dataSize));
 	sysxMsg.append(getFooter());
 

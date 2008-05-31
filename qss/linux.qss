@@ -143,7 +143,7 @@ border-color: rgb(150,150,150);
 }
 QLabel#bankMain {
 font-family: FreeSans;
-font-size: 18px;
+font-size: 16px;
 font-weight: bold;
 color: rgb(0,255,204);
 }
@@ -155,7 +155,7 @@ color: rgb(0,255,204);
 }
 QLabel#nameMain {
 font-family: FreeSans;
-font-size: 14px;
+font-size: 12px;
 font-weight: bold;
 color: rgb(0,255,204);
 }
@@ -167,7 +167,7 @@ color: rgb(0,255,204);
 }
 QLabel#valueMain {
 font-family: FreeSans;
-font-size: 13px;
+font-size: 12px;
 font-weight: bold;
 color: rgb(0,255,204);
 }

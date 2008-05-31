@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Preferences of the GT6B Fx FloorBoard application. -->
+<!-- Preferences of the GT-8 Fx FloorBoard application. -->
 <Preferences>
 	<General>
-		<Application version="beta 20071108"/>
+		<Application version="beta 20080530"/>
 		<Donate url="http://sourceforge.net/donate/index.php?group_id=171049"/>
 		<Files dir=""/>
-		<Help url="GT-6BEditorManual_E.htm"/>
+		<Help url="GT-8EditorManual_E.htm"/>
 		<Language code="en"/>
-		<Webpage url="http://fxfloorboard.sourceforge.net/"/>
+		<Webpage url="http://gtx.tinfoilmusic.net/"/>
 	</General>
 	<Midi>
 		<MidiIn device=""/>
@@ -22,5 +22,5 @@
     <Restore sidepanel="false" window="false"/>
     <Size height="" minheight="548" minwidth="788" width=""/>
     <Splash bool="true"/>
-  </Window>
+  </Window> 
 </Preferences>

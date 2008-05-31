@@ -43,15 +43,19 @@ const int buttonBlinkInterval = 250;				// The interval (ms) the led on buttons 
 const int sysxAddressOffset = 7;	// Offset (starts at 0) where the address information starts in a sysx message.
 const int sysxDataOffset = 11;		// Offset (starts at 0) where the data starts in a sysx message.
 const int checksumOffset = 7;		  // Offset (starts at 0) where we start calculating the checksum (Normally this is the address offset).
+const int sysxNameOffset = 11;		// Offset (starts at 0) where the data starts in a sysx message. ///was 365?
+const int nameLength = 16;        // length of name string
 
 /* Patches and Banks */
 const int bankTotalUser = 35;		// Number of user (editable) banks.
 const int bankTotalAll = 85;		// Number of total banks.
 const int patchPerBank = 4;			// Number of patches in a bank.
+const int bankSize = 100;       // Number of patches in a midi bank before bank change message is required.
 
 /* Midi Send & Receive */
 const int patchPackets = 27;	 // number of sysx packets "F0....F7" which make up a patch.
 const int patchSize = 1010;    // size of bytes in a patch.
+const QString patchRequestSize = "00001F00";  // size of data required for patch request
 //const int maxWait = 40;			 // Maximum times we loop through the receive handle before we give up waiting.(for whole patch) tempory used by midi prefs
 //const int minWait = 5;			 // Minimum times we loop through the receive handle before we give up waiting.(for small data)   "      "       "       "
 const int maxRetry = 4;			   // Maximum times we retry to load a patch in case of a transfer error .

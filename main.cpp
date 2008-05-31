@@ -42,8 +42,8 @@ int main(int argc, char *argv[])
 	QPixmap splashMask(":images/splashmask.png");
 
 	customSplashScreen *splash = new customSplashScreen(splashImage);
-	splash->setMessageRect(QRect::QRect(7, 253, 415, 14), Qt::AlignCenter); // Setting the message position.
-
+	//splash->setMessageRect(QRect::QRect(148, 300, 332, 14)); // Setting the message position.
+  splash->setMessageRect(QRect::QRect(7, 253, 415, 14), Qt::AlignCenter); 
 	QFont splashFont;
 	splashFont.setFamily("Arial");
 	splashFont.setBold(true);
@@ -60,10 +60,10 @@ int main(int argc, char *argv[])
 	{
 		splash->show();
 	};
-	/* To intercept mousclick to hide splash screen. Since the 
+	/* To intercept mousclick to hide spalsh screen. Since the 
 	splash screen is typically displayed before the event loop 
 	has started running, it is necessary to periodically call. */
-	app.processEvents();
+	app.processEvents(); 
 
 	splash->showStatusMessage(QObject::tr("Initializing..."));
 	mainWindow window;// = new mainWindow;
@@ -100,12 +100,6 @@ int main(int argc, char *argv[])
 	bool ok;
 	QString x_str = preferences->getPreferences("Window", "Position", "x");
 	QString y_str = preferences->getPreferences("Window", "Position", "y");
-
-	app.processEvents(); 
-
-	//window.show(); // need to show the windows to get the size of it, before that it doesn't exist
-	//int windowWidth = window.width();                  
-	//int windowHeight = window.height();
 
 	app.processEvents(); 
 
@@ -168,27 +162,31 @@ int main(int argc, char *argv[])
 		window.setGeometry(x, y, window.width(), window.height());
 	};
 	
-	app.processEvents();
+	app.processEvents(); 
 
 	splash->showStatusMessage(QObject::tr("Finished Initializing..."));
 
 	window.show();
 	splash->finish(&window);
-#ifdef Q_OS_MAC
-	/* PREVIEW WARNING */
+
+/*	 PREVIEW WARNING  */ 
 	QMessageBox *msgBox = new QMessageBox();
-	msgBox->setWindowTitle(QObject::tr("Warning this is a preview!"));
+	msgBox->setWindowTitle(QObject::tr("Warning this is beta version software"));
 	msgBox->setIcon(QMessageBox::Warning);
 	msgBox->setTextFormat(Qt::RichText);
 	QString msgText;
 	msgText.append("<font size='+1'><b>");
-	msgText.append(QObject::tr("This software is currently under development!"));
+	msgText.append(QObject::tr("This software is currently under development!<br>"));
 	msgText.append("<b></font><br>");
-	msgText.append(QObject::tr("Please make sure to back up your patches and stored banks before you continue."));
+	msgText.append(QObject::tr("Please email to http//:gumtownbassman@yahoo.com to confirm correct function.<br>"));
+	msgText.append(QObject::tr(" This will help with development and future versions & removal of this nag screen."));
+#ifdef Q_OS_MAC
+  msgText.append(QObject::tr("Mac version midi receive not yet functioning, only realtime edit possible."));
+#endif
 	msgBox->setText(msgText);
 	msgBox->setStandardButtons(QMessageBox::Ok);
 	msgBox->exec();
 	/* END WARNING */
-#endif
+
 	return app.exec();
 };

@@ -1,8 +1,8 @@
 /****************************************************************************
 **
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
+** Copyright (C) 2006, 2007 Colin Willcocks. All rights reserved.
 **
-** This file is part of "GT-8 Fx FloorBoard".
+** This file is part of "GT6B Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -20,20 +20,23 @@
 **
 ****************************************************************************/
 
-#include "PreferencesDestroyer.h"
+#ifndef MANUAL_H
+#define MANUAL_H
 
-PreferencesDestroyer::PreferencesDestroyer(Preferences* s) 
+#include <QtGui>
+#include <QWidget>
+#include "stompBox.h"
+
+class manual : public stompBox
 {
-	_preferences = s;
+    Q_OBJECT
+
+public:
+	manual(QWidget *parent);
+	void setEditPages();
+
+public slots:
+	void updateSignal();
 };
 
-PreferencesDestroyer::~PreferencesDestroyer ()
-{
-	//_preferences->savePreferences();
-	delete _preferences;
-};
-
-void PreferencesDestroyer::SetPreferences(Preferences* s)
-{
-	_preferences = s;
-};
+#endif // MANUAL_H
