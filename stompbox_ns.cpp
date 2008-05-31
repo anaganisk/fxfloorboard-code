@@ -47,6 +47,7 @@ void stompbox_ns::setEditPages()
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "09", "00", "00", "middle", Qt::AlignCenter);         //on/off
 	editDetails()->page()->addKnob(0, 1, 1, 1, "09", "00", "01");         //threshold
 	editDetails()->page()->addKnob(0, 2, 1, 1, "09", "00", "02");         //release
+	editDetails()->page()->addKnob(0, 3, 1, 1, "09", "00", "03");         //patch level
 	//editDetails()->page()->addComboBox(0, 3, 1, 1, "09", "00", "03");     //NS detect
 	editDetails()->page()->addGroupBox(0, 0, 4, 1);
 	editDetails()->addPage();  // PAGE ABOVE    

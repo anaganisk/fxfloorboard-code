@@ -168,21 +168,25 @@ int main(int argc, char *argv[])
 
 	window.show();
 	splash->finish(&window);
-#ifdef Q_OS_MAC
-	/* PREVIEW WARNING */
+
+/*	 PREVIEW WARNING  */ 
 	QMessageBox *msgBox = new QMessageBox();
-	msgBox->setWindowTitle(QObject::tr("Warning this is a preview!"));
+	msgBox->setWindowTitle(QObject::tr("Warning this is beta version software"));
 	msgBox->setIcon(QMessageBox::Warning);
 	msgBox->setTextFormat(Qt::RichText);
 	QString msgText;
 	msgText.append("<font size='+1'><b>");
 	msgText.append(QObject::tr("This software is currently under development!"));
 	msgText.append("<b></font><br>");
-	msgText.append(QObject::tr("Please make sure to back up your patches and stored banks before you continue."));
+	msgText.append(QObject::tr("Please email to http//:gumtownbassman@yahoo.com to confirm correct function.<br>"));
+	msgText.append(QObject::tr(" This will help with development and future versions & removal of this nag screen.<br>"));
+#ifdef Q_OS_MAC
+		msgText.append(QObject::tr(" The MacOSX version has a midi receive problem and only realtime edit possible."));
+#endif
 	msgBox->setText(msgText);
 	msgBox->setStandardButtons(QMessageBox::Ok);
 	msgBox->exec();
 	/* END WARNING */
-#endif
+
 	return app.exec();
 };

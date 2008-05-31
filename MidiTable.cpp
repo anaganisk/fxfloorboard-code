@@ -1,8 +1,8 @@
 /**************************************************************************** 
-** 
+** Copyright (C) 2008 Colin Willcocks.
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved. 
 ** 
-** This file is part of "GT6B Fx FloorBoard". 
+** This file is part of "GT-6 Fx FloorBoard". 
 ** 
 ** This program is free software; you can redistribute it and/or modify 
 ** it under the terms of the GNU General Public License as published by 
@@ -43,13 +43,7 @@ MidiTable* MidiTable::Instance()
         _destroyer.SetMidiTable(_instance); 
     }; 
     return _instance; // address of sole instance 
- 
-    /* Single-threading */ 
-    /* 
-    static Preferences inst; 
-    return &inst; 
-    */ 
-};
+ };
 
 void MidiTable::loadMidiMap() 
 { 
@@ -418,7 +412,7 @@ QString MidiTable::getSize(QString hex1, QString hex2, QString hex3)
 	size.append(hex3);
 	size.append("00");
 	size.append(itemSize);
-	size.append("00");
+	size.append("00");//("00");
 	return size;
 };
 
@@ -499,16 +493,16 @@ QString MidiTable::getCheckSum(int dataSize)
 	bool ok;
 	QString base = "80";
 	int sum = dataSize % base.toInt(&ok, 16);
-	if(sum!=0) sum = base.toInt(&ok, 16) - sum;
+	if(sum!=0){sum = base.toInt(&ok, 16) - sum; };
 	QString checksum = QString::number(sum, 16).toUpper();
-	if(checksum.length()<2) checksum.prepend("0");
+	if(checksum.length()<2) {checksum.prepend("0"); };
 	return checksum;
 };
 
 QString MidiTable::dataRequest(QString hex1, QString hex2, QString hex3)
 {
 	QString sysxMsg;
-	sysxMsg.append(getHeader(true));
+	sysxMsg.append(getHeader(true));     // true = dataset ("11")
 	
 	sysxMsg.append(hex1);
 	sysxMsg.append(hex2);
@@ -521,9 +515,9 @@ QString MidiTable::dataRequest(QString hex1, QString hex2, QString hex3)
 QString MidiTable::dataChange(QString hex1, QString hex2, QString hex3, QString hex4)
 {
 	QString sysxMsg;
-	sysxMsg.append(getHeader(false));
+	sysxMsg.append(getHeader(false));  // false = dataset ("12")
 	
-	sysxMsg.append("0B");
+	sysxMsg.append(tempDataWrite);
 	sysxMsg.append("00");
 
 	sysxMsg.append(hex1);
@@ -533,11 +527,9 @@ QString MidiTable::dataChange(QString hex1, QString hex2, QString hex3, QString 
 	sysxMsg.append(hex4);
 
 	int dataSize = 0; bool ok;
-	for(int i=checksumOffset;i<sysxMsg.size();++i)
-	{
-		dataSize += sysxMsg.mid(i, 2).toInt(&ok, 16);
-		i++;
-	};	
+	for(int i=checksumOffset;i<sysxMsg.size()-1;++i)
+	{ dataSize += sysxMsg.mid(i*2, 2).toInt(&ok, 16);i++; };	
+
 	sysxMsg.append(getCheckSum(dataSize));
 
 	sysxMsg.append(getFooter());
@@ -549,7 +541,7 @@ QString MidiTable::dataChange(QString hex1, QString hex2, QString hex3, QString 
 	QString sysxMsg;
 	sysxMsg.append(getHeader(false));
 	
-	sysxMsg.append("0B");
+	sysxMsg.append(tempDataWrite);
 	sysxMsg.append("00");
 
 	sysxMsg.append(hex1);
@@ -560,11 +552,9 @@ QString MidiTable::dataChange(QString hex1, QString hex2, QString hex3, QString 
 	sysxMsg.append(hex5);
 
 	int dataSize = 0; bool ok;
-	for(int i=checksumOffset;i<sysxMsg.size();++i)
-	{
-		dataSize += sysxMsg.mid(i, 2).toInt(&ok, 16);
-		i++;
-	};	
+	for(int i=checksumOffset;i<sysxMsg.size()-1;++i)
+	{ dataSize += sysxMsg.mid(i*2, 2).toInt(&ok, 16);i++; };	
+
 	sysxMsg.append(getCheckSum(dataSize));
 
 	sysxMsg.append(getFooter());
@@ -591,11 +581,11 @@ QString MidiTable::nameRequest(int bank, int patch)
 	}
 	else
 	{
-		addr1 = "0B";  // temp write buffer
+		addr1 = tempBulkWrite;  // temp write buffer
 		addr2 = "00";
 	};
 
-	QString hex1 = "00";    // patch names memory location// whole patch for gt6b
+	QString hex1 = "00";    // patch names memory location// whole patch for gt6
 	QString hex2 = "00";
 
 	QString sysxMsg;
@@ -606,12 +596,9 @@ QString MidiTable::nameRequest(int bank, int patch)
 	sysxMsg.append(hex2);
 	sysxMsg.append(getSize(hex1, hex2));
 
-	int dataSize = 0;
-	for(int i=checksumOffset;i<sysxMsg.size();++i)
-	{
-		dataSize += sysxMsg.mid(i, 2).toInt(&ok, 16);
-		i++;
-	};	
+	int dataSize = 0; //bool ok;
+	for(int i=checksumOffset;i<sysxMsg.size()-1;++i)
+	{ dataSize += sysxMsg.mid(i*2, 2).toInt(&ok, 16);i++; };	
 	sysxMsg.append(getCheckSum(dataSize));
 	sysxMsg.append(getFooter()); 
 
@@ -638,7 +625,7 @@ QString MidiTable::patchRequest(int bank, int patch)
 	}
 	else
 	{
-		addr1 = "0A";  //GT6B temp bulk address
+		addr1 = tempBulkWrite;  //GT6B temp bulk address
 		addr2 = "00";
 	};
 
@@ -653,12 +640,10 @@ QString MidiTable::patchRequest(int bank, int patch)
 	sysxMsg.append(hex2);
 	sysxMsg.append(getSize());
 
-	int dataSize = 0;
-	for(int i=checksumOffset;i<sysxMsg.size();++i)
-	{
-		dataSize += sysxMsg.mid(i, 2).toInt(&ok, 16);
-		i++;
-	};	
+	int dataSize = 0; //bool ok;
+	for(int i=checksumOffset;i<sysxMsg.size()-1;++i)
+	{ dataSize += sysxMsg.mid(i*2, 2).toInt(&ok, 16);i++; };	
+
 	sysxMsg.append(getCheckSum(dataSize));
 	sysxMsg.append(getFooter());
 

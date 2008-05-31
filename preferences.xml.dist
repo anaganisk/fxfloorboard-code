@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Preferences of the GT6B Fx FloorBoard application. -->
+<!-- Preferences of the GT-6 Fx FloorBoard application. -->
 <Preferences>
 	<General>
-		<Application version="beta 20071108"/>
+		<Application version="beta 20080530"/>
 		<Donate url="http://sourceforge.net/donate/index.php?group_id=171049"/>
 		<Files dir=""/>
 		<Help url="GT-6EditorManual_E.htm"/>

@@ -46,10 +46,10 @@ void stompbox_fv::setEditPages()
 	editDetails()->page()->addKnob(0, 1, 1, 1, "0C", "00", "01");         //foot volume minimum
 	editDetails()->page()->addKnob(0, 2, 1, 1, "0C", "00", "02");         //foot volume maximum
 	editDetails()->page()->addGroupBox(1, 0, 1, 3);
-/*
+
 	editDetails()->page()->newGroupBox("Expression Pedal Switch");
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "0D", "00", "00", "middle", Qt::AlignCenter); //on/off 
-	editDetails()->page()->addComboBox(0, 1, 1, 1, "0D", "00", "01"); //QUICK SETTING
+	//editDetails()->page()->addComboBox(0, 1, 1, 1, "0D", "00", "01"); //QUICK SETTING
 	editDetails()->page()->addKnob(0, 2, 1, 1, "0D", "00", "02", "normal", "right", 135);//target
 	editDetails()->page()->addComboBox(0, 3, 1, 1, "0D", "00", "04");   
 	//editDetails()->page()->addKnob(0, 2, 1, 1, "0D", "00", "04", "turbo");       // target min
@@ -57,14 +57,14 @@ void stompbox_fv::setEditPages()
 	//editDetails()->page()->addKnob(0, 3, 1, 1, "0D", "00", "06", "turbo");    //  target max
 	editDetails()->page()->addComboBox(0, 5, 1, 1, "0D", "00", "08");         // source mode
 	editDetails()->page()->addGroupBox(2, 0, 1, 4);
-*/
+
 	editDetails()->page()->newGroupBox("Foot Volume");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "09", "00", "06");         //foot volume level
 	editDetails()->page()->addGroupBox(1, 3, 1, 1);
-/*
+
 	editDetails()->page()->newGroupBox("CTRL Pedal");
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "0E", "00", "00", "middle", Qt::AlignCenter); //on/off 
-	editDetails()->page()->addComboBox(0, 1, 1, 1, "0E", "00", "01"); //QUICK SETTING
+	//editDetails()->page()->addComboBox(0, 1, 1, 1, "0E", "00", "01"); //QUICK SETTING
 	editDetails()->page()->addKnob(0, 2, 1, 1, "0E", "00", "02", "normal", "right", 135);//target
 	editDetails()->page()->addComboBox(0, 3, 1, 1, "0E", "00", "04");   
 	//editDetails()->page()->addKnob(0, 2, 1, 1, "0D", "00", "04", "turbo");       // target min
@@ -72,7 +72,7 @@ void stompbox_fv::setEditPages()
 	//editDetails()->page()->addKnob(0, 3, 1, 1, "0D", "00", "06", "turbo");    //  target max
 	editDetails()->page()->addComboBox(0, 5, 1, 1, "0E", "00", "08");         // source mode
 	editDetails()->page()->addGroupBox(3, 0, 1, 4);
-	*/
+	
 	
 	editDetails()->addPage();  // PAGE ABOVE   
 	

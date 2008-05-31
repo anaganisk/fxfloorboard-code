@@ -35,8 +35,8 @@
 
 /* General Parameters */
 const QString deviceType = "GT-6";
-const QString idRequestString = "F041000046110000000000000001F7";		// Indentity Request (GT6).
-const QString idReplyPatern = "F0410000461200000000";			// Returned device id message must contain/match this (QRegExp or a string without spaces and all caps).
+const QString idRequestString = "F0410000461100000000000000017FF7";		// Indentity Request (GT6).
+const QString idReplyPatern = "F04100004612";			// Returned device id message must contain/match this (QRegExp or a string without spaces and all caps).
 const int buttonBlinkInterval = 250;				// The interval (ms) the led on buttons blink.
 
 /* Sysex Message Parameters */
@@ -50,14 +50,23 @@ const int checksumOffset = 6;		// Offset (starts at 0) where we start calculatin
 const int bankTotalUser = 35;		// Number of user (editable) banks.
 const int bankTotalAll = 85;		// Number of total banks.
 const int patchPerBank = 4;			// Number of patches in a bank.
+const int bankSize = 100;       // Number of patches in a midi bank before bank change message is required.
 
 /* Midi Send & Receive */
 const int patchPackets = 22;		// number of sysx packets "F0....F7" which make up a patch.
 const int patchSize = 670;          // size of bytes in a patch.
+const QString patchRequestSize = "00000001";
 const int maxRetry = 2;				// Maximum times we retry to load a patch in case of a transfer error .
 
 /* Patch Sellection (Used when copying patches) */
 const int sellectionBlinks = 5;				// Times we blink to indicate we have sellected a patch before returning.
 const int sellectionBlinkInterval = 500;	// Interval (ms) the item blinks.
+
+/* Patch addresses */
+const QString chainAddress = "0A";
+const QString nameAddress = "0B";
+const QString tempBulkWrite = "0A";
+const QString tempDataWrite = "0B";
+
 
 #endif // GLOBALVARIABLES_H

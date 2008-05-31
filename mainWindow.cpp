@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT6B Fx FloorBoard".
+** This file is part of "GT-x Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -25,6 +25,7 @@
 #include "preferencesDialog.h"
 #include "statusBarWidget.h"
 #include "SysxIO.h"
+#include "globalVariables.h"
 // Platform-dependent sleep routines.
 #ifdef Q_OS_WIN
   #include <windows.h>
@@ -85,7 +86,7 @@ mainWindow::mainWindow(QWidget *parent)
 	#endif
 	
 	
-	this->setWindowTitle("GT-6 Fx FloorBoard");
+	this->setWindowTitle (deviceType  + (" Fx FloorBoard"));
 	//this->setCentralWidget(fxsBoard);
 	
 	this->createActions();
@@ -175,12 +176,12 @@ void mainWindow::createActions()
 	settingsAct->setStatusTip(tr("...."));
 	connect(settingsAct, SIGNAL(triggered()), this, SLOT(settings()));
 
-	helpAct = new QAction(/*QIcon(":/images/help.png"),*/ tr("GT-6 Fx FloorBoard &Help"), this);
+	helpAct = new QAction(/*QIcon(":/images/help.png"),*/ deviceType + tr(" Fx FloorBoard &Help"), this);
 	helpAct->setShortcut(tr("Ctrl+F1"));
 	helpAct->setStatusTip(tr("....."));
 	connect(helpAct, SIGNAL(triggered()), this, SLOT(help()));
 
-	homepageAct = new QAction(/*QIcon(":/images/home.png"),*/ tr("GT-6 Fx FloorBoard &Webpage"), this);
+	homepageAct = new QAction(/*QIcon(":/images/home.png"),*/ deviceType + tr(" Fx FloorBoard &Webpage"), this);
 	homepageAct->setStatusTip(tr("........"));
 	connect(homepageAct, SIGNAL(triggered()), this, SLOT(homepage()));
 
@@ -419,8 +420,8 @@ void mainWindow::about()
 	QFile file(":about"); 
 	if(file.open(QIODevice::ReadOnly))
 	{	
-		QMessageBox::about(this, tr("GT-6 Fx FloorBoard - About"), 
-			"GT-6 Fx FloorBoard, " + tr("version") + " " + version + "\n" + file.readAll());
+		QMessageBox::about(this, (deviceType + tr(" Fx FloorBoard - About")), 
+			deviceType + (" Fx FloorBoard, ") + tr("version") + " " + version + "\n" + file.readAll());
 	};
 };
 
@@ -428,7 +429,6 @@ void mainWindow::closeEvent(QCloseEvent* ce)
 {
 	Preferences *preferences = Preferences::Instance();
 	preferences->savePreferences();
-	SLEEP(1000);
-	//ce->accept();
-	//emit closed();
+	ce->accept();
+	emit closed();
 };

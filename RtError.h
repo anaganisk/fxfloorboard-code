@@ -16,6 +16,7 @@
 #include <string>
 #include <QMessageBox>
 #include "SysxIO.h"
+#include "globalVariables.h"
 
 class RtError
 {
@@ -52,11 +53,11 @@ public:
 	  SysxIO *sysxIO = SysxIO::Instance();
 	  sysxIO->errorReturn();
 	  QString errorType;
-	  errorType.append(type_);
+	  errorType.append(Type());
 	  QString errorMsg;
 	  errorMsg.append(QString::fromStdString(message_));
   QMessageBox *msgBox = new QMessageBox();
-		msgBox->setWindowTitle("GT6BFxFloorBoard");
+		msgBox->setWindowTitle(deviceType + "FxFloorBoard Warning !!");
 		msgBox->setIcon(QMessageBox::Warning);
 		msgBox->setTextFormat(Qt::RichText);
 		msgBox->setText(errorMsg);

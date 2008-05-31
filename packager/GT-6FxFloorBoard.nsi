@@ -2,10 +2,10 @@
 
 ; HM NIS Edit Wizard helper defines
 !define PRODUCT_NAME "GT-6FxFloorBoard"
-!define PRODUCT_VERSION "1.0"
-!define PRODUCT_PUBLISHER "Gumtownbassman"
-!define PRODUCT_WEB_SITE "http://gtx.tinfoilmusic.net/"
-!define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\GT6FxFloorBoard.exe"
+!define PRODUCT_VERSION "beta 20080429"
+!define PRODUCT_PUBLISHER "gumtownbassman"
+!define PRODUCT_WEB_SITE "http://gtx.tinfoilmusic.net"
+!define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\gt6fxfloorboard.exe"
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
 !define PRODUCT_UNINST_ROOT_KEY "HKLM"
 
@@ -16,8 +16,8 @@ SetCompressor lzma
 
 ; MUI Settings
 !define MUI_ABORTWARNING
-!define MUI_ICON "${NSISDIR}\Contrib\Graphics\Icons\modern-install.ico"
-!define MUI_UNICON "${NSISDIR}\Contrib\Graphics\Icons\modern-uninstall.ico"
+!define MUI_ICON "${NSISDIR}\Contrib\Graphics\Icons\orange-install.ico"
+!define MUI_UNICON "${NSISDIR}\Contrib\Graphics\Icons\orange-uninstall.ico"
 
 ; Welcome page
 !insertmacro MUI_PAGE_WELCOME
@@ -28,8 +28,7 @@ SetCompressor lzma
 ; Instfiles page
 !insertmacro MUI_PAGE_INSTFILES
 ; Finish page
-!define MUI_FINISHPAGE_RUN "$INSTDIR\GT6FxFloorBoard.exe"
-!define MUI_FINISHPAGE_SHOWREADME "$INSTDIR\GT-6EditorManual_E.htm"
+!define MUI_FINISHPAGE_RUN "$INSTDIR\gt6fxfloorboard.exe"
 !insertmacro MUI_PAGE_FINISH
 
 ; Uninstaller pages
@@ -54,10 +53,10 @@ Section "MainSection" SEC01
   SetOutPath "$INSTDIR"
   SetOverwrite ifnewer
   File "GT-6EditorManual_E.htm"
-  File "GT6FxFloorBoard.exe"
+  File "gt6fxfloorboard.exe"
   CreateDirectory "$SMPROGRAMS\GT-6FxFloorBoard"
-  CreateShortCut "$SMPROGRAMS\GT-6FxFloorBoard\GT-6FxFloorBoard.lnk" "$INSTDIR\GT6FxFloorBoard.exe"
-  CreateShortCut "$DESKTOP\GT-6FxFloorBoard.lnk" "$INSTDIR\GT6FxFloorBoard.exe"
+  CreateShortCut "$SMPROGRAMS\GT-6FxFloorBoard\GT-6FxFloorBoard.lnk" "$INSTDIR\gt6fxfloorboard.exe"
+  CreateShortCut "$DESKTOP\GT-6FxFloorBoard.lnk" "$INSTDIR\gt6fxfloorboard.exe"
   File "mingwm10.dll"
   SetOutPath "$INSTDIR\init patches"
   SetOverwrite try
@@ -114,6 +113,35 @@ Section "MainSection" SEC01
   File "init patches\zakkwylde6-2.syx"
   File "init patches\zz-top-crunchy.syx"
   File "init patches\zz-top-dirty.syx"
+  SetOutPath "$INSTDIR\GT-6EditorManual_E_files"
+  File "GT-6EditorManual_E_files\filelist.xml"
+  File "GT-6EditorManual_E_files\image001.jpg"
+  File "GT-6EditorManual_E_files\image002.jpg"
+  File "GT-6EditorManual_E_files\image003.jpg"
+  File "GT-6EditorManual_E_files\image004.jpg"
+  File "GT-6EditorManual_E_files\image005.jpg"
+  File "GT-6EditorManual_E_files\image006.jpg"
+  File "GT-6EditorManual_E_files\image007.jpg"
+  File "GT-6EditorManual_E_files\image008.jpg"
+  File "GT-6EditorManual_E_files\image009.jpg"
+  File "GT-6EditorManual_E_files\image010.jpg"
+  File "GT-6EditorManual_E_files\image011.jpg"
+  File "GT-6EditorManual_E_files\image012.jpg"
+  File "GT-6EditorManual_E_files\image013.jpg"
+  File "GT-6EditorManual_E_files\image014.jpg"
+  File "GT-6EditorManual_E_files\image015.jpg"
+  File "GT-6EditorManual_E_files\image016.jpg"
+  File "GT-6EditorManual_E_files\image017.jpg"
+  File "GT-6EditorManual_E_files\image018.jpg"
+  File "GT-6EditorManual_E_files\image019.jpg"
+  File "GT-6EditorManual_E_files\image020.jpg"
+  File "GT-6EditorManual_E_files\image021.jpg"
+  File "GT-6EditorManual_E_files\image022.jpg"
+  File "GT-6EditorManual_E_files\image023.jpg"
+  File "GT-6EditorManual_E_files\image024.jpg"
+  File "GT-6EditorManual_E_files\image025.jpg"
+  File "GT-6EditorManual_E_files\image026.jpg"
+  File "GT-6EditorManual_E_files\Thumbs.db"
 SectionEnd
 
 Section -AdditionalIcons
@@ -125,10 +153,10 @@ SectionEnd
 
 Section -Post
   WriteUninstaller "$INSTDIR\uninst.exe"
-  WriteRegStr HKLM "${PRODUCT_DIR_REGKEY}" "" "$INSTDIR\GT6FxFloorBoard.exe"
+  WriteRegStr HKLM "${PRODUCT_DIR_REGKEY}" "" "$INSTDIR\gt6fxfloorboard.exe"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayName" "$(^Name)"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "UninstallString" "$INSTDIR\uninst.exe"
-  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayIcon" "$INSTDIR\GT6FxFloorBoard.exe"
+  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayIcon" "$INSTDIR\gt6fxfloorboard.exe"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayVersion" "${PRODUCT_VERSION}"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "URLInfoAbout" "${PRODUCT_WEB_SITE}"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "Publisher" "${PRODUCT_PUBLISHER}"
@@ -148,6 +176,34 @@ FunctionEnd
 Section Uninstall
   Delete "$INSTDIR\${PRODUCT_NAME}.url"
   Delete "$INSTDIR\uninst.exe"
+  Delete "$INSTDIR\GT-6EditorManual_E_files\Thumbs.db"
+  Delete "$INSTDIR\GT-6EditorManual_E_files\image026.jpg"
+  Delete "$INSTDIR\GT-6EditorManual_E_files\image025.jpg"
+  Delete "$INSTDIR\GT-6EditorManual_E_files\image024.jpg"
+  Delete "$INSTDIR\GT-6EditorManual_E_files\image023.jpg"
+  Delete "$INSTDIR\GT-6EditorManual_E_files\image022.jpg"
+  Delete "$INSTDIR\GT-6EditorManual_E_files\image021.jpg"
+  Delete "$INSTDIR\GT-6EditorManual_E_files\image020.jpg"
+  Delete "$INSTDIR\GT-6EditorManual_E_files\image019.jpg"
+  Delete "$INSTDIR\GT-6EditorManual_E_files\image018.jpg"
+  Delete "$INSTDIR\GT-6EditorManual_E_files\image017.jpg"
+  Delete "$INSTDIR\GT-6EditorManual_E_files\image016.jpg"
+  Delete "$INSTDIR\GT-6EditorManual_E_files\image015.jpg"
+  Delete "$INSTDIR\GT-6EditorManual_E_files\image014.jpg"
+  Delete "$INSTDIR\GT-6EditorManual_E_files\image013.jpg"
+  Delete "$INSTDIR\GT-6EditorManual_E_files\image012.jpg"
+  Delete "$INSTDIR\GT-6EditorManual_E_files\image011.jpg"
+  Delete "$INSTDIR\GT-6EditorManual_E_files\image010.jpg"
+  Delete "$INSTDIR\GT-6EditorManual_E_files\image009.jpg"
+  Delete "$INSTDIR\GT-6EditorManual_E_files\image008.jpg"
+  Delete "$INSTDIR\GT-6EditorManual_E_files\image007.jpg"
+  Delete "$INSTDIR\GT-6EditorManual_E_files\image006.jpg"
+  Delete "$INSTDIR\GT-6EditorManual_E_files\image005.jpg"
+  Delete "$INSTDIR\GT-6EditorManual_E_files\image004.jpg"
+  Delete "$INSTDIR\GT-6EditorManual_E_files\image003.jpg"
+  Delete "$INSTDIR\GT-6EditorManual_E_files\image002.jpg"
+  Delete "$INSTDIR\GT-6EditorManual_E_files\image001.jpg"
+  Delete "$INSTDIR\GT-6EditorManual_E_files\filelist.xml"
   Delete "$INSTDIR\init patches\zz-top-dirty.syx"
   Delete "$INSTDIR\init patches\zz-top-crunchy.syx"
   Delete "$INSTDIR\init patches\zakkwylde6-2.syx"
@@ -202,7 +258,7 @@ Section Uninstall
   Delete "$INSTDIR\init patches\Blue Chorus.syx"
   Delete "$INSTDIR\init patches\acdcblack17-3.syx"
   Delete "$INSTDIR\mingwm10.dll"
-  Delete "$INSTDIR\GT6FxFloorBoard.exe"
+  Delete "$INSTDIR\gt6fxfloorboard.exe"
   Delete "$INSTDIR\GT-6EditorManual_E.htm"
 
   Delete "$SMPROGRAMS\GT-6FxFloorBoard\Uninstall.lnk"
@@ -212,6 +268,7 @@ Section Uninstall
 
   RMDir "$SMPROGRAMS\GT-6FxFloorBoard"
   RMDir "$INSTDIR\init patches"
+  RMDir "$INSTDIR\GT-6EditorManual_E_files"
   RMDir "$INSTDIR"
 
   DeleteRegKey ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}"
