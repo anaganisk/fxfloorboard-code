@@ -1,7 +1,7 @@
 /****************************************************************************
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
-**
+** Copyright (C) 2008 Colin Willcocks.
 ** This file is part of "GT6B Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
@@ -46,6 +46,7 @@
 #include "stompbox_rv.h"
 #include "stompbox_fv.h"
 #include "stompbox_ns.h"
+#include "stompbox_assign.h"
 //#include "manual.h"
 
 floorBoard::floorBoard(QWidget *parent, 

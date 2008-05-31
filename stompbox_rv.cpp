@@ -1,8 +1,8 @@
 /****************************************************************************
-**
+** Copyright (C) 2007-2008 Colin Willcocks.
 ** Copyright (C) 2005-2006 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT6B FX FloorBoard".
+** This file is part of "GT-6BFXFloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -46,7 +46,7 @@ void stompbox_rv::updateSignal()
 
 void stompbox_rv::setEditPages()
 {
-	editDetails()->page()->newGroupBox("Effect");
+	editDetails()->page()->newGroupBox("Spkr Sim Effect");
 	editDetails()->page()->addSwitch(0, 1, 1, 1, "04", "00", "10", "middle", Qt::AlignCenter);       //on/off
 	editDetails()->page()->addGroupBox(1, 0, 1, 1);
 	
@@ -55,9 +55,9 @@ void stompbox_rv::setEditPages()
 	editDetails()->page()->addKnob(0, 1, 1, 1, "04", "00", "13");         //mic setting
 	editDetails()->page()->addGroupBox(1, 1, 1, 1);
 
-	editDetails()->page()->newGroupBox("Pre-Amp to Speaker Link");
+	/*editDetails()->page()->newGroupBox("Pre-Amp to Speaker Link");
 	editDetails()->page()->addComboBox(0, 2, 1, 1, "04", "00", "16");     //link
-	editDetails()->page()->addGroupBox(1, 2, 1, 1);
+	editDetails()->page()->addGroupBox(1, 2, 1, 1);  */
 
 
     editDetails()->page()->newGroupBox("Output");

@@ -20,6 +20,7 @@
 **
 ****************************************************************************/
 #include <QtGui>
+#include <QStyleFactory>
 #include "mainWindow.h"
 #include "Preferences.h"
 #include "preferencesDialog.h"
@@ -75,7 +76,7 @@ mainWindow::mainWindow(QWidget *parent)
 	#ifdef Q_WS_MAC
 		/* This set the floorboard default style to the "macintosh" style, 
 	   as it comes the nearest what the stylesheet uses. */
-	fxsBoard->setStyle(QStyleFactory::create("macintosh"));
+	fxsBoard->setStyle(QStyleFactory::create("plastique"));
 		if(QFile(":qss/macosx.qss").exists())
 		{
 			QFile file(":qss/macosx.qss");
@@ -429,10 +430,6 @@ void mainWindow::closeEvent(QCloseEvent* ce)
 {
 	Preferences *preferences = Preferences::Instance();
 	preferences->savePreferences();
-#ifdef Q_OS_MAC
-	SLEEP(2500);
-#else
 	ce->accept();
 	emit closed();
-#endif
 };

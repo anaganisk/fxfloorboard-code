@@ -1,5 +1,6 @@
 /****************************************************************************
 **
+** Copyright (C) 2007, 2008 Colin Willcocks.
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
 ** This file is part of "GT-6B Fx FloorBoard".
@@ -147,16 +148,39 @@ void SysxIO::setFileSource(QString data)
 	for(int i=0;i<data.size();i++)
 	{
 		QString hex = data.mid(i, 2);
+		//if (i=6){hex="0B";};
 		sysxBuffer.append(hex);
 		i++;
 
 		if(hex == "F7") 
 		{	
-			this->fileSource.address.append( sysxBuffer.at(sysxAddressOffset + 2) + sysxBuffer.at(sysxAddressOffset + 3) );
+			this->fileSource.address.append( sysxBuffer.at(sysxAddressOffset + 2 ) + sysxBuffer.at(sysxAddressOffset + 3) );
+			//sysxBuffer.replace.mid(6, "0B");
 			this->fileSource.hex.append(sysxBuffer);
-			sysxBuffer.clear();
-		};
+      sysxBuffer.clear();
+    };
 	};
+      /*      QString snork;
+			for(int i=0;i<data.size();++i)
+			{
+				snork.append(data.mid(i, 2));
+				snork.append(" ");
+				i++;
+			};
+			snork.replace("F7", "F7 }\n");
+			snork.replace("F0", "{ F0");
+			snork.append("\n{ size=");
+			snork.append(QString::number(data.size()/2, 10));
+			snork.append("}");	
+			snork.append("\n midi data received");
+			QMessageBox *msgBox = new QMessageBox();
+			msgBox->setWindowTitle("dBug Result");
+			msgBox->setIcon(QMessageBox::Information);
+			msgBox->setText(snork);
+			msgBox->setStandardButtons(QMessageBox::Ok);
+			msgBox->exec(); 
+
+   */
 };
 
 void SysxIO::setFileSource(QString hex1, QString hex2, QString hex3, QString hex4)
@@ -337,7 +361,7 @@ int SysxIO::getSourceValue(QString hex1, QString hex2, QString hex3)
 
 	bool ok;
 	
-	if(hex1 != "01")
+	if(hex1 != "00")
 	{
 		QString prevHex = QString::number((hex1.toInt(&ok, 16) - 1), 16).toUpper();
 		if(prevHex.length() < 2) prevHex.prepend("0");
@@ -377,13 +401,9 @@ void SysxIO::resetDevice(QString replyMsg)
 	if(this->sendSpooler.size() == 0)
 	{
 		QObject::disconnect(this, SIGNAL(sysxReply(QString)),	
-			this, SLOT(resetDevice(QString)));
-
+		this, SLOT(resetDevice(QString)));
 		this->setDeviceReady(true);	// Free the device after finishing interaction.
-
-		//emit setStatusSymbol(1);
-		//emit setStatusMessage("Ready");
-		//emit setStatusProgress(0);
+		emit setStatusMessage("Ready");
 	}
 	else
 	{
@@ -516,12 +536,11 @@ QList<QString> SysxIO::correctSysxMsg(QList<QString> sysxMsg)
 	};
 	
 	int dataSize = 0;
-	for(int i=sysxMsg.size() - 1; i>=checksumOffset;i--)
-	{
-		dataSize += sysxMsg.at(i).toInt(&ok, 16);
-	};
+	for(int i=sysxMsg.size()-1; i>=checksumOffset;i--)
+	{ dataSize += sysxMsg.at(i).toInt(&ok, 16); };
 	sysxMsg.replace(sysxMsg.size() - 1, getCheckSum(dataSize));
-
+	//QString dBug = QString::number(dataSize, 16).toUpper();
+	//emitStatusdBugMessage(dBug);	
 	return sysxMsg;
 };
 
@@ -637,19 +656,25 @@ QString SysxIO::getRequestName()
 QString SysxIO::getPatchChangeMsg(int bank, int patch)
 {
 	int bankOffset = ((bank - 1) * patchPerBank) + (patch - 1);
-	int bankSize = 120; // Size of items that go in a bank ( != patch address wich equals 127 ).
-	int bankMsbNum = (int)(bankOffset / bankSize);
+	int bankSize = 120;
+	int bankMsbNum = (int)(bankOffset / bankSize);   // bankSize set in globalVariables.h
 	int programChangeNum = bankOffset - (bankSize * bankMsbNum);
 	QString bankMsb = QString::number(bankMsbNum, 16);
 	QString programChange = QString::number(programChangeNum, 16);
 	
 	if (bankMsb.length() < 2) bankMsb.prepend("0");
 	if (programChange.length() < 2) programChange.prepend("0");
-
+  
 	QString midiMsg = "";
-	//midiMsg.append("B0"+bankMsb+"00");	    // MSB 
-	//midiMsg.append("B01000");				// LSB ->control change -> not used!
-	midiMsg.append("C0"+programChange+"00"); // Program patch Control
+	if (deviceType != "GT-6B"){
+	midiMsg.append("B000"+bankMsb);
+	midiMsg.append("B01000");  };
+	midiMsg.append("C0"+programChange);
+	//midiMsg.append("B00000");	    // MSB bank change midi message
+	//midiMsg.append("B010"+bankMsb);				// LSB ->control change -> bank change type (32 or 00) depending on device type
+	//midiMsg.append("C0"+programChange); // Program patch Change midi message
+	emit setStatusMessage("Patch change");
+	midiMsg = midiMsg.toUpper();
 	return midiMsg;
 };
 
@@ -692,11 +717,7 @@ void SysxIO::finishedSending()
 ****************************************************************************/
 void SysxIO::requestPatchChange(int bank, int patch)
 {
-	/*emit setStatusSymbol(2);
-	emit setStatusProgress(0);
-	emit setStatusMessage(tr("Sending"));*/
-	
-	this->bankChange = bank;
+		this->bankChange = bank;
 	this->patchChange = patch;
 
 	QObject::connect(this, SIGNAL(isFinished()),	// Connect the result of the request
@@ -800,7 +821,6 @@ void SysxIO::sendSysx(QString sysxMsg)
 		dBug =(sysxMsg);
 		emit setStatusdBugMessage(dBug);
 	}
-
 };
 
 /***************************** receiveSysx() *******************************
@@ -813,7 +833,7 @@ void SysxIO::receiveSysx(QString sysxMsg)
 	Preferences *preferences = Preferences::Instance(); // Load the preferences.
 	if(preferences->getPreferences("Midi", "DBug", "bool")=="true")
 	{
-	if (sysxMsg > 0){
+	if (sysxMsg.size() > 0){
 			QString snork;
 			for(int i=0;i<sysxMsg.size();++i)
 			{
@@ -832,7 +852,7 @@ void SysxIO::receiveSysx(QString sysxMsg)
 				snork.append("\n caused by a midi loopback, port change is required");
 			};
 			QMessageBox *msgBox = new QMessageBox();
-			msgBox->setWindowTitle("dBug Result");
+			msgBox->setWindowTitle("dBug Result for formatted syx message");
 			msgBox->setIcon(QMessageBox::Information);
 			msgBox->setText(snork);
 			msgBox->setStandardButtons(QMessageBox::Ok);
@@ -867,7 +887,7 @@ void SysxIO::returnPatchName(QString sysxMsg)
 			this, SLOT(returnPatchName(QString)));
 	
 	QString name; 
-	if(sysxMsg != "")
+	if(sysxMsg != "" && sysxMsg.size() == patchSize)
 	{		
 		int dataStartOffset = sysxNameOffset;   //pointer to start of names in patch file at 403 bytes.
 		QString hex1, hex2, hex3, hex4;
@@ -891,9 +911,10 @@ void SysxIO::returnPatchName(QString sysxMsg)
 			i++;
 		};
 	};
+	if (sysxMsg != "" && sysxMsg.size()/2 != patchSize){name = "bad data";}; 
+  if(sysxMsg == ""){name = "no reply"; }; 
 	emit patchName(name.trimmed());
-};
-
+ };
 /***************************** requestPatch() ******************************
 * Send a patch request. Result will be send directly with receiveSysx signal
 ****************************************************************************/

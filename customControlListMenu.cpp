@@ -125,11 +125,11 @@ void customControlListMenu::setComboBox()
 		this->controlListComboBox->addItem(item);
 	};
 
-#ifdef Q_OS_MAC
-	this->controlListComboBox->setFixedHeight(20);
-#else
+//#ifdef Q_OS_MAC
+//	this->controlListComboBox->setFixedHeight(20);
+//#else
   this->controlListComboBox->setFixedHeight(15);
-#endif
+//#endif
 	this->controlListComboBox->setEditable(false);
 	this->controlListComboBox->setFrame(false);
 	this->controlListComboBox->setMaxVisibleItems(itemcount);

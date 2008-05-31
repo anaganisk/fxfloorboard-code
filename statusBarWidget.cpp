@@ -45,10 +45,10 @@ statusBarWidget::statusBarWidget(QWidget *parent)
 
 	QHBoxLayout *widgetLayout = new QHBoxLayout;
 	widgetLayout->setMargin(0);
-	widgetLayout->addWidget(this->progressBar);
-	widgetLayout->addWidget(this->symbol);
-	widgetLayout->addWidget(this->label);
-	widgetLayout->addWidget(this->dBuglabel);
+	widgetLayout->addWidget(this->progressBar, Qt::AlignCenter);
+	widgetLayout->addWidget(this->symbol, Qt::AlignCenter);
+	widgetLayout->addWidget(this->label, Qt::AlignCenter);
+	widgetLayout->addWidget(this->dBuglabel, Qt::AlignCenter);
 	
 	
 	widgetLayout->addStretch(0);

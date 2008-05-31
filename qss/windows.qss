@@ -21,9 +21,9 @@
 ****************************************************************************/
 
 /* CUSTOM QTREEWIDGET STYLE */
-/*bankTreeList#banklist{
+bankTreeList#banklist{
 background-color rgb(0,1,62);
-}*/
+}
 QTreeWidget#banklist {
 font-family: Arial;
 font-size: 10px;
@@ -70,7 +70,7 @@ QComboBox#smallcombo {
 font-family: Arial;
 font-size: 10px;
 font-weight: bold;
-/*font-stretch: 110;*/
+font-stretch: 110;
 color: rgb(0,255,204);
 background-color: rgb(0,1,62);
 border-style: solid;
@@ -79,7 +79,7 @@ border-radius: 3px;
 border-color: rgb(150,150,150);
 padding: -1px;
 padding-left: 1px;
-padding-right: 16px;
+padding-right: 1px;
 }
 QComboBox#smallcombo::drop-down {
 border-style: none;
@@ -160,7 +160,7 @@ border-color: rgb(150,150,150);
 }
 QLabel#bankMain {
 font-family: Arial;
-font-size: 18px;
+font-size: 16px;
 font-weight: bold;
 color: rgb(0,255,204);
 }
@@ -172,19 +172,19 @@ color: rgb(0,255,204);
 }
 QLabel#nameMain {
 font-family: Arial;
-font-size: 14px;
+font-size: 12px;
 font-weight: bold;
 color: rgb(0,255,204);
 }
 QLabel#nameSub {
 font-family: Arial;
-font-size: 9px;
+font-size: 10px;
 font-weight: bold;
 color: rgb(0,255,204);
 }
 QLabel#valueMain {
 font-family: Arial;
-font-size: 13px;
+font-size: 9px;
 font-weight: bold;
 color: rgb(0,255,204);
 }
@@ -263,7 +263,7 @@ color: rgb(255,255,255);
 
 QLineEdit#editdisplay {
 font-family: Arial;
-font-size: 10px;
+font-size: 9px;
 font-weight: normal;
 color: rgb(0,255,204);
 background-color: rgb(0,1,62);

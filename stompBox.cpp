@@ -1,8 +1,8 @@
 /****************************************************************************
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
-**
-** This file is part of "GT-8 Fx FloorBoard".
+** Copyright (C) 2008 Colin Willcocks
+** This file is part of "GT-6B Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -92,6 +92,21 @@ void stompBox::mousePressEvent(QMouseEvent *event)
 		this->editDialog->setWindow(this->fxName);
 		emit setEditDialog(this->editDialog);
 	};
+};
+
+void stompBox::assignSignal(bool value)    //cw
+{
+    this->assignButtonActive = value;
+	//stompBox->editDialog->setWindow("Assign");
+		//emit assignSignal();
+	//stompBox->setEditDialog();
+	//floorBoard->editDialog->show();
+	//emit setStatusMessage(tr("ASSIGN"));
+	//editWindow *edit = new editWindow();
+	//this->assignButton->setBlink(true);
+	this->editDialog->setWindow(this->fxName);
+		emit setEditDialog(this->editDialog);
+	
 };
 
 void stompBox::mouseDoubleClickEvent(QMouseEvent *event)
