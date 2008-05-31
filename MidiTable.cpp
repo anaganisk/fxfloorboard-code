@@ -534,7 +534,7 @@ QString MidiTable::dataChange(QString hex1, QString hex2, QString hex3, QString 
 
 	int dataSize = 0; bool ok;
 	for(int i=checksumOffset;i<sysxMsg.size()-1;++i)
-	{ dataSize += sysxMsg.mid(i*2, 2).toInt(&ok, 16);i++; };	
+	{ dataSize += sysxMsg.mid(i*2, 2).toInt(&ok, 16); };	
 	sysxMsg.append(getCheckSum(dataSize));
 
 	sysxMsg.append(getFooter());
@@ -558,7 +558,7 @@ QString MidiTable::dataChange(QString hex1, QString hex2, QString hex3, QString 
 
 	int dataSize = 0; bool ok;
 	for(int i=checksumOffset;i<sysxMsg.size()-1;++i)
-	{ dataSize += sysxMsg.mid(i*2, 2).toInt(&ok, 16);i++; };	
+	{ dataSize += sysxMsg.mid(i*2, 2).toInt(&ok, 16); };	
 	sysxMsg.append(getCheckSum(dataSize));
 
 	sysxMsg.append(getFooter());
@@ -602,7 +602,7 @@ QString MidiTable::nameRequest(int bank, int patch)
 
 	int dataSize = 0;
 	for(int i=checksumOffset;i<sysxMsg.size()-1;++i)
-	{ dataSize += sysxMsg.mid(i*2, 2).toInt(&ok, 16);i++;	};	
+	{ dataSize += sysxMsg.mid(i*2, 2).toInt(&ok, 16);	};	
 	sysxMsg.append(getCheckSum(dataSize));
 	sysxMsg.append(getFooter());
 
@@ -646,7 +646,7 @@ QString MidiTable::patchRequest(int bank, int patch)
 
 	int dataSize = 0;
 	for(int i=checksumOffset;i<sysxMsg.size()-1;++i)
-	{ dataSize += sysxMsg.mid(i*2, 2).toInt(&ok, 16);i++; };	
+	{ dataSize += sysxMsg.mid(i*2, 2).toInt(&ok, 16); };	
 	sysxMsg.append(getCheckSum(dataSize));
 	sysxMsg.append(getFooter());
 
