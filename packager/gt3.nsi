@@ -2,7 +2,7 @@
 
 ; HM NIS Edit Wizard helper defines
 !define PRODUCT_NAME "GT-3FxFloorBoard"
-!define PRODUCT_VERSION "1.0"
+!define PRODUCT_VERSION "beta version 20080508"
 !define PRODUCT_PUBLISHER "Gumtownbassman"
 !define PRODUCT_WEB_SITE "http://gtx.tinfoilmusic.net/"
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\GT-3fxfloorboard.exe"
@@ -16,8 +16,8 @@ SetCompressor lzma
 
 ; MUI Settings
 !define MUI_ABORTWARNING
-!define MUI_ICON "${NSISDIR}\Contrib\Graphics\Icons\modern-install.ico"
-!define MUI_UNICON "${NSISDIR}\Contrib\Graphics\Icons\modern-uninstall.ico"
+!define MUI_ICON "${NSISDIR}\Contrib\Graphics\Icons\orange-install.ico"
+!define MUI_UNICON "${NSISDIR}\Contrib\Graphics\Icons\orange-uninstall.ico"
 
 ; Welcome page
 !insertmacro MUI_PAGE_WELCOME

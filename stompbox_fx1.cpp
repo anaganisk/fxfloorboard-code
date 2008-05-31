@@ -28,11 +28,11 @@ stompbox_fx1::stompbox_fx1(QWidget *parent)
 	/* FX1 */
 	setImage(":/images/fx1.png");
 	setLSB("00", "00");
-#ifdef Q_OS_MAC
-	setComboBox("00", "00", "01", QRect(4, 31, 88, 20));
-#else
+//#ifdef Q_OS_MAC
+//	setComboBox("00", "00", "01", QRect(4, 31, 88, 20));
+//#else
 	setComboBox("00", "00", "01", QRect(8, 31, 79, 13));
-#endif
+//#endif
 	setButton("00", "00", "00");
 	setEditPages();
 };

@@ -35,14 +35,14 @@
 
 /* General Parameters */
 const QString deviceType = "GT-3";
-const QString idRequestString = "F04100001B110000000000000001F7";		// Indentity Request (GT-3).
-const QString idReplyPatern = "F04100001B1200000000";			// Returned device id message must contain/match this (QRegExp or a string without spaces and all caps).
+const QString idRequestString = "F04100001B1100000000000000017FF7";		// Indentity Request (GT-3).
+const QString idReplyPatern = "F04100001B12";			// Returned device id message must contain/match this (QRegExp or a string without spaces and all caps).
 const int buttonBlinkInterval = 250;				// The interval (ms) the led on buttons blink.
 
 /* Sysex Message Parameters */
 const int sysxAddressOffset = 6;	// Offset (starts at 0) where the address information starts in a sysx message.
 const int sysxDataOffset = 10;		// Offset (starts at 0) where the data starts in a sysx message.
-const int sysxNameOffset = 365;		// Offset (starts at 0) where the data starts in a sysx message.
+const int sysxNameOffset = 374;		// Offset (starts at 0) where the data starts in a sysx message.
 const int nameLength = 11;        // length of name string
 const int checksumOffset = 6;		// Offset (starts at 0) where we start calculating the checksum (Normally this is the address offset).
 
@@ -50,6 +50,7 @@ const int checksumOffset = 6;		// Offset (starts at 0) where we start calculatin
 const int bankTotalUser = 35;		// Number of user (editable) banks.
 const int bankTotalAll = 85;		// Number of total banks.
 const int patchPerBank = 4;			// Number of patches in a bank.
+const int bankSize = 100;       // Number of patches in a midi bank before bank change message is required.
 
 /* Midi Send & Receive */
 const int patchPackets = 23;		// number of sysx packets "F0....F7" which make up a patch.
@@ -59,5 +60,11 @@ const int maxRetry = 2;			// Maximum times we retry to load a patch in case of a
 /* Patch Sellection (Used when copying patches) */
 const int sellectionBlinks = 5;				// Times we blink to indicate we have sellected a patch before returning.
 const int sellectionBlinkInterval = 500;	// Interval (ms) the item blinks.
+
+/* Patch addresses */
+const QString chainAddress = "0B";
+const QString nameAddress = "0C";
+const QString tempBulkWrite = "0B";
+const QString tempDataWrite = "0C";
 
 #endif // GLOBALVARIABLES_H

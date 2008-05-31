@@ -55,7 +55,7 @@ public slots:
 	void notConnected();
 
 	void patchChangeFailed();
-
+	void assignSignal(bool value);   //cw
 	void writeToBuffer();
 	void writeToMemory();
 
@@ -85,12 +85,13 @@ private:
 	customButton *systemButton;
 
 	bool connectButtonActive;
+    bool assignButtonActive;
 	bool patchLoadError;
 	QTimer* timer;
 	int blinkCount;
 	bool currentSyncStatus;
 
 	initPatchListMenu *initPatch;
-};
+	};
 
 #endif // FLOORBOARDDISPLAY_H

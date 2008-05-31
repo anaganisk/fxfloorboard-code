@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT-3 Fx FloorBoard".
+** This file is part of "GT-6B Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -56,17 +56,11 @@ SysxIO* SysxIO::Instance()
 		_destroyer.SetSysxIO(_instance);
 	};
 	return _instance; // address of sole instance
-
-	/* Single-threading */
-	/*
-	static SysxIO inst;
-	return &inst;
-	*/
 };
 
 void SysxIO::setFileSource(SysxData fileSource)
 {
-	this->fileSource = fileSource;
+		this->fileSource = fileSource;
 };
 
 void SysxIO::setFileSource(QByteArray data)
@@ -127,8 +121,7 @@ void SysxIO::setFileSource(QByteArray data)
 	if(!errorList.isEmpty())
 	{
 		QMessageBox *msgBox = new QMessageBox();
-		//msgBox->setWindowTitle(tr("GT-3 Fx FloorBoard - Checksum Error"));
-		msgBox->setWindowTitle(tr("GT-3 Fx FloorBoard"));
+		msgBox->setWindowTitle(deviceType + tr(" Fx FloorBoard"));
 		msgBox->setIcon(QMessageBox::Warning);
 		msgBox->setTextFormat(Qt::RichText);
 		QString msgText;
@@ -161,9 +154,31 @@ void SysxIO::setFileSource(QString data)
 		{	
 			this->fileSource.address.append( sysxBuffer.at(sysxAddressOffset + 2) + sysxBuffer.at(sysxAddressOffset + 3) );
 			this->fileSource.hex.append(sysxBuffer);
-			sysxBuffer.clear();
-		};
+            sysxBuffer.clear();
+
+        };
 	};
+         /*   QString snork;
+			for(int i=0;i<data.size();++i)
+			{
+				snork.append(data.mid(i, 2));
+				snork.append(" ");
+				i++;
+			};
+			snork.replace("F7", "F7 }\n");
+			snork.replace("F0", "{ F0");
+			snork.append("\n{ size=");
+			snork.append(QString::number(data.size()/2, 10));
+			snork.append("}");	
+			snork.append("\n midi data received");
+			QMessageBox *msgBox = new QMessageBox();
+			msgBox->setWindowTitle("dBug Result");
+			msgBox->setIcon(QMessageBox::Information);
+			msgBox->setText(snork);
+			msgBox->setStandardButtons(QMessageBox::Ok);
+			msgBox->exec(); */
+
+   
 };
 
 void SysxIO::setFileSource(QString hex1, QString hex2, QString hex3, QString hex4)
@@ -318,7 +333,6 @@ void SysxIO::setFileSource(QString hex1, QString hex2, QList<QString> hexData)
 			this->setDeviceReady(false);
 
 			emit setStatusSymbol(2);
-			//emit setStatusProgress(0);
 			emit setStatusMessage("Sending");
 
 			QObject::connect(this, SIGNAL(sysxReply(QString)),	
@@ -385,13 +399,8 @@ void SysxIO::resetDevice(QString replyMsg)
 	if(this->sendSpooler.size() == 0)
 	{
 		QObject::disconnect(this, SIGNAL(sysxReply(QString)),	
-			this, SLOT(resetDevice(QString)));
-
+		this, SLOT(resetDevice(QString)));
 		this->setDeviceReady(true);	// Free the device after finishing interaction.
-
-		//emit setStatusSymbol(1);
-		//emit setStatusMessage("Ready");
-		//emit setStatusProgress(0);
 	}
 	else
 	{
@@ -482,7 +491,7 @@ QList<QString> SysxIO::correctSysxMsg(QList<QString> sysxMsg)
 	MidiTable *midiTable = MidiTable::Instance();
 	for(int i=sysxDataOffset;i<sysxMsg.size() - 3;i++)
 	{
-		if(i==sysxDataOffset + 1) i++; // is reserved memmory address on the GT-3 so we skip it.
+		if(i==sysxDataOffset + 1) i++; // is reserved memmory address on the GT-6B so we skip it.
 		
 		QString address3 = QString::number(i - sysxDataOffset, 16).toUpper();
 		if(address3.length()<2) address3.prepend("0");
@@ -628,7 +637,7 @@ int SysxIO::getLoadedPatch(){
 ***************************************************************************/
 void SysxIO::setRequestName(QString requestName)
 {
-	this->requestName = requestName;	//cjw
+	this->requestName = requestName;
 };
 
 /*********************** returnRequestName() ***********************************
@@ -645,8 +654,7 @@ QString SysxIO::getRequestName()
 QString SysxIO::getPatchChangeMsg(int bank, int patch)
 {
 	int bankOffset = ((bank - 1) * patchPerBank) + (patch - 1);
-	int bankSize = 100; // Size of items that go in a bank ( != patch address wich equals 127 ).
-	int bankMsbNum = (int)(bankOffset / bankSize);
+	int bankMsbNum = (int)(bankOffset / bankSize);   // bankSize set in globalVariables.h
 	int programChangeNum = bankOffset - (bankSize * bankMsbNum);
 	QString bankMsb = QString::number(bankMsbNum, 16);
 	QString programChange = QString::number(programChangeNum, 16);
@@ -655,12 +663,10 @@ QString SysxIO::getPatchChangeMsg(int bank, int patch)
 	if (programChange.length() < 2) programChange.prepend("0");
 
 	QString midiMsg = "";
-	midiMsg.append("B0"+bankMsb+"00");	    // MSB 
-	midiMsg.append("B01000");				// LSB ->control change -> not used!
-	midiMsg.append("C0"+programChange+"00"); // Program patch Control
-
-
-
+	if (deviceType != "GT-6B"){
+	midiMsg.append("B00000");	    // MSB bank change midi message
+	midiMsg.append("B020"+bankMsb);	};			// LSB ->control change -> bank change type (32 or 00) depending on device type
+	midiMsg.append("C0"+programChange); // Program patch Change midi message
 	return midiMsg;
 };
 
@@ -679,12 +685,12 @@ void SysxIO::sendMidi(QString midiMsg)
 		midi->sendMidi(midiMsg, midiOutPort);
 
 			 /*DeBugGING OUTPUT */
-	if(preferences->getPreferences("Midi", "DBug", "bool")=="true")
+/*	if(preferences->getPreferences("Midi", "DBug", "bool")=="true")
 	{
 		QString dBug =("      ");
 		dBug.append(midiMsg);
 		emit setStatusdBugMessage(dBug);
-	}
+	}*/
 		
 	};
 };
@@ -695,11 +701,7 @@ void SysxIO::sendMidi(QString midiMsg)
 void SysxIO::finishedSending()
 {
 	emit isFinished();
-	//emit setStatusSymbol(1);
-	//emit setStatusProgress(0);
-	//emit setStatusMessage(tr("Ready"));
-
-	//this->namePatchChange(); 
+	this->namePatchChange(); 
 };
 
 /***************************** requestPatchChange() *************************
@@ -707,11 +709,7 @@ void SysxIO::finishedSending()
 ****************************************************************************/
 void SysxIO::requestPatchChange(int bank, int patch)
 {
-	/*emit setStatusSymbol(2);
-	emit setStatusProgress(0);
-	emit setStatusMessage(tr("Sending"));*/
-	
-	this->bankChange = bank;
+		this->bankChange = bank;
 	this->patchChange = patch;
 
 	QObject::connect(this, SIGNAL(isFinished()),	// Connect the result of the request
@@ -750,12 +748,9 @@ void SysxIO::checkPatchChange(QString name)
 	{
 		emit isChanged();
 		this->changeCount = 0;
-		    this->setDeviceReady(true); // some extras added 4 lines
-			//emit setStatusSymbol(1);
-			//emit setStatusMessage(tr("Ready"));	
-			emit setStatusProgress(0);
+		    this->setDeviceReady(true); //  extra added  line
 	}
-/*	else
+	/*else
 	{
 		if(changeCount < maxRetry)
 		{
@@ -779,8 +774,8 @@ void SysxIO::checkPatchChange(QString name)
 
 			emit patchChangeFailed();
 
-			QApplication::beep();*/ //cjw
-
+			QApplication::beep(); //cjw
+			*/
 			/*QMessageBox *msgBox = new QMessageBox();
 			msgBox->setWindowTitle(tr("GT-8 Fx FloorBoard"));
 			msgBox->setIcon(QMessageBox::Warning);
@@ -813,13 +808,12 @@ void SysxIO::sendSysx(QString sysxMsg)
 	midi->sendSysxMsg(sysxMsg, midiOutPort, midiInPort);
 	
 		 /*DeBugGING OUTPUT */
-	if(preferences->getPreferences("Midi", "DBug", "bool")=="true")
+/*	if(preferences->getPreferences("Midi", "DBug", "bool")=="true")
 	{
-		QString dBug =("      ");
-		dBug.append(sysxMsg);
+		dBug =(sysxMsg);
 		emit setStatusdBugMessage(dBug);
 	}
-
+*/
 };
 
 /***************************** receiveSysx() *******************************
@@ -832,7 +826,7 @@ void SysxIO::receiveSysx(QString sysxMsg)
 	Preferences *preferences = Preferences::Instance(); // Load the preferences.
 	if(preferences->getPreferences("Midi", "DBug", "bool")=="true")
 	{
-	if (sysxMsg > 0){
+	if (sysxMsg.size() > 0){
 			QString snork;
 			for(int i=0;i<sysxMsg.size();++i)
 			{
@@ -846,9 +840,10 @@ void SysxIO::receiveSysx(QString sysxMsg)
 			snork.append(QString::number(sysxMsg.size()/2, 10));
 			snork.append("}");	
 			snork.append("\n midi data received");
-			//snork.append(QString::number(sysxOutMsg.mid(12, 2), 10));
-			//snork.append("}");	
-
+			if (sysxMsg == dBug){
+				snork.append("\n WARNING: midi data received = data sent");
+				snork.append("\n caused by a midi loopback, port change is required");
+			};
 			QMessageBox *msgBox = new QMessageBox();
 			msgBox->setWindowTitle("dBug Result");
 			msgBox->setIcon(QMessageBox::Information);
@@ -870,11 +865,10 @@ void SysxIO::requestPatchName(int bank, int patch)
 	
 	QObject::connect(this, SIGNAL(sysxReply(QString)),	// Connect the result of the request
 		this, SLOT(returnPatchName(QString)));	    	// to returnPatchName function.
-	//emit isChanged(); // cjw added to stop name requests on patch change
 	/* Patch name request.*/
 	MidiTable *midiTable = MidiTable::Instance();
 	QString sysxMsg = midiTable->nameRequest(bank, patch);
-	sendSysx(sysxMsg); //cjw 
+	sendSysx(sysxMsg); 
 };
 
 /***************************** returnPatchName() ***************************
@@ -886,11 +880,11 @@ void SysxIO::returnPatchName(QString sysxMsg)
 			this, SLOT(returnPatchName(QString)));
 	
 	QString name; 
-	if(sysxMsg != "")
+	if(sysxMsg != "" && sysxMsg.size() > 34)
 	{		
-		int dataStartOffset = sysxNameOffset;   //pointer to start of names in patch file at xxx bytes
+		int dataStartOffset = sysxDataOffset;//sysxNameOffset;   //pointer to start of names in patch file at 403 bytes.
 		QString hex1, hex2, hex3, hex4;
-		for(int i=dataStartOffset*2; i<(dataStartOffset*2)+(nameLength*2);++i)
+		for(int i=dataStartOffset*2; i<(dataStartOffset*2)+(nameLength*2);++i)   //read the length of name string.
 		{ 
 			QString hexStr = sysxMsg.mid(i, 2);
 			if(hexStr == "7E")
@@ -910,12 +904,12 @@ void SysxIO::returnPatchName(QString sysxMsg)
 			i++;
 		};
 	};
+	if (sysxMsg.size() < 34 ){name = "bad data";}
 	emit patchName(name.trimmed());
-	/*emit setStatusSymbol(3);
-	emit setStatusProgress(0);
-	emit setStatusMessage("Receiving");*/
+	if(sysxMsg == ""){
+		emit notConnectedSignal();
+  };
 };
-
 /***************************** requestPatch() ******************************
 * Send a patch request. Result will be send directly with receiveSysx signal
 ****************************************************************************/

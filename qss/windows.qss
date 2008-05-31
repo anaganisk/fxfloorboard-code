@@ -79,7 +79,7 @@ border-radius: 3px;
 border-color: rgb(150,150,150);
 padding: -1px;
 padding-left: 1px;
-padding-right: 16px;
+padding-right: 1px;
 }
 QComboBox#smallcombo::drop-down {
 border-style: none;
@@ -160,7 +160,7 @@ border-color: rgb(150,150,150);
 }
 QLabel#bankMain {
 font-family: Arial;
-font-size: 18px;
+font-size: 16px;
 font-weight: bold;
 color: rgb(0,255,204);
 }
@@ -184,7 +184,7 @@ color: rgb(0,255,204);
 }
 QLabel#valueMain {
 font-family: Arial;
-font-size: 13px;
+font-size: 12px;
 font-weight: bold;
 color: rgb(0,255,204);
 }

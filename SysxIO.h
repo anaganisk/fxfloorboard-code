@@ -78,6 +78,7 @@ public:
 	QString getPatchChangeMsg(int bank, int patch);
 	void setCurrentPatchName(QString patchName);
 	QString getCurrentPatchName();
+	QString dBug;
 
 	void sendMidi(QString midiMsg);
 	void sendSysx(QString sysxMsg);
@@ -90,7 +91,7 @@ public:
 
 	void emitStatusSymbol(int value);
 	void emitStatusProgress(int value);
-  void emitStatusMessage(QString message);
+    void emitStatusMessage(QString message);
 	void emitStatusdBugMessage(QString dBug);
 	void errorReturn();
 

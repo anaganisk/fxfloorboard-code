@@ -471,7 +471,7 @@ QString MidiTable::getSize(QString hex1, QString hex2)
 	size.append("00");
 	size.append("00");
 	size.append("00");
-	size.append("01");//itemSize);
+	size.append(itemSize);//"01");
 	return size;
 };
 
@@ -489,8 +489,8 @@ QString MidiTable::getSize()
 	
 	size.append("00");
 	size.append("00");
-	size.append("00");//cjw(itemSize);
-	size.append("01");//("00");
+	size.append(itemSize);//("00");
+	size.append("00");//("01");
 	return size;
 };
 
@@ -595,7 +595,7 @@ QString MidiTable::nameRequest(int bank, int patch)
 		addr2 = "00";
 	};
 
-	QString hex1 = "00";    // patch names memory location
+	QString hex1 = "0C";    // patch names memory location
 	QString hex2 = "00";
 
 	QString sysxMsg;

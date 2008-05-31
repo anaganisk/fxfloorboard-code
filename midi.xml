@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<!-- edited with XMLSpy v2005 sp1 U (http://www.xmlspy.com) by ru (Ru-Board) -->
+<!-- edited with XMLSpy v2005 sp1 U (http://www.xmlspy.com) by Ru-Board (Ru-Board) -->
 <SysX desc="GT-3 Midi implementation GT3" version="0.2c" customdesc="">
 	<Header>
 		<DATA value="00" abbr="" desc="" customdesc="">
@@ -39,12 +39,12 @@
 					<PARAM value="01" name="On" desc="" customdesc="on"/>
 				</DATA>
 				<DATA value="01" name="" abbr="" desc="SFX:FX Select" customdesc="FX Select">
-					<PARAM value="00" name="AC" desc="AC" customdesc="AC"/>
-					<PARAM value="01" name="SG" desc="SG" customdesc="SG"/>
-					<PARAM value="02" name="AFB" desc="AFB" customdesc="AFB"/>
-					<PARAM value="03" name="FB" desc="FB" customdesc="FB"/>
-					<PARAM value="04" name="PIC" desc="PIC" customdesc="PIC"/>
-					<PARAM value="05" name="TR" desc="TR" customdesc="TR"/>
+					<PARAM value="00" name="AC" desc="AC" customdesc="Acoustic sim      "/>
+					<PARAM value="01" name="SG" desc="SG" customdesc="Slow Gear      "/>
+					<PARAM value="02" name="AFB" desc="AFB" customdesc="AntiFeedBacker     "/>
+					<PARAM value="03" name="FB" desc="FB" customdesc="FeedBacker     "/>
+					<PARAM value="04" name="PIC" desc="PIC" customdesc="Picking Simulator      "/>
+					<PARAM value="05" name="TR" desc="TR" customdesc="Tremolo      "/>
 				</DATA>
 				<DATA value="02" name="" abbr="" desc="AC Top" customdesc="Top">
 					<PARAM value="range" name="00/64/00/100" desc=" %" customdesc=""/>
@@ -68,12 +68,12 @@
 					<PARAM value="range" name="00/64/00/100" desc=" %" customdesc="manual depth"/>
 				</DATA>
 				<DATA value="09" name="" abbr="" desc="AFB Search" customdesc="Search">
-					<PARAM value="00" name="off" desc="off"/>
+					<PARAM value="00" name="off" desc="off      "/>
 					<PARAM value="01" name="on" desc="on"/>
 				</DATA>
 				<DATA value="0A" name="" abbr="" desc="FB Mode" customdesc="FB Mode">
 					<PARAM value="00" name="osc" desc="" customdesc="osc"/>
-					<PARAM value="01" name="boost" desc="" customdesc="boost"/>
+					<PARAM value="01" name="boost" desc="" customdesc="boost       "/>
 				</DATA>
 				<DATA value="0B" name="" abbr="" desc="FB rise time" customdesc="rise time">
 					<PARAM value="range" name="00/64/00/100" desc=" %" customdesc=""/>
@@ -98,12 +98,12 @@
 				</DATA>
 				<DATA value="12" name="" abbr="" desc="FB Tone" customdesc="Tone">
 					<PARAM value="00" name="Normal" desc="Normal" customdesc="Normal"/>
-					<PARAM value="01" name="+1 octave" desc="+1 octave" customdesc="+1 octave"/>
+					<PARAM value="01" name="+1 octave" desc="+1 octave" customdesc="+1 octave      "/>
 				</DATA>
 				<DATA value="13" name="" abbr="" desc="PIC Type" customdesc="Type">
-					<PARAM value="00" name="S to H" desc="" customdesc="S to H"/>
+					<PARAM value="00" name="S to H" desc="" customdesc="S to H      "/>
 					<PARAM value="01" name="H to S" desc="" customdesc="H to S"/>
-					<PARAM value="02" name="H to HF" desc="" customdesc="H to HF"/>
+					<PARAM value="02" name="H to HF" desc="" customdesc="H to HF       "/>
 				</DATA>
 				<DATA value="14" name="" abbr="" desc="PIC Tone" customdesc="Tone">
 					<PARAM value="range" name="00/64/00/100" desc=" %"/>
@@ -112,8 +112,8 @@
 					<PARAM value="range" name="00/64/00/100" desc=" %"/>
 				</DATA>
 				<DATA value="16" name="" abbr="" desc="TR Mode" customdesc="TR Mode">
-					<PARAM value="00" name="tremolo" desc="" customdesc="tremolo"/>
-					<PARAM value="01" name="pan" desc="" customdesc="pan"/>
+					<PARAM value="00" name="tremolo" desc="" customdesc="tremolo      "/>
+					<PARAM value="01" name="pan" desc="" customdesc="pan      "/>
 				</DATA>
 				<DATA value="17" name="" abbr="" desc="TR wave shape" customdesc="wave shape">
 					<PARAM value="range" name="00/64/00/100" desc=" %"/>
@@ -133,7 +133,7 @@
 					<PARAM value="01" name="On" desc=""/>
 				</DATA>
 				<DATA value="01" name="" abbr="" desc="Type" customdesc="type">
-					<PARAM value="00" name="Compressor" desc="Compressor" customdesc="Compressor"/>
+					<PARAM value="00" name="Compressor" desc="Compressor" customdesc="Compressor       "/>
 					<PARAM value="01" name="Limiter" desc="Limiter" customdesc="Limiter"/>
 				</DATA>
 				<DATA value="02" name="" abbr="" desc="CS: Sustain" customdesc="sustain">
@@ -169,7 +169,7 @@
 					<PARAM value="01" name="On" desc="" customdesc=""/>
 				</DATA>
 				<DATA value="01" name="" abbr="" desc="Fx Select" customdesc="Select">
-					<PARAM value="00" name="Wah" desc="Pedal Wah" customdesc="Pedal Wah"/>
+					<PARAM value="00" name="Wah" desc="Pedal Wah" customdesc="Pedal Wah      "/>
 					<PARAM value="01" name="Auto Wah" desc="Auto Wah" customdesc="Auto Wah"/>
 				</DATA>
 				<DATA value="02" name="" abbr="" desc="WH :Pedal" customdesc="Pedal">
@@ -179,11 +179,11 @@
 					<PARAM value="range" name="00/64/00/100" desc=" %" customdesc=""/>
 				</DATA>
 				<DATA value="04" name="" abbr="" desc="AW :Mode" customdesc="Mode">
-					<PARAM value="00" name="LPF" desc="LP Filter"/>
-					<PARAM value="01" name="BPF" desc="BP Filter"/>
+					<PARAM value="00" name="LPF" desc="LowPass Filter      "/>
+					<PARAM value="01" name="BPF" desc="BandPass Filter      "/>
 				</DATA>
 				<DATA value="05" name="" abbr="" desc="AW : Polarity" customdesc="Polarity">
-					<PARAM value="00" name="Down" desc="Down"/>
+					<PARAM value="00" name="Down" desc="Down      "/>
 					<PARAM value="01" name="Up" desc="Up"/>
 				</DATA>
 				<DATA value="06" name="" abbr="" desc="AW :Sensitivity" customdesc="Sensitivity">
@@ -214,7 +214,7 @@
 				</DATA>
 				<DATA value="01" name="" abbr="" desc="Type" customdesc="Type">
 					<PARAM value="00" name="Natural OD" desc="Natural OD" customdesc="Natural OD"/>
-					<PARAM value="01" name="Vintage OD" desc="Vintage OD" customdesc="Vintage OD"/>
+					<PARAM value="01" name="Vintage OD" desc="Vintage OD" customdesc="Vintage OD       "/>
 					<PARAM value="02" name="Turbo OD" desc="Turbo OD" customdesc="Turbo OD"/>
 					<PARAM value="03" name="Blues" desc="Blues" customdesc="Blues"/>
 					<PARAM value="04" name="Crunch" desc="Crunch" customdesc="Crunch"/>
@@ -256,7 +256,7 @@
 					<PARAM value="06" name="BG Lead" desc="BG Lead" customdesc="BG Lead"/>
 					<PARAM value="07" name="MS 1959(1)" desc="MS 1959(1)" customdesc="MS 1959(1)"/>
 					<PARAM value="08" name="MS 1959(2)" desc="MS 1959(2)" customdesc="MS 1959(2)"/>
-					<PARAM value="09" name="MS 1959(1+2)" desc="MS 1959(1+2)" customdesc="MS 1959(1+2)"/>
+					<PARAM value="09" name="MS 1959(1+2)" desc="MS 1959(1+2)" customdesc="MS 1959(1+2)       "/>
 					<PARAM value="0A" name="SLDN Lead" desc="SLDN Lead" customdesc="SLDN Lead"/>
 					<PARAM value="0B" name="Metal 5150" desc="Metal 5150" customdesc="Metal 5150"/>
 					<PARAM value="0C" name="Metal Drive" desc="Metal Drive" customdesc="Metal Drive"/>
@@ -281,12 +281,12 @@
 					<PARAM value="range" name="00/64/-50/+50" desc="" customdesc=""/>
 				</DATA>
 				<DATA value="08" name="Pre-Amp" abbr="Pre" desc="PRE :Bright Sw" customdesc="Bright Sw">
-					<PARAM value="00" name="off" desc="off" customdesc="off"/>
+					<PARAM value="00" name="off" desc="off" customdesc="off      "/>
 					<PARAM value="01" name="on" desc="on" customdesc="on"/>
 				</DATA>
 				<DATA value="09" name="Pre-Amp" abbr="Pre" desc="PRE :Gain Sw" customdesc="Gain Sw">
 					<PARAM value="00" name="low " desc="low " customdesc="low "/>
-					<PARAM value="01" name="middle" desc="middle" customdesc="middle"/>
+					<PARAM value="01" name="middle" desc="middle" customdesc="middle      "/>
 					<PARAM value="02" name="high" desc="high" customdesc="high"/>
 				</DATA>
 				<DATA value="0A" name="Speaker Cabnet" abbr="spkr" desc="SPKR :Mic Setting" customdesc="Mic Setting">
@@ -417,20 +417,20 @@
 					<PARAM value="07" name="HU" desc="Humanizer" customdesc="Humanizer"/>
 					<PARAM value="08" name="VB" desc="Vibrato" customdesc="Vibrato"/>
 					<PARAM value="09" name="SYN" desc="Guitar Synth" customdesc="Guitar Synth"/>
-					<PARAM value="0A" name="RM" desc="Ring Modulator" customdesc="Ring Modulator"/>
+					<PARAM value="0A" name="RM" desc="Ring Modulator" customdesc="Ring Modulator      "/>
 					<PARAM value="0B" name="SL" desc="SL" customdesc="SL"/>
 				</DATA>
 				<DATA value="02" name="" abbr="" desc="HR :Voice" customdesc="Voice">
 					<PARAM value="00" name="1-Voice" desc="1-Voice" customdesc="1-Voice"/>
 					<PARAM value="01" name="2-Mono" desc="2-Mono" customdesc="2-Mono"/>
-					<PARAM value="02" name="2-Stereo" desc="2-Stereo" customdesc="2-Stereo"/>
+					<PARAM value="02" name="2-Stereo" desc="2-Stereo" customdesc="2-Stereo      "/>
 				</DATA>
 				<DATA value="03" name="" abbr="" desc="HR :Mode" customdesc="Mode">
 					<PARAM value="00" name="fast" desc="fast" customdesc="fast"/>
 					<PARAM value="01" name="medium" desc="medium" customdesc="medium"/>
 					<PARAM value="02" name="slow" desc="slow" customdesc="slow"/>
 					<PARAM value="02" name="mono" desc="mono" customdesc="mono"/>
-					<PARAM value="03" name="harmony" desc="harmony" customdesc="harmony"/>
+					<PARAM value="03" name="harmony" desc="harmony" customdesc="harmony "/>
 				</DATA>
 				<DATA value="04" name="" abbr="" desc="HR :Voice1:pitch" customdesc="HR1 pitch">
 					<PARAM value="range" name="00/30/-24/+24" desc="" customdesc=""/>
@@ -496,7 +496,7 @@
 					<PARAM value="36" name="Scale 26" desc="Scale 26" customdesc="Scale 26"/>
 					<PARAM value="37" name="Scale 27" desc="Scale 27" customdesc="Scale 27"/>
 					<PARAM value="38" name="Scale 28" desc="Scale 28" customdesc="Scale 28"/>
-					<PARAM value="39" name="Scale 29" desc="Scale 29" customdesc="Scale 29"/>
+					<PARAM value="39" name="Scale 29" desc="Scale 29" customdesc="Scale 29 "/>
 				</DATA>
 				<DATA value="07" name="" abbr="" desc="HR :Voice1:Pre Delay" customdesc="Pre Delay">
 					<DATA value="00" name="" abbr="" desc="HR :Voice1:Pre Delay(LSB)">
@@ -527,7 +527,7 @@
 					<PARAM value="01" name="medium" desc="medium"/>
 					<PARAM value="02" name="slow" desc="slow"/>
 					<PARAM value="02" name="mono" desc="mono"/>
-					<PARAM value="03" name="harmony" desc="harmony"/>
+					<PARAM value="03" name="harmony" desc="harmony  "/>
 				</DATA>
 				<DATA value="0C" name="" abbr="" desc="HR :Voice1:pitch" customdesc="HR2 pitch">
 					<PARAM value="range" name="00/30/-24/+24" desc="" customdesc=""/>
@@ -593,7 +593,7 @@
 					<PARAM value="36" name="Scale 26" desc="Scale 26"/>
 					<PARAM value="37" name="Scale 27" desc="Scale 27"/>
 					<PARAM value="38" name="Scale 28" desc="Scale 28"/>
-					<PARAM value="39" name="Scale 29" desc="Scale 29"/>
+					<PARAM value="39" name="Scale 29" desc="Scale 29 "/>
 				</DATA>
 				<DATA value="0F" name="" abbr="" desc="HR :Voice2:Pre Delay" customdesc="Pre Delay">
 					<DATA value="00" name="" abbr="" desc="HR :Voice2:Pre Delay(LSB)">
@@ -618,7 +618,7 @@
 				</DATA>
 				<DATA value="12" name="" abbr="" desc="HR :Key" customdesc="Key">
 					<PARAM value="00" name="C(Am)" desc="C(Am)"/>
-					<PARAM value="01" name="C#(A#m)" desc="C#(A#m)"/>
+					<PARAM value="01" name="C#(A#m)" desc="C#(A#m) "/>
 					<PARAM value="02" name="D(Bm)" desc="D(Bm)"/>
 					<PARAM value="03" name="D#(Cm)" desc="D#(Cm)"/>
 					<PARAM value="04" name="E(C#m)" desc="E(C#m)"/>
@@ -668,7 +668,7 @@
 					<PARAM value="00" name="4stage" desc="4stage"/>
 					<PARAM value="01" name="8stage" desc="8stage"/>
 					<PARAM value="02" name="12stage" desc="12stage"/>
-					<PARAM value="03" name="Bi-Phase" desc="Bi-Phase"/>
+					<PARAM value="03" name="Bi-Phase" desc="Bi-Phase   "/>
 				</DATA>
 				<DATA value="1B" name="" abbr="" desc="PH :Rate" customdesc="Rate">
 					<PARAM value="range" name="00/64/00/100" desc=""/>
@@ -696,7 +696,7 @@
 					<PARAM value="range" name="00/64/00/100" desc=" %" customdesc=""/>
 				</DATA>
 				<DATA value="1F" name="" abbr="" desc="PH :Step" customdesc="Step">
-					<PARAM value="00" name="Off" desc="Off"/>
+					<PARAM value="00" name="Off" desc="Off "/>
 					<PARAM value="01" name="On" desc="On"/>
 				</DATA>
 				<DATA value="20" name="" abbr="" desc="PH :Step Rate" customdesc="Step Rate">
@@ -748,7 +748,7 @@
 					<PARAM value="1A" name="Preset27" desc="Preset27"/>
 					<PARAM value="1B" name="Preset28" desc="Preset28"/>
 					<PARAM value="1C" name="Preset29" desc="Preset29"/>
-					<PARAM value="1D" name="Preset30" desc="Preset30"/>
+					<PARAM value="1D" name="Preset30" desc="Preset30      "/>
 					<PARAM value="1E" name="User1" desc="User1"/>
 					<PARAM value="1F" name="User2" desc="User2"/>
 					<PARAM value="20" name="User3" desc="User3"/>
@@ -761,7 +761,7 @@
 					<PARAM value="27" name="User10" desc="User10"/>
 				</DATA>
 				<DATA value="23" name="" abbr="" desc="ASL :Loop" customdesc="Loop">
-					<PARAM value="00" name="Off" desc="Off"/>
+					<PARAM value="00" name="Off" desc="Off      "/>
 					<PARAM value="01" name="On" desc="On"/>
 				</DATA>
 				<DATA value="24" name="" abbr="" desc="ASL :Tempo" customdesc="Tempo">
@@ -785,7 +785,7 @@
 				</DATA>
 				<DATA value="26" name="" abbr="" desc="ASL :Key " customdesc="Key ">
 					<PARAM value="00" name="C(Am)" desc="C(Am)"/>
-					<PARAM value="01" name="C#(A#m)" desc="C#(A#m)"/>
+					<PARAM value="01" name="C#(A#m)" desc="C#(A#m)       "/>
 					<PARAM value="02" name="D(Bm)" desc="D(Bm)"/>
 					<PARAM value="03" name="D#(Cm)" desc="D#(Cm)"/>
 					<PARAM value="04" name="E(C#m)" desc="E(C#m)"/>
@@ -801,7 +801,7 @@
 					<PARAM value="range" name="00/64/00/100" desc=" %" customdesc=""/>
 				</DATA>
 				<DATA value="28" name="" abbr="" desc="ASL :Hold" customdesc="Hold">
-					<PARAM value="00" name="Off" desc="Off"/>
+					<PARAM value="00" name="Off" desc="Off       "/>
 					<PARAM value="01" name="On" desc="On"/>
 				</DATA>
 				<DATA value="29" name="" abbr="" desc="ASL :Effect Level" customdesc="Effect Level">
@@ -1000,21 +1000,21 @@
 				<DATA value="41" name="" abbr="" desc="HMN :Mode" customdesc="Mode">
 					<PARAM value="00" name="Picking" desc="Picking"/>
 					<PARAM value="01" name="Auto" desc="Auto"/>
-					<PARAM value="02" name="Random" desc="Random"/>
+					<PARAM value="02" name="Random" desc="Random       "/>
 				</DATA>
 				<DATA value="42" name="" abbr="" desc="HMN :Vowel1" customdesc="Vowel1">
-					<PARAM value="00" name="a" desc="a"/>
-					<PARAM value="01" name="e" desc="e"/>
-					<PARAM value="02" name="i" desc="i"/>
-					<PARAM value="03" name="o" desc="o"/>
-					<PARAM value="04" name="u" desc="u"/>
+					<PARAM value="00" name="a" desc="  A      "/>
+					<PARAM value="01" name="e" desc="  E     "/>
+					<PARAM value="02" name="i" desc="  I      "/>
+					<PARAM value="03" name="o" desc="  O      "/>
+					<PARAM value="04" name="u" desc="  U      "/>
 				</DATA>
 				<DATA value="43" name="" abbr="" desc="HMN :Vowel2" customdesc="Vowel2">
-					<PARAM value="00" name="a" desc="a"/>
-					<PARAM value="01" name="e" desc="e"/>
-					<PARAM value="02" name="i" desc="i"/>
-					<PARAM value="03" name="o" desc="o"/>
-					<PARAM value="04" name="u" desc="u"/>
+					<PARAM value="00" name="a" desc="  A      "/>
+					<PARAM value="01" name="e" desc="  E     "/>
+					<PARAM value="02" name="i" desc="  I      "/>
+					<PARAM value="03" name="o" desc="  O      "/>
+					<PARAM value="04" name="u" desc="  U      "/>
 				</DATA>
 				<DATA value="44" name="" abbr="" desc="HMN :Sens" customdesc="Sens">
 					<PARAM value="range" name="00/64/00/100"/>
@@ -1064,7 +1064,7 @@
 					<PARAM value="range" name="00/64/00/100" desc=" %" customdesc=""/>
 				</DATA>
 				<DATA value="4B" name="" abbr="" desc="VB :Trigger" customdesc="Trigger">
-					<PARAM value="00" name="Off" desc="Off"/>
+					<PARAM value="00" name="Off" desc="Off      "/>
 					<PARAM value="01" name="On" desc="On"/>
 				</DATA>
 				<DATA value="4C" name="" abbr="" desc="VB :Rise Time" customdesc="Rise Time">
@@ -1074,19 +1074,19 @@
 					<PARAM value="range" name="00/64/00/100" desc=" %" customdesc=""/>
 				</DATA>
 				<DATA value="4E" name="" abbr="" desc="SYN:Wave" customdesc="wave">
-					<PARAM value="00" name="Square" desc="Square"/>
+					<PARAM value="00" name="Square" desc="Square        "/>
 					<PARAM value="01" name="Saw" desc="Saw"/>
 					<PARAM value="02" name="Brass" desc="Brass"/>
 					<PARAM value="03" name="Bow" desc="Bow"/>
 				</DATA>
 				<DATA value="4F" name="" abbr="" desc="SYN:Chromatic" customdesc="Chromatic">
-					<PARAM value="00" name="off" desc="off"/>
+					<PARAM value="00" name="off" desc="off       "/>
 					<PARAM value="01" name="on" desc="on"/>
 				</DATA>
 				<DATA value="50" name="" abbr="" desc="SYN:Octave Shift" customdesc="Octave">
 					<PARAM value="00" name="0" desc="0"/>
 					<PARAM value="01" name="-1" desc="-1"/>
-					<PARAM value="01" name="-2" desc="-2"/>
+					<PARAM value="01" name="-2" desc="-2       "/>
 				</DATA>
 				<DATA value="51" name="" abbr="" desc="SYN:PWM Rate" customdesc="PWM Rate">
 					<PARAM value="range" name="00/64/00/100" desc="''" customdesc=""/>
@@ -1120,7 +1120,7 @@
 					<PARAM value="range" name="00/64/00/100" desc=" %" customdesc=""/>
 				</DATA>
 				<DATA value="5B" name="" abbr="" desc="SYN:Attack Trigger" customdesc="Hold">
-					<PARAM value="00" name="Off" desc="Off"/>
+					<PARAM value="00" name="Off" desc="Off       "/>
 					<PARAM value="01" name="On" desc="On"/>
 				</DATA>
 				<DATA value="5C" name="" abbr="" desc="SYN:Synth Level" customdesc="Synth Level">
@@ -1131,7 +1131,7 @@
 				</DATA>
 				<DATA value="5E" name="" abbr="" desc="RM :mode" customdesc="Mode">
 					<PARAM value="00" name="Normal" desc="Normal"/>
-					<PARAM value="01" name="Intelligent" desc="Intelligent"/>
+					<PARAM value="01" name="Intelligent" desc="Intelligent       "/>
 				</DATA>
 				<DATA value="5F" name="" abbr="" desc="RM :Freq" customdesc="Freq">
 					<PARAM value="range" name="00/64/00/100" desc="" customdesc=""/>
@@ -1162,7 +1162,7 @@
 					<PARAM value="10" name="Pattern 17" desc="Pattern 17"/>
 					<PARAM value="11" name="Pattern 18" desc="Pattern 18"/>
 					<PARAM value="12" name="Pattern 19" desc="Pattern 19"/>
-					<PARAM value="13" name="Pattern 20" desc="Pattern 20"/>
+					<PARAM value="13" name="Pattern 20" desc="Pattern 20      "/>
 				</DATA>
 				<DATA value="63" name="" abbr="" desc="SL : Rate" customdesc="Rate">
 					<PARAM value="range" name="00/64/00/100" desc=""/>
@@ -1267,7 +1267,7 @@
 					<PARAM value="range" name="00/64/00/100" desc=" %" customdesc=""/>
 				</DATA>
 				<DATA value="04" name="" abbr="" desc="Pre Delay" customdesc="Pre Delay">
-					<PARAM value="range" name="00/50/0.0/40.0" desc=" mS" customdesc=""/>
+					<PARAM value="range" name="00/50/0.0/40.0" desc="ms" customdesc=""/>
 				</DATA>
 				<DATA value="05" name="" abbr="" desc="High Cut" customdesc="High Cut">
 					<PARAM value="00" name="700Hz" desc="" customdesc=""/>

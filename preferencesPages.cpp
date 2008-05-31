@@ -158,15 +158,15 @@ MidiPage::MidiPage(QWidget *parent)
 	this->midiTimeSpinBox = midiTimeSpinBox;
 	const int maxWait = preferences->getPreferences("Midi", "Time", "set").toInt(&ok, 10);
 	midiTimeSpinBox->setValue(maxWait);
-midiTimeSpinBox->setRange(40, 160);
-	midiTimeSpinBox->setSingleStep(5);
+midiTimeSpinBox->setRange(5, 90);
+	midiTimeSpinBox->setSingleStep(1);
 	midiTimeSpinBox->setPrefix("= 20 x ");
 	midiTimeSpinBox->setSuffix(" ms wait");
 
 	this->midiDelaySpinBox = midiDelaySpinBox;
 	const int minWait = preferences->getPreferences("Midi", "Delay", "set").toInt(&ok, 10);
 	midiDelaySpinBox->setValue(minWait);
-	midiDelaySpinBox->setRange(1, 30);
+	midiDelaySpinBox->setRange(1, 20);
 	//midiTimeSpinBox->setSingleStep(5);
 	midiDelaySpinBox->setPrefix("= ");
 	midiDelaySpinBox->setSuffix(" times/second");

@@ -2,7 +2,7 @@
 cls
 @echo "press any key to compile"
 pause
-c:\qt\qt-win-src-4.4.0\bin\qmake
+c:\qt\4.4.0-rc1\bin\qmake
 mingw32-make
 @echo "press any key to run"
 pause
