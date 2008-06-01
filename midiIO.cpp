@@ -165,12 +165,12 @@ void midiIO::sendSyxMsg(QString sysxOutMsg, int midiOutPort)
 {
     RtMidiOut *midiMsgOut = 0;
 	midiMsgOut = new RtMidiOut(); 
-    unsigned int nPorts = midiMsgOut->getPortCount();   // Check available ports.
+    int nPorts = midiMsgOut->getPortCount();   // Check available ports.
     if ( nPorts < 1 ) { goto cleanup; };
     try {    
         midiMsgOut->openPort(midiOutPort);	// Open selected port.         
 		    std::vector<unsigned char> message;	
-        message.reserve(256);
+        //message.reserve(256);
 		int msgLength = sysxOutMsg.length()/2;
 		char *ptr  = new char[msgLength];		// Convert QString to char* (hex value) 
 		for(int i=0;i<msgLength*2;++i)
@@ -210,7 +210,7 @@ void midiIO::sendMidiMsg(QString sysxOutMsg, int midiOutPort)
 {
     RtMidiOut *midiMsgOut = 0;
 		midiMsgOut = new RtMidiOut(); 
-    unsigned int nPorts = midiMsgOut->getPortCount();   // Check available ports.
+    int nPorts = midiMsgOut->getPortCount();   // Check available ports.
     if ( nPorts < 1 ) { goto cleanup; };
     try {    
     midiMsgOut->openPort(midiOutPort);	// Open selected port.         
@@ -277,7 +277,7 @@ void midiIO::receiveMsg(QString sysxInMsg, int midiInPort)
 	Preferences *preferences = Preferences::Instance(); bool ok;// Load the preferences.
 	const int maxWait = preferences->getPreferences("Midi", "Time", "set").toInt(&ok, 10);
 	if(multiple){loopCount = maxWait*20;}
-	  else {loopCount = maxWait*5;};
+	  else {loopCount = maxWait*20;};
 			//int bytesReceived = 0;	
       RtMidiIn *midiin = 0;	
 	  midiin = new RtMidiIn();		   //RtMidi constructor
@@ -316,6 +316,12 @@ void midiIO::run()
 {
 	if(midi && midiMsg.size() > 1)	// Check if we are going to send sysx or midi data & have an actual midi message to send.
 	{
+	  emit setStatusSymbol(2);
+		emit setStatusProgress(33); // time wasting sinusidal statusbar progress animation
+		SLEEP(40);
+		emit setStatusProgress(66);
+		SLEEP(100);		
+		emit setStatusProgress(100);
 		if (midiMsg.size() <= 6)		// if the midi message is <= 3 words
 			{
 			sysxOutMsg = midiMsg;   // use the same sending routine as sysx messages.
@@ -347,23 +353,14 @@ void midiIO::run()
 			 	//};
 					
 	 		 }; 
-
-						
-		emit setStatusSymbol(2);
-		emit setStatusMessage("Sending");
-		emit setStatusProgress(33); // time wasting sinusidal statusbar progress animation
-		SLEEP(40);
-		emit setStatusProgress(66);
-		SLEEP(100);		
-		emit setStatusProgress(100);
-		SLEEP(100);		
+   	SLEEP(100);		
 		emit setStatusProgress(75);
 		SLEEP(100);		
 		emit setStatusProgress(42);
 		SLEEP(150);
-		emit setStatusSymbol(1);
+		//emit setStatusSymbol(1);
 		emit setStatusProgress(0);
-		emit setStatusMessage(tr("Ready"));
+		//emit setStatusMessage(tr("Ready"));
 		emit midiFinished(); // We are finished so we send a signal to free the device.		
 	}
 	else   // if not a midi message, then it must be a sysx message
@@ -378,7 +375,7 @@ void midiIO::run()
 		if(receive==true)
 		{
 			emit setStatusSymbol(3);
-			emit setStatusMessage(tr("Receiving Data"));
+			//emit setStatusMessage(tr("Receiving Data"));
 			/* Get the size of data bytes returned to calculate the progress percentage */
 			bool ok;
 			QString sizeChunk = sysxOutMsg.mid(sysxDataOffset * 2, 4 * 2);
@@ -388,7 +385,7 @@ void midiIO::run()
 			{
 				bytesTotal = 1;
 			}
-			else if(sizeChunk == "00001700") // GT-3 Patch Request data size.
+			else if(sizeChunk == patchRequestSize) // GT-3 Patch Request data size.
 			{
 				bytesTotal = patchSize;     // progressbar scaled to patch size
 			};
@@ -398,7 +395,6 @@ void midiIO::run()
 		else 
 		{
 			emit setStatusSymbol(2);
-			emit setStatusMessage("Sending");
 			sendSyxMsg(sysxOutMsg, midiOutPort);
 			Preferences *preferences = Preferences::Instance(); bool ok;// Load the preferences.
 			const int minWait = preferences->getPreferences("Midi", "Delay", "set").toInt(&ok, 10);
@@ -416,9 +412,7 @@ void midiIO::run()
 		emit replyMsg(sysxInMsg);
 		emit setStatusSymbol(1);
 		emit setStatusProgress(0);
-		emit setStatusMessage(tr("Ready"));
 	};
-	//this->exec();    /* this was causing an overflow of new threads on each midi event */
 };
 
 /*********************** sendSysxMsg() ***********************************
@@ -459,12 +453,8 @@ void midiIO::sendSysxMsg(QString sysxOutMsg, int midiOutPort, int midiInPort)
   };    
   if (sysxOutMsg.size() == 12){reBuild = sysxOutMsg;};  // identity request not require checksum
 	this->sysxOutMsg = reBuild.simplified().toUpper().remove("0X").remove(" ");
-	if (deviceType == "GT-3") {
-    if(sysxOutMsg.size() == (sysxDataOffset*2 + 12) && sysxOutMsg.mid(sysxOutMsg.size()-8, 2) == "1700" && sysxOutMsg.mid((sysxAddressOffset*2-2), 2) == "11")  
-    {this->multiple = true;} else {this->multiple = false;}
-      } else { 
-	  if(sysxOutMsg.size() == (sysxDataOffset*2 + 12) && sysxOutMsg.mid(sysxOutMsg.size()-8, 2) == "0001" && sysxOutMsg.mid((sysxAddressOffset*2-2), 2) == "11") 
-    {this->multiple = true;} else {this->multiple = false;} }
+	 if(sysxOutMsg.size() == (sysxDataOffset*2 + 12) && sysxOutMsg.mid(sysxOutMsg.size()-12, 8) == patchRequestSize && sysxOutMsg.mid((sysxAddressOffset*2-2), 2) == "11")  
+    {this->multiple = true;} else {this->multiple = false;};
 	this->midiOutPort = midiOutPort;
 	this->midiInPort = midiInPort;
 	this->midi = false;

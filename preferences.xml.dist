@@ -2,7 +2,7 @@
 <!-- Preferences of the GT-3 Fx FloorBoard application. -->
 <Preferences>
 	<General>
-		<Application version="beta 20080508"/>
+		<Application version="beta 20080601"/>
 		<Donate url="http://sourceforge.net/donate/index.php?group_id=171049"/>
 		<Files dir=""/>
 		<Help url="GT-3EditorManual_E.htm"/>
@@ -13,7 +13,7 @@
 		<MidiIn device=""/>
 		<MidiOut device=""/>
 		<DBug bool="false"/>
-		<Time set="45"/>
+		<Time set="60"/>
 		<Delay set="15"/>
 	</Midi>
 	<Window>

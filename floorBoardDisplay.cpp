@@ -1,8 +1,9 @@
 /****************************************************************************
 **
+** Copyright (C) 2007, 2008 Colin Willcocks.
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT6B Fx FloorBoard".
+** This file is part of "GT-3 Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -20,7 +21,7 @@
 **
 ****************************************************************************/
 
-//#include <QChar>
+#include <QChar>
 #include "floorBoardDisplay.h"
 #include "Preferences.h"
 #include "MidiTable.h"
@@ -92,7 +93,7 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
 
 	QObject::connect(this->connectButton, SIGNAL(valueChanged(bool)), this, SLOT(connectSignal(bool)));
 	QObject::connect(this->writeButton, SIGNAL(valueChanged(bool)), this, SLOT(writeSignal(bool)));
-	QObject::connect(this->assignButton, SIGNAL(valueChanged(bool)), this, SLOT(assignSignal(bool)));  //cw
+	//QObject::connect(this->assignButton, SIGNAL(valueChanged(bool)), this, SLOT(assignSignal(bool)));  //cw
   };
 
 QPoint floorBoardDisplay::getPos()
@@ -289,14 +290,14 @@ void floorBoardDisplay::updateDisplay()
 
 void floorBoardDisplay::assignSignal(bool value)    //cw
 {
-    this->assignButtonActive = value;
+   // this->assignButtonActive = value;
 	//stompBox->editDialog->setWindow("Assign");
 		//emit assignSignal();
 	//stompBox->setEditDialog();
 	//floorBoard->editDialog->show();
-	emit setStatusMessage(tr("ASSIGN"));
+	//emit setStatusMessage(tr("ASSIGN"));
 	//editWindow *edit = new editWindow();
-	this->assignButton->setBlink(true);
+	//this->assignButton->setBlink(true);
 	
 };
 
@@ -345,6 +346,7 @@ void floorBoardDisplay::connectionResult(QString sysxMsg)
 			this->connectButton->setValue(true);
 			sysxIO->setConnected(true);
 			emit connectedSignal();
+			emit setStatusMessage(tr("Ready"));
 
 			if(sysxIO->getBank() != 0)
 			{
@@ -512,7 +514,7 @@ void floorBoardDisplay::writeSignal(bool)
 					msgBox->setTextFormat(Qt::RichText);
 					QString msgText;
 					msgText.append("<font size='+1'><b>");
-					msgText.append(tr("You have chosen to write the patch permanently into memory."));
+					msgText.append(tr("You have chosen to write the patch permanently into GT-3 memory."));
 					msgText.append("<b></font><br>");
 					msgText.append(tr("This will overwrite the patch currently stored at this location\n"
 						"and can't be undone.------- Ensure Bulk Load Mode is selected"));
@@ -625,6 +627,7 @@ void floorBoardDisplay::writeToBuffer()
 		SLEEP(100);		
 		emit setStatusProgress(42);
 		SLEEP(150);
+		emit setStatusMessage(tr("Ready"));
 	
 	sysxIO->setDeviceReady(true);
 };
@@ -770,6 +773,8 @@ void floorBoardDisplay::blinkSellectedPatch(bool active)
 		};
 		setPatchNumDisplay(bank,patch);//(sysxIO->getLoadedBank(),  sysxIO->getLoadedPatch());
 	};
+	emit setStatusSymbol(1);
+	emit setStatusMessage(tr("Ready"));
 };
 
 void floorBoardDisplay::patchLoadSignal(int bank, int patch)
@@ -800,8 +805,8 @@ void floorBoardDisplay::notConnected()
 
 void floorBoardDisplay::valueChanged(bool value, QString hex1, QString hex2, QString hex3)
 {
-	//value;
-	//hex1;
-	//hex2;
-	//hex3;
+	value;
+	hex1;
+	hex2;
+	hex3;
 };

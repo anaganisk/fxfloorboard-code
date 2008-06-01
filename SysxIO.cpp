@@ -1,5 +1,6 @@
 /****************************************************************************
 **
+** Copyright (C) 2007, 2008 Colin Willcocks.
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
 ** This file is part of "GT-6B Fx FloorBoard".
@@ -359,7 +360,7 @@ int SysxIO::getSourceValue(QString hex1, QString hex2, QString hex3)
 
 	bool ok;
 	
-	if(hex1 != "01")
+	if(hex1 != "00")
 	{
 		QString prevHex = QString::number((hex1.toInt(&ok, 16) - 1), 16).toUpper();
 		if(prevHex.length() < 2) prevHex.prepend("0");
@@ -401,6 +402,7 @@ void SysxIO::resetDevice(QString replyMsg)
 		QObject::disconnect(this, SIGNAL(sysxReply(QString)),	
 		this, SLOT(resetDevice(QString)));
 		this->setDeviceReady(true);	// Free the device after finishing interaction.
+		emit setStatusMessage("Ready");
 	}
 	else
 	{
@@ -534,9 +536,7 @@ QList<QString> SysxIO::correctSysxMsg(QList<QString> sysxMsg)
 	
 	int dataSize = 0;
 	for(int i=sysxMsg.size() - 1; i>=checksumOffset;i--)
-	{
-		dataSize += sysxMsg.at(i).toInt(&ok, 16);
-	};
+	{dataSize += sysxMsg.at(i).toInt(&ok, 16);	};
 	sysxMsg.replace(sysxMsg.size() - 1, getCheckSum(dataSize));
 
 	return sysxMsg;
@@ -664,9 +664,14 @@ QString SysxIO::getPatchChangeMsg(int bank, int patch)
 
 	QString midiMsg = "";
 	if (deviceType != "GT-6B"){
-	midiMsg.append("B00000");	    // MSB bank change midi message
-	midiMsg.append("B020"+bankMsb);	};			// LSB ->control change -> bank change type (32 or 00) depending on device type
-	midiMsg.append("C0"+programChange); // Program patch Change midi message
+	midiMsg.append("B000"+bankMsb);
+	midiMsg.append("B01000");  };
+	midiMsg.append("C0"+programChange);
+	//midiMsg.append("B00000");	    // MSB bank change midi message
+	//midiMsg.append("B010"+bankMsb);				// LSB ->control change -> bank change type (32 or 00) depending on device type
+	//midiMsg.append("C0"+programChange); // Program patch Change midi message
+	emit setStatusMessage("Patch change");
+	midiMsg = midiMsg.toUpper();
 	return midiMsg;
 };
 
@@ -685,12 +690,12 @@ void SysxIO::sendMidi(QString midiMsg)
 		midi->sendMidi(midiMsg, midiOutPort);
 
 			 /*DeBugGING OUTPUT */
-/*	if(preferences->getPreferences("Midi", "DBug", "bool")=="true")
+	if(preferences->getPreferences("Midi", "DBug", "bool")=="true")
 	{
 		QString dBug =("      ");
 		dBug.append(midiMsg);
 		emit setStatusdBugMessage(dBug);
-	}*/
+	}
 		
 	};
 };
@@ -808,12 +813,12 @@ void SysxIO::sendSysx(QString sysxMsg)
 	midi->sendSysxMsg(sysxMsg, midiOutPort, midiInPort);
 	
 		 /*DeBugGING OUTPUT */
-/*	if(preferences->getPreferences("Midi", "DBug", "bool")=="true")
+	if(preferences->getPreferences("Midi", "DBug", "bool")=="true")
 	{
 		dBug =(sysxMsg);
 		emit setStatusdBugMessage(dBug);
 	}
-*/
+
 };
 
 /***************************** receiveSysx() *******************************
@@ -845,7 +850,7 @@ void SysxIO::receiveSysx(QString sysxMsg)
 				snork.append("\n caused by a midi loopback, port change is required");
 			};
 			QMessageBox *msgBox = new QMessageBox();
-			msgBox->setWindowTitle("dBug Result");
+			msgBox->setWindowTitle("dBug Result for formatted syx message");
 			msgBox->setIcon(QMessageBox::Information);
 			msgBox->setText(snork);
 			msgBox->setStandardButtons(QMessageBox::Ok);
@@ -904,12 +909,11 @@ void SysxIO::returnPatchName(QString sysxMsg)
 			i++;
 		};
 	};
-	if (sysxMsg.size() < 34 ){name = "bad data";}
+	if (sysxMsg != "" && sysxMsg.size() < 34 ){name = "bad data";}; 
+  if(sysxMsg == ""){name = "no reply"; }; 
 	emit patchName(name.trimmed());
-	if(sysxMsg == ""){
-		emit notConnectedSignal();
   };
-};
+
 /***************************** requestPatch() ******************************
 * Send a patch request. Result will be send directly with receiveSysx signal
 ****************************************************************************/

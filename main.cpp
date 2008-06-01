@@ -178,8 +178,8 @@ int main(int argc, char *argv[])
 	msgText.append("<font size='+1'><b>");
 	msgText.append(QObject::tr("This software is currently under development!"));
 	msgText.append("<b></font><br>");
-	msgText.append(QObject::tr("Please email to http//:gumtownbassman@yahoo.com to confirm correct function."));
-	msgText.append(QObject::tr(" This will help with development and future versions."));
+	msgText.append(QObject::tr("Please email to http//:gumtownbassman@yahoo.com to confirm correct function.<br>"));
+	msgText.append(QObject::tr(" This will help with development and removal of this nag screen.<br>"));
 #ifdef Q_OS_MAC
 		msgText.append(QObject::tr(" The MacOSX version has a midi receive problem and only realtime edit possible."));
 #endif

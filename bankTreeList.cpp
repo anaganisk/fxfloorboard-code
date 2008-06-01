@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 ** Copyright (C) 2008 Colin Willcocks.
-** This file is part of "GT6B Fx FloorBoard".
+** This file is part of "GT-3 Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -352,7 +352,7 @@ QTreeWidget* bankTreeList::newTreeList()
     for (int a=(bankTotalUser+1); a<=bankTotalAll; a++)
 	{
 		QTreeWidgetItem* bankRange = new QTreeWidgetItem; // don't pass a parent here!
-		bankRange->setText(0, QString::QString("Bank P").append(QString::number(a, 10)).append("-P").append(QString::number(a+4, 10)) );
+		bankRange->setText(0, QString::QString("Bank P").append(QString::number(a-35, 10)).append("-P").append(QString::number(a-31, 10)) );
 		bankRange->setWhatsThis(0, "");
 		//bankRange->setIcon(...);
 
@@ -426,7 +426,7 @@ void bankTreeList::setItemDoubleClicked(QTreeWidgetItem *item, int column)
 		// Make sure it's a patch (Patches are the last in line so no children).
 	{
 		emit setStatusSymbol(2);
-		emit setStatusMessage(tr("Sending"));
+		emit setStatusMessage(tr("Patch requst"));
 
 		sysxIO->setDeviceReady(false);
 		sysxIO->setRequestName(item->text(0));	// Set the name of the patch we are going to load, so we can check if we have loaded the correct patch at the end.
@@ -557,14 +557,30 @@ void bankTreeList::updatePatch(QString replyMsg)
 	{
 		emit notConnectedSignal();				// No message returned so connection must be lost.
 		/* NO-REPLY WARNING */
-	QMessageBox *msgBox = new QMessageBox();
-	msgBox->setWindowTitle(QObject::tr("Warning - Patch data not received!"));
+		QMessageBox *msgBox = new QMessageBox();
+	msgBox->setWindowTitle(QObject::tr("Warning - Patch data received is incorrect!"));
 	msgBox->setIcon(QMessageBox::Warning);
 	msgBox->setTextFormat(Qt::RichText);
 	QString msgText;
 	msgText.append("<font size='+1'><b>");
 	msgText.append(QObject::tr("Patch data transfer wrong size"));
 	msgText.append("<b></font><br>");
+	msgText.append(QObject::tr("Please make sure the ") + deviceType + (" is connected correctly and re-try."));
+	msgBox->setText(msgText);
+	msgBox->setStandardButtons(QMessageBox::Ok);
+	msgBox->exec();
+	/* END WARNING */
+	};
+	if(replyMsg == "") // cjw
+	{
+		emit notConnectedSignal();				// No message returned so connection must be lost.
+		/* NO-REPLY WARNING */
+	QMessageBox *msgBox = new QMessageBox();
+	msgBox->setWindowTitle(QObject::tr("Warning - No patch data received!"));
+	msgBox->setIcon(QMessageBox::Warning);
+	msgBox->setTextFormat(Qt::RichText);
+	QString msgText;
+	msgText.append("<font size='+1'><b>");
 	msgText.append(QObject::tr("Please make sure the ") + deviceType + (" is connected correctly and re-try."));
 	msgBox->setText(msgText);
 	msgBox->setStandardButtons(QMessageBox::Ok);
@@ -677,5 +693,8 @@ void bankTreeList::updatePatchNames(QString name)
 		    };
 	     }
 		else {SysxIO *sysxIO = SysxIO::Instance();
-			  sysxIO->setDeviceReady(true);};
+			  sysxIO->setDeviceReady(true);
+        emit setStatusSymbol(1);
+        emit setStatusMessage(tr("Ready"));
+        };
 };

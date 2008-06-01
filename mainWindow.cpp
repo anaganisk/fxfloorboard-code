@@ -429,7 +429,6 @@ void mainWindow::closeEvent(QCloseEvent* ce)
 {
 	Preferences *preferences = Preferences::Instance();
 	preferences->savePreferences();
-	SLEEP(1000);
-	//ce->accept();
-	//emit closed();
+	ce->accept();
+	emit closed();
 };
