@@ -44,7 +44,7 @@ SetCompressor lzma
 ; MUI end ------
 
 Name "${PRODUCT_NAME} ${PRODUCT_VERSION}"
-OutFile "GT-10FxFloorBoard_Setup.exe"
+OutFile "GT-10FxFloorBoard-Setup.exe"
 InstallDir "$PROGRAMFILES\GT-10FxFloorBoard"
 InstallDirRegKey HKLM "${PRODUCT_DIR_REGKEY}" ""
 ShowInstDetails show

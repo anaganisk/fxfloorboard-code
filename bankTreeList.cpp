@@ -499,7 +499,9 @@ void bankTreeList::updatePatch(QString replyMsg)
 	sysxIO->setDeviceReady(true); // Free the device after finishing interaction.
 	
 	QObject::disconnect(sysxIO, SIGNAL(sysxReply(QString)),
-		this, SLOT(updatePatch(QString)));		
+		this, SLOT(updatePatch(QString)));	
+    
+  
 	
 	replyMsg = replyMsg.remove(" ").toUpper();       /* TRANSLATE SYSX MESSAGE FORMAT to 128 byte data blocks */
 	if (replyMsg.size()/2 == 1784){
@@ -570,10 +572,10 @@ void bankTreeList::updatePatch(QString replyMsg)
     }; 
   };    
 	replyMsg = reBuild.simplified().toUpper().remove("0X").remove(" ");
-	};
+	//};
 	emit setStatusMessage(tr("Ready"));
-	if(replyMsg != "" && replyMsg.size()/2 == patchSize) // cjw
-	{
+//	if(replyMsg != "" && replyMsg.size()/2 == patchSize) // cjw
+//	{
 		sysxIO->setFileSource(replyMsg);		// Set the source to the data received.
 		sysxIO->setFileName(tr("Patch from ") + deviceType);	// Set the file name to GT-10 patch for the display.
 		sysxIO->setDevice(true);				// Patch received from the device so this is set to true.
@@ -584,7 +586,7 @@ void bankTreeList::updatePatch(QString replyMsg)
 
 		emit updateSignal();
 		emit setStatusProgress(0);
-		
+
 /*
 		QList<QString> nameArray = sysxIO->getFileSource(nameAddress, "00");
 
@@ -622,9 +624,8 @@ void bankTreeList::updatePatch(QString replyMsg)
 
 
 
-	}
+	};
 	if(replyMsg != "" && replyMsg.size()/2 != patchSize) // cjw
-	//else
 	{
 		emit notConnectedSignal();				// No message returned so connection must be lost.
 		/* NO-REPLY WARNING */
@@ -634,7 +635,25 @@ void bankTreeList::updatePatch(QString replyMsg)
 	msgBox->setTextFormat(Qt::RichText);
 	QString msgText;
 	msgText.append("<font size='+1'><b>");
-	msgText.append(QObject::tr("Patch data transfer wrong size"));
+	msgText.append(QObject::tr("Patch data transfer wrong size or data error"));
+	msgText.append("<b></font><br>");
+	msgText.append(QObject::tr("Please make sure the ") + deviceType + (" is connected correctly and re-try."));
+	msgBox->setText(msgText);
+	msgBox->setStandardButtons(QMessageBox::Ok);
+	msgBox->exec();
+	/* END WARNING */
+	};
+		if(replyMsg == "") // cjw
+	{
+		emit notConnectedSignal();				// No message returned so connection must be lost.
+		/* NO-REPLY WARNING */
+	QMessageBox *msgBox = new QMessageBox();
+	msgBox->setWindowTitle(QObject::tr("Warning - Patch data not received!"));
+	msgBox->setIcon(QMessageBox::Warning);
+	msgBox->setTextFormat(Qt::RichText);
+	QString msgText;
+	msgText.append("<font size='+1'><b>");
+	msgText.append(QObject::tr("Patch data transfer failed, are the correct midi ports selected?"));
 	msgText.append("<b></font><br>");
 	msgText.append(QObject::tr("Please make sure the ") + deviceType + (" is connected correctly and re-try."));
 	msgBox->setText(msgText);
@@ -643,33 +662,36 @@ void bankTreeList::updatePatch(QString replyMsg)
 	/* END WARNING */
 	};
 	
+	////////
 	Preferences *preferences = Preferences::Instance(); // Load the preferences.
 	if(preferences->getPreferences("Midi", "DBug", "bool")=="true")
 	{
 	if (replyMsg.size() > 0){
 		QString snork;
 			snork.append("<font size='-1'>");
+			snork.append("{ size=");
+			snork.append(QString::number(replyMsg.size()/2, 10));
+			snork.append("}");	
+			snork.append("<br> midi data received");
 			for(int i=0;i<replyMsg.size();++i)
 			{
 				snork.append(replyMsg.mid(i, 2));
 				snork.append(" ");
 				i++;
 			};
-			snork.replace("F7", "F7 }\n");
+			snork.replace("F7", "F7 } <br>");
 			snork.replace("F0", "{ F0");
-			snork.append("\n{ size=");
-			snork.append(QString::number(replyMsg.size()/2, 10));
-			snork.append("}");	
-			snork.append("\n midi data received");
+			
 		 
 			QMessageBox *msgBox = new QMessageBox();
-			msgBox->setWindowTitle("dBug Result for received GT-10 patch data");
+			msgBox->setWindowTitle("dBug Result for re-formatted GT-10 patch data");
 			msgBox->setIcon(QMessageBox::Information);
 			msgBox->setText(snork);
 			msgBox->setStandardButtons(QMessageBox::Ok);
 			msgBox->exec();
 			};
-		};
+		};	
+		/////////
 };
 
 /********************************** connectedSignal() ****************************

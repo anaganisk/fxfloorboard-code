@@ -838,7 +838,7 @@ void SysxIO::sendSysx(QString sysxMsg)
 ****************************************************************************/
 void SysxIO::receiveSysx(QString sysxMsg)
 {
-	emit sysxReply(sysxMsg);
+	
 	 /*DeBugGING OUTPUT */
 	Preferences *preferences = Preferences::Instance(); // Load the preferences.
 	if(preferences->getPreferences("Midi", "DBug", "bool")=="true")
@@ -846,31 +846,33 @@ void SysxIO::receiveSysx(QString sysxMsg)
 	if (sysxMsg.size() > 0){
 			QString snork;
 			snork.append("<font size='-1'>");
+			snork.append(" { size=");
+			snork.append(QString::number(sysxMsg.size()/2, 10));
+			snork.append("}");	
+			snork.append("<br> midi data received");
 			for(int i=0;i<sysxMsg.size();++i)
 			{
 				snork.append(sysxMsg.mid(i, 2));
 				snork.append(" ");
 				i++;
 			};
-			snork.replace("F7", "F7 }\n");
+			snork.replace("F7", "F7 }<br>");
 			snork.replace("F0", "{ F0");
-			snork.append("\n{ size=");
-			snork.append(QString::number(sysxMsg.size()/2, 10));
-			snork.append("}");	
-			snork.append("\n midi data received");
+			
 		  if (sysxMsg == dBug){
-				  snork.append("\n WARNING: midi data received = data sent");
-				  snork.append("\n caused by a midi loopback, port change is required");
+				  snork.append("<br> WARNING: midi data received = data sent");
+				  snork.append("<br> caused by a midi loopback, port change is required");
 			 };
 
 			QMessageBox *msgBox = new QMessageBox();
-			msgBox->setWindowTitle("dBug Result for formatted sysx message");
+			msgBox->setWindowTitle("dBug Result for received sysx data");
 			msgBox->setIcon(QMessageBox::Information);
 			msgBox->setText(snork);
 			msgBox->setStandardButtons(QMessageBox::Ok);
 			msgBox->exec();
 		};
-	};			
+	};		
+  emit sysxReply(sysxMsg);	
 };
 
 /***************************** requestPatchName() ***************************
@@ -923,11 +925,11 @@ void SysxIO::returnPatchName(QString sysxMsg)
 
 			i++;
 		};
-	};
+	} else {
 	if (sysxMsg != "" && sysxMsg.size()/2 != 29){name = "bad data";}; 
   if(sysxMsg == ""){name = "no reply"; }; 
+    };
 	emit patchName(name.trimmed());
-	
 };
 
 /***************************** requestPatch() ******************************
