@@ -883,7 +883,7 @@ void SysxIO::returnPatchName(QString sysxMsg)
 			this, SLOT(returnPatchName(QString)));
 	
 	QString name; 
-	if(sysxMsg != "" && sysxMsg.size() == 29)
+	if(sysxMsg != "" && sysxMsg.size()/2 == 29)
 	{		
 		int dataStartOffset = sysxNameOffset;
 		QString hex1, hex2, hex3, hex4;
@@ -906,9 +906,10 @@ void SysxIO::returnPatchName(QString sysxMsg)
 
 			i++;
 		};
-	};
+	} else {
 	if (sysxMsg != "" && sysxMsg.size()/2 != 29){name = "bad data";}; 
   if(sysxMsg == ""){name = "no reply"; }; 
+  };
 	emit patchName(name.trimmed());
 };
 
