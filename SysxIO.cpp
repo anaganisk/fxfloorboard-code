@@ -887,7 +887,7 @@ void SysxIO::returnPatchName(QString sysxMsg)
 			this, SLOT(returnPatchName(QString)));
 	
 	QString name; 
-	if(sysxMsg != "" && sysxMsg.size() == patchSize)
+	if(sysxMsg != "" && sysxMsg.size()/2 == patchSize)
 	{		
 		int dataStartOffset = sysxNameOffset;   //pointer to start of names in patch file at 403 bytes.
 		QString hex1, hex2, hex3, hex4;
@@ -910,10 +910,12 @@ void SysxIO::returnPatchName(QString sysxMsg)
 
 			i++;
 		};
-	};
-	if (sysxMsg != "" && sysxMsg.size()/2 != patchSize){name = "bad data";}; 
-  if(sysxMsg == ""){name = "no reply"; }; 
-	emit patchName(name.trimmed());
+	} else {
+	 if (sysxMsg != "" && sysxMsg.size()/2 != patchSize){name = "bad data";}; 
+  if(sysxMsg == ""){name = "no reply"; };
+  //emit notConnectedSignal();
+  }; 
+  emit patchName(name.trimmed());
  };
 /***************************** requestPatch() ******************************
 * Send a patch request. Result will be send directly with receiveSysx signal
