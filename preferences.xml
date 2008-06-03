@@ -15,10 +15,10 @@
 		<Delay set="15"/>
 		<MidiIn device="1"/>
 		<MidiOut device="1"/>
-		<Time set="50"/>
+		<Time set="15"/>
 	</Midi>
 	<Window>
-		<Collapsed width="" defaultwidth="1230" bool="true"/>
+		<Collapsed width="" defaultwidth="1230" bool="false"/>
 		<Position x="" y=""/>
 		<Restore window="false" sidepanel="false"/>
 		<Size width="" minwidth="1014" height="" minheight="548"/>

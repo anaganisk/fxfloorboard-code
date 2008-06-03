@@ -98,7 +98,7 @@ void SysxIO::setFileSource(QByteArray data)
 			QString checksum = hex;
 
 			if(getCheckSum(dataSize) != checksum)
-			{
+			{/*
 				QString errorString;
 				errorString.append(tr("Address") + ": ");
 				errorString.append(sysxBuffer.at(sysxAddressOffset) + " ");
@@ -109,7 +109,7 @@ void SysxIO::setFileSource(QByteArray data)
 				errorString.append(tr("should have been") + " (" + getCheckSum(dataSize) + ")");
 				errorString.append("\n");
 				errorList.append(errorString);
-
+*/
 				sysxBuffer = correctSysxMsg(sysxBuffer);
 			};
 		};
@@ -124,6 +124,8 @@ void SysxIO::setFileSource(QByteArray data)
 			offset = 0;
 		};
 	};
+	
+	
 	if(!errorList.isEmpty())
 	{
 		QMessageBox *msgBox = new QMessageBox();
@@ -499,11 +501,11 @@ QList<QString> SysxIO::correctSysxMsg(QList<QString> sysxMsg)
 	MidiTable *midiTable = MidiTable::Instance();
 	for(int i=sysxDataOffset;i<sysxMsg.size() - 3;i++)
 	{
-		if(i==sysxDataOffset + 1) i++; // is reserved memmory address on the GT-10 so we skip it.
+		if(i==(sysxDataOffset + 1)) i++; // is reserved memmory address on the GT-10 so we skip it.
 		
 		QString address3 = QString::number(i - sysxDataOffset, 16).toUpper();
 		if(address3.length()<2) address3.prepend("0");
-		
+		/*
 		int range = midiTable->getRange("Structure", address1, address2, address3);
 
 		if(midiTable->isData("Structure", address1, address2, address3))
@@ -522,11 +524,11 @@ QList<QString> SysxIO::correctSysxMsg(QList<QString> sysxMsg)
 				QString valueHex2 = QString::number(value - (dif * maxRange), 16).toUpper();
 				if(valueHex2.length() < 2) valueHex2.prepend("0");
 				
-				sysxMsg.replace(i, valueHex1);
-				sysxMsg.replace(i + 1, valueHex2);
+				//sysxMsg.replace(i, valueHex1);
+				//sysxMsg.replace(i + 1, valueHex2);
 			};
 
-			i++;
+			i++; 
 		}
 		else
 		{
@@ -536,9 +538,9 @@ QList<QString> SysxIO::correctSysxMsg(QList<QString> sysxMsg)
 				QString valueHex = QString::number(value, 16).toUpper();
 				if(valueHex.length() < 2) valueHex.prepend("0");
 				sysxMsg.replace(i, valueHex);
-			};
-		};
-	};
+			}; 
+		};*/
+	}; 
 	
 	int dataSize = 0;
 	for(int i=sysxMsg.size() - 1; i>=checksumOffset;i--)
