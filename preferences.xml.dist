@@ -2,7 +2,7 @@
 <!-- Preferences of the GT6B Fx FloorBoard application. -->
 <Preferences>
 	<General>
-		<Application version="beta 20080601"/>
+		<Application version="beta 20080609"/>
 		<Donate url="http://sourceforge.net/donate/index.php?group_id=171049"/>
 		<Files dir=""/>
 		<Help url="GT-6BEditorManual_E.htm"/>
