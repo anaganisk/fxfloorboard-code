@@ -275,7 +275,7 @@ void midiIO::receiveMsg(QString sysxInMsg, int midiInPort)
 	Preferences *preferences = Preferences::Instance(); bool ok;// Load the preferences.
 	const int maxWait = preferences->getPreferences("Midi", "Time", "set").toInt(&ok, 10);
 	if(multiple){loopCount = maxWait*35;}
-	  else {loopCount = maxWait*2;};
+	  else {loopCount = maxWait*1;};
 			int bytesReceived = 0;	
       RtMidiIn *midiin = 0;	
 	  midiin = new RtMidiIn();		   //RtMidi constructor
@@ -417,8 +417,8 @@ void midiIO::run()
  *************************************************************************/
 void midiIO::sendSysxMsg(QString sysxOutMsg, int midiOutPort, int midiInPort)
 {	
-  QString reBuild = "";
-  QString sysxEOF = "";	
+  QString reBuild = sysxOutMsg;//"";
+  /*QString sysxEOF = "";	
   QString hex = "";
   int msgLength = sysxOutMsg.length()/2;
   for(int i=0;i<msgLength*2;++i) 
@@ -443,8 +443,8 @@ void midiIO::sendSysxMsg(QString sysxOutMsg, int midiOutPort, int midiInPort)
 		i=i+2;
     }; 
   };    
-  if (sysxOutMsg.size() == 12){reBuild = sysxOutMsg;};  // identity request not require checksum
-	this->sysxOutMsg = reBuild.simplified().toUpper().remove("0X").remove(" ");
+  if (sysxOutMsg == idRequestString){reBuild = sysxOutMsg;};  // identity request not require checksum*/
+	this->sysxOutMsg = reBuild.toUpper();
 
     if(sysxOutMsg.size() == (sysxDataOffset*2 + 12) && sysxOutMsg.mid(sysxOutMsg.size()-12, 8) == patchRequestSize && sysxOutMsg.mid((sysxAddressOffset*2-2), 2) == "11")  
     {this->multiple = true;} else {this->multiple = false;};
