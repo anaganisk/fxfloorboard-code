@@ -650,6 +650,7 @@ QString SysxIO::getPatchChangeMsg(int bank, int patch)
 	//midiMsg.append("B020"+bankMsb);	};			// LSB ->control change -> bank change type (32 or 00) depending on device type
 	//midiMsg.append("C0"+programChange+"00"); // Program patch Change midi message
 	emit setStatusMessage("Patch change");
+	midiMsg = midiMsg.toUpper();
 	return midiMsg;
 };
 
@@ -791,12 +792,11 @@ void SysxIO::sendSysx(QString sysxMsg)
 	midi->sendSysxMsg(sysxMsg, midiOutPort, midiInPort);
 	
 		 /*DeBugGING OUTPUT */
-/*	if(preferences->getPreferences("Midi", "DBug", "bool")=="true")
+	if(preferences->getPreferences("Midi", "DBug", "bool")=="true")
 	{
 		dBug =(sysxMsg);
 		emit setStatusdBugMessage(dBug);
 	}
-*/
 };
 
 /***************************** receiveSysx() *******************************
@@ -863,7 +863,7 @@ void SysxIO::returnPatchName(QString sysxMsg)
 			this, SLOT(returnPatchName(QString)));
 	
 	QString name; 
-	if(sysxMsg != "" && sysxMsg.size() == patchSize)
+	if(sysxMsg != "" && sysxMsg.size()/2 == patchSize)
 	{		
 		int dataStartOffset = sysxNameOffset;   //pointer to start of names in patch file at 403 bytes.
 		QString hex1, hex2, hex3, hex4;
@@ -886,11 +886,13 @@ void SysxIO::returnPatchName(QString sysxMsg)
 
 			i++;
 		};
-	};
-	if (sysxMsg != "" && sysxMsg.size()/2 != patchSize){name = "bad data";}; 
-  if(sysxMsg == ""){name = "no reply"; }; 
-	emit patchName(name.trimmed());
-  };
+	} else {
+	 if (sysxMsg != "" && sysxMsg.size()/2 != patchSize){name = "bad data";}; 
+  if(sysxMsg == ""){name = "no reply"; };
+  //emit notConnectedSignal();
+  }; 
+  emit patchName(name.trimmed());
+ };
 
 /***************************** requestPatch() ******************************
 * Send a patch request. Result will be send directly with receiveSysx signal

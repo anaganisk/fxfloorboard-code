@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT6B Fx FloorBoard".
+** This file is part of "GT-6 Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -651,16 +651,6 @@ void floorBoard::updateStompBoxes()
 	};
 	setStomps(stompOrder);
 	};
-
-void floorBoard::assignSignal(bool value)
-{
-this->editDialog = editDialog;
-	this->editDialog->setParent(this);
-	this->centerEditDialog();
-	this->editDialog->pageUpdateSignal();
-	this->editDialog->show();
-	
-};
 
 void floorBoard::setEditDialog(editWindow* editDialog)
 {

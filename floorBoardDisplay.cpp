@@ -1,4 +1,5 @@
 /****************************************************************************
+** 
 ** Copyright (C) 2007, 2008 Colin Willcocks.
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
@@ -28,6 +29,7 @@
 #include "midiIO.h"
 #include "renameWidget.h"
 #include "globalVariables.h"
+
 
 
 // Platform-dependent sleep routines.
@@ -132,7 +134,7 @@ void floorBoardDisplay::setPatchDisplay(QString patchName)
 			if(this->patchLoadError)
 			{
 				QMessageBox *msgBox = new QMessageBox();
-				msgBox->setWindowTitle(tr("GT-6 Fx FloorBoard"));
+				msgBox->setWindowTitle(deviceType + tr(" Fx FloorBoard"));
 				msgBox->setIcon(QMessageBox::Warning);
 				msgBox->setTextFormat(Qt::RichText);
 				QString msgText;
@@ -141,8 +143,6 @@ void floorBoardDisplay::setPatchDisplay(QString patchName)
 				msgText.append("<b></font><br>");
 				msgText.append(tr("An incorrect patch has been loaded. Please try to load the patch again."));
 				msgBox->setText(msgText);
-				/*msgBox->setInformativeText(tr("This is a known bug, it occures when changing the bank 'LSB'.\n"
-					"For an unkown reason it didn't change."));*/
 				msgBox->setStandardButtons(QMessageBox::Ok);
 				msgBox->exec();
 
@@ -170,11 +170,28 @@ void floorBoardDisplay::setPatchNumDisplay(int bank, int patch)
 		};
 
 		QString str;
-		if(bank < 10)
+		if (deviceType == "GT-6B"){
+		if(bank < 11)
+		{ str.append("U"); }
+		else if(bank < 21)
+		{ str.append("u"); }
+		else 
+		{ str.append("P"); };
+		if (bank < 10)
+		{str.append(QString::number(bank, 10));}
+		else if (bank < 20)
+		{str.append(QString::number(bank-10, 10));}
+	    else if (bank < 30)
+		{str.append(QString::number(bank-20, 10));}
+		else 
+		{str.append(QString::number(bank-30, 10));};
+		} else {
+    		if(bank < 10)
 		{
 			str.append("0");
 		};
 		str.append(QString::number(bank, 10));
+		};
 		str.append(":");
 		str.append(QString::number(patch, 10));
 
@@ -393,14 +410,14 @@ void floorBoardDisplay::connectionResult(QString sysxMsg)
 			notConnected();
 
 			QMessageBox *msgBox = new QMessageBox();
-			msgBox->setWindowTitle(tr("GT-6 Fx FloorBoard connection Error !!"));
+			msgBox->setWindowTitle(deviceType + tr(" Fx FloorBoard connection Error !!"));
 			msgBox->setIcon(QMessageBox::Warning);
 			msgBox->setTextFormat(Qt::RichText);
 			QString msgText;
 			msgText.append("<font size='+1'><b>");
-			msgText.append(tr("The Boss GT-6 Guitar Effects Processor was not found."));
+			msgText.append(tr("The Boss ") + deviceType + (" Effects Processor was not found."));
 			msgText.append("<b></font><br>");
-			msgText.append(tr("Ensure the GT-6 is selected to Bulk Load for data retrieval-"));
+			msgText.append(tr("Ensure the unit is selected to Bulk Load for data retrieval-"));
 			msgText.append("<b></font><br>");
 			msgText.append(tr("by pressing UTILITY 4 times and left PARAMETER 3 times."));
 			msgText.append("<b></font><br>");
@@ -428,7 +445,7 @@ void floorBoardDisplay::writeSignal(bool)
 		if(sysxIO->getBank() == 0) /* Check if a bank is sellected. */
 		{
 			QMessageBox *msgBox = new QMessageBox();
-			msgBox->setWindowTitle(tr("GT-6 Fx FloorBoard"));
+			msgBox->setWindowTitle(deviceType + tr(" Fx FloorBoard"));
 			msgBox->setIcon(QMessageBox::Warning);
 			msgBox->setTextFormat(Qt::RichText);
 			QString msgText;
@@ -453,7 +470,6 @@ void floorBoardDisplay::writeSignal(bool)
 				if(sysxIO->getBank() != sysxIO->getLoadedBank() || sysxIO->getPatch() != sysxIO->getLoadedPatch())// Check if a different patch is sellected
 				{															// else load the selected one.
 					emit setStatusSymbol(2);
-					//emit setStatusProgress(0);
 					emit setStatusMessage("Sending");
 					
 					int bank = sysxIO->getBank();
@@ -478,7 +494,7 @@ void floorBoardDisplay::writeSignal(bool)
 				if(sysxIO->getBank() > bankTotalUser) // Preset banks are NOT writable so we check.
 				{
 					QMessageBox *msgBox = new QMessageBox();
-					msgBox->setWindowTitle(tr("GT-6 Fx FloorBoard"));
+					msgBox->setWindowTitle(deviceType + tr(" Fx FloorBoard"));
 					msgBox->setIcon(QMessageBox::Warning);
 					msgBox->setTextFormat(Qt::RichText);
 					QString msgText;
@@ -496,15 +512,15 @@ void floorBoardDisplay::writeSignal(bool)
 				else /* User bank so we can write to it after confirmation to overwrite stored data. */
 				{
 					QMessageBox *msgBox = new QMessageBox();
-					msgBox->setWindowTitle(tr("GT-6 Fx FloorBoard"));
+					msgBox->setWindowTitle(deviceType + tr(" Fx FloorBoard"));
 					msgBox->setIcon(QMessageBox::Warning);
 					msgBox->setTextFormat(Qt::RichText);
 					QString msgText;
 					msgText.append("<font size='+1'><b>");
-					msgText.append(tr("You have chosen to write the patch permanently into memory."));
+					msgText.append(tr("You have chosen to write the patch permanently into ") + deviceType + (" memory."));
 					msgText.append("<b></font><br>");
 					msgText.append(tr("This will overwrite the patch currently stored at this location<br>"
-						"and can't be undone.------- Ensure Bulk Load Mode is selected on GT-6"));
+						"and can't be undone.<br>Ensure Bulk Load Mode is selected on the ")+ deviceType);
 					msgBox->setInformativeText(tr("Are you sure you want to continue?"));
 					msgBox->setText(msgText);
 					msgBox->setStandardButtons(QMessageBox::Yes | QMessageBox::No);
@@ -796,8 +812,8 @@ void floorBoardDisplay::notConnected()
 
 void floorBoardDisplay::valueChanged(bool value, QString hex1, QString hex2, QString hex3)
 {
-	//value;
-	//hex1;
-	//hex2;
-	//hex3;
+	value;
+	hex1;
+	hex2;
+	hex3;
 };
