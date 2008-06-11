@@ -1,5 +1,6 @@
 /****************************************************************************
 **
+** Copyright (C) 2008 Colin Willcocks.
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
 ** This file is part of "GT-10 Fx FloorBoard".
@@ -26,6 +27,7 @@
 #include "preferencesDialog.h"
 #include "statusBarWidget.h"
 #include "SysxIO.h"
+#include "globalVariables.h"
 // Platform-dependent sleep routines.
 #ifdef Q_OS_WIN
   #include <windows.h>
@@ -73,7 +75,7 @@ mainWindow::mainWindow(QWidget *parent)
 	#endif
 
 	#ifdef Q_WS_MAC
-	fxsBoard->setStyle(QStyleFactory::create("macintosh"));
+	fxsBoard->setStyle(QStyleFactory::create("plastique"));
 		if(QFile(":qss/macosx.qss").exists())
 		{
 			QFile file(":qss/macosx.qss");
@@ -84,7 +86,7 @@ mainWindow::mainWindow(QWidget *parent)
 	#endif
 	
 	
-	this->setWindowTitle("GT-10 Fx FloorBoard");
+	this->setWindowTitle(deviceType + " Fx FloorBoard");
 	//this->setCentralWidget(fxsBoard);
 	
 	this->createActions();
@@ -264,7 +266,7 @@ void mainWindow::open()
                 this,
                 "Choose a file",
                 dir,
-                "System Exclusive (*.syx)");
+                "System Exclusive or Midi (*.syx *.mid)");
 	if (!fileName.isEmpty())	
 	{
 		file.setFile(fileName);  
@@ -296,7 +298,7 @@ void mainWindow::save()
 						this,
 						"Save As",
 						dir,
-						"System Exclusive (*.syx)");
+						"System Exclusive or Midi (*.syx *.mid)");
 		if (!fileName.isEmpty())	
 		{
 			if(!fileName.contains(".syx"))
@@ -426,7 +428,6 @@ void mainWindow::closeEvent(QCloseEvent* ce)
 {
 	Preferences *preferences = Preferences::Instance();
 	preferences->savePreferences();
-	SLEEP(1000);
-	//ce->accept();
-	//emit closed();
+	ce->accept();
+	emit closed();
 };

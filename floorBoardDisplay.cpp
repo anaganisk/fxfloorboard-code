@@ -65,11 +65,8 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
 	this->patchDisplay->setMainText(deviceType + (" Fx FloorBoard"));
 	this->patchDisplay->setSubText("version", version);
 
-//#ifdef Q_OS_MAC
-//	initPatch = new initPatchListMenu(QRect(405, 20, 168, 20), this);
-//#else
+
 	initPatch = new initPatchListMenu(QRect(405, 24, 168, 15), this);
-//#endif
   renameWidget *nameEdit = new renameWidget(this); 
   nameEdit->setGeometry(85, 5, 150, 34); 
 

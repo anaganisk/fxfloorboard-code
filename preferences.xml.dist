@@ -2,7 +2,7 @@
 <!-- Preferences of the GT-10 Fx FloorBoard application. -->
 <Preferences>
 	<General>
-		<Application version="alpha 20080605"/>
+		<Application version="alpha 20080611"/>
 		<Donate url="http://sourceforge.net/donate/index.php?group_id=171049"/>
 		<Files dir=""/>
 		<Help url="GT-10EditorManual_E.htm"/>

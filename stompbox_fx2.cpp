@@ -284,7 +284,7 @@ void stompbox_fx2::setEditPages()
 	editDetails()->page()->newGroupBox("Effect");
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00");	
 	editDetails()->page()->newStackControl(0);
-	editDetails()->page()->addComboBox(1, 0, 1, 1, "07", "00", "44");
+	editDetails()->page()->addComboBox(1, 0, 1, 1, "07", "00", "43");
 	editDetails()->page()->addStackControl();
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 
@@ -295,7 +295,7 @@ void stompbox_fx2::setEditPages()
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "07", "00", "46");
 	editDetails()->page()->addSwitch(0, 1, 1, 1, "07", "00", "45", "middle", Qt::AlignCenter);
 	editDetails()->page()->addSwitch(0, 2, 1, 1, "07", "00", "51", "middle", Qt::AlignCenter);
-	editDetails()->page()->addKnob(1, 0, 1, 1, "07", "00", "43");
+	editDetails()->page()->addKnob(1, 0, 1, 1, "07", "00", "44");
 	editDetails()->page()->addKnob(1, 1, 1, 1, "07", "00", "49");
 	editDetails()->page()->addKnob(1, 2, 1, 1, "07", "00", "4A");
 	editDetails()->page()->addKnob(2, 0, 1, 1, "07", "00", "4E");
@@ -325,7 +325,7 @@ void stompbox_fx2::setEditPages()
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "07", "00", "46");
 	editDetails()->page()->addSwitch(0, 1, 1, 1, "07", "00", "45", "middle", Qt::AlignCenter);
 	editDetails()->page()->addSwitch(0, 2, 1, 1, "07", "00", "51", "middle", Qt::AlignCenter);
-	editDetails()->page()->addKnob(1, 0, 1, 1, "07", "00", "43");
+	editDetails()->page()->addKnob(1, 0, 1, 1, "07", "00", "44");
 	editDetails()->page()->addKnob(1, 1, 1, 1, "07", "00", "49");
 	editDetails()->page()->addKnob(1, 2, 1, 1, "07", "00", "4A");
 	editDetails()->page()->addKnob(2, 0, 1, 1, "07", "00", "4E");
@@ -347,7 +347,7 @@ void stompbox_fx2::setEditPages()
 
 	editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Guitar Synth");
-	editDetails()->page()->addKnob(1, 0, 1, 1, "07", "00", "43");
+	editDetails()->page()->addKnob(1, 0, 1, 1, "07", "00", "44");
 	editDetails()->page()->addKnob(1, 1, 1, 1, "07", "00", "49");
 	editDetails()->page()->addKnob(1, 2, 1, 1, "07", "00", "4A");
 	editDetails()->page()->addKnob(2, 0, 1, 1, "07", "00", "4E");
@@ -369,7 +369,7 @@ void stompbox_fx2::setEditPages()
 
 	editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Guitar Synth");
-	editDetails()->page()->addKnob(1, 0, 1, 1, "07", "00", "43");
+	editDetails()->page()->addKnob(1, 0, 1, 1, "07", "00", "44");
 	editDetails()->page()->addKnob(1, 1, 1, 1, "07", "00", "49");
 	editDetails()->page()->addKnob(1, 2, 1, 1, "07", "00", "4A");
 	editDetails()->page()->addKnob(2, 0, 1, 1, "07", "00", "4E");

@@ -1,4 +1,4 @@
-*********************GT-FxFloorBoard Preview version: 05 June 2008 *************************
+*********************GT-FxFloorBoard Preview version: 11 June 2008 *************************
 
 ****NOTE: THIS IS A PREVIEW VERSION AND MANY FEATURES HAVE NOT YET BEEN IMPLIMENTED, OR SOME FUNCTIONS MAY BE INCORRECT.**** 
 
@@ -13,7 +13,7 @@ c.)  layout increased to fit 18 chain events, may be a problem for low screen re
 does this fit on your screen?
 
 d.)  continuing sessions at converting from GT-8 version most items are listed,
-with exception of assigns and custom user settings for autoriff & harmonizer.
+with exception of the assigns and custom user settings for autoriff & harmonizer.
 
 e.)  patch tree to the left side should give patch change on single click and (when 'connected' button active),
  double clicking the tree patch item will request a patch transfer from the GT-10.
@@ -24,7 +24,7 @@ f.)  patch rename by doubleclicking name display panel.
 g.)  out-going midi & patch data will be recognized by GT-10. 
 Editor internal structure now ready to receive a patch.
 
-h.)  GT-8 patch conversion. Gt-8 patches can be opened (%50 completed)
+h.)  GT-8 patch conversion. Gt-8 patches can be opened and saved as GT-10 patches.
 
 
 
@@ -35,6 +35,6 @@ h.)  GT-8 patch conversion. Gt-8 patches can be opened (%50 completed)
 
 		2.)  ***check realtime edit parameters are correct address and correct data range (is the editor tweaking the right GT-10 item).
 
-		3.)  ***check chain positions are correct.
+		3.)  ***check GT-8 patch convertion matches GT-10 equivilent values.
 
 reply email to <gumtownbassman@yahoo.com> as your information will help with the project progress.

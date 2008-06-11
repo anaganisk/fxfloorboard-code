@@ -68,37 +68,47 @@ bool sysxWriter::readFile()
 	msgText.append("<font size='+1'><b>");
 	msgText.append(QObject::tr("This is a GT-8 patch!"));
 	msgText.append("<b></font><br>");
-	msgText.append(QObject::tr("Be aware that conversions may not be consistant."));
+	msgText.append(QObject::tr("*Note that conversions may not be consistant*."));
 	msgBox->setText(msgText);
 	msgBox->setStandardButtons(QMessageBox::Ok);
 	msgBox->exec();
 	
 	QByteArray gt8_data = data;
-	QFile file(":default.syx");   // Read the default GT-10 sysx file so whe don't start empty handed.
+	QFile file(":default.syx");   // Read the default GT-10 sysx file so we don't start empty handed.
     if (file.open(QIODevice::ReadOnly))
 	{	data = file.readAll(); };
+	char r;
 	QByteArray temp;                         // TRANSLATION of GT-8 PATCHES, data read from gt8 patch **************
-	QByteArray x;                            // and used to replace gt10 patch data*********************************
+	QByteArray Qhex;                            // and used to replace gt10 patch data*********************************
+  QFile hexfile(":HexLookupTable.hex");   // use a QByteArray of hex numbers from a lookup table.
+    if (hexfile.open(QIODevice::ReadOnly))
+	{	Qhex = hexfile.readAll(); };
 	 temp = gt8_data.mid(692, 16);           // copy gt8 name
 	data.replace(11, 16, temp);              // replace gt10 name
 	temp = gt8_data.mid(154, 1);             // copy gt8 compressor part1
 	temp.append(gt8_data.mid(156,7));        // copy gt8 compressor part2
 	data.replace(75, 8, temp);               // replace gt10 compressor
 	temp = gt8_data.mid(212, 1);             // copy gt8 dist/od part1
-	temp.append(gt8_data.mid(214,5));        // copy gt8 dist/od part2
-	data.replace(123, 6, temp);              // replace gt10 distortion
-	// todo adjust dist types here
-	temp = gt8_data.mid(233, 1);             // copy gt8 preAmp control part1
+	data.replace(123, 1, temp);              // replace gt10 distortion part1
+	r = gt8_data.at(214);
+	temp = Qhex.mid((180+r), 1);             // convert DISTORTION types from HexLookupTable 180->
+	temp.append(gt8_data.mid(215,5));        // copy gt8 dist/od part2
+	data.replace(124, 6, temp);              // replace gt10 distortion
+
+
+  temp = gt8_data.mid(233, 1);             // copy gt8 preAmp control part1
 	temp.append(gt8_data.mid(235,2));        // copy gt8 preAmp control part2
 	temp.append(gt8_data.mid(238,1));        // copy gt8 preAmp control part3
 	temp.append(gt8_data.mid(237,1));        // copy gt8 preAmp control part4
 	data.replace(152, 5, temp);              // replace gt10 preAmp control
-	temp = gt8_data.mid(239, 17);            // copy gt8 preAmp channel A 
+	r = gt8_data.at(239);
+	temp = Qhex.mid((224+r), 1);             // convert PRE_AMP types from HexLookupTable 224->
+	temp.append(gt8_data.mid(240, 16));      // copy gt8 preAmp channel A 
 	data.replace(168, 17, temp);             // replace gt10 preAmp channel A
-	// todo adjust preamp types
-	temp = gt8_data.mid(256, 17);            // copy gt8 preAmp channel B 
+	r = gt8_data.at(256);
+	temp = Qhex.mid((224+r), 1);             // convert PRE_AMP types from HexLookupTable 224->
+	temp.append(gt8_data.mid(257, 16));      // copy gt8 preAmp channel B 
 	data.replace(200, 17, temp);             // replace gt10 preAmp channel B
-	// todo adjust preamp types
 	temp = gt8_data.mid(286, 1);             // copy gt8 EQ part1
 	temp.append(gt8_data.mid(288,11));       // copy gt8 EQ part2
 	data.replace(264, 12, temp);             // replace gt10 EQ
@@ -109,7 +119,7 @@ bool sysxWriter::readFile()
 	temp.append(gt8_data.mid(565,4));       // copy gt8 delay part3
 	temp.append(gt8_data.mid(563,2));       // copy gt8 delay part4
 	temp.append(gt8_data.mid(569,2));       // copy gt8 delay part5
-	if (temp.mid(2,1)=="11"){temp.replace(2, 1, "00"); };
+	if (temp.mid(2,1)=="11"){temp.replace(2, 1, "00"); }; // gt10 don't have hold function in delay
 	data.replace(1351, 25, temp);           // replace gt10 delay
 	temp = gt8_data.mid(584, 1);            // copy gt8 chorus part1
 	temp.append(gt8_data.mid(586,7));       // copy gt8 chorus part2
@@ -121,41 +131,159 @@ bool sysxWriter::readFile()
 	temp = (gt8_data.mid(610,1));           // copy gt8 reverb part4
 	data.replace(1410, 1, temp);            // replace gt10 reverb
 	
-	temp = (gt8_data.mid(665,14));          // copy gt8_chain
-	 int a = temp.indexOf(data.mid(1506,1)); // locate gt10_preamp 1 **** depends on default.syx
-	temp.insert(a, data.mid(1507,1));          // insert gt10_merge after preamp 1
-	temp.insert(a-1, data.mid(1495,1));          //insert gt10_split before preamp 1
-	temp.insert(a, data.mid(1504,1));
-	temp.insert(a, data.mid(1505,1));
 	
-	QString z;
-	QString y;
-	/*for (int i=0; i<18; i++){
-	y = (QString::number(i, 10));
-	if (y.size()<2) {y.prepend("0");}; 
-  a = temp.indexOf(data.mid(1492,1));  temp.replace(a, 1, data.mid(1503,1));   // 00 to 05
-  a = temp.indexOf(data.mid(1493,1));  temp.replace(a, 1, data.mid(1492,1));   // 01 to 00
-  a = temp.indexOf(data.mid(1508,1));  temp.replace(a, 1, data.mid(1500,1));   // 02 to 0A
-   if (temp.mid(i,1)=="03"){temp.replace(i, 1, "0E");  }      // 03 to 0E  todo
-  else if (temp.mid(i,1)=="04"){temp.replace(i, 1, "01");  }     // 04 to 01
-  else if (temp.mid(i,1)=="05"){temp.replace(i, 1, "02");  }
-  else if (temp.mid(i,1)=="06"){temp.replace(i, 1, "04");  }
-  else if (temp.mid(i,1)=="07"){temp.replace(i, 1, "06");  }
-  else if (temp.mid(i,1)=="08"){temp.replace(i, 1, "07");  }
-  else if (temp.mid(i,1)=="09"){temp.replace(i, 1, "08");  }
-  else if (temp.mid(i,1)=="0A"){temp.replace(i, 1, "09");  }
-  else if (temp.mid(i,1)=="0B"){temp.replace(i, 1, "0C");  }
-  else if (temp.mid(i,1)=="0C"){temp.replace(i, 1, "0B");  }
-  else if (temp.mid(i,1)=="0D"){temp.replace(i, 1, "0F");  };
-  z.append(y);*/
-  //};  
-	data.replace(1492, 18, temp);             // replace gt10 chain
+	temp.clear();                            // Convert GT8 Chain items to GT10 format 
+			r = gt8_data.at(665);
+    temp.append(Qhex.mid(r+164, 1)); 
+    		r = gt8_data.at(666);
+    temp.append(Qhex.mid(r+164, 1)); 
+    		r = gt8_data.at(667);
+    temp.append(Qhex.mid(r+164, 1)); 
+    		r = gt8_data.at(668);
+    temp.append(Qhex.mid(r+164, 1)); 
+    		r = gt8_data.at(669);
+    temp.append(Qhex.mid(r+164, 1)); 
+    		r = gt8_data.at(670);
+    temp.append(Qhex.mid(r+164, 1)); 
+    		r = gt8_data.at(671);
+    temp.append(Qhex.mid(r+164, 1)); 
+    		r = gt8_data.at(672);
+    temp.append(Qhex.mid(r+164, 1)); 
+    		r = gt8_data.at(673);
+    temp.append(Qhex.mid(r+164, 1)); 
+    		r = gt8_data.at(674);
+    temp.append(Qhex.mid(r+164, 1)); 
+    		r = gt8_data.at(675);
+    temp.append(Qhex.mid(r+164, 1)); 
+    		r = gt8_data.at(676);
+    temp.append(Qhex.mid(r+164, 1)); 
+    		r = gt8_data.at(677);
+    temp.append(Qhex.mid(r+164, 1)); 
+    		r = gt8_data.at(678);
+    temp.append(Qhex.mid(r+164, 1));          
+	        
+	unsigned int a = temp.indexOf(Qhex.mid(4,1)); // locate gt10_preamp 1 **** find "04"
+	temp.insert(a-1, Qhex.mid(16, 1));       //insert gt10_split before preamp 1 "10"
+	temp.insert(a+1, Qhex.mid(17, 1));       // insert gt10_merge after preamp 1  "11"
+	temp.insert(a+1, Qhex.mid(13, 1));     // insert NS_2 "4D"  77
+	temp.insert(a+1, Qhex.mid(3, 1));       // insert channel B "43" 67
+	data.replace(1492, 18, temp);            // replace gt10 chain
 	
+	
+	temp = gt8_data.mid(194, 1);             // copy gt8 Loop part1
+	temp.append(gt8_data.mid(196,3));        // copy gt8 Loop part2
+	data.replace(1472, 4, temp);             // replace gt10 Loop (Send/Return))
+	
+	temp = gt8_data.mid(629, 4);             // copy gt8 NS
+	data.replace(1464, 4, temp);             // replace gt10 NS_1
+	data.replace(1468, 4, temp);             // replace gt10 NS_2
+	
+	temp = gt8_data.mid(176, 1);             // copy gt8 wah on/off
+	data.replace(1415, 1, temp);             // replace gt10 pedal fx on/off
+	r = gt8_data.at(737);
+	temp = Qhex.mid((r+1), 1);               // copy gt8 ExSw Func
+	data.replace(1421, 1, temp);             // replace gt10 ExSw 1 Func + 1
+	 r = gt8_data.at(722);
+	temp = Qhex.mid((r+1), 1);               // copy gt8 CTL Func
+	data.replace(1422, 1, temp);             // replace gt10 CTL 1 Func + 1
+	temp = gt8_data.mid(178, 2);             // copy gt8 wah
+	data.replace(1424, 2, temp);             // replace gt10 wah
+	temp = gt8_data.mid(180, 1);             // copy gt8 wah level
+	data.replace(1428, 1, temp);             // replace gt10 wah
+	// todo replace direct level with effect inverted (optional).
+	
+	temp = gt8_data.mid(469, 5);             // copy gt8 pedal bend (fx2)
+	data.replace(1435, 5, temp);             // replace gt10 pedal bend
+	
+	temp = gt8_data.mid(636, 1);             // copy gt8 FV level
+	data.replace(1441, 1, temp);             // replace gt10 FV level
+	temp = gt8_data.mid(637, 1);             // copy gt8 FV vol curve
+	data.replace(1444, 1, temp);             // replace gt10 FV vol curve
+	temp = gt8_data.mid(752, 2);             // copy gt8 FV vol min/max
+	data.replace(1442, 2, temp);             // replace gt10 FV vol min/max
+	
+	temp = gt8_data.mid(651, 1);             // copy gt8 Amp control
+	data.replace(1456, 1, temp);             // replace gt10 Amp control
+	
+	temp = gt8_data.mid(633, 1);             // copy gt8 Master patch level
+	data.replace(1447, 1, temp);             // replace gt10 Master patch level
+	temp = gt8_data.mid(634, 2);             // copy gt8 Master BPM
+	data.replace(1454, 2, temp);             // replace gt10 Master BPM
+	
+	temp = gt8_data.mid(11, 1);              // copy gt8 FX1 on/off
+	data.replace(293, 1, temp);              // replace gt10 FX1 on/off	
+	 r = gt8_data.at(13);
+	temp = Qhex.mid((128+r), 1);       // convert FX1 Type: selection items from lookup table Qhex (HexLookupTable.hex file) from 128 to 144
+  temp.append(gt8_data.mid(14, 25));       // copy gt8 FX1 part2
+	data.replace(294, 26, temp);             // replace gt10 FX1 part2
+	temp = gt8_data.mid(49, 19);              // copy gt8 FX1 part3
+	data.replace(320, 19, temp);             // replace gt10 FX1 part3
+	temp = gt8_data.mid(68, 16);              // copy gt8 FX1 part4
+	data.replace(341, 16, temp);             // replace gt10 FX1 part4
+	temp = gt8_data.mid(98, 24);              // copy gt8 FX1 part5
+	data.replace(357, 24, temp);             // replace gt10 FX1 part5
+	temp = gt8_data.mid(130, 11);              // copy gt8 FX1 part6
+	data.replace(381, 11, temp);              // replace gt10 FX1 part6
+	temp = gt8_data.mid(84, 14);              // copy gt8 FX1 part7
+	data.replace(479, 14, temp);             // replace gt10 FX1 part7
+	temp = gt8_data.mid(122, 8);              // copy gt8 FX1 part8
+	data.replace(493, 8, temp);              // replace gt10 FX1 part8
+	temp = gt8_data.mid(39, 10);              // copy gt8 FX1 part9
+	data.replace(747, 10, temp);               // replace gt10 FX1 part9
+	
+	
+	temp = gt8_data.mid(312, 1);              // copy gt8 FX2 on/off
+	data.replace(815, 1, temp);              // replace gt10 FX2 on/off	
+	 r = gt8_data.at(314);
+	temp = Qhex.mid((128+r), 1);       // convert FX2 Type: selection items from lookup table Qhex (HexLookupTable.hex file) from 128 to 144
+  temp.append(gt8_data.mid(315, 25));       // copy gt8 FX2 part2
+	data.replace(816, 26, temp);             // replace gt10 FX2 part2
+	temp = gt8_data.mid(350, 19);              // copy gt8 FX2 part3
+	data.replace(842, 19, temp);             // replace gt10 FX2 part3
+	temp = gt8_data.mid(369, 16);              // copy gt8 FX2 part4
+	data.replace(863, 16, temp);             // replace gt10 FX2 part4
+	temp = gt8_data.mid(399, 24);              // copy gt8 FX2 part5
+	data.replace(879, 24, temp);             // replace gt10 FX2 part5
+	temp = gt8_data.mid(431, 11);              // copy gt8 FX2 part6
+	data.replace(903, 11, temp);              // replace gt10 FX2 part6
+	temp = gt8_data.mid(385, 14);              // copy gt8 FX2 part7
+	data.replace(1001, 14, temp);             // replace gt10 FX2 part7
+	temp = gt8_data.mid(423, 8);              // copy gt8 FX2 part8
+	data.replace(1015, 8, temp);              // replace gt10 FX2 part8
+	temp = gt8_data.mid(340, 10);              // copy gt8 FX2 part9
+	data.replace(1269, 10, temp);               // replace gt10 FX2 part9
+	temp = gt8_data.mid(442, 4);              // copy gt8 FX2 part10  HR
+	temp.append(gt8_data.mid(447,5)); 
+	temp.append(gt8_data.mid(446,1)); 
+	temp.append(gt8_data.mid(453,1)); 
+	data.replace(914, 11, temp);               // replace gt10 FX2 part10  HR
+	temp = gt8_data.mid(454, 6);              // copy gt8 FX2 part11  PS
+	temp.append(gt8_data.mid(461,7));
+	temp.append(gt8_data.mid(460,1));
+	temp.append(gt8_data.mid(468,1));
+	data.replace(962, 15, temp);               // replace gt10 FX2 part11  PS
+	temp = gt8_data.mid(474, 18);              // copy gt8 FX2 part12  OC, RT, 2CE
+	data.replace(977, 18, temp);               // replace gt10 FX2 part12  OC, RT, 2CE
+	temp = gt8_data.mid(492, 4);              // copy gt8 FX2 part13  AR
+	temp.append(gt8_data.mid(497,4));
+	data.replace(1040, 8, temp);               // replace gt10 FX2 part13  AR
+	temp = gt8_data.mid(502, 1);              // copy gt8 FX2 part14  SYN
+	temp.append(gt8_data.mid(501,1));
+	temp.append(gt8_data.mid(503,15));
+	data.replace(1023, 17, temp);               // replace gt10 FX2 part14 SYN
+	temp = gt8_data.mid(518, 7);              // copy gt8 FX2 part15  AC
+	data.replace(1279, 7, temp);               // replace gt10 FX2 part15 AC
+	temp = gt8_data.mid(525, 3);              // copy gt8 FX2 part16  SH
+	data.replace(1266, 3, temp);               // replace gt10 FX2 part16 SH
+	temp = gt8_data.mid(528, 3);              // copy gt8 FX2 part17  SDD
+	data.replace(995, 3, temp);               // replace gt10 FX2 part17 SDD
+	temp = gt8_data.mid(531, 1);              // copy gt8 FX2 part18  SDD
+	data.replace(999, 1, temp);               // replace gt10 FX2 part18 SDD
 	
 	
 	/*
-	
-	 QString snork;
+		 QString z;
+		QString snork;
 			snork.append("<font size='-1'>");
 			snork.append(" { size=");
 			snork.append(QString::number(temp.size(), 10));
@@ -167,23 +295,32 @@ bool sysxWriter::readFile()
 				snork.append("<br> midi data received  ");
 			for(int i=0;i<temp.size();++i)
 			{
-				snork.append(temp.mid(i, 2));
+			  r = temp.at(i);     
+	      z = (Qhex.mid((65+r), 1));
+				snork.append(z);
 				snork.append(" ");
 				//i++;
 			};
 			snork.append("<br> midi data received  ");
 			for(int i=0;i<z.size();++i)
 			{
+			//QString hexStr = temp.at(i);
+		  	//bool ok;
+		    //snork.append( (char)(hexStr.toInt(&ok, 16)) );
 				snork.append(z.mid(i*2, 2));
 				snork.append(" ");
 				//i++;
 			};
-			QMessageBox *msgBox = new QMessageBox();
-			msgBox->setWindowTitle("dBug Result");
-			msgBox->setIcon(QMessageBox::Information);
-			msgBox->setText(snork);
-			msgBox->setStandardButtons(QMessageBox::Ok);
-			msgBox->exec();*/
+			QMessageBox *msgBox2 = new QMessageBox();
+			msgBox2->setWindowTitle("dBug Result");
+			msgBox2->setIcon(QMessageBox::Information);
+			msgBox2->setText(snork);
+			msgBox2->setStandardButtons(QMessageBox::Ok);
+			msgBox2->exec();
+      
+         
+
+	 */
 	
     SysxIO *sysxIO = SysxIO::Instance();
 		sysxIO->setFileSource(data);
