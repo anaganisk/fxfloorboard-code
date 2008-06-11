@@ -760,7 +760,7 @@ void floorBoardDisplay::blinkSellectedPatch(bool active)
 		{
 			writeButton->setBlink(false);
 		};
-		setPatchNumDisplay(sysxIO->getLoadedBank(),  sysxIO->getLoadedPatch());  //(bank,patch);//
+		setPatchNumDisplay(bank,patch);//(sysxIO->getLoadedBank(),  sysxIO->getLoadedPatch()); 
 	};
 	emit setStatusSymbol(1);
 	emit setStatusMessage(tr("Ready"));

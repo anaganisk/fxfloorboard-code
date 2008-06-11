@@ -454,10 +454,10 @@ void midiIO::sendSysxMsg(QString sysxOutMsg, int midiOutPort, int midiInPort)
   if (sysxOutMsg.size() == 12){reBuild = sysxOutMsg;};  // identity request not require checksum
 	this->sysxOutMsg = reBuild.simplified().toUpper().remove("0X").remove(" ");
 	if (deviceType == "GT-10B") {
-    if(sysxOutMsg.size() == (sysxDataOffset*2 + 12) && sysxOutMsg.mid(sysxOutMsg.size()-8, 2) == "0D63" && sysxOutMsg.mid((sysxAddressOffset*2-2), 2) == "11")  
+    if(sysxOutMsg.size() == (sysxDataOffset*2 + 12) && sysxOutMsg.mid(sysxOutMsg.size()-8, 4) == "0D64" && sysxOutMsg.mid((sysxAddressOffset*2-2), 2) == "11")  
     {this->multiple = true;} else {this->multiple = false;}
       } else { 
-	  if(sysxOutMsg.size() == (sysxDataOffset*2 + 12) && sysxOutMsg.mid(sysxOutMsg.size()-8, 2) == "0001" && sysxOutMsg.mid((sysxAddressOffset*2-2), 2) == "11") 
+	  if(sysxOutMsg.size() == (sysxDataOffset*2 + 12) && sysxOutMsg.mid(sysxOutMsg.size()-8, 4) == "0001" && sysxOutMsg.mid((sysxAddressOffset*2-2), 2) == "11") 
     {this->multiple = true;} else {this->multiple = false;} }
 	this->midiOutPort = midiOutPort;
 	this->midiInPort = midiInPort;

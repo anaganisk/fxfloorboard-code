@@ -99,7 +99,7 @@ void SysxIO::setFileSource(QByteArray data)
 			QString checksum = hex;
 
 			if(getCheckSum(dataSize) != checksum)
-			{
+			{/*
 				QString errorString;
 				errorString.append(tr("Address") + ": ");
 				errorString.append(sysxBuffer.at(sysxAddressOffset) + " ");
@@ -110,7 +110,7 @@ void SysxIO::setFileSource(QByteArray data)
 				errorString.append(tr("should have been") + " (" + getCheckSum(dataSize) + ")");
 				errorString.append("\n");
 				errorList.append(errorString);
-
+        */
 				sysxBuffer = correctSysxMsg(sysxBuffer);
 			};
 		};
@@ -504,7 +504,7 @@ QList<QString> SysxIO::correctSysxMsg(QList<QString> sysxMsg)
 		
 		QString address3 = QString::number(i - sysxDataOffset, 16).toUpper();
 		if(address3.length()<2) address3.prepend("0");
-		
+		/*
 		int range = midiTable->getRange("Structure", address1, address2, address3);
 
 		if(midiTable->isData("Structure", address1, address2, address3))
@@ -538,7 +538,7 @@ QList<QString> SysxIO::correctSysxMsg(QList<QString> sysxMsg)
 				if(valueHex.length() < 2) valueHex.prepend("0");
 				sysxMsg.replace(i, valueHex);
 			};
-		};
+		};  */
 	};
 	
 	int dataSize = 0;
@@ -847,31 +847,32 @@ void SysxIO::receiveSysx(QString sysxMsg)
 	if (sysxMsg.size() > 0){
 			QString snork;
 			snork.append("<font size='-1'>");
+						snork.append("{ size=");
+			snork.append(QString::number(sysxMsg.size()/2, 10));
+			snork.append("}");	
+			snork.append("<br> midi data received");
 			for(int i=0;i<sysxMsg.size();++i)
 			{
 				snork.append(sysxMsg.mid(i, 2));
 				snork.append(" ");
 				i++;
 			};
-			snork.replace("F7", "F7 }\n");
+			snork.replace("F7", "F7 }<br>");
 			snork.replace("F0", "{ F0");
-			snork.append("\n{ size=");
-			snork.append(QString::number(sysxMsg.size()/2, 10));
-			snork.append("}");	
-			snork.append("\n midi data received");
 		  if (sysxMsg == dBug){
-				  snork.append("\n WARNING: midi data received = data sent");
-				  snork.append("\n caused by a midi loopback, port change is required");
+				  snork.append("<br> WARNING: midi data received = data sent");
+				  snork.append("<br> caused by a midi loopback, port change is required");
 			 };
 
 			QMessageBox *msgBox = new QMessageBox();
-			msgBox->setWindowTitle("dBug Result");
+			msgBox->setWindowTitle("dBug Result for received sysx data");
 			msgBox->setIcon(QMessageBox::Information);
 			msgBox->setText(snork);
 			msgBox->setStandardButtons(QMessageBox::Ok);
 			msgBox->exec();
 		};
-	};			
+	};	
+   emit sysxReply(sysxMsg);		
 };
 
 /***************************** requestPatchName() ***************************
@@ -924,14 +925,18 @@ void SysxIO::returnPatchName(QString sysxMsg)
 
 			i++;
 		};
-	};
-	if (sysxMsg.size()/2 != 29){name = "bad data";}
-	if(sysxMsg == ""){name = "no reply"; }; 
+	} else {
+	if (sysxMsg != "" && sysxMsg.size()/2 != 29){name = "bad data";}; 
+  if(sysxMsg == ""){name = "no reply"; }; 
+    };
+
+
 	emit patchName(name.trimmed());
-	//if(sysxMsg == ""){
-		//emit notConnectedSignal();
-  //};
+
+
+
 };
+
 
 /***************************** requestPatch() ******************************
 * Send a patch request. Result will be send directly with receiveSysx signal

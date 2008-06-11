@@ -522,7 +522,7 @@ void floorBoard::initStomps()
 {
 	QList<signed int> fx;
 	fx << 0 << 1 << 2 << 3 << 4 << 5 << 6 << 7 << 8 << 9 << 10 << 11 << 12 << 13 << 14 << 15 << 16 << 17;
-	/*   FX   CS   WAH   LP   OD   PRE  EQ   FX2  DD   CE   RV    NS    FV    DGT :depend on midi.xml   */
+	/*   FX1   CS  PDL  LP   OD   CH_A  EQ  FX2  DD    CE   RV    NS1    FV   DGT   CH_B  NS2   cn_s  cn_m :depend on midi.xml   */
 	this->fx = fx;
 
 	QVector<QString> initStompNames(18);
@@ -701,8 +701,6 @@ void floorBoard::updateStompBoxes()
 	
 	MidiTable *midiTable = MidiTable::Instance();
 	QList<QString> stompOrder;
-	//for(int i=0;i<17;i++ )
-	//for(int i=sysxDataOffset;i<fxChain.size() - 2;i++ )
 
   for(int i= sysxDataOffset;i< (sysxDataOffset + 18);i++ ) 
 	{
