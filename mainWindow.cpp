@@ -75,7 +75,7 @@ mainWindow::mainWindow(QWidget *parent)
 	#ifdef Q_WS_MAC
 		/* This set the floorboard default style to the "macintosh" style, 
 	   as it comes the nearest what the stylesheet uses. */
-	fxsBoard->setStyle(QStyleFactory::create("macintosh"));
+	fxsBoard->setStyle(QStyleFactory::create("plastique"));
 		if(QFile(":qss/macosx.qss").exists())
 		{
 			QFile file(":qss/macosx.qss");
