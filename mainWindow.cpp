@@ -19,7 +19,7 @@
 ** 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 **
 ****************************************************************************/
-
+ 
 #include <QtGui>
 #include "mainWindow.h"
 #include "Preferences.h"
@@ -73,7 +73,7 @@ mainWindow::mainWindow(QWidget *parent)
 	#endif
 
 	#ifdef Q_WS_MAC
-	fxsBoard->setStyle(QStyleFactory::create("macintosh"));
+	fxsBoard->setStyle(QStyleFactory::create("plastique"));
 		if(QFile(":qss/macosx.qss").exists())
 		{
 			QFile file(":qss/macosx.qss");
@@ -426,7 +426,6 @@ void mainWindow::closeEvent(QCloseEvent* ce)
 {
 	Preferences *preferences = Preferences::Instance();
 	preferences->savePreferences();
-	//SLEEP(1000);
 	ce->accept();
 	emit closed();
 };

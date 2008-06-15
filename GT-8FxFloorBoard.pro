@@ -44,8 +44,8 @@ QT += xml
 
 #Platform dependent file(s)
 win32 {
-	exists("c:/Progra~1/SDK/Windows/v6.0/Lib/WinMM.Lib") {	# <-- Change the path to WinMM.Lib here!
-		LIBS += c:/Progra~1/SDK/Windows/v6.0/Lib/WinMM.Lib	# <-- Change the path here also!
+	exists("c:/Progra~1/SDK/Lib/WinMM.Lib") {	# <-- Change the path to WinMM.Lib here!
+		LIBS += c:/Progra~1/SDK/Lib/WinMM.Lib	# <-- Change the path here also!
     } else { 
         exists("c:/PROGRA~1/MICROS~3/VC/PLATFO~1/Lib/WinMM.Lib") { # Path vs2005 (Vista)
         	LIBS += c:/PROGRA~1/MICROS~3/VC/PLATFO~1/Lib/WinMM.Lib
@@ -80,7 +80,7 @@ macx {
 	 HEADERS += 
 	 SOURCES += ./macosx/RtMidi.cpp 
 	INCLUDEPATH += ./macosx
-	ICON = GT8FxFloorBoard.icns
+	ICON = GT-8FxFloorBoard.icns
 	message(Including Mac OS X specific headers and sources...)
 }
 
