@@ -252,28 +252,26 @@ void midicallback(double deltatime, std::vector<unsigned char> *message, void *u
 		QString rxData = "";
 		  midiIO *midi = new midiIO();
 				unsigned int nBytes = message->size();
-				if (nBytes <=  2) { rxData.append(nBytes); };
 				for ( unsigned int i=0; i<nBytes; i++ )
 				{
 					 int n = ((int)message->at(i));					// convert std::vector to QString
 					 QString hex = QString::number(n, 16).toUpper();
 					 if (hex.length() < 2) hex.prepend("0");
 					 rxData.append(hex);	
-                     midi->emitProgress(nBytes);			
-				};	
+        };	
 		midi->callbackMsg(rxData);
 };
 void midiIO::callbackMsg(QString rxData)
 {
 	sysxBuffer.append(rxData);
-  int	bytesReceived = sysxBuffer.size() / 2;
-			emitProgress(bytesReceived);	
+  int	bytesReceived = (100/sysxBuffer.size());
+	emitProgress(bytesReceived);	
 };
-
+ 
 void midiIO::receiveMsg(QString sysxInMsg, int midiInPort)
 {
 	emit setStatusSymbol(3);
-	//emit setStatusProgress(100);
+	emit setStatusProgress(33);
 	Preferences *preferences = Preferences::Instance(); bool ok;// Load the preferences.
 	const int maxWait = preferences->getPreferences("Midi", "Time", "set").toInt(&ok, 10);
 	if(multiple){loopCount = maxWait*20;}

@@ -1,8 +1,9 @@
 /****************************************************************************
 **
+** Copyright (C) 2008 Colin Willcocks
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT-x Fx FloorBoard".
+** This file is part of "GT-X Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -20,21 +21,12 @@
 **
 ****************************************************************************/
 #include <QtGui>
-#include <QStyleFactory>
 #include "mainWindow.h"
 #include "Preferences.h"
 #include "preferencesDialog.h"
 #include "statusBarWidget.h"
 #include "SysxIO.h"
 #include "globalVariables.h"
-// Platform-dependent sleep routines.
-#ifdef Q_OS_WIN
-  #include <windows.h>
-  #define SLEEP( milliseconds ) Sleep( (DWORD) milliseconds ) 
-#else // Unix variants & Mac
-  #include <unistd.h>
-  #define SLEEP( milliseconds ) usleep( (unsigned long) (milliseconds * 1000.0) )
-#endif
 
 mainWindow::mainWindow(QWidget *parent)
     : QWidget(parent)
@@ -87,7 +79,7 @@ mainWindow::mainWindow(QWidget *parent)
 	#endif
 	
 	
-	this->setWindowTitle (deviceType  + (" Fx FloorBoard"));
+	this->setWindowTitle(deviceType + " Fx FloorBoard");
 	//this->setCentralWidget(fxsBoard);
 	
 	this->createActions();
@@ -182,7 +174,7 @@ void mainWindow::createActions()
 	helpAct->setStatusTip(tr("....."));
 	connect(helpAct, SIGNAL(triggered()), this, SLOT(help()));
 
-	homepageAct = new QAction(/*QIcon(":/images/home.png"),*/ deviceType + tr(" Fx FloorBoard &Webpage"), this);
+	homepageAct = new QAction(/*QIcon(":/images/home.png"),*/deviceType + tr(" Fx FloorBoard &Webpage"), this);
 	homepageAct->setStatusTip(tr("........"));
 	connect(homepageAct, SIGNAL(triggered()), this, SLOT(homepage()));
 
@@ -278,7 +270,7 @@ void mainWindow::open()
 			sysxIO->setFileName(fileName);
 			sysxIO->setSyncStatus(false);
 			sysxIO->setDevice(false);
-			
+
 			emit updateSignal();
 		};
 	};
@@ -421,8 +413,8 @@ void mainWindow::about()
 	QFile file(":about"); 
 	if(file.open(QIODevice::ReadOnly))
 	{	
-		QMessageBox::about(this, (deviceType + tr(" Fx FloorBoard - About")), 
-			deviceType + (" Fx FloorBoard, ") + tr("version") + " " + version + "\n" + file.readAll());
+		QMessageBox::about(this, deviceType + tr(" Fx FloorBoard - About"), 
+			deviceType + " Fx FloorBoard, " + tr("version") + " " + version + "\n" + file.readAll());
 	};
 };
 

@@ -168,21 +168,6 @@ int main(int argc, char *argv[])
 
 	window.show();
 	splash->finish(&window);
-#ifdef Q_OS_MAC
-	/* PREVIEW WARNING */
-	QMessageBox *msgBox = new QMessageBox();
-	msgBox->setWindowTitle(QObject::tr("Warning this is a preview!"));
-	msgBox->setIcon(QMessageBox::Warning);
-	msgBox->setTextFormat(Qt::RichText);
-	QString msgText;
-	msgText.append("<font size='+1'><b>");
-	msgText.append(QObject::tr("This software is currently under development!"));
-	msgText.append("<b></font><br>");
-	msgText.append(QObject::tr("Please make sure to back up your patches and stored banks before you continue."));
-	msgBox->setText(msgText);
-	msgBox->setStandardButtons(QMessageBox::Ok);
-	msgBox->exec();
-	/* END WARNING */
-#endif
+
 	return app.exec();
 };
