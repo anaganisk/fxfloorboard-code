@@ -11,14 +11,14 @@
 		<Webpage url="http://gtx.tinfoilmusic.net/"/>
 	</General>
 	<Midi>
-		<DBug bool="false"/>
+		<DBug bool="true"/>
 		<Delay set="15"/>
-		<MidiIn device=""/>
-		<MidiOut device=""/>
+		<MidiIn device="1"/>
+		<MidiOut device="1"/>
 		<Time set="45"/>
 	</Midi>
 	<Window>
-		<Collapsed width="" defaultwidth="975" bool="false"/>
+		<Collapsed width="" defaultwidth="975" bool="true"/>
 		<Position x="" y=""/>
 		<Restore window="false" sidepanel="false"/>
 		<Size width="" minwidth="788" height="" minheight="548"/>
