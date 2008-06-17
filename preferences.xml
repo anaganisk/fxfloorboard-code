@@ -18,7 +18,7 @@
 		<Time set="60"/>
 	</Midi>
 	<Window>
-		<Collapsed width="" defaultwidth="975" bool="false"/>
+		<Collapsed width="" defaultwidth="975" bool="true"/>
 		<Position x="" y=""/>
 		<Restore window="false" sidepanel="false"/>
 		<Size width="" minwidth="788" height="" minheight="548"/>
