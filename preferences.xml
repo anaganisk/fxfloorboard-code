@@ -11,10 +11,10 @@
 		<Webpage url="http://gtx.tinfoilmusic.net/"/>
 	</General>
 	<Midi>
-		<DBug bool="false"/>
+		<DBug bool="true"/>
 		<Delay set="15"/>
-		<MidiIn device=""/>
-		<MidiOut device=""/>
+		<MidiIn device="1"/>
+		<MidiOut device="1"/>
 		<Time set="70"/>
 	</Midi>
 	<Window>

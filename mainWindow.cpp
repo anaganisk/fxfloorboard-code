@@ -1,8 +1,9 @@
 /****************************************************************************
 **
+** Copyright (C) 2008 Colin Willcocks
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT-8 Fx FloorBoard".
+** This file is part of "GT-X Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -19,21 +20,13 @@
 ** 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 **
 ****************************************************************************/
- 
 #include <QtGui>
 #include "mainWindow.h"
 #include "Preferences.h"
 #include "preferencesDialog.h"
 #include "statusBarWidget.h"
 #include "SysxIO.h"
-// Platform-dependent sleep routines.
-#ifdef Q_OS_WIN
-  #include <windows.h>
-  #define SLEEP( milliseconds ) Sleep( (DWORD) milliseconds ) 
-#else // Unix variants & Mac
-  #include <unistd.h>
-  #define SLEEP( milliseconds ) usleep( (unsigned long) (milliseconds * 1000.0) )
-#endif
+#include "globalVariables.h"
 
 mainWindow::mainWindow(QWidget *parent)
     : QWidget(parent)
@@ -44,12 +37,10 @@ mainWindow::mainWindow(QWidget *parent)
 	: QMainWindow(parent) */
 {
 	fxsBoard = new floorBoard(this);
-
 	
-
 	/* Loads the stylesheet for the current platform if present */
 	#ifdef Q_OS_WIN
-	/* This set the floorboard default style to the "plastique" style, 
+		/* This set the floorboard default style to the "plastique" style, 
 	   as it comes the nearest what the stylesheet uses. */
 	fxsBoard->setStyle(QStyleFactory::create("plastique"));
 		if(QFile(":qss/windows.qss").exists())
@@ -59,9 +50,11 @@ mainWindow::mainWindow(QWidget *parent)
 			QString styleSheet = QLatin1String(file.readAll());
 			fxsBoard->setStyleSheet(styleSheet);
 		}; 
-	#endif
+	#endif 
 
 	#ifdef Q_WS_X11
+		/* This set the floorboard default style to the "plastique" style, 
+	   as it comes the nearest what the stylesheet uses. */
 	fxsBoard->setStyle(QStyleFactory::create("plastique"));
 		if(QFile(":qss/linux.qss").exists())
 		{
@@ -73,6 +66,8 @@ mainWindow::mainWindow(QWidget *parent)
 	#endif
 
 	#ifdef Q_WS_MAC
+		/* This set the floorboard default style to the "macintosh" style, 
+	   as it comes the nearest what the stylesheet uses. */
 	fxsBoard->setStyle(QStyleFactory::create("plastique"));
 		if(QFile(":qss/macosx.qss").exists())
 		{
@@ -84,7 +79,7 @@ mainWindow::mainWindow(QWidget *parent)
 	#endif
 	
 	
-	this->setWindowTitle("GT-8 Fx FloorBoard");
+	this->setWindowTitle(deviceType + " Fx FloorBoard");
 	//this->setCentralWidget(fxsBoard);
 	
 	this->createActions();
@@ -137,7 +132,7 @@ mainWindow::~mainWindow()
 		preferences->setPreferences("Window", "Size", "height", "");
 	};
 	preferences->savePreferences();
-};
+	};
 
 void mainWindow::updateSize(QSize floorSize, QSize oldFloorSize)
 {
@@ -174,12 +169,12 @@ void mainWindow::createActions()
 	settingsAct->setStatusTip(tr("...."));
 	connect(settingsAct, SIGNAL(triggered()), this, SLOT(settings()));
 
-	helpAct = new QAction(/*QIcon(":/images/help.png"),*/ tr("GT-8 Fx FloorBoard &Help"), this);
+	helpAct = new QAction(/*QIcon(":/images/help.png"),*/ deviceType + tr(" Fx FloorBoard &Help"), this);
 	helpAct->setShortcut(tr("Ctrl+F1"));
 	helpAct->setStatusTip(tr("....."));
 	connect(helpAct, SIGNAL(triggered()), this, SLOT(help()));
 
-	homepageAct = new QAction(/*QIcon(":/images/home.png"),*/ tr("GT-8 Fx FloorBoard &Webpage"), this);
+	homepageAct = new QAction(/*QIcon(":/images/home.png"),*/deviceType + tr(" Fx FloorBoard &Webpage"), this);
 	homepageAct->setStatusTip(tr("........"));
 	connect(homepageAct, SIGNAL(triggered()), this, SLOT(homepage()));
 
@@ -237,7 +232,7 @@ void mainWindow::createStatusBar()
 
 	statusBarWidget *statusInfo = new statusBarWidget(this);
 	statusInfo->setStatusSymbol(0);
-	statusInfo->setStatusMessage(tr("Not connected"));
+	statusInfo->setStatusMessage(tr("Idle"));
 
 	QObject::connect(sysxIO, SIGNAL(setStatusSymbol(int)),
                 statusInfo, SLOT(setStatusSymbol(int)));
@@ -245,9 +240,8 @@ void mainWindow::createStatusBar()
                 statusInfo, SLOT(setStatusProgress(int)));;
 	QObject::connect(sysxIO, SIGNAL(setStatusMessage(QString)),
                 statusInfo, SLOT(setStatusMessage(QString)));
-  QObject::connect(sysxIO, SIGNAL(setStatusdBugMessage(QString)),
+	QObject::connect(sysxIO, SIGNAL(setStatusdBugMessage(QString)),
                 statusInfo, SLOT(setStatusdBugMessage(QString)));
-
 
 	statusBar = new QStatusBar;
 	statusBar->addWidget(statusInfo);
@@ -360,7 +354,7 @@ void mainWindow::settings()
 	{
 		Preferences *preferences = Preferences::Instance();
 
-			QString dir = dialog->generalSettings->dirEdit->text();
+		QString dir = dialog->generalSettings->dirEdit->text();
 		QString sidepanel = (dialog->windowSettings->sidepanelCheckBox->checkState())?QString("true"):QString("false");
 		QString window = (dialog->windowSettings->windowCheckBox->checkState())?QString("true"):QString("false");
 		QString splash = (dialog->windowSettings->splashCheckBox->checkState())?QString("true"):QString("false");
@@ -369,6 +363,7 @@ void mainWindow::settings()
 		QString midiOut = QString::number(dialog->midiSettings->midiOutCombo->currentIndex() - 1, 10);
 		QString midiTimeSet =QString::number(dialog->midiSettings->midiTimeSpinBox->value());
 		QString receiveTimeout =QString::number(dialog->midiSettings->midiDelaySpinBox->value());
+
 
 		if(midiIn=="-1") { midiIn = ""; };
 		if(midiOut=="-1") {	midiOut = ""; };
@@ -382,6 +377,7 @@ void mainWindow::settings()
 		preferences->setPreferences("Window", "Restore", "sidepanel", sidepanel);
 		preferences->setPreferences("Window", "Restore", "window", window);
 		preferences->setPreferences("Window", "Splash", "bool", splash);
+		
 	};
 };
 
@@ -417,8 +413,8 @@ void mainWindow::about()
 	QFile file(":about"); 
 	if(file.open(QIODevice::ReadOnly))
 	{	
-		QMessageBox::about(this, tr("GT-8 Fx FloorBoard - About"), 
-			"GT-8 Fx FloorBoard, " + tr("version") + " " + version + "\n" + file.readAll());
+		QMessageBox::about(this, deviceType + tr(" Fx FloorBoard - About"), 
+			deviceType + " Fx FloorBoard, " + tr("version") + " " + version + "\n" + file.readAll());
 	};
 };
 

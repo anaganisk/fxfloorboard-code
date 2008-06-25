@@ -457,7 +457,7 @@ void floorBoardDisplay::writeSignal(bool)
 		}
 		else /* Bank is sellected. */
 		{
-			sysxIO->setDeviceReady(false);			// Reserve the device for interaction.
+			//sysxIO->setDeviceReady(false);			// Reserve the device for interaction.
 
 			if(!sysxIO->getSyncStatus())			// Check if the data is allready in sync. with the device.
 			{	/* If not we send the data to the (temp) buffer. So we don't change the patch default address "0B 00". */
