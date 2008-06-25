@@ -1,4 +1,4 @@
-*********************GT-FxFloorBoard Preview version: 11 June 2008 *************************
+*********************GT-FxFloorBoard Preview version: 25 June 2008 *************************
 
 ****NOTE: THIS IS A PREVIEW VERSION AND MANY FEATURES HAVE NOT YET BEEN IMPLIMENTED, OR SOME FUNCTIONS MAY BE INCORRECT.**** 
 
@@ -25,6 +25,8 @@ g.)  out-going midi & patch data will be recognized by GT-10.
 Editor internal structure now ready to receive a patch.
 
 h.)  GT-8 patch conversion. Gt-8 patches can be opened and saved as GT-10 patches.
+
+I.) Boss Librarian compatable SMF patch file IMPORT/EXPORT added.
 
 
 

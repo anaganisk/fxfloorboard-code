@@ -3,7 +3,7 @@
 ** Copyright (C) 2007, 2008 Colin Willcocks.
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT-x Fx FloorBoard".
+** This file is part of "GT-10 Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -328,7 +328,54 @@ bool sysxWriter::readFile()
 		this->fileSource = sysxIO->getFileSource();
 		return true;
 		
-    }	else {
+    }	else if (data.size() == 1839)
+  {                                        // file size of a .mid type SMF patch file from Boss Librarian
+   
+	QByteArray smf_data = data;
+	QFile file(":default.syx");              // Read the default GT-10 sysx file so we don't start empty handed.
+    if (file.open(QIODevice::ReadOnly))
+	{	data = file.readAll(); };
+	QByteArray temp;                         // TRANSLATION of GT-10 SMF PATCHES, data read from smf patch **************
+	temp = smf_data.mid(43, 128);            // copy SMF 128 bytes
+	data.replace(11, 128, temp);             // replace gt10 address "00"
+	temp = smf_data.mid(171, 114);           // copy SMF part1
+	temp.append(smf_data.mid(301,14));       // copy SMF part2
+	data.replace(152, 128, temp);            // replace gt10 address "01"
+	temp = smf_data.mid(315, 128);           // copy SMF part1
+	data.replace(293, 128, temp);            // replace gt10 address "02"
+	temp = smf_data.mid(443, 100);           // copy SMF part1
+	temp.append(smf_data.mid(559,28));       // copy SMF part2
+	data.replace(434, 128, temp);            // replace gt10 address "03"
+	temp = smf_data.mid(587, 128);           // copy SMF part1
+	data.replace(575, 128, temp);            // replace gt10 address "04"
+	temp = smf_data.mid(715, 86);            // copy SMF part1
+	data.replace(716, 86, temp);             // replace gt10 address "05"
+	temp = smf_data.mid(859, 128);           // copy SMF part1
+	data.replace(815,128, temp);             // replace gt10 address "06"
+	temp = smf_data.mid(987, 72);            // copy SMF part1
+	temp.append(smf_data.mid(1075,56));      // copy SMF part2
+	data.replace(956, 128, temp);            // replace gt10 address "07"
+	temp = smf_data.mid(1131, 128);          // copy SMF part1
+	data.replace(1097,128, temp);            // replace gt10 address "08"
+	temp = smf_data.mid(1259, 58);           // copy SMF part1
+	temp.append(smf_data.mid(1333,42));      // copy SMF part2
+	data.replace(1238, 100, temp);           // replace gt10 address "09"
+	temp = smf_data.mid(1403, 128);          // copy SMF part1
+	data.replace(1351,128, temp);            // replace gt10 address "0A"
+	temp = smf_data.mid(1531, 44);           // copy SMF part1
+	temp.append(smf_data.mid(1591,69));      // copy SMF part2
+	data.replace(1492, 113, temp);           // replace gt10 address "0B"
+	temp = smf_data.mid(1660, 173);          // copy SMF part1
+	data.replace(1618,173, temp);            // replace gt10 address "0C" & "0D"
+    
+    SysxIO *sysxIO = SysxIO::Instance();
+		sysxIO->setFileSource(data);
+		sysxIO->setFileName(this->fileName);
+		this->fileSource = sysxIO->getFileSource();
+		return true;   
+  } 
+    else 
+  {
 	QMessageBox *msgBox = new QMessageBox();
 	msgBox->setWindowTitle(QObject::tr("Patch size Error!"));
 	msgBox->setIcon(QMessageBox::Warning);
@@ -337,11 +384,12 @@ bool sysxWriter::readFile()
 	msgText.append("<font size='+1'><b>");
 	msgText.append(QObject::tr("This is not a ") + deviceType + (" patch!"));
 	msgText.append("<b></font><br>");
-	msgText.append(QObject::tr("Patch size not ") + (QString::number(patchSize, 10)) + (" bytes, please try another file."));
+	msgText.append(QObject::tr("Patch size is not ") + (QString::number(patchSize, 10)) + (" bytes, please try another file."));
 	msgBox->setText(msgText);
 	msgBox->setStandardButtons(QMessageBox::Ok);
 	msgBox->exec();
-			return false; };
+		return false;
+	};
 	}
 	else
 	{
@@ -371,6 +419,146 @@ void sysxWriter::writeFile(QString fileName)
 				count++;
 			};
 		};
+		file.write(out);
+	};
+
+};
+
+void sysxWriter::writeSMF(QString fileName)
+{	
+	QFile file(fileName);
+    if (file.open(QIODevice::WriteOnly))
+	{
+		SysxIO *sysxIO = SysxIO::Instance();
+		this->fileSource = sysxIO->getFileSource();
+			
+		QByteArray out;
+		unsigned int count=0;
+		for (QList< QList<QString> >::iterator dev = fileSource.hex.begin(); dev != fileSource.hex.end(); ++dev)
+		{
+			QList<QString> data(*dev);
+			for (QList<QString>::iterator code = data.begin(); code != data.end(); ++code)
+			{
+				QString str(*code);
+				bool ok;
+				unsigned int n = str.toInt(&ok, 16);
+				out[count] = (char)n;
+				count++;
+			};
+		};
+		
+	QByteArray temp;                        // TRANSLATION of GT-8 PATCHES, data read from gt8 patch **************
+	QByteArray Qhex;                        // and used to replace gt10 patch data*********************************
+  QFile hexfile(":HexLookupTable.hex");   // use a QByteArray of hex numbers from a lookup table.
+    if (hexfile.open(QIODevice::ReadOnly))
+	{	Qhex = hexfile.readAll(); };
+	 
+		temp = Qhex.mid((288), 30);
+		out.prepend(temp);          // insert midi timing header
+		out.remove(30, 11);         // remove address "00 00" header
+		temp = Qhex.mid((320), 13);
+		out.insert(30, temp);       // insert new address "00 00" header
+		out.remove(171, 13);        // remove address "01 00" header
+		temp = Qhex.mid((336), 16);
+		out.insert(285, temp);      // insert new address "01 72" header
+		out.remove(315, 13);        // remove address "02 00" header
+		out.remove(443, 13);        // remove address "03 00" header
+		temp = Qhex.mid((352), 16);
+		out.insert(543, temp);      // insert new address "03 64" header
+		out.remove(587, 13);        // remove address "04 00" header
+		out.remove(715, 13);        // remove address "05 00" header
+		temp = Qhex.mid((368), 16);
+		out.insert(801, temp);      // insert new address "05 56" header
+		out.remove(817, 13);        // remove address "06 00" header
+		out.remove(945, 13);        // remove address "07 00" header
+		temp = Qhex.mid((438), 42);  // copy 42 x extra "00"
+		out.insert(817, temp);      // insert 42 x extra "00"
+		temp = Qhex.mid((384), 16);
+		out.insert(1059, temp);      // insert new address "07 48" header
+		out.remove(1131, 13);        // remove address "08 00" header
+		out.remove(1259, 13);        // remove address "09 00" header
+		temp = Qhex.mid((400), 16);
+		out.insert(1317, temp);      // insert new address "09 3A" header
+		out.remove(1375, 13);        // remove address "0A 00" header
+		out.remove(1503, 13);        // remove address "0B 00" header
+		out.remove(1616, 13);        // remove address "0C 00" header
+		temp = Qhex.mid((438), 28);  // copy 28 x extra "00"
+		out.insert(1377, temp);      // insert 28 x extra "00"
+		temp = Qhex.mid((416), 16);
+		out.insert(1575, temp);      // insert new address "0B 2C" header
+		out.remove(1832, 2);        // remove file footer
+		temp = Qhex.mid((432), 3);
+		out.insert(1832, temp);      // insert new file footer (part of)
+		out.remove(0, 29);           // remove header again for checksum calcs
+		out.remove(1835, 70);
+		
+	this->fileSource.address.clear();
+	this->fileSource.hex.clear();
+	
+	QList<QString> sysxBuffer; 
+	int dataSize = 0; int offset = 0;
+	for(int i=0;i<out.size();i++)
+	{
+		unsigned char byte = (char)out[i];
+		unsigned int n = (int)byte;
+		QString hex = QString::number(n, 16).toUpper();
+		if (hex.length() < 2) hex.prepend("0");
+		sysxBuffer.append(hex);
+
+		unsigned char nextbyte = (char)out[i+1];
+		unsigned int nextn = (int)nextbyte;
+		QString nexthex = QString::number(nextn, 16).toUpper();
+		if (nexthex.length() < 2) nexthex.prepend("0");
+		if(offset >= checksumOffset+3 && nexthex != "F7")   // smf offset is 8 bytes + previous byte
+		{		
+			dataSize += n;
+		};
+		if(nexthex == "F7")
+		{		
+			QString checksum;
+					bool ok;
+					int dataSize = 0;
+	        for(int i=checksumOffset+3;i<sysxBuffer.size()-1;++i)
+	         { dataSize += sysxBuffer.at(i).toInt(&ok, 16); };
+	     QString base = "80";
+	     int sum = dataSize % base.toInt(&ok, 16);
+	     if(sum!=0) sum = base.toInt(&ok, 16) - sum;
+	     checksum = QString::number(sum, 16).toUpper();
+	     if(checksum.length()<2) checksum.prepend("0");
+	     sysxBuffer.replace(sysxBuffer.size() - 1, checksum);
+	
+		};
+		offset++;
+
+		if(hex == "F7") 
+		{	
+			this->fileSource.address.append( sysxBuffer.at(sysxAddressOffset + 5) + sysxBuffer.at(sysxAddressOffset + 6) );
+			this->fileSource.hex.append(sysxBuffer);
+			sysxBuffer.clear();
+			dataSize = 0;
+			offset = 0;
+		};
+	};
+	
+	
+     out.clear();
+		 count=0;
+		for (QList< QList<QString> >::iterator dev = fileSource.hex.begin(); dev != fileSource.hex.end(); ++dev)
+		{
+			QList<QString> data(*dev);
+			for (QList<QString>::iterator code = data.begin(); code != data.end(); ++code)
+			{
+				QString str(*code);
+				bool ok;
+				unsigned int n = str.toInt(&ok, 16);
+				out[count] = (char)n;
+				count++;
+			};
+		};
+		temp = Qhex.mid((288), 29);           // place smf header after checksum is added
+	out.prepend(temp);
+	temp = Qhex.mid((435), 4);             // place smf footer after "F7" EOF
+	out.append(temp);
 		file.write(out);
 	};
 

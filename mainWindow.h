@@ -45,8 +45,10 @@ signals:
 public slots:
 	void updateSize(QSize floorSize, QSize oldFloorSize);
 	void open();
+	void importSMF();
 	void save();
 	void saveAs();
+	void exportSMF();
 	void settings();
 	void help();
 	void homepage();
@@ -65,8 +67,10 @@ private:
 	QMenu *toolsMenu;
 	QMenu *helpMenu;
 	QAction *openAct;
+	QAction *importSMFAct;
 	QAction *saveAct;
 	QAction *saveAsAct;
+	QAction *exportSMFAct;
 	QAction *exitAct;
 	QAction *settingsAct;
 	QAction *helpAct;

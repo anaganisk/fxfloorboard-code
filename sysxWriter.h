@@ -37,6 +37,7 @@ public:
 	bool readFile();
 	SysxData getFileSource();
 	void writeFile(QString fileName);
+	void writeSMF(QString fileName);
 	QString getFileName();
 
 	

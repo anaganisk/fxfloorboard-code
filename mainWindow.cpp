@@ -28,14 +28,7 @@
 #include "statusBarWidget.h"
 #include "SysxIO.h"
 #include "globalVariables.h"
-// Platform-dependent sleep routines.
-#ifdef Q_OS_WIN
-  #include <windows.h>
-  #define SLEEP( milliseconds ) Sleep( (DWORD) milliseconds ) 
-#else // Unix variants & Mac
-  #include <unistd.h>
-  #define SLEEP( milliseconds ) usleep( (unsigned long) (milliseconds * 1000.0) )
-#endif
+
 
 mainWindow::mainWindow(QWidget *parent)
     : QWidget(parent)
@@ -155,6 +148,11 @@ void mainWindow::createActions()
 	openAct->setShortcut(tr("Ctrl+O"));
 	openAct->setStatusTip(tr("Open an existing file"));
 	connect(openAct, SIGNAL(triggered()), this, SLOT(open()));
+	
+	importSMFAct = new QAction(/*QIcon(":/images/importSMF.png"),*/ tr("&Import SMF..."), this);
+	importSMFAct->setShortcut(tr("Ctrl+I"));
+	importSMFAct->setStatusTip(tr("Import an existing SMF"));
+	connect(importSMFAct, SIGNAL(triggered()), this, SLOT(importSMF()));
 
 	saveAct = new QAction(/*QIcon(":/images/save.png"),*/ tr("&Save"), this);
 	saveAct->setShortcut(tr("Ctrl+S"));
@@ -165,6 +163,11 @@ void mainWindow::createActions()
 	saveAsAct->setShortcut(tr("Ctrl+Shift+S"));
 	saveAsAct->setStatusTip(tr("Save the document under a new name"));
 	connect(saveAsAct, SIGNAL(triggered()), this, SLOT(saveAs()));
+	
+	exportSMFAct = new QAction(/*QIcon(":/images/exportSMF.png"),*/ tr("Export &SMF..."), this);
+	exportSMFAct->setShortcut(tr("Ctrl+Shift+E"));
+	exportSMFAct->setStatusTip(tr("Export as a Standard Midi File"));
+	connect(exportSMFAct, SIGNAL(triggered()), this, SLOT(exportSMF()));
 
 	exitAct = new QAction(tr("E&xit"), this);
 	exitAct->setShortcut(tr("Ctrl+Q"));
@@ -207,10 +210,12 @@ void mainWindow::createMenus()
 
     QMenu *fileMenu = new QMenu(tr("&File"), this);
 	fileMenu->addAction(openAct);
+	fileMenu->addAction(importSMFAct);
 	fileMenu->addAction(saveAct);
 	fileMenu->addAction(saveAsAct);
+	fileMenu->addAction(exportSMFAct);
 	fileMenu->addSeparator();
-    fileMenu->addAction(exitAct);
+  fileMenu->addAction(exitAct);
 	menuBar->addMenu(fileMenu);
     //menuBar()->addMenu(fileMenu);
 
@@ -266,7 +271,34 @@ void mainWindow::open()
                 this,
                 "Choose a file",
                 dir,
-                "System Exclusive or Midi (*.syx *.mid)");
+                "System Exclusive GT-10 & GT-8 (*.syx)");
+	if (!fileName.isEmpty())	
+	{
+		file.setFile(fileName);  
+		if(file.readFile())
+		{	
+			// DO SOMETHING AFTER READING THE FILE (UPDATE THE GUI)
+			SysxIO *sysxIO = SysxIO::Instance();
+			sysxIO->setFileSource(file.getFileSource());
+			sysxIO->setFileName(fileName);
+			sysxIO->setSyncStatus(false);
+			sysxIO->setDevice(false);
+
+			emit updateSignal();
+		};
+	};
+};
+
+void mainWindow::importSMF()
+{
+	Preferences *preferences = Preferences::Instance();
+	QString dir = preferences->getPreferences("General", "Files", "dir");
+
+	QString fileName = QFileDialog::getOpenFileName(
+                this,
+                "Choose a file",
+                dir,
+                "Standard Midi File (*.mid)");
 	if (!fileName.isEmpty())	
 	{
 		file.setFile(fileName);  
@@ -298,7 +330,7 @@ void mainWindow::save()
 						this,
 						"Save As",
 						dir,
-						"System Exclusive or Midi (*.syx *.mid)");
+						"System Exclusive (*.syx)");
 		if (!fileName.isEmpty())	
 		{
 			if(!fileName.contains(".syx"))
@@ -354,6 +386,36 @@ void mainWindow::saveAs()
 	};
 };
 
+void mainWindow::exportSMF()
+{
+	Preferences *preferences = Preferences::Instance();
+	QString dir = preferences->getPreferences("General", "Files", "dir");
+
+	QString fileName = QFileDialog::getSaveFileName(
+                    this,
+                    "Export SMF",
+                    dir,
+                    "Standard Midi File (*.mid)");
+	if (!fileName.isEmpty())	
+	{
+		if(!fileName.contains(".mid"))
+		{
+			fileName.append(".mid");
+		};
+		file.writeSMF(fileName);
+
+		file.setFile(fileName);  
+		if(file.readFile())
+		{	
+			// DO SOMETHING AFTER READING THE FILE (UPDATE THE GUI)
+			SysxIO *sysxIO = SysxIO::Instance();
+			sysxIO->setFileSource(file.getFileSource());
+
+			emit updateSignal();
+		};
+	};
+};
+
 /* TOOLS MENU */
 void mainWindow::settings()
 {
@@ -362,7 +424,7 @@ void mainWindow::settings()
 	{
 		Preferences *preferences = Preferences::Instance();
 
-			QString dir = dialog->generalSettings->dirEdit->text();
+		QString dir = dialog->generalSettings->dirEdit->text();
 		QString sidepanel = (dialog->windowSettings->sidepanelCheckBox->checkState())?QString("true"):QString("false");
 		QString window = (dialog->windowSettings->windowCheckBox->checkState())?QString("true"):QString("false");
 		QString splash = (dialog->windowSettings->splashCheckBox->checkState())?QString("true"):QString("false");
