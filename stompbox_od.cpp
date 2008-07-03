@@ -29,7 +29,7 @@ stompbox_od::stompbox_od(QWidget *parent)
 	setImage(":/images/od.png");
 	setLSB("00", "00");
 	setKnob1("00", "00", "72");
-	setKnob2("00", "00", "74");
+	setKnob2("00", "00", "75");
 	setComboBox("00", "00", "71");
 	setButton("00", "00", "70");
 	setEditPages();
@@ -38,7 +38,7 @@ stompbox_od::stompbox_od(QWidget *parent)
 void stompbox_od::updateSignal()
 {
 	updateKnob1("00", "00", "72");
-	updateKnob2("00", "00", "74");
+	updateKnob2("00", "00", "75");
 	updateComboBox("00", "00", "71");
 	updateButton("00", "00", "70");
 };
@@ -52,13 +52,13 @@ void stompbox_od::setEditPages()
 
 	editDetails()->page()->newGroupBox("Overdrive");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "00", "00", "72", "turbo");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "00", "00", "73");
+	editDetails()->page()->addKnob(0, 1, 1, 1, "00", "00", "74");
 	editDetails()->page()->addGroupBox(0, 1, 1, 1);
 
 	editDetails()->page()->newGroupBox("Level");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "00", "00", "74");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "00", "00", "75");
-	editDetails()->page()->addKnob(0, 2, 1, 1, "00", "00", "76");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "00", "00", "75");
+	editDetails()->page()->addKnob(0, 1, 1, 1, "00", "00", "76");
+	editDetails()->page()->addKnob(0, 2, 1, 1, "00", "00", "73");
 	editDetails()->page()->addGroupBox(0, 2, 1, 1);
 	
 

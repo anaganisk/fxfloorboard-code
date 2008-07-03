@@ -674,6 +674,7 @@ void floorBoardDisplay::writeToMemory()
 		this, SLOT(resetDevice(QString)));					// to a slot that will reset the device after sending.
 
 	sysxIO->sendSysx(sysxMsg);								// Send the data.
+	SLEEP(1000);
 };
 
 void floorBoardDisplay::patchChangeFailed()

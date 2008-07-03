@@ -502,8 +502,8 @@ void bankTreeList::updatePatch(QString replyMsg)
 		this, SLOT(updatePatch(QString)));		
 	
 	replyMsg = replyMsg.remove(" ").toUpper();       /* TRANSLATE SYSX MESSAGE FORMAT to 128 byte data blocks */
-	if (replyMsg.size()/2 == 1784){              // size of patch send from GT10B
-	QString header = "F0410000002F12";
+	if (replyMsg.size()/2 == 1530){              // size of patch sent from GT10B   10=1784
+	QString header = "F0410000003012";
 	QString footer ="00F7";
 	QString addressMsb = replyMsg.mid(14,4);
 	QString part1 = replyMsg.mid(22, 256); 
@@ -514,31 +514,30 @@ void bankTreeList::updatePatch(QString replyMsg)
 	QString part3 = replyMsg.mid(560, 256);
 	part3.prepend("0200").prepend(addressMsb).prepend(header).append(footer);
 	QString part4 = replyMsg.mid(816, 200);
-	QString part4B = replyMsg.mid(1042, 56);
-	part4.prepend("0300").prepend(addressMsb).prepend(header).append(part4B).append(footer); 
-	QString part5 = replyMsg.mid(1098, 256);
-	part5.prepend("0400").prepend(addressMsb).prepend(header).append(footer);   
-	QString part6 = replyMsg.mid(1354, 172);   //
+	QString part4B = replyMsg.mid(816, 200);
+	part4.prepend("0300").prepend(addressMsb).prepend(header).append(footer); 
+	QString part6 = replyMsg.mid(1042, 200);   //
+	part6.prepend("00000000000000000000000000000000000000000000000000000000");
 	part6.prepend("0500").prepend(addressMsb).prepend(header).append(footer);   
-	QString part7 = replyMsg.mid(1552, 256);   // 0x308+128
+	QString part7 = replyMsg.mid(1242, 256);   // 
 	part7.prepend("0600").prepend(addressMsb).prepend(header).append(footer);   
-	QString part8 = replyMsg.mid(1808, 228);  // 0x388+114
-	QString part8B = replyMsg.mid(2062, 28);   // 
+	QString part8 = replyMsg.mid(1498, 28);  // 
+	QString part8B = replyMsg.mid(1552, 172);   // 
 	part8.prepend("0700").prepend(addressMsb).prepend(header).append(part8B).append(footer); 
-	QString part9 = replyMsg.mid(2090, 256);
-	part9.prepend("0800").prepend(addressMsb).prepend(header).append(footer);
-	QString part10 = replyMsg.mid(2346,200);    //
+	QString part10 = replyMsg.mid(2062,200);    //
+	part10.prepend("00000000000000000000000000000000000000000000000000000000");
 	part10.prepend("0900").prepend(addressMsb).prepend(header).append(footer);
-	QString part11 = replyMsg.mid(2572, 256);
+	QString part11 = replyMsg.mid(2262, 256);
 	part11.prepend("0A00").prepend(addressMsb).prepend(header).append(footer);
-	QString part12 = replyMsg.mid(2828, 226);   //
-	part12.prepend("0B00").prepend(addressMsb).prepend(header).append(footer);
-	QString part13 = replyMsg.mid(3080, 484);
+	QString part12 = replyMsg.mid(2518, 28);   //
+	QString part12B = replyMsg.mid(2572, 228);   //
+	part12.prepend("0B00").prepend(addressMsb).prepend(header).append(part12B).append(footer);
+	QString part13 = replyMsg.mid(2800, 256);
 	part13.prepend("0C00").prepend(addressMsb).prepend(header).append(footer);
 	
 	replyMsg = "";
-	replyMsg.append(part1).append(part2).append(part3).append(part4).append(part5).append(part6)
-  .append(part7).append(part8).append(part9).append(part10).append(part11).append(part12).append(part13);
+	replyMsg.append(part1).append(part2).append(part3).append(part4).append(part6)
+  .append(part7).append(part8).append(part10).append(part11).append(part12).append(part13);
 	
 	QString reBuild = "";       /* Add correct checksum to patch strings */
   QString sysxEOF = "";	
@@ -547,8 +546,8 @@ void bankTreeList::updatePatch(QString replyMsg)
   for(int i=0;i<msgLength*2;++i) 
   {
 	hex.append(replyMsg.mid(i*2, 2));
-	sysxEOF.append(replyMsg.mid((i*2)+4, 2));
-  if (sysxEOF.contains("F7"))
+	sysxEOF = (replyMsg.mid((i*2)+4, 2));
+  if (sysxEOF == "F7")
     {   
   	int dataSize = 0; bool ok;
 	  for(int h=checksumOffset;h<hex.size()-1;++h)
@@ -561,9 +560,7 @@ void bankTreeList::updatePatch(QString replyMsg)
       	hex.append(checksum);
         hex.append("F7");   
         reBuild.append(hex);   
-    /*SysxIO *sysxIO = SysxIO::Instance();
-		QString dBug = reBuild;//QString::number(dataSize, 16).toUpper();
-		sysxIO->emitStatusdBugMessage(dBug);	*/
+    
 		hex = "";
 		sysxEOF = "";
 		i=i+2;
@@ -572,8 +569,7 @@ void bankTreeList::updatePatch(QString replyMsg)
 	replyMsg = reBuild.simplified().toUpper().remove("0X").remove(" ");
 	//};
 	emit setStatusMessage(tr("Ready"));
-	//if(replyMsg != "" && replyMsg.size()/2 == patchSize) // cjw
-	//{
+
 		sysxIO->setFileSource(replyMsg);		// Set the source to the data received.
 		sysxIO->setFileName(tr("Patch from ") + deviceType);	// Set the file name to GT-10B patch for the display.
 		sysxIO->setDevice(true);				// Patch received from the device so this is set to true.
@@ -693,7 +689,7 @@ void bankTreeList::updatePatch(QString replyMsg)
 * device.
 *********************************************************************************/
 void bankTreeList::connectedSignal()
-{	/*
+{	
 	SysxIO *sysxIO = SysxIO::Instance();
 	if(this->openPatchTreeItems.size() != 0 && sysxIO->deviceReady() && sysxIO->isConnected())
 	{
@@ -712,7 +708,7 @@ void bankTreeList::connectedSignal()
 		qSort(this->currentPatchTreeItems);
 
 		this->updatePatchNames("");
-	};  */
+	};  
 };
 
 /********************************** updateTree() ********************************

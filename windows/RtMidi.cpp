@@ -273,7 +273,7 @@ void RtMidiIn :: openPort( unsigned int portNumber )
 
   std::ostringstream ost;
   if ( portNumber >= nDevices ) {
-    ost << "FxFloorBoard Midi Input::openPort: the item listed at 'portNumber'(" << portNumber << ") is invalid.";
+    ost << "FxFloorBoard Midi Input::openPort: the midi device listed at 'portNumber'(" << portNumber << ") is missing.";
     errorString_ = ost.str();
     error( RtError::INVALID_PARAMETER );
   }
@@ -368,7 +368,7 @@ std::string RtMidiIn :: getPortName( unsigned int portNumber )
   unsigned int nDevices = midiInGetNumDevs();
   if ( portNumber >= nDevices ) {
     std::ostringstream ost;
-    ost << "FxFloorBoard Midi Input::getPortName: the item listed at 'portNumber'(" << portNumber << ") is invalid.";
+    ost << "FxFloorBoard Midi Input::getPortName: the midi device listed at 'portNumber'(" << portNumber << ") is missing.";
     errorString_ = ost.str();
     error( RtError::INVALID_PARAMETER );
   }
@@ -402,7 +402,7 @@ std::string RtMidiOut :: getPortName( unsigned int portNumber )
   unsigned int nDevices = midiOutGetNumDevs();
   if ( portNumber >= nDevices ) {
     std::ostringstream ost;
-    ost << "FxFloorBoard Midi Output: the item listed at 'portNumber'(" << portNumber << ") is invalid.";
+    ost << "FxFloorBoard Midi Output: the midi device listed at 'portNumber'(" << portNumber << ") is missing.";
     errorString_ = ost.str();
     error( RtError::INVALID_PARAMETER );
   }
@@ -452,7 +452,7 @@ void RtMidiOut :: openPort( unsigned int portNumber )
 
   std::ostringstream ost;
   if ( portNumber >= nDevices ) {
-    ost << "FxFloorBoard Midi Output::openPort: the item listed at 'portNumber'(" << portNumber << ") is invalid.";
+    ost << "FxFloorBoard Midi Output::openPort: the midi device listed at 'portNumber'(" << portNumber << ") is missing.";
     errorString_ = ost.str();
     error( RtError::INVALID_PARAMETER );
   }

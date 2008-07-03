@@ -29,20 +29,20 @@ stompbox_ch_b::stompbox_ch_b(QWidget *parent)
 	setImage(":/images/ch_b.png");
 	setLSB("01", "00");
 	//setSwitch("01", "00", "00");
-	setKnob1("01", "00", "31");
-	setKnob2("01", "00", "36");
-	setComboBox("01", "00", "30");
-	setButton("01", "00", "00");
+	//setKnob1("01", "00", "31");
+	//setKnob2("01", "00", "36");
+	//setComboBox("01", "00", "30");
+	//setButton("01", "00", "00");
 	setEditPages();
 };
 
 void stompbox_ch_b::updateSignal()
 {
 	//updateSwitch("01", "00", "00");
-	updateKnob1("01", "00", "31");
-	updateKnob2("01", "00", "36");
-	updateComboBox("01", "00", "30");
-	updateButton("01", "00", "00");
+	//updateKnob1("01", "00", "31");
+	//updateKnob2("01", "00", "36");
+//	updateComboBox("01", "00", "30");
+	//updateButton("01", "00", "00");
 };
 
 void stompbox_ch_b::setEditPages()

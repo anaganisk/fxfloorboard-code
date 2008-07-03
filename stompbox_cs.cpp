@@ -29,27 +29,27 @@ stompbox_cs::stompbox_cs(QWidget *parent)
 	/* COMP */
 	setImage(":/images/cs.png");
 	setLSB("00", "00");
-	setKnob1("00", "00", "42");
-	setKnob2("00", "00", "50");
-	setComboBox("00", "00", "41");
-	setButton("00", "00", "40");
+	setKnob1("00", "00", "54");
+	setKnob2("00", "00", "53");
+	setComboBox("00", "00", "51");
+	setButton("00", "00", "50");
 	setEditPages();
 };
 
 void stompbox_cs::updateSignal()
 {
-	updateKnob1("00", "00", "42");
-	updateKnob2("00", "00", "50");
-	updateComboBox("00", "00", "41");
-	updateButton("00", "00", "40");
+	updateKnob1("00", "00", "54");
+	updateKnob2("00", "00", "53");
+	updateComboBox("00", "00", "51");
+	updateButton("00", "00", "50");
 };
 
 void stompbox_cs::setEditPages()
 {
 	editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "00", "00", "40");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "00", "00", "50");
 	editDetails()->page()->newStackControl(0);
-	editDetails()->page()->addComboBox(1, 0, 1, 1, "00", "00", "41");
+	editDetails()->page()->addComboBox(1, 0, 1, 1, "00", "00", "51");
 	editDetails()->page()->addStackControl();
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 
@@ -57,14 +57,13 @@ void stompbox_cs::setEditPages()
 	editDetails()->page()->insertStackField(0, 0, 1, 1, 1);
 	editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Compressor");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "00", "00", "42"); //sustain
-	editDetails()->page()->addKnob(0, 1, 1, 1, "00", "00", "43"); //attack
-	//editDetails()->page()->addKnob(0, 2, 1, 1, "00", "00", "44");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "00", "00", "54"); //sustain
+	editDetails()->page()->addKnob(0, 1, 1, 1, "00", "00", "55"); //attack
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 
 	editDetails()->page()->newGroupBox("Level");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "00", "00", "4F");  // tone
-	editDetails()->page()->addKnob(0, 1, 1, 1, "00", "00", "50");  // level
+	editDetails()->page()->addKnob(0, 0, 1, 1, "00", "00", "52");  // tone
+	editDetails()->page()->addKnob(0, 1, 1, 1, "00", "00", "53");  // level
 	editDetails()->page()->addGroupBox(0, 1, 1, 1);
 	editDetails()->page()->addStackField();
 	
@@ -72,94 +71,89 @@ void stompbox_cs::setEditPages()
 	editDetails()->page()->insertStackField(0, 0, 1, 1, 1);
 	editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Compressor");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "00", "00", "42"); //sustain
-	editDetails()->page()->addKnob(0, 1, 1, 1, "00", "00", "43"); //attack
-	//editDetails()->page()->addKnob(0, 2, 1, 1, "00", "00", "44");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "00", "00", "54"); //sustain
+	editDetails()->page()->addKnob(0, 1, 1, 1, "00", "00", "55"); //attack
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 
 	editDetails()->page()->newGroupBox("Level");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "00", "00", "4F");  // tone
-	editDetails()->page()->addKnob(0, 1, 1, 1, "00", "00", "50");  // level
+	editDetails()->page()->addKnob(0, 0, 1, 1, "00", "00", "52");  // tone
+	editDetails()->page()->addKnob(0, 1, 1, 1, "00", "00", "53");  // level
 	editDetails()->page()->addGroupBox(0, 1, 1, 1);
 	editDetails()->page()->addStackField();
 
 	// BOSS Limiter 
 	editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Limiter");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "00", "00", "43");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "00", "00", "44");
-	editDetails()->page()->addKnob(0, 2, 1, 1, "00", "00", "45");
-	editDetails()->page()->addKnob(0, 3, 1, 1, "00", "00", "46");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "00", "00", "58");  // attack
+	editDetails()->page()->addKnob(0, 1, 1, 1, "00", "00", "56");   // thresh
+	editDetails()->page()->addKnob(0, 2, 1, 1, "00", "00", "57");  // ratio
+	editDetails()->page()->addKnob(0, 3, 1, 1, "00", "00", "59");   // release
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 
 	editDetails()->page()->newGroupBox("Level");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "00", "00", "4F");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "00", "00", "50");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "00", "00", "52");  // tone
+	editDetails()->page()->addKnob(0, 1, 1, 1, "00", "00", "53");  // level
 	editDetails()->page()->addGroupBox(0, 1, 1, 1);
 	editDetails()->page()->addStackField();
 	
 	// Rack 160D 
 	editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Limiter");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "00", "00", "43");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "00", "00", "44");
-	editDetails()->page()->addKnob(0, 2, 1, 1, "00", "00", "45");
-	editDetails()->page()->addKnob(0, 3, 1, 1, "00", "00", "46");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "00", "00", "58");
+	editDetails()->page()->addKnob(0, 1, 1, 1, "00", "00", "56");
+	editDetails()->page()->addKnob(0, 2, 1, 1, "00", "00", "57");
+	editDetails()->page()->addKnob(0, 3, 1, 1, "00", "00", "59");
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 
 	editDetails()->page()->newGroupBox("Level");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "00", "00", "4F");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "00", "00", "50");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "00", "00", "52");
+	editDetails()->page()->addKnob(0, 1, 1, 1, "00", "00", "53");
 	editDetails()->page()->addGroupBox(0, 1, 1, 1);
 	editDetails()->page()->addStackField();
 	
 	//  Vtg Rack U
 	editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Limiter");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "00", "00", "43");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "00", "00", "44");
-	editDetails()->page()->addKnob(0, 2, 1, 1, "00", "00", "45");
-	editDetails()->page()->addKnob(0, 3, 1, 1, "00", "00", "46");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "00", "00", "58");
+	editDetails()->page()->addKnob(0, 1, 1, 1, "00", "00", "56");
+	editDetails()->page()->addKnob(0, 2, 1, 1, "00", "00", "57");
+	editDetails()->page()->addKnob(0, 3, 1, 1, "00", "00", "59");
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 
 	editDetails()->page()->newGroupBox("Level");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "00", "00", "4F");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "00", "00", "50");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "00", "00", "52");
+	editDetails()->page()->addKnob(0, 1, 1, 1, "00", "00", "53");
 	editDetails()->page()->addGroupBox(0, 1, 1, 1);
 	editDetails()->page()->addStackField();
 	
 	// Multi Band 
 	editDetails()->page()->newStackField(0);
-	editDetails()->page()->newGroupBox("Limiter");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "00", "00", "43");
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	
 	editDetails()->page()->newGroupBox("Multi Band");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "00", "00", "4B");
-	editDetails()->page()->addKnob(0, 2, 1, 1, "00", "00", "4C");
-	editDetails()->page()->addKnob(0, 4, 1, 1, "00", "00", "4D");
-	editDetails()->page()->addKnob(1, 1, 1, 1, "00", "00", "47");
-	editDetails()->page()->addKnob(2, 1, 1, 1, "00", "00", "48");
-	editDetails()->page()->addKnob(1, 3, 1, 1, "00", "00", "49");
-	editDetails()->page()->addKnob(2, 3, 1, 1, "00", "00", "4A");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "00", "00", "5E");
+	editDetails()->page()->addKnob(0, 2, 1, 1, "00", "00", "5F");
+	editDetails()->page()->addKnob(0, 4, 1, 1, "00", "00", "60");
+	editDetails()->page()->addKnob(1, 1, 1, 1, "00", "00", "5B");
+	editDetails()->page()->addKnob(2, 1, 1, 1, "00", "00", "5A");
+	editDetails()->page()->addKnob(1, 3, 1, 1, "00", "00", "5D");
+	editDetails()->page()->addKnob(2, 3, 1, 1, "00", "00", "5C");
 	editDetails()->page()->addGroupBox(0, 1, 1, 1);
 
 	editDetails()->page()->newGroupBox("Level");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "00", "00", "4F");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "00", "00", "50");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "00", "00", "52");
+	editDetails()->page()->addKnob(0, 1, 1, 1, "00", "00", "53");
 	editDetails()->page()->addGroupBox(0, 2, 1, 1);
 	editDetails()->page()->addStackField();
 	
 	// Natural 
 	editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Compressor");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "00", "00", "43");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "00", "00", "4E");
+	editDetails()->page()->addKnob(0, 1, 1, 1, "00", "00", "61");  // drive
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 
 	editDetails()->page()->newGroupBox("Level");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "00", "00", "4F");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "00", "00", "50");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "00", "00", "52");
+	editDetails()->page()->addKnob(0, 1, 1, 1, "00", "00", "53");
 	editDetails()->page()->addGroupBox(0, 1, 1, 1);
 	editDetails()->page()->addStackField();
 

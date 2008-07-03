@@ -1,5 +1,6 @@
 /****************************************************************************
 **
+** Copyright (C) 2008 Colin Willcocks
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
 ** This file is part of "GT-10B Fx FloorBoard".
@@ -37,6 +38,7 @@ public:
 	bool readFile();
 	SysxData getFileSource();
 	void writeFile(QString fileName);
+	void writeSMF(QString fileName);
 	QString getFileName();
 
 	

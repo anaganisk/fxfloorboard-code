@@ -1,5 +1,6 @@
 /****************************************************************************
 **
+** Copyright (C) 2008 Colin Willcocks
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
 ** This file is part of "GT-10B Fx FloorBoard".
@@ -25,12 +26,10 @@
 stompbox_fx2::stompbox_fx2(QWidget *parent)
     : stompBox(parent)
 {
-	/* FX2 */
+	/* fx2 */
 	setImage(":/images/fx2.png");
 	setLSB("06", "00");
-
-	setComboBox("06", "00", "01", QRect(8, 31, 79, 13));
-
+	setComboBox("06", "00", "01", QRect(8, 35, 79, 13));
 	setButton("06", "00", "00");
 	setEditPages();
 };
@@ -43,7 +42,7 @@ void stompbox_fx2::updateSignal()
 
 void stompbox_fx2::setEditPages()
 {
-  
+
 // T-Wah 
 	editDetails()->page()->newGroupBox("Effect");
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00");
@@ -73,11 +72,11 @@ void stompbox_fx2::setEditPages()
 	editDetails()->page()->addKnob(0, 3, 1, 1, "06", "00", "15", "normal","right", 105);
 	editDetails()->page()->addKnob(0, 1, 1, 1, "06", "00", "16");
 	editDetails()->page()->addKnob(0, 2, 1, 1, "06", "00", "17");
-	editDetails()->page()->addKnob(0, 4, 1, 1, "06", "00", "19");
+	editDetails()->page()->addKnob(0, 4, 1, 1, "06", "00", "18");
 	editDetails()->page()->addGroupBox(0, 1, 1, 1);
 
 	editDetails()->page()->newGroupBox("Level");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "06", "00", "1B");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "06", "00", "19");
 	editDetails()->page()->addKnob(0, 1, 1, 1, "06", "00", "1A");
 	editDetails()->page()->addGroupBox(0, 2, 1, 1);
 	editDetails()->addPage("06", "00", "01", "01");
@@ -89,7 +88,7 @@ void stompbox_fx2::setEditPages()
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 
 	editDetails()->page()->newGroupBox("Sub Wah");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "09", "00", "31");
+	editDetails()->page()->addKnob(0, 1, 1, 1, "09", "00", "31" );
 	editDetails()->page()->addKnob(0, 2, 1, 1, "09", "00", "32");
 	editDetails()->page()->addKnob(0, 3, 1, 1, "09", "00", "33");
 	editDetails()->page()->addGroupBox(0, 1, 1, 1);
@@ -98,7 +97,7 @@ void stompbox_fx2::setEditPages()
 	editDetails()->page()->addKnob(0, 0, 1, 1, "09", "00", "34");
 	editDetails()->page()->addKnob(0, 1, 1, 1, "09", "00", "35");
 	editDetails()->page()->addGroupBox(0, 2, 1, 1);
-	editDetails()->addPage("06", "00", "01", "02");                    //#
+	editDetails()->addPage("06", "00", "01", "02");
 	
    // Advanced Compressor 
 	editDetails()->page()->newGroupBox("Effect");
@@ -109,13 +108,13 @@ void stompbox_fx2::setEditPages()
 	editDetails()->page()->newGroupBox("Advanced Compressor");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "06", "00", "03");   ///#
 	editDetails()->page()->addKnob(0, 1, 1, 1, "06", "00", "04");    ////#
-	editDetails()->page()->addKnob(0, 2, 1, 1, "06", "00", "05");    /////#
+	editDetails()->page()->addKnob(0, 2, 1, 1, "06", "00", "05");
 	editDetails()->page()->addGroupBox(0, 1, 1, 1);
 
 	editDetails()->page()->newGroupBox("Level");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "06", "00", "06");
 	editDetails()->page()->addGroupBox(0, 2, 1, 1);
-	editDetails()->addPage("06", "00", "01", "03");                          ///#
+	editDetails()->addPage("06", "00", "01", "03");
 
 	// Limiter 
 	editDetails()->page()->newGroupBox("Effect");
@@ -123,7 +122,7 @@ void stompbox_fx2::setEditPages()
 	editDetails()->page()->addComboBox(1, 0, 1, 1, "06", "00", "07");
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 
-	editDetails()->page()->newGroupBox("Limitter");
+	editDetails()->page()->newGroupBox("Limiter");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "06", "00", "08");
 	editDetails()->page()->addKnob(0, 1, 1, 1, "06", "00", "09");
 	editDetails()->page()->addKnob(0, 2, 1, 1, "06", "00", "0A");
@@ -133,7 +132,7 @@ void stompbox_fx2::setEditPages()
 	editDetails()->page()->newGroupBox("Level");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "06", "00", "0C");
 	editDetails()->page()->addGroupBox(0, 2, 1, 1);
-	editDetails()->addPage("06", "00", "01", "04");                    ////#
+	editDetails()->addPage("06", "00", "01", "04");
 
 	// Graphic EQ 
 	editDetails()->page()->newGroupBox("Effect", Qt::AlignTop | Qt::AlignHCenter);
@@ -142,23 +141,23 @@ void stompbox_fx2::setEditPages()
 
 	editDetails()->page()->newGroupBox("Equalizer");
 	editDetails()->page()->newGroupBox("Band");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "09", "00", "36");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "09", "00", "37");
-	editDetails()->page()->addKnob(0, 2, 1, 1, "09", "00", "38");
-	editDetails()->page()->addKnob(0, 3, 1, 1, "09", "00", "39");
-	editDetails()->page()->addKnob(0, 4, 1, 1, "09", "00", "3A");
-	editDetails()->page()->addKnob(0, 5, 1, 1, "09", "00", "3B");
-	editDetails()->page()->addKnob(0, 6, 1, 1, "09", "00", "3C");
-	editDetails()->page()->addKnob(0, 7, 1, 1, "09", "00", "3D");
-	editDetails()->page()->addKnob(0, 8, 1, 1, "09", "00", "3E");
-	editDetails()->page()->addKnob(0, 9, 1, 1, "09", "00", "3F");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "09", "00", "37");
+	editDetails()->page()->addKnob(0, 1, 1, 1, "09", "00", "38");
+	editDetails()->page()->addKnob(0, 2, 1, 1, "09", "00", "39");
+	editDetails()->page()->addKnob(0, 3, 1, 1, "09", "00", "3A");
+	editDetails()->page()->addKnob(0, 4, 1, 1, "09", "00", "3B");
+	editDetails()->page()->addKnob(0, 5, 1, 1, "09", "00", "3C");
+	editDetails()->page()->addKnob(0, 6, 1, 1, "09", "00", "3D");
+	editDetails()->page()->addKnob(0, 7, 1, 1, "09", "00", "3E");
+	editDetails()->page()->addKnob(0, 8, 1, 1, "09", "00", "3F");
+	editDetails()->page()->addKnob(0, 9, 1, 1, "09", "00", "40");
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->page()->addGroupBox(0, 1, 2, 1);
     
 	editDetails()->page()->newGroupBox("Level");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "09", "00", "40");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "09", "00", "36");
 	editDetails()->page()->addGroupBox(0, 2, 1, 1);
-	editDetails()->addPage("06", "00", "01", "05");                  /////#
+	editDetails()->addPage("06", "00", "01", "05");
 
     // Parametric EQ
   editDetails()->page()->newGroupBox("Effect", Qt::AlignTop | Qt::AlignHCenter);
@@ -193,6 +192,23 @@ void stompbox_fx2::setEditPages()
 	editDetails()->page()->addKnob(0, 0, 1, 1, "06", "00", "62");
 	editDetails()->page()->addGroupBox(0, 2, 1, 1);
   editDetails()->addPage("06", "00", "01", "06");
+  
+  // Enhancer
+	editDetails()->page()->newGroupBox("Effect", Qt::AlignTop | Qt::AlignHCenter);
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00");	
+	editDetails()->page()->addKnob(0, 1, 1, 1, "09", "00", "41");
+	editDetails()->page()->addGroupBox(0, 0, 1, 1);
+
+	editDetails()->page()->newGroupBox("Low Frequency", Qt::AlignTop | Qt::AlignHCenter);
+	editDetails()->page()->addComboBox(0, 0, 1, 1, "09", "00", "42");
+	editDetails()->page()->addKnob(0, 1, 1, 1, "09", "00", "43");
+	editDetails()->page()->addGroupBox(0, 1, 1, 1);
+
+	editDetails()->page()->newGroupBox("High Frequency");
+editDetails()->page()->addComboBox(0, 0, 1, 1, "09", "00", "44");
+	editDetails()->page()->addKnob(0, 1, 1, 1, "09", "00", "45");
+	editDetails()->page()->addGroupBox(0, 2, 1, 1);
+	editDetails()->addPage("06", "00", "01", "07");
 
   	// Tone Modify 
 	editDetails()->page()->newGroupBox("Effect");
@@ -201,32 +217,32 @@ void stompbox_fx2::setEditPages()
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 
 	editDetails()->page()->newGroupBox("Tone Modify");
-	editDetails()->page()->addKnob(0, 3, 1, 1, "09", "00", "20");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "09", "00", "21");
-	editDetails()->page()->addKnob(0, 2, 1, 1, "09", "00", "22");;
+	editDetails()->page()->addKnob(0, 3, 1, 1, "09", "00", "22");
+	editDetails()->page()->addKnob(0, 1, 1, 1, "09", "00", "20");
+	editDetails()->page()->addKnob(0, 2, 1, 1, "09", "00", "21");;
 	editDetails()->page()->addGroupBox(0, 1, 1, 1);
 
 	editDetails()->page()->newGroupBox("Level");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "09", "00", "23");
 	editDetails()->page()->addGroupBox(0, 2, 1, 1);
-	editDetails()->addPage("06", "00", "01", "07");
+	editDetails()->addPage("06", "00", "01", "08");
 
-	// Guitar Sim 
+	// Bass Sim 
 	editDetails()->page()->newGroupBox("Effect");
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00");
-	editDetails()->page()->addComboBox(1, 0, 1, 1, "09", "00", "24");
+	editDetails()->page()->addComboBox(1, 0, 1, 1, "09", "00", "46");
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 
-	editDetails()->page()->newGroupBox("Guitar Simulator");
-	editDetails()->page()->addKnob(0, 3, 1, 1, "09", "00", "25");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "09", "00", "26");
-	editDetails()->page()->addKnob(0, 2, 1, 1, "09", "00", "27");;
+	editDetails()->page()->newGroupBox("Bass Simulator");
+	editDetails()->page()->addKnob(0, 3, 1, 1, "09", "00", "47");
+	editDetails()->page()->addKnob(0, 1, 1, 1, "09", "00", "48");
+	editDetails()->page()->addKnob(0, 2, 1, 1, "09", "00", "49");;
 	editDetails()->page()->addGroupBox(0, 1, 1, 1);
 
 	editDetails()->page()->newGroupBox("Level");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "09", "00", "28");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "09", "00", "4A");
 	editDetails()->page()->addGroupBox(0, 2, 1, 1);
-	editDetails()->addPage("06", "00", "01", "08");
+	editDetails()->addPage("06", "00", "01", "09");
 	
 	// Slow Gear 
 	editDetails()->page()->newGroupBox("Effect", Qt::AlignTop | Qt::AlignHCenter);
@@ -237,7 +253,7 @@ void stompbox_fx2::setEditPages()
 	editDetails()->page()->addKnob(0, 0, 1, 1, "06", "00", "3E");
 	editDetails()->page()->addKnob(0, 1, 1, 1, "06", "00", "3F");
 	editDetails()->page()->addGroupBox(0, 1, 1, 1);
-	editDetails()->addPage("06", "00", "01", "09");
+	editDetails()->addPage("06", "00", "01", "0A");
 
 	
 	// DeFretter 
@@ -249,165 +265,40 @@ void stompbox_fx2::setEditPages()
 	editDetails()->page()->addKnob(0, 0, 1, 1, "07", "00", "2D");
 	editDetails()->page()->addKnob(0, 1, 1, 1, "07", "00", "2E");
 	editDetails()->page()->addKnob(0, 2, 1, 1, "07", "00", "2F");
-	editDetails()->page()->addKnob(0, 3, 1, 1, "07", "00", "30");
-	editDetails()->page()->addKnob(0, 4, 1, 1, "07", "00", "31");
+	//editDetails()->page()->addKnob(0, 3, 1, 1, "03", "00", "30");
+	//editDetails()->page()->addKnob(0, 4, 1, 1, "03", "00", "31");
 	editDetails()->page()->addGroupBox(0, 1, 1, 1);
 
 	editDetails()->page()->newGroupBox("Level");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "07", "00", "32");
 	editDetails()->page()->addKnob(0, 1, 1, 1, "07", "00", "33");
 	editDetails()->page()->addGroupBox(0, 2, 1, 1);
-	editDetails()->addPage("06", "00", "01", "0A");
-
-  // Wave Synth 
-	editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00");	
-	editDetails()->page()->addComboBox(1, 0, 1, 1, "07", "00", "3B");	
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
-
-	editDetails()->page()->newGroupBox("Wave Synth");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "07", "00", "3C");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "07", "00", "3D");
-	editDetails()->page()->addKnob(0, 2, 1, 1, "07", "00", "3E");
-	editDetails()->page()->addKnob(0, 3, 1, 1, "07", "00", "3F");
-	editDetails()->page()->addKnob(0, 4, 1, 1, "07", "00", "40");
-	editDetails()->page()->addGroupBox(0, 1, 1, 1);
-
-	editDetails()->page()->newGroupBox("Level");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "07", "00", "41");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "07", "00", "42");
-	editDetails()->page()->addGroupBox(0, 2, 1, 1);
 	editDetails()->addPage("06", "00", "01", "0B");
 
-
-  // Guitar Synth 
+  
+  // Bass Synth 
 	editDetails()->page()->newGroupBox("Effect");
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00");	
-	editDetails()->page()->newStackControl(0);
-	editDetails()->page()->addComboBox(1, 0, 1, 1, "07", "00", "44");
-	editDetails()->page()->addStackControl();
+	editDetails()->page()->addComboBox(1, 0, 1, 1, "09", "00", "4B");
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 
-	editDetails()->page()->insertStackField(0, 0, 1, 2, 1);
-
-	editDetails()->page()->newStackField(0);
-	editDetails()->page()->newGroupBox("Guitar Synth");
-	editDetails()->page()->addComboBox(0, 0, 1, 1, "07", "00", "46");
-	editDetails()->page()->addSwitch(0, 1, 1, 1, "07", "00", "45", "middle", Qt::AlignCenter);
-	editDetails()->page()->addSwitch(0, 2, 1, 1, "07", "00", "51", "middle", Qt::AlignCenter);
-	editDetails()->page()->addKnob(1, 0, 1, 1, "07", "00", "43");
-	editDetails()->page()->addKnob(1, 1, 1, 1, "07", "00", "49");
-	editDetails()->page()->addKnob(1, 2, 1, 1, "07", "00", "4A");
-	editDetails()->page()->addKnob(2, 0, 1, 1, "07", "00", "4E");
-	editDetails()->page()->addKnob(2, 1, 1, 1, "07", "00", "4F");
-	editDetails()->page()->addKnob(2, 2, 1, 1, "07", "00", "50");
-	editDetails()->page()->addGroupBox(0, 0, 2, 1);
+	editDetails()->page()->newGroupBox("Bass Synth");
+	editDetails()->page()->addKnob(1, 0, 1, 1, "09", "00", "4C");
+	editDetails()->page()->addKnob(1, 1, 1, 1, "09", "00", "4D");
+	editDetails()->page()->addGroupBox(0, 1, 2, 1);
 
 	editDetails()->page()->newGroupBox("Filter");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "07", "00", "4B");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "07", "00", "4C");
-	editDetails()->page()->addKnob(0, 2, 1, 1, "07", "00", "4D");
-	editDetails()->page()->addGroupBox(0, 1, 1, 2);
-
-	editDetails()->page()->newGroupBox("PWM");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "07", "00", "47");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "07", "00", "48");
-	editDetails()->page()->addGroupBox(1, 1, 1, 1);
+	editDetails()->page()->addKnob(0, 0, 1, 1, "09", "00", "4E");
+	editDetails()->page()->addKnob(0, 1, 1, 1, "09", "00", "4F");
+	editDetails()->page()->addKnob(0, 2, 1, 1, "09", "00", "50");
+	editDetails()->page()->addGroupBox(0, 2, 1, 2);
 
 	editDetails()->page()->newGroupBox("Level");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "07", "00", "52");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "07", "00", "53");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "09", "00", "51");
+	editDetails()->page()->addKnob(0, 1, 1, 1, "09", "00", "52");
 	editDetails()->page()->addGroupBox(0, 4, 1, 1);
-	editDetails()->page()->addStackField();
-
-	editDetails()->page()->newStackField(0);
-	editDetails()->page()->newGroupBox("Guitar Synth");
-	editDetails()->page()->addComboBox(0, 0, 1, 1, "07", "00", "46");
-	editDetails()->page()->addSwitch(0, 1, 1, 1, "07", "00", "45", "middle", Qt::AlignCenter);
-	editDetails()->page()->addSwitch(0, 2, 1, 1, "07", "00", "51", "middle", Qt::AlignCenter);
-	editDetails()->page()->addKnob(1, 0, 1, 1, "07", "00", "43");
-	editDetails()->page()->addKnob(1, 1, 1, 1, "07", "00", "49");
-	editDetails()->page()->addKnob(1, 2, 1, 1, "07", "00", "4A");
-	editDetails()->page()->addKnob(2, 0, 1, 1, "07", "00", "4E");
-	editDetails()->page()->addKnob(2, 1, 1, 1, "07", "00", "4F");
-	editDetails()->page()->addKnob(2, 2, 1, 1, "07", "00", "50");
-	editDetails()->page()->addGroupBox(0, 0, 2, 1);
-
-	editDetails()->page()->newGroupBox("Filter");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "07", "00", "4B");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "07", "00", "4C");
-	editDetails()->page()->addKnob(0, 2, 1, 1, "07", "00", "4C");
-	editDetails()->page()->addGroupBox(0, 1, 1, 2);
-
-	editDetails()->page()->newGroupBox("Level");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "07", "00", "52");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "07", "00", "53");
-	editDetails()->page()->addGroupBox(0, 4, 1, 1);
-	editDetails()->page()->addStackField();
-
-	editDetails()->page()->newStackField(0);
-	editDetails()->page()->newGroupBox("Guitar Synth");
-	editDetails()->page()->addKnob(1, 0, 1, 1, "07", "00", "43");
-	editDetails()->page()->addKnob(1, 1, 1, 1, "07", "00", "49");
-	editDetails()->page()->addKnob(1, 2, 1, 1, "07", "00", "4A");
-	editDetails()->page()->addKnob(2, 0, 1, 1, "07", "00", "4E");
-	editDetails()->page()->addKnob(2, 1, 1, 1, "07", "00", "4F");
-	editDetails()->page()->addKnob(2, 2, 1, 1, "07", "00", "50");
-	editDetails()->page()->addGroupBox(0, 0, 2, 1);
-
-	editDetails()->page()->newGroupBox("Filter");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "07", "00", "4B");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "07", "00", "4C");
-	editDetails()->page()->addKnob(0, 2, 1, 1, "07", "00", "4D");
-	editDetails()->page()->addGroupBox(0, 1, 1, 2);
-
-	editDetails()->page()->newGroupBox("Level");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "07", "00", "52");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "07", "00", "53");
-	editDetails()->page()->addGroupBox(0, 4, 1, 1);
-	editDetails()->page()->addStackField();
-
-	editDetails()->page()->newStackField(0);
-	editDetails()->page()->newGroupBox("Guitar Synth");
-	editDetails()->page()->addKnob(1, 0, 1, 1, "07", "00", "43");
-	editDetails()->page()->addKnob(1, 1, 1, 1, "07", "00", "49");
-	editDetails()->page()->addKnob(1, 2, 1, 1, "07", "00", "4A");
-	editDetails()->page()->addKnob(2, 0, 1, 1, "07", "00", "4E");
-	editDetails()->page()->addKnob(2, 1, 1, 1, "07", "00", "4F");
-	editDetails()->page()->addKnob(2, 2, 1, 1, "07", "00", "50");
-	editDetails()->page()->addGroupBox(0, 0, 2, 1);
-
-	editDetails()->page()->newGroupBox("Filter");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "07", "00", "4B");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "07", "00", "4C");
-	editDetails()->page()->addKnob(0, 2, 1, 1, "07", "00", "4D");
-	editDetails()->page()->addGroupBox(0, 1, 1, 2);
-
-	editDetails()->page()->newGroupBox("Level");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "07", "00", "52");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "07", "00", "53");
-	editDetails()->page()->addGroupBox(0, 4, 1, 1);
-	editDetails()->page()->addStackField();
 	editDetails()->addPage("06", "00", "01", "0C");
 	
-		// Sitar Sim
-	editDetails()->page()->newGroupBox("Effect", Qt::AlignTop | Qt::AlignHCenter);
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00");	
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
-
-	editDetails()->page()->newGroupBox("Sitar");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "07", "00", "34");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "07", "00", "35");
-	editDetails()->page()->addKnob(0, 2, 1, 1, "07", "00", "36");
-	editDetails()->page()->addKnob(0, 3, 1, 1, "07", "00", "37");
-	editDetails()->page()->addKnob(0, 4, 1, 1, "07", "00", "38");
-	editDetails()->page()->addGroupBox(0, 1, 1, 1);
-
-	editDetails()->page()->newGroupBox("Level");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "07", "00", "39");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "07", "00", "3A");
-	editDetails()->page()->addGroupBox(0, 2, 1, 1);
-	editDetails()->addPage("06", "00", "01", "0D");
 	
 	// Octaver
 	editDetails()->page()->newGroupBox("Effect", Qt::AlignTop | Qt::AlignHCenter);
@@ -422,7 +313,7 @@ void stompbox_fx2::setEditPages()
 	editDetails()->page()->addKnob(0, 0, 1, 1, "07", "00", "16");
 	editDetails()->page()->addKnob(0, 1, 1, 1, "07", "00", "17");
 	editDetails()->page()->addGroupBox(0, 2, 1, 1);
-	editDetails()->addPage("06", "00", "01", "0E");
+	editDetails()->addPage("06", "00", "01", "0D");
 
 
   // Pitch Shifter 
@@ -501,7 +392,7 @@ void stompbox_fx2::setEditPages()
 	editDetails()->page()->addKnob(0, 1, 1, 1, "07", "00", "14");
 	editDetails()->page()->addGroupBox(0, 2, 1, 1);
 	editDetails()->page()->addStackField();
-	editDetails()->addPage("06", "00", "01", "0F");
+	editDetails()->addPage("06", "00", "01", "0E");
 
   // Harmonizer 
 	editDetails()->page()->newGroupBox("Effect");
@@ -572,30 +463,9 @@ void stompbox_fx2::setEditPages()
 	editDetails()->page()->addKnob(0, 1, 1, 1, "06", "00", "6D");
 	editDetails()->page()->addGroupBox(0, 2, 1, 1);
 	editDetails()->page()->addStackField();
-	editDetails()->addPage("06", "00", "01", "10");
+	editDetails()->addPage("06", "00", "01", "0F");
 
-  // Auto Riff 
-	editDetails()->page()->newGroupBox("Effect", Qt::AlignTop | Qt::AlignHCenter);
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00");	
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
-
-	editDetails()->page()->newGroupBox("Auto Riff");
-
-	editDetails()->page()->addComboBox(0, 0, 1, 1, "07", "00", "54");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "07", "00", "57");
-	editDetails()->page()->addKnob(0, 2, 1, 1, "07", "00", "58");
-	//editDetails()->page()->addKnob(0, 3, 1, 1, "07", "00", "38", "normal","right", 50);
-	editDetails()->page()->addKnob(1, 0, 1, 1, "07", "00", "56", "normal","right", 105);
-	editDetails()->page()->addSwitch(1, 2, 1, 1, "07", "00", "55", "middle", Qt::AlignCenter);
-	editDetails()->page()->addSwitch(1, 3, 1, 1, "07", "00", "59", "middle", Qt::AlignCenter);
-	editDetails()->page()->addGroupBox(0, 1, 2, 1);
-
-	editDetails()->page()->newGroupBox("Level");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "07", "00", "5A");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "07", "00", "5B");
-	editDetails()->page()->addGroupBox(0, 2, 1, 1);
-	editDetails()->addPage("06", "00", "01", "11");
-
+ 
   // Sound Hold 
 	editDetails()->page()->newGroupBox("Effect", Qt::AlignTop | Qt::AlignHCenter);
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00");	
@@ -609,87 +479,8 @@ void stompbox_fx2::setEditPages()
 	editDetails()->page()->newGroupBox("Level");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "09", "00", "1E");
 	editDetails()->page()->addGroupBox(0, 2, 1, 1);
-	editDetails()->addPage("06", "00", "01", "12");
+	editDetails()->addPage("06", "00", "01", "10");
 	
-	
-		// Acoustic Processor
-	editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00");	
-	editDetails()->page()->addComboBox(1, 0, 1, 1, "09", "00", "29");
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
-
-	editDetails()->page()->newGroupBox("Acoustic Processor");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "09", "00", "2A");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "09", "00", "2B");
-	editDetails()->page()->addKnob(0, 2, 1, 1, "09", "00", "2C");
-	editDetails()->page()->addKnob(0, 3, 1, 1, "09", "00", "2D");
-	editDetails()->page()->addKnob(0, 4, 1, 1, "09", "00", "2E");
-	editDetails()->page()->addGroupBox(0, 1, 1, 1);
-
-	editDetails()->page()->newGroupBox("Level");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "09", "00", "2F");
-	editDetails()->page()->addGroupBox(0, 2, 1, 1);
-	editDetails()->addPage("06", "00", "01", "13");
-
-
-  	// FeedBacker 
-	editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00");	
-	editDetails()->page()->newStackControl(0);
-	editDetails()->page()->addComboBox(1, 0, 1, 1, "06", "00", "40");
-	editDetails()->page()->addStackControl();
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
-
-	editDetails()->page()->insertStackField(0, 0, 1, 2, 1);
-	// OSC 
-	editDetails()->page()->newStackField(0);
-	editDetails()->page()->newGroupBox("Feedbacker");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "06", "00", "41");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "06", "00", "43");
-
-	editDetails()->page()->newGroupBox("Hi Oct");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "06", "00", "42");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "06", "00", "44");
-	editDetails()->page()->addGroupBox(1, 0, 1, 2);
-
-	editDetails()->page()->addKnob(0, 2, 1, 1, "06", "00", "45", "normal","right", 105);
-	editDetails()->page()->addKnob(1, 2, 1, 1, "06", "00", "46");
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
-	editDetails()->page()->addStackField();
-
-	// NATURAL 
-	editDetails()->page()->newStackField(0);
-	editDetails()->page()->newGroupBox("Feedbacker");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "06", "00", "41");
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
-	editDetails()->page()->addStackField();
-
-	editDetails()->addPage("06", "00", "01", "14");
-
-	// AntiFeedBacker 
-	editDetails()->page()->newGroupBox("Effect", Qt::AlignTop | Qt::AlignHCenter);
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00");	
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
-
-	editDetails()->page()->newGroupBox("Anti-Feedback");
-
-	editDetails()->page()->newGroupBox("Frequency 1");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "06", "00", "47");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "06", "00", "48");
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
-
-	editDetails()->page()->newGroupBox("Frequency 2");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "06", "00", "49");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "06", "00", "4A");
-	editDetails()->page()->addGroupBox(0, 1, 1, 1);
-
-	editDetails()->page()->newGroupBox("Frequency 3");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "06", "00", "4B");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "06", "00", "4C");
-	editDetails()->page()->addGroupBox(0, 2, 1, 1);
-
-	editDetails()->page()->addGroupBox(0, 1, 1, 1);
-	editDetails()->addPage("06", "00", "01", "15");
 
   
 	// Phaser 
@@ -710,7 +501,7 @@ void stompbox_fx2::setEditPages()
 	editDetails()->page()->addKnob(0, 0, 1, 1, "06", "00", "24");
 	editDetails()->page()->addKnob(0, 1, 1, 1, "06", "00", "25");
 	editDetails()->page()->addGroupBox(0, 2, 1, 1);
-	editDetails()->addPage("06", "00", "01", "16");
+	editDetails()->addPage("06", "00", "01", "11");
 
 	// Flanger
 	editDetails()->page()->newGroupBox("Effect", Qt::AlignTop | Qt::AlignHCenter);
@@ -733,7 +524,7 @@ void stompbox_fx2::setEditPages()
 	editDetails()->page()->addKnob(0, 0, 1, 1, "06", "00", "2C");
 	editDetails()->page()->addKnob(0, 1, 1, 1, "06", "00", "2D");
 	editDetails()->page()->addGroupBox(0, 3, 1, 1);
-	editDetails()->addPage("06", "00", "01", "17");
+	editDetails()->addPage("06", "00", "01", "12");
 
 
 	// Tremolo
@@ -748,7 +539,7 @@ void stompbox_fx2::setEditPages()
 	editDetails()->page()->addKnob(0, 1, 1, 1, "06", "00", "1C", "normal","right", 105);
 	editDetails()->page()->addKnob(0, 2, 1, 1, "06", "00", "1D");
 	editDetails()->page()->addGroupBox(0, 1, 1, 1);
-	editDetails()->addPage("06", "00", "01", "18");
+	editDetails()->addPage("06", "00", "01", "13");
 	
 		
 	// Rotary 
@@ -764,7 +555,7 @@ void stompbox_fx2::setEditPages()
 	editDetails()->page()->addKnob(0, 2, 2, 1, "07", "00", "1C");
 	editDetails()->page()->addKnob(0, 3, 2, 1, "07", "00", "1D");
 	editDetails()->page()->addGroupBox(0, 1, 1, 1);
-	editDetails()->addPage("06", "00", "01", "19");
+	editDetails()->addPage("06", "00", "01", "14");
 	
 	// Uni-V 
 	editDetails()->page()->newGroupBox("Effect", Qt::AlignTop | Qt::AlignHCenter);
@@ -779,7 +570,7 @@ void stompbox_fx2::setEditPages()
 	editDetails()->page()->newGroupBox("Level");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "06", "00", "39");
 	editDetails()->page()->addGroupBox(0, 2, 1, 1);
-	editDetails()->addPage("06", "00", "01", "1A");
+	editDetails()->addPage("06", "00", "01", "15");
 
 	// Panner
 	editDetails()->page()->newGroupBox("Effect", Qt::AlignTop | Qt::AlignHCenter);
@@ -795,7 +586,7 @@ void stompbox_fx2::setEditPages()
 	editDetails()->page()->addKnob(0, 3, 1, 1, "06", "00", "31", "normal","right", 105);
 	editDetails()->page()->addKnob(0, 5, 1, 1, "06", "00", "32");
 	editDetails()->page()->addGroupBox(0, 2, 1, 1);
-	editDetails()->addPage("06", "00", "01", "1B");
+	editDetails()->addPage("06", "00", "01", "16");
 	
 	// Slicer 
 	editDetails()->page()->newGroupBox("Effect", Qt::AlignTop | Qt::AlignHCenter);
@@ -807,7 +598,7 @@ void stompbox_fx2::setEditPages()
 	editDetails()->page()->addKnob(0, 1, 1, 1, "06", "00", "56", "normal","right", 105);
 	editDetails()->page()->addKnob(0, 2, 1, 1, "06", "00", "57");
 	editDetails()->page()->addGroupBox(0, 1, 1, 1);
-	editDetails()->addPage("06", "00", "01", "1C");
+	editDetails()->addPage("06", "00", "01", "17");
 
 	// Vibrato
 	editDetails()->page()->newGroupBox("Effect", Qt::AlignTop | Qt::AlignHCenter);
@@ -824,7 +615,7 @@ void stompbox_fx2::setEditPages()
 
 	editDetails()->page()->addKnob(0, 3, 1, 1, "06", "00", "36");
 	editDetails()->page()->addGroupBox(0, 1, 1, 1);
-	editDetails()->addPage("06", "00", "01", "1D");
+	editDetails()->addPage("06", "00", "01", "18");
 
 
 	// Ring Modulator
@@ -841,7 +632,7 @@ void stompbox_fx2::setEditPages()
 	editDetails()->page()->addKnob(0, 0, 1, 1, "06", "00", "3C");
 	editDetails()->page()->addKnob(0, 1, 1, 1, "06", "00", "3D");
 	editDetails()->page()->addGroupBox(0, 2, 1, 1);
-	editDetails()->addPage("06", "00", "01", "1E");
+	editDetails()->addPage("06", "00", "01", "19");
 
 
 	// Humanizer
@@ -862,7 +653,7 @@ void stompbox_fx2::setEditPages()
 	editDetails()->page()->newGroupBox("Level");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "06", "00", "54");
 	editDetails()->page()->addGroupBox(0, 2, 1, 1);
-	editDetails()->addPage("06", "00", "01", "1F");
+	editDetails()->addPage("06", "00", "01", "1A");
 
 	
 		// 2CE 
@@ -890,7 +681,7 @@ void stompbox_fx2::setEditPages()
 	editDetails()->page()->addKnob(0, 1, 1, 1, "07", "00", "26");
 	editDetails()->page()->addGroupBox(0, 2, 1, 1);
 
-	editDetails()->addPage("06", "00", "01", "20");
+	editDetails()->addPage("06", "00", "01", "1B");
 	
 	
 	
@@ -909,8 +700,8 @@ void stompbox_fx2::setEditPages()
 	editDetails()->page()->addKnob(0, 0, 1, 1, "07", "00", "2B");
 	editDetails()->page()->addKnob(0, 1, 1, 1, "07", "00", "2C");
 	editDetails()->page()->addGroupBox(0, 2, 1, 1);
-	editDetails()->addPage("06", "00", "01", "21");
+	editDetails()->addPage("06", "00", "01", "1C");
 
 
-   editDetails()->addPage();	
- };
+editDetails()->addPage();	
+};

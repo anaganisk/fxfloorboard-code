@@ -237,6 +237,7 @@ int MidiTable::getRange(QString root, QString hex1, QString hex2, QString hex3)
   int onePage = QString("7F").toInt(&ok, 16);
 	int twoPage = QString("FF").toInt(&ok, 16);
 	int threePage = QString("17F").toInt(&ok, 16);
+	
 	if((hex3.toInt(&ok, 16) > onePage) && (hex3.toInt(&ok, 16) < twoPage + 1))
 	{
 	    hex1 = QString::number(hex1.toInt(&ok, 16) + 1, 16).toUpper();
@@ -309,9 +310,10 @@ bool MidiTable::isData(QString root, QString hex1, QString hex2, QString hex3)
 	};*/
 	
 	
-		int onePage = QString("7F").toInt(&ok, 16);
+	int onePage = QString("7F").toInt(&ok, 16);
 	int twoPage = QString("FF").toInt(&ok, 16);
 	int threePage = QString("17F").toInt(&ok, 16);
+	
 	if((hex3.toInt(&ok, 16) > onePage) && (hex3.toInt(&ok, 16) < twoPage + 1))
 	{
 	    hex1 = QString::number(hex1.toInt(&ok, 16) + 1, 16).toUpper();
@@ -322,7 +324,7 @@ bool MidiTable::isData(QString root, QString hex1, QString hex2, QString hex3)
   } 
   else if ((hex3.toInt(&ok, 16) > twoPage) && (hex3.toInt(&ok, 16) < threePage + 1)) 
   {
-     hex1 = QString::number(hex1.toInt(&ok, 16) + 1, 16).toUpper();
+     hex1 = QString::number(hex1.toInt(&ok, 16) + 2, 16).toUpper();
      if(hex1.length() < 2) hex1.prepend("0");
 		hex3 = QString::number(hex3.toInt(&ok, 16) - (0x100), 16).toUpper();
 		if(hex3.length() < 2) hex3.prepend("0"); 

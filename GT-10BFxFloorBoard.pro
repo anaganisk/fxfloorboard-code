@@ -25,13 +25,12 @@ CONFIG += static
 CONFIG += embed_manifest_exe
 #ifdef Q_OS_MAC
 CONFIG += release ppc x86
-TARGET = "GT-10BFxFloorBoard"
-DESTDIR = ../GT-10BFxFloorBoard
 #else 
 CONFIG += release
+#endif
 TARGET = "GT-10BFxFloorBoard"
 DESTDIR = ./packager
-#endif
+
 	OBJECTS_DIR += release
 	UI_DIR += ./generatedfiles
 	MOC_DIR += ./generatedfiles/release
@@ -44,8 +43,8 @@ QT += xml
 
 #Platform dependent file(s)
 win32 {
-	exists("c:/Progra~1/SDK/Windows/v6.0/Lib/WinMM.Lib") {	# <-- Change the path to WinMM.Lib here!
-		LIBS += c:/Progra~1/SDK/Windows/v6.0/Lib/WinMM.Lib	# <-- Change the path here also!
+	exists("c:/Progra~1/SDK/Lib/WinMM.Lib") {	# <-- Change the path to WinMM.Lib here!
+		LIBS += c:/Progra~1/SDK/Lib/WinMM.Lib	# <-- Change the path here also!
     } else { 
         exists("c:/PROGRA~1/MICROS~3/VC/PLATFO~1/Lib/WinMM.Lib") { # Path vs2005 (Vista)
         	LIBS += c:/PROGRA~1/MICROS~3/VC/PLATFO~1/Lib/WinMM.Lib
@@ -80,7 +79,7 @@ macx {
 	 HEADERS += 
 	 SOURCES += ./macosx/RtMidi.cpp 
 	INCLUDEPATH += ./macosx
-	ICON = GT10FxFloorBoard.icns
+	ICON = GT-10BFxFloorBoard.icns
 	message(Including Mac OS X specific headers and sources...)
 }
 
