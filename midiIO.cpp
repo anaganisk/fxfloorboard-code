@@ -252,7 +252,6 @@ void midicallback(double deltatime, std::vector<unsigned char> *message, void *u
 		QString rxData = "";
 		  midiIO *midi = new midiIO();
 				unsigned int nBytes = message->size();
-				if (nBytes <=  2) { rxData.append(nBytes); };
 				for ( unsigned int i=0; i<nBytes; i++ )
 				{
 					 int n = ((int)message->at(i));					// convert std::vector to QString

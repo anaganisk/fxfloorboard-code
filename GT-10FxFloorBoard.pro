@@ -25,13 +25,11 @@ CONFIG += static
 CONFIG += embed_manifest_exe
 #ifdef Q_OS_MAC
 CONFIG += release ppc x86
-TARGET = "GT-10FxFloorBoard"
-DESTDIR = ../GT-10FxFloorBoard
 #else 
 CONFIG += release
+#endif
 TARGET = "GT-10FxFloorBoard"
 DESTDIR = ./packager
-#endif
 	OBJECTS_DIR += release
 	UI_DIR += ./generatedfiles
 	MOC_DIR += ./generatedfiles/release
@@ -80,7 +78,7 @@ macx {
 	 HEADERS += 
 	 SOURCES += ./macosx/RtMidi.cpp 
 	INCLUDEPATH += ./macosx
-	ICON = GT10FxFloorBoard.icns
+	ICON = GT-10FxFloorBoard.icns
 	message(Including Mac OS X specific headers and sources...)
 }
 

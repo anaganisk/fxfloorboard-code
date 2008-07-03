@@ -549,8 +549,8 @@ void bankTreeList::updatePatch(QString replyMsg)
   for(int i=0;i<msgLength*2;++i) 
   {
 	hex.append(replyMsg.mid(i*2, 2));
-	sysxEOF.append(replyMsg.mid((i*2)+4, 2));
-  if (sysxEOF.contains("F7"))
+	sysxEOF = (replyMsg.mid((i*2)+4, 2));
+  if (sysxEOF == "F7")
     {   
   	int dataSize = 0; bool ok;
 	  for(int h=checksumOffset;h<hex.size()-1;++h)
@@ -563,19 +563,16 @@ void bankTreeList::updatePatch(QString replyMsg)
       	hex.append(checksum);
         hex.append("F7");   
         reBuild.append(hex);   
-    /*SysxIO *sysxIO = SysxIO::Instance();
-		QString dBug = reBuild;//QString::number(dataSize, 16).toUpper();
-		sysxIO->emitStatusdBugMessage(dBug);	*/
+    
 		hex = "";
 		sysxEOF = "";
 		i=i+2;
     }; 
   };    
 	replyMsg = reBuild.simplified().toUpper().remove("0X").remove(" ");
-	//};
+
 	emit setStatusMessage(tr("Ready"));
-//	if(replyMsg != "" && replyMsg.size()/2 == patchSize) // cjw
-//	{
+
 		sysxIO->setFileSource(replyMsg);		// Set the source to the data received.
 		sysxIO->setFileName(tr("Patch from ") + deviceType);	// Set the file name to GT-10 patch for the display.
 		sysxIO->setDevice(true);				// Patch received from the device so this is set to true.
