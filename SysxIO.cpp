@@ -1019,6 +1019,6 @@ void SysxIO::emitStatusdBugMessage(QString dBug)
 };
 void SysxIO::errorReturn()
 {
-emit notConnectedSignal();
+   emit notConnectedSignal();
 };
 

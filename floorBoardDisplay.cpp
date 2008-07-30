@@ -28,6 +28,7 @@
 #include "midiIO.h"
 #include "renameWidget.h"
 #include "globalVariables.h"
+#include "stompBox.h"  //cjw
 
 
 
@@ -65,18 +66,14 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
 	this->patchDisplay->setMainText(deviceType + (" Fx FloorBoard"));
 	this->patchDisplay->setSubText("version", version);
 
-//#ifdef Q_OS_MAC
-//	initPatch = new initPatchListMenu(QRect(405, 20, 168, 20), this);
-//#else
 	initPatch = new initPatchListMenu(QRect(405, 24, 168, 15), this);
-//#endif
   renameWidget *nameEdit = new renameWidget(this); 
   nameEdit->setGeometry(85, 5, 150, 34); 
 
  	this->connectButton = new customButton(tr("Connect"), false, QPoint(405, 5), this, ":/images/greenledbutton.png");
 	this->writeButton = new customButton(tr("Write/Sync"), false, QPoint(494, 5), this, ":/images/ledbutton.png");
 	//this->manualButton = new customButton(tr("Manual"), false, QPoint(583, 24), this, ":/images/pushbutton.png");
-//	this->assignButton = new customButton(tr("Assign"), false, QPoint(583, 5), this, ":/images/pushbutton.png");
+	this->assignButton = new customButton(tr("Assign"), false, QPoint(583, 5), this, ":/images/pushbutton.png");
 //	this->masterButton = new customButton(tr("Master"), false, QPoint(672, 5), this, ":/images/pushbutton.png");
 //	this->systemButton = new customButton(tr("System"), false, QPoint(672, 24), this, ":/images/pushbutton.png");
 
@@ -92,7 +89,7 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
 
 	QObject::connect(this->connectButton, SIGNAL(valueChanged(bool)), this, SLOT(connectSignal(bool)));
 	QObject::connect(this->writeButton, SIGNAL(valueChanged(bool)), this, SLOT(writeSignal(bool)));
-	//QObject::connect(this->assignButton, SIGNAL(valueChanged(bool)), this, SLOT(assignSignal(bool)));  //cw
+	QObject::connect(this->assignButton, SIGNAL(valueChanged(bool)), this, SLOT(assignSignal(bool)));  //cw
   };
 
 QPoint floorBoardDisplay::getPos()
@@ -279,13 +276,15 @@ void floorBoardDisplay::updateDisplay()
 void floorBoardDisplay::assignSignal(bool value)    //cw
 {
     this->assignButtonActive = value;
-	//stompBox->editDialog->setWindow("Assign");
+    editWindow *edit = new editWindow();
+	  //editDialog->setWindow("Assign");
 		//emit assignSignal();
 	//stompBox->setEditDialog();
 	//floorBoard->editDialog->show();
 	emit setStatusMessage(tr("ASSIGN"));
-	//editWindow *edit = new editWindow();
-	this->assignButton->setBlink(true);
+	
+	
+  
 	
 };
 
@@ -423,7 +422,7 @@ void floorBoardDisplay::connectionResult(QString sysxMsg)
 void floorBoardDisplay::writeSignal(bool)
 {
 	SysxIO *sysxIO = SysxIO::Instance();	
-	if(sysxIO->isConnected() && sysxIO->deviceReady()) /* Check if we are connected and if the device is free. */
+	if(sysxIO->isConnected() )//&& sysxIO->deviceReady())  Check if we are connected and if the device is free. */
 	{
 	 this->writeButton->setBlink(true);
 	 
@@ -464,7 +463,7 @@ void floorBoardDisplay::writeSignal(bool)
 
 					QObject::disconnect(sysxIO, SIGNAL(isChanged()),	
 						this, SLOT(writeToBuffer()));
-					QObject::connect(sysxIO, SIGNAL(isChanged()),	// Connect the isChanged message
+				  QObject::connect(sysxIO, SIGNAL(isChanged()),	// Connect the isChanged message
 						this, SLOT(writeToBuffer()));				// to writeToBuffer.
 
 					sysxIO->requestPatchChange(bank, patch);
@@ -521,36 +520,16 @@ void floorBoardDisplay::writeSignal(bool)
 						this->writeButton->setBlink(false);
 						this->writeButton->setValue(true);
 					};					
-				};
+				}; 
 			};
-
-			 /*DeBugGING OUTPUT 
-			QString snork;
-			for(int i=0;i<sysxOut.size();++i)
-			{
-				snork.append(sysxOut.mid(i, 2));
-				snork.append(" ");
-				i++;
-			};
-			snork.replace("F7", "F7 }\n");
-			snork.replace("F0", "{ F0");
-			snork.append("\n{ size=");
-			snork.append(QString::number(sysxOut.size()/2, 10));
-			snork.append("}");		
-
-			QMessageBox *msgBox = new QMessageBox();
-			msgBox->setWindowTitle("dBug Result");
-			msgBox->setIcon(QMessageBox::Information);
-			msgBox->setText(snork);
-			msgBox->setStandardButtons(QMessageBox::Ok);
-			msgBox->exec();*/
 		}; 
-	  }
+	}
 	
  if((sysxIO->isConnected() == !true) && sysxIO->deviceReady())
 	{
 		writeToBuffer();                           // update patch to temp buffer only if not in bulk mode
 	};
+	sysxIO->getCurrentPatchName();
 };
 
 void floorBoardDisplay::writeToBuffer() 

@@ -2,10 +2,10 @@
 <!-- Preferences of the GT-10B Fx FloorBoard application. -->
 <Preferences>
 	<General>
-		<Application version="alpha 20080703"/>
+		<Application version="alpha 20080721"/>
 		<Donate url="http://sourceforge.net/donate/index.php?group_id=171049"/>
 		<Files dir=""/>
-		<Help url="GT-10BEditorManual_E.htm"/>
+		<Help url="GT-10BFxFloorBoard_help.html"/>
 		<Language code="en"/>
 		<Webpage url="http://gtx.tinfoilmusic.net/"/>
 	</General>
@@ -17,7 +17,7 @@
 		<Delay set="15"/>
 	</Midi>
 	<Window>
-    <Collapsed bool="false" defaultwidth="1254" width=""/>
+    <Collapsed bool="false" defaultwidth="1210" width=""/>
     <Position x="" y=""/>
     <Restore sidepanel="false" window="false"/>
     <Size height="" minheight="548" minwidth="1014" width=""/>

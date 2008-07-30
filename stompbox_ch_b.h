@@ -36,7 +36,7 @@ public:
 	void setEditPages();
 
 public slots:
-	void updateSignal();
+	//void updateSignal();
 };
 
 #endif // STOMPBOX_CH_B_H

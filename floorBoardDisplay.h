@@ -29,6 +29,8 @@
 #include "customButton.h"
 #include "customDisplay.h"
 #include "initPatchListMenu.h"
+#include "stompBox.h"  //cjw
+#include "editWindow.h"  //cjw
 
 class floorBoardDisplay : public QWidget
 {
@@ -45,6 +47,7 @@ public slots:
 	void setPatchNumDisplay(int bank, int patch);
 	void setPos(QPoint newPos);
 	void updateDisplay();
+	void assignSignal(bool value);   //cjw
 	void connectSignal(bool value);
 	void writeSignal(bool value);
 	void connectionResult(QString);
@@ -55,7 +58,6 @@ public slots:
 	void notConnected();
 
 	void patchChangeFailed();
-	void assignSignal(bool value);   //cw
 	void writeToBuffer();
 	void writeToMemory();
 
@@ -68,7 +70,7 @@ signals:
 
 	void setStatusSymbol(int value);
 	void setStatusProgress(int value);
-    void setStatusMessage(QString message);
+  void setStatusMessage(QString message);
 
 private:
 	QPoint pos;

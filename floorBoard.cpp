@@ -344,8 +344,8 @@ void floorBoard::dropEvent(QDropEvent *event)
 				for(int index=0;index<fx.size();index++)
 				{
 					QString fxHexValue = QString::number(fx.at(index), 16).toUpper();
-					if(fxHexValue.length() < 2) fxHexValue.prepend("0");
-
+					if(fxHexValue.length() < 2 && index == 17){ fxHexValue.prepend("4");}
+          if(fxHexValue.length() < 2 && index != 17){ fxHexValue.prepend("0");}
 					hexData.append(fxHexValue);
 				};
 				sysxIO->setFileSource("0B", "00", "00", "11", hexData);
@@ -411,11 +411,16 @@ void floorBoard::initSize(QSize floorSize)
 	for(int i=17;i>=0;i--)
 	{
 		unsigned int y = marginStompBoxesTop;
-		unsigned int x = marginStompBoxesWidth + (( stompSize.width() + spacingH ) * i);
-		if(i>8)
+		unsigned int x = marginStompBoxesWidth + (( stompSize.width() + spacingH ) * (i-1));
+		if(i==0 )
+		 {
+		 y = -200;   // throw the extra preamp off screen
+		 x = 0;
+		 }
+		if(i>9)
 		{
 			y = y + stompSize.height() + spacingV;
-			x = x - (( stompSize.width() + spacingH ) * 9);
+			x = x - (( stompSize.width() + spacingH ) * 8.5);
 		};
 		fxPos.append(QPoint::QPoint(offset + x, y));
 	};
@@ -586,7 +591,7 @@ void floorBoard::initStomps()
 	this->stompBoxes.replace(ch_a->getId(), ch_a);
 	this->stompNames.replace(ch_a->getId(), "CH_A");
 	
-	/* CH_B */ 
+	/* CH_B */
 	stompBox *ch_b = new stompbox_ch_b(this);
 	ch_b->setId( fxID.at(fxNAMES.indexOf("CH_B")) );
 	ch_b->setPos(this->getStompPos(ch_b->getId()));

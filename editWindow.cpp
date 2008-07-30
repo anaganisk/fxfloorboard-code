@@ -215,6 +215,7 @@ void editWindow::pageUpdateSignal()
 		this->pageComboBox->setCurrentIndex(index);
 		this->pagesWidget->setCurrentIndex(index);
 		//this->valueChanged(index);
+		
 	};
 };
 

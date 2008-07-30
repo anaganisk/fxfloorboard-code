@@ -126,8 +126,7 @@ void stompbox_pdl::setEditPages()
 	editDetails()->page()->addStackField();
 	
 	
-	editDetails()->page()->newStackField(1);editDetails()->page()->addStackField();
-	editDetails()->page()->newStackField(1);editDetails()->page()->addStackField();
+	
 	editDetails()->page()->newStackField(1);editDetails()->page()->addStackField();
 	editDetails()->page()->newStackField(1);editDetails()->page()->addStackField();
 	editDetails()->page()->newStackField(1);editDetails()->page()->addStackField();
@@ -142,8 +141,6 @@ void stompbox_pdl::setEditPages()
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->page()->addStackField();
 	
-	editDetails()->page()->newStackField(2);editDetails()->page()->addStackField();
-	editDetails()->page()->newStackField(2);editDetails()->page()->addStackField();
 	editDetails()->page()->newStackField(2);editDetails()->page()->addStackField();
 	editDetails()->page()->newStackField(2);editDetails()->page()->addStackField();
 	editDetails()->page()->newStackField(2);editDetails()->page()->addStackField();

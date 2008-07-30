@@ -580,42 +580,6 @@ void bankTreeList::updatePatch(QString replyMsg)
 
 		emit updateSignal();
 		emit setStatusProgress(0);
-/*
-		QList<QString> nameArray = sysxIO->getFileSource(nameAddress, "00");
-
-	MidiTable *midiTable = MidiTable::Instance();
-	QString name;
-	for(int i=sysxDataOffset;i<nameArray.size() - 2;i++ )
-		{
-		name.append( midiTable->getMidiMap("Structure", nameAddress, "00", "00", nameArray.at(i)).name );
-
-		QString hexStr = nameArray.at(i);
-		if(hexStr == "7E")
-		{
-			name.append((QChar)(0x2192));
-		}
-		if (hexStr == "7F")
-		{
-			name.append((QChar)(0x2190));  
-		}
-*/
-		//this->listIndex = 0;
-		//this->itemIndex = 0;
-		//this->currentPatchTreeItems.at(listIndex)->child(itemIndex)->setText(0,name); // Set the patch name of the item in the tree list.
-		/* if(itemIndex >= patchPerBank - 1) // If we reach the last patch in this bank we need to increment the bank and restart at patch 1.
-			{
-				this->listIndex++;
-				this->itemIndex = 0;
-			}
-			else 
-			{ 
-				this->itemIndex++;  
-			};*/
-		//};
-	//};	
-
-
-
 
 	};
 	if(replyMsg != "" && replyMsg.size()/2 != patchSize) // cjw

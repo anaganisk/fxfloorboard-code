@@ -187,9 +187,6 @@ int main(int argc, char *argv[])
 	msgText.append(QObject::tr("Ensure you have backup up your patches with the Boss Librarian before proceeding.<br><br>"));
 	msgText.append(QObject::tr("Please email to http//:gumtownbassman@yahoo.com to confirm correct function.<br><br>"));
 	msgText.append(QObject::tr(" This will help with development and future versions, and removal of this nag screen.<br>"));
-#ifdef Q_OS_MAC
-		msgText.append(QObject::tr(" The MacOSX version has a midi receive problem and only realtime edit possible."));
-#endif
 	msgBox->setText(msgText);
 	msgBox->setStandardButtons(QMessageBox::Ok);
 	msgBox->exec();
