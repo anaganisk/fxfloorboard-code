@@ -514,42 +514,6 @@ void bankTreeList::updatePatch(QString replyMsg)
 
 		emit updateSignal();
 		emit setStatusProgress(0);
-/*
-		QList<QString> nameArray = sysxIO->getFileSource(nameAddress, "00");
-
-	MidiTable *midiTable = MidiTable::Instance();
-	QString name;
-	for(int i=sysxDataOffset;i<nameArray.size() - 2;i++ )
-		{
-		name.append( midiTable->getMidiMap("Structure", nameAddress, "00", "00", nameArray.at(i)).name );
-
-		QString hexStr = nameArray.at(i);
-		if(hexStr == "7E")
-		{
-			name.append((QChar)(0x2192));
-		}
-		if (hexStr == "7F")
-		{
-			name.append((QChar)(0x2190));  
-		}
-*/
-		//this->listIndex = 0;
-		//this->itemIndex = 0;
-		//this->currentPatchTreeItems.at(listIndex)->child(itemIndex)->setText(0,name); // Set the patch name of the item in the tree list.
-		/* if(itemIndex >= patchPerBank - 1) // If we reach the last patch in this bank we need to increment the bank and restart at patch 1.
-			{
-				this->listIndex++;
-				this->itemIndex = 0;
-			}
-			else 
-			{ 
-				this->itemIndex++;  
-			};*/
-		//};
-	//};	
-
-
-
 
 	}
 	if(replyMsg != "" && replyMsg.size()/2 != patchSize) // cjw
@@ -581,6 +545,8 @@ void bankTreeList::updatePatch(QString replyMsg)
 	msgBox->setTextFormat(Qt::RichText);
 	QString msgText;
 	msgText.append("<font size='+1'><b>");
+		msgText.append(QObject::tr("Patch data transfer failed, are the correct midi ports selected?"));
+	msgText.append("<b></font><br>");
 	msgText.append(QObject::tr("Please make sure the ") + deviceType + (" is connected correctly and re-try."));
 	msgBox->setText(msgText);
 	msgBox->setStandardButtons(QMessageBox::Ok);
@@ -594,7 +560,7 @@ void bankTreeList::updatePatch(QString replyMsg)
 * device.
 *********************************************************************************/
 void bankTreeList::connectedSignal()
-{	/*
+{	
 	SysxIO *sysxIO = SysxIO::Instance();
 	if(this->openPatchTreeItems.size() != 0 && sysxIO->deviceReady() && sysxIO->isConnected())
 	{
@@ -613,7 +579,7 @@ void bankTreeList::connectedSignal()
 		qSort(this->currentPatchTreeItems);
 
 		this->updatePatchNames("");
-	};  */
+	};  
 };
 
 /********************************** updateTree() ********************************

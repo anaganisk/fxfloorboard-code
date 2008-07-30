@@ -232,7 +232,7 @@ void mainWindow::createStatusBar()
 
 	statusBarWidget *statusInfo = new statusBarWidget(this);
 	statusInfo->setStatusSymbol(0);
-	statusInfo->setStatusMessage(tr("Idle"));
+	statusInfo->setStatusMessage(tr("Not Connected"));
 
 	QObject::connect(sysxIO, SIGNAL(setStatusSymbol(int)),
                 statusInfo, SLOT(setStatusSymbol(int)));

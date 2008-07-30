@@ -434,7 +434,7 @@ void floorBoardDisplay::connectionResult(QString sysxMsg)
 void floorBoardDisplay::writeSignal(bool)
 {
 	SysxIO *sysxIO = SysxIO::Instance();	
-	if(sysxIO->isConnected() && sysxIO->deviceReady()) /* Check if we are connected and if the device is free. */
+	if(sysxIO->isConnected() )//&& sysxIO->deviceReady()) /* Check if we are connected and if the device is free. */
 	{
 	 this->writeButton->setBlink(true);
 	 
@@ -457,7 +457,7 @@ void floorBoardDisplay::writeSignal(bool)
 		}
 		else /* Bank is sellected. */
 		{
-			//sysxIO->setDeviceReady(false);			// Reserve the device for interaction.
+			sysxIO->setDeviceReady(false);			// Reserve the device for interaction.
 
 			if(!sysxIO->getSyncStatus())			// Check if the data is allready in sync. with the device.
 			{	/* If not we send the data to the (temp) buffer. So we don't change the patch default address "0B 00". */
@@ -507,6 +507,13 @@ void floorBoardDisplay::writeSignal(bool)
 				}
 				else /* User bank so we can write to it after confirmation to overwrite stored data. */
 				{
+				  QString bankNum;
+				  QString patchNum;
+				  int bank = sysxIO->getBank();
+				  int patch = sysxIO->getPatch();
+				  bankNum.append(QString::number(bank, 10));
+				  patchNum.append(QString::number(patch, 10));
+          
 					QMessageBox *msgBox = new QMessageBox();
 					msgBox->setWindowTitle(deviceType + tr(" Fx FloorBoard"));
 					msgBox->setIcon(QMessageBox::Warning);
@@ -515,8 +522,8 @@ void floorBoardDisplay::writeSignal(bool)
 					msgText.append("<font size='+1'><b>");
 					msgText.append(tr("You have chosen to write the patch permanently into GT-8 memory."));
 					msgText.append("<b></font><br>");
-					msgText.append(tr("This will overwrite the patch currently stored at this location\n"
-						"and can't be undone."));
+					msgText.append(tr("This will overwrite the patch currently stored at patch location\n")
+					+bankNum +(":") +patchNum	+(" and can't be undone."));
 					msgBox->setInformativeText(tr("Are you sure you want to continue?"));
 					msgBox->setText(msgText);
 					msgBox->setStandardButtons(QMessageBox::Yes | QMessageBox::No);
@@ -534,34 +541,14 @@ void floorBoardDisplay::writeSignal(bool)
 					};					
 				};
 			};
-
-			 /*DeBugGING OUTPUT 
-			QString snork;
-			for(int i=0;i<sysxOut.size();++i)
-			{
-				snork.append(sysxOut.mid(i, 2));
-				snork.append(" ");
-				i++;
-			};
-			snork.replace("F7", "F7 }\n");
-			snork.replace("F0", "{ F0");
-			snork.append("\n{ size=");
-			snork.append(QString::number(sysxOut.size()/2, 10));
-			snork.append("}");		
-
-			QMessageBox *msgBox = new QMessageBox();
-			msgBox->setWindowTitle("dBug Result");
-			msgBox->setIcon(QMessageBox::Information);
-			msgBox->setText(snork);
-			msgBox->setStandardButtons(QMessageBox::Ok);
-			msgBox->exec();*/
 		}; 
-	  }
+	}
 	
  if((sysxIO->isConnected() == !true) && sysxIO->deviceReady())
 	{
 		writeToBuffer();                           // update patch to temp buffer only if not in bulk mode
 	};
+		sysxIO->getCurrentPatchName();
 };
 
 void floorBoardDisplay::writeToBuffer() 
@@ -625,7 +612,7 @@ void floorBoardDisplay::writeToBuffer()
 		emit setStatusProgress(75);
 		SLEEP(100);		
 		emit setStatusProgress(42);
-		SLEEP(150);
+		SLEEP(550);
 		emit setStatusMessage(tr("Ready"));
 	
 	sysxIO->setDeviceReady(true);
@@ -684,6 +671,7 @@ void floorBoardDisplay::writeToMemory()
 		this, SLOT(resetDevice(QString)));					// to a slot that will reset the device after sending.
 
 	sysxIO->sendSysx(sysxMsg);								// Send the data.
+	SLEEP(1000);
 };
 
 void floorBoardDisplay::patchChangeFailed()
@@ -770,7 +758,7 @@ void floorBoardDisplay::blinkSellectedPatch(bool active)
 		{
 			writeButton->setBlink(false);
 		};
-		setPatchNumDisplay(bank,patch);//(sysxIO->getLoadedBank(),  sysxIO->getLoadedPatch());
+		setPatchNumDisplay(sysxIO->getLoadedBank(),  sysxIO->getLoadedPatch()); //(bank,patch);//
 	};
 	emit setStatusSymbol(1);
 	emit setStatusMessage(tr("Ready"));

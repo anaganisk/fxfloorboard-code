@@ -3,7 +3,7 @@
 <!-- Preferences of the GT-8 Fx FloorBoard application. -->
 <Preferences>
 	<General>
-		<Application version="beta 20080609"/>
+		<Application version="beta 20080725"/>
 		<Donate url="http://sourceforge.net/donate/index.php?group_id=171049"/>
 		<Files dir=""/>
 		<Help url="GT-8EditorManual_E.htm"/>
@@ -18,7 +18,7 @@
 		<Time set="70"/>
 	</Midi>
 	<Window>
-		<Collapsed width="" defaultwidth="975" bool="false"/>
+		<Collapsed width="" defaultwidth="975" bool="true"/>
 		<Position x="" y=""/>
 		<Restore window="false" sidepanel="false"/>
 		<Size width="" minwidth="788" height="" minheight="548"/>

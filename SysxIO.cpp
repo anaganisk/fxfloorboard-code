@@ -649,7 +649,7 @@ QString SysxIO::getPatchChangeMsg(int bank, int patch)
 	int bankMsbNum = (int)(bankOffset / bankSize);
 	int programChangeNum = bankOffset - (bankSize * bankMsbNum);
 	QString bankMsb = QString::number(bankMsbNum, 16);
-	QString programChange = QString::number(programChangeNum, 16);
+	QString programChange = QString::number(programChangeNum, 16).toUpper();
 	
 	if (bankMsb.length() < 2) bankMsb.prepend("0");
 	if (programChange.length() < 2) programChange.prepend("0");
@@ -822,7 +822,6 @@ void SysxIO::sendSysx(QString sysxMsg)
 ****************************************************************************/
 void SysxIO::receiveSysx(QString sysxMsg)
 {
-  emit sysxReply(sysxMsg);
 	 /*DeBugGING OUTPUT */
 	Preferences *preferences = Preferences::Instance(); // Load the preferences.
 	if(preferences->getPreferences("Midi", "DBug", "bool")=="true")
@@ -853,7 +852,8 @@ void SysxIO::receiveSysx(QString sysxMsg)
 			msgBox->setStandardButtons(QMessageBox::Ok);
 			msgBox->exec();
 		};
-	};			
+	};	
+  emit sysxReply(sysxMsg);		
 };
 
 /***************************** requestPatchName() ***************************
@@ -906,10 +906,9 @@ void SysxIO::returnPatchName(QString sysxMsg)
 
 			i++;
 		};
-	} else {
+	};
 	if (sysxMsg != "" && sysxMsg.size()/2 != 29){name = "bad data";}; 
   if(sysxMsg == ""){name = "no reply"; }; 
-  };
 	emit patchName(name.trimmed());
 };
 
