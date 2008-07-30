@@ -139,7 +139,7 @@ MidiPage::MidiPage(QWidget *parent)
 
 
 
-	QGroupBox *dBugScreenGroup = new QGroupBox(tr("dBug mode"));
+	QGroupBox *dBugScreenGroup = new QGroupBox(tr("Advanced settings"));
 
 	QLabel *dBugDescriptionLabel = new QLabel(tr("Debug mode & advanced midi settings."));
 	QLabel *midiTimeDescriptionLabel = new QLabel(tr("Data receive wait time."));

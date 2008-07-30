@@ -927,10 +927,10 @@ void SysxIO::returnPatchName(QString sysxMsg)
 
 			i++;
 		};
-	} else {
+	};
 	if (sysxMsg != "" && sysxMsg.size()/2 != 29){name = "bad data";}; 
   if(sysxMsg == ""){name = "no reply"; }; 
-    };
+    
 	emit patchName(name.trimmed());
 };
 

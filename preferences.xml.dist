@@ -2,10 +2,10 @@
 <!-- Preferences of the GT-10 Fx FloorBoard application. -->
 <Preferences>
 	<General>
-		<Application version="beta 20080626"/>
+		<Application version="alpha 20080716"/>
 		<Donate url="http://sourceforge.net/donate/index.php?group_id=171049"/>
 		<Files dir=""/>
-		<Help url="GT-10EditorManual_E.htm"/>
+		<Help url="GT-10FxFloorBoard_help.html"/>
 		<Language code="en"/>
 		<Webpage url="http://gtx.tinfoilmusic.net/"/>
 	</General>

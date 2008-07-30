@@ -34,6 +34,9 @@ class stompbox_cn_m : public stompBox
 public:
 	stompbox_cn_m(QWidget *parent);
 	void setEditPages();
+	
+	public slots:
+	void updateSignal();
 };
 
 #endif // STOMPBOX_CN_M_H

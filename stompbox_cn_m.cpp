@@ -27,12 +27,17 @@ stompbox_cn_m::stompbox_cn_m(QWidget *parent)
 {
 	/* CHAIN MERGE */
 	this->setImage(":/images/cn_m.png");
-	setLSB("void", "void");
+	setLSB("01", "00");
 	setEditPages();
+};
+
+void stompbox_cn_m::updateSignal()
+{
 };
 
 void stompbox_cn_m::setEditPages()
 {
+ 
     
 	editDetails()->addPage();	
 };

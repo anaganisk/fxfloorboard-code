@@ -336,6 +336,22 @@ bool sysxWriter::readFile()
     if (file.open(QIODevice::ReadOnly))
 	{	data = file.readAll(); };
 	QByteArray temp;                         // TRANSLATION of GT-10 SMF PATCHES, data read from smf patch **************
+	if ( smf_data.at(37) != data.at(5) ){    // check if a valid GT-10 file
+  QMessageBox *msgBox = new QMessageBox();
+	msgBox->setWindowTitle(QObject::tr("SMF file import"));
+	msgBox->setIcon(QMessageBox::Warning);
+	msgBox->setTextFormat(Qt::RichText);
+	QString msgText;
+	msgText.append("<font size='+1'><b>");
+	msgText.append(QObject::tr("This is not a GT-10 patch!"));
+	msgText.append("<b></font><br>");
+	msgText.append(QObject::tr("this file is most likely a GT-10B Bass version<br>"));
+	msgText.append(QObject::tr("*Loading this file may have unpredictable results*."));
+	msgBox->setText(msgText);
+	msgBox->setStandardButtons(QMessageBox::Ok);
+	msgBox->exec();
+  
+  };
 	temp = smf_data.mid(43, 128);            // copy SMF 128 bytes
 	data.replace(11, 128, temp);             // replace gt10 address "00"
 	temp = smf_data.mid(171, 114);           // copy SMF part1
@@ -447,8 +463,8 @@ void sysxWriter::writeSMF(QString fileName)
 			};
 		};
 		
-	QByteArray temp;                        // TRANSLATION of GT-8 PATCHES, data read from gt8 patch **************
-	QByteArray Qhex;                        // and used to replace gt10 patch data*********************************
+	QByteArray temp;                        // TRANSLATION of GT-10 PATCHES, data read from gt8 syx patch **************
+	QByteArray Qhex;                        // and used to replace gt10 patch SMF data*********************************
   QFile hexfile(":HexLookupTable.hex");   // use a QByteArray of hex numbers from a lookup table.
     if (hexfile.open(QIODevice::ReadOnly))
 	{	Qhex = hexfile.readAll(); };

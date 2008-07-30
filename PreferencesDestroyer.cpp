@@ -29,7 +29,7 @@ PreferencesDestroyer::PreferencesDestroyer(Preferences* s)
 
 PreferencesDestroyer::~PreferencesDestroyer ()
 {
-	_preferences->savePreferences();
+	//_preferences->savePreferences();
 	delete _preferences;
 };
 

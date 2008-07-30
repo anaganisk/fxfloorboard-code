@@ -428,8 +428,8 @@ void midiIO::sendSysxMsg(QString sysxOutMsg, int midiOutPort, int midiInPort)
   for(int i=0;i<msgLength*2;++i) 
   {
 	hex.append(sysxOutMsg.mid(i*2, 2));
-	sysxEOF.append(sysxOutMsg.mid((i*2)+4, 2));
-  if (sysxEOF.contains("F7"))
+	sysxEOF = sysxOutMsg.mid((i*2)+4, 2);
+  if (sysxEOF == "F7")
     {   
   	int dataSize = 0; bool ok;
 	  for(int h=checksumOffset;h<hex.size()-1;++h)

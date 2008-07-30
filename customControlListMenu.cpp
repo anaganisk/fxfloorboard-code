@@ -126,7 +126,7 @@ void customControlListMenu::setComboBox()
 	};
 
 
-  this->controlListComboBox->setFixedHeight(15);
+    this->controlListComboBox->setFixedHeight(15);
 	this->controlListComboBox->setEditable(false);
 	this->controlListComboBox->setFrame(false);
 	this->controlListComboBox->setMaxVisibleItems(itemcount);

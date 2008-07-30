@@ -164,7 +164,7 @@ void midiInputCallback( const MIDIPacketList *list, void *procRef, void *srcRef 
     // be complete within the same MIDIPacketList.
 
     nBytes = packet->length;
-    //if ( nBytes == 0 ) continue;
+    if ( nBytes == 0 ) continue;
 
     // Calculate time stamp.
     message.timeStamp = 0.0;
@@ -177,10 +177,9 @@ void midiInputCallback( const MIDIPacketList *list, void *procRef, void *srcRef 
       message.timeStamp = time * 0.000000001;
     }*/
     apiData->lastTime = packet->timeStamp;
-
+ 
     iByte = 0;
-    /*if ( continueSysex ) {
-      // We have a continuing, segmented sysex message.
+    if ( continueSysex ) {      // We have a continuing, segmented sysex message.
       //if ( !(data->ignoreFlags & 0x01) ) {
         // If we're not ignoring sysex messages, copy the entire packet.
         for ( unsigned int j=0; j<nBytes; j++ )
@@ -203,7 +202,7 @@ void midiInputCallback( const MIDIPacketList *list, void *procRef, void *srcRef 
         message.bytes.clear();
       }
     }
-    else {*/
+    else {
       while ( iByte < nBytes ) {
         size = 0;
         // We are expecting that the next byte in the packet is a status byte.
@@ -270,7 +269,7 @@ void midiInputCallback( const MIDIPacketList *list, void *procRef, void *srcRef 
     }
     packet = MIDIPacketNext(packet);
   }
-//}
+}   //
 
 void RtMidiIn :: initialize( void )
 {
@@ -306,7 +305,7 @@ void RtMidiIn :: openPort( unsigned int portNumber )
 
   std::ostringstream ost;
   if ( portNumber >= nSrc ) {
-    ost << "FxFloorBoard MidiIn::openPort: the listed device at 'portNumber'(" << portNumber << ") is invalid.";
+    ost << "FxFloorBoard MidiIn::openPort: the listed midi device at 'portNumber'(" << portNumber << ") is not present.";
     errorString_ = ost.str();
     error( RtError::INVALID_PARAMETER );
   }
@@ -396,7 +395,7 @@ std::string RtMidiIn :: getPortName( unsigned int portNumber )
   char name[128];
 
   if ( portNumber >= MIDIGetNumberOfSources() ) {
-    ost << "FxFloorBoard MidiIn::getPortName: the listed device at 'portNumber'(" << portNumber << ") is invalid.";
+    ost << "FxFloorBoard MidiIn::getPortName: the listed midi device at 'portNumber'(" << portNumber << ") is not present.";
     errorString_ = ost.str();
     error( RtError::INVALID_PARAMETER );
   }

@@ -36,7 +36,8 @@ void customComboBox::showPopup()
  		QString item = this->itemText(i);
  		if(longestItem.size() < item.size()) longestItem = item;
  	};
- 	int popupWidth = QFontMetrics( this->font() ).width( longestItem + "--" );
+ 	int popupWidth = QFontMetrics( this->font() ).width( longestItem );
+	
 
  	if( this->view()->verticalScrollBar()->isVisible() )
  	{
@@ -51,5 +52,6 @@ void customComboBox::showPopup()
  	};
 
  	this->view()->setMinimumWidth(popupWidth);
+	QComboBox::AdjustToContents;
  	QComboBox::showPopup();
 };
