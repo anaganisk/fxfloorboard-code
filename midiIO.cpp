@@ -166,7 +166,7 @@ void midiIO::sendSyxMsg(QString sysxOutMsg, int midiOutPort)
     RtMidiOut *midiMsgOut = 0;
 	midiMsgOut = new RtMidiOut(); 
     int nPorts = midiMsgOut->getPortCount();   // Check available ports.
-    if ( nPorts < 1 ) { goto cleanup; };
+    if ( nPorts < 1 ) { goto cleanup; }
     try {    
         midiMsgOut->openPort(midiOutPort);	// Open selected port.         
 		    std::vector<unsigned char> message;	
@@ -211,7 +211,7 @@ void midiIO::sendMidiMsg(QString sysxOutMsg, int midiOutPort)
     RtMidiOut *midiMsgOut = 0;
 		midiMsgOut = new RtMidiOut(); 
     int nPorts = midiMsgOut->getPortCount();   // Check available ports.
-    if ( nPorts < 1 ) { goto cleanup; };
+    if ( nPorts < 1 ) { goto cleanup; }
     try {    
     midiMsgOut->openPort(midiOutPort);	// Open selected port.         
 		std::vector<unsigned char> message;	
@@ -415,17 +415,17 @@ void midiIO::run()
  *************************************************************************/
 void midiIO::sendSysxMsg(QString sysxOutMsg, int midiOutPort, int midiInPort)
 {	
-  QString reBuild = sysxOutMsg;//"";
-  /*QString sysxEOF = "";	
+  QString reBuild = "";
+  QString sysxEOF = "";	
   QString hex = "";
   int msgLength = sysxOutMsg.length()/2;
   for(int i=0;i<msgLength*2;++i) 
   {
 	hex.append(sysxOutMsg.mid(i*2, 2));
-	sysxEOF.append(sysxOutMsg.mid((i*2)+4, 2));
-	int sz = sysxEOF.length()/2;
-  if (sysxEOF.mid(sz*2, 2) == "F7")
-    {   
+	sysxEOF = sysxOutMsg.mid((i*2)+4, 2);
+  if (sysxEOF == "F7")
+
+    {    
   	int dataSize = 0; bool ok;
 	  for(int h=checksumOffset;h<hex.size()-1;++h)
 	  { dataSize += hex.mid(h*2, 2).toInt(&ok, 16); };
@@ -437,11 +437,14 @@ void midiIO::sendSysxMsg(QString sysxOutMsg, int midiOutPort, int midiInPort)
       	hex.append(checksum);
         hex.append("F7");   
         reBuild.append(hex);   
+    /*SysxIO *sysxIO = SysxIO::Instance();
+		QString dBug = reBuild;//QString::number(dataSize, 16).toUpper();
+		sysxIO->emitStatusdBugMessage(dBug);	*/
 		hex = "";
 		sysxEOF = "";
 		i=i+2;
     }; 
-  };    */
+  };    
   if (sysxOutMsg == idRequestString){reBuild = sysxOutMsg;};  // identity request not require checksum
 	this->sysxOutMsg = reBuild/*.simplified().toUpper().remove("0X").remove(" ").remove("FFFF")*/;
 	if(sysxOutMsg.size() == (sysxDataOffset*2 + 12) && sysxOutMsg.mid(sysxOutMsg.size()-12, 8) == patchRequestSize && sysxOutMsg.mid((sysxAddressOffset*2-2), 2) == "11")  

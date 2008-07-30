@@ -445,7 +445,7 @@ void floorBoardDisplay::writeSignal(bool)
 	{
 	 this->writeButton->setBlink(true);
 	 
-		if(sysxIO->getBank() == 0) /* Check if a bank is sellected. */
+		if(sysxIO->getBank() == 0) /* Check if a bank is not selected. */
 		{
 			QMessageBox *msgBox = new QMessageBox();
 			msgBox->setWindowTitle(deviceType + tr(" Fx FloorBoard"));
@@ -466,8 +466,8 @@ void floorBoardDisplay::writeSignal(bool)
 		{
 			sysxIO->setDeviceReady(false);			// Reserve the device for interaction.
 
-			if(!sysxIO->getSyncStatus())			// Check if the data is allready in sync. with the device.
-			{	/* If not we send the data to the (temp) buffer. So we don't change the patch default address "0B 00". */
+			/*if(!sysxIO->getSyncStatus())			// Check if the data is already in sync. with the device.
+			{	// If not we send the data to the (temp) buffer. So we don't change the patch default address "0B 00". 
 
 				
 				if(sysxIO->getBank() != sysxIO->getLoadedBank() || sysxIO->getPatch() != sysxIO->getLoadedPatch())// Check if a different patch is sellected
@@ -477,7 +477,7 @@ void floorBoardDisplay::writeSignal(bool)
 					
 					int bank = sysxIO->getBank();
 					int patch = sysxIO->getPatch();
-					patchLoadSignal(bank, patch);	// Tell to stop blinking a sellected patch and prepare to load this one instead.
+					patchLoadSignal(bank, patch);	// Tell to stop blinking a selected patch and prepare to load this one instead.
 					setPatchNumDisplay(bank, patch);
 
 					QObject::disconnect(sysxIO, SIGNAL(isChanged()),	
@@ -492,8 +492,8 @@ void floorBoardDisplay::writeSignal(bool)
 					writeToBuffer();
 				};		
 			}
-			else /* If sync we will write (save) the patch directly to sellected bank. So we will have to change the patch adsress */
-			{
+			else // If sync we will write (save) the patch directly to sellected bank. So we will have to change the patch adsress 
+			{*/
 				if(sysxIO->getBank() > bankTotalUser) // Preset banks are NOT writable so we check.
 				{
 					QMessageBox *msgBox = new QMessageBox();
@@ -533,13 +533,13 @@ void floorBoardDisplay::writeSignal(bool)
 						
 						writeToMemory();
 					}
-					else if(sysxIO->isConnected())
+					else /*if(sysxIO->isConnected())*/
 					{
 						sysxIO->setDeviceReady(true);
 						this->writeButton->setBlink(false);
 						this->writeButton->setValue(true);
 					};					
-				};
+				//};
 			};
 
 			 /*DeBugGING OUTPUT 
@@ -563,7 +563,7 @@ void floorBoardDisplay::writeSignal(bool)
 			msgBox->setStandardButtons(QMessageBox::Ok);
 			msgBox->exec();*/
 		}; 
-	  }
+	};
 	
  if((sysxIO->isConnected() == !true) && sysxIO->deviceReady())
 	{
@@ -634,20 +634,20 @@ void floorBoardDisplay::writeToBuffer()
 		emit setStatusProgress(42);
 		SLEEP(150);
 		emit setStatusMessage(tr("Ready"));
+		SLEEP(1000);
 	
 	sysxIO->setDeviceReady(true);
 };
 
 void floorBoardDisplay::writeToMemory() 
 {
+  emit setStatusSymbol(2);
+	emit setStatusMessage(tr("Writing to Patch"));
 	SysxIO *sysxIO = SysxIO::Instance();
 
 	QString sysxMsg; bool ok;
 	QList< QList<QString> > patchData = sysxIO->getFileSource().hex; // Get the loaded patch data.
 	QList<QString> patchAddress = sysxIO->getFileSource().address;
-
-	emit setStatusSymbol(2);
-	emit setStatusMessage(tr("Writing to Patch"));
 
 	int bank = sysxIO->getBank();
 	int patch = sysxIO->getPatch();
@@ -683,14 +683,18 @@ void floorBoardDisplay::writeToMemory()
 			sysxMsg.append(hex);
 		};
 	};
+	
 	sysxIO->setSyncStatus(true);		// Still in sync
 	this->writeButton->setBlink(false); // so no blinking here either...
 	this->writeButton->setValue(true);	// ... and still the button will be active also ...
 
 	QObject::connect(sysxIO, SIGNAL(sysxReply(QString)),	// Connect the result signal 
-		this, SLOT(resetDevice(QString)));					// to a slot that will reset the device after sending.
-
+	this, SLOT(resetDevice(QString)));					// to a slot that will reset the device after sending.
+  SLEEP(1000);
 	sysxIO->sendSysx(sysxMsg);								// Send the data.
+	
+	//emit setStatusMessage(tr("Ready"));
+	sysxIO->setDeviceReady(true);
 };
 
 void floorBoardDisplay::patchChangeFailed()
