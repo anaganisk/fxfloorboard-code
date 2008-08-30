@@ -21,13 +21,13 @@
 **
 ****************************************************************************/
 
+#include <QSysInfo>
 #include "midiIO.h"
 #include "SysxIO.h"
 #include "globalVariables.h"
 #include "RtMidi.h"
 #include "Preferences.h"
 #include "MidiTable.h"
-#include <QSysInfo>
 
 int midiIO::bytesTotal = 0;
 int loopCount;
@@ -273,8 +273,8 @@ void midiIO::receiveMsg(QString sysxInMsg, int midiInPort)
 	emit setStatusProgress(100);
 	Preferences *preferences = Preferences::Instance(); bool ok;// Load the preferences.
 	const int maxWait = preferences->getPreferences("Midi", "Time", "set").toInt(&ok, 10);
-	if(multiple){loopCount = maxWait*40;}
-	  else {loopCount = maxWait*5;};
+	if(multiple){loopCount = maxWait*10;}
+	  else {loopCount = maxWait/10;};
 			int bytesReceived = 0;	
       RtMidiIn *midiin = 0;	
 	  midiin = new RtMidiIn();		   //RtMidi constructor
@@ -383,7 +383,7 @@ void midiIO::run()
 			{
 				bytesTotal += 2;
 			}
-			else if(sizeChunk == "00000D64") // Patch Request data size.
+			else if(sizeChunk == patchRequestDataSize) // Patch Request data size = "00000D64".
 			{
 				bytesTotal = patchSize;     // progressbar scaled to patch size
 			};
@@ -452,12 +452,10 @@ void midiIO::sendSysxMsg(QString sysxOutMsg, int midiOutPort, int midiInPort)
   };    
   if (sysxOutMsg.size() == 12){reBuild = sysxOutMsg;};  // identity request not require checksum
 	this->sysxOutMsg = reBuild.simplified().toUpper().remove("0X").remove(" ");
-	if (deviceType == "GT-10B") {
-    if(sysxOutMsg.size() == (sysxDataOffset*2 + 12) && sysxOutMsg.mid(sysxOutMsg.size()-8, 4) == "0D64" && sysxOutMsg.mid((sysxAddressOffset*2-2), 2) == "11")  
+	
+    if((sysxOutMsg.size() == (sysxDataOffset*2 + 12)) && (sysxOutMsg.mid(sysxOutMsg.size()-12, 8) == patchRequestDataSize) && (sysxOutMsg.mid((sysxAddressOffset*2-2), 2) == "11") )  
     {this->multiple = true;} else {this->multiple = false;}
-      } else { 
-	  if(sysxOutMsg.size() == (sysxDataOffset*2 + 12) && sysxOutMsg.mid(sysxOutMsg.size()-8, 4) == "0001" && sysxOutMsg.mid((sysxAddressOffset*2-2), 2) == "11") 
-    {this->multiple = true;} else {this->multiple = false;} }
+     
 	this->midiOutPort = midiOutPort;
 	this->midiInPort = midiInPort;
 	this->midi = false;

@@ -36,7 +36,7 @@
 /* General Parameters */
 const QString deviceType = "GT-10B";
 const QString idRequestString = "F07E000601F7";		// Indentity Request (GT-10B).
-const QString idReplyPatern = "F07E000602";			// part of Returned device id message must contain/match this (QRegExp or a string without spaces and all caps).
+const QString idReplyPatern = "F07E000602413002";			// part of Returned device id message must contain/match this (QRegExp or a string without spaces and all caps).
 const int buttonBlinkInterval = 250;				// The interval (ms) the led on buttons blink.
 
 /* Sysex Message Parameters */
@@ -55,6 +55,7 @@ const int bankSize = 100;       // Number of patches in a midi bank before bank 
 /* Midi Send & Receive */
 const int patchPackets = 27;	 // number of sysx packets "F0....F7" which make up a patch.
 const int patchSize = 1495;    // size of bytes in a patch.
+const QString patchRequestDataSize = "00000D64";
 //const int maxWait = 40;			 // Maximum times we loop through the receive handle before we give up waiting.(for whole patch) tempory used by midi prefs
 //const int minWait = 5;			 // Minimum times we loop through the receive handle before we give up waiting.(for small data)   "      "       "       "
 const int maxRetry = 4;			   // Maximum times we retry to load a patch in case of a transfer error .

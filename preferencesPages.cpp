@@ -1,8 +1,9 @@
 /****************************************************************************
 **
+** Copyright (C) 2008 Colin Willcocks.
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT6B Fx FloorBoard".
+** This file is part of "GT10B Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -139,7 +140,7 @@ MidiPage::MidiPage(QWidget *parent)
 
 
 
-	QGroupBox *dBugScreenGroup = new QGroupBox(tr("dBug mode"));
+	QGroupBox *dBugScreenGroup = new QGroupBox(tr("Advanced settings"));
 
 	QLabel *dBugDescriptionLabel = new QLabel(tr("Debug mode & advanced midi settings."));
 	QLabel *midiTimeDescriptionLabel = new QLabel(tr("Data receive wait time."));
@@ -160,7 +161,7 @@ MidiPage::MidiPage(QWidget *parent)
 	midiTimeSpinBox->setValue(tempDataWrite);
 	midiTimeSpinBox->setRange(1, 99);
 	midiTimeSpinBox->setPrefix("= ");
-	midiTimeSpinBox->setSuffix("x 30 mS");
+	midiTimeSpinBox->setSuffix("x 10 mS");
 
 	this->midiDelaySpinBox = midiDelaySpinBox;
 	const int minWait = preferences->getPreferences("Midi", "Delay", "set").toInt(&ok, 10);

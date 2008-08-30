@@ -562,6 +562,7 @@ bool SysxIO::isConnected()
 void SysxIO::setConnected(bool connected)
 {
 	this->connected = connected;	
+	emit setStatusMessage("Ready");
 };
 
 /***************************** deviceReady() ******************************
@@ -676,10 +677,6 @@ QString SysxIO::getPatchChangeMsg(int bank, int patch)
 	midiMsg.append("B000"+bankMsb);
 	midiMsg.append("B01000");
 	midiMsg.append("C0"+programChange);
-	//midiMsg.append("B00000");			          // MSB	-> bank change	bank 0
-	//midiMsg.append("B020"+bankMsb);					// LSB -> control change event bank 32 + bank shift
-	//midiMsg.append("C0"+programChange);	    // Program patch Control
-	emit setStatusMessage("Patch change");
 	return midiMsg;
 };
 
@@ -712,11 +709,11 @@ void SysxIO::sendMidi(QString midiMsg)
 void SysxIO::finishedSending()
 {
 	emit isFinished();
-	/*emit setStatusSymbol(1);
+	emit setStatusSymbol(1);
 	emit setStatusProgress(0);
-	emit setStatusMessage(tr("Ready"));*/
+	emit setStatusMessage(tr("Ready"));
 
-	this->namePatchChange();
+	//this->namePatchChange();
 };
 
 /***************************** requestPatchChange() *************************
@@ -735,6 +732,7 @@ void SysxIO::requestPatchChange(int bank, int patch)
 		this, SLOT(namePatchChange()));				// to returnPatchName function.
 	
 	QString midiMsg = getPatchChangeMsg(bank, patch);
+	emit setStatusMessage("Patch change");
 	this->sendMidi(midiMsg);
 };
   
@@ -754,7 +752,7 @@ void SysxIO::namePatchChange()
 	//this->requestPatchName(0, 0);
 };
 
-/***************************** checkPatchChange() *************************
+/***************************** checkPatchChange() *************************namePatchChange()
 * Emits a signal if the patch change was confirmed else it will retry until
 * the maximum retry's has been reached.
 ****************************************************************************/
@@ -763,13 +761,14 @@ void SysxIO::checkPatchChange(QString name)
 	QObject::disconnect(this, SIGNAL(patchName(QString)),
 		this, SLOT(checkPatchChange(QString)));
 
-	//if(this->requestName  == name)
-	{
+//	if(this->requestName  == name)
+//	{
 		emit isChanged();
 		this->changeCount = 0;
-		this->setDeviceReady(true); //  extra added  line
-	}
-/*	else
+		//this->setDeviceReady(true); //  extra added  line
+		//QObject::disconnect(this, SIGNAL(isChanged()));  //  extra added  line
+/*	}
+	else
 	{
 		if(changeCount < maxRetry)
 		{
@@ -793,24 +792,10 @@ void SysxIO::checkPatchChange(QString name)
 
 			emit patchChangeFailed();
 
-			QApplication::beep(); */
+			QApplication::beep(); 
 
-			/*QMessageBox *msgBox = new QMessageBox();
-			msgBox->setWindowTitle(tr("GT-10B Fx FloorBoard"));
-			msgBox->setIcon(QMessageBox::Warning);
-			msgBox->setTextFormat(Qt::RichText);
-			QString msgText;
-			msgText.append("<font size='+1'><b>");
-			msgText.append(tr("Error while changing banks."));
-			msgText.append("<b></font><br>");
-			msgText.append(tr("An incorrect patch has been loaded. Please try to load the patch again."));
-			msgBox->setText(msgText);
-			msgBox->setInformativeText(tr("This is a known bug, it occures when changing the bank 'LSB'.\n"
-				"For an unkown reason it didn't change."));
-			msgBox->setStandardButtons(QMessageBox::Ok);
-			msgBox->exec();*/
-	//	};
-	//};
+		};
+	};  */
 };
 
 /***************************** sendSysx() ***********************************
@@ -963,6 +948,7 @@ void SysxIO::errorSignal(QString windowTitle, QString errorMsg)
 		msgBox->setText(errorMsg);
 		msgBox->setStandardButtons(QMessageBox::Ok);
 		msgBox->exec();
+
 	};
 };
 

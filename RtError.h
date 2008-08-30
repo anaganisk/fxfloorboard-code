@@ -55,13 +55,14 @@ public:
 	  errorType.append(type_);
 	  QString errorMsg;
 	  errorMsg.append(QString::fromStdString(message_));
-  QMessageBox *msgBox = new QMessageBox();
-		msgBox->setWindowTitle("GT6BFxFloorBoard");
+  /*QMessageBox *msgBox = new QMessageBox();
+		msgBox->setWindowTitle("GT10BFxFloorBoard");
 		msgBox->setIcon(QMessageBox::Warning);
 		msgBox->setTextFormat(Qt::RichText);
 		msgBox->setText(errorMsg);
 		msgBox->setStandardButtons(QMessageBox::Ok);
 		msgBox->exec();
+*/
   }
 
   //! Returns the thrown error message type.

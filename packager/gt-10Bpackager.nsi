@@ -2,7 +2,7 @@
 
 ; HM NIS Edit Wizard helper defines
 !define PRODUCT_NAME "GT-10BFxFloorBoard"
-!define PRODUCT_VERSION "20080712"
+!define PRODUCT_VERSION "20080829"
 !define PRODUCT_PUBLISHER "gumtownbassman"
 !define PRODUCT_WEB_SITE "http://www.gtx.tinfoilmusic.net"
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\GT-10BFxFloorBoard.exe"
@@ -59,11 +59,14 @@ Section "MainSection" SEC01
   CreateShortCut "$DESKTOP\GT-10BFxFloorBoard.lnk" "$INSTDIR\GT-10BFxFloorBoard.exe"
   File "mingwm10.dll"
   File "license.txt"
+  File "preferences.xml.dist"
   File "GT-10BFxFloorBoard_help.html"
   SetOutPath "$INSTDIR\Init Patches"
   SetOverwrite try
   File "Init Patches\$toneBlue Chorus.syx"
   File "Init Patches\$toneBlue drive.syx"
+  File "Init Patches\$toneBlue_Fuzzy.syx"
+  File "Init Patches\Blank_Init_patch.syx"
   File "Init Patches\70's Jazz-Fusion.syx"
   File "Init Patches\eXPERIMENT.syx"
   File "Init Patches\GT10patch.syx"
@@ -168,8 +171,12 @@ Section Uninstall
   Delete "$INSTDIR\Init Patches\70's Jazz-Fusion.syx"
   Delete "$INSTDIR\Init Patches\$$toneBlue drive.syx"
   Delete "$INSTDIR\Init Patches\$$toneBlue Chorus.syx"
+  Delete "$INSTDIR\Init Patches\$toneBlue_Fuzzy.syx"
+  Delete "$INSTDIR\Init Patches\Blank_Init_patch.syx"
   Delete "$INSTDIR\GT-10BFxFloorBoard_help.html"
   Delete "$INSTDIR\license.txt"
+  Delete "$INSTDIR\preferences.xml.dist"
+  Delete "$INSTDIR\preferences.xml"
   Delete "$INSTDIR\mingwm10.dll"
   Delete "$INSTDIR\GT-10BFxFloorBoard.exe"
 
