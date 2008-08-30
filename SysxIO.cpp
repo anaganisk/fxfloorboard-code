@@ -1,5 +1,6 @@
 /****************************************************************************
 **
+** Copyright (C) 2008 Colin Willcocks.
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
 ** This file is part of "GT-10 Fx FloorBoard".
@@ -124,8 +125,6 @@ void SysxIO::setFileSource(QByteArray data)
 			offset = 0;
 		};
 	};
-	
-	
 	if(!errorList.isEmpty())
 	{
 		QMessageBox *msgBox = new QMessageBox();
@@ -524,8 +523,8 @@ QList<QString> SysxIO::correctSysxMsg(QList<QString> sysxMsg)
 				QString valueHex2 = QString::number(value - (dif * maxRange), 16).toUpper();
 				if(valueHex2.length() < 2) valueHex2.prepend("0");
 				
-				//sysxMsg.replace(i, valueHex1);
-				//sysxMsg.replace(i + 1, valueHex2);
+				sysxMsg.replace(i, valueHex1);
+				sysxMsg.replace(i + 1, valueHex2);
 			};
 
 			i++; 
@@ -563,6 +562,7 @@ bool SysxIO::isConnected()
 void SysxIO::setConnected(bool connected)
 {
 	this->connected = connected;	
+	emit setStatusMessage("Ready");
 };
 
 /***************************** deviceReady() ******************************
@@ -677,10 +677,6 @@ QString SysxIO::getPatchChangeMsg(int bank, int patch)
 	midiMsg.append("B000"+bankMsb);
 	midiMsg.append("B01000");
 	midiMsg.append("C0"+programChange);
-	//midiMsg.append("B00000");			          // MSB	-> bank change	bank 0
-	//midiMsg.append("B020"+bankMsb);					// LSB -> control change event bank 32 + bank shift
-	//midiMsg.append("C0"+programChange);	    // Program patch Control
-  emit setStatusMessage("Patch change");
 	return midiMsg;
 };
 
@@ -713,11 +709,11 @@ void SysxIO::sendMidi(QString midiMsg)
 void SysxIO::finishedSending()
 {
 	emit isFinished();
-	/*emit setStatusSymbol(1);
+	emit setStatusSymbol(1);
 	emit setStatusProgress(0);
-	emit setStatusMessage(tr("Ready"));*/
+	emit setStatusMessage(tr("Ready"));
 
-	this->namePatchChange();
+	//this->namePatchChange();
 };
 
 /***************************** requestPatchChange() *************************
@@ -736,6 +732,7 @@ void SysxIO::requestPatchChange(int bank, int patch)
 		this, SLOT(namePatchChange()));				// to returnPatchName function.
 	
 	QString midiMsg = getPatchChangeMsg(bank, patch);
+	emit setStatusMessage("Patch change");
 	this->sendMidi(midiMsg);
 };
   
@@ -765,12 +762,12 @@ void SysxIO::checkPatchChange(QString name)
 		this, SLOT(checkPatchChange(QString)));
 
 	//if(this->requestName  == name)
-	{
+	//{
 		emit isChanged();
 		this->changeCount = 0;
-		this->setDeviceReady(true); //  extra added  line
-	}
-/*	else
+		//this->setDeviceReady(true); //  extra added  line
+	/*}
+	else
 	{
 		if(changeCount < maxRetry)
 		{
@@ -794,24 +791,10 @@ void SysxIO::checkPatchChange(QString name)
 
 			emit patchChangeFailed();
 
-			QApplication::beep(); */
+			QApplication::beep(); 
 
-			/*QMessageBox *msgBox = new QMessageBox();
-			msgBox->setWindowTitle(tr("GT-10 Fx FloorBoard"));
-			msgBox->setIcon(QMessageBox::Warning);
-			msgBox->setTextFormat(Qt::RichText);
-			QString msgText;
-			msgText.append("<font size='+1'><b>");
-			msgText.append(tr("Error while changing banks."));
-			msgText.append("<b></font><br>");
-			msgText.append(tr("An incorrect patch has been loaded. Please try to load the patch again."));
-			msgBox->setText(msgText);
-			msgBox->setInformativeText(tr("This is a known bug, it occures when changing the bank 'LSB'.\n"
-				"For an unkown reason it didn't change."));
-			msgBox->setStandardButtons(QMessageBox::Ok);
-			msgBox->exec();*/
-	//	};
-	//};
+				};
+	}; */
 };
 
 /***************************** sendSysx() ***********************************
@@ -839,8 +822,7 @@ void SysxIO::sendSysx(QString sysxMsg)
 * Receives possible replied sysex message on sendSysex.
 ****************************************************************************/
 void SysxIO::receiveSysx(QString sysxMsg)
-{
-	
+{	
 	 /*DeBugGING OUTPUT */
 	Preferences *preferences = Preferences::Instance(); // Load the preferences.
 	if(preferences->getPreferences("Midi", "DBug", "bool")=="true")
@@ -859,8 +841,7 @@ void SysxIO::receiveSysx(QString sysxMsg)
 				i++;
 			};
 			snork.replace("F7", "F7 }<br>");
-			snork.replace("F0", "{ F0");
-			
+			snork.replace("F0", "{ F0");		
 		  if (sysxMsg == dBug){
 				  snork.append("<br> WARNING: midi data received = data sent");
 				  snork.append("<br> caused by a midi loopback, port change is required");
@@ -904,7 +885,7 @@ void SysxIO::returnPatchName(QString sysxMsg)
 			this, SLOT(returnPatchName(QString)));
 	
 	QString name; 
-	if(sysxMsg != "" && sysxMsg.size()/2 == 29)   // packet size for name request
+	if(sysxMsg != "" && sysxMsg.size()/2 == 29)   
 	{		
 		int dataStartOffset = sysxNameOffset;   //pointer to start of names in patch file at xxxx bytes.
 		QString hex1, hex2, hex3, hex4;
@@ -929,10 +910,13 @@ void SysxIO::returnPatchName(QString sysxMsg)
 		};
 	};
 	if (sysxMsg != "" && sysxMsg.size()/2 != 29){name = "bad data";}; 
-  if(sysxMsg == ""){name = "no reply"; }; 
-    
+  if(sysxMsg == ""){name = "no reply"; };  
 	emit patchName(name.trimmed());
+	
+	
+	
 };
+
 
 /***************************** requestPatch() ******************************
 * Send a patch request. Result will be send directly with receiveSysx signal
@@ -963,6 +947,7 @@ void SysxIO::errorSignal(QString windowTitle, QString errorMsg)
 		msgBox->setText(errorMsg);
 		msgBox->setStandardButtons(QMessageBox::Ok);
 		msgBox->exec();
+		
 	};
 };
 
@@ -1021,4 +1006,3 @@ void SysxIO::errorReturn()
 {
 emit notConnectedSignal();
 };
-

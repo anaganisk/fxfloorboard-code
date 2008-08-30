@@ -1,6 +1,6 @@
-*********************GT-FxFloorBoard Preview version: 16 July 2008 *************************
+*********************GT-FxFloorBoard Preview version: 29 August 2008 *************************
 
-****NOTE: THIS IS A PREVIEW VERSION AND MANY FEATURES HAVE NOT YET BEEN IMPLIMENTED, OR SOME FUNCTIONS MAY BE INCORRECT.**** 
+****NOTE: THIS IS A PREVIEW VERSION AND MANY FEATURES MAY NOT YET BEEN IMPLIMENTED, OR SOME FUNCTIONS MAY BE INCORRECT.**** 
 
 a.)  yet to sort chain structure concept. chain will currently place all FX into channel A path.
 	try out all the pedals by double or right click on stomp body area, let me know which parameters are incorrect.
@@ -21,10 +21,7 @@ e.)  patch tree to the left side should give patch change on single click and (w
 
 f.)  patch rename by doubleclicking name display panel.
 
-g.)  out-going midi & patch data will be recognized by GT-10. 
-     Editor internal structure now ready to receive a patch.
-
-h.)  GT-8 patch conversion. Gt-8 patches can be opened and saved as GT-10 patches. SMF file type support added, files compatable 
+g.)  GT-8 patch conversion. Gt-8 patches can be opened and saved as GT-10 patches. SMF file type support added, files compatable 
 	with Boss Librarian SMF files (single patch).
 
 
@@ -37,5 +34,6 @@ h.)  GT-8 patch conversion. Gt-8 patches can be opened and saved as GT-10 patche
 		2.)  ***check realtime edit parameters are correct address and correct data range (is the editor tweaking the right GT-10 item).
 
 		3.)  ***check GT-8 patch convertion matches GT-10 equivilent values.
+If you find any errors or issues, most likely i don't know about them (i don't have a GT-10 for testing), and i am relying on you to let me know.
 
 reply email to <gumtownbassman@yahoo.com> as your information will help with the project progress.

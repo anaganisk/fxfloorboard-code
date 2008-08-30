@@ -696,7 +696,7 @@ void bankTreeList::updatePatch(QString replyMsg)
 * device.
 *********************************************************************************/
 void bankTreeList::connectedSignal()
-{	/*
+{	
 	SysxIO *sysxIO = SysxIO::Instance();
 	if(this->openPatchTreeItems.size() != 0 && sysxIO->deviceReady() && sysxIO->isConnected())
 	{
@@ -715,7 +715,7 @@ void bankTreeList::connectedSignal()
 		qSort(this->currentPatchTreeItems);
 
 		this->updatePatchNames("");
-	};  */
+	};  
 };
 
 /********************************** updateTree() ********************************

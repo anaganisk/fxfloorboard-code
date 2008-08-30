@@ -715,7 +715,7 @@ Preferences *preferences = Preferences::Instance(); bool ok;// Load the preferen
 	sysxMsg.append(addr2);
 	sysxMsg.append(hex1);
 	sysxMsg.append(hex2);
-	sysxMsg.append("00000D63");    //(getSize());
+	sysxMsg.append(patchRequestDataSize);    //(getSize());
 
 	int dataSize = 0;
 	for(int i=checksumOffset;i<sysxMsg.size()-1;++i)
