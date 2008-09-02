@@ -67,11 +67,7 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
 	this->patchDisplay->setMainText(deviceType + (" Fx FloorBoard"));
 	this->patchDisplay->setSubText("version", version);
 
-//#ifdef Q_OS_MAC
-//	initPatch = new initPatchListMenu(QRect(405, 20, 168, 20), this);
-//#else
 	initPatch = new initPatchListMenu(QRect(405, 24, 168, 15), this);
-//#endif
   renameWidget *nameEdit = new renameWidget(this); 
   nameEdit->setGeometry(85, 5, 150, 34); 
 
@@ -290,24 +286,6 @@ void floorBoardDisplay::updateDisplay()
 	};  */// to here
     };
 
-void floorBoardDisplay::assignSignal(bool value)    //cw
-{/*
-    this->assignButtonActive = value;
-    if (this->assignButtonActive == true){
-	   //stompBox->assignSignal(bool)
-		emit assignSignal();
-	//stompBox->setEditDialog();
-	//floorBoard->editDialog->show();
-	emit setStatusMessage(tr("ASSIGN ON"));
-	//editWindow *edit = new editWindow();
-	this->assignButton->setBlink(true);} else {
-  this->assignButton->setBlink(false);
-  emit setStatusMessage(tr("ASSIGN OFF"));
-  };
-	*/
-};
-
- 
 
 
 void floorBoardDisplay::connectSignal(bool value)
@@ -441,7 +419,7 @@ void floorBoardDisplay::connectionResult(QString sysxMsg)
 void floorBoardDisplay::writeSignal(bool)
 {
 	SysxIO *sysxIO = SysxIO::Instance();	
-	if(sysxIO->isConnected() && sysxIO->deviceReady()) /* Check if we are connected and if the device is free. */
+	if(sysxIO->isConnected()) //&& sysxIO->deviceReady()) /* Check if we are connected and if the device is free. */
 	{
 	 this->writeButton->setBlink(true);
 	 
@@ -514,16 +492,29 @@ void floorBoardDisplay::writeSignal(bool)
 				}
 				else /* User bank so we can write to it after confirmation to overwrite stored data. */
 				{
+					QString bankNum;
+				  QString patchNum;
+				  int bank = sysxIO->getBank();
+				  int patch = sysxIO->getPatch();
+				  bankNum.append(QString::number(bank, 10));
+				  if (bankNum.size() < 2){ bankNum.prepend("0"); };
+				  bankNum.prepend(" U");
+				  patchNum.append(QString::number(patch, 10));
+				  
 					QMessageBox *msgBox = new QMessageBox();
 					msgBox->setWindowTitle(deviceType + tr(" Fx FloorBoard"));
 					msgBox->setIcon(QMessageBox::Warning);
 					msgBox->setTextFormat(Qt::RichText);
 					QString msgText;
 					msgText.append("<font size='+1'><b>");
-					msgText.append(tr("You have chosen to write the patch permanently into GT-6B memory."));
+					msgText.append(tr("You have chosen to write the patch permanently into ") + deviceType + (" memory."));
 					msgText.append("<b></font><br>");
-					msgText.append(tr("This will overwrite the patch currently stored at this location\n"
-						"and can't be undone.------- Ensure Bulk Load Mode is selected"));
+					msgText.append(tr("This will overwrite the patch currently stored at patch location\n"));
+					msgText.append("<font size='+2'><b>");
+					msgText.append(bankNum +(":") +patchNum	);
+					msgText.append("<b></font><br>");
+          msgText.append(tr (" and can't be undone. "));
+
 					msgBox->setInformativeText(tr("Are you sure you want to continue?"));
 					msgBox->setText(msgText);
 					msgBox->setStandardButtons(QMessageBox::Yes | QMessageBox::No);
@@ -541,27 +532,6 @@ void floorBoardDisplay::writeSignal(bool)
 					};					
 				//};
 			};
-
-			 /*DeBugGING OUTPUT 
-			QString snork;
-			for(int i=0;i<sysxOut.size();++i)
-			{
-				snork.append(sysxOut.mid(i, 2));
-				snork.append(" ");
-				i++;
-			};
-			snork.replace("F7", "F7 }\n");
-			snork.replace("F0", "{ F0");
-			snork.append("\n{ size=");
-			snork.append(QString::number(sysxOut.size()/2, 10));
-			snork.append("}");		
-
-			QMessageBox *msgBox = new QMessageBox();
-			msgBox->setWindowTitle("dBug Result");
-			msgBox->setIcon(QMessageBox::Information);
-			msgBox->setText(snork);
-			msgBox->setStandardButtons(QMessageBox::Ok);
-			msgBox->exec();*/
 		}; 
 	};
 	
@@ -690,8 +660,19 @@ void floorBoardDisplay::writeToMemory()
 
 	QObject::connect(sysxIO, SIGNAL(sysxReply(QString)),	// Connect the result signal 
 	this, SLOT(resetDevice(QString)));					// to a slot that will reset the device after sending.
-  SLEEP(1000);
 	sysxIO->sendSysx(sysxMsg);								// Send the data.
+		emit setStatusProgress(33); // time wasting sinusidal statusbar progress
+		SLEEP(100);
+		emit setStatusProgress(66);
+		SLEEP(150);		
+		emit setStatusProgress(100);
+		SLEEP(250);		
+		emit setStatusProgress(75);
+		SLEEP(200);		
+		emit setStatusProgress(42);
+		SLEEP(150);
+		emit setStatusProgress(25);
+		SLEEP(100);
 	
 	//emit setStatusMessage(tr("Ready"));
 	sysxIO->setDeviceReady(true);

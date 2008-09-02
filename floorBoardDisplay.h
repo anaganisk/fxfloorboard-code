@@ -56,7 +56,7 @@ public slots:
 	void notConnected();
 
 	void patchChangeFailed();
-	void assignSignal(bool value);   //cw
+	//void assignSignal(bool value);   //cw
 	void writeToBuffer();
 	void writeToMemory();
 
@@ -66,7 +66,7 @@ signals:
 	void updateSignal();
 	void connectedSignal();
 	void notConnectedSignal();
-  void assignSignal(); //cw
+  //void assignSignal(); //cw
 	void setStatusSymbol(int value);
 	void setStatusProgress(int value);
     void setStatusMessage(QString message);
@@ -87,7 +87,7 @@ private:
 	customButton *systemButton;
 
 	bool connectButtonActive;
-    bool assignButtonActive; //cw
+   // bool assignButtonActive; //cw
 	bool patchLoadError;
 	QTimer* timer;
 	int blinkCount;

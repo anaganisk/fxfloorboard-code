@@ -658,15 +658,6 @@ void floorBoard::updateStompBoxes()
 	setStomps(stompOrder);
 	};
 
-void floorBoard::assignSignal(bool value)
-{
-this->editDialog = editDialog;
-	this->editDialog->setParent(this);
-	this->centerEditDialog();
-	this->editDialog->pageUpdateSignal();
-	this->editDialog->show();
-	
-};
 
 void floorBoard::setEditDialog(editWindow* editDialog)
 {

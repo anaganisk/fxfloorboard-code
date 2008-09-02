@@ -94,20 +94,6 @@ void stompBox::mousePressEvent(QMouseEvent *event)
 	};
 };
 
-void stompBox::assignSignal(bool value)    //cw
-{
-    this->assignButtonActive = value;
-	//stompBox->editDialog->setWindow("Assign");
-		//emit assignSignal();
-	//stompBox->setEditDialog();
-	//floorBoard->editDialog->show();
-	//emit setStatusMessage(tr("ASSIGN"));
-	//editWindow *edit = new editWindow();
-	//this->assignButton->setBlink(true);
-	this->editDialog->setWindow(this->fxName);
-		emit setEditDialog(this->editDialog);
-	
-};
 
 void stompBox::mouseDoubleClickEvent(QMouseEvent *event)
 {

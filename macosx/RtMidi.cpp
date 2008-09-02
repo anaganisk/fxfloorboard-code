@@ -1,6 +1,7 @@
 // RtMidi: Version 1.0.6
 
 #include "RtMidi.h"
+#include "midiIO.h"
 #include <sstream>
 
 //*********************************************************************//
@@ -16,6 +17,8 @@ void RtMidi :: error( RtError::Type type )
 {
   if (type == RtError::WARNING) {
     std::cerr << '\n' << errorString_ << "\n\n";
+	throw RtError( errorString_, type );
+
   }
   else {
     std::cerr << '\n' << errorString_ << "\n\n";
@@ -148,7 +151,7 @@ void midiInputCallback( const MIDIPacketList *list, void *procRef, void *srcRef 
   bool continueSysex = false;
   unsigned char status;
   unsigned short nBytes, iByte, size;
-  unsigned long long time;
+//  unsigned long long time;
   RtMidiIn::MidiMessage message;
   const MIDIPacket *packet = &list->packet[0];
   for ( unsigned int i=0; i<list->numPackets; ++i ) {
@@ -161,28 +164,28 @@ void midiInputCallback( const MIDIPacketList *list, void *procRef, void *srcRef 
     // be complete within the same MIDIPacketList.
 
     nBytes = packet->length;
-    if ( nBytes == 0 ) continue;
+    //if ( nBytes == 0 ) continue;
 
     // Calculate time stamp.
     message.timeStamp = 0.0;
-    if ( data->firstMessage )
+    /*if ( data->firstMessage )
       data->firstMessage = false;
     else {
       time = packet->timeStamp;
       time -= apiData->lastTime;
       time = AudioConvertHostTimeToNanos( time );
       message.timeStamp = time * 0.000000001;
-    }
+    }*/
     apiData->lastTime = packet->timeStamp;
 
     iByte = 0;
-    if ( continueSysex ) {
+    /*if ( continueSysex ) {
       // We have a continuing, segmented sysex message.
-      if ( !(data->ignoreFlags & 0x01) ) {
+      //if ( !(data->ignoreFlags & 0x01) ) {
         // If we're not ignoring sysex messages, copy the entire packet.
         for ( unsigned int j=0; j<nBytes; j++ )
           message.bytes.push_back( packet->data[j] );
-      }
+     //}
       if ( packet->data[nBytes] == 0xF7 ) continueSysex = false;
       if ( !continueSysex ) {
         // If not a continuing sysex message, invoke the user callback function or queue the message.
@@ -200,48 +203,48 @@ void midiInputCallback( const MIDIPacketList *list, void *procRef, void *srcRef 
         message.bytes.clear();
       }
     }
-    else {
+    else {*/
       while ( iByte < nBytes ) {
         size = 0;
         // We are expecting that the next byte in the packet is a status byte.
         status = packet->data[iByte];
-        if ( !(status & 0x80) ) break;
+        //if ( !(status & 0x80) ) break;
         // Determine the number of bytes in the MIDI message.
-        if ( status < 0xC0 ) size = 3;
-        else if ( status < 0xE0 ) size = 2;
-        else if ( status < 0xF0 ) size = 3;
-        else if ( status == 0xF0 ) {
+       // if ( status < 0xC0 ) size = 3;
+       // else if ( status < 0xE0 ) size = 2;
+       // else if ( status < 0xF0 ) size = 3;
+       // else if ( status == 0xF0 ) {
           // A MIDI sysex
-          if ( data->ignoreFlags & 0x01 ) {
+         /* if ( data->ignoreFlags & 0x01 ) {
             size = 0;
             iByte = nBytes;
           }
-          else size = nBytes - iByte;
-          if ( packet->data[nBytes] == 0xF7 ) continueSysex = false;
-        }
-        else if ( status < 0xF3 ) {
+          else*/ size = nBytes - iByte;
+          //if ( packet->data[nBytes] == 0xF7 ) continueSysex = false;
+       // }
+        /*else if ( status < 0xF3 ) {
           if ( status == 0xF1 && (data->ignoreFlags & 0x02) ) {
             // A MIDI time code message and we're ignoring it.
             size = 0;
             iByte += 3;
           }
           else size = 3;
-        }
-        else if ( status == 0xF3 ) size = 2;
-        else if ( status == 0xF8 ) {
+        }*/
+       // else if ( status == 0xF3 ) size = 2;
+       /* else if ( status == 0xF8 ) {
           size = 1;
           if ( data->ignoreFlags & 0x02 ) {
             // A MIDI timing tick message and we're ignoring it.
             size = 0;
             iByte += 3;
           }
-        }
-        else if ( status == 0xFE && (data->ignoreFlags & 0x04) ) {
+        }*/
+       /* else if ( status == 0xFE && (data->ignoreFlags & 0x04) ) {
           // A MIDI active sensing message and we're ignoring it.
           size = 0;
           iByte += 1;
-        }
-        else size = 1;
+        }*/
+        //else size = 1;
 
         // Copy the MIDI data to our vector.
         if ( size ) {
@@ -267,13 +270,13 @@ void midiInputCallback( const MIDIPacketList *list, void *procRef, void *srcRef 
     }
     packet = MIDIPacketNext(packet);
   }
-}
+//}
 
 void RtMidiIn :: initialize( void )
 {
   // Set up our client.
   MIDIClientRef client;
-  OSStatus result = MIDIClientCreate( CFSTR("FxFloorBoard Midi Input Client"), NULL, NULL, &client );
+  OSStatus result = MIDIClientCreate( CFSTR("FxFloorBoard"), NULL, NULL, &client );
   if ( result != noErr ) {
     errorString_ = "FxFloorBoard MidiIn::initialize: error creating OS-X MIDI client object.";
     error( RtError::DRIVER_ERROR );
@@ -310,7 +313,7 @@ void RtMidiIn :: openPort( unsigned int portNumber )
 
   MIDIPortRef port;
   CoreMidiData *data = static_cast<CoreMidiData *> (apiData_);
-  OSStatus result = MIDIInputPortCreate( data->client, CFSTR("FxFloorBoard Midi MIDI Input Port"), midiInputCallback, (void *)&inputData_, &port );
+  OSStatus result = MIDIInputPortCreate( data->client, CFSTR("FxFloorBoard"), midiInputCallback, (void *)&inputData_, &port );
   if ( result != noErr ) {
     MIDIClientDispose( data->client );
     errorString_ = "FxFloorBoard MidiIn::openPort: error creating OS-X MIDI input port.";

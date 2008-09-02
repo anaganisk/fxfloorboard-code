@@ -28,11 +28,7 @@ stompbox_fx2::stompbox_fx2(QWidget *parent)
 	/* FX2 */
 	setImage(":/images/fx2.png");
 	setLSB("06", "00");
-//#ifdef Q_OS_MAC
-//	setComboBox("06", "00", "02", QRect(4, 31, 88, 20));
-//#else
 	setComboBox("06", "00", "02", QRect(8, 31, 79, 13));
-//#endif
 	setButton("06", "00", "00");
 	setEditPages();
 };
