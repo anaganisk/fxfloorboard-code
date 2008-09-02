@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!-- Preferences of the GT-3 Fx FloorBoard application. -->
 <Preferences>
 	<General>
-		<Application version="beta 20080609"/>
+		<Application version="beta 20080901"/>
 		<Donate url="http://sourceforge.net/donate/index.php?group_id=171049"/>
 		<Files dir=""/>
 		<Help url="GT-3EditorManual_E.htm"/>
@@ -11,17 +10,17 @@
 		<Webpage url="http://fxfloorboard.sourceforge.net/"/>
 	</General>
 	<Midi>
-		<DBug bool="false"/>
-		<Delay set="15"/>
 		<MidiIn device=""/>
 		<MidiOut device=""/>
+		<DBug bool="false"/>
 		<Time set="60"/>
+		<Delay set="15"/>
 	</Midi>
 	<Window>
-		<Collapsed width="" defaultwidth="975" bool="true"/>
-		<Position x="" y=""/>
-		<Restore window="false" sidepanel="false"/>
-		<Size width="" minwidth="788" height="" minheight="548"/>
-		<Splash bool="true"/>
-	</Window>
+    <Collapsed bool="false" defaultwidth="975" width=""/>
+    <Position x="" y=""/>
+    <Restore sidepanel="false" window="false"/>
+    <Size height="" minheight="548" minwidth="788" width=""/>
+    <Splash bool="true"/>
+  </Window>
 </Preferences>

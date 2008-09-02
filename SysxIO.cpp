@@ -3,7 +3,7 @@
 ** Copyright (C) 2007, 2008 Colin Willcocks.
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT-6B Fx FloorBoard".
+** This file is part of "GT-6 Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -157,29 +157,8 @@ void SysxIO::setFileSource(QString data)
 			this->fileSource.hex.append(sysxBuffer);
             sysxBuffer.clear();
 
-        };
+    };
 	};
-         /*   QString snork;
-			for(int i=0;i<data.size();++i)
-			{
-				snork.append(data.mid(i, 2));
-				snork.append(" ");
-				i++;
-			};
-			snork.replace("F7", "F7 }\n");
-			snork.replace("F0", "{ F0");
-			snork.append("\n{ size=");
-			snork.append(QString::number(data.size()/2, 10));
-			snork.append("}");	
-			snork.append("\n midi data received");
-			QMessageBox *msgBox = new QMessageBox();
-			msgBox->setWindowTitle("dBug Result");
-			msgBox->setIcon(QMessageBox::Information);
-			msgBox->setText(snork);
-			msgBox->setStandardButtons(QMessageBox::Ok);
-			msgBox->exec(); */
-
-   
 };
 
 void SysxIO::setFileSource(QString hex1, QString hex2, QString hex3, QString hex4)
@@ -552,7 +531,8 @@ bool SysxIO::isConnected()
 
 void SysxIO::setConnected(bool connected)
 {
-	this->connected = connected;	
+	this->connected = connected;
+  emit setStatusMessage("Ready");	
 };
 
 /***************************** deviceReady() ******************************
@@ -667,10 +647,6 @@ QString SysxIO::getPatchChangeMsg(int bank, int patch)
 	midiMsg.append("B000"+bankMsb);
 	midiMsg.append("B01000");  };
 	midiMsg.append("C0"+programChange);
-	//midiMsg.append("B00000");	    // MSB bank change midi message
-	//midiMsg.append("B010"+bankMsb);				// LSB ->control change -> bank change type (32 or 00) depending on device type
-	//midiMsg.append("C0"+programChange); // Program patch Change midi message
-	emit setStatusMessage("Patch change");
 	midiMsg = midiMsg.toUpper();
 	return midiMsg;
 };
@@ -721,6 +697,7 @@ void SysxIO::requestPatchChange(int bank, int patch)
 		this, SLOT(namePatchChange()));				// to returnPatchName function.
 	
 	QString midiMsg = getPatchChangeMsg(bank, patch);
+	emit setStatusMessage("Patch change");
 	this->sendMidi(midiMsg);
 };
   
