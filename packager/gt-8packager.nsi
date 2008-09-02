@@ -2,7 +2,7 @@
 
 ; HM NIS Edit Wizard helper defines
 !define PRODUCT_NAME "GT-8FxFloorBoard"
-!define PRODUCT_VERSION "20080725"
+!define PRODUCT_VERSION "20080901"
 !define PRODUCT_PUBLISHER "gumtownbassman"
 !define PRODUCT_WEB_SITE "http://gtx.tinfoilmusic.net"
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\GT-8FxFloorBoard.exe"
@@ -60,6 +60,7 @@ Section "MainSection" SEC01
   File "GT-8EditorManual_E.htm"
   File "mingwm10.dll"
   File "license.txt"
+  File "preferences.xml.dist"
   SetOutPath "$INSTDIR\Init Patches"
   SetOverwrite try
   File "Init Patches\000_INIT_Empty.syx"
@@ -200,6 +201,8 @@ Section Uninstall
   Delete "$INSTDIR\Init Patches\000_INIT_Empty.syx"
   Delete "$INSTDIR\license.txt"
   Delete "$INSTDIR\mingwm10.dll"
+  Delete "$INSTDIR\preferences.xml.dist"
+  Delete "$INSTDIR\preferences.xml"
   Delete "$INSTDIR\GT-8EditorManual_E.htm"
   Delete "$INSTDIR\GT-8FxFloorBoard.exe"
 

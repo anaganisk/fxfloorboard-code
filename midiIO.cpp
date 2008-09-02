@@ -257,21 +257,20 @@ void midicallback(double deltatime, std::vector<unsigned char> *message, void *u
 					 int n = ((int)message->at(i));					// convert std::vector to QString
 					 QString hex = QString::number(n, 16).toUpper();
 					 if (hex.length() < 2) hex.prepend("0");
-					 rxData.append(hex);	
+					 rxData.append(hex);
+           midi->emitProgress(nBytes);			
         };	
 		midi->callbackMsg(rxData);
 };
 void midiIO::callbackMsg(QString rxData)
 {
 	sysxBuffer.append(rxData);
-	int	bytesReceived = (100/sysxBuffer.size());
-	emitProgress(bytesReceived);	
 };
 
 void midiIO::receiveMsg(QString sysxInMsg, int midiInPort)
 {
 	emit setStatusSymbol(3);
-	emit setStatusProgress(33);
+	emit setStatusProgress(80);
 	Preferences *preferences = Preferences::Instance(); bool ok;// Load the preferences.
 	const int maxWait = preferences->getPreferences("Midi", "Time", "set").toInt(&ok, 10);
 	if(multiple){loopCount = maxWait*35;}
@@ -314,13 +313,7 @@ void midiIO::run()
 {
 	if(midi && midiMsg.size() > 1)	// Check if we are going to send sysx or midi data & have an actual midi message to send.
 	{
-	  emit setStatusSymbol(2);
-		//emit setStatusMessage("Sending");
-		emit setStatusProgress(33); // time wasting sinusidal statusbar progress animation
-		SLEEP(40);
-		emit setStatusProgress(66);
-		SLEEP(100);		
-		emit setStatusProgress(100);
+	 
 		if (midiMsg.size() <= 6)		// if the midi message is <= 3 words
 			{
 			sysxOutMsg = midiMsg;   // use the same sending routine as sysx messages.
@@ -350,7 +343,13 @@ void midiIO::run()
 	 		 }; 
 
 						
-		
+		 emit setStatusSymbol(2);
+		//emit setStatusMessage("Sending");
+		emit setStatusProgress(33); // time wasting sinusidal statusbar progress animation
+		SLEEP(40);
+		emit setStatusProgress(66);
+		SLEEP(100);		
+		emit setStatusProgress(100);
 		SLEEP(100);		
 		emit setStatusProgress(75);
 		SLEEP(100);		

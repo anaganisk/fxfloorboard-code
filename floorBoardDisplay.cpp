@@ -65,11 +65,7 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
 	this->patchDisplay->setMainText(deviceType + (" Fx FloorBoard"));
 	this->patchDisplay->setSubText("version", version);
 
-//#ifdef Q_OS_MAC
-//	initPatch = new initPatchListMenu(QRect(405, 20, 168, 20), this);
-//#else
 	initPatch = new initPatchListMenu(QRect(405, 24, 168, 15), this);
-//#endif
   renameWidget *nameEdit = new renameWidget(this); 
   nameEdit->setGeometry(85, 5, 150, 34); 
 
@@ -483,7 +479,8 @@ void floorBoardDisplay::writeSignal(bool)
 				else
 				{
 					writeToBuffer();
-				};		
+				};	
+         sysxIO->setDeviceReady(true);		
 			}
 			else /* If sync we will write (save) the patch directly to sellected bank. So we will have to change the patch adsress */
 			{
@@ -513,17 +510,23 @@ void floorBoardDisplay::writeSignal(bool)
 				  int patch = sysxIO->getPatch();
 				  bankNum.append(QString::number(bank, 10));
 				  patchNum.append(QString::number(patch, 10));
-          
+				  if (bankNum.size() < 2){ bankNum.prepend("0"); };
+				  bankNum.prepend(" U");
+				  				  
 					QMessageBox *msgBox = new QMessageBox();
 					msgBox->setWindowTitle(deviceType + tr(" Fx FloorBoard"));
 					msgBox->setIcon(QMessageBox::Warning);
 					msgBox->setTextFormat(Qt::RichText);
 					QString msgText;
 					msgText.append("<font size='+1'><b>");
-					msgText.append(tr("You have chosen to write the patch permanently into GT-8 memory."));
+					msgText.append(tr("You have chosen to write the patch permanently into ") + deviceType + (" memory."));
 					msgText.append("<b></font><br>");
-					msgText.append(tr("This will overwrite the patch currently stored at patch location\n")
-					+bankNum +(":") +patchNum	+(" and can't be undone."));
+					msgText.append(tr("This will overwrite the patch currently stored at patch location\n"));
+					msgText.append("<font size='+2'><b>");
+					msgText.append(bankNum +(":") +patchNum	);
+					msgText.append("<b></font><br>");
+          msgText.append(tr (" and can't be undone. "));
+
 					msgBox->setInformativeText(tr("Are you sure you want to continue?"));
 					msgBox->setText(msgText);
 					msgBox->setStandardButtons(QMessageBox::Yes | QMessageBox::No);
@@ -612,7 +615,7 @@ void floorBoardDisplay::writeToBuffer()
 		emit setStatusProgress(75);
 		SLEEP(100);		
 		emit setStatusProgress(42);
-		SLEEP(550);
+		SLEEP(150);
 		emit setStatusMessage(tr("Ready"));
 	
 	sysxIO->setDeviceReady(true);
@@ -671,7 +674,18 @@ void floorBoardDisplay::writeToMemory()
 		this, SLOT(resetDevice(QString)));					// to a slot that will reset the device after sending.
 
 	sysxIO->sendSysx(sysxMsg);								// Send the data.
-	SLEEP(1000);
+		emit setStatusProgress(33); // time wasting sinusidal statusbar progress
+		SLEEP(100);
+		emit setStatusProgress(66);
+		SLEEP(150);		
+		emit setStatusProgress(100);
+		SLEEP(250);		
+		emit setStatusProgress(75);
+		SLEEP(200);		
+		emit setStatusProgress(42);
+		SLEEP(150);
+		emit setStatusProgress(25);
+		SLEEP(100);
 };
 
 void floorBoardDisplay::patchChangeFailed()
@@ -758,7 +772,7 @@ void floorBoardDisplay::blinkSellectedPatch(bool active)
 		{
 			writeButton->setBlink(false);
 		};
-		setPatchNumDisplay(sysxIO->getLoadedBank(),  sysxIO->getLoadedPatch()); //(bank,patch);//
+			setPatchNumDisplay(bank,patch); //setPatchNumDisplay(sysxIO->getLoadedBank(),  sysxIO->getLoadedPatch()); //(bank,patch);//
 	};
 	emit setStatusSymbol(1);
 	emit setStatusMessage(tr("Ready"));
