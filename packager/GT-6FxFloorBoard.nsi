@@ -2,7 +2,7 @@
 
 ; HM NIS Edit Wizard helper defines
 !define PRODUCT_NAME "GT-6FxFloorBoard"
-!define PRODUCT_VERSION "beta 20080609"
+!define PRODUCT_VERSION "beta 20080901"
 !define PRODUCT_PUBLISHER "gumtownbassman"
 !define PRODUCT_WEB_SITE "http://gtx.tinfoilmusic.net"
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\gt6fxfloorboard.exe"
@@ -58,6 +58,7 @@ Section "MainSection" SEC01
   CreateShortCut "$SMPROGRAMS\GT-6FxFloorBoard\GT-6FxFloorBoard.lnk" "$INSTDIR\gt6fxfloorboard.exe"
   CreateShortCut "$DESKTOP\GT-6FxFloorBoard.lnk" "$INSTDIR\gt6fxfloorboard.exe"
   File "mingwm10.dll"
+  File "preferences.xml.dist"
   SetOutPath "$INSTDIR\init patches"
   SetOverwrite try
   File "init patches\acdcblack17-3.syx"
@@ -260,6 +261,8 @@ Section Uninstall
   Delete "$INSTDIR\mingwm10.dll"
   Delete "$INSTDIR\gt6fxfloorboard.exe"
   Delete "$INSTDIR\GT-6EditorManual_E.htm"
+  Delete "$INSTDIR\preferences.xml.dist"
+  Delete "$INSTDIR\preferences.xml"
 
   Delete "$SMPROGRAMS\GT-6FxFloorBoard\Uninstall.lnk"
   Delete "$SMPROGRAMS\GT-6FxFloorBoard\Website.lnk"
