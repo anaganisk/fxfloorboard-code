@@ -58,7 +58,7 @@ void customDial::paintEvent(QPaintEvent *)
 	//image.setMask(image.mask());
 
 	QPainter painter(this);
-	//painter.setRenderHint(QPainter::Antialiasing, true);
+	painter.setRenderHint(QPainter::Antialiasing, true);
 	painter.drawPixmap(target, image, source);
 };
 

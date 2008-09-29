@@ -46,7 +46,7 @@ void stompbox_fx1::setEditPages()
   editDetails()->page()->newStackControl(0);
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "02", "00", "01");	
 	editDetails()->page()->addStackControl();
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
+	editDetails()->page()->addGroupBox(0, 0, 2, 1);
 	editDetails()->page()->insertStackField(0, 0, 1, 3, 1);
 
 // T-Wah 
@@ -154,7 +154,7 @@ void stompbox_fx1::setEditPages()
 	  editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Effect", Qt::AlignTop | Qt::AlignHCenter);
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "02", "00", "00");
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
+	editDetails()->page()->addGroupBox(0, 0, 2, 1);
 
 	editDetails()->page()->newGroupBox("Equalizer");
 	editDetails()->page()->newGroupBox("Band");
@@ -173,7 +173,7 @@ void stompbox_fx1::setEditPages()
     
 	editDetails()->page()->newGroupBox("Level");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "05", "00", "36");
-	editDetails()->page()->addGroupBox(0, 2, 1, 1);
+	editDetails()->page()->addGroupBox(0, 2, 2, 1);
 	//editDetails()->addPage("02", "00", "01", "05");
   editDetails()->page()->addStackField();
 
@@ -181,35 +181,35 @@ void stompbox_fx1::setEditPages()
       editDetails()->page()->newStackField(0);
   editDetails()->page()->newGroupBox("Effect", Qt::AlignTop | Qt::AlignHCenter);
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "02", "00", "00");
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
+	editDetails()->page()->addGroupBox(0, 0, 2, 1);
 
 	editDetails()->page()->newGroupBox("Equalizer");
 	editDetails()->page()->newGroupBox("Low");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "02", "00", "58");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "02", "00", "59");
+	editDetails()->page()->addKnob(1, 0, 1, 1, "02", "00", "58");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "02", "00", "59");
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 
 	editDetails()->page()->newGroupBox("Low-Middle");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "02", "00", "5A");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "02", "00", "5B");
-	editDetails()->page()->addKnob(0, 2, 1, 1, "02", "00", "5C");
+	editDetails()->page()->addKnob(1, 0, 1, 1, "02", "00", "5A");
+	editDetails()->page()->addKnob(2, 0, 1, 1, "02", "00", "5B");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "02", "00", "5C");
 	editDetails()->page()->addGroupBox(0, 1, 1, 1);
 
 	editDetails()->page()->newGroupBox("High-Middle");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "02", "00", "5D");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "02", "00", "5E");
-	editDetails()->page()->addKnob(0, 2, 1, 1, "02", "00", "5F");
-	editDetails()->page()->addGroupBox(1, 1, 1, 1);
+	editDetails()->page()->addKnob(1, 0, 1, 1, "02", "00", "5D");
+	editDetails()->page()->addKnob(2, 0, 1, 1, "02", "00", "5E");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "02", "00", "5F");
+	editDetails()->page()->addGroupBox(0, 2, 1, 1);
 
 	editDetails()->page()->newGroupBox("High");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "02", "00", "60");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "02", "00", "61");
-	editDetails()->page()->addGroupBox(0, 2, 1, 1);
+	editDetails()->page()->addKnob(1, 0, 1, 1, "02", "00", "60");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "02", "00", "61");
+	editDetails()->page()->addGroupBox(0, 3, 1, 1);
 	editDetails()->page()->addGroupBox(0, 1, 2, 1);
 
 	editDetails()->page()->newGroupBox("Level");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "02", "00", "62");
-	editDetails()->page()->addGroupBox(0, 2, 1, 1);
+	editDetails()->page()->addGroupBox(0, 2, 2, 1);
   //editDetails()->addPage("02", "00", "01", "06");
   editDetails()->page()->addStackField();
   
@@ -311,7 +311,7 @@ editDetails()->page()->addComboBox(0, 0, 1, 1, "05", "00", "44");
 	editDetails()->page()->newGroupBox("Effect");
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "02", "00", "00");	
 	editDetails()->page()->addComboBox(1, 0, 1, 1, "05", "00", "4B");
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
+	editDetails()->page()->addGroupBox(0, 0, 2, 1);
 
 	editDetails()->page()->newGroupBox("Bass Synth");
 	editDetails()->page()->addKnob(1, 0, 1, 1, "05", "00", "4C");
@@ -322,12 +322,12 @@ editDetails()->page()->addComboBox(0, 0, 1, 1, "05", "00", "44");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "05", "00", "4E");
 	editDetails()->page()->addKnob(0, 1, 1, 1, "05", "00", "4F");
 	editDetails()->page()->addKnob(0, 2, 1, 1, "05", "00", "50");
-	editDetails()->page()->addGroupBox(0, 2, 1, 2);
+	editDetails()->page()->addGroupBox(0, 2, 2, 2);
 
 	editDetails()->page()->newGroupBox("Level");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "05", "00", "51");
 	editDetails()->page()->addKnob(0, 1, 1, 1, "05", "00", "52");
-	editDetails()->page()->addGroupBox(0, 4, 1, 1);
+	editDetails()->page()->addGroupBox(0, 4, 2, 1);
 	//editDetails()->addPage("02", "00", "01", "0C");
 	editDetails()->page()->addStackField();
 	
@@ -357,7 +357,7 @@ editDetails()->page()->addComboBox(0, 0, 1, 1, "05", "00", "44");
 	editDetails()->page()->newStackControl(1);
 	editDetails()->page()->addComboBox(1, 0, 1, 1, "03", "00", "06");	
 	editDetails()->page()->addStackControl();
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
+	editDetails()->page()->addGroupBox(0, 0, 2, 1);
 	
 	editDetails()->page()->insertStackField(1, 0, 1, 3, 1);
 	editDetails()->page()->addStackField();
@@ -376,7 +376,7 @@ editDetails()->page()->addComboBox(0, 0, 1, 1, "05", "00", "44");
 	editDetails()->page()->newGroupBox("Level");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "03", "00", "0C");
 	editDetails()->page()->addKnob(0, 1, 1, 1, "03", "00", "14");
-	editDetails()->page()->addGroupBox(0, 2, 1, 1);
+	editDetails()->page()->addGroupBox(0, 2, 2, 1);
 	editDetails()->page()->addStackField();
 
 	editDetails()->page()->newStackField(1);
@@ -399,9 +399,9 @@ editDetails()->page()->addComboBox(0, 0, 1, 1, "05", "00", "44");
 
 	editDetails()->page()->newGroupBox("Level");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "03", "00", "0C");
-	editDetails()->page()->addKnob(1, 0, 1, 1, "03", "00", "12");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "03", "00", "14");
-	editDetails()->page()->addGroupBox(0, 2, 1, 1);
+	editDetails()->page()->addKnob(2, 0, 1, 1, "03", "00", "12");
+	editDetails()->page()->addKnob(1, 1, 1, 1, "03", "00", "14");
+	editDetails()->page()->addGroupBox(0, 2, 2, 1);
 	editDetails()->page()->addStackField();
 
 	editDetails()->page()->newStackField(1);
@@ -424,9 +424,9 @@ editDetails()->page()->addComboBox(0, 0, 1, 1, "05", "00", "44");
 
 	editDetails()->page()->newGroupBox("Level");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "03", "00", "0C");
-	editDetails()->page()->addKnob(1, 0, 1, 1, "03", "00", "12");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "03", "00", "14");
-	editDetails()->page()->addGroupBox(0, 2, 1, 1);
+	editDetails()->page()->addKnob(2, 0, 1, 1, "03", "00", "12");
+	editDetails()->page()->addKnob(1, 1, 1, 1, "03", "00", "14");
+	editDetails()->page()->addGroupBox(0, 2, 2, 1);
 	editDetails()->page()->addStackField();
 	//editDetails()->addPage("02", "00", "01", "0E");
 	
@@ -437,7 +437,7 @@ editDetails()->page()->addComboBox(0, 0, 1, 1, "05", "00", "44");
 	editDetails()->page()->newStackControl(1);
 	editDetails()->page()->addComboBox(1, 0, 1, 1, "02", "00", "63");	
 	editDetails()->page()->addStackControl();
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
+	editDetails()->page()->addGroupBox(0, 0, 2, 1);
 
 	editDetails()->page()->insertStackField(1, 0, 1, 3, 1);
 	editDetails()->page()->addStackField();
@@ -447,10 +447,10 @@ editDetails()->page()->addComboBox(0, 0, 1, 1, "05", "00", "44");
 	editDetails()->page()->newGroupBox("Voice 1");
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "02", "00", "64");
 	editDetails()->page()->addKnob(1, 0, 1, 1, "02", "00", "65", "normal","right", 105);
-	editDetails()->page()->addGroupBox(0, 0, 2, 1);
+	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->page()->addKnob(0, 1, 1, 1, "02", "00", "6C", "normal","right", 50);
 	//editDetails()->page()->addKnob(1, 1, 1, 1, "02", "00", "06");
-	editDetails()->page()->addGroupBox(0, 1, 2, 1);
+	editDetails()->page()->addGroupBox(0, 1, 1, 1);
 
 	editDetails()->page()->newGroupBox("Level");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "02", "00", "67");
@@ -463,21 +463,21 @@ editDetails()->page()->addComboBox(0, 0, 1, 1, "05", "00", "44");
 	editDetails()->page()->newGroupBox("Voice 1");
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "02", "00", "64");
 	editDetails()->page()->addKnob(1, 0, 1, 1, "02", "00", "65", "normal","right", 105);
-	editDetails()->page()->addGroupBox(0, 0, 2, 1);
+	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->page()->newGroupBox("Voice 2");
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "02", "00", "68");
 	editDetails()->page()->addKnob(1, 0, 1, 1, "02", "00", "69", "normal","right", 105);
-	editDetails()->page()->addGroupBox(3, 0, 1, 1);
+	editDetails()->page()->addGroupBox(2, 0, 1, 1);
 
-	editDetails()->page()->addKnob(0, 1, 1, 1, "02", "00", "6C", "normal","right", 50);
+	editDetails()->page()->addKnob(1, 1, 1, 1, "02", "00", "6C", "normal","bottom", 50);
 	//editDetails()->page()->addKnob(1, 1, 1, 1, "02", "00", "06");
-	editDetails()->page()->addGroupBox(0, 1, 2, 1);
+	editDetails()->page()->addGroupBox(0, 1, 1, 1);
 
 	editDetails()->page()->newGroupBox("Level");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "02", "00", "67");
-	editDetails()->page()->addKnob(1, 0, 1, 1, "02", "00", "6B");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "02", "00", "6D");
-	editDetails()->page()->addGroupBox(0, 2, 1, 1);
+	editDetails()->page()->addKnob(2, 0, 1, 1, "02", "00", "6B");
+	editDetails()->page()->addKnob(1, 1, 1, 1, "02", "00", "6D");
+	editDetails()->page()->addGroupBox(0, 2, 2, 1);
 	editDetails()->page()->addStackField();
 
 	editDetails()->page()->newStackField(1);
@@ -485,21 +485,21 @@ editDetails()->page()->addComboBox(0, 0, 1, 1, "05", "00", "44");
 	editDetails()->page()->newGroupBox("Voice 1");
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "02", "00", "64");
 	editDetails()->page()->addKnob(1, 0, 1, 1, "02", "00", "65", "normal","right", 105);
-	editDetails()->page()->addGroupBox(0, 0, 2, 1);
+	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->page()->newGroupBox("Voice 2");
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "02", "00", "68");
 	editDetails()->page()->addKnob(1, 0, 1, 1, "02", "00", "69", "normal","right", 105);
-	editDetails()->page()->addGroupBox(3, 0, 1, 1);
+	editDetails()->page()->addGroupBox(2, 0, 1, 1);
 
-	editDetails()->page()->addKnob(0, 1, 1, 1, "02", "00", "6C", "normal","right", 50);
+	editDetails()->page()->addKnob(1, 1, 1, 1, "02", "00", "6C", "normal","bottom", 50);
 	//editDetails()->page()->addKnob(1, 1, 1, 1, "02", "00", "06");
-	editDetails()->page()->addGroupBox(0, 1, 2, 1);
+	editDetails()->page()->addGroupBox(0, 1, 1, 1);
 
 	editDetails()->page()->newGroupBox("Level");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "02", "00", "67");
-	editDetails()->page()->addKnob(1, 0, 1, 1, "02", "00", "6B");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "02", "00", "6D");
-	editDetails()->page()->addGroupBox(0, 2, 1, 1);
+	editDetails()->page()->addKnob(2, 0, 1, 1, "02", "00", "6B");
+	editDetails()->page()->addKnob(1, 1, 1, 1, "02", "00", "6D");
+	editDetails()->page()->addGroupBox(0, 2, 2, 1);
 	editDetails()->page()->addStackField();
 	//editDetails()->addPage("02", "00", "01", "0F");
 	
@@ -529,7 +529,7 @@ editDetails()->page()->addComboBox(0, 0, 1, 1, "05", "00", "44");
 	editDetails()->page()->newGroupBox("Effect");
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "02", "00", "00");	
 	editDetails()->page()->addComboBox(1, 0, 1, 1, "02", "00", "1E");
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
+	editDetails()->page()->addGroupBox(0, 0, 2, 1);
 
 	editDetails()->page()->newGroupBox("Phaser");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "02", "00", "1F", "normal","right", 105);
@@ -542,7 +542,7 @@ editDetails()->page()->addComboBox(0, 0, 1, 1, "05", "00", "44");
 	editDetails()->page()->newGroupBox("Level");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "02", "00", "24");
 	editDetails()->page()->addKnob(0, 1, 1, 1, "02", "00", "25");
-	editDetails()->page()->addGroupBox(0, 2, 1, 1);
+	editDetails()->page()->addGroupBox(0, 2, 2, 1);
 	//editDetails()->addPage("02", "00", "01", "11");
 	editDetails()->page()->addStackField();
 
@@ -550,7 +550,7 @@ editDetails()->page()->addComboBox(0, 0, 1, 1, "05", "00", "44");
 	  editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Effect", Qt::AlignTop | Qt::AlignHCenter);
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "02", "00", "00");	
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
+	editDetails()->page()->addGroupBox(0, 0, 2, 1);
 
 	editDetails()->page()->newGroupBox("Flanger");
 	editDetails()->page()->addKnob(0, 0, 1, 3, "02", "00", "26", "normal","right", 105);
@@ -562,12 +562,12 @@ editDetails()->page()->addComboBox(0, 0, 1, 1, "05", "00", "44");
 
 	editDetails()->page()->newGroupBox("Filter");
 	editDetails()->page()->addKnob(0, 1, 1, 1, "02", "00", "2B");
-	editDetails()->page()->addGroupBox(0, 2, 1, 1);
+	editDetails()->page()->addGroupBox(0, 2, 2, 1);
 
 	editDetails()->page()->newGroupBox("Level");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "02", "00", "2C");
 	editDetails()->page()->addKnob(0, 1, 1, 1, "02", "00", "2D");
-	editDetails()->page()->addGroupBox(0, 3, 1, 1);
+	editDetails()->page()->addGroupBox(0, 3, 2, 1);
 	//editDetails()->addPage("02", "00", "01", "12");
 	editDetails()->page()->addStackField();
 
@@ -699,7 +699,7 @@ editDetails()->page()->addComboBox(0, 0, 1, 1, "05", "00", "44");
 	editDetails()->page()->newGroupBox("Effect");
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "02", "00", "00");	
 	editDetails()->page()->addComboBox(1, 0, 1, 1, "02", "00", "4D");
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
+	editDetails()->page()->addGroupBox(0, 0, 2, 1);
 
 	editDetails()->page()->newGroupBox("Humanizer");
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "02", "00", "4E");
@@ -712,7 +712,7 @@ editDetails()->page()->addComboBox(0, 0, 1, 1, "05", "00", "44");
 
 	editDetails()->page()->newGroupBox("Level");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "02", "00", "54");
-	editDetails()->page()->addGroupBox(0, 2, 1, 1);
+	editDetails()->page()->addGroupBox(0, 2, 2, 1);
 	//editDetails()->addPage("02", "00", "01", "1A");
 	editDetails()->page()->addStackField();
 
@@ -721,27 +721,27 @@ editDetails()->page()->addComboBox(0, 0, 1, 1, "05", "00", "44");
 		  editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Effect", Qt::AlignTop | Qt::AlignHCenter);
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "02", "00", "00");	
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
+	editDetails()->page()->addGroupBox(0, 0, 2, 1);
 
 	editDetails()->page()->newGroupBox("2x2 Chorus");
 	editDetails()->page()->newGroupBox("Low");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "03", "00", "1F", "normal","right", 105);
 	editDetails()->page()->addKnob(0, 1, 1, 1, "03", "00", "20");
 	editDetails()->page()->addKnob(0, 2, 1, 1, "03", "00", "21");
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
+	editDetails()->page()->addGroupBox(1, 0, 1, 1);
 
 	editDetails()->page()->newGroupBox("High");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "03", "00", "23", "normal","right", 105);
 	editDetails()->page()->addKnob(0, 1, 1, 1, "03", "00", "24");
 	editDetails()->page()->addKnob(0, 2, 1, 1, "03", "00", "25");
-	editDetails()->page()->addGroupBox(1, 0, 1, 1);
+	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->page()->addKnob(0, 1, 2, 1, "03", "00", "1E", "normal","right", 63);
-	editDetails()->page()->addGroupBox(0, 1, 3, 1);
+	editDetails()->page()->addGroupBox(0, 1, 2, 1);
 
 	editDetails()->page()->newGroupBox("Level");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "03", "00", "22");
 	editDetails()->page()->addKnob(0, 1, 1, 1, "03", "00", "26");
-	editDetails()->page()->addGroupBox(0, 2, 1, 1);
+	editDetails()->page()->addGroupBox(0, 2, 2, 1);
 
 	//editDetails()->addPage("02", "00", "01", "1B");
 	editDetails()->page()->addStackField();
@@ -761,8 +761,8 @@ editDetails()->page()->addComboBox(0, 0, 1, 1, "05", "00", "44");
 	editDetails()->page()->addGroupBox(0, 1, 1, 1);
 
 	editDetails()->page()->newGroupBox("Level");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "03", "00", "2B");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "03", "00", "2C");
+	editDetails()->page()->addKnob(1, 0, 1, 1, "03", "00", "2B");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "03", "00", "2C");
 	editDetails()->page()->addGroupBox(0, 2, 1, 1);
 	//editDetails()->addPage("02", "00", "01", "1C");
 	editDetails()->page()->addStackField();

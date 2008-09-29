@@ -67,7 +67,7 @@ void stompbox_eq::setEditPages()
 {
     editDetails()->page()->newGroupBox("Effect", Qt::AlignTop | Qt::AlignHCenter);
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "70");
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
+	editDetails()->page()->addGroupBox(0, 0, 2, 1);
 
 	editDetails()->page()->newGroupBox("Equalizer");
 	editDetails()->page()->newGroupBox("Low");
@@ -95,7 +95,7 @@ void stompbox_eq::setEditPages()
 
 	editDetails()->page()->newGroupBox("Level");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "7B");
-	editDetails()->page()->addGroupBox(0, 2, 1, 1);
+	editDetails()->page()->addGroupBox(0, 2, 2, 1);
 
 	editDetails()->addPage();	
 };

@@ -56,25 +56,28 @@ void stompbox_dd::setEditPages()
 	editDetails()->page()->newStackControl(0);
 	editDetails()->page()->addComboBox(1, 0, 1, 1, "0A", "00", "01");
 	editDetails()->page()->addStackControl();
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
+	editDetails()->page()->addGroupBox(0, 0, 2, 1);
 
 	
-	editDetails()->page()->insertStackField(0, 0, 1, 2, 1);
+	editDetails()->page()->insertStackField(0, 0, 2, 2, 1);
 	// SINGLE 
 	editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Delay");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "0A", "00", "02", "normal","right", 105);
 	editDetails()->page()->addKnob(0, 1, 1, 1, "0A", "00", "05");
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
+	editDetails()->page()->addGroupBox(1, 0, 2, 1);
 
 	editDetails()->page()->newGroupBox("Filter");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "0A", "00", "06");
-	editDetails()->page()->addGroupBox(0, 1, 1, 1);
+	editDetails()->page()->addGroupBox(1, 1, 2, 1);
 
 	editDetails()->page()->newGroupBox("Level");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "0A", "00", "17");
 	editDetails()->page()->addKnob(0, 1, 1, 1, "0A", "00", "18");
-	editDetails()->page()->addGroupBox(0, 2, 1, 1);
+	editDetails()->page()->addGroupBox(1, 2, 2, 1);
+	
+	editDetails()->page()->newGroupBox("", Qt::AlignTop | Qt::AlignHCenter);
+	editDetails()->page()->addGroupBox(3, 0, 1, 3);
 	editDetails()->page()->addStackField();
 
 	// PAN 
@@ -83,16 +86,19 @@ void stompbox_dd::setEditPages()
 	editDetails()->page()->addKnob(0, 0, 1, 1, "0A", "00", "02", "normal","right", 105);
 	editDetails()->page()->addKnob(0, 1, 1, 1, "0A", "00", "04");
 	editDetails()->page()->addKnob(0, 2, 1, 1, "0A", "00", "05");
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
+	editDetails()->page()->addGroupBox(1, 0, 1, 1);
 
 	editDetails()->page()->newGroupBox("Filter");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "0A", "00", "06");
-	editDetails()->page()->addGroupBox(0, 1, 1, 1);
+	editDetails()->page()->addGroupBox(1, 1, 1, 1);
 
 	editDetails()->page()->newGroupBox("Level");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "0A", "00", "17");
 	editDetails()->page()->addKnob(0, 1, 1, 1, "0A", "00", "18");
-	editDetails()->page()->addGroupBox(0, 2, 1, 1);
+	editDetails()->page()->addGroupBox(1, 2, 1, 1);
+	
+	editDetails()->page()->newGroupBox("", Qt::AlignTop | Qt::AlignHCenter);
+	editDetails()->page()->addGroupBox(3, 0, 1, 3);
 	editDetails()->page()->addStackField();
 
 	// STEREO 
@@ -100,16 +106,19 @@ void stompbox_dd::setEditPages()
 	editDetails()->page()->newGroupBox("Delay");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "0A", "00", "02", "normal","right", 105);
 	editDetails()->page()->addKnob(0, 1, 1, 1, "0A", "00", "05");
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
+	editDetails()->page()->addGroupBox(1, 0, 1, 1);
 
 	editDetails()->page()->newGroupBox("Filter");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "0A", "00", "06");
-	editDetails()->page()->addGroupBox(0, 1, 1, 1);
+	editDetails()->page()->addGroupBox(1, 1, 1, 1);
 
 	editDetails()->page()->newGroupBox("Level");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "0A", "00", "17");
 	editDetails()->page()->addKnob(0, 1, 1, 1, "0A", "00", "18");
-	editDetails()->page()->addGroupBox(0, 2, 1, 1);
+	editDetails()->page()->addGroupBox(1, 2, 1, 1);
+	
+	editDetails()->page()->newGroupBox("", Qt::AlignTop | Qt::AlignHCenter);
+	editDetails()->page()->addGroupBox(3, 0, 1, 3);
 	editDetails()->page()->addStackField();
 
 	// DUAL SERIES 
@@ -140,9 +149,9 @@ void stompbox_dd::setEditPages()
 	editDetails()->page()->addKnob(0, 0, 1, 1, "0A", "00", "10");
 	editDetails()->page()->addGroupBox(1, 2, 1, 1);
 
-	editDetails()->page()->newGroupBox("Level 1 + 2");
+	editDetails()->page()->newGroupBox("Direct");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "0A", "00", "18");
-	editDetails()->page()->addGroupBox(0, 3, 1, 1);
+	editDetails()->page()->addGroupBox(0, 3, 2, 1);
 	editDetails()->page()->addStackField();
 
 	// DUAL PARALLEL 
@@ -173,9 +182,9 @@ void stompbox_dd::setEditPages()
 	editDetails()->page()->addKnob(0, 0, 1, 1, "0A", "00", "10");
 	editDetails()->page()->addGroupBox(1, 2, 1, 1);
 
-	editDetails()->page()->newGroupBox("Level 1 + 2");
+	editDetails()->page()->newGroupBox("Direct");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "0A", "00", "18");
-	editDetails()->page()->addGroupBox(0, 3, 1, 1);
+	editDetails()->page()->addGroupBox(0, 3, 2, 1);
 	editDetails()->page()->addStackField();
 
 	// DUAL L/R 
@@ -206,60 +215,79 @@ void stompbox_dd::setEditPages()
 	editDetails()->page()->addKnob(0, 0, 1, 1, "0A", "00", "10");
 	editDetails()->page()->addGroupBox(1, 2, 1, 1);
 
-	editDetails()->page()->newGroupBox("Level 1 + 2");
+	editDetails()->page()->newGroupBox("Direct");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "0A", "00", "18");
-	editDetails()->page()->addGroupBox(0, 3, 1, 1);
+	editDetails()->page()->addGroupBox(0, 3, 2, 1);
 	editDetails()->page()->addStackField();
 
 	// REVERSE 
 	editDetails()->page()->newStackField(0);
+	editDetails()->page()->newGroupBox("", Qt::AlignTop | Qt::AlignHCenter);
+	editDetails()->page()->addGroupBox(0, 0, 1, 3);
+	
 	editDetails()->page()->newGroupBox("Delay");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "0A", "00", "02", "normal","right", 105);
 	editDetails()->page()->addKnob(0, 1, 1, 1, "0A", "00", "05");
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
+	editDetails()->page()->addGroupBox(1, 0, 2, 1);
 
 	editDetails()->page()->newGroupBox("Filter");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "0A", "00", "06");
-	editDetails()->page()->addGroupBox(0, 1, 1, 1);
+	editDetails()->page()->addGroupBox(1, 1, 2, 1);
 
 	editDetails()->page()->newGroupBox("Level");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "0A", "00", "17");
 	editDetails()->page()->addKnob(0, 1, 1, 1, "0A", "00", "18");
-	editDetails()->page()->addGroupBox(0, 2, 1, 1);
+	editDetails()->page()->addGroupBox(1, 2, 2, 1);
+	
+	editDetails()->page()->newGroupBox("");
+	editDetails()->page()->addGroupBox(3, 0, 1, 3);
 	editDetails()->page()->addStackField();
 
 	// ANALOG 
 	editDetails()->page()->newStackField(0);
+	editDetails()->page()->newGroupBox("", Qt::AlignTop | Qt::AlignHCenter);
+	editDetails()->page()->addGroupBox(0, 0, 1, 3);
+	
 	editDetails()->page()->newGroupBox("Delay");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "0A", "00", "02", "normal","right", 105);
 	editDetails()->page()->addKnob(0, 1, 1, 1, "0A", "00", "05");
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
+	editDetails()->page()->addGroupBox(1, 0, 2, 1);
 
 	editDetails()->page()->newGroupBox("Filter");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "0A", "00", "06");
-	editDetails()->page()->addGroupBox(0, 1, 1, 1);
+	editDetails()->page()->addGroupBox(1, 1, 2, 1);
 
 	editDetails()->page()->newGroupBox("Level");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "0A", "00", "17");
 	editDetails()->page()->addKnob(0, 1, 1, 1, "0A", "00", "18");
-	editDetails()->page()->addGroupBox(0, 2, 1, 1);
+	editDetails()->page()->addGroupBox(1, 2, 2, 1);
+	
+	editDetails()->page()->newGroupBox("", Qt::AlignTop | Qt::AlignHCenter);
+	editDetails()->page()->addGroupBox(3, 0, 1, 3);
 	editDetails()->page()->addStackField();
 
 	// TAPE 
 	editDetails()->page()->newStackField(0);
+	
+	editDetails()->page()->newGroupBox("", Qt::AlignTop | Qt::AlignHCenter);
+	editDetails()->page()->addGroupBox(0, 0, 1, 3);
+	
 	editDetails()->page()->newGroupBox("Delay");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "0A", "00", "02", "normal","right", 105);
 	editDetails()->page()->addKnob(0, 1, 1, 1, "0A", "00", "05");
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
-
+	editDetails()->page()->addGroupBox(1, 0, 2, 1);
+	
 	editDetails()->page()->newGroupBox("Filter");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "0A", "00", "06");
-	editDetails()->page()->addGroupBox(0, 1, 1, 1);
-
+	editDetails()->page()->addGroupBox(1, 1, 2, 1);
+	
 	editDetails()->page()->newGroupBox("Level");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "0A", "00", "17");
 	editDetails()->page()->addKnob(0, 1, 1, 1, "0A", "00", "18");
-	editDetails()->page()->addGroupBox(0, 2, 1, 1);
+	editDetails()->page()->addGroupBox(1, 2, 2, 1);
+	
+	editDetails()->page()->newGroupBox("", Qt::AlignTop | Qt::AlignHCenter);
+	editDetails()->page()->addGroupBox(3, 0, 1, 3);
 	editDetails()->page()->addStackField();
 
 	// WARP 
@@ -281,12 +309,12 @@ void stompbox_dd::setEditPages()
 
 	editDetails()->page()->newGroupBox("Filter");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "0A", "00", "06");
-	editDetails()->page()->addGroupBox(0, 3, 1, 1);
+	editDetails()->page()->addGroupBox(0, 3, 2, 1);
 
 	editDetails()->page()->newGroupBox("Level");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "0A", "00", "17");
 	editDetails()->page()->addKnob(0, 1, 1, 1, "0A", "00", "18");
-	editDetails()->page()->addGroupBox(0, 4, 1, 1);
+	editDetails()->page()->addGroupBox(0, 4, 2, 1);
 	editDetails()->page()->addStackField();
 
 	// MODULATE 
@@ -299,29 +327,17 @@ void stompbox_dd::setEditPages()
 	editDetails()->page()->newGroupBox("Modulate");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "0A", "00", "15");
 	editDetails()->page()->addKnob(0, 1, 1, 1, "0A", "00", "16");
-	editDetails()->page()->addGroupBox(1, 0, 1, 1);
+	editDetails()->page()->addGroupBox(1, 0, 1, 2);
 
 	editDetails()->page()->newGroupBox("Filter");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "0A", "00", "06");
-	editDetails()->page()->addGroupBox(0, 2, 1, 1);
+	editDetails()->page()->addGroupBox(0, 2, 2, 1);
 
 	editDetails()->page()->newGroupBox("Level");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "0A", "00", "17");
 	editDetails()->page()->addKnob(0, 1, 1, 1, "0A", "00", "18");
-	editDetails()->page()->addGroupBox(0, 3, 1, 1);
+	editDetails()->page()->addGroupBox(0, 3, 2, 1);
 	editDetails()->page()->addStackField();
-/*
-	// HOLD 
-	editDetails()->page()->newStackField(0);
-	editDetails()->page()->newGroupBox("Filter");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "0A", "00", "06");
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 
-	editDetails()->page()->newGroupBox("Level");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "0A", "00", "17");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "0A", "00", "18");
-	editDetails()->page()->addGroupBox(0, 1, 1, 1);
-	editDetails()->page()->addStackField();
-*/
 	editDetails()->addPage();
 };

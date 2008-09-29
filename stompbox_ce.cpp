@@ -48,7 +48,7 @@ void stompbox_ce::setEditPages()
   editDetails()->page()->newGroupBox("Effect");
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "0A", "00", "20");
 	editDetails()->page()->addComboBox(1, 0, 1, 1, "0A", "00", "21");
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
+	editDetails()->page()->addGroupBox(0, 0, 2, 1);
 
 	editDetails()->page()->newGroupBox("Chorus");
 	editDetails()->page()->addKnob(0, 0, 1, 3, "0A", "00", "22", "normal","right", 105);
@@ -59,11 +59,11 @@ void stompbox_ce::setEditPages()
 	editDetails()->page()->newGroupBox("Filter");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "0A", "00", "25");
 	editDetails()->page()->addKnob(0, 1, 1, 1, "0A", "00", "26");
-	editDetails()->page()->addGroupBox(0, 2, 1, 1);
+	editDetails()->page()->addGroupBox(0, 2, 2, 1);
 
 	editDetails()->page()->newGroupBox("Level");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "0A", "00", "27");
-	editDetails()->page()->addGroupBox(0, 3, 1, 1);
+	editDetails()->page()->addGroupBox(0, 3, 2, 1);
 
 	editDetails()->addPage();	
 };

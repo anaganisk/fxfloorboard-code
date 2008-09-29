@@ -53,12 +53,12 @@ void stompbox_od::setEditPages()
 	editDetails()->page()->newGroupBox("Overdrive");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "00", "00", "72", "turbo");
 	editDetails()->page()->addKnob(0, 1, 1, 1, "00", "00", "74");
+	editDetails()->page()->addKnob(0, 2, 1, 1, "00", "00", "73");
 	editDetails()->page()->addGroupBox(0, 1, 1, 1);
 
 	editDetails()->page()->newGroupBox("Level");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "00", "00", "75");
 	editDetails()->page()->addKnob(0, 1, 1, 1, "00", "00", "76");
-	editDetails()->page()->addKnob(0, 2, 1, 1, "00", "00", "73");
 	editDetails()->page()->addGroupBox(0, 2, 1, 1);
 	
 

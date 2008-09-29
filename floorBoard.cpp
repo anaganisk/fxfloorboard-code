@@ -52,6 +52,7 @@
 #include "stompbox_ns_1.h"
 #include "stompbox_ns_2.h"
 #include "stompbox_dgt.h"
+//#include "stompbox_assign.h"
 
 floorBoard::floorBoard(QWidget *parent, 
 						QString imagePathFloor, 
@@ -99,35 +100,21 @@ floorBoard::floorBoard(QWidget *parent,
 	/*floorBoardDisplay *display2 = new floorBoardDisplay(this);
 	display2->setPos(liberainPos);*/
 
-	QObject::connect(this, SIGNAL( resizeSignal(QRect) ),
-                bankList, SLOT( updateSize(QRect) ) );
-	QObject::connect(display, SIGNAL(connectedSignal()), 
-		bankList, SLOT(connectedSignal()));
-	QObject::connect(this, SIGNAL(valueChanged(QString, QString, QString)), 
-		display, SLOT(setValueDisplay(QString, QString, QString)));
-	QObject::connect(panelBar, SIGNAL(resizeSignal(int)), 
-		this, SLOT(setWidth(int)));
-	QObject::connect(panelBar, SIGNAL(collapseSignal()), 
-		this, SLOT(setCollapse()));
-	QObject::connect(this, SIGNAL(setCollapseState(bool)), 
-		panelBar, SIGNAL(collapseState(bool)));
-	QObject::connect(this, SIGNAL(setDisplayPos(QPoint)), 
-		display, SLOT(setPos(QPoint)));
-	QObject::connect(this, SIGNAL(setFloorPanelBarPos(QPoint)), 
-		panelBar, SLOT(setPos(QPoint)));
-	QObject::connect(this->parent(), SIGNAL(updateSignal()), 
-		this, SIGNAL(updateSignal()));
-	QObject::connect(this, SIGNAL(updateSignal()), 
-		this, SLOT(updateStompBoxes()));
-	QObject::connect(bankList, SIGNAL(patchSelectSignal(int, int)), 
-		display, SLOT(patchSelectSignal(int, int)));
-	QObject::connect(bankList, SIGNAL(patchLoadSignal(int, int)), 
-		display, SLOT(patchLoadSignal(int, int)));
+	QObject::connect(this, SIGNAL( resizeSignal(QRect) ), bankList, SLOT( updateSize(QRect) ) );
+	QObject::connect(display, SIGNAL(connectedSignal()), bankList, SLOT(connectedSignal()));
+	QObject::connect(this, SIGNAL(valueChanged(QString, QString, QString)), display, SLOT(setValueDisplay(QString, QString, QString)));
+	QObject::connect(panelBar, SIGNAL(resizeSignal(int)), this, SLOT(setWidth(int)));
+	QObject::connect(panelBar, SIGNAL(collapseSignal()), this, SLOT(setCollapse()));
+	QObject::connect(this, SIGNAL(setCollapseState(bool)), panelBar, SIGNAL(collapseState(bool)));
+	QObject::connect(this, SIGNAL(setDisplayPos(QPoint)), display, SLOT(setPos(QPoint)));
+	QObject::connect(this, SIGNAL(setFloorPanelBarPos(QPoint)), panelBar, SLOT(setPos(QPoint)));
+	QObject::connect(this->parent(), SIGNAL(updateSignal()), this, SIGNAL(updateSignal()));
+	QObject::connect(this, SIGNAL(updateSignal()), this, SLOT(updateStompBoxes()));
+	QObject::connect(bankList, SIGNAL(patchSelectSignal(int, int)), display, SLOT(patchSelectSignal(int, int)));
+	QObject::connect(bankList, SIGNAL(patchLoadSignal(int, int)), display, SLOT(patchLoadSignal(int, int)));
 
-	QObject::connect(panelBar, SIGNAL(showDragBar(QPoint)), 
-		this, SIGNAL(showDragBar(QPoint)));
-	QObject::connect(panelBar, SIGNAL(hideDragBar()), 
-		this, SIGNAL(hideDragBar()));
+	QObject::connect(panelBar, SIGNAL(showDragBar(QPoint)), this, SIGNAL(showDragBar(QPoint)));
+	QObject::connect(panelBar, SIGNAL(hideDragBar()), this, SIGNAL(hideDragBar()));
 
 	bool ok;
 	Preferences *preferences = Preferences::Instance();
@@ -242,6 +229,7 @@ void floorBoard::setFloorBoard() {
 
 void floorBoard::dragEnterEvent(QDragEnterEvent *event)
 {
+
 	QByteArray data = event->mimeData()->data("text/uri-list");
 	QString uri(data);
 	
@@ -249,16 +237,20 @@ void floorBoard::dragEnterEvent(QDragEnterEvent *event)
 		uri.contains(".syx", Qt::CaseInsensitive) &&
 		event->answerRect().intersects(this->geometry())) 
 	{
-        if (children().contains(event->source())) 
-		{
-            event->setDropAction(Qt::MoveAction);
+      if (children().contains(event->source()) ) 
+		  {
+      event->setDropAction(Qt::MoveAction);
 			event->accept();
-        } else {
-            event->acceptProposedAction();
-        };
-    } else {
-        event->ignore();
-    };
+      } 
+      else 
+      {
+      event->acceptProposedAction();
+      };
+  } 
+    else 
+  {
+     event->ignore();
+  };
 };
 
 void floorBoard::dragMoveEvent(QDragMoveEvent *event)
@@ -297,6 +289,8 @@ void floorBoard::dropEvent(QDropEvent *event)
 		QPoint dragPoint = (event->pos() - topLeftOffset) + QPoint::QPoint(stompSize.width()/2, stompSize.height()/2);
 		int stompSpacing = fxPos.at(1).x() - (fxPos.at(0).x() + stompSize.width());
 		
+		 
+		
 		int destIndex = -1; // Set to out of range by default.
 		int orgIndex = fx.indexOf(stompId);
 		for(int x=0;x<fx.size();x++) 
@@ -316,9 +310,13 @@ void floorBoard::dropEvent(QDropEvent *event)
         }; 
  
 
-		if(destIndex > -1 && destIndex < fx.size() + 1)  
+      
+			
+			
+		if((destIndex > -1 && destIndex < fx.size() + 1) && (stompId != 16) && (stompId != 17))
 			// Make sure we are not dropping the stomp out of range. 
 		{
+		 
 			if( orgIndex < destIndex )
 			{
 				destIndex = destIndex - 1;
@@ -337,14 +335,14 @@ void floorBoard::dropEvent(QDropEvent *event)
 				setStompPos(stompId, destIndex);
 			};
 
-			if(orgIndex != destIndex) // Prevent sending data when stomp was dropped in the same place.
-			{
-				SysxIO *sysxIO = SysxIO::Instance();
+			if((orgIndex != destIndex) )                    // Prevent sending data when stomp was dropped in the same place.
+			{			
+			 	SysxIO *sysxIO = SysxIO::Instance();
 				QList<QString> hexData;
 				for(int index=0;index<fx.size();index++)
 				{
 					QString fxHexValue = QString::number(fx.at(index), 16).toUpper();
-					if(fxHexValue.length() < 2 && index == 17){ fxHexValue.prepend("4");}
+					if(fxHexValue.length() < 2 && index == 17){ fxHexValue.prepend("4");}  // last chain item is hidden =43 by default (preamp-2)
           if(fxHexValue.length() < 2 && index != 17){ fxHexValue.prepend("0");}
 					hexData.append(fxHexValue);
 				};
@@ -411,16 +409,16 @@ void floorBoard::initSize(QSize floorSize)
 	for(int i=17;i>=0;i--)
 	{
 		unsigned int y = marginStompBoxesTop;
-		unsigned int x = marginStompBoxesWidth + (( stompSize.width() + spacingH ) * (i-1));
+	  unsigned int x = marginStompBoxesWidth + (( stompSize.width() + spacingH ) * (i-1));
 		if(i==0 )
 		 {
-		 y = -200;   // throw the extra preamp off screen
+		 y = 550;   // throw the extra preamp off screen
 		 x = 0;
 		 }
 		if(i>9)
 		{
 			y = y + stompSize.height() + spacingV;
-			x = x - (( stompSize.width() + spacingH ) * 8.5);
+			x = x - ((( stompSize.width() + spacingH ) * 17)/2);  // *8.5 causes double to int warning
 		};
 		fxPos.append(QPoint::QPoint(offset + x, y));
 	};
@@ -674,6 +672,13 @@ void floorBoard::initStomps()
 	cn_m->setPos(this->getStompPos(cn_m->getId()));
 	this->stompBoxes.replace(cn_m->getId(), cn_m);
 	this->stompNames.replace(cn_m->getId(), "CN_M");
+	
+	/* ASSIGN 
+	stompBox *assign = new stompbox_assign(this);
+	assign->setId( fxID.at(fxNAMES.indexOf("ASSIGN")) ); 
+	assign->setPos(this->getStompPos(assign->getId()));
+	this->stompBoxes.replace(assign->getId(), assign);*/
+	//this->stompNames.replace(assign->getId(), "ASSIGN");
 };
 
 void floorBoard::setStomps(QList<QString> stompOrder)

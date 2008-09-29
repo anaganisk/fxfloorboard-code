@@ -47,6 +47,7 @@ public:
 signals:
 	void dialogUpdateSignal();
 	void updateSignal();
+	void updateDisplay(QString text);
 
 public slots:
 	void valueChanged(int index);

@@ -28,7 +28,7 @@
 #include "midiIO.h"
 #include "renameWidget.h"
 #include "globalVariables.h"
-#include "stompBox.h"  //cjw
+
 
 
 
@@ -69,20 +69,22 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
 	initPatch = new initPatchListMenu(QRect(405, 24, 168, 15), this);
   renameWidget *nameEdit = new renameWidget(this); 
   nameEdit->setGeometry(85, 5, 150, 34); 
+  
+  this->editDialog = new editWindow();
 
  	this->connectButton = new customButton(tr("Connect"), false, QPoint(405, 5), this, ":/images/greenledbutton.png");
 	this->writeButton = new customButton(tr("Write/Sync"), false, QPoint(494, 5), this, ":/images/ledbutton.png");
-	//this->manualButton = new customButton(tr("Manual"), false, QPoint(583, 24), this, ":/images/pushbutton.png");
+	this->manualButton = new customButton(tr("Manual"), false, QPoint(583, 24), this, ":/images/pushbutton.png");
 	this->assignButton = new customButton(tr("Assign"), false, QPoint(583, 5), this, ":/images/pushbutton.png");
-//	this->masterButton = new customButton(tr("Master"), false, QPoint(672, 5), this, ":/images/pushbutton.png");
-//	this->systemButton = new customButton(tr("System"), false, QPoint(672, 24), this, ":/images/pushbutton.png");
+	this->masterButton = new customButton(tr("Master"), false, QPoint(672, 5), this, ":/images/pushbutton.png");
+	this->systemButton = new customButton(tr("System"), false, QPoint(672, 24), this, ":/images/pushbutton.png");
 
 	SysxIO *sysxIO = SysxIO::Instance();
 	QObject::connect(this, SIGNAL(setStatusSymbol(int)), sysxIO, SIGNAL(setStatusSymbol(int)));
 	QObject::connect(this, SIGNAL(setStatusProgress(int)), sysxIO, SIGNAL(setStatusProgress(int)));
 	QObject::connect(this, SIGNAL(setStatusMessage(QString)), sysxIO, SIGNAL(setStatusMessage(QString)));
-
-    QObject::connect(sysxIO, SIGNAL(notConnectedSignal()), this, SLOT(notConnected()));
+  
+  QObject::connect(sysxIO, SIGNAL(notConnectedSignal()), this, SLOT(notConnected()));
 	QObject::connect(this, SIGNAL(notConnectedSignal()), this, SLOT(notConnected()));
 
 	QObject::connect(this->parent(), SIGNAL(updateSignal()), this, SLOT(updateDisplay()));
@@ -90,6 +92,11 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
 	QObject::connect(this->connectButton, SIGNAL(valueChanged(bool)), this, SLOT(connectSignal(bool)));
 	QObject::connect(this->writeButton, SIGNAL(valueChanged(bool)), this, SLOT(writeSignal(bool)));
 	QObject::connect(this->assignButton, SIGNAL(valueChanged(bool)), this, SLOT(assignSignal(bool)));  //cw
+	QObject::connect(this->manualButton, SIGNAL(valueChanged(bool)), this, SLOT(manualSignal(bool)));  //cw
+	QObject::connect(this->masterButton, SIGNAL(valueChanged(bool)), this, SLOT(masterSignal(bool)));  //cw
+	QObject::connect(this->systemButton, SIGNAL(valueChanged(bool)), this, SLOT(systemSignal(bool)));  //cw
+	QObject::connect(this, SIGNAL( setEditDialog(editWindow*) ), this->parent(), SLOT( setEditDialog(editWindow*) ));
+	
   };
 
 QPoint floorBoardDisplay::getPos()
@@ -273,23 +280,48 @@ void floorBoardDisplay::updateDisplay()
 	};  */// to here
     };
 
-void floorBoardDisplay::assignSignal(bool value)    //cw
-{
-    this->assignButtonActive = value;
-    editWindow *edit = new editWindow();
-	  //editDialog->setWindow("Assign");
-		//emit assignSignal();
-	//stompBox->setEditDialog();
-	//floorBoard->editDialog->show();
-	emit setStatusMessage(tr("ASSIGN"));
+
+void floorBoardDisplay::assignSignal(bool value)	
+	{
+	this->assignButtonActive = value;
+	if(assignButtonActive == true){emit assignSignal();}
+	emit setStatusMessage(tr("Assign"));
+	//emit assignSignal();
+  emit setEditDialog(this->editDialog);
+	this->editDialog->setWindow("assign");
 	
 	
+  };
   
-	
-};
+	void floorBoardDisplay::manualSignal(bool value)	
+	{
+	this->assignButtonActive = value;
+	if(manualButtonActive == true){emit manualSignal();}
+	emit setStatusMessage(tr("Manual"));
+	emit manualSignal();
+  emit setEditDialog(this->editDialog);
+	this->editDialog->setWindow("Manual");
+  };
 
+void floorBoardDisplay::masterSignal(bool value)	
+	{
+	this->masterButtonActive = value;
+	if(masterButtonActive == true){emit masterSignal();}
+	emit setStatusMessage(tr("Master"));
+	emit masterSignal();
+  //emit setEditDialog(this->editDialog);
+	this->editDialog->setWindow("Master");
+  };
  
-
+void floorBoardDisplay::systemSignal(bool value)	
+	{
+	this->systemButtonActive = value;
+	if(systemButtonActive == true){emit systemSignal();}
+	emit setStatusMessage(tr("System"));
+	emit systemSignal();
+  emit setEditDialog(this->editDialog);
+	this->editDialog->setWindow("System");
+  };
 
 void floorBoardDisplay::connectSignal(bool value)
 {
@@ -559,13 +591,13 @@ void floorBoardDisplay::writeToBuffer()
 		emit setStatusSymbol(2);
 		emit setStatusMessage(tr("Sync to ")+deviceType);
 		
-	Preferences *preferences = Preferences::Instance(); bool ok;// Load the preferences.
-	const int tempDataWrite = preferences->getPreferences("Midi", "Time", "set").toInt(&ok, 10);	
+	//Preferences *preferences = Preferences::Instance(); bool ok;// Load the preferences.
+	//const int tempDataWrite = preferences->getPreferences("Midi", "Time", "set").toInt(&ok, 10);	
  //bool ok;
-	int bank = sysxIO->getBank();
-	int patch = sysxIO->getPatch();
-	int patchOffset = (((bank - 1 ) * patchPerBank) + patch) - 1;
-	int k = QString(tempDataWrite).toInt(&ok, 16);                  // data write address at temp buffer.
+	//int bank = sysxIO->getBank();
+	//int patch = sysxIO->getPatch();
+	//int patchOffset = (((bank - 1 ) * patchPerBank) + patch) - 1;
+	//int k = QString(tempDataWrite).toInt(&ok, 16);                  // data write address at temp buffer.
 	QString addr1 = QString::number(96, 16).toUpper();
 	QString addr2 = QString::number(0, 16).toUpper();
 
@@ -797,10 +829,10 @@ void floorBoardDisplay::notConnected()
 	sysxIO->setDeviceReady(true);	// Free the device after finishing interaction.	
 };
 
-void floorBoardDisplay::valueChanged(bool value, QString hex1, QString hex2, QString hex3)
+/*void floorBoardDisplay::valueChanged(bool value, QString hex1, QString hex2, QString hex3)
 {
 	value;
 	hex1;
 	hex2;
 	hex3;
-};
+};*/

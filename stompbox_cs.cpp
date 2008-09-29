@@ -56,15 +56,19 @@ void stompbox_cs::setEditPages()
 	// BOSS Comp
 	editDetails()->page()->insertStackField(0, 0, 1, 1, 1);
 	editDetails()->page()->newStackField(0);
+				
 	editDetails()->page()->newGroupBox("Compressor");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "00", "00", "54"); //sustain
 	editDetails()->page()->addKnob(0, 1, 1, 1, "00", "00", "55"); //attack
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
+	editDetails()->page()->addGroupBox(1, 0, 1, 1);
 
 	editDetails()->page()->newGroupBox("Level");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "00", "00", "52");  // tone
 	editDetails()->page()->addKnob(0, 1, 1, 1, "00", "00", "53");  // level
-	editDetails()->page()->addGroupBox(0, 1, 1, 1);
+	editDetails()->page()->addGroupBox(1, 1, 1, 1);
+	
+	editDetails()->page()->newGroupBox("", Qt::AlignTop | Qt::AlignHCenter);
+	editDetails()->page()->addGroupBox(2, 0, 2, 2);
 	editDetails()->page()->addStackField();
 	
 	// D-Comp
@@ -73,12 +77,15 @@ void stompbox_cs::setEditPages()
 	editDetails()->page()->newGroupBox("Compressor");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "00", "00", "54"); //sustain
 	editDetails()->page()->addKnob(0, 1, 1, 1, "00", "00", "55"); //attack
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
+	editDetails()->page()->addGroupBox(1, 0, 1, 1);
 
 	editDetails()->page()->newGroupBox("Level");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "00", "00", "52");  // tone
 	editDetails()->page()->addKnob(0, 1, 1, 1, "00", "00", "53");  // level
-	editDetails()->page()->addGroupBox(0, 1, 1, 1);
+	editDetails()->page()->addGroupBox(1, 1, 1, 1);
+	
+	editDetails()->page()->newGroupBox("", Qt::AlignTop | Qt::AlignHCenter);
+	editDetails()->page()->addGroupBox(2, 0, 2, 2);
 	editDetails()->page()->addStackField();
 
 	// BOSS Limiter 
@@ -88,12 +95,15 @@ void stompbox_cs::setEditPages()
 	editDetails()->page()->addKnob(0, 1, 1, 1, "00", "00", "56");   // thresh
 	editDetails()->page()->addKnob(0, 2, 1, 1, "00", "00", "57");  // ratio
 	editDetails()->page()->addKnob(0, 3, 1, 1, "00", "00", "59");   // release
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
+	editDetails()->page()->addGroupBox(1, 0, 1, 1);
 
 	editDetails()->page()->newGroupBox("Level");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "00", "00", "52");  // tone
 	editDetails()->page()->addKnob(0, 1, 1, 1, "00", "00", "53");  // level
-	editDetails()->page()->addGroupBox(0, 1, 1, 1);
+	editDetails()->page()->addGroupBox(1, 1, 1, 1);
+	
+	editDetails()->page()->newGroupBox("", Qt::AlignTop | Qt::AlignHCenter);
+	editDetails()->page()->addGroupBox(2, 0, 2, 2);
 	editDetails()->page()->addStackField();
 	
 	// Rack 160D 
@@ -103,12 +113,15 @@ void stompbox_cs::setEditPages()
 	editDetails()->page()->addKnob(0, 1, 1, 1, "00", "00", "56");
 	editDetails()->page()->addKnob(0, 2, 1, 1, "00", "00", "57");
 	editDetails()->page()->addKnob(0, 3, 1, 1, "00", "00", "59");
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
+	editDetails()->page()->addGroupBox(1, 0, 1, 1);
 
 	editDetails()->page()->newGroupBox("Level");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "00", "00", "52");
 	editDetails()->page()->addKnob(0, 1, 1, 1, "00", "00", "53");
-	editDetails()->page()->addGroupBox(0, 1, 1, 1);
+	editDetails()->page()->addGroupBox(1, 1, 1, 1);
+	
+	editDetails()->page()->newGroupBox("", Qt::AlignTop | Qt::AlignHCenter);
+	editDetails()->page()->addGroupBox(2, 0, 2, 2);
 	editDetails()->page()->addStackField();
 	
 	//  Vtg Rack U
@@ -118,12 +131,15 @@ void stompbox_cs::setEditPages()
 	editDetails()->page()->addKnob(0, 1, 1, 1, "00", "00", "56");
 	editDetails()->page()->addKnob(0, 2, 1, 1, "00", "00", "57");
 	editDetails()->page()->addKnob(0, 3, 1, 1, "00", "00", "59");
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
+	editDetails()->page()->addGroupBox(1, 0, 1, 1);
 
 	editDetails()->page()->newGroupBox("Level");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "00", "00", "52");
 	editDetails()->page()->addKnob(0, 1, 1, 1, "00", "00", "53");
-	editDetails()->page()->addGroupBox(0, 1, 1, 1);
+	editDetails()->page()->addGroupBox(1, 1, 1, 1);
+	
+	editDetails()->page()->newGroupBox("", Qt::AlignTop | Qt::AlignHCenter);
+	editDetails()->page()->addGroupBox(2, 0, 2, 2);
 	editDetails()->page()->addStackField();
 	
 	// Multi Band 
@@ -149,12 +165,15 @@ void stompbox_cs::setEditPages()
 	editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Compressor");
 	editDetails()->page()->addKnob(0, 1, 1, 1, "00", "00", "61");  // drive
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
+	editDetails()->page()->addGroupBox(1, 0, 1, 1);
 
 	editDetails()->page()->newGroupBox("Level");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "00", "00", "52");
 	editDetails()->page()->addKnob(0, 1, 1, 1, "00", "00", "53");
-	editDetails()->page()->addGroupBox(0, 1, 1, 1);
+	editDetails()->page()->addGroupBox(1, 1, 1, 1);
+	
+	editDetails()->page()->newGroupBox("", Qt::AlignTop | Qt::AlignHCenter);
+	editDetails()->page()->addGroupBox(2, 0, 2, 2);
 	editDetails()->page()->addStackField();
 
 	editDetails()->addPage();

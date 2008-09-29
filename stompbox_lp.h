@@ -27,7 +27,7 @@
 #include <QWidget>
 #include "stompBox.h"
 
-class stompbox_lp : public stompBox
+class stompbox_lp : public stompBox 
 {
     Q_OBJECT
 
@@ -38,5 +38,5 @@ public:
 public slots:
 	void updateSignal();
 };
-
+ 
 #endif // STOMPBOX_LP_H

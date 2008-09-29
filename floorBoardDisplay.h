@@ -1,6 +1,7 @@
 /****************************************************************************
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
+** Copyright (C) 2007, 2008, Colin Willcocks. All rights reserved.
 **
 ** This file is part of "GT-10B Fx FloorBoard".
 **
@@ -29,8 +30,7 @@
 #include "customButton.h"
 #include "customDisplay.h"
 #include "initPatchListMenu.h"
-#include "stompBox.h"  //cjw
-#include "editWindow.h"  //cjw
+#include "editWindow.h"
 
 class floorBoardDisplay : public QWidget
 {
@@ -48,6 +48,9 @@ public slots:
 	void setPos(QPoint newPos);
 	void updateDisplay();
 	void assignSignal(bool value);   //cjw
+	void manualSignal(bool value);   //cjw
+	void masterSignal(bool value);   //cjw
+	void systemSignal(bool value);   //cjw
 	void connectSignal(bool value);
 	void writeSignal(bool value);
 	void connectionResult(QString);
@@ -61,20 +64,25 @@ public slots:
 	void writeToBuffer();
 	void writeToMemory();
 
-	void valueChanged(bool value, QString hex1, QString hex2, QString hex3); // Not used.
+	//void valueChanged(bool value, QString hex1, QString hex2, QString hex3); // Not used.
 
 signals:
 	void updateSignal();
 	void connectedSignal();
 	void notConnectedSignal();
-
+  void assignSignal();
+  void manualSignal();
+  void masterSignal();
+  void systemSignal();
 	void setStatusSymbol(int value);
 	void setStatusProgress(int value);
   void setStatusMessage(QString message);
+  void setEditDialog(editWindow* editDialog);
+  
 
 private:
 	QPoint pos;
-
+ 
 	customDisplay *valueDisplay;
 	customDisplay *patchDisplay;
 	customDisplay *patchNumDisplay;
@@ -87,13 +95,18 @@ private:
 	customButton *systemButton;
 
 	bool connectButtonActive;
-    bool assignButtonActive;
+  bool assignButtonActive;
+  bool manualButtonActive;
+  bool masterButtonActive;
+  bool systemButtonActive;
 	bool patchLoadError;
 	QTimer* timer;
 	int blinkCount;
 	bool currentSyncStatus;
 
 	initPatchListMenu *initPatch;
+	
+	editWindow *editDialog;
 	};
 
 #endif // FLOORBOARDDISPLAY_H

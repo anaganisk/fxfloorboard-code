@@ -1,7 +1,7 @@
 /****************************************************************************
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
-**
+** 
 ** This file is part of "GT-10B Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
@@ -88,12 +88,13 @@ public slots:
 	void valueChanged(int index);
 	virtual void updateSignal() {};
 	void setDisplayToFxName();
-	
+		
 signals:
 	void valueChanged(QString fxName, QString valueName, QString valueStr);
 	void currentIndexChanged(int index);
 	void dialogUpdateSignal();
 	void setEditDialog(editWindow* editDialog);
+	void notConnectedSignal();
 
 protected:
 	void paintEvent(QPaintEvent *event);

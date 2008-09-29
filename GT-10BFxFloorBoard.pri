@@ -31,9 +31,11 @@ HEADERS += ./editPage.h \
     ./customControlLabel.h \
     ./customControlListMenu.h \
     ./customControlSwitch.h \
+    ./customControlTarget.h \
     ./customDial.h \
     ./customDisplay.h \
     ./customKnob.h \
+    ./customKnobTarget.h \
     ./customLed.h \
     ./customSlider.h \
     ./customSplashScreen.h \
@@ -49,6 +51,7 @@ HEADERS += ./editPage.h \
     ./statusBarSymbol.h \
     ./statusBarWidget.h \
     ./stompBox.h \
+    ./stompbox_assign.h \
     ./stompbox_ce.h \
     ./stompbox_ch_a.h \
     ./stompbox_ch_b.h \
@@ -94,9 +97,11 @@ SOURCES += ./editPage.cpp \
     ./customControlLabel.cpp \
     ./customControlListMenu.cpp \
     ./customControlSwitch.cpp \
+    ./customControlTarget.cpp \
     ./customDial.cpp \
     ./customDisplay.cpp \
     ./customKnob.cpp \
+    ./customKnobTarget.cpp \
     ./customLed.cpp \
     ./customSlider.cpp \
     ./customSplashScreen.cpp \
@@ -112,6 +117,7 @@ SOURCES += ./editPage.cpp \
     ./statusBarSymbol.cpp \
     ./statusBarWidget.cpp \
     ./stompBox.cpp \
+    ./stompbox_assign.cpp \
     ./stompbox_ce.cpp \
     ./stompbox_ch_a.cpp \
     ./stompbox_ch_b.cpp \

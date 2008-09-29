@@ -26,14 +26,14 @@ stompbox_lp::stompbox_lp(QWidget *parent)
     : stompBox(parent)
 {
 	/* LOOP */
-	setImage(":/images/lp.png");
+	setImage(":/images/lp.png"); 
 	setLSB("0A", "00");
 	setKnob1("0A", "00", "7B");
 	setKnob2("0A", "00", "7C");
 	setComboBox("0A", "00", "7A");
 	setButton("0A", "00", "79");
 	setEditPages();
-};
+}; 
 
 void stompbox_lp::updateSignal()
 {
