@@ -31,8 +31,9 @@ stompbox_ns_1::stompbox_ns_1(QWidget *parent)
 	setKnob1("0A", "00", "72");
 	setKnob2("0A", "00", "73");
 	setButton("0A", "00", "71");
+	setSwitch("0C", "00", "22");
 	setEditPages();
-	setEditPages();
+	
 };
 
 void stompbox_ns_1::updateSignal()
@@ -40,6 +41,7 @@ void stompbox_ns_1::updateSignal()
   updateKnob1("0A", "00", "72");
 	updateKnob2("0A", "00", "73");
 	updateButton("0A", "00", "71");
+	updateSwitch("0C", "00", "22");
 };
 
 void stompbox_ns_1::setEditPages()

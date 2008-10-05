@@ -161,7 +161,7 @@ MidiPage::MidiPage(QWidget *parent)
 	midiTimeSpinBox->setValue(tempDataWrite);
 	midiTimeSpinBox->setRange(1, 99);
 	midiTimeSpinBox->setPrefix("= ");
-	midiTimeSpinBox->setSuffix("x 10 mS");
+	midiTimeSpinBox->setSuffix("0 milliseconds");
 
 	this->midiDelaySpinBox = midiDelaySpinBox;
 	const int minWait = preferences->getPreferences("Midi", "Delay", "set").toInt(&ok, 10);

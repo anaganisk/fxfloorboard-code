@@ -1,4 +1,4 @@
-GT-FxFloorBoard Preview version: 22 July 2008
+GT-FxFloorBoard Preview version: 30 September 2008
 
 NOTE: THIS IS A PREVIEW VERSION AND MANY FEATURES HAVE NOT YET BEEN IMPLIMENTED, OR SOME FUNCTIONS MAY BE INCORRECT. 
 yet to sort chain structure concept. chain will currently place all FX into channel A path.

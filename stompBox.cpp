@@ -314,7 +314,7 @@ void stompBox::setButton(QString hex1, QString hex2, QString hex3, QPoint pos, Q
 void stompBox::setSwitch(QString hex1, QString hex2, QString hex3)
 {
 	switchbutton = new customSwitch(false, this, hex1, hex2, hex3);	
-	switchbutton->move(QPoint::QPoint(5, 41));
+	switchbutton->move(QPoint::QPoint(5, 141));  //5, 41
 };
 
 void stompBox::updateComboBox(QString hex1, QString hex2, QString hex3)

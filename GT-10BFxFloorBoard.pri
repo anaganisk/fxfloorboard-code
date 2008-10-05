@@ -40,6 +40,7 @@ HEADERS += ./editPage.h \
     ./customSlider.h \
     ./customSplashScreen.h \
     ./customSwitch.h \
+    ./customTargetDial.h \
     ./dragBar.h \
     ./floorBoard.h \
     ./floorBoardDisplay.h \
@@ -106,6 +107,7 @@ SOURCES += ./editPage.cpp \
     ./customSlider.cpp \
     ./customSplashScreen.cpp \
     ./customSwitch.cpp \
+    ./customTargetDial.cpp \
     ./dragBar.cpp \
     ./floorBoard.cpp \
     ./floorBoardDisplay.cpp \

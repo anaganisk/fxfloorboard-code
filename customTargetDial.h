@@ -20,50 +20,69 @@
 **
 ****************************************************************************/
 
-#ifndef CUSTOMSWITCH_H
-#define CUSTOMSWITCH_H
+#ifndef CUSTOMTARGETDIAL_H
+#define CUSTOMTARGETDIAL_H
 
 #include <QWidget>
 
-class customSwitch : public QWidget
+class customTargetDial : public QWidget
 {
     Q_OBJECT
 
 public:
-    customSwitch(
-		bool active = false,
+    customTargetDial(
+		double value = 50, 
+		double min = 0, 
+		double max = 100, 
+		double single = 1, 
+		double page = 10,
+		QPoint dialPos = QPoint::QPoint(0, 0), 
 		QWidget *parent = 0,
 		QString hex1 = "void",
 		QString hex2 = "void",
 		QString hex3 = "void",
-		QString imagePath = ":/images/pathswitch.png");
-	void setValue(bool value);
+		QString imagePath = ":/images/stompknob.png",
+		unsigned int imageRange = 62,
+    QString background = "void");
+	void setValue(int value);
+
+public slots:
+	void knobSignal(QString, QString, QString);
 
 signals:
-	void valueChanged(bool newValue, QString hex1, QString hex2, QString hex3);
+	void valueChanged(int newValue, QString hex1, QString hex2, QString hex3);
 
 protected:
-	void paintEvent(QPaintEvent *event);
-	void mousePressEvent(QMouseEvent *event);
-	void mouseReleaseEvent(QMouseEvent *event);
-	void mouseMoveEvent(QMouseEvent *event);
+   void paintEvent(QPaintEvent *event);
+   void mouseMoveEvent(QMouseEvent *event);
+   void mousePressEvent(QMouseEvent *event);
+   void wheelEvent(QWheelEvent *event);
+   void keyPressEvent(QKeyEvent *event);
 
 private:
-	void setOffset(signed int imageNr);
-	void emitValue(bool value);
+	void setOffset(double value);
+	void emitValue(double value);
 
 	QString hex1;
 	QString hex2;
 	QString hex3;
-
-	bool active;
-	bool m_value;
+	double value; 
+	double min; 
+	double max; 
+	double single; 
+	double page;
 	QString imagePath;
-	QSize switchSize;
+	QSize dialSize;
 	unsigned int imageRange;
-	QPoint switchPos; 
-	QPoint dragStartPosition;
-	signed int yOffset;
+	QPoint dialPos; 
+
+	signed int xOffset;
+	double _lastValue;
+	QPoint _startpos;
+	QPoint _lastpos;
+  QString background;
+	
+	double m_value;
 };
 
-#endif // CUSTOMSWITCH_H
+#endif // CUSTOMTARGETDIAL_H

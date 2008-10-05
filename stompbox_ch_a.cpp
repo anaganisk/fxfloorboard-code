@@ -33,6 +33,7 @@ stompbox_ch_a::stompbox_ch_a(QWidget *parent)
 	setKnob2("01", "00", "56");
 	setComboBox("01", "00", "51");
 	setButton("01", "00", "50");
+	setSwitch("0C", "00", "22");
 	setEditPages();
 };
 
@@ -43,6 +44,7 @@ void stompbox_ch_a::updateSignal()
 	updateKnob2("01", "00", "56");
 	updateComboBox("01", "00", "51");
 	updateButton("01", "00", "50");
+	updateSwitch("0C", "00", "22");
 };
 
 void stompbox_ch_a::setEditPages()

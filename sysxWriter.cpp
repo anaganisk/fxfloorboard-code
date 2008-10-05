@@ -389,6 +389,19 @@ bool sysxWriter::readFile()
 	temp = smf_data.mid(1531, 44);           // copy SMF part1...
 	temp.append(smf_data.mid(1591,84));      // copy SMF part2...
 	data.replace(1224, 128, temp);           // replace gt10 address "0B"...
+	temp = data.mid(1224, 18);
+	
+	if (temp.contains(QByteArray("03")))
+  {
+    int y = temp.indexOf(QByteArray("03"));
+    temp.remove(y, 1);
+    temp.insert(17, QByteArray("43"));
+    } else {
+    int y = temp.indexOf(QByteArray("43"));
+    temp.remove(y, 1);
+    temp.insert(17, QByteArray("43"));       // move the unused preamp2 to chain position 18
+    };
+	data.replace(1224, 18, temp); 
 	temp = smf_data.mid(1675, 128);          // copy SMF part1...
 	data.replace(1365,128, temp);            // replace gt10 address "0C"...
     
@@ -408,6 +421,14 @@ bool sysxWriter::readFile()
 	msgText.append("<font size='+1'><b>");
 	msgText.append(QObject::tr("This is not a ") + deviceType + (" patch!"));
 	msgText.append("<b></font><br>");
+	if (data.size() == 1839){
+  msgText.append("but appears to be a GT-10 patch<br>");};
+  if (data.size() == 1010){
+  msgText.append("but appears to be a GT-8 patch<br>");};
+  if (data.size() == 670){
+  msgText.append("but appears to be a GT-6 patch<br>");};
+  if (data.size() == 650){
+  msgText.append("but appears to be a GT-3 patch<br>");};
 	msgText.append(QObject::tr("Patch size is not ") + (QString::number(patchSize, 10)) + (" bytes, please try another file."));
 	msgBox->setText(msgText);
 	msgBox->setStandardButtons(QMessageBox::Ok);

@@ -20,50 +20,65 @@
 **
 ****************************************************************************/
 
-#ifndef CUSTOMSWITCH_H
-#define CUSTOMSWITCH_H
+#ifndef customControlTarget_H
+#define customControlTarget_H
 
 #include <QWidget>
+#include <QtGui>
+#include "customKnobTarget.h"
+#include "customControlLabel.h"
 
-class customSwitch : public QWidget
+class customControlTarget : public QWidget
 {
     Q_OBJECT
 
 public:
-    customSwitch(
-		bool active = false,
-		QWidget *parent = 0,
+    customControlTarget(QWidget *parent = 0, 
 		QString hex1 = "void",
 		QString hex2 = "void",
 		QString hex3 = "void",
-		QString imagePath = ":/images/pathswitch.png");
-	void setValue(bool value);
-
-signals:
-	void valueChanged(bool newValue, QString hex1, QString hex2, QString hex3);
+		QString background = "normal", 
+		QString direction = "min", 
+		int lenght = 40);
 
 protected:
 	void paintEvent(QPaintEvent *event);
-	void mousePressEvent(QMouseEvent *event);
-	void mouseReleaseEvent(QMouseEvent *event);
-	void mouseMoveEvent(QMouseEvent *event);
+
+public slots:
+	void dialogUpdateSignal();
+	void knobSignal(QString, QString, QString);
+
+signals:
+	void updateSignal();
+	void updateDisplayTarget(QString text);
+	void updateDisplayMin(QString text);
+	void updateDisplayMax(QString text);
+	void updateTarget(QString hexMsb, QString hex2, QString hexLsb);
+	void updateHex(QString hexMsb, QString hex2, QString hexLsb);
 
 private:
-	void setOffset(signed int imageNr);
-	void emitValue(bool value);
-
+	customControlLabel* label;
+	customControlLabel* labelMin;
+	customControlLabel* labelMax;
+	QLineEdit* display;
+	QLineEdit* displayMin;
+	QLineEdit* displayMax;
+	customKnobTarget* knobTarget;
+	customKnobTarget* knobMin;
+	customKnobTarget* knobMax;
 	QString hex1;
 	QString hex2;
 	QString hex3;
-
-	bool active;
-	bool m_value;
-	QString imagePath;
-	QSize switchSize;
-	unsigned int imageRange;
-	QPoint switchPos; 
-	QPoint dragStartPosition;
-	signed int yOffset;
+	QString hex4;
+	QString hex5;
+	QString hexMin;
+	QString hexMax;
+	QString hexMsb;
+	QString hexLsb;
+	QString hexTarget;
+	QString hexTemp1;
+	QString hexTemp2;
+	QString direction;
 };
 
-#endif // CUSTOMSWITCH_H
+#endif // customControlTarget_H

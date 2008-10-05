@@ -20,50 +20,52 @@
 **
 ****************************************************************************/
 
-#ifndef CUSTOMSWITCH_H
-#define CUSTOMSWITCH_H
+#ifndef CUSTOMKNOBTARGET_H
+#define CUSTOMKNOBTARGET_H
 
 #include <QWidget>
+#include <QtGui>
+#include "customTargetDial.h"
 
-class customSwitch : public QWidget
+
+class customKnobTarget : public QWidget
 {
     Q_OBJECT
 
 public:
-    customSwitch(
-		bool active = false,
-		QWidget *parent = 0,
+    customKnobTarget(QWidget *parent = 0, 
 		QString hex1 = "void",
 		QString hex2 = "void",
 		QString hex3 = "void",
-		QString imagePath = ":/images/pathswitch.png");
-	void setValue(bool value);
+		QString hexMsb = "void",
+		QString hexLsb = "void",
+		QString background = "normal");
+	void setValue(int value);
+
+public slots:
+	void valueChanged(int, QString, QString, QString);
+	void knobSignal(QString, QString, QString);
 
 signals:
-	void valueChanged(bool newValue, QString hex1, QString hex2, QString hex3);
+	void updateSignal();
+	void updateDisplayTarget(QString text);
+	void updateDisplayMin(QString text);
+	void updateDisplayMax(QString text);
+	void updateTarget(QString hexMsb, QString hex2, QString hexLsb);
+	void updateHex(QString hexMsb, QString hex2, QString hexLsb);
 
 protected:
 	void paintEvent(QPaintEvent *event);
-	void mousePressEvent(QMouseEvent *event);
-	void mouseReleaseEvent(QMouseEvent *event);
-	void mouseMoveEvent(QMouseEvent *event);
 
 private:
-	void setOffset(signed int imageNr);
-	void emitValue(bool value);
-
+	customTargetDial* knob;
 	QString hex1;
 	QString hex2;
 	QString hex3;
+	QString hexMsb;
+	QString hexLsb;
+	QString background;
+	int range;
+	};
 
-	bool active;
-	bool m_value;
-	QString imagePath;
-	QSize switchSize;
-	unsigned int imageRange;
-	QPoint switchPos; 
-	QPoint dragStartPosition;
-	signed int yOffset;
-};
-
-#endif // CUSTOMSWITCH_H
+#endif // CUSTOMKNOBTARGET_H
