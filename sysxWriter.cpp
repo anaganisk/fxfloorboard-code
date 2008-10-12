@@ -281,46 +281,7 @@ bool sysxWriter::readFile()
 	data.replace(999, 1, temp);               // replace gt10 FX2 part18 SDD
 	
 	
-	/*
-		 QString z;
-		QString snork;
-			snork.append("<font size='-1'>");
-			snork.append(" { size=");
-			snork.append(QString::number(temp.size(), 10));
-			snork.append("}");	
-			
-			snork.append(" { size z=");
-			snork.append(QString::number(z.size()/2, 10));
-			snork.append("}");	
-				snork.append("<br> midi data received  ");
-			for(int i=0;i<temp.size();++i)
-			{
-			  r = temp.at(i);     
-	      z = (Qhex.mid((65+r), 1));
-				snork.append(z);
-				snork.append(" ");
-				//i++;
-			};
-			snork.append("<br> midi data received  ");
-			for(int i=0;i<z.size();++i)
-			{
-			//QString hexStr = temp.at(i);
-		  	//bool ok;
-		    //snork.append( (char)(hexStr.toInt(&ok, 16)) );
-				snork.append(z.mid(i*2, 2));
-				snork.append(" ");
-				//i++;
-			};
-			QMessageBox *msgBox2 = new QMessageBox();
-			msgBox2->setWindowTitle("dBug Result");
-			msgBox2->setIcon(QMessageBox::Information);
-			msgBox2->setText(snork);
-			msgBox2->setStandardButtons(QMessageBox::Ok);
-			msgBox2->exec();
-      
-         
 
-	 */
 	
     SysxIO *sysxIO = SysxIO::Instance();
 		sysxIO->setFileSource(data);
@@ -328,7 +289,22 @@ bool sysxWriter::readFile()
 		this->fileSource = sysxIO->getFileSource();
 		return true;
 		
-    }	else if (data.size() == 1839)
+    } else if(data.size() == 1862){         // if GT-10 patch file size is an old format <<<<<<<<<<<<<<<<<.
+    
+    QByteArray temp;
+    data.remove(1618, 50);
+    temp = data.mid(1605, 13);
+    data.remove(1605, 13);
+    data.insert(1620, temp);
+    data.remove(1761, 49);
+    
+		SysxIO *sysxIO = SysxIO::Instance();
+		sysxIO->setFileSource(data);
+		sysxIO->setFileName(this->fileName);
+		this->fileSource = sysxIO->getFileSource();
+		return true;
+		}
+    else if (data.size() == 1839)
   {                                        // file size of a .mid type SMF patch file from Boss Librarian
    
 	QByteArray smf_data = data;
@@ -379,10 +355,10 @@ bool sysxWriter::readFile()
 	temp = smf_data.mid(1403, 128);          // copy SMF part1
 	data.replace(1351,128, temp);            // replace gt10 address "0A"
 	temp = smf_data.mid(1531, 44);           // copy SMF part1
-	temp.append(smf_data.mid(1591,69));      // copy SMF part2
-	data.replace(1492, 113, temp);           // replace gt10 address "0B"
-	temp = smf_data.mid(1660, 173);          // copy SMF part1
-	data.replace(1618,173, temp);            // replace gt10 address "0C" & "0D"
+	temp.append(smf_data.mid(1591,84));      // copy SMF part2
+	data.replace(1492, 128, temp);           // replace gt10 address "0B"
+	temp = smf_data.mid(1675, 128);          // copy SMF part1
+	data.replace(1633,128, temp);            // replace gt10 address "0C"
     
     SysxIO *sysxIO = SysxIO::Instance();
 		sysxIO->setFileSource(data);
@@ -463,8 +439,8 @@ void sysxWriter::writeSMF(QString fileName)
 			};
 		};
 		
-	QByteArray temp;                        // TRANSLATION of GT-10 PATCHES, data read from gt8 syx patch **************
-	QByteArray Qhex;                        // and used to replace gt10 patch SMF data*********************************
+	QByteArray temp;                        // TRANSLATION of GT-10 PATCHES, data read from syx patch **************
+	QByteArray Qhex;                        // and replace syx headers with mid data and new addresses**************
   QFile hexfile(":HexLookupTable.hex");   // use a QByteArray of hex numbers from a lookup table.
     if (hexfile.open(QIODevice::ReadOnly))
 	{	Qhex = hexfile.readAll(); };
@@ -497,12 +473,14 @@ void sysxWriter::writeSMF(QString fileName)
 		out.insert(1317, temp);      // insert new address "09 3A" header
 		out.remove(1375, 13);        // remove address "0A 00" header
 		out.remove(1503, 13);        // remove address "0B 00" header
-		out.remove(1616, 13);        // remove address "0C 00" header
+		out.remove(1631, 13);        // remove address "0C 00" header
 		temp = Qhex.mid((438), 28);  // copy 28 x extra "00"
-		out.insert(1377, temp);      // insert 28 x extra "00"
+		out.insert(1375, temp);      // insert 28 x extra "00"
 		temp = Qhex.mid((416), 16);
 		out.insert(1575, temp);      // insert new address "0B 2C" header
-		out.remove(1832, 2);        // remove file footer
+		out.remove(1803, 2);        // remove file footer
+		temp = Qhex.mid((438), 29);  // copy 29 x extra "00"
+		out.insert(1803, temp);      // insert 28 x extra "00"
 		temp = Qhex.mid((432), 3);
 		out.insert(1832, temp);      // insert new file footer (part of)
 		out.remove(0, 29);           // remove header again for checksum calcs

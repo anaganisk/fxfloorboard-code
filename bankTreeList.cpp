@@ -501,7 +501,6 @@ void bankTreeList::updatePatch(QString replyMsg)
 	QObject::disconnect(sysxIO, SIGNAL(sysxReply(QString)),
 		this, SLOT(updatePatch(QString)));	
     
-  
 	
 	replyMsg = replyMsg.remove(" ").toUpper();       /* TRANSLATE SYSX MESSAGE FORMAT to 128 byte data blocks */
 	if (replyMsg.size()/2 == 1784){
@@ -534,8 +533,9 @@ void bankTreeList::updatePatch(QString replyMsg)
 	QString part11 = replyMsg.mid(2572, 256);
 	part11.prepend("0A00").prepend(addressMsb).prepend(header).append(footer);
 	QString part12 = replyMsg.mid(2828, 226);   //
-	part12.prepend("0B00").prepend(addressMsb).prepend(header).append(footer);
-	QString part13 = replyMsg.mid(3080, 484);
+	QString part12B = replyMsg.mid(3080, 30); 
+	part12.prepend("0B00").prepend(addressMsb).prepend(header).append(part12B).append(footer);
+	QString part13 = replyMsg.mid(3110, 256);
 	part13.prepend("0C00").prepend(addressMsb).prepend(header).append(footer);
 	
 	replyMsg = "";
@@ -570,7 +570,8 @@ void bankTreeList::updatePatch(QString replyMsg)
     }; 
   };    
 	replyMsg = reBuild.simplified().toUpper().remove("0X").remove(" ");
-
+	
+	
 	emit setStatusMessage(tr("Ready"));
 
 		sysxIO->setFileSource(replyMsg);		// Set the source to the data received.
@@ -584,41 +585,6 @@ void bankTreeList::updatePatch(QString replyMsg)
 		emit updateSignal();
 		emit setStatusProgress(0);
 
-/*
-		QList<QString> nameArray = sysxIO->getFileSource(nameAddress, "00");
-
-	MidiTable *midiTable = MidiTable::Instance();
-	QString name;
-	for(int i=sysxDataOffset;i<nameArray.size() - 2;i++ )
-		{
-		name.append( midiTable->getMidiMap("Structure", nameAddress, "00", "00", nameArray.at(i)).name );
-
-		QString hexStr = nameArray.at(i);
-		if(hexStr == "7E")
-		{
-			name.append((QChar)(0x2192));
-		}
-		if (hexStr == "7F")
-		{
-			name.append((QChar)(0x2190));  
-		}
-*/
-		//this->listIndex = 0;
-		//this->itemIndex = 0;
-		//this->currentPatchTreeItems.at(listIndex)->child(itemIndex)->setText(0,name); // Set the patch name of the item in the tree list.
-		/* if(itemIndex >= patchPerBank - 1) // If we reach the last patch in this bank we need to increment the bank and restart at patch 1.
-			{
-				this->listIndex++;
-				this->itemIndex = 0;
-			}
-			else 
-			{ 
-				this->itemIndex++;  
-			};*/
-		//};
-	//};	
-
-
 
 
 	};
@@ -627,7 +593,7 @@ void bankTreeList::updatePatch(QString replyMsg)
 		emit notConnectedSignal();				// No message returned so connection must be lost.
 		/* NO-REPLY WARNING */
 	QMessageBox *msgBox = new QMessageBox();
-	msgBox->setWindowTitle(QObject::tr("Warning - Patch data received is incorrect!"));
+	msgBox->setWindowTitle(QObject::tr("Warning - Patch data received is incorrect!")+(QString::number(replyMsg.size()/2, 10)));
 	msgBox->setIcon(QMessageBox::Warning);
 	msgBox->setTextFormat(Qt::RichText);
 	QString msgText;

@@ -1,5 +1,6 @@
 /****************************************************************************
 **
+** Copyright (C) 2008 Colin Willcocks.
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
 ** This file is part of "GT-10 Fx FloorBoard".
@@ -462,39 +463,31 @@ void stompBox::emitValueChanged(QString hex1, QString hex2, QString hex3, QStrin
 		{
 			Midi items = midiTable->getMidiMap("Structure", hex1, hex2, hex3);
 			valueName = items.desc;
-			/*if(hex1 == "00") //  -> correcting the name for consistency.
-			{
-			 if (hex3 > "3F" && hex3 < "48"){this->fxName = "Compressor";}
-			 else if (hex3 > "6F" && hex3 < "7E"){this->fxName = "Distortion/OD";}
-			}
-			else if (hex1 == "01")
-			{
-       if (hex3 > "0F" && hex3 < "2D"){this->fxName = "PreAmp A";}
-			 else if (hex3 > "2F" && hex3 < "4D"){this->fxName = "PreAmp B";}
-			 else if (hex3 < "05"){this->fxName = "PreAmp";}
-			 else if (hex3 > "6F" && hex3 < "7C"){this->fxName = "Equalizer";}
-      }
-      else if (hex1 == "0A")
-			{
-       if (hex3 > "1F" && hex3 < "28"){this->fxName = "Chorus";}
-			 else if (hex3 > "2F" && hex3 < "3C"){this->fxName = "Reverb";}
-			 else if (hex3 < "19"){this->fxName = "Delay";}
-			 else if (hex3 > "3F" && hex3 < "5C"){this->fxName = "Pedal FX";}
-			 else if (hex3 > "70" && hex3 < "75"){this->fxName = "NS-1";}
-			 else if (hex3 > "74" && hex3 < "79"){this->fxName = "NS-2";}
-			 else if (hex3 > "5F" && hex3 < "69"){this->fxName = "Master";}
-			 else if (hex3 > "78" && hex3 < "7D"){this->fxName = "Loop";}
-      }
-			else
-			{*/
-				this->fxName = midiTable->getMidiMap("Structure", hex1, hex2, hex3).name;
-			//};
+			this->fxName = midiTable->getMidiMap("Structure", hex1, hex2, hex3).name;
 			valueStr = midiTable->getValue("Structure", hex1, hex2, hex3, valueHex);
 			emit dialogUpdateSignal();
 		}
 		else
 		{
-				this->fxName = midiTable->getMidiMap("Structure", hex1).name;
+		  if (this->id == 0)this->fxName = "Compressor";
+		  if (this->id == 1)this->fxName = "Distortion";
+		  if (this->id == 2)this->fxName = "PreAmp/Spkr A";
+		  if (this->id == 3)this->fxName = "PreAmp/Spkr B";
+		  if (this->id == 4)this->fxName = "Equalizer";
+		  if (this->id == 5)this->fxName = "FX-1";
+		  if (this->id == 6)this->fxName = "FX-2";
+		  if (this->id == 7)this->fxName = "Delay";
+		  if (this->id == 8)this->fxName = "Chorus";
+		  if (this->id == 9)this->fxName = "Reverb";
+		  if (this->id == 10)this->fxName = "Pedal";
+		  if (this->id == 11)this->fxName = "Volume";
+		  if (this->id == 12)this->fxName = "Noise Suppressor 1";
+		  if (this->id == 13)this->fxName = "Noise Suppressor 2";
+		  if (this->id == 14)this->fxName = "Send/Return";
+		  if (this->id == 15)this->fxName = "Digital Out";
+		  if (this->id == 16)this->fxName = "Chain Split";
+		  if (this->id == 17)this->fxName = "Chain Merge";
+				 //midiTable->getMidiMap("Structure", hex1, hex2, hex3).name;//hex1).customdesc;
 		};
 	}
 	else

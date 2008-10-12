@@ -316,7 +316,7 @@ void floorBoard::dropEvent(QDropEvent *event)
         }; 
  
 
-		if(destIndex > -1 && destIndex < fx.size() + 1)  
+		if((destIndex > -1 && destIndex < fx.size() + 1) && (stompId != 16) && (stompId != 17) && (stompId != 2) && (stompId != 3)) 
 			// Make sure we are not dropping the stomp out of range. 
 		{
 			if( orgIndex < destIndex )

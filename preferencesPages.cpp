@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT6B Fx FloorBoard".
+** This file is part of "GT-10 Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -160,7 +160,7 @@ MidiPage::MidiPage(QWidget *parent)
 	midiTimeSpinBox->setValue(tempDataWrite);
 	midiTimeSpinBox->setRange(1, 99);
 	midiTimeSpinBox->setPrefix("= ");
-	midiTimeSpinBox->setSuffix("x 10 mS");
+	midiTimeSpinBox->setSuffix("0 millisecond");
 
 	this->midiDelaySpinBox = midiDelaySpinBox;
 	const int minWait = preferences->getPreferences("Midi", "Delay", "set").toInt(&ok, 10);

@@ -54,7 +54,7 @@ const int bankSize = 100;       // Number of patches in a midi bank before bank 
 
 /* Midi Send & Receive */
 const int patchPackets = 13;	 // number of sysx packets "F0....F7" which make up a patch.
-const int patchSize = 1862;    // size of bytes in a patch.
+const int patchSize = 1763;    // size of bytes in a patch.
 const QString patchRequestDataSize = "00000D63";
 //const int maxWait = 40;			 // Maximum times we loop through the receive handle before we give up waiting.(for whole patch) tempory used by midi prefs
 //const int minWait = 5;			 // Minimum times we loop through the receive handle before we give up waiting.(for small data)   "      "       "       "

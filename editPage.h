@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT-10 Fx FloorBoard".
+** This file is part of "GT-10B Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -34,6 +34,14 @@ public:
     editPage(QWidget *parent = 0);
 	
 	void addKnob(int row, int column, int rowSpan, int columnSpan,
+		QString hex1 = "void",
+		QString hex2 = "void",
+		QString hex3 = "void",
+		QString background = "normal", 
+		QString direction = "bottom", 
+		int lenght = 45,
+		Qt::Alignment alignment = 0);
+	void addTarget(int row, int column, int rowSpan, int columnSpan,
 		QString hex1 = "void",
 		QString hex2 = "void",
 		QString hex3 = "void",

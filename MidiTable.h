@@ -49,7 +49,7 @@ public:
 	//Midi getMidiMap(QString root, QString hex1, QString hex2);
 	Midi getMidiMap(QString root, QString hex1, QString hex2, QString hex3);
 	Midi getMidiMap(QString root, QString hex1, QString hex2, QString hex3, QString hex4);
-	//Midi getMidiMap(QString root, QString hex1, QString hex2, QString hex3, QString hex4, QString hex5);
+	Midi getMidiMap(QString root, QString hex1, QString hex2, QString hex3, QString hex4, QString hex5);
 
 	//int getRange(QString root, QString hex1);
 	//int getRange(QString root, QString hex1, QString hex2);

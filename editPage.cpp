@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT-10 Fx FloorBoard".
+** This file is part of "GT-10B Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -24,6 +24,7 @@
 #include <QLabel>
 #include "customSwitch.h"
 #include "customControlKnob.h"
+#include "customControlTarget.h"
 #include "customControlLabel.h"
 #include "customControlSwitch.h"
 #include "customControlListMenu.h"
@@ -83,6 +84,25 @@ void editPage::addKnob(int row, int column, int rowSpan, int columnSpan,
 	};
 };
 
+void editPage::addTarget(int row, int column, int rowSpan, int columnSpan,
+					   QString hex1, QString hex2, QString hex3, 
+					   QString background, QString direction, int lenght, 
+					   Qt::Alignment alignment)
+{
+	customControlTarget *target = new customControlTarget(this, hex1, hex2, hex3, background, direction, lenght);
+	if(this->groupBoxMode)
+	{
+		this->groupBoxLayout->addWidget(target, row, column, rowSpan, columnSpan, alignment);
+	}
+	else if(this->stackFieldMode)
+	{
+		this->stackField->addWidget(target, row, column, rowSpan, columnSpan, alignment);
+	}
+	else
+	{
+		this->layout->addWidget(target, row, column, rowSpan, columnSpan, alignment);
+	};
+};
 void editPage::addSwitch(int row, int column, int rowSpan, int columnSpan,
 		QString hex1,
 		QString hex2,

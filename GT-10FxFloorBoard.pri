@@ -28,16 +28,19 @@ HEADERS += ./editPage.h \
     ./bankTreeList.h \
     ./customButton.h \
     ./customControlKnob.h \
+    ./customControlTarget.h \
     ./customControlLabel.h \
     ./customControlListMenu.h \
     ./customControlSwitch.h \
     ./customDial.h \
     ./customDisplay.h \
     ./customKnob.h \
+    ./customKnobTarget.h \
     ./customLed.h \
     ./customSlider.h \
     ./customSplashScreen.h \
     ./customSwitch.h \
+    ./customTargetDial.h \
     ./dragBar.h \
     ./floorBoard.h \
     ./floorBoardDisplay.h \
@@ -94,13 +97,16 @@ SOURCES += ./editPage.cpp \
     ./customControlLabel.cpp \
     ./customControlListMenu.cpp \
     ./customControlSwitch.cpp \
+    ./customControlTarget.cpp \
     ./customDial.cpp \
     ./customDisplay.cpp \
     ./customKnob.cpp \
+    ./customKnobTarget.cpp \
     ./customLed.cpp \
     ./customSlider.cpp \
     ./customSplashScreen.cpp \
     ./customSwitch.cpp \
+    ./customTargetDial.cpp \
     ./dragBar.cpp \
     ./floorBoard.cpp \
     ./floorBoardDisplay.cpp \
