@@ -112,6 +112,7 @@ private:
 	QList<int> fx;
 	bool colapseState;
 
+  QList<QString> assign;
 	QList<stompBox*> stompBoxes;
 	QList<QString> stompNames;
 	editWindow* editDialog;

@@ -33,6 +33,7 @@
 #include "sysxWriter.h"
 #include "SysxIO.h"
 #include "globalVariables.h"
+#include "editPage_assign.h"
 
 #include "stompbox_fx1.h"
 #include "stompbox_ch_a.h"
@@ -52,7 +53,7 @@
 #include "stompbox_ns_1.h"
 #include "stompbox_ns_2.h"
 #include "stompbox_dgt.h"
-//#include "stompbox_assign.h"
+
 
 floorBoard::floorBoard(QWidget *parent, 
 						QString imagePathFloor, 
@@ -79,6 +80,7 @@ floorBoard::floorBoard(QWidget *parent,
 	this->pos = pos;
 
 	bankTreeList *bankList = new bankTreeList(this);
+	//editPage_assign *assign = new editPage_assign (this);
 	
 	setFloorBoard();
 	initStomps();
@@ -525,7 +527,7 @@ void floorBoard::initStomps()
 {
 	QList<signed int> fx;
 	fx << 0 << 1 << 2 << 3 << 4 << 5 << 6 << 7 << 8 << 9 << 10 << 11 << 12 << 13 << 14 << 15 << 16 << 17;
-	/*   FX1   CS  PDL  LP   OD   CH_A  EQ  FX2  DD    CE   RV    NS1    FV   DGT   CH_B  NS2   cn_s  cn_m :depend on midi.xml   */
+	/*   FX1   CS  PDL  LP   OD   CH_A  EQ  FX2  DD    CE   RV    NS1    FV   DGT   CH_B  NS2   cn_s  cn_m  as per listing below   */
 	this->fx = fx;
 
 	QVector<QString> initStompNames(18);
@@ -673,12 +675,9 @@ void floorBoard::initStomps()
 	this->stompBoxes.replace(cn_m->getId(), cn_m);
 	this->stompNames.replace(cn_m->getId(), "CN_M");
 	
-	/* ASSIGN 
-	stompBox *assign = new stompbox_assign(this);
-	assign->setId( fxID.at(fxNAMES.indexOf("ASSIGN")) ); 
-	assign->setPos(this->getStompPos(assign->getId()));
-	this->stompBoxes.replace(assign->getId(), assign);*/
-	//this->stompNames.replace(assign->getId(), "ASSIGN");
+	/* ASSIGN */
+	//editDialog = new editPage_assign(this);
+	
 };
 
 void floorBoard::setStomps(QList<QString> stompOrder)
@@ -721,6 +720,7 @@ void floorBoard::updateStompBoxes()
 
 void floorBoard::setEditDialog(editWindow* editDialog)
 {
+  
 	this->editDialog = editDialog;
 	this->editDialog->setParent(this);
 	this->centerEditDialog();

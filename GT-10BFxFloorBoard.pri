@@ -42,6 +42,7 @@ HEADERS += ./editPage.h \
     ./customSwitch.h \
     ./customTargetDial.h \
     ./dragBar.h \
+    ./editPage_assign.h \
     ./floorBoard.h \
     ./floorBoardDisplay.h \
     ./floorPanelBar.h \
@@ -52,7 +53,6 @@ HEADERS += ./editPage.h \
     ./statusBarSymbol.h \
     ./statusBarWidget.h \
     ./stompBox.h \
-    ./stompbox_assign.h \
     ./stompbox_ce.h \
     ./stompbox_ch_a.h \
     ./stompbox_ch_b.h \
@@ -109,6 +109,7 @@ SOURCES += ./editPage.cpp \
     ./customSwitch.cpp \
     ./customTargetDial.cpp \
     ./dragBar.cpp \
+    ./editPage_assign.cpp \
     ./floorBoard.cpp \
     ./floorBoardDisplay.cpp \
     ./floorPanelBar.cpp \
@@ -119,7 +120,6 @@ SOURCES += ./editPage.cpp \
     ./statusBarSymbol.cpp \
     ./statusBarWidget.cpp \
     ./stompBox.cpp \
-    ./stompbox_assign.cpp \
     ./stompbox_ce.cpp \
     ./stompbox_ch_a.cpp \
     ./stompbox_ch_b.cpp \

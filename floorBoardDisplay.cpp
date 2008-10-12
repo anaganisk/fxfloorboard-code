@@ -75,7 +75,7 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
  	this->connectButton = new customButton(tr("Connect"), false, QPoint(405, 5), this, ":/images/greenledbutton.png");
 	this->writeButton = new customButton(tr("Write/Sync"), false, QPoint(494, 5), this, ":/images/ledbutton.png");
 	//this->manualButton = new customButton(tr("Manual"), false, QPoint(583, 24), this, ":/images/pushbutton.png");
-	//this->assignButton = new customButton(tr("Assign"), false, QPoint(583, 5), this, ":/images/pushbutton.png");
+	this->assignButton = new customButton(tr("Assign"), false, QPoint(583, 5), this, ":/images/pushbutton.png");
 	//this->masterButton = new customButton(tr("Master"), false, QPoint(672, 5), this, ":/images/pushbutton.png");
 	//this->systemButton = new customButton(tr("System"), false, QPoint(672, 24), this, ":/images/pushbutton.png");
 
@@ -287,9 +287,9 @@ void floorBoardDisplay::assignSignal(bool value)
 	if(assignButtonActive == true){emit assignSignal();}
 	emit setStatusMessage(tr("Assign"));
 	//emit assignSignal();
-  emit setEditDialog(this->editDialog);
-	this->editDialog->setWindow("assign");
-	
+	this->editDialog->setLSB("0B", "00");
+	this->editDialog->setWindow("assign");	
+	 emit setEditDialog(this->editDialog);
 	
   };
   
@@ -340,7 +340,7 @@ void floorBoardDisplay::connectSignal(bool value)
 		QObject::connect(sysxIO, SIGNAL(sysxReply(QString)), 
 			this, SLOT(connectionResult(QString)));
 
-		sysxIO->sendSysx(idRequestString); // GT6B Identity Request.
+		sysxIO->sendSysx(idRequestString); // GT-10B Identity Request.
 	}
 	else
 	{
