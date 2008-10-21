@@ -89,6 +89,7 @@ public slots:
 	virtual void updateSignal() {};
 	void setDisplayToFxName();
 		
+		
 signals:
 	void valueChanged(QString fxName, QString valueName, QString valueStr);
 	void currentIndexChanged(int index);
@@ -103,8 +104,8 @@ protected:
 	void mouseDoubleClickEvent(QMouseEvent *event);
 
 private:
+
 	void emitValueChanged(QString hex1, QString hex2, QString hex3, QString valueHex);
-	
 	editWindow *editDialog;
 	QString imagePath;
 	QSize stompSize;

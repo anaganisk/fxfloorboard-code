@@ -430,7 +430,112 @@ void stompbox_fx2::setEditPages()
 	editDetails()->page()->addStackField();
 	//editDetails()->addPage("06", "00", "01", "0E");
 
-  // Harmonizer 
+
+// Harmonizer 
+  editDetails()->page()->newStackField(0);
+	editDetails()->page()->newGroupBox("Effect");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00");	
+	editDetails()->page()->newStackControl(1);
+	editDetails()->page()->addComboBox(1, 0, 1, 1, "06", "00", "63");	
+	editDetails()->page()->addStackControl();
+<<<<<<< .mine
+	editDetails()->page()->addComboBox(2, 0, 1, 1, "0A", "00", "68");	
+	editDetails()->page()->addGroupBox(0, 0, 2, 1);
+	editDetails()->page()->insertStackField(1, 0, 1, 3, 1);
+	editDetails()->page()->newGroupBox("User Harmony 1");
+	editDetails()->page()->addComboBox(0, 0, 1, 1, "06", "00", "6E");	
+	editDetails()->page()->addComboBox(0, 1, 1, 1, "06", "00", "6F");	
+	editDetails()->page()->addComboBox(0, 2, 1, 1, "06", "00", "70");	
+	editDetails()->page()->addComboBox(0, 3, 1, 1, "06", "00", "71");	
+	editDetails()->page()->addComboBox(0, 4, 1, 1, "06", "00", "72");	
+	editDetails()->page()->addComboBox(0, 5, 1, 1, "06", "00", "73");	
+	editDetails()->page()->addComboBox(0, 6, 1, 1, "06", "00", "74");	
+	editDetails()->page()->addComboBox(0, 7, 1, 1, "06", "00", "75");	
+	editDetails()->page()->addComboBox(0, 8, 1, 1, "06", "00", "76");	
+	editDetails()->page()->addComboBox(0, 9, 1, 1, "06", "00", "77");	
+	editDetails()->page()->addComboBox(0, 10, 1, 1, "06", "00", "78");	
+	editDetails()->page()->addComboBox(0, 11, 1, 1, "06", "00", "79");	
+	editDetails()->page()->addGroupBox(3, 0, 1, 3);
+	editDetails()->page()->newGroupBox("User Harmony 2");
+	editDetails()->page()->addComboBox(0, 0, 1, 1, "06", "00", "7A");	
+	editDetails()->page()->addComboBox(0, 1, 1, 1, "06", "00", "7B");	
+	editDetails()->page()->addComboBox(0, 2, 1, 1, "06", "00", "7C");	
+	editDetails()->page()->addComboBox(0, 3, 1, 1, "06", "00", "7D");	
+	editDetails()->page()->addComboBox(0, 4, 1, 1, "06", "00", "7E");	
+	editDetails()->page()->addComboBox(0, 5, 1, 1, "06", "00", "7F");	
+	editDetails()->page()->addComboBox(0, 6, 1, 1, "07", "00", "00");	
+	editDetails()->page()->addComboBox(0, 7, 1, 1, "07", "00", "01");	
+	editDetails()->page()->addComboBox(0, 8, 1, 1, "07", "00", "02");	
+	editDetails()->page()->addComboBox(0, 9, 1, 1, "07", "00", "03");	
+	editDetails()->page()->addComboBox(0, 10, 1, 1, "07", "00", "04");	
+	editDetails()->page()->addComboBox(0, 11, 1, 1, "07", "00", "05");	
+	editDetails()->page()->addGroupBox(4, 0, 1, 3);
+	editDetails()->page()->addStackField();
+
+	editDetails()->page()->newStackField(1);
+	editDetails()->page()->newGroupBox("Harmonist");
+	editDetails()->page()->newGroupBox("Voice 1");
+	editDetails()->page()->addComboBox(0, 0, 1, 1, "06", "00", "64");
+	editDetails()->page()->addKnob(0, 1, 1, 1, "06", "00", "65", "normal","right", 105);
+	editDetails()->page()->addGroupBox(0, 0, 2, 1);
+	editDetails()->page()->addKnob(0, 1, 1, 1, "06", "00", "6C", "normal","right", 50);
+	//editDetails()->page()->addKnob(1, 1, 1, 1, "06", "00", "06");
+	editDetails()->page()->addGroupBox(0, 1, 2, 1);
+
+	editDetails()->page()->newGroupBox("Level");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "06", "00", "67");
+	editDetails()->page()->addKnob(0, 1, 1, 1, "06", "00", "6D");
+	editDetails()->page()->addGroupBox(0, 2, 2, 1);
+	editDetails()->page()->addStackField();
+
+	editDetails()->page()->newStackField(1);
+	editDetails()->page()->newGroupBox("Harmonist");
+	editDetails()->page()->newGroupBox("Voice 1");
+	editDetails()->page()->addComboBox(0, 0, 1, 1, "06", "00", "64");
+	editDetails()->page()->addKnob(0, 1, 1, 1, "06", "00", "65", "normal","right", 105);
+	editDetails()->page()->addGroupBox(0, 0, 1, 1);
+=======
+	editDetails()->page()->addGroupBox(0, 0, 2, 1);
+>>>>>>> .r415
+	editDetails()->page()->newGroupBox("Voice 2");
+	editDetails()->page()->addComboBox(0, 0, 1, 1, "06", "00", "68");
+	editDetails()->page()->addKnob(0, 1, 1, 1, "06", "00", "69", "normal","right", 105);
+	editDetails()->page()->addGroupBox(2, 0, 1, 1);
+
+	editDetails()->page()->addKnob(0, 1, 1, 1, "06", "00", "6C", "normal","right", 50);
+	//editDetails()->page()->addKnob(1, 1, 1, 1, "06", "00", "06");
+	editDetails()->page()->addGroupBox(0, 1, 2, 1);
+
+	editDetails()->page()->newGroupBox("Level");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "06", "00", "67");
+	editDetails()->page()->addKnob(1, 0, 1, 1, "06", "00", "6B");
+	editDetails()->page()->addKnob(0, 1, 1, 1, "06", "00", "6D");
+	editDetails()->page()->addGroupBox(0, 2, 2, 1);
+	editDetails()->page()->addStackField();
+
+	editDetails()->page()->newStackField(1);
+	editDetails()->page()->newGroupBox("Harmonist");
+	editDetails()->page()->newGroupBox("Voice 1");
+	editDetails()->page()->addComboBox(0, 0, 1, 1, "06", "00", "64");
+	editDetails()->page()->addKnob(0, 1, 1, 1, "06", "00", "65", "normal","right", 105);
+	editDetails()->page()->addGroupBox(0, 0, 1, 1);
+	editDetails()->page()->newGroupBox("Voice 2");
+	editDetails()->page()->addComboBox(0, 0, 1, 1, "06", "00", "68");
+	editDetails()->page()->addKnob(0, 1, 1, 1, "06", "00", "69", "normal","right", 105);
+	editDetails()->page()->addGroupBox(2, 0, 1, 1);
+
+	editDetails()->page()->addKnob(0, 1, 1, 1, "06", "00", "6C", "normal","right", 50);
+	//editDetails()->page()->addKnob(1, 1, 1, 1, "06", "00", "06");
+	editDetails()->page()->addGroupBox(0, 1, 2, 1);
+
+	editDetails()->page()->newGroupBox("Level");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "06", "00", "67");
+	editDetails()->page()->addKnob(1, 0, 1, 1, "06", "00", "6B");
+	editDetails()->page()->addKnob(0, 1, 1, 1, "06", "00", "6D");
+	editDetails()->page()->addGroupBox(0, 2, 2, 1);
+	editDetails()->page()->addStackField();
+	//editDetails()->addPage("06", "00", "01", "10");
+  /* Harmonizer 
     editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Effect");
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00");	
@@ -502,6 +607,7 @@ void stompbox_fx2::setEditPages()
 	editDetails()->page()->addGroupBox(0, 2, 2, 1);
 	editDetails()->page()->addStackField();
 	//editDetails()->addPage("06", "00", "01", "0F");
+*/
 
  
   // Sound Hold 

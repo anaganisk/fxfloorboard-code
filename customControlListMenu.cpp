@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT-10B Fx FloorBoard".
+** This file is part of "GT-10 Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -107,7 +107,8 @@ void customControlListMenu::setComboBox()
 
 	MidiTable *midiTable = MidiTable::Instance();
 	Midi items = midiTable->getMidiMap("Structure", hex1, hex2, hex3);
-
+   
+    QString longestItem = "";
 	int itemcount;
 	for(itemcount=0;itemcount<items.level.size();itemcount++ )
 	{
@@ -122,10 +123,13 @@ void customControlListMenu::setComboBox()
 		{
 			item = desc;
 		};
+		if(longestItem.size() < item.size()) longestItem = item;
 		this->controlListComboBox->addItem(item);
 	};
-
-
+ 	int maxWidth = QFontMetrics( this->font() ).width( longestItem );
+ 	#ifdef macosx
+ 	this->controlListComboBox->setFixedWidth(maxWidth +10);
+  #endif
   this->controlListComboBox->setFixedHeight(15);
 	this->controlListComboBox->setEditable(false);
 	this->controlListComboBox->setFrame(false);

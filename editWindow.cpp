@@ -30,9 +30,9 @@ editWindow::editWindow(QWidget *parent)
 	this->image = QPixmap(":images/editwindow.png");
 	this->setFixedSize(image.width(), image.height());
 	/*this->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-	this->setWindowFlags(Qt::WindowStaysOnTopHint 
-		| Qt::WindowTitleHint 
-		| Qt::WindowMinimizeButtonHint 
+	this->setWindowFlags(Qt::WindowStaysOnTopHint
+		| Qt::WindowTitleHint
+		| Qt::WindowMinimizeButtonHint
 		| Qt::MSWindowsFixedSizeDialogHint);*/
 
 	this->title = new QLabel;
@@ -63,7 +63,7 @@ editWindow::editWindow(QWidget *parent)
 	/*QHBoxLayout *sellectLayout = new QHBoxLayout;
 	sellectLayout->addStretch();
 	sellectLayout->addWidget(this->pageComboBox);
-	sellectLayout->addStretch();*/	
+	sellectLayout->addStretch();*/
 
 	this->pagesWidget = new QStackedWidget;
 
@@ -134,24 +134,24 @@ void editWindow::addPage(QString hex1, QString hex2, QString hex3, QString hex4)
 {
 	this->hex1 = hex1;
 	this->hex2 = hex2;
-	this->hex3 = hex3;	
-	
+	this->hex3 = hex3;
+
 	this->tempPage->setGridLayout();
-	this->editPages.append(this->tempPage); 
-	this->pagesWidget->addWidget(editPages.last()); 
-	this->pages = this->pagesWidget->count(); 
+	this->editPages.append(this->tempPage);
+	this->pagesWidget->addWidget(editPages.last());
+	this->pages = this->pagesWidget->count();
 
 	QObject::connect(this, SIGNAL( dialogUpdateSignal() ),
 			editPages.last(), SIGNAL( dialogUpdateSignal() ));
 
 	QObject::connect(editPages.last(), SIGNAL( updateSignal() ),
 		this, SIGNAL( updateSignal() ));
-	
+
 	if(hex1 != "void" && hex2 != "void" && hex3 != "void")
 	{
 		MidiTable *midiTable = MidiTable::Instance();
 		Midi items = midiTable->getMidiMap("Structure", hex1, hex2, hex3);
-		
+
 		int itemsCount;
 		if(hex4 == "void")
 		{
@@ -177,8 +177,8 @@ void editWindow::addPage(QString hex1, QString hex2, QString hex3, QString hex4)
 		//int pixelWidth = QFontMetrics(this->getFont()).width(item);
 		//if(maxLenght < pixelWidth) maxLenght = pixelWidth;
 
-		this->pageComboBox->addItem(item); 
-		this->tempPage = new editPage; 
+		this->pageComboBox->addItem(item);
+		this->tempPage = new editPage;
 
 		this->pageComboBox->setMaxVisibleItems(this->pages);
 		//this->pageComboBox->view()->setMinimumWidth( this->comboWidth );
@@ -215,7 +215,7 @@ void editWindow::pageUpdateSignal()
 		this->pageComboBox->setCurrentIndex(index);
 		this->pagesWidget->setCurrentIndex(index);
 		//this->valueChanged(index);
-		
+
 	};
 };
 

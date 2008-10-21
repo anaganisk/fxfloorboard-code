@@ -1,163 +1,163 @@
-/**************************************************************************** 
-** 
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved. 
-** 
-** This file is part of "GT-10B Fx FloorBoard". 
-** 
-** This program is free software; you can redistribute it and/or modify 
-** it under the terms of the GNU General Public License as published by 
-** the Free Software Foundation; either version 2 of the License, or 
-** (at your option) any later version. 
-** 
-** This program is distributed in the hope that it will be useful, 
-** but WITHOUT ANY WARRANTY; without even the implied warranty of 
-** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the 
-** GNU General Public License for more details. 
-** 
-** You should have received a copy of the GNU General Public License along 
-** with this program; if not, write to the Free Software Foundation, Inc., 
-** 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA. 
-** 
-****************************************************************************/ 
- 
-#include "MidiTable.h"     
-#include "MidiTableDestroyer.h" 
-#include <QFile> 
+/****************************************************************************
+**
+** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
+**
+** This file is part of "GT-10B Fx FloorBoard".
+**
+** This program is free software; you can redistribute it and/or modify
+** it under the terms of the GNU General Public License as published by
+** the Free Software Foundation; either version 2 of the License, or
+** (at your option) any later version.
+**
+** This program is distributed in the hope that it will be useful,
+** but WITHOUT ANY WARRANTY; without even the implied warranty of
+** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+** GNU General Public License for more details.
+**
+** You should have received a copy of the GNU General Public License along
+** with this program; if not, write to the Free Software Foundation, Inc.,
+** 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+**
+****************************************************************************/
+
+#include "MidiTable.h"
+#include "MidiTableDestroyer.h"
+#include <QFile>
 #include <QStringList>
 #include "Preferences.h"
 #include "globalVariables.h"
- 
-MidiTable::MidiTable()  
-{ 
-    loadMidiMap(); 
-}; 
- 
-MidiTable* MidiTable::_instance = 0;// initialize pointer 
-MidiTableDestroyer MidiTable::_destroyer; 
- 
-MidiTable* MidiTable::Instance()  
-{ 
-    /* Multi-threading safe */ 
-    if (!_instance /*_instance == 0*/)  // is it the first call? 
-    {   
-        _instance = new MidiTable; // create sole instance 
-        _destroyer.SetMidiTable(_instance); 
-    }; 
-    return _instance; // address of sole instance 
- 
-    /* Single-threading */ 
-    /* 
-    static Preferences inst; 
-    return &inst; 
-    */ 
+
+MidiTable::MidiTable()
+{
+    loadMidiMap();
 };
 
-void MidiTable::loadMidiMap() 
-{ 
-    QDomDocument doc( "MIDI Transalation" ); 
-	QFile file( ":midi.xml" ); 
-    doc.setContent( &file );                    // file is a QFile 
-    file.close(); 
-    QDomElement root = doc.documentElement();   // Points to <SysX> 
-    this->root = root; 
- 
-    //QList<Midi> midiMap; 
-     
-    QDomNode node = root.firstChild(); 
-    while ( !node.isNull() )  
-    { 
-        Midi section; 
-		section.type.append(node.nodeName()); 
-		
-		QDomNode level1Node = node.firstChild(); 
-        while ( !level1Node.isNull() )  
-        { 
-            Midi level1; 
-			level1.type.append(level1Node.nodeName()); 
-            level1.name = level1Node.attributes().namedItem("name").nodeValue(); 
-            level1.value = level1Node.attributes().namedItem("value").nodeValue();             
-            level1.abbr = level1Node.attributes().namedItem("abbr").nodeValue(); 
-            level1.desc = level1Node.attributes().namedItem("desc").nodeValue(); 
-			level1.customdesc = level1Node.attributes().namedItem("customdesc").nodeValue(); 
-         
-            QDomNode level2Node = level1Node.firstChild(); 
+MidiTable* MidiTable::_instance = 0;// initialize pointer
+MidiTableDestroyer MidiTable::_destroyer;
 
-            while ( !level2Node.isNull() )  
-            { 
-                Midi level2; 
+MidiTable* MidiTable::Instance()
+{
+    /* Multi-threading safe */
+    if (!_instance /*_instance == 0*/)  // is it the first call?
+    {
+        _instance = new MidiTable; // create sole instance
+        _destroyer.SetMidiTable(_instance);
+    };
+    return _instance; // address of sole instance
+
+    /* Single-threading */
+    /*
+    static Preferences inst;
+    return &inst;
+    */
+};
+
+void MidiTable::loadMidiMap()
+{
+    QDomDocument doc( "MIDI Transalation" );
+	QFile file( ":midi.xml" );
+    doc.setContent( &file );                    // file is a QFile
+    file.close();
+    QDomElement root = doc.documentElement();   // Points to <SysX>
+    this->root = root;
+
+    //QList<Midi> midiMap;
+
+    QDomNode node = root.firstChild();
+    while ( !node.isNull() )
+    {
+        Midi section;
+		section.type.append(node.nodeName());
+
+		QDomNode level1Node = node.firstChild();
+        while ( !level1Node.isNull() )
+        {
+            Midi level1;
+			level1.type.append(level1Node.nodeName());
+            level1.name = level1Node.attributes().namedItem("name").nodeValue();
+            level1.value = level1Node.attributes().namedItem("value").nodeValue();
+            level1.abbr = level1Node.attributes().namedItem("abbr").nodeValue();
+            level1.desc = level1Node.attributes().namedItem("desc").nodeValue();
+			level1.customdesc = level1Node.attributes().namedItem("customdesc").nodeValue();
+
+            QDomNode level2Node = level1Node.firstChild();
+
+            while ( !level2Node.isNull() )
+            {
+                Midi level2;
 				level2.type.append(level2Node.nodeName());
-				level2.name = level2Node.attributes().namedItem("name").nodeValue(); 
-				level2.value = level2Node.attributes().namedItem("value").nodeValue();             
-				level2.abbr = level2Node.attributes().namedItem("abbr").nodeValue(); 
-				level2.desc = level2Node.attributes().namedItem("desc").nodeValue(); 
+				level2.name = level2Node.attributes().namedItem("name").nodeValue();
+				level2.value = level2Node.attributes().namedItem("value").nodeValue();
+				level2.abbr = level2Node.attributes().namedItem("abbr").nodeValue();
+				level2.desc = level2Node.attributes().namedItem("desc").nodeValue();
 				level2.customdesc = level2Node.attributes().namedItem("customdesc").nodeValue();
 
-				QDomNode level3Node = level2Node.firstChild(); 
-                
-                while ( !level3Node.isNull() )  
-                { 	
-					Midi level3; 
+				QDomNode level3Node = level2Node.firstChild();
+
+                while ( !level3Node.isNull() )
+                {
+					Midi level3;
 					level3.type.append(level3Node.nodeName());
-					level3.name = level3Node.attributes().namedItem("name").nodeValue(); 
-					level3.value = level3Node.attributes().namedItem("value").nodeValue();             
-					level3.abbr = level3Node.attributes().namedItem("abbr").nodeValue(); 
-					level3.desc = level3Node.attributes().namedItem("desc").nodeValue(); 
+					level3.name = level3Node.attributes().namedItem("name").nodeValue();
+					level3.value = level3Node.attributes().namedItem("value").nodeValue();
+					level3.abbr = level3Node.attributes().namedItem("abbr").nodeValue();
+					level3.desc = level3Node.attributes().namedItem("desc").nodeValue();
 					level3.customdesc = level3Node.attributes().namedItem("customdesc").nodeValue();
 
 					QDomNode  level4Node = level3Node.firstChild();
-                    
-                    while ( !level4Node.isNull() )  
-                    { 
-						Midi level4; 
+
+                    while ( !level4Node.isNull() )
+                    {
+						Midi level4;
 						level4.type.append(level4Node.nodeName());
-						level4.name = level4Node.attributes().namedItem("name").nodeValue(); 
-						level4.value = level4Node.attributes().namedItem("value").nodeValue();             
-						level4.abbr = level4Node.attributes().namedItem("abbr").nodeValue(); 
+						level4.name = level4Node.attributes().namedItem("name").nodeValue();
+						level4.value = level4Node.attributes().namedItem("value").nodeValue();
+						level4.abbr = level4Node.attributes().namedItem("abbr").nodeValue();
 						level4.desc = level4Node.attributes().namedItem("desc").nodeValue();
 						level4.customdesc = level4Node.attributes().namedItem("customdesc").nodeValue();
-	 
+
 						QDomNode level5Node = level4Node.firstChild();
 
-						while ( !level5Node.isNull() )  
-						{ 
-							Midi level5; 
+						while ( !level5Node.isNull() )
+						{
+							Midi level5;
 							level5.type.append(level5Node.nodeName());
-							level5.name = level5Node.attributes().namedItem("name").nodeValue(); 
-							level5.value = level5Node.attributes().namedItem("value").nodeValue();             
+							level5.name = level5Node.attributes().namedItem("name").nodeValue();
+							level5.value = level5Node.attributes().namedItem("value").nodeValue();
 							level5.desc = level5Node.attributes().namedItem("desc").nodeValue();
 							level5.customdesc = level5Node.attributes().namedItem("customdesc").nodeValue();
 
-							level4.id.append(level5.value); 
-							level4.level.append(level5); 
-							level5Node = level5Node.nextSibling(); 
-						}; 
+							level4.id.append(level5.value);
+							level4.level.append(level5);
+							level5Node = level5Node.nextSibling();
+						};
 
 						level3.id.append(level4.value);
-						level3.level.append(level4); 
+						level3.level.append(level4);
 						level4Node = level4Node.nextSibling();
-                    }; 
+                    };
 
 					level2.id.append(level3.value);
-                    level2.level.append(level3); 
-                    level3Node = level3Node.nextSibling(); 
-                }; 
-				
+                    level2.level.append(level3);
+                    level3Node = level3Node.nextSibling();
+                };
+
 				level1.id.append(level2.value);
-                level1.level.append(level2);  
-                level2Node = level2Node.nextSibling(); 
-            }; 
+                level1.level.append(level2);
+                level2Node = level2Node.nextSibling();
+            };
 
 			section.id.append(level1.value);
-			section.level.append(level1); 
-            level1Node = level1Node.nextSibling(); 
-        }; 
+			section.level.append(level1);
+            level1Node = level1Node.nextSibling();
+        };
 
 		QString test = node.nodeName();
-		this->midiMap.id.append(test); 
-		this->midiMap.level.append(section); 
-        node = node.nextSibling(); 
-    }; 
-}; 
+		this->midiMap.id.append(test);
+		this->midiMap.level.append(section);
+        node = node.nextSibling();
+    };
+};
 
 Midi MidiTable::getMidiMap(QString root)
 {
@@ -166,22 +166,22 @@ Midi MidiTable::getMidiMap(QString root)
 };
 
 Midi MidiTable::getMidiMap(QString root, QString hex1)
-{ 
+{
 	Midi section = midiMap.level.at( midiMap.id.indexOf(root) );
 	Midi level1 = section.level.at( section.id.indexOf(hex1) );;
-	return level1; 
+	return level1;
 };
 
 /*Midi MidiTable::getMidiMap(QString root, QString hex1, QString hex2)
-{ 
+{
 	Midi section = midiMap.level.at( midiMap.id.indexOf(root) );
 	Midi level1 = section.level.at( section.id.indexOf(hex1) );
 	Midi level2 = level1.level.at( level1.id.indexOf(hex2) );
-	return level2; 
+	return level2;
 };*/
 
 Midi MidiTable::getMidiMap(QString root, QString hex1, QString hex2, QString hex3)
-{ 
+{
 	Midi section = midiMap.level.at( midiMap.id.indexOf(root) );
 	Midi level1 = section.level.at( section.id.indexOf(hex1) );
 	Midi level2 = level1.level.at( level1.id.indexOf(hex2) );
@@ -194,11 +194,11 @@ Midi MidiTable::getMidiMap(QString root, QString hex1, QString hex2, QString hex
 	{
 		level3 = level2.level.at( level2.id.indexOf(hex3) );
 	};
-	return level3; 
+	return level3;
 };
 
 Midi MidiTable::getMidiMap(QString root, QString hex1, QString hex2, QString hex3, QString hex4)
-{ 
+{
 	Midi section = midiMap.level.at( midiMap.id.indexOf(root) );
 	Midi level1 = section.level.at( section.id.indexOf(hex1) );
 	Midi level2 = level1.level.at( level1.id.indexOf(hex2) );
@@ -213,48 +213,58 @@ Midi MidiTable::getMidiMap(QString root, QString hex1, QString hex2, QString hex
 	};
 
 	Midi level4 = level3.level.at( level3.id.indexOf(hex4) );
-	return level4; 
+	return level4;
 };
 
+<<<<<<< .mine
+Midi MidiTable::getMidiMap(QString root, QString hex1, QString hex2, QString hex3,  QString hex4, QString hex5)
+{
+=======
 Midi MidiTable::getMidiMap(QString root, QString hex1, QString hex2, QString hex3,  QString hex4, QString hex5)
 { 
+>>>>>>> .r415
 	Midi section = midiMap.level.at( midiMap.id.indexOf(root) );
 	Midi level1 = section.level.at( section.id.indexOf(hex1) );
 	Midi level2 = level1.level.at( level1.id.indexOf(hex2) );
 	Midi level3 = level2.level.at( level2.id.indexOf(hex3) );
 	Midi level4 = level3.level.at( level3.id.indexOf(hex4) );
 	Midi level5 = level4.level.at( level4.id.indexOf(hex5) );
+<<<<<<< .mine
+	return level5;
+};
+=======
 	return level5; 
 };
+>>>>>>> .r415
 
 int MidiTable::getRange(QString root, QString hex1, QString hex2, QString hex3)
 {
 	Midi range;
-	
-	/* When FX has alot off settings (more than ) it's spanned over more then one entry in the 
+
+	/* When FX has alot off settings (more than ) it's spanned over more then one entry in the
 	midi.xml, so when out of range we jump to the next entry and start from 00. */
 	bool ok;
   int onePage = QString("7F").toInt(&ok, 16);
 	int twoPage = QString("FF").toInt(&ok, 16);
 	int threePage = QString("17F").toInt(&ok, 16);
-	
+
 	if((hex3.toInt(&ok, 16) > onePage) && (hex3.toInt(&ok, 16) < twoPage + 1))
 	{
 	    hex1 = QString::number(hex1.toInt(&ok, 16) + 1, 16).toUpper();
       if(hex1.length() < 2) hex1.prepend("0");
 		  hex3 = QString::number(hex3.toInt(&ok, 16) - (0x80), 16).toUpper();
-		  if(hex3.length() < 2) hex3.prepend("0"); 
+		  if(hex3.length() < 2) hex3.prepend("0");
 		  range = getMidiMap(root, hex1, hex2, hex3);
-  } 
-  else if ((hex3.toInt(&ok, 16) > twoPage) && (hex3.toInt(&ok, 16) < threePage + 1)) 
+  }
+  else if ((hex3.toInt(&ok, 16) > twoPage) && (hex3.toInt(&ok, 16) < threePage + 1))
   {
      hex1 = QString::number(hex1.toInt(&ok, 16) + 2, 16).toUpper();
      if(hex1.length() < 2) hex1.prepend("0");
 		hex3 = QString::number(hex3.toInt(&ok, 16) - (0x100), 16).toUpper();
-		if(hex3.length() < 2) hex3.prepend("0"); 
+		if(hex3.length() < 2) hex3.prepend("0");
 		range = getMidiMap(root, hex1, hex2, hex3);
   }
-	else if (hex3.toInt(&ok, 16) > threePage) 
+	else if (hex3.toInt(&ok, 16) > threePage)
   {
      hex1 = QString::number(hex1.toInt(&ok, 16) + 3, 16).toUpper();
      if(hex1.length() < 2) hex1.prepend("0");
@@ -262,11 +272,11 @@ int MidiTable::getRange(QString root, QString hex1, QString hex2, QString hex3)
 		 if(hex3.length() < 2) hex3.prepend("0");
 		 range = getMidiMap(root, hex1, hex2, hex3);
   }
-		
-		
+
+
 	else
 	{
-		range = getMidiMap(root, hex1, hex2, hex3);	
+		range = getMidiMap(root, hex1, hex2, hex3);
 	};
 
 	int lastIndex;
@@ -291,8 +301,8 @@ int MidiTable::getRange(QString root, QString hex1, QString hex2, QString hex3)
 bool MidiTable::isData(QString root, QString hex1, QString hex2, QString hex3)
 {
 	Midi range;
-	
-	/* When FX has alot off settings (more than ) it's spanned over more then one entry in the 
+
+	/* When FX has alot off settings (more than ) it's spanned over more then one entry in the
 	midi.xml, so when out of range we jump to the next entry and start from 00. */
 	bool ok;
 	/*int maxRange = QString("7F").toInt(&ok, 16);
@@ -306,31 +316,31 @@ bool MidiTable::isData(QString root, QString hex1, QString hex2, QString hex3)
 	}
 	else
 	{
-		range = getMidiMap(root, hex1, hex2, hex3);	
+		range = getMidiMap(root, hex1, hex2, hex3);
 	};*/
-	
-	
+
+
 	int onePage = QString("7F").toInt(&ok, 16);
 	int twoPage = QString("FF").toInt(&ok, 16);
 	int threePage = QString("17F").toInt(&ok, 16);
-	
+
 	if((hex3.toInt(&ok, 16) > onePage) && (hex3.toInt(&ok, 16) < twoPage + 1))
 	{
 	    hex1 = QString::number(hex1.toInt(&ok, 16) + 1, 16).toUpper();
       if(hex1.length() < 2) hex1.prepend("0");
 		  hex3 = QString::number(hex3.toInt(&ok, 16) - (0x80), 16).toUpper();
-		  if(hex3.length() < 2) hex3.prepend("0"); 
+		  if(hex3.length() < 2) hex3.prepend("0");
 		  range = getMidiMap(root, hex1, hex2, hex3);
-  } 
-  else if ((hex3.toInt(&ok, 16) > twoPage) && (hex3.toInt(&ok, 16) < threePage + 1)) 
+  }
+  else if ((hex3.toInt(&ok, 16) > twoPage) && (hex3.toInt(&ok, 16) < threePage + 1))
   {
      hex1 = QString::number(hex1.toInt(&ok, 16) + 2, 16).toUpper();
      if(hex1.length() < 2) hex1.prepend("0");
 		hex3 = QString::number(hex3.toInt(&ok, 16) - (0x100), 16).toUpper();
-		if(hex3.length() < 2) hex3.prepend("0"); 
+		if(hex3.length() < 2) hex3.prepend("0");
 		range = getMidiMap(root, hex1, hex2, hex3);
   }
-	else if (hex3.toInt(&ok, 16) > threePage) 
+	else if (hex3.toInt(&ok, 16) > threePage)
   {
      hex1 = QString::number(hex1.toInt(&ok, 16) + 3, 16).toUpper();
      if(hex1.length() < 2) hex1.prepend("0");
@@ -338,12 +348,12 @@ bool MidiTable::isData(QString root, QString hex1, QString hex2, QString hex3)
 		 if(hex3.length() < 2) hex3.prepend("0");
 		 range = getMidiMap(root, hex1, hex2, hex3);
   }
-		
-		
+
+
 
 	else
 	{
-		range = getMidiMap(root, hex1, hex2, hex3);	
+		range = getMidiMap(root, hex1, hex2, hex3);
 	};
 
 	if(range.level.last().type.contains("DATA"))
@@ -390,14 +400,14 @@ QString MidiTable::rangeToValue(Midi range, QString hex)
 		{
 			QStringList rangeList = range.level.at(range.id.indexOf("range", i)).name.split("/");
 			QString desc = range.level.at(range.id.indexOf("range", i)).desc;
-			
+
 			int valueInt = hex.toInt(&ok, 16);
 			int start = rangeList.at(0).toInt(&ok, 16);
 			int end = rangeList.at(1).toInt(&ok, 16);
-			
+
 			if(valueInt == start || (valueInt > start && valueInt < end) || valueInt == end)
 			{
-				
+
 				double min = rangeList.at(2).toDouble(&ok);
 				double max = rangeList.at(3).toDouble(&ok);
 				double dataRange = max - min;
@@ -433,7 +443,7 @@ QString MidiTable::getHeader(bool receive)
 	for(int i=0;i<section.level.size();++i)
 	{
 		int offset = 0;
-		if(!receive && i == sysxAddressOffset - 1) 
+		if(!receive && i == sysxAddressOffset - 1)
 		{
 			offset = 1;
 		};
@@ -464,14 +474,14 @@ QString MidiTable::getSize(QString hex1, QString hex2, QString hex3)
 	Midi level2 = level1.level.at( level1.id.indexOf(hex2) );
 	QString currenFxName = level2.level.at( level2.id.indexOf(hex3) ).name;
 	QString nextFxName = level2.level.at( level2.id.indexOf(hex3) + 1 ).name;
-	
+
 	int sizeCount = 1; bool ok;
 	if(currenFxName == nextFxName) sizeCount += 1;
 	sizeCount += hex3.toInt(&ok, 16);
-	
+
 	QString itemSize = QString::number(sizeCount, 16).toUpper();
 	if (itemSize.length() < 2) itemSize.prepend("0");
-	
+
 	QString size;
 	size.append(hex3);
 	size.append("00");
@@ -489,12 +499,12 @@ QString MidiTable::getSize(QString hex1, QString hex2)
 	QString size;
 
 	int sizeCount = 1; bool ok;
-	
+
 	for(int i=0;i<level2.level.size();++i)
 	{
 		QString hex3 = QString::number(i, 16).toUpper();
 		if (hex3.length() < 2) hex3.prepend("0");
-		
+
 		if(!level2.id.contains(hex3) && level2.id.contains("range"))
 		{
 			Midi level3 = level2.level.at( level2.id.indexOf("range") );
@@ -520,7 +530,7 @@ QString MidiTable::getSize(QString hex1, QString hex2)
 				sizeCount += 1;
 			};
 		};
-		
+
 	};
 
 	QString itemSize = QString::number(sizeCount, 16).toUpper();
@@ -544,7 +554,7 @@ QString MidiTable::getSize()
 
 	QString itemSize = QString::number(sizeCount, 16).toUpper();
 	if (itemSize.length() < 2) itemSize.prepend("0");
-	
+
 	size.append("00");
 	size.append("00");
 	size.append(itemSize);
@@ -567,7 +577,7 @@ QString MidiTable::dataRequest(QString hex1, QString hex2, QString hex3)
 {
 	QString sysxMsg;
 	sysxMsg.append(getHeader(true));
-	
+
 	sysxMsg.append(hex1);
 	sysxMsg.append(hex2);
 
@@ -580,8 +590,8 @@ QString MidiTable::dataChange(QString hex1, QString hex2, QString hex3, QString 
 {
 	QString sysxMsg;
 	sysxMsg.append(getHeader(false));
-	Preferences *preferences = Preferences::Instance(); bool ok;// Load the preferences.
-	const int tempDataWrite = preferences->getPreferences("Midi", "Time", "set").toInt(&ok, 16);	
+	/*Preferences *preferences = Preferences::Instance();*/ bool ok;// Load the preferences.
+	//const int tempDataWrite = preferences->getPreferences("Midi", "Time", "set").toInt(&ok, 16);
 	sysxMsg.append("60");
 	sysxMsg.append("00");
 
@@ -593,7 +603,7 @@ QString MidiTable::dataChange(QString hex1, QString hex2, QString hex3, QString 
 
 	int dataSize = 0; //bool ok;
 	for(int i=checksumOffset;i<sysxMsg.size()-1;++i)
-	{ dataSize += sysxMsg.mid(i*2, 2).toInt(&ok, 16); };	
+	{ dataSize += sysxMsg.mid(i*2, 2).toInt(&ok, 16); };
 	sysxMsg.append(getCheckSum(dataSize));
 
 	sysxMsg.append(getFooter());
@@ -604,9 +614,9 @@ QString MidiTable::dataChange(QString hex1, QString hex2, QString hex3, QString 
 {
 	QString sysxMsg;
 	sysxMsg.append(getHeader(false));
-	
-	Preferences *preferences = Preferences::Instance(); bool ok;// Load the preferences.
-	const int tempDataWrite = preferences->getPreferences("Midi", "Time", "set").toInt(&ok, 16);	
+
+	//Preferences *preferences = Preferences::Instance(); bool ok;// Load the preferences.
+	//const int tempDataWrite = preferences->getPreferences("Midi", "Time", "set").toInt(&ok, 16);
 	sysxMsg.append("60");
 	sysxMsg.append("00");
 
@@ -617,9 +627,9 @@ QString MidiTable::dataChange(QString hex1, QString hex2, QString hex3, QString 
 	sysxMsg.append(hex4);
 	sysxMsg.append(hex5);
 
-	int dataSize = 0; //bool ok;
+	int dataSize = 0; bool ok;
 	for(int i=checksumOffset;i<sysxMsg.size()-1;++i)
-	{ dataSize += sysxMsg.mid(i*2, 2).toInt(&ok, 16); };	
+	{ dataSize += sysxMsg.mid(i*2, 2).toInt(&ok, 16); };
 	sysxMsg.append(getCheckSum(dataSize));
 
 	sysxMsg.append(getFooter());
@@ -650,8 +660,8 @@ QString MidiTable::nameRequest(int bank, int patch)
 	}
 	else
 	{
-	Preferences *preferences = Preferences::Instance(); bool ok;// Load the preferences.
-	const int tempDataWrite = preferences->getPreferences("Midi", "Time", "set").toInt(&ok, 16);
+	//Preferences *preferences = Preferences::Instance(); bool ok;// Load the preferences.
+	//const int tempDataWrite = preferences->getPreferences("Midi", "Time", "set").toInt(&ok, 16);
 		addr1 = "60";//tempDataWrite;
 		addr2 = "00";
 	};
@@ -669,7 +679,7 @@ QString MidiTable::nameRequest(int bank, int patch)
 
 	int dataSize = 0;
 	for(int i=checksumOffset;i<sysxMsg.size()-1;++i)
-	{ dataSize += sysxMsg.mid(i*2, 2).toInt(&ok, 16);	};	
+	{ dataSize += sysxMsg.mid(i*2, 2).toInt(&ok, 16);	};
 	sysxMsg.append(getCheckSum(dataSize));
 	sysxMsg.append(getFooter());
 
@@ -678,8 +688,8 @@ QString MidiTable::nameRequest(int bank, int patch)
 
 QString MidiTable::patchRequest(int bank, int patch)
 {
-Preferences *preferences = Preferences::Instance(); bool ok;// Load the preferences.
-	const int tempDataWrite = preferences->getPreferences("Midi", "Time", "set").toInt(&ok, 10);
+/*Preferences *preferences = Preferences::Instance();*/ bool ok;// Load the preferences.
+	//const int tempDataWrite = preferences->getPreferences("Midi", "Time", "set").toInt(&ok, 10);
 	//bool ok;
 	QString addr1, addr2;
 	if(bank != 0 && patch != 0 && bank <= bankTotalAll && patch <= patchPerBank)
@@ -690,7 +700,7 @@ Preferences *preferences = Preferences::Instance(); bool ok;// Load the preferen
 		if(bank > bankTotalUser) patchOffset += emptyAddresses; //System patches start at a new memmory range.
 		int addrMaxSize = QString("80").toInt(&ok, 16);
 		int n = (int)(patchOffset / addrMaxSize);
-		
+
 		if (bank > bankTotalUser){
 		addr1 = QString::number(29 + n, 16).toUpper();
 		addr2 = QString::number(patchOffset - (addrMaxSize * n), 16).toUpper();
@@ -716,11 +726,11 @@ Preferences *preferences = Preferences::Instance(); bool ok;// Load the preferen
 	sysxMsg.append(addr2);
 	sysxMsg.append(hex1);
 	sysxMsg.append(hex2);
-	sysxMsg.append(patchRequestDataSize);    //(getSize()); 
+	sysxMsg.append(patchRequestDataSize);    //(getSize());
 
 	int dataSize = 0;
 	for(int i=checksumOffset;i<sysxMsg.size()-1;++i)
-	{ dataSize += sysxMsg.mid(i*2, 2).toInt(&ok, 16); };	
+	{ dataSize += sysxMsg.mid(i*2, 2).toInt(&ok, 16); };
 	sysxMsg.append(getCheckSum(dataSize));
 	sysxMsg.append(getFooter());
 
