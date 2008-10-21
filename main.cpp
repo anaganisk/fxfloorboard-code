@@ -177,16 +177,16 @@ int main(int argc, char *argv[])
 
 	/* PREVIEW WARNING */
 	QMessageBox *msgBox = new QMessageBox();
-	msgBox->setWindowTitle(QObject::tr("              Warning this is a preview!"));
+	msgBox->setWindowTitle(QObject::tr("               GT-10FxFloorBoard beta version!"));
 	msgBox->setIcon(QMessageBox::Warning);
 	msgBox->setTextFormat(Qt::RichText);
 	QString msgText;
 	msgText.append("<font size='+1'><b>");
 	msgText.append(QObject::tr("This software is currently under development!<br>"));
 	msgText.append("<b></font><br>");
-	msgText.append(QObject::tr("Ensure you have backup up your patches with the Boss Librarian before proceeding.<br><br>"));
-	msgText.append(QObject::tr("Please email to http//:gumtownbassman@yahoo.com to confirm correct function.<br><br>"));
-	msgText.append(QObject::tr(" This will help with development and future versions, and removal of this nag screen."));
+	msgText.append(QObject::tr("Ensure you make regular backups of your GT-10 with the Boss Librarian.<br><br>"));
+	msgText.append(QObject::tr("Please email to http//:gumtownbassman@yahoo.com if any bugs are found.<br><br>"));
+	msgText.append(QObject::tr(" This will really help with development !!."));
 
 	msgBox->setText(msgText);
 	msgBox->setStandardButtons(QMessageBox::Ok);

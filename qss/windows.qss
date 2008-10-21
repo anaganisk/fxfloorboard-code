@@ -1,5 +1,6 @@
 /****************************************************************************
 **
+** Copyright (C) 2008 Colin Willcocks.
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
 ** This file is part of "GT-10 Fx FloorBoard".
@@ -247,7 +248,7 @@ border-color:  rgb(255,255,255);
 border-radius: 5px;
 margin-top: 8px;
 padding: 2px;
-background-color: rgb(0,0,0);
+background-color: rgb(1,35,182);
 }
  
 /* CUSTOM CONTROLLABEL STYLE */

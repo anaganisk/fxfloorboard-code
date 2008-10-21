@@ -19,7 +19,7 @@
 ## 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 ##
 #############################################################################
-
+ 
 #Header files
 HEADERS += ./editPage.h \
     ./editWindow.h \
