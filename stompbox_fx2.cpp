@@ -438,7 +438,6 @@ void stompbox_fx2::setEditPages()
 	editDetails()->page()->newStackControl(1);
 	editDetails()->page()->addComboBox(1, 0, 1, 1, "06", "00", "63");	
 	editDetails()->page()->addStackControl();
-<<<<<<< .mine
 	editDetails()->page()->addComboBox(2, 0, 1, 1, "0A", "00", "68");	
 	editDetails()->page()->addGroupBox(0, 0, 2, 1);
 	editDetails()->page()->insertStackField(1, 0, 1, 3, 1);
@@ -494,9 +493,6 @@ void stompbox_fx2::setEditPages()
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "06", "00", "64");
 	editDetails()->page()->addKnob(0, 1, 1, 1, "06", "00", "65", "normal","right", 105);
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
-=======
-	editDetails()->page()->addGroupBox(0, 0, 2, 1);
->>>>>>> .r415
 	editDetails()->page()->newGroupBox("Voice 2");
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "06", "00", "68");
 	editDetails()->page()->addKnob(0, 1, 1, 1, "06", "00", "69", "normal","right", 105);

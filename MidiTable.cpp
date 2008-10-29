@@ -216,26 +216,18 @@ Midi MidiTable::getMidiMap(QString root, QString hex1, QString hex2, QString hex
 	return level4;
 };
 
-<<<<<<< .mine
-Midi MidiTable::getMidiMap(QString root, QString hex1, QString hex2, QString hex3,  QString hex4, QString hex5)
-{
-=======
+
 Midi MidiTable::getMidiMap(QString root, QString hex1, QString hex2, QString hex3,  QString hex4, QString hex5)
 { 
->>>>>>> .r415
 	Midi section = midiMap.level.at( midiMap.id.indexOf(root) );
 	Midi level1 = section.level.at( section.id.indexOf(hex1) );
 	Midi level2 = level1.level.at( level1.id.indexOf(hex2) );
 	Midi level3 = level2.level.at( level2.id.indexOf(hex3) );
 	Midi level4 = level3.level.at( level3.id.indexOf(hex4) );
 	Midi level5 = level4.level.at( level4.id.indexOf(hex5) );
-<<<<<<< .mine
 	return level5;
 };
-=======
-	return level5; 
-};
->>>>>>> .r415
+
 
 int MidiTable::getRange(QString root, QString hex1, QString hex2, QString hex3)
 {

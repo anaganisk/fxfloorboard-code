@@ -200,9 +200,9 @@ void editWindow::valueChanged(int index)
 
 		SysxIO *sysxIO = SysxIO::Instance();
 		sysxIO->setFileSource(this->hex1, this->hex2, this->hex3, valueHex);
-
+    QApplication::beep;
 		//emit updateDisplay(valueHex);
-		emit updateSignal();
+		//emit updateSignal();
 	};
 };
 

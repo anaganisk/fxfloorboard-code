@@ -42,12 +42,15 @@ HEADERS += ./editPage.h \
     ./customSwitch.h \
     ./customTargetDial.h \
     ./dragBar.h \
-    ./editPage_assign.h \
+    ./menuPage_assign.h \
+    ./menuPage_midi.h \
+    ./menuPage_system.h \
     ./floorBoard.h \
     ./floorBoardDisplay.h \
     ./floorPanelBar.h \
     ./floorPanelBarButton.h \
     ./initPatchListMenu.h \
+    ./menuPage.h \
     ./renameDialog.h \
     ./renameWidget.h \
     ./statusBarSymbol.h \
@@ -109,12 +112,15 @@ SOURCES += ./editPage.cpp \
     ./customSwitch.cpp \
     ./customTargetDial.cpp \
     ./dragBar.cpp \
-    ./editPage_assign.cpp \
+    ./menuPage_assign.cpp \
+    ./menuPage_midi.cpp \
+    ./menuPage_system.cpp \
     ./floorBoard.cpp \
     ./floorBoardDisplay.cpp \
     ./floorPanelBar.cpp \
     ./floorPanelBarButton.cpp \
     ./initPatchListMenu.cpp \
+    ./menuPage.cpp \
     ./renameDialog.cpp \
     ./renameWidget.cpp \
     ./statusBarSymbol.cpp \

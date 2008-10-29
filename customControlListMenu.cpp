@@ -126,10 +126,10 @@ void customControlListMenu::setComboBox()
 		if(longestItem.size() < item.size()) longestItem = item;
 		this->controlListComboBox->addItem(item);
 	};
+#ifdef macosx
  	int maxWidth = QFontMetrics( this->font() ).width( longestItem );
- 	#ifdef macosx
  	this->controlListComboBox->setFixedWidth(maxWidth +10);
-  #endif
+#endif
   this->controlListComboBox->setFixedHeight(15);
 	this->controlListComboBox->setEditable(false);
 	this->controlListComboBox->setFrame(false);
