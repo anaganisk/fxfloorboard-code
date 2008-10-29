@@ -1,5 +1,6 @@
 /****************************************************************************
 **
+** Copyright (C) 2008 Colin Willcocks.
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
 ** This file is part of "GT-10B Fx FloorBoard".
@@ -26,6 +27,7 @@
 #include <QWidget>
 #include <QPixmap>
 #include "stompBox.h"
+#include "menuPage.h"
 #include "editWindow.h"
 
 class floorBoard : public QWidget
@@ -52,6 +54,7 @@ public slots:
 	void setCollapse();
 	void updateStompBoxes();
 	void setEditDialog(editWindow* editDialog);
+	void assignSignal(bool value);
 
 signals:
 	void valueChanged(QString fxName, QString valueName, QString value);
@@ -64,22 +67,25 @@ signals:
 	void showDragBar(QPoint newpos);
 	void hideDragBar();
 	void updateSignal();
+	void assignSignal();
 	
 protected:
 	void paintEvent(QPaintEvent *event);
 	void dragEnterEvent(QDragEnterEvent *event);
-    void dragMoveEvent(QDragMoveEvent *event);
-    void dropEvent(QDropEvent *event);
+  void dragMoveEvent(QDragMoveEvent *event);
+  void dropEvent(QDropEvent *event);
 
 private:
 	void initSize(QSize floorSize);
 	void setSize(QSize newSize);
 	void setFloorBoard();
 	void initStomps();
+	void initMenuPages();
 	void setStomps(QList<QString> stompOrder);
 	void setStompPos(QString name, int order);
 	void setStompPos(int index, int order);
 	void centerEditDialog();
+	
 
 	QString imagePathFloor;
 	QString imagePathStompBG;
@@ -112,7 +118,7 @@ private:
 	QList<int> fx;
 	bool colapseState;
 
-  QList<QString> assign;
+  QList<menuPage*> menuPages;
 	QList<stompBox*> stompBoxes;
 	QList<QString> stompNames;
 	editWindow* editDialog;

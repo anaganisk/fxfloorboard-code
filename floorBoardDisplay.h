@@ -40,7 +40,7 @@ public:
 	floorBoardDisplay(QWidget *parent = 0, 
 		QPoint pos = QPoint::QPoint(0, 0));
 	QPoint getPos();
-
+	
 public slots:
 	void setValueDisplay(QString fxName, QString valueName, QString value);
 	void setPatchDisplay(QString patchName);
@@ -103,10 +103,9 @@ private:
 	QTimer* timer;
 	int blinkCount;
 	bool currentSyncStatus;
-
 	initPatchListMenu *initPatch;
-	
 	editWindow *editDialog;
+	
 	};
 
 #endif // FLOORBOARDDISPLAY_H
