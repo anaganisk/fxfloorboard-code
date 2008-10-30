@@ -48,11 +48,7 @@ void stompbox_fv::setEditPages()
 	editDetails()->page()->newGroupBox("Expression Pedal Switch");
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "0D", "00", "00", "middle", Qt::AlignCenter); //on/off 
 	//editDetails()->page()->addComboBox(0, 1, 1, 1, "0D", "00", "02"); //QUICK SETTING
-	editDetails()->page()->addKnob(0, 2, 1, 1, "0D", "00", "02", "normal", "right", 135);//target
-	editDetails()->page()->addComboBox(0, 3, 1, 1, "0D", "00", "04");   
-	//editDetails()->page()->addKnob(0, 2, 1, 1, "0D", "00", "04", "turbo");       // target min
-	editDetails()->page()->addComboBox(0, 4, 1, 1, "0D", "00", "06"); 
-	//editDetails()->page()->addKnob(0, 3, 1, 1, "0D", "00", "06", "turbo");    //  target max
+	editDetails()->page()->addTarget(0, 2, 1, 1, "0D", "00", "02", "target", "target", 120);//target
 	editDetails()->page()->addComboBox(0, 5, 1, 1, "0D", "00", "08");         // source mode
 	editDetails()->page()->addGroupBox(2, 0, 1, 4);
 
@@ -63,21 +59,17 @@ void stompbox_fv::setEditPages()
 	editDetails()->page()->newGroupBox("CTRL Pedal");
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "0E", "00", "00", "middle", Qt::AlignCenter); //on/off 
 	//editDetails()->page()->addComboBox(0, 1, 1, 1, "0E", "00", "01"); //QUICK SETTING
-	editDetails()->page()->addKnob(0, 2, 1, 1, "0E", "00", "02", "normal", "right", 135);//target
-	editDetails()->page()->addComboBox(0, 3, 1, 1, "0E", "00", "04");   
-	//editDetails()->page()->addKnob(0, 2, 1, 1, "0D", "00", "04", "turbo");       // target min
-	editDetails()->page()->addComboBox(0, 4, 1, 1, "0E", "00", "06"); 
-	//editDetails()->page()->addKnob(0, 3, 1, 1, "0D", "00", "06", "turbo");    //  target max
+	editDetails()->page()->addTarget(0, 2, 1, 1, "0E", "00", "02", "target", "target", 120);//target
 	editDetails()->page()->addComboBox(0, 5, 1, 1, "0E", "00", "08");         // source mode
 	editDetails()->page()->addGroupBox(3, 0, 1, 4);
-	
+	/*
 	editDetails()->page()->newGroupBox("Manual");
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "0F", "00", "00");         // source mode
 	editDetails()->page()->addComboBox(0, 1, 1, 1, "0F", "00", "01");         // source mode
 	editDetails()->page()->addComboBox(0, 2, 1, 1, "0F", "00", "02");         // source mode
 	editDetails()->page()->addComboBox(0, 3, 1, 1, "0F", "00", "03");         // source mode
 	editDetails()->page()->addGroupBox(0, 0, 1, 4);
-	
+	*/
 	
 	editDetails()->addPage();  // PAGE ABOVE   
 	
