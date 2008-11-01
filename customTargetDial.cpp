@@ -1,8 +1,9 @@
 /****************************************************************************
 **
+** Copyright (C) 2008 Colin Willcocks.
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT-8 Fx FloorBoard".
+** This file is part of "GT-10B Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -21,12 +22,12 @@
 ****************************************************************************/
 
 #include <QtGui>
+#include "customTargetDial.h"
+#include "MidiTable.h"
 
-#include "customDial.h"
-
-customDial::customDial(double value, double min, double max, double single, double page, 
+customTargetDial::customTargetDial(double value, double min, double max, double single, double page, 
 					   QPoint dialPos, QWidget *parent, QString hex1, QString hex2, QString hex3, 
-					   QString imagePath, unsigned int imageRange)
+					   QString imagePath, unsigned int imageRange, QString background)
     : QWidget(parent)
 {
 	this->hex1 = hex1;
@@ -42,15 +43,20 @@ customDial::customDial(double value, double min, double max, double single, doub
 	QSize imageSize = QPixmap(imagePath).size();
 	this->dialSize = QSize(imageSize.width()/(imageRange+1), imageSize.height());
 	this->dialPos = dialPos;
+	this->background = background;
 
 	setOffset(value);
     setGeometry(dialPos.x(), dialPos.y(), dialSize.width(), dialSize.height());
 
 	QObject::connect(this, SIGNAL( valueChanged(int, QString, QString, QString) ),
                 this->parent(), SLOT( valueChanged(int, QString, QString, QString) ));
+                
+  QObject::connect(this->parent(), SIGNAL( updateHex(QString, QString, QString) ),
+                this, SLOT( knobSignal(QString, QString, QString) ));
+
 };
 
-void customDial::paintEvent(QPaintEvent *)
+void customTargetDial::paintEvent(QPaintEvent *)
 {
 	QRectF target(0.0 , 0.0, dialSize.width(), dialSize.height());
 	QRectF source(xOffset, 0.0, dialSize.width(), dialSize.height());
@@ -62,7 +68,7 @@ void customDial::paintEvent(QPaintEvent *)
 	painter.drawPixmap(target, image, source);
 };
 
-void customDial::setOffset(double _newValue)
+void customTargetDial::setOffset(double _newValue)
 {
 	double dataRange = max - min;
 	double range = imageRange - 0;
@@ -80,10 +86,10 @@ void customDial::setOffset(double _newValue)
 	
 	this->value = _newValue;	
 	this->xOffset = imageNr*dialSize.width();	
-	this->update();
-};
+	this->update();                                                     // continuous update
+	};
 
-void customDial::mousePressEvent(QMouseEvent *event)
+void customTargetDial::mousePressEvent(QMouseEvent *event)
 {
 	if ( event->button() == Qt::LeftButton )
 	{	
@@ -95,7 +101,7 @@ void customDial::mousePressEvent(QMouseEvent *event)
 	};
 };
 
-void customDial::mouseMoveEvent(QMouseEvent *event)
+void customTargetDial::mouseMoveEvent(QMouseEvent *event)
 {
 	double dataRange = max - min;
 	//double range = imageRange - 0;
@@ -128,7 +134,7 @@ void customDial::mouseMoveEvent(QMouseEvent *event)
 	emitValue(_newValue);
 };
 
-void customDial::wheelEvent(QWheelEvent *event)
+void customTargetDial::wheelEvent(QWheelEvent *event)
 {
     double numDegrees = (double)(event->delta() / 8);
     double numSteps = numDegrees / 15;
@@ -152,7 +158,7 @@ void customDial::wheelEvent(QWheelEvent *event)
     };
 };
 
-void customDial::keyPressEvent(QKeyEvent *event)
+void customTargetDial::keyPressEvent(QKeyEvent *event)
 {
 	double numSteps = 0;
 	this->_lastValue = value;
@@ -189,15 +195,24 @@ void customDial::keyPressEvent(QKeyEvent *event)
 	};
 };
 
-void customDial::emitValue(double value)
+void customTargetDial::emitValue(double value)
 {
-    if (value != m_value) {
+    if (value != m_value) {                                          // continuous update
         this->m_value = value;
     };
-	emit valueChanged((int)value, this->hex1, this->hex2, this->hex3);
+	emit valueChanged((int)value, this->hex1, this->hex2, this->hex3); 
 };
 
-void customDial::setValue(int value)
+void customTargetDial::setValue(int value)
 {
-	setOffset((double)value);
+	setOffset((double)value);                  //  on initial loading of patch
+};
+
+void customTargetDial::knobSignal(QString hex1, QString hex2, QString hex3)
+{
+if (this->background != "target")
+  {
+    MidiTable *midiTable = MidiTable::Instance();
+    this->max = midiTable->getRange("Structure", hex1, hex2, hex3); 
+  };
 };

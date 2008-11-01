@@ -31,19 +31,26 @@ HEADERS += ./editPage.h \
     ./customControlLabel.h \
     ./customControlListMenu.h \
     ./customControlSwitch.h \
+    ./customControlTarget.h \
     ./customDial.h \
     ./customDisplay.h \
     ./customKnob.h \
+    ./customKnobTarget.h \
     ./customLed.h \
     ./customSlider.h \
     ./customSplashScreen.h \
     ./customSwitch.h \
+    ./customTargetDial.h \
     ./dragBar.h \
     ./floorBoard.h \
     ./floorBoardDisplay.h \
     ./floorPanelBar.h \
     ./floorPanelBarButton.h \
     ./initPatchListMenu.h \
+    ./menuPage.h \
+    ./menuPage_assign.h \
+    ./menuPage_midi.h \
+    ./menuPage_system.h \
     ./renameDialog.h \
     ./renameWidget.h \
     ./statusBarSymbol.h \
@@ -90,19 +97,26 @@ SOURCES += ./editPage.cpp \
     ./customControlLabel.cpp \
     ./customControlListMenu.cpp \
     ./customControlSwitch.cpp \
+    ./customControlTarget.cpp \
     ./customDial.cpp \
     ./customDisplay.cpp \
     ./customKnob.cpp \
+    ./customKnobTarget.cpp \
     ./customLed.cpp \
     ./customSlider.cpp \
     ./customSplashScreen.cpp \
     ./customSwitch.cpp \
+    ./customTargetDial.cpp \
     ./dragBar.cpp \
     ./floorBoard.cpp \
     ./floorBoardDisplay.cpp \
     ./floorPanelBar.cpp \
     ./floorPanelBarButton.cpp \
     ./initPatchListMenu.cpp \
+    ./menuPage.cpp \
+    ./menuPage_assign.cpp \
+    ./menuPage_midi.cpp \
+    ./menuPage_system.cpp \
     ./renameDialog.cpp \
     ./renameWidget.cpp \
     ./statusBarSymbol.cpp \

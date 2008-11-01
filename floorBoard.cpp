@@ -34,6 +34,10 @@
 #include "SysxIO.h"
 #include "globalVariables.h"
 
+#include "menuPage_assign.h"
+#include "menuPage_midi.h"
+#include "menuPage_system.h"
+
 #include "stompbox_fx1.h"
 #include "stompbox_cs.h"
 #include "stompbox_wah.h"
@@ -76,7 +80,6 @@ floorBoard::floorBoard(QWidget *parent,
 	bankTreeList *bankList = new bankTreeList(this);
 	
 	setFloorBoard();
-	initStomps();
 
 	floorBoardDisplay *display = new floorBoardDisplay(this);
 	display->setPos(displayPos);
@@ -88,7 +91,10 @@ floorBoard::floorBoard(QWidget *parent,
 	bar->setDragBarSize(QSize::QSize(4, panelBar->height() ));
 	bar->setDragBarMinOffset(2, 8);
 	bar->setDragBarMaxOffset(offset - panelBarOffset + 5);
-
+  
+  initStomps();
+  initMenuPages();
+  
 	this->editDialog = new editWindow(this);
 	this->editDialog->hide();
 
@@ -689,3 +695,20 @@ void floorBoard::centerEditDialog()
 	this->editDialog->move(x, y);
 };
 
+void floorBoard::initMenuPages()
+{
+	QVector<menuPage *> initMenuPages(3);
+	this->menuPages = initMenuPages.toList();;
+	
+	/* EDITPAGES */
+	menuPage *assign = new menuPage_assign(this);
+	assign->setId(20);
+	assign->setPos(QPoint(955, 5));
+	//menuPage *midi = new menuPage_midi(this);
+	//midi->setId(19);
+	//midi->setPos(QPoint(1061, 5));
+	//menuPage *system = new menuPage_system(this);
+	//system->setId(18);
+	//system->setPos(QPoint(1150, 5));
+	
+	};

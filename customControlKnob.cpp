@@ -46,7 +46,7 @@ customControlKnob::customControlKnob(QWidget *parent,
 	this->display->setObjectName("editdisplay");
 	this->display->setFixedWidth(lenght);
 	this->display->setFixedHeight(13);
-	this->display->setAlignment(Qt::AlignRight);
+	this->display->setAlignment(Qt::AlignCenter);
 	this->display->setDisabled(true);
 
 	if(direction == "left")

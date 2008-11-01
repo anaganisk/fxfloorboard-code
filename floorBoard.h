@@ -26,6 +26,7 @@
 #include <QWidget>
 #include <QPixmap>
 #include "stompBox.h"
+#include "menuPage.h"
 #include "editWindow.h"
 
 class floorBoard : public QWidget
@@ -76,6 +77,7 @@ private:
 	void setSize(QSize newSize);
 	void setFloorBoard();
 	void initStomps();
+	void initMenuPages();
 	void setStomps(QList<QString> stompOrder);
 	void setStompPos(QString name, int order);
 	void setStompPos(int index, int order);
@@ -112,6 +114,7 @@ private:
 	QList<int> fx;
 	bool colapseState;
 
+  QList<menuPage*> menuPages;
 	QList<stompBox*> stompBoxes;
 	QList<QString> stompNames;
 	editWindow* editDialog;
