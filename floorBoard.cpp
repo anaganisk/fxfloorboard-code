@@ -33,7 +33,11 @@
 #include "sysxWriter.h"
 #include "SysxIO.h"
 #include "globalVariables.h"
-#include "editPage_assign.h"
+
+
+#include "menuPage_assign.h"
+#include "menuPage_midi.h"
+#include "menuPage_system.h"
 
 #include "stompbox_fx1.h"
 #include "stompbox_ch_a.h"
@@ -54,20 +58,13 @@
 #include "stompbox_ns_2.h"
 #include "stompbox_dgt.h"
 
-<<<<<<< .mine
-
-floorBoard::floorBoard(QWidget *parent,
-						QString imagePathFloor,
-						QString imagePathStompBG,
-=======
 
 floorBoard::floorBoard(QWidget *parent, 
 						QString imagePathFloor, 
 						QString imagePathStompBG, 
->>>>>>> .r415
 						QString imagePathInfoBar,
-						unsigned int marginStompBoxesTop,
-						unsigned int marginStompBoxesBottom,
+						unsigned int marginStompBoxesTop, 
+						unsigned int marginStompBoxesBottom, 
 						unsigned int marginStompBoxesWidth,
 						unsigned int panelBarOffset,
 						unsigned int borderWidth,
@@ -87,32 +84,27 @@ floorBoard::floorBoard(QWidget *parent,
 	this->pos = pos;
 
 	bankTreeList *bankList = new bankTreeList(this);
-<<<<<<< .mine
-	//editPage_assign *assign = new editPage_assign (this);
-
-=======
-	//editPage_assign *assign = new editPage_assign (this);
-	
->>>>>>> .r415
+		
 	setFloorBoard();
-	initStomps();
+
 
 	floorBoardDisplay *display = new floorBoardDisplay(this);
 	display->setPos(displayPos);
 
 	floorPanelBar *panelBar = new floorPanelBar(this);
-	panelBar->setPos(panelBarPos);
+	panelBar->setPos(panelBarPos);	
 
 	dragBar *bar = new dragBar(this);
 	bar->setDragBarSize(QSize::QSize(4, panelBar->height() ));
 	bar->setDragBarMinOffset(2, 8);
 	bar->setDragBarMaxOffset(offset - panelBarOffset + 5);
-
+	initStomps();
+	initMenuPages();
 	this->editDialog = new editWindow(this);
 	this->editDialog->hide();
 
-	/*floorBoardDisplay *display2 = new floorBoardDisplay(this);
-	display2->setPos(liberainPos);*/
+	floorBoardDisplay *display2 = new floorBoardDisplay(this);
+	display2->setPos(liberainPos);
 
 	QObject::connect(this, SIGNAL( resizeSignal(QRect) ), bankList, SLOT( updateSize(QRect) ) );
 	QObject::connect(display, SIGNAL(connectedSignal()), bankList, SLOT(connectedSignal()));
@@ -130,6 +122,8 @@ floorBoard::floorBoard(QWidget *parent,
 	QObject::connect(panelBar, SIGNAL(showDragBar(QPoint)), this, SIGNAL(showDragBar(QPoint)));
 	QObject::connect(panelBar, SIGNAL(hideDragBar()), this, SIGNAL(hideDragBar()));
 
+  //QObject::connect(this, SIGNAL(pathUpdateSignal()), stompBox, SLOT(updateStompBoxesSignal()));  //cw
+
 	bool ok;
 	Preferences *preferences = Preferences::Instance();
 	QString collapseState = preferences->getPreferences("Window", "Collapsed", "bool");
@@ -138,17 +132,17 @@ floorBoard::floorBoard(QWidget *parent,
 	if(width.isEmpty()){ width = defaultwidth; }
 
 	this->l_floorSize = QSize::QSize(width.toInt(&ok, 10), floorSize.height());
-
+	
 	if(preferences->getPreferences("Window", "Restore", "sidepanel")=="true")
 	{
 		if(collapseState=="true")
-		{
+		{ 
 			this->setSize(l_floorSize);
 			this->colapseState = true;
 			emit setCollapseState(true);
 		}
 		else
-		{
+		{ 
 			this->setSize(minSize);
 			this->colapseState = false;
 			emit setCollapseState(false);
@@ -178,7 +172,7 @@ floorBoard::~floorBoard()
 	};
 	preferences->setPreferences("Window", "Collapsed", "bool", QString(this->colapseState?"true":"false"));
 	preferences->savePreferences();
-};
+};					
 
 void floorBoard::paintEvent(QPaintEvent *)
 {
@@ -230,12 +224,12 @@ void floorBoard::setFloorBoard() {
 
 	QPoint newPanelBarPos = QPoint::QPoint(offset - panelBarOffset, borderWidth);
 	this->panelBarPos = newPanelBarPos;
-
+	
 	QPoint newDisplayPos = QPoint::QPoint(offset, 0);
 	this->displayPos = newDisplayPos;
 
-	/*QPoint newLiberainPos = QPoint::QPoint(offset, floorHeight);
-	this->liberainPos = newLiberainPos;*/
+	QPoint newLiberainPos = QPoint::QPoint(offset, floorHeight);
+	this->liberainPos = newLiberainPos;
 
 	QRect newBankListRect = QRect::QRect(borderWidth, borderWidth, offset - panelBarOffset - (borderWidth*2), floorHeight - (borderWidth*2));
 	emit resizeSignal(newBankListRect);
@@ -246,33 +240,15 @@ void floorBoard::dragEnterEvent(QDragEnterEvent *event)
 
 	QByteArray data = event->mimeData()->data("text/uri-list");
 	QString uri(data);
-
+	
 	if (event->mimeData()->hasFormat("application/x-stompbox") ||
 		uri.contains(".syx", Qt::CaseInsensitive) &&
-		event->answerRect().intersects(this->geometry()))
+		event->answerRect().intersects(this->geometry())) 
 	{
-<<<<<<< .mine
-      if (children().contains(event->source()) )
-		  {
-      event->setDropAction(Qt::MoveAction);
-=======
       if (children().contains(event->source()) ) 
 		  {
       event->setDropAction(Qt::MoveAction);
->>>>>>> .r415
 			event->accept();
-<<<<<<< .mine
-      }
-      else
-      {
-      event->acceptProposedAction();
-      };
-  }
-    else
-  {
-     event->ignore();
-  };
-=======
       } 
       else 
       {
@@ -283,19 +259,18 @@ void floorBoard::dragEnterEvent(QDragEnterEvent *event)
   {
      event->ignore();
   };
->>>>>>> .r415
 };
 
 void floorBoard::dragMoveEvent(QDragMoveEvent *event)
 {
 	QByteArray data = event->mimeData()->data("text/uri-list");
 	QString uri(data);
-
+	
 	if ( event->mimeData()->hasFormat("application/x-stompbox") ||
 		uri.contains(".syx", Qt::CaseInsensitive) &&
-		event->answerRect().intersects(this->geometry()) )
+		event->answerRect().intersects(this->geometry()) ) 
 	{
-        if (children().contains(event->source()))
+        if (children().contains(event->source())) 
 		{
             event->setDropAction(Qt::MoveAction);
 			event->accept();
@@ -309,7 +284,7 @@ void floorBoard::dragMoveEvent(QDragMoveEvent *event)
 
 void floorBoard::dropEvent(QDropEvent *event)
 {
-    if (event->mimeData()->hasFormat("application/x-stompbox"))
+    if (event->mimeData()->hasFormat("application/x-stompbox")) 
 	{
         QByteArray itemData = event->mimeData()->data("application/x-stompbox");
         QDataStream dataStream(&itemData, QIODevice::ReadOnly);
@@ -321,49 +296,35 @@ void floorBoard::dropEvent(QDropEvent *event)
         dataStream >> stompId >> stompPos >> stompSize >> topLeftOffset;
 		QPoint dragPoint = (event->pos() - topLeftOffset) + QPoint::QPoint(stompSize.width()/2, stompSize.height()/2);
 		int stompSpacing = fxPos.at(1).x() - (fxPos.at(0).x() + stompSize.width());
-
-
-
+		
 		 
 		
 		int destIndex = -1; // Set to out of range by default.
 		int orgIndex = fx.indexOf(stompId);
-		for(int x=0;x<fx.size();x++)
-        {
-            QRect dropRect = QRect::QRect(fxPos.at(x).x() - stompSpacing - (stompSize.width()/2), fxPos.at(x).y(), stompSize.width() + stompSpacing, stompSize.height());
-            QRect lastDropRect = QRect::QRect(fxPos.at(x).x() + (stompSize.width()/2), fxPos.at(x).y(), stompSize.width() + stompSpacing, stompSize.height());
-            if( dropRect.contains(dragPoint) )
-            {
-                destIndex = fx.indexOf(fx.at(x));
-            }
-            else if( (x == (int)fx.size()-1 ||
-                        ( x == (int)(fx.size()/2)-1 && fx.at(stompId) != fx.size()/2 ) )
-                        && lastDropRect.contains(dragPoint))
-            {
-                destIndex = fx.indexOf(fx.at(x)) + 1;
-            };
-        };
+		for(int x=0;x<fx.size();x++) 
+        { 
+            QRect dropRect = QRect::QRect(fxPos.at(x).x() - stompSpacing - (stompSize.width()/2), fxPos.at(x).y(), stompSize.width() + stompSpacing, stompSize.height()); 
+            QRect lastDropRect = QRect::QRect(fxPos.at(x).x() + (stompSize.width()/2), fxPos.at(x).y(), stompSize.width() + stompSpacing, stompSize.height()); 
+            if( dropRect.contains(dragPoint) ) 
+            { 
+                destIndex = fx.indexOf(fx.at(x)); 
+            } 
+            else if( (x == (int)fx.size()-1 ||  
+                        ( x == (int)(fx.size()/2)-1 && fx.at(stompId) != fx.size()/2 ) )  
+                        && lastDropRect.contains(dragPoint)) 
+            { 
+                destIndex = fx.indexOf(fx.at(x)) + 1; 
+            }; 
+        }; 
+ 
 
-<<<<<<< .mine
-
-
-
-
-		if((destIndex > -1 && destIndex < fx.size() + 1) && (stompId != 16) && (stompId != 17))
-			// Make sure we are not dropping the stomp out of range.
-=======
       
 			
 			
-		if((destIndex > -1 && destIndex < fx.size() + 1) && (stompId != 16) && (stompId != 17))
+		if((destIndex > -1 && destIndex < fx.size() + 1) && (stompId != 16) && (stompId != 17)) // don't move the split and merge stomps
 			// Make sure we are not dropping the stomp out of range. 
->>>>>>> .r415
 		{
-<<<<<<< .mine
-
-=======
 		 
->>>>>>> .r415
 			if( orgIndex < destIndex )
 			{
 				destIndex = destIndex - 1;
@@ -382,32 +343,90 @@ void floorBoard::dropEvent(QDropEvent *event)
 				setStompPos(stompId, destIndex);
 			};
 
-<<<<<<< .mine
 			if((orgIndex != destIndex) )                    // Prevent sending data when stomp was dropped in the same place.
-			{
-			 	SysxIO *sysxIO = SysxIO::Instance();
-=======
-			if((orgIndex != destIndex) )                    // Prevent sending data when stomp was dropped in the same place.
-			{			
-			 	SysxIO *sysxIO = SysxIO::Instance();
->>>>>>> .r415
-				QList<QString> hexData;
-				for(int index=0;index<fx.size();index++)
-				{
+			{	
+      
+  SysxIO *sysxIO = SysxIO::Instance();
+	QList<QString> fxChain = sysxIO->getFileSource("0B", "00");
+		
+	MidiTable *midiTable = MidiTable::Instance();
+	//QList<QString> stompOrderName;
+	QList<QString> stompOrderHex;
+  QString shit;
+	QString hexdata_A;
+	QString hexdata_B;
+	QString namedata;
+	QList<QString> hexData;
+	QString hexData2;
+				
+				for(int i= sysxDataOffset;i< (sysxDataOffset + 18);i++ ) 
+				{     	
+        	//stompOrderName.append( midiTable->getMidiMap("Structure", "0B", "00", "00", fxChain.at(i)).name );
+		      shit.append( midiTable->getMidiMap("Structure", "0B", "00", "00", fxChain.at(i)).value );
+		      shit.append(" ");
+        };  
+            int hex_A = fx.indexOf(16);
+            int hex_B = fx.indexOf(17); 
+            bool ok; 
+            int hex_pos = 0; 
+            QString crap;   
+        for(int index=0;index<fx.size();index++)
+        {        
 					QString fxHexValue = QString::number(fx.at(index), 16).toUpper();
+					int pos = fxHexValue.toInt(&ok, 16);
+					hex_pos = fx.indexOf(pos); 				
 					if(fxHexValue.length() < 2 && index == 17){ fxHexValue.prepend("4");}  // last chain item is hidden =43 by default (preamp-2)
-          if(fxHexValue.length() < 2 && index != 17){ fxHexValue.prepend("0");}
-					hexData.append(fxHexValue);
-				};
+					if(fxHexValue.length() < 2)
+            {
+              if (hex_pos > hex_A && hex_pos < hex_B)
+                { 
+                  QString carrots = fxHexValue;
+                  if(carrots.length() < 2){carrots.prepend("0");};
+                   if (shit.contains(carrots)){fxHexValue.prepend("0");}
+                       else {fxHexValue.prepend("4"); };
+                  
+                } else { fxHexValue.prepend("0"); };
+					  };	    
+          hexData.append(fxHexValue);
+          hexData2.append(fxHexValue);
+          hexData2.append(" ");
+          crap.append(QString::number(hex_pos, 16).toUpper());
+          crap.append(" ");
+			  };
+			  QList<QString> temp = hexData;
+			  
 				sysxIO->setFileSource("0B", "00", "00", "11", hexData);
+			/*QString snork;
+			snork.append("<font size='-1'>");
+			snork.append(hexData2);
+			snork.append("<br>");
+			snork.append(shit);
+			snork.append("<br>");
+			QString number = QString::number(hex_A, 16).toUpper();
+			snork.append(number);
+			snork.append(" = hex_A");
+			snork.append("<br>");
+			number = QString::number(hex_B, 16).toUpper();
+			snork.append(number);
+			snork.append(" = hex_B");
+			snork.append("<br>");
+			snork.append(crap);
+			snork.append(" = hex_pos");
+			QMessageBox *msgBox = new QMessageBox();
+			msgBox->setWindowTitle("stompOrder data");
+			msgBox->setIcon(QMessageBox::Information);
+			msgBox->setText(snork);
+			msgBox->setStandardButtons(QMessageBox::Ok);
+			msgBox->exec(); */
+				emit pathUpdateSignal();
 			};
 		}
 		else
 		{
 			event->ignore();
 		};
-	}
-	else
+	} 
+	else 
 	{
 		if(event->mimeData()->hasFormat("text/uri-list"))
 		{
@@ -421,16 +440,16 @@ void floorBoard::dropEvent(QDropEvent *event)
 				filePath.replace(0, filePath.indexOf(removeFromStart) + removeFromStart.length(), "");
 				filePath.truncate(filePath.indexOf(removeFromEnd) + removeFromEnd.length());
 				filePath.replace("%20", " ");
-
+				
 				SysxIO *sysxIO = SysxIO::Instance();
 				sysxIO->setFileName(filePath);
 				sysxIO->setSyncStatus(false);
 				sysxIO->setDevice(false);
-
+				
 				sysxWriter file;
 				file.setFile(filePath);
 				if(file.readFile())
-				{
+				{	
 					emit updateSignal();
 				}
 				else
@@ -454,8 +473,8 @@ void floorBoard::initSize(QSize floorSize)
 {
 	this->floorSize = floorSize;
 	this->l_floorSize = floorSize;
-	QList<QPoint> fxPos;
-
+	QList<QPoint> fxPos; 
+	
 	unsigned int spacingV = (floorSize.height() - (marginStompBoxesTop + marginStompBoxesBottom)) - (stompSize.height() * 2);
 	unsigned int spacingH = ( (floorSize.width() - offset - (marginStompBoxesWidth * 2)) - (stompSize.width() * 9) ) / 9;
 	//for(unsigned int i=0;i<14;i++)
@@ -480,7 +499,7 @@ void floorBoard::initSize(QSize floorSize)
 	this->setFixedSize(floorSize);
 };
 
-QPoint floorBoard::getStompPos(int id)
+QPoint floorBoard::getStompPos(int id) 
 {
 	return fxPos.at(id);
 };
@@ -488,14 +507,14 @@ QPoint floorBoard::getStompPos(int id)
 void floorBoard::setCollapse()
 {
 	if(floorSize.width() > minSize.width())
-	{
+	{ 
 		this->l_floorSize = floorSize;
 		this->setSize(minSize);
 		this->colapseState = false;
 		emit setCollapseState(false);
 	}
 	else
-	{
+	{ 
 		this->setSize(l_floorSize);
 		emit setCollapseState(true);
 		this->colapseState = true;
@@ -514,11 +533,11 @@ void floorBoard::setSize(QSize newSize)
 		fxPos[i] = fxPos[i] + QPoint::QPoint(offset - oldOffset, 0);
 	};
 	emit updateStompOffset(offset - oldOffset);
-
+	
 	QPoint newPanelBarPos = QPoint::QPoint(offset - panelBarOffset, panelBarPos.y());
 	emit setFloorPanelBarPos(newPanelBarPos);
 	this->panelBarPos = newPanelBarPos;
-
+	
 	QPoint newDisplayPos = QPoint::QPoint(offset, displayPos.y());
 	emit setDisplayPos(newDisplayPos);
 	this->displayPos = newDisplayPos;
@@ -538,12 +557,12 @@ void floorBoard::setSize(QSize newSize)
 
 	painter.end();
 
-	this->image = buffer;
+	this->image = buffer;	
 	this->setFixedSize(floorSize);
-
+	
 	QRect newBankListRect = QRect::QRect(borderWidth, borderWidth, offset - panelBarOffset - (borderWidth*2), floorHeight - (borderWidth*2));
 	emit resizeSignal(newBankListRect);
-
+	
 	emit sizeChanged(floorSize, oldFloorSize);
 	this->centerEditDialog();
 };
@@ -578,7 +597,7 @@ void floorBoard::initStomps()
 {
 	QList<signed int> fx;
 	fx << 0 << 1 << 2 << 3 << 4 << 5 << 6 << 7 << 8 << 9 << 10 << 11 << 12 << 13 << 14 << 15 << 16 << 17;
-	/*   FX1   CS  PDL  LP   OD   CH_A  EQ  FX2  DD    CE   RV    NS1    FV   DGT   CH_B  NS2   cn_s  cn_m  as per listing below   */
+	/*   FX1  CS   PDL  LP   OD  CH_A   EQ  FX2   DD   CE   RV    NS1   FV   DGT   CH_B   NS2   cn_s  cn_m  as per listing below   */
 	this->fx = fx;
 
 	QVector<QString> initStompNames(18);
@@ -592,7 +611,7 @@ void floorBoard::initStomps()
 	QList<int> fxID;
 	QList<QString> fxNAMES;
 	for(int i=0;i<=17;i++)
-
+ 
 	{
 		bool ok;
 		fxID.append(midimap.level.at(i).value.toInt(&ok, 16));
@@ -601,19 +620,19 @@ void floorBoard::initStomps()
 
 	/* FX1 */
 	stompBox *fx1 = new stompbox_fx1(this);
-	fx1->setId( fxID.at(fxNAMES.indexOf("FX1")) );
+	fx1->setId( fxID.at(fxNAMES.indexOf("FX1")) ); 
 	fx1->setPos(this->getStompPos(fx1->getId()));
 	this->stompBoxes.replace(fx1->getId(), fx1);
 	this->stompNames.replace(fx1->getId(), "FX1");
 
-	/* COMP */
+	/* COMP */	
 	stompBox *cs = new stompbox_cs(this);
 	cs->setId( fxID.at(fxNAMES.indexOf("CS")) );
 	cs->setPos(this->getStompPos(cs->getId()));
 	this->stompBoxes.replace(cs->getId(), cs);
 	this->stompNames.replace(cs->getId(), "CS");
 
-
+	
 		/* PDL */
 	stompBox *pdl = new stompbox_pdl(this);
 	pdl->setId( fxID.at(fxNAMES.indexOf("PDL")) );
@@ -635,13 +654,13 @@ void floorBoard::initStomps()
 	this->stompBoxes.replace(od->getId(), od);
 	this->stompNames.replace(od->getId(), "OD");
 
-	/* CH_A */
+	/* CH_A */ 
 	stompBox *ch_a = new stompbox_ch_a(this);
 	ch_a->setId( fxID.at(fxNAMES.indexOf("CH_A")) );
 	ch_a->setPos(this->getStompPos(ch_a->getId()));
 	this->stompBoxes.replace(ch_a->getId(), ch_a);
 	this->stompNames.replace(ch_a->getId(), "CH_A");
-
+	
 	/* CH_B */
 	stompBox *ch_b = new stompbox_ch_b(this);
 	ch_b->setId( fxID.at(fxNAMES.indexOf("CH_B")) );
@@ -690,7 +709,7 @@ void floorBoard::initStomps()
 	ns_1->setPos(this->getStompPos(ns_1->getId()));
 	this->stompBoxes.replace(ns_1->getId(), ns_1);
 	this->stompNames.replace(ns_1->getId(), "NS_1");
-
+	
 		/* NS_2 */
 	stompBox *ns_2 = new stompbox_ns_2(this);
 	ns_2->setId( fxID.at(fxNAMES.indexOf("NS_2")) );
@@ -711,31 +730,20 @@ void floorBoard::initStomps()
 	fv->setPos(this->getStompPos(fv->getId()));
 	this->stompBoxes.replace(fv->getId(), fv);
 	this->stompNames.replace(fv->getId(), "FV");
-
+	
 		/* CHAIN SPLIT */
 	stompBox *cn_s = new stompbox_cn_s(this);
 	cn_s->setId( fxID.at(fxNAMES.indexOf("CN_S")) );
 	cn_s->setPos(this->getStompPos(cn_s->getId()));
 	this->stompBoxes.replace(cn_s->getId(), cn_s);
 	this->stompNames.replace(cn_s->getId(), "CN_S");
-
+	
 		/* CHAIN MERGE */
 	stompBox *cn_m = new stompbox_cn_m(this);
 	cn_m->setId( fxID.at(fxNAMES.indexOf("CN_M")) );
 	cn_m->setPos(this->getStompPos(cn_m->getId()));
 	this->stompBoxes.replace(cn_m->getId(), cn_m);
-	this->stompNames.replace(cn_m->getId(), "CN_M");
-<<<<<<< .mine
-
-	/* ASSIGN */
-	stompBox *assign = new editPage_assign(this);
-    assign->setId(3);
-=======
-	
-	/* ASSIGN */
-	//editDialog = new editPage_assign(this);
-	
->>>>>>> .r415
+	this->stompNames.replace(cn_m->getId(), "CN_M");	
 };
 
 void floorBoard::setStomps(QList<QString> stompOrder)
@@ -764,25 +772,22 @@ void floorBoard::updateStompBoxes()
 {
 	SysxIO *sysxIO = SysxIO::Instance();
 	QList<QString> fxChain = sysxIO->getFileSource("0B", "00");
-
-
+	
+	
 	MidiTable *midiTable = MidiTable::Instance();
 	QList<QString> stompOrder;
 
-  for(int i= sysxDataOffset;i< (sysxDataOffset + 18);i++ )
+  for(int i= sysxDataOffset;i< (sysxDataOffset + 18);i++ ) 
 	{
 		stompOrder.append( midiTable->getMidiMap("Structure", "0B", "00", "00", fxChain.at(i)).name );
 	};
 	setStomps(stompOrder);
+	
 };
 
 void floorBoard::setEditDialog(editWindow* editDialog)
 {
-<<<<<<< .mine
-
-=======
   
->>>>>>> .r415
 	this->editDialog = editDialog;
 	this->editDialog->setParent(this);
 	this->centerEditDialog();
@@ -797,3 +802,20 @@ void floorBoard::centerEditDialog()
 	this->editDialog->move(x, y);
 };
 
+void floorBoard::initMenuPages()
+{
+	QVector<menuPage *> initMenuPages(3);
+	this->menuPages = initMenuPages.toList();;
+	
+	/* MENU_PAGES */
+	menuPage *assign = new menuPage_assign(this);
+	assign->setId(20);
+	assign->setPos(QPoint(1061, 5));
+	/*menuPage *midi = new menuPage_midi(this);
+	midi->setId(19);
+	midi->setPos(QPoint(1150, 5));
+	menuPage *system = new menuPage_system(this);
+	system->setId(18);
+	system->setPos(QPoint(1239, 5)); */
+	
+	};
