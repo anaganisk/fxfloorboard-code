@@ -201,9 +201,9 @@ void midiIO::sendSyxMsg(QString sysxOutMsg, int midiOutPort)
     };   
    /* Clean up */
  cleanup:
-	SLEEP(60);						// wait as long as the message is sending.
-	midiMsgOut->closePort();
-    delete midiMsgOut;	
+	SLEEP(20);						// wait as long as the message is sending.
+  midiMsgOut->closePort();
+  delete midiMsgOut;	
 };
 /*********** send midi messages *******************************/
 void midiIO::sendMidiMsg(QString sysxOutMsg, int midiOutPort)
@@ -273,8 +273,8 @@ void midiIO::receiveMsg(QString sysxInMsg, int midiInPort)
 	emit setStatusProgress(100);
 	Preferences *preferences = Preferences::Instance(); bool ok;// Load the preferences.
 	const int maxWait = preferences->getPreferences("Midi", "Time", "set").toInt(&ok, 10);
-	if(multiple){loopCount = maxWait*10;}
-	  else {loopCount = maxWait/10;};
+	if(multiple){loopCount = maxWait*11;}
+	  else {loopCount = maxWait/45;};
 			int bytesReceived = 0;	
       RtMidiIn *midiin = 0;	
 	  midiin = new RtMidiIn();		   //RtMidi constructor
@@ -393,7 +393,7 @@ void midiIO::run()
 		else 
 		{
 			emit setStatusSymbol(2);
-			//emit setStatusMessage("Sending");
+			emit setStatusMessage("Sending");
 			sendSyxMsg(sysxOutMsg, midiOutPort);
 			Preferences *preferences = Preferences::Instance(); bool ok;// Load the preferences.
 			const int minWait = preferences->getPreferences("Midi", "Delay", "set").toInt(&ok, 10);

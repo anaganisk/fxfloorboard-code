@@ -54,7 +54,7 @@ public slots:
 	void setCollapse();
 	void updateStompBoxes();
 	void setEditDialog(editWindow* editDialog);
-	void assignSignal(bool value);
+	//void assignSignal(bool value);
 
 signals:
 	void valueChanged(QString fxName, QString valueName, QString value);
@@ -67,7 +67,7 @@ signals:
 	void showDragBar(QPoint newpos);
 	void hideDragBar();
 	void updateSignal();
-	void assignSignal();
+	void pathUpdateSignal();
 	
 protected:
 	void paintEvent(QPaintEvent *event);

@@ -47,10 +47,10 @@ public slots:
 	void setPatchNumDisplay(int bank, int patch);
 	void setPos(QPoint newPos);
 	void updateDisplay();
-	void assignSignal(bool value);   //cjw
-	void manualSignal(bool value);   //cjw
-	void masterSignal(bool value);   //cjw
-	void systemSignal(bool value);   //cjw
+	//void assignSignal(bool value);   //cjw
+	//void manualSignal(bool value);   //cjw
+	//void masterSignal(bool value);   //cjw
+	//void systemSignal(bool value);   //cjw
 	void connectSignal(bool value);
 	void writeSignal(bool value);
 	void connectionResult(QString);
@@ -70,10 +70,10 @@ signals:
 	void updateSignal();
 	void connectedSignal();
 	void notConnectedSignal();
-  void assignSignal();
-  void manualSignal();
-  void masterSignal();
-  void systemSignal();
+  //void assignSignal();
+  //void manualSignal();
+  //void masterSignal();
+  //void systemSignal();
 	void setStatusSymbol(int value);
 	void setStatusProgress(int value);
   void setStatusMessage(QString message);
@@ -89,16 +89,16 @@ private:
 
 	customButton *connectButton;
 	customButton *writeButton;
-	customButton *manualButton;
-	customButton *assignButton;
-	customButton *masterButton;
-	customButton *systemButton;
+	//customButton *manualButton;
+	//customButton *assignButton;
+	//customButton *masterButton;
+	//customButton *systemButton;
 
 	bool connectButtonActive;
-  bool assignButtonActive;
-  bool manualButtonActive;
-  bool masterButtonActive;
-  bool systemButtonActive;
+  //bool assignButtonActive;
+  //bool manualButtonActive;
+  //bool masterButtonActive;
+  //bool systemButtonActive;
 	bool patchLoadError;
 	QTimer* timer;
 	int blinkCount;

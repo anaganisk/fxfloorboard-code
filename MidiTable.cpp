@@ -385,7 +385,7 @@ QString MidiTable::getValue(QString root, QString hex1, QString hex2, QString he
 QString MidiTable::rangeToValue(Midi range, QString hex)
 {
 	QString valueStr;
-	if(!range.id.contains(hex) && range.id.contains("range"))
+	if(!range.id.contains(hex) /*&& range.id.contains("range")*/) // changed from &&
 	{
 		int i = 0; bool ok;
 		while(range.id.indexOf("range", i) != -1)

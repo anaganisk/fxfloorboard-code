@@ -1,5 +1,6 @@
 /****************************************************************************
 **
+** Copyright (C) 2008 Colin Willcocks.
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
 ** This file is part of "GT-10B Fx FloorBoard".
@@ -24,7 +25,7 @@
 #include "MidiTable.h"
 #include "SysxIO.h"
 #include "globalVariables.h"
-#include "floorBoardDisplay.h"
+//#include "floorBoardDisplay.h"
 
 menuPage::menuPage(QWidget *parent, unsigned int id, QString imagePath, QPoint stompPos)
     : QWidget(parent)
@@ -37,6 +38,8 @@ menuPage::menuPage(QWidget *parent, unsigned int id, QString imagePath, QPoint s
 	this->setFixedSize(stompSize);
 
 	this->editDialog = new editWindow();
+	   
+	this->assignButton = new customButton(tr(""), false, QPoint(0, 0), this, ":/images/assigns_pushbutton.png");
 
 	QObject::connect(this, SIGNAL( valueChanged(QString, QString, QString) ),
                 this->parent(), SIGNAL( valueChanged(QString, QString, QString) ));
@@ -62,8 +65,40 @@ menuPage::menuPage(QWidget *parent, unsigned int id, QString imagePath, QPoint s
 	QObject::connect(this, SIGNAL( setEditDialog(editWindow*) ),
                 this->parent(), SLOT( setEditDialog(editWindow*) ));
                 
-  QObject::connect(this->parent(), SIGNAL(assignSignal(bool)), this, SLOT(assignSignal(bool)));  //cw             
- 
+  QObject::connect(this->assignButton, SIGNAL(valueChanged(bool)), this, SLOT(assignSignal(bool)));  //cw
+      
+      
+      if (this->id == 0)this->fxName = "Compressor";
+		  if (this->id == 1)this->fxName = "Distortion";
+		  if (this->id == 2)this->fxName = "PreAmp/Spkr";
+		  if (this->id == 3)this->fxName = "GT-10 preamp";
+		  if (this->id == 4)this->fxName = "Equalizer";
+		  if (this->id == 5)this->fxName = "FX-1";
+		  if (this->id == 6)this->fxName = "FX-2";
+		  if (this->id == 7)this->fxName = "Delay";
+		  if (this->id == 8)this->fxName = "Chorus";
+		  if (this->id == 9)this->fxName = "Reverb";
+		  if (this->id == 10)this->fxName = "Pedal";
+		  if (this->id == 11)this->fxName = "Volume";
+		  if (this->id == 12)this->fxName = "Noise Suppressor 1";
+		  if (this->id == 13)this->fxName = "Noise Suppressor 2";
+		  if (this->id == 14)this->fxName = "Send/Return";
+		  if (this->id == 15)this->fxName = "Digital Out";
+		  if (this->id == 16)this->fxName = "Chain Split";
+		  if (this->id == 17)this->fxName = "Chain Merge";
+		  if (this->id == 18)this->fxName = "System settings";
+		  if (this->id == 19)this->fxName = "System Midi";
+		  if (this->id == 20)this->fxName = "Assigns";          
+      /*QString snork;
+			snork.append("<font size='-1'>");
+			snork.append(fxName);
+			//snork.append(hexdata_B);
+			QMessageBox *msgBox = new QMessageBox();
+			msgBox->setWindowTitle("stompOrder data");
+			msgBox->setIcon(QMessageBox::Information);
+			msgBox->setText(snork);
+			msgBox->setStandardButtons(QMessageBox::Ok);
+			msgBox->exec();  */
 };
 
 void menuPage::paintEvent(QPaintEvent *)
@@ -83,26 +118,11 @@ editWindow* menuPage::editDetails()
 	return this->editDialog;
 };
 
-void menuPage::mousePressEvent(QMouseEvent *event) 
-{ 
-	emitValueChanged(this->hex1, this->hex2, "00", "void");
-
-	if (event->button() == Qt::LeftButton) 
-	{
-		this->editDialog->setWindow(this->fxName);
-		emit setEditDialog(this->editDialog);
-	}
-	else if (event->button() == Qt::RightButton)
-	{
-		this->editDialog->setWindow(this->fxName);
-		emit setEditDialog(this->editDialog);
-	};
-};
 
 void menuPage::assignSignal(bool value)	
 	{
-	 QApplication::beep();
-	  this->editDialog->setWindow("System Settings");
+	  emitValueChanged(this->hex1, this->hex2, "00", "void");
+	  this->editDialog->setWindow(this->fxName);
 		emit setEditDialog(this->editDialog);
   };
 
@@ -189,6 +209,7 @@ void menuPage::valueChanged(bool value, QString hex1, QString hex2, QString hex3
 
 	emitValueChanged(hex1, hex2, hex3, valueHex);
 };
+
 
 void menuPage::emitValueChanged(QString hex1, QString hex2, QString hex3, QString valueHex)
 {

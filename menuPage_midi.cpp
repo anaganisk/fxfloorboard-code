@@ -26,7 +26,7 @@
 menuPage_midi::menuPage_midi(QWidget *parent)
     : menuPage(parent)
 {
-  setImage(":/images/midi_pushbutton.png");
+  setImage(":/images/menu_pushbutton.png");
   setLSB("0B", "00");
 	setEditPages();
 };

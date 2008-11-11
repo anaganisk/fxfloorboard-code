@@ -80,6 +80,8 @@ public:
 
 	virtual void setEditPages() {};
 	editWindow* editDetails();
+	void stompBox::getStompOrder();
+	
 
 public slots:
 	void updatePos(signed int offsetDif);
@@ -88,7 +90,8 @@ public slots:
 	void valueChanged(int index);
 	virtual void updateSignal() {};
 	void setDisplayToFxName();
-		
+	void pathSwitchSignal(bool value);   //cjw
+	void stompBox::updateStompBoxes();   //cjw
 		
 signals:
 	void valueChanged(QString fxName, QString valueName, QString valueStr);
@@ -96,6 +99,8 @@ signals:
 	void dialogUpdateSignal();
 	void setEditDialog(editWindow* editDialog);
 	void notConnectedSignal();
+	void pathSwitchSignal();
+	void pathUpdateSignal();
 
 protected:
 	void paintEvent(QPaintEvent *event);
@@ -111,7 +116,7 @@ private:
 	QSize stompSize;
 	QPoint stompPos; 
 	unsigned int id;
-
+	
 	QPoint dragStartPosition;
 	QPixmap image;
 
@@ -130,8 +135,14 @@ private:
 	QString hex1;
 	QString hex2;
 	QString hex3;
-
+  customButton *pathSwitch;
+  bool pathSwitchActive;
 	QString fxName;
+	QList<QString> stompOrderName;
+	QString stompOrderHex;
+	QString hexdata_A;
+	QString hexdata_B;
+	QString namedata;
 };
 
 #endif // STOMPBOX_H

@@ -407,7 +407,7 @@ void SysxIO::resetDevice(QString replyMsg)
 		this->setDeviceReady(true);	// Free the device after finishing interaction.
 
 		//emit setStatusSymbol(1);
-		emit setStatusMessage("Ready");
+		//emit setStatusMessage("Ready");
 		//emit setStatusProgress(0);
 	}
 	else
