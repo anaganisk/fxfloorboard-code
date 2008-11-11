@@ -30,12 +30,10 @@
 #include "globalVariables.h"
 
 
-
-
 // Platform-dependent sleep routines.
 #ifdef Q_OS_WIN
   #include <windows.h>
-  #define SLEEP( milliseconds ) Sleep( (DWORD) milliseconds )
+  #define SLEEP( milliseconds ) Sleep( (DWORD) milliseconds ) 
 #else // Unix variants
   #include <unistd.h>
   #define SLEEP( milliseconds ) usleep( (unsigned long) (milliseconds * 1000.0) )
@@ -49,7 +47,7 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
   this->timer = new QTimer(this);
 	this->patchLoadError = false;
 	this->blinkCount = 0;
-
+	
 	this->patchNumDisplay = new customDisplay(QRect(25, 5, 50, 34), this);
 	this->patchNumDisplay->setLabelPosition(true);
 	this->patchNumDisplay->setMainObjectName("bankMain");
@@ -60,64 +58,44 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
 	this->valueDisplay = new customDisplay(QRect(245, 5, 150, 34), this);
 	this->valueDisplay->setMainObjectName("valueMain");
 	this->valueDisplay->setSubObjectName("valueSub");
-
+	
 	Preferences *preferences = Preferences::Instance();
 	QString version = preferences->getPreferences("General", "Application", "version");
 	this->patchDisplay->setMainText(deviceType + (" Fx FloorBoard"));
 	this->patchDisplay->setSubText("version", version);
 
 	initPatch = new initPatchListMenu(QRect(405, 24, 168, 15), this);
-  renameWidget *nameEdit = new renameWidget(this);
-  nameEdit->setGeometry(85, 5, 150, 34);
+  renameWidget *nameEdit = new renameWidget(this); 
+  nameEdit->setGeometry(85, 5, 150, 34); 
   
-  this->editDialog = new editWindow();
-
   this->editDialog = new editWindow();
 
  	this->connectButton = new customButton(tr("Connect"), false, QPoint(405, 5), this, ":/images/greenledbutton.png");
 	this->writeButton = new customButton(tr("Write/Sync"), false, QPoint(494, 5), this, ":/images/ledbutton.png");
 	//this->manualButton = new customButton(tr("Manual"), false, QPoint(583, 24), this, ":/images/pushbutton.png");
-<<<<<<< .mine
 	//this->assignButton = new customButton(tr("Assign"), false, QPoint(583, 5), this, ":/images/pushbutton.png");
 	//this->masterButton = new customButton(tr("Master"), false, QPoint(672, 5), this, ":/images/pushbutton.png");
 	//this->systemButton = new customButton(tr("System"), false, QPoint(672, 24), this, ":/images/pushbutton.png");
-=======
-	this->assignButton = new customButton(tr("Assign"), false, QPoint(583, 5), this, ":/images/pushbutton.png");
-	//this->masterButton = new customButton(tr("Master"), false, QPoint(672, 5), this, ":/images/pushbutton.png");
-	//this->systemButton = new customButton(tr("System"), false, QPoint(672, 24), this, ":/images/pushbutton.png");
->>>>>>> .r415
 
 	SysxIO *sysxIO = SysxIO::Instance();
 	QObject::connect(this, SIGNAL(setStatusSymbol(int)), sysxIO, SIGNAL(setStatusSymbol(int)));
 	QObject::connect(this, SIGNAL(setStatusProgress(int)), sysxIO, SIGNAL(setStatusProgress(int)));
 	QObject::connect(this, SIGNAL(setStatusMessage(QString)), sysxIO, SIGNAL(setStatusMessage(QString)));
-<<<<<<< .mine
-
-  QObject::connect(sysxIO, SIGNAL(notConnectedSignal()), this, SLOT(notConnected()));
-=======
   
   QObject::connect(sysxIO, SIGNAL(notConnectedSignal()), this, SLOT(notConnected()));
->>>>>>> .r415
 	QObject::connect(this, SIGNAL(notConnectedSignal()), this, SLOT(notConnected()));
 
 	QObject::connect(this->parent(), SIGNAL(updateSignal()), this, SLOT(updateDisplay()));
 
 	QObject::connect(this->connectButton, SIGNAL(valueChanged(bool)), this, SLOT(connectSignal(bool)));
 	QObject::connect(this->writeButton, SIGNAL(valueChanged(bool)), this, SLOT(writeSignal(bool)));
-	QObject::connect(this->assignButton, SIGNAL(valueChanged(bool)), this, SLOT(assignSignal(bool)));  //cw
-<<<<<<< .mine
-	QObject::connect(this->manualButton, SIGNAL(valueChanged(bool)), this, SLOT(manualSignal(bool)));  //cw
-	QObject::connect(this->masterButton, SIGNAL(valueChanged(bool)), this, SLOT(masterSignal(bool)));  //cw
-	QObject::connect(this->systemButton, SIGNAL(valueChanged(bool)), this, SLOT(systemSignal(bool)));  //cw
-	QObject::connect(this, SIGNAL( setEditDialog(editWindow*) ), this->parent(), SLOT( setEditDialog(editWindow*) ));
-
-=======
-	QObject::connect(this->manualButton, SIGNAL(valueChanged(bool)), this, SLOT(manualSignal(bool)));  //cw
-	QObject::connect(this->masterButton, SIGNAL(valueChanged(bool)), this, SLOT(masterSignal(bool)));  //cw
-	QObject::connect(this->systemButton, SIGNAL(valueChanged(bool)), this, SLOT(systemSignal(bool)));  //cw
+	//QObject::connect(this->assignButton, SIGNAL(valueChanged(bool)), this, SLOT(assignSignal(bool)));  //cw
+	//QObject::connect(this->assignButton, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(assignSignal(bool)));  //cw
+	//QObject::connect(this->manualButton, SIGNAL(valueChanged(bool)), this, SLOT(manualSignal(bool)));  //cw
+	//QObject::connect(this->masterButton, SIGNAL(valueChanged(bool)), this, SLOT(masterSignal(bool)));  //cw
+	//QObject::connect(this->systemButton, SIGNAL(valueChanged(bool)), this, SLOT(systemSignal(bool)));  //cw
 	QObject::connect(this, SIGNAL( setEditDialog(editWindow*) ), this->parent(), SLOT( setEditDialog(editWindow*) ));
 	
->>>>>>> .r415
   };
 
 QPoint floorBoardDisplay::getPos()
@@ -158,7 +136,7 @@ void floorBoardDisplay::setPatchDisplay(QString patchName)
 			if(this->patchLoadError)
 			{
 				QMessageBox *msgBox = new QMessageBox();
-				msgBox->setWindowTitle(deviceType + tr(" FxFloorBoard"));
+				msgBox->setWindowTitle(deviceType + tr(" Fx FloorBoard"));
 				msgBox->setIcon(QMessageBox::Warning);
 				msgBox->setTextFormat(Qt::RichText);
 				QString msgText;
@@ -175,7 +153,7 @@ void floorBoardDisplay::setPatchDisplay(QString patchName)
 			};
 		};
     this->initPatch->setIndex(0);
-	};
+	};	
 };
 
 void floorBoardDisplay::setPatchNumDisplay(int bank, int patch)
@@ -193,16 +171,16 @@ void floorBoardDisplay::setPatchNumDisplay(int bank, int patch)
       this->patchNumDisplay->setSubText("Preset");
 		};
 		QString str;
-		if(bank < 51)
-    {
+		if(bank < 51) 
+    { 
       str.append("U");
       if(bank < 10) {	str.append("0"); };
-		  str.append(QString::number(bank, 10));
-    }
-      else
-		{ str.append("P");
-		if(bank < 60) {	str.append("0"); };
-		str.append(QString::number(bank-50, 10));
+		  str.append(QString::number(bank, 10));  
+    } 
+      else 
+		{ str.append("P"); 
+		if(bank < 60) {	str.append("0"); };  
+		str.append(QString::number(bank-50, 10));		
 	  };
 		str.append(":");
 		str.append(QString::number(patch, 10));
@@ -239,7 +217,7 @@ void floorBoardDisplay::updateDisplay()
 		bool ok;
 		name.append( (char)(hexStr.toInt(&ok, 16)) );
 	 };
-  };
+  };	
 
 	QString patchName = name.trimmed();
 	sysxIO->setCurrentPatchName(patchName);
@@ -301,19 +279,16 @@ void floorBoardDisplay::updateDisplay()
 	};  */// to here
     };
 
-<<<<<<< .mine
-=======
-
+/*
 void floorBoardDisplay::assignSignal(bool value)	
 	{
 	this->assignButtonActive = value;
 	if(assignButtonActive == true){emit assignSignal();}
 	emit setStatusMessage(tr("Assign"));
-	//emit assignSignal();
+	emit assignSignal();
 	this->editDialog->setLSB("0B", "00");
-	this->editDialog->setWindow("assign");	
-	 emit setEditDialog(this->editDialog);
-	
+	this->editDialog->setWindow("Assign");	
+
   };
   
 	void floorBoardDisplay::manualSignal(bool value)	
@@ -325,19 +300,7 @@ void floorBoardDisplay::assignSignal(bool value)
   emit setEditDialog(this->editDialog);
 	this->editDialog->setWindow("Manual");
   };
->>>>>>> .r415
 
-<<<<<<< .mine
-void floorBoardDisplay::assignSignal(bool value)
-	{
-	this->assignButtonActive = value;
-	if(assignButtonActive == true){emit assignSignal();}
-	emit setStatusMessage(tr("Assign"));
-	//emit assignSignal();
-	this->editDialog->setLSB("0B", "00");
-	this->editDialog->setWindow("Assign");
-	 emit setEditDialog(this->editDialog);
-=======
 void floorBoardDisplay::masterSignal(bool value)	
 	{
 	this->masterButtonActive = value;
@@ -348,7 +311,6 @@ void floorBoardDisplay::masterSignal(bool value)
 	this->editDialog->setWindow("Master");
   };
  
->>>>>>> .r415
 void floorBoardDisplay::systemSignal(bool value)	
 	{
 	this->systemButtonActive = value;
@@ -358,42 +320,7 @@ void floorBoardDisplay::systemSignal(bool value)
   emit setEditDialog(this->editDialog);
 	this->editDialog->setWindow("System");
   };
-
-<<<<<<< .mine
-  };
-
-=======
->>>>>>> .r415
-	void floorBoardDisplay::manualSignal(bool value)
-	{
-	this->assignButtonActive = value;
-	if(manualButtonActive == true){emit manualSignal();}
-	emit setStatusMessage(tr("Manual"));
-	emit manualSignal();
-  emit setEditDialog(this->editDialog);
-	this->editDialog->setWindow("Manual");
-  };
-
-void floorBoardDisplay::masterSignal(bool value)
-	{
-	this->masterButtonActive = value;
-	if(masterButtonActive == true){emit masterSignal();}
-	emit setStatusMessage(tr("Master"));
-	emit masterSignal();
-  emit setEditDialog(this->editDialog);
-	this->editDialog->setWindow("Master");
-  };
-
-void floorBoardDisplay::systemSignal(bool value)
-	{
-	this->systemButtonActive = value;
-	if(systemButtonActive == true){emit systemSignal();}
-	emit setStatusMessage(tr("System"));
-	emit systemSignal();
-  emit setEditDialog(this->editDialog);
-	this->editDialog->setWindow("System");
-  };
-
+*/
 void floorBoardDisplay::connectSignal(bool value)
 {
 	QString replyMsg;
@@ -408,7 +335,7 @@ void floorBoardDisplay::connectSignal(bool value)
 		sysxIO->setDeviceReady(false); // Reserve the device for interaction.
 
 		QObject::disconnect(sysxIO, SIGNAL(sysxReply(QString)));
-		QObject::connect(sysxIO, SIGNAL(sysxReply(QString)),
+		QObject::connect(sysxIO, SIGNAL(sysxReply(QString)), 
 			this, SLOT(connectionResult(QString)));
 
 		sysxIO->sendSysx(idRequestString); // GT-10B Identity Request.
@@ -423,7 +350,7 @@ void floorBoardDisplay::connectSignal(bool value)
 void floorBoardDisplay::connectionResult(QString sysxMsg)
 {
 	SysxIO *sysxIO = SysxIO::Instance();
-	QObject::disconnect(sysxIO, SIGNAL(sysxReply(QString)),
+	QObject::disconnect(sysxIO, SIGNAL(sysxReply(QString)), 
 			this, SLOT(connectionResult(QString)));
 
 	sysxIO->setDeviceReady(true); // Free the device after finishing interaction.
@@ -469,7 +396,7 @@ void floorBoardDisplay::connectionResult(QString sysxMsg)
 			emit setStatusSymbol(0);
 			emit setStatusProgress(0);
 			emit setStatusMessage(tr("Not connected"));*/
-
+			
 			notConnected();
 
 			QMessageBox *msgBox = new QMessageBox();
@@ -493,7 +420,7 @@ void floorBoardDisplay::connectionResult(QString sysxMsg)
 			emit setStatusSymbol(0);
 			emit setStatusProgress(0);
 			emit setStatusMessage(tr("Not connected"));*/
-
+			
 			notConnected();
 
 			QMessageBox *msgBox = new QMessageBox();
@@ -524,11 +451,11 @@ void floorBoardDisplay::connectionResult(QString sysxMsg)
 
 void floorBoardDisplay::writeSignal(bool)
 {
-	SysxIO *sysxIO = SysxIO::Instance();
+	SysxIO *sysxIO = SysxIO::Instance();	
 	if(sysxIO->isConnected() )//&& sysxIO->deviceReady())  Check if we are connected and if the device is free. */
 	{
 	 this->writeButton->setBlink(true);
-
+	 
 		if(sysxIO->getBank() == 0) /* Check if a bank is sellected. */
 		{
 			QMessageBox *msgBox = new QMessageBox();
@@ -553,18 +480,18 @@ void floorBoardDisplay::writeSignal(bool)
 			if(!sysxIO->getSyncStatus())			// Check if the data is allready in sync. with the device.
 			{	/* If not we send the data to the (temp) buffer. So we don't change the patch default address "0B 00". */
 
-
+				
 				if(sysxIO->getBank() != sysxIO->getLoadedBank() || sysxIO->getPatch() != sysxIO->getLoadedPatch())// Check if a different patch is sellected
 				{															// else load the selected one.
 					emit setStatusSymbol(2);
 					emit setStatusMessage("Sending");
-
+					
 					int bank = sysxIO->getBank();
 					int patch = sysxIO->getPatch();
 					patchLoadSignal(bank, patch);	// Tell to stop blinking a sellected patch and prepare to load this one instead.
 					setPatchNumDisplay(bank, patch);
 
-					QObject::disconnect(sysxIO, SIGNAL(isChanged()),
+					QObject::disconnect(sysxIO, SIGNAL(isChanged()),	
 						this, SLOT(writeToBuffer()));
 				  QObject::connect(sysxIO, SIGNAL(isChanged()),	// Connect the isChanged message
 						this, SLOT(writeToBuffer()));				// to writeToBuffer.
@@ -574,7 +501,7 @@ void floorBoardDisplay::writeSignal(bool)
 				else
 				{
 					writeToBuffer();
-				};
+				};		
 				sysxIO->setDeviceReady(true);
 			}
 			else /* If sync we will write (save) the patch directly to sellected bank. So we will have to change the patch adsress */
@@ -607,7 +534,7 @@ void floorBoardDisplay::writeSignal(bool)
 				  if (bankNum.size() < 2){ bankNum.prepend("0"); };
 				  bankNum.prepend(" U");
 				  patchNum.append(QString::number(patch, 10));
-
+				  
 					QMessageBox *msgBox = new QMessageBox();
 					msgBox->setWindowTitle(deviceType + tr(" Fx FloorBoard"));
 					msgBox->setIcon(QMessageBox::Warning);
@@ -627,7 +554,7 @@ void floorBoardDisplay::writeSignal(bool)
 
 					if(msgBox->exec() == QMessageBox::Yes)
 					{	/* Accepted to overwrite data. So now we have to set destination address by replacing the default (buffer). */
-
+						
 						writeToMemory();
 					}
 					else if(sysxIO->isConnected())
@@ -635,12 +562,12 @@ void floorBoardDisplay::writeSignal(bool)
 						sysxIO->setDeviceReady(true);
 						this->writeButton->setBlink(false);
 						this->writeButton->setValue(true);
-					};
-				};
+					};					
+				}; 
 			};
-		};
+		}; 
 	}
-
+	
  if((sysxIO->isConnected() == !true) && sysxIO->deviceReady())
 	{
 		writeToBuffer();                           // update patch to temp buffer only if not in bulk mode
@@ -648,11 +575,11 @@ void floorBoardDisplay::writeSignal(bool)
 	sysxIO->getCurrentPatchName();
 	};
 
-void floorBoardDisplay::writeToBuffer()
+void floorBoardDisplay::writeToBuffer() 
 {
 	SysxIO *sysxIO = SysxIO::Instance();
 	sysxIO->setDeviceReady(false);			// Reserve the device for interaction.
-	QObject::disconnect(sysxIO, SIGNAL(isChanged()),
+	QObject::disconnect(sysxIO, SIGNAL(isChanged()),	
 					this, SLOT(writeToBuffer()));
 
 	QString sysxMsg;
@@ -661,15 +588,9 @@ void floorBoardDisplay::writeToBuffer()
 
 		emit setStatusSymbol(2);
 		emit setStatusMessage(tr("Sync to ")+deviceType);
-<<<<<<< .mine
-
-	//Preferences *preferences = Preferences::Instance(); bool ok;// Load the preferences.
-	//const int tempDataWrite = preferences->getPreferences("Midi", "Time", "set").toInt(&ok, 10);
-=======
 		
 	//Preferences *preferences = Preferences::Instance(); bool ok;// Load the preferences.
 	//const int tempDataWrite = preferences->getPreferences("Midi", "Time", "set").toInt(&ok, 10);	
->>>>>>> .r415
  //bool ok;
 	//int bank = sysxIO->getBank();
 	//int patch = sysxIO->getPatch();
@@ -685,7 +606,7 @@ void floorBoardDisplay::writeToBuffer()
 		{
 			QString hex;
 			if(x == sysxAddressOffset)
-			{
+			{ 
 				hex = addr1;
 			}
 			else if(x == sysxAddressOffset + 1)
@@ -698,31 +619,31 @@ void floorBoardDisplay::writeToBuffer()
 			};
 			if (hex.length() < 2) hex.prepend("0");
 			sysxMsg.append(hex);
-		};
-	};
+		}; 
+	}; 
 	sysxIO->setSyncStatus(true);		// In advance of the actual data transfer we set it already to sync.
 	this->writeButton->setBlink(false);	// Sync so we stop blinking the button
 	this->writeButton->setValue(false);	// and activate the write button.
 
-	QObject::connect(sysxIO, SIGNAL(sysxReply(QString)),	// Connect the result signal
+	QObject::connect(sysxIO, SIGNAL(sysxReply(QString)),	// Connect the result signal 
 		this, SLOT(resetDevice(QString)));					// to a slot that will reset the device after sending.
 	sysxIO->sendSysx(sysxMsg);	// Send the data.
-
+		
 		emit setStatusProgress(33); // time wasting sinusidal statusbar progress
 		SLEEP(30);
 		emit setStatusProgress(66);
-		SLEEP(60);
+		SLEEP(60);		
 		emit setStatusProgress(100);
-		SLEEP(100);
+		SLEEP(100);		
 		emit setStatusProgress(75);
-		SLEEP(100);
+		SLEEP(100);		
 		emit setStatusProgress(42);
 		SLEEP(150);
 	emit setStatusMessage(tr("Ready"));
 	sysxIO->setDeviceReady(true);
 };
 
-void floorBoardDisplay::writeToMemory()
+void floorBoardDisplay::writeToMemory() 
 {
 	SysxIO *sysxIO = SysxIO::Instance();
 
@@ -741,10 +662,10 @@ void floorBoardDisplay::writeToMemory()
 	if(bank > bankTotalUser) patchOffset += emptyAddresses; //System patches start at a new memmory range.
 	int addrMaxSize = QString("80").toInt(&ok, 16);
 	int n = (int)(patchOffset / addrMaxSize);
-
+	
 	QString addr1 = QString::number(16 + n, 16).toUpper();
 	QString addr2 = QString::number(patchOffset - (addrMaxSize * n), 16).toUpper();
-
+	
 	for(int i=0;i<patchData.size();++i)
 	{
 		QList<QString> data = patchData.at(i);
@@ -752,7 +673,7 @@ void floorBoardDisplay::writeToMemory()
 		{
 			QString hex;
 			if(x == sysxAddressOffset)
-			{
+			{ 
 				hex = addr1;
 			}
 			else if(x == sysxAddressOffset + 1)
@@ -771,23 +692,23 @@ void floorBoardDisplay::writeToMemory()
 	this->writeButton->setBlink(false); // so no blinking here either...
 	this->writeButton->setValue(true);	// ... and still the button will be active also ...
 
-	QObject::connect(sysxIO, SIGNAL(sysxReply(QString)),	// Connect the result signal
+	QObject::connect(sysxIO, SIGNAL(sysxReply(QString)),	// Connect the result signal 
 		this, SLOT(resetDevice(QString)));					// to a slot that will reset the device after sending.
 
 	sysxIO->sendSysx(sysxMsg);								// Send the data.
 		emit setStatusProgress(33); // time wasting sinusidal statusbar progress
 		SLEEP(100);
 		emit setStatusProgress(66);
-		SLEEP(150);
+		SLEEP(150);		
 		emit setStatusProgress(100);
-		SLEEP(250);
+		SLEEP(250);		
 		emit setStatusProgress(75);
-		SLEEP(200);
+		SLEEP(200);		
 		emit setStatusProgress(42);
 		SLEEP(150);
 		emit setStatusProgress(25);
 		SLEEP(100);
-
+	
 	};
 
 void floorBoardDisplay::patchChangeFailed()
@@ -798,17 +719,17 @@ void floorBoardDisplay::patchChangeFailed()
 	setPatchNumDisplay(sysxIO->getLoadedBank(), sysxIO->getLoadedPatch());
 };
 
-void floorBoardDisplay::resetDevice(QString replyMsg)
+void floorBoardDisplay::resetDevice(QString replyMsg) 
 {
 	SysxIO *sysxIO = SysxIO::Instance();
-	QObject::disconnect(sysxIO, SIGNAL(sysxReply(QString)),
+	QObject::disconnect(sysxIO, SIGNAL(sysxReply(QString)),	
 				this, SLOT(resetDevice(QString)));
-
-				          if(sysxIO->getBank() != sysxIO->getLoadedBank() || sysxIO->getPatch() != sysxIO->getLoadedPatch())
-                             {
-                   sysxIO->setLoadedBank(sysxIO->getBank());
-                   sysxIO->setLoadedPatch(sysxIO->getPatch());
-           };
+				
+				          if(sysxIO->getBank() != sysxIO->getLoadedBank() || sysxIO->getPatch() != sysxIO->getLoadedPatch()) 
+                             { 
+                   sysxIO->setLoadedBank(sysxIO->getBank()); 
+                   sysxIO->setLoadedPatch(sysxIO->getPatch()); 
+           }; 
 	sysxIO->setDeviceReady(true);	// Free the device after finishing interaction.
 	emit connectedSignal();			// Emit this signal to tell we are still connected and to update the patch names in case they have changed.
 };
@@ -827,9 +748,9 @@ void floorBoardDisplay::patchSelectSignal(int bank, int patch)
 	{
 		sysxIO->setBank(bank);
 		sysxIO->setPatch(patch);
-
+		
 		if(blinkCount == 0)
-		{
+		{	
 			QObject::connect(timer, SIGNAL(timeout()), this, SLOT(blinkSellectedPatch()));
 			timer->start(sellectionBlinkInterval);
 		}
@@ -849,7 +770,7 @@ void floorBoardDisplay::blinkSellectedPatch(bool active)
 	SysxIO *sysxIO = SysxIO::Instance();
 	int bank = sysxIO->getBank();
 	int patch = sysxIO->getPatch();
-
+	
 	if(active && blinkCount <= (sellectionBlinks * 2) - 1)
 	{
 		if(blinkCount % 2 == 0)
@@ -874,7 +795,7 @@ void floorBoardDisplay::blinkSellectedPatch(bool active)
 		{
 			writeButton->setBlink(false);
 		};
-		setPatchNumDisplay(bank,patch);//(sysxIO->getLoadedBank(),  sysxIO->getLoadedPatch());
+		setPatchNumDisplay(bank,patch);//(sysxIO->getLoadedBank(),  sysxIO->getLoadedPatch()); 
 	};
 	emit setStatusSymbol(1);
 	emit setStatusMessage(tr("Ready"));
@@ -896,14 +817,14 @@ void floorBoardDisplay::notConnected()
 	emit setStatusMessage(tr("Not connected"));
 
 	this->connectButton->setBlink(false);
-	this->connectButton->setValue(false);
+	this->connectButton->setValue(false);	
 	this->writeButton->setBlink(false);
 	this->writeButton->setValue(false);
 
 	SysxIO *sysxIO = SysxIO::Instance();
 	sysxIO->setConnected(false);
-	sysxIO->setSyncStatus(false);
-	sysxIO->setDeviceReady(true);	// Free the device after finishing interaction.
+	sysxIO->setSyncStatus(false);	
+	sysxIO->setDeviceReady(true);	// Free the device after finishing interaction.	
 };
 
 /*void floorBoardDisplay::valueChanged(bool value, QString hex1, QString hex2, QString hex3)
@@ -913,3 +834,5 @@ void floorBoardDisplay::notConnected()
 	hex2;
 	hex3;
 };*/
+
+
