@@ -24,7 +24,6 @@ if errorlevel 1 goto A-OPTION
 c:\qt\4.4.2\bin\qmake
 c:\MinGW\bin\mingw32-make 
 pause
-<<<<<<< .mine
 goto CHECK
 
 :B-OPTION
@@ -49,36 +48,3 @@ echo .
 echo the end......................Colin`s Menu ..........................
 exit
 
-
-
-
-=======
-goto CHECK
-
-:B-OPTION
-c:\qt\4.4.2\bin\qmake
-c:\MinGW\bin\mingw32-make 
-cd packager
-GT-10FxFloorBoard.exe
-cd ..
-goto CHECK
-
-:C-OPTION
-cd packager
-GT-10FxFloorBoard.exe
-cd ..
-goto CHECK
-
-:D-OPTION
-goto END
-
-:END
-echo .
-echo the end......................Colin`s Menu ..........................
-exit
-
-
-
-
-
->>>>>>> .r413

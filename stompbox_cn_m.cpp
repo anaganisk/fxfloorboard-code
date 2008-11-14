@@ -39,7 +39,7 @@ void stompbox_cn_m::updateSignal()
 
 void stompbox_cn_m::setEditPages()
 {
-
+ /*
 	editDetails()->page()->newGroupBox("Assigns");
 	editDetails()->page()->newGroupBox("Assign 1-8");
 	editDetails()->page()->newStackControl(0);
@@ -232,5 +232,5 @@ void stompbox_cn_m::setEditPages()
 	editDetails()->page()->addKnob(1, 3, 1, 1, "0C", "00", "1A");                        // Active Range Low
   editDetails()->page()->addGroupBox(1, 0, 1, 1);
   editDetails()->page()->addStackField();
-
+*/
 };

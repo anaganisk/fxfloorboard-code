@@ -188,7 +188,7 @@ void mainWindow::createActions()
 	homepageAct->setStatusTip(tr("........"));
 	connect(homepageAct, SIGNAL(triggered()), this, SLOT(homepage()));
 
-	donationAct = new QAction(/*QIcon(":/images/donate.png"),*/ tr("Make a &Donation"), this);
+	donationAct = new QAction(/*QIcon(":/images/donate.png"),*/ tr("User Manual PDF"), this);
 	connect(donationAct, SIGNAL(triggered()), this, SLOT(donate()));
 
 	licenseAct = new QAction(/*QIcon(":/images/license.png"),*/ tr("&License"), this);

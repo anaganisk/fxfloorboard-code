@@ -69,6 +69,8 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
 	initPatch = new initPatchListMenu(QRect(405, 24, 168, 15), this);
   renameWidget *nameEdit = new renameWidget(this); 
   nameEdit->setGeometry(85, 5, 150, 34); 
+  
+  //this->editDialog = new editWindow();
 
  	this->connectButton = new customButton(tr("Connect"), false, QPoint(405, 5), this, ":/images/greenledbutton.png");
 	this->writeButton = new customButton(tr("Write/Sync"), false, QPoint(494, 5), this, ":/images/ledbutton.png");
@@ -273,19 +275,18 @@ void floorBoardDisplay::updateDisplay()
 	};  */// to here
     };
 
-void floorBoardDisplay::assignSignal(bool value)    //cw
+/*void floorBoardDisplay::assignSignal(bool value)    //cw
 {
-    this->assignButtonActive = value;
-	//stompBox->editDialog->setWindow("Assign");
-		//emit assignSignal();
-	//stompBox->setEditDialog();
-	//floorBoard->editDialog->show();
+  this->assignButtonActive = value;
+	stompBox->editDialog->setWindow("Assign");
+	emit assignSignal();
+	stompBox->setEditDialog();
+	floorBoard->editDialog->show();
 	emit setStatusMessage(tr("ASSIGN"));
-	//editWindow *edit = new editWindow();
-	this->assignButton->setBlink(true);
-	
+	editWindow *edit = new editWindow();
+	this->assignButton->setBlink(true);	
 };
-
+*/
  
 
 
@@ -306,7 +307,7 @@ void floorBoardDisplay::connectSignal(bool value)
 		QObject::connect(sysxIO, SIGNAL(sysxReply(QString)), 
 			this, SLOT(connectionResult(QString)));
 
-		sysxIO->sendSysx(idRequestString); // GT6B Identity Request.
+		sysxIO->sendSysx(idRequestString); // GT10 Identity Request.
 	}
 	else
 	{
@@ -557,13 +558,13 @@ void floorBoardDisplay::writeToBuffer()
 		emit setStatusSymbol(2);
 		emit setStatusMessage(tr("Sync to ")+deviceType);
 		
-	Preferences *preferences = Preferences::Instance(); bool ok;// Load the preferences.
-	const int tempDataWrite = preferences->getPreferences("Midi", "Time", "set").toInt(&ok, 10);	
+	//Preferences *preferences = Preferences::Instance(); bool ok;// Load the preferences.
+	//const int tempDataWrite = preferences->getPreferences("Midi", "Time", "set").toInt(&ok, 10);	
  //bool ok;
-	int bank = sysxIO->getBank();
-	int patch = sysxIO->getPatch();
-	int patchOffset = (((bank - 1 ) * patchPerBank) + patch) - 1;
-	int k = QString(tempDataWrite).toInt(&ok, 16);                  // data write address at temp buffer.
+	//int bank = sysxIO->getBank();
+	//int patch = sysxIO->getPatch();
+	//int patchOffset = (((bank - 1 ) * patchPerBank) + patch) - 1;
+	//int k = QString(tempDataWrite).toInt(&ok, 16);                  // data write address at temp buffer.
 	QString addr1 = QString::number(96, 16).toUpper();
 	QString addr2 = QString::number(0, 16).toUpper();
 
@@ -763,7 +764,7 @@ void floorBoardDisplay::blinkSellectedPatch(bool active)
 		{
 			writeButton->setBlink(false);
 		};
-					setPatchNumDisplay(bank,patch);//(sysxIO->getLoadedBank(),  sysxIO->getLoadedPatch()); setPatchNumDisplay(sysxIO->getLoadedBank(),  sysxIO->getLoadedPatch()); //(bank,patch);//
+		setPatchNumDisplay(bank,patch);//(sysxIO->getLoadedBank(),  sysxIO->getLoadedPatch()); setPatchNumDisplay(sysxIO->getLoadedBank(),  sysxIO->getLoadedPatch()); //(bank,patch);//
   };
 	emit setStatusSymbol(1);
 	emit setStatusMessage(tr("Ready"));
@@ -795,10 +796,10 @@ void floorBoardDisplay::notConnected()
 	sysxIO->setDeviceReady(true);	// Free the device after finishing interaction.	
 };
 
-void floorBoardDisplay::valueChanged(bool value, QString hex1, QString hex2, QString hex3)
+/*void floorBoardDisplay::valueChanged(bool value, QString hex1, QString hex2, QString hex3)
 {
 	value;
 	hex1;
 	hex2;
 	hex3;
-};
+};*/

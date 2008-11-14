@@ -1,8 +1,9 @@
 /****************************************************************************
 **
+** Copyright (C) 2008 Colin Willcocks.
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
-**
-** This file is part of "GT-10 Fx FloorBoard".
+** 
+** This file is part of "GT-10B Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -80,6 +81,8 @@ public:
 
 	virtual void setEditPages() {};
 	editWindow* editDetails();
+	void stompBox::getStompOrder();
+	
 
 public slots:
 	void updatePos(signed int offsetDif);
@@ -88,12 +91,18 @@ public slots:
 	void valueChanged(int index);
 	virtual void updateSignal() {};
 	void setDisplayToFxName();
-	
+	void pathSwitchSignal(bool value);   //cjw
+	void stompBox::updateStompPath();   //cjw
+		
 signals:
 	void valueChanged(QString fxName, QString valueName, QString valueStr);
 	void currentIndexChanged(int index);
 	void dialogUpdateSignal();
 	void setEditDialog(editWindow* editDialog);
+	void notConnectedSignal();
+	void pathSwitchSignal();
+	void pathUpdateSignal();
+	void updateStompBoxes();
 
 protected:
 	void paintEvent(QPaintEvent *event);
@@ -102,14 +111,15 @@ protected:
 	void mouseDoubleClickEvent(QMouseEvent *event);
 
 private:
+
 	void emitValueChanged(QString hex1, QString hex2, QString hex3, QString valueHex);
-	
+
 	editWindow *editDialog;
 	QString imagePath;
 	QSize stompSize;
 	QPoint stompPos; 
 	unsigned int id;
-
+	
 	QPoint dragStartPosition;
 	QPixmap image;
 
@@ -128,8 +138,15 @@ private:
 	QString hex1;
 	QString hex2;
 	QString hex3;
-
+  customButton *pathSwitch;
+  bool pathSwitchActive;
 	QString fxName;
+	QList<QString> stompOrderName;
+	QString stompOrderHex;
+	QString hexdata_A;
+	QString hexdata_B;
+	QString namedata;
 };
 
 #endif // STOMPBOX_H
+

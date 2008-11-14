@@ -55,11 +55,9 @@ public slots:
 	void notConnected();
 
 	void patchChangeFailed();
-	void assignSignal(bool value);   //cw
 	void writeToBuffer();
 	void writeToMemory();
-
-	void valueChanged(bool value, QString hex1, QString hex2, QString hex3); // Not used.
+	//void valueChanged(bool value, QString hex1, QString hex2, QString hex3); // Not used.
 
 signals:
 	void updateSignal();
@@ -68,7 +66,7 @@ signals:
 
 	void setStatusSymbol(int value);
 	void setStatusProgress(int value);
-    void setStatusMessage(QString message);
+  void setStatusMessage(QString message);
 
 private:
 	QPoint pos;
@@ -85,12 +83,10 @@ private:
 	customButton *systemButton;
 
 	bool connectButtonActive;
-    bool assignButtonActive;
-	bool patchLoadError;
+  bool patchLoadError;
 	QTimer* timer;
 	int blinkCount;
 	bool currentSyncStatus;
-
 	initPatchListMenu *initPatch;
 	};
 

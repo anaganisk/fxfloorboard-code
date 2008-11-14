@@ -47,6 +47,10 @@ HEADERS += ./editPage.h \
     ./floorPanelBar.h \
     ./floorPanelBarButton.h \
     ./initPatchListMenu.h \
+    ./menuPage.h \
+    ./menuPage_assign.h \
+    ./menuPage_midi.h \
+    ./menuPage_system.h \
     ./renameDialog.h \
     ./renameWidget.h \
     ./statusBarSymbol.h \
@@ -113,6 +117,10 @@ SOURCES += ./editPage.cpp \
     ./floorPanelBar.cpp \
     ./floorPanelBarButton.cpp \
     ./initPatchListMenu.cpp \
+    ./menuPage.cpp \
+    ./menuPage_assign.cpp \
+    ./menuPage_midi.cpp \
+    ./menuPage_system.cpp \
     ./renameDialog.cpp \
     ./renameWidget.cpp \
     ./statusBarSymbol.cpp \

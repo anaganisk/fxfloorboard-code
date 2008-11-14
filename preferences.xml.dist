@@ -2,12 +2,8 @@
 <!-- Preferences of the GT-10 Fx FloorBoard application. -->
 <Preferences>
 	<General>
-<<<<<<< .mine
-		<Application version="beta 20081016"/>
-=======
-		<Application version="beta 20081008"/>
->>>>>>> .r413
-		<Donate url="http://sourceforge.net/donate/index.php?group_id=171049"/>
+		<Application version="beta 20081114"/>
+		<Donate url="GT-10FxFloorBoard_Operation_Manual.pdf"/>
 		<Files dir=""/>
 		<Help url="GT-10FxFloorBoard_help.html"/>
 		<Language code="en"/>
@@ -28,3 +24,4 @@
     <Splash bool="true"/>
   </Window>
 </Preferences>
+ 

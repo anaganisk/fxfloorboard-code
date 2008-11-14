@@ -322,7 +322,7 @@ bool MidiTable::isData(QString root, QString hex1, QString hex2, QString hex3)
   } 
   else if ((hex3.toInt(&ok, 16) > twoPage) && (hex3.toInt(&ok, 16) < threePage + 1)) 
   {
-     hex1 = QString::number(hex1.toInt(&ok, 16) + 1, 16).toUpper();
+     hex1 = QString::number(hex1.toInt(&ok, 16) + 2, 16).toUpper();
      if(hex1.length() < 2) hex1.prepend("0");
 		hex3 = QString::number(hex3.toInt(&ok, 16) - (0x100), 16).toUpper();
 		if(hex3.length() < 2) hex3.prepend("0"); 
@@ -381,7 +381,7 @@ QString MidiTable::getValue(QString root, QString hex1, QString hex2, QString he
 QString MidiTable::rangeToValue(Midi range, QString hex)
 {
 	QString valueStr;
-	if(!range.id.contains(hex) && range.id.contains("range"))
+	if(!range.id.contains(hex) /*&& range.id.contains("range")*/)
 	{
 		int i = 0; bool ok;
 		while(range.id.indexOf("range", i) != -1)
@@ -578,8 +578,8 @@ QString MidiTable::dataChange(QString hex1, QString hex2, QString hex3, QString 
 {
 	QString sysxMsg;
 	sysxMsg.append(getHeader(false));
-	Preferences *preferences = Preferences::Instance(); bool ok;// Load the preferences.
-	const int tempDataWrite = preferences->getPreferences("Midi", "Time", "set").toInt(&ok, 16);	
+	/*Preferences *preferences = Preferences::Instance(); bool ok;// Load the preferences.
+	const int tempDataWrite = preferences->getPreferences("Midi", "Time", "set").toInt(&ok, 16);	*/
 	sysxMsg.append("60");
 	sysxMsg.append("00");
 
@@ -589,7 +589,7 @@ QString MidiTable::dataChange(QString hex1, QString hex2, QString hex3, QString 
 
 	sysxMsg.append(hex4);
 
-	int dataSize = 0; //bool ok;
+	int dataSize = 0; bool ok;
 	for(int i=checksumOffset;i<sysxMsg.size()-1;++i)
 	{ dataSize += sysxMsg.mid(i*2, 2).toInt(&ok, 16); };	
 	sysxMsg.append(getCheckSum(dataSize));
@@ -603,8 +603,8 @@ QString MidiTable::dataChange(QString hex1, QString hex2, QString hex3, QString 
 	QString sysxMsg;
 	sysxMsg.append(getHeader(false));
 	
-	Preferences *preferences = Preferences::Instance(); bool ok;// Load the preferences.
-	const int tempDataWrite = preferences->getPreferences("Midi", "Time", "set").toInt(&ok, 16);	
+	/*Preferences *preferences = Preferences::Instance(); bool ok;// Load the preferences.
+	const int tempDataWrite = preferences->getPreferences("Midi", "Time", "set").toInt(&ok, 16);	*/
 	sysxMsg.append("60");
 	sysxMsg.append("00");
 
@@ -615,7 +615,7 @@ QString MidiTable::dataChange(QString hex1, QString hex2, QString hex3, QString 
 	sysxMsg.append(hex4);
 	sysxMsg.append(hex5);
 
-	int dataSize = 0; //bool ok;
+	int dataSize = 0; bool ok;
 	for(int i=checksumOffset;i<sysxMsg.size()-1;++i)
 	{ dataSize += sysxMsg.mid(i*2, 2).toInt(&ok, 16); };	
 	sysxMsg.append(getCheckSum(dataSize));
@@ -649,8 +649,8 @@ QString MidiTable::nameRequest(int bank, int patch)
 	}
 	else
 	{
-	Preferences *preferences = Preferences::Instance(); bool ok;// Load the preferences.
-	const int tempDataWrite = preferences->getPreferences("Midi", "Time", "set").toInt(&ok, 16);
+	//Preferences *preferences = Preferences::Instance(); bool ok;// Load the preferences.
+	//const int tempDataWrite = preferences->getPreferences("Midi", "Time", "set").toInt(&ok, 16);
 		addr1 = "60";//tempDataWrite;
 		addr2 = "00";
 	};
@@ -677,9 +677,9 @@ QString MidiTable::nameRequest(int bank, int patch)
 
 QString MidiTable::patchRequest(int bank, int patch)
 {
-Preferences *preferences = Preferences::Instance(); bool ok;// Load the preferences.
-	const int tempDataWrite = preferences->getPreferences("Midi", "Time", "set").toInt(&ok, 10);
-	//bool ok;
+//Preferences *preferences = Preferences::Instance(); bool ok;// Load the preferences.
+	//const int tempDataWrite = preferences->getPreferences("Midi", "Time", "set").toInt(&ok, 10);
+	bool ok;
 	QString addr1, addr2;
 	if(bank != 0 && patch != 0 && bank <= bankTotalAll && patch <= patchPerBank)    //was bankTotalAll
 	{

@@ -9,6 +9,7 @@
         <file>images/4.png</file>
         <file>images/GT-10FxFloorBoard.png</file>
         <file>images/ampswitch.png</file>
+        <file>images/assigns_pushbutton.png</file>
         <file>images/button.png</file>
         <file>images/ce.png</file>
         <file>images/ch_a.png</file>
@@ -40,13 +41,16 @@
         <file>images/led.png</file>
         <file>images/ledbutton.png</file>
         <file>images/lp.png</file>
+        <file>images/menu_pushbutton.png</file>
         <file>images/midi.png</file>
+        <file>images/midi_pushbutton.png</file>
         <file>images/ns.png</file>
         <file>images/ns_1.png</file>
         <file>images/ns_2.png</file>
         <file>images/od.png</file>
         <file>images/panelbar.png</file>
         <file>images/panelbarbutton.png</file>
+        <file>images/pathswitch.png</file>
         <file>images/pedal.png</file>
         <file>images/pre.png</file>
         <file>images/pushbutton.png</file>
@@ -59,6 +63,7 @@
         <file>images/stompbg.png</file>
         <file>images/stompknob.png</file>
         <file>images/switch.png</file>
+        <file>images/system_pushbutton.png</file>
         <file>images/uparrow.png</file>
         <file>images/pdl.png</file>
         <file>images/window.png</file>

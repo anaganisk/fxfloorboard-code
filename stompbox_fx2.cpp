@@ -549,13 +549,8 @@ void stompbox_fx2::setEditPages()
 	editDetails()->page()->newStackControl(1);
 	editDetails()->page()->addComboBox(1, 0, 1, 1, "06", "00", "63");	
 	editDetails()->page()->addStackControl();
-<<<<<<< .mine
 	editDetails()->page()->addComboBox(2, 0, 1, 1, "0A", "00", "68");	
 	editDetails()->page()->addGroupBox(0, 0, 2, 1);
-=======
-	editDetails()->page()->addGroupBox(0, 0, 2, 1);
-
->>>>>>> .r413
 	editDetails()->page()->insertStackField(1, 0, 1, 3, 1);
 	editDetails()->page()->newGroupBox("User Harmony 1");
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "06", "00", "6E");	
@@ -607,78 +602,46 @@ void stompbox_fx2::setEditPages()
 	editDetails()->page()->newGroupBox("Harmonist");
 	editDetails()->page()->newGroupBox("Voice 1");
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "06", "00", "64");
-<<<<<<< .mine
 	editDetails()->page()->addKnob(0, 1, 1, 1, "06", "00", "65", "normal","right", 105);
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
-=======
-	editDetails()->page()->addKnob(1, 0, 1, 1, "06", "00", "65", "normal","right", 105);
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
->>>>>>> .r413
 	editDetails()->page()->newGroupBox("Voice 2");
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "06", "00", "68");
-<<<<<<< .mine
 	editDetails()->page()->addKnob(0, 1, 1, 1, "06", "00", "69", "normal","right", 105);
 	editDetails()->page()->addGroupBox(2, 0, 1, 1);
-=======
-	editDetails()->page()->addKnob(1, 0, 1, 1, "06", "00", "69", "normal","right", 105);
-	editDetails()->page()->addGroupBox(2, 0, 1, 1);
->>>>>>> .r413
-
 	editDetails()->page()->addKnob(0, 1, 1, 1, "06", "00", "6C", "normal","right", 50);
 	//editDetails()->page()->addKnob(1, 1, 1, 1, "06", "00", "06");
 	editDetails()->page()->addGroupBox(0, 1, 2, 1);
 
 	editDetails()->page()->newGroupBox("Level");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "06", "00", "67");
-<<<<<<< .mine
 	editDetails()->page()->addKnob(1, 0, 1, 1, "06", "00", "6B");
 	editDetails()->page()->addKnob(0, 1, 1, 1, "06", "00", "6D");
 	editDetails()->page()->addGroupBox(0, 2, 2, 1);
-=======
-	editDetails()->page()->addKnob(2, 0, 1, 1, "06", "00", "6B");
-	editDetails()->page()->addKnob(1, 1, 1, 1, "06", "00", "6D");
-	editDetails()->page()->addGroupBox(0, 2, 2, 1);
->>>>>>> .r413
 	editDetails()->page()->addStackField();
 
 	editDetails()->page()->newStackField(1);
 	editDetails()->page()->newGroupBox("Harmonist");
 	editDetails()->page()->newGroupBox("Voice 1");
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "06", "00", "64");
-<<<<<<< .mine
 	editDetails()->page()->addKnob(0, 1, 1, 1, "06", "00", "65", "normal","right", 105);
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
-=======
-	editDetails()->page()->addKnob(1, 0, 1, 1, "06", "00", "65", "normal","right", 105);
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
->>>>>>> .r413
 	editDetails()->page()->newGroupBox("Voice 2");
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "06", "00", "68");
-<<<<<<< .mine
 	editDetails()->page()->addKnob(0, 1, 1, 1, "06", "00", "69", "normal","right", 105);
 	editDetails()->page()->addGroupBox(2, 0, 1, 1);
-=======
-	editDetails()->page()->addKnob(1, 0, 1, 1, "06", "00", "69", "normal","right", 105);
-	editDetails()->page()->addGroupBox(2, 0, 1, 1);
->>>>>>> .r413
-
 	editDetails()->page()->addKnob(0, 1, 1, 1, "06", "00", "6C", "normal","right", 50);
 	//editDetails()->page()->addKnob(1, 1, 1, 1, "06", "00", "06");
 	editDetails()->page()->addGroupBox(0, 1, 2, 1);
 
 	editDetails()->page()->newGroupBox("Level");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "06", "00", "67");
-<<<<<<< .mine
 	editDetails()->page()->addKnob(1, 0, 1, 1, "06", "00", "6B");
 	editDetails()->page()->addKnob(0, 1, 1, 1, "06", "00", "6D");
 	editDetails()->page()->addGroupBox(0, 2, 2, 1);
-=======
-	editDetails()->page()->addKnob(2, 0, 1, 1, "06", "00", "6B");
-	editDetails()->page()->addKnob(1, 1, 1, 1, "06", "00", "6D");
-	editDetails()->page()->addGroupBox(0, 2, 2, 1);
->>>>>>> .r413
 	editDetails()->page()->addStackField();
 	//editDetails()->addPage("06", "00", "01", "10");
+
+
 
   // Auto Riff 
   editDetails()->page()->newStackField(0);

@@ -52,7 +52,7 @@ bool sysxWriter::readFile()
 	{
 		QByteArray data = file.readAll();     // read the pre-selected file, copy to 'data'
 
-		if(data.size() == patchSize){         // if GT-10 patch file size is correct- load file.
+		if(data.size() == patchSize){         // if GT-10 patch file size is correct- load file >>>  currently at 1763 bytes.
 		SysxIO *sysxIO = SysxIO::Instance();
 		sysxIO->setFileSource(data);
 		sysxIO->setFileName(this->fileName);
@@ -165,8 +165,8 @@ bool sysxWriter::readFile()
 	unsigned int a = temp.indexOf(Qhex.mid(4,1)); // locate gt10_preamp 1 **** find "04"
 	temp.insert(a-1, Qhex.mid(16, 1));       //insert gt10_split before preamp 1 "10"
 	temp.insert(a+1, Qhex.mid(17, 1));       // insert gt10_merge after preamp 1  "11"
-	temp.insert(a+1, Qhex.mid(13, 1));     // insert NS_2 "4D"  77
-	temp.insert(a+1, Qhex.mid(3, 1));       // insert channel B "43" 67
+	temp.insert(a+1, Qhex.mid(77, 1));     // insert NS_2 "4D"  77
+	temp.insert(a+1, Qhex.mid(67, 1));       // insert channel B "43" 67
 	data.replace(1492, 18, temp);            // replace gt10 chain
 	
 	

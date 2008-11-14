@@ -25,6 +25,8 @@
 #include "MidiTable.h"
 #include "SysxIO.h"
 #include "globalVariables.h"
+#include "floorBoardDisplay.h"
+#include "floorBoard.h"
 
 stompBox::stompBox(QWidget *parent, unsigned int id, QString imagePath, QPoint stompPos)
     : QWidget(parent)
@@ -33,34 +35,40 @@ stompBox::stompBox(QWidget *parent, unsigned int id, QString imagePath, QPoint s
 	this->imagePath = imagePath;
 	this->stompSize = QPixmap(imagePath).size();
 	this->stompPos = stompPos;	
-
 	this->setFixedSize(stompSize);
-
 	this->editDialog = new editWindow();
-
-	QObject::connect(this, SIGNAL( valueChanged(QString, QString, QString) ),
-                this->parent(), SIGNAL( valueChanged(QString, QString, QString) ));
 	
-	QObject::connect(this->parent(), SIGNAL( updateStompOffset(signed int) ),
-                this, SLOT( updatePos(signed int) ));
+	this->pathSwitch = new customButton(tr(""), false, QPoint(60, 60), this, ":/images/pathswitch.png");
+	this->pathSwitch->hide();
 
-	QObject::connect(this->parent(), SIGNAL( updateSignal() ),
-                this, SLOT( updateSignal() ));
+	QObject::connect(this, SIGNAL( valueChanged(QString, QString, QString) ), this->parent(), SIGNAL( valueChanged(QString, QString, QString) ));
+	
+	QObject::connect(this->parent(), SIGNAL( updateStompOffset(signed int) ), this, SLOT( updatePos(signed int) ));
 
-	QObject::connect(this->editDialog, SIGNAL( updateSignal() ),
-                this, SLOT( updateSignal() ));
+	QObject::connect(this->parent(), SIGNAL( updateSignal() ), this, SLOT( updateSignal() ));
 
-	QObject::connect(this, SIGNAL( dialogUpdateSignal() ),
-                this->editDialog, SIGNAL( dialogUpdateSignal() ));	
+	QObject::connect(this->editDialog, SIGNAL( updateSignal() ), this, SLOT( updateSignal() ));
 
-	QObject::connect(this->parent(), SIGNAL( updateSignal() ),
-                this->editDialog, SIGNAL( dialogUpdateSignal() ));
+	QObject::connect(this, SIGNAL( dialogUpdateSignal() ), this->editDialog, SIGNAL( dialogUpdateSignal() ));	
 
-	QObject::connect(this->editDialog, SIGNAL( updateSignal() ),
-                this, SLOT( setDisplayToFxName() ));
+	QObject::connect(this->parent(), SIGNAL( updateSignal() ), this->editDialog, SIGNAL( dialogUpdateSignal() ));
 
-	QObject::connect(this, SIGNAL( setEditDialog(editWindow*) ),
-                this->parent(), SLOT( setEditDialog(editWindow*) ));
+	QObject::connect(this->editDialog, SIGNAL( updateSignal() ), this, SLOT( setDisplayToFxName() ));
+
+	QObject::connect(this, SIGNAL( setEditDialog( editWindow*) ), this->parent(), SLOT( setEditDialog(editWindow*) ));
+               
+  QObject::connect(this->pathSwitch, SIGNAL( valueChanged(bool)), this, SLOT( pathSwitchSignal(bool) ));  //cw
+ 
+  QObject::connect(this->parent(), SIGNAL( pathUpdateSignal() ), this, SIGNAL( pathUpdateSignal() ));
+  
+  QObject::connect(this, SIGNAL( pathUpdateSignal() ), this, SLOT( updateStompPath() ));
+  
+  QObject::connect(this, SIGNAL( updateStompBoxes() ), this->parent(), SLOT( updateStompBoxes() ));
+
+
+ 
+
+
 };
 
 void stompBox::paintEvent(QPaintEvent *)
@@ -83,7 +91,7 @@ editWindow* stompBox::editDetails()
 void stompBox::mousePressEvent(QMouseEvent *event) 
 { 
 	emitValueChanged(this->hex1, this->hex2, "00", "void");
-
+	
 	if (event->button() == Qt::LeftButton) 
 	{
 		this->dragStartPosition = event->pos(); 
@@ -95,11 +103,12 @@ void stompBox::mousePressEvent(QMouseEvent *event)
 	};
 };
 
+
 void stompBox::mouseDoubleClickEvent(QMouseEvent *event)
 {
-	event;
-	this->editDialog->setWindow(this->fxName);
-	emit setEditDialog(this->editDialog);
+
+	this->editDialog->setWindow(this->fxName); 
+	emit setEditDialog(this->editDialog); 
 };
 
 void stompBox::mouseMoveEvent(QMouseEvent *event)
@@ -149,16 +158,97 @@ void stompBox::mouseMoveEvent(QMouseEvent *event)
 			if(drag->source() != drag->target())
 			{
 				event->ignore();
-				show();
+				show();	
 			};
+			if (this->id < 16) updateStompPath();
 		};
 	};
+};
+
+void stompBox::pathSwitchSignal(bool value)	
+{
+	this->pathSwitchActive = value;
+	if(pathSwitchActive == true)
+    { 
+      this->pathSwitch->setValue(true);    //from A to B
+    }
+  else
+    {
+      this->pathSwitch->setValue(false);   // from B to A
+    };
+    getStompOrder();
+    int hex_A = stompOrderName.indexOf("CN_S");
+    int hex_B = stompOrderName.indexOf("CN_M");
+    QString hexData2;
+    
+    int hex = stompOrderName.indexOf(this->namedata);    
+    QString stompString = stompOrderHex.simplified().toUpper().remove("0X").remove(" ");
+    
+    if (this->stompOrderHex.contains(hexdata_A))  
+      { stompString.replace(hex*2 ,2 ,hexdata_B ); this->pathSwitch->setValue(true);}  // toggle the byte with either "0x" or "4x"
+    else 
+      { stompString.replace(hex*2 ,2 ,hexdata_A ); this->pathSwitch->setValue(false);};
+      
+      for (int index=0;index<36;index++)
+      {
+      hexData2.append(stompString.at(index));
+      index++;
+      hexData2.append(stompString.at(index));
+      hexData2.append(" ");      
+      };
+
+      QString part1;
+			  for (int index = 0;index<((hex_A*3)+3);index++)     // copy chain data up to the split point.
+			  {
+          part1.append(hexData2.at(index));
+        };
+			  QString part4;
+			  for (int index = ((hex_B*3));index<54;index++)     // copy chain data after the merge point.
+			  {
+          part4.append(hexData2.at(index));
+        };
+        QString part2;
+        QString part3;
+        for ( int index = ((hex_A*3)+3);index<((hex_B*3));index++  )  // seperate and copy A path and B path data
+        {   
+          QString hexa = hexData2.at(index);
+          QString hexc = hexData2.at(index+2);
+          if ( hexa =="4" && hexc ==" "   ){
+           part3.append(hexData2.at(index)); 
+           index++; 
+           part3.append(hexData2.at(index));
+           index++;
+           part3.append(hexData2.at(index)); }
+           else { part2.append(hexData2.at(index));
+           index++; 
+           part2.append(hexData2.at(index));
+           index++; 
+           part2.append(hexData2.at(index)); };
+        };
+        hexData2 ="";
+        hexData2.append(part1).append(part2).append(part3).append(part4).remove(" ");
+      
+      QList<QString> hexData;
+      for(int index=0;index<36;index++)
+        {        
+					QString fxHexValue = hexData2.at(index).toUpper();
+					index++;
+					fxHexValue.append(hexData2.at(index).toUpper());
+					hexData.append(fxHexValue);				
+				 };
+      
+      SysxIO *sysxIO = SysxIO::Instance();
+      sysxIO->setFileSource("0B", "00", "00", "11", hexData);
+      
+      emit updateSignal();
+      emit updateStompBoxes();
 };
 
 void stompBox::setPos(QPoint newPos)
 {
 	this->move(newPos);
 	this->stompPos = newPos;
+	updateStompPath();
 };
 
 void stompBox::updatePos(signed int offsetDif)
@@ -190,6 +280,7 @@ unsigned int stompBox::getId()
 {
 	return this->id;
 };
+
 
 void stompBox::setLSB(QString hex1, QString hex2)
 {
@@ -311,7 +402,7 @@ void stompBox::setButton(QString hex1, QString hex2, QString hex3, QPoint pos, Q
 void stompBox::setSwitch(QString hex1, QString hex2, QString hex3)
 {
 	switchbutton = new customSwitch(false, this, hex1, hex2, hex3);	
-	switchbutton->move(QPoint::QPoint(5, 41));
+	switchbutton->move(QPoint::QPoint(5, 41)); 
 };
 
 void stompBox::updateComboBox(QString hex1, QString hex2, QString hex3)
@@ -466,39 +557,75 @@ void stompBox::emitValueChanged(QString hex1, QString hex2, QString hex3, QStrin
 			this->fxName = midiTable->getMidiMap("Structure", hex1, hex2, hex3).name;
 			valueStr = midiTable->getValue("Structure", hex1, hex2, hex3, valueHex);
 			emit dialogUpdateSignal();
-		}
-		else
-		{
-		  if (this->id == 0)this->fxName = "Compressor";
-		  if (this->id == 1)this->fxName = "Distortion";
-		  if (this->id == 2)this->fxName = "PreAmp/Spkr A";
-		  if (this->id == 3)this->fxName = "PreAmp/Spkr B";
-		  if (this->id == 4)this->fxName = "Equalizer";
-		  if (this->id == 5)this->fxName = "FX-1";
-		  if (this->id == 6)this->fxName = "FX-2";
-		  if (this->id == 7)this->fxName = "Delay";
-		  if (this->id == 8)this->fxName = "Chorus";
-		  if (this->id == 9)this->fxName = "Reverb";
-		  if (this->id == 10)this->fxName = "Pedal";
-		  if (this->id == 11)this->fxName = "Volume";
-		  if (this->id == 12)this->fxName = "Noise Suppressor 1";
-		  if (this->id == 13)this->fxName = "Noise Suppressor 2";
-		  if (this->id == 14)this->fxName = "Send/Return";
-		  if (this->id == 15)this->fxName = "Digital Out";
-		  if (this->id == 16)this->fxName = "Chain Split";
-		  if (this->id == 17)this->fxName = "Chain Merge";
-				 //midiTable->getMidiMap("Structure", hex1, hex2, hex3).name;//hex1).customdesc;
 		};
-	}
-	else
-	{
-		this->fxName = "Digital Out";
 	};
-
 	emit valueChanged(this->fxName, valueName, valueStr);
 };
 
 void stompBox::setDisplayToFxName()
 {
 	emit valueChanged(this->fxName, "", "");
+};
+
+void stompBox::updateStompPath()
+{
+	getStompOrder();
+	
+	if (this->id == 0) {this->hexdata_A = "00"; this->hexdata_B = "40"; this->namedata = "CS";   this->fxName = "Compressor";};
+	if (this->id == 1) {this->hexdata_A = "01"; this->hexdata_B = "41"; this->namedata = "OD";   this->fxName = "Distortion";};
+	if (this->id == 2) {this->hexdata_A = "02"; this->hexdata_B = "42"; this->namedata = "CH_A"; this->fxName = "PreAmp/Speaker A";};
+	if (this->id == 3) {this->hexdata_A = "03"; this->hexdata_B = "43"; this->namedata = "CH_B"; this->fxName = "PreAmp/Speaker B";};
+	if (this->id == 4) {this->hexdata_A = "04"; this->hexdata_B = "44"; this->namedata = "EQ";   this->fxName = "Equalizer";};
+	if (this->id == 5) {this->hexdata_A = "05"; this->hexdata_B = "45"; this->namedata = "FX1";  this->fxName = "FX-1";};
+	if (this->id == 6) {this->hexdata_A = "06"; this->hexdata_B = "46"; this->namedata = "FX2";  this->fxName = "FX-2";};
+	if (this->id == 7) {this->hexdata_A = "07"; this->hexdata_B = "47"; this->namedata = "DD";   this->fxName = "Delay";};
+	if (this->id == 8) {this->hexdata_A = "08"; this->hexdata_B = "48"; this->namedata = "CE";   this->fxName = "Chorus";};
+	if (this->id == 9) {this->hexdata_A = "09"; this->hexdata_B = "49"; this->namedata = "RV";   this->fxName = "Reverb";};
+	if (this->id == 10){this->hexdata_A = "0A"; this->hexdata_B = "4A"; this->namedata = "PDL";  this->fxName = "Pedal";};
+	if (this->id == 11){this->hexdata_A = "0B"; this->hexdata_B = "4B"; this->namedata = "FV";   this->fxName = "Volume";};
+	if (this->id == 12){this->hexdata_A = "0C"; this->hexdata_B = "4C"; this->namedata = "NS_1"; this->fxName = "Noise Suppressor 1";};
+	if (this->id == 13){this->hexdata_A = "0D"; this->hexdata_B = "4D"; this->namedata = "NS_2"; this->fxName = "Noise Suppressor 2";};
+	if (this->id == 14){this->hexdata_A = "0E"; this->hexdata_B = "4E"; this->namedata = "LP";   this->fxName = "Send/Return";};
+	if (this->id == 15){this->hexdata_A = "0F"; this->hexdata_B = "4F"; this->namedata = "DGT";  this->fxName = "Digital Out";};
+	if (this->id == 16){this->hexdata_A = "10"; this->hexdata_B = "10"; this->namedata = "CN_S"; this->fxName = "Chain Split";};
+	if (this->id == 17){this->hexdata_A = "11"; this->hexdata_B = "11"; this->namedata = "CN_M"; this->fxName = "Chain Merge";};
+	
+
+     int hex_A = stompOrderName.indexOf("CN_S");
+     int hex_B = stompOrderName.indexOf("CN_M");
+     int hex_Pos = stompOrderName.indexOf(this->namedata);
+     if (hex_Pos > hex_A && hex_Pos < hex_B && this->id != 2 && this->id != 3){this->pathSwitch->show(); }else{this->pathSwitch->hide();}; 
+     if (stompOrderHex.contains(hexdata_A)){this->pathSwitch->setValue(false);}else{this->pathSwitch->setValue(true);};
+	   
+     
+      /*QString snork;
+			snork.append("<font size='-1'>");
+			snork.append(stompOrderHex);
+			//snork.append(hexdata_B);
+			QMessageBox *msgBox = new QMessageBox();
+			msgBox->setWindowTitle("stompOrder data");
+			msgBox->setIcon(QMessageBox::Information);
+			msgBox->setText(snork);
+			msgBox->setStandardButtons(QMessageBox::Ok);
+			msgBox->exec(); */
+	
+	//QApplication::beep();
+};
+
+void stompBox::getStompOrder()
+{
+  SysxIO *sysxIO = SysxIO::Instance();
+	QList<QString> fxChain = sysxIO->getFileSource("0B", "00");	
+	
+	MidiTable *midiTable = MidiTable::Instance();
+	QList<QString> stompOrderName;
+	QString stompOrderHex;
+  for(int i= sysxDataOffset;i< (sysxDataOffset + 18);i++ ) 
+	{
+		stompOrderName.append( midiTable->getMidiMap("Structure", "0B", "00", "00", fxChain.at(i)).name );
+		stompOrderHex.append( midiTable->getMidiMap("Structure", "0B", "00", "00", fxChain.at(i)).value );
+		stompOrderHex.append(" ");
+	};
+	this->stompOrderName = stompOrderName;
+	this->stompOrderHex = stompOrderHex;
 };

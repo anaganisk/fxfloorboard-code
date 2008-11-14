@@ -193,10 +193,10 @@ void stompbox_ch_b::setEditPages()
 	editDetails()->page()->newStackField(1);
   editDetails()->page()->newGroupBox("Custom Speaker");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "49");
-	editDetails()->page()->addKnob(1, 0, 1, 1, "01", "00", "4A");
+	editDetails()->page()->addKnob(0, 1, 1, 1, "01", "00", "4A");
 	editDetails()->page()->addKnob(2, 0, 1, 2, "01", "00", "48");
 	editDetails()->page()->addComboBox(3, 0, 1, 1, "01", "00", "4B", "bottom", Qt::AlignHCenter);
-	editDetails()->page()->addComboBox(4, 0, 1, 1, "01", "00", "4C", "bottom", Qt::AlignHCenter);
+	editDetails()->page()->addComboBox(4, 1, 1, 1, "01", "00", "4C", "bottom", Qt::AlignHCenter);
 	editDetails()->page()->addGroupBox(0, 3, 3, 1);
   editDetails()->page()->addStackField();
 

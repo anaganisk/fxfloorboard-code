@@ -1,5 +1,6 @@
 /****************************************************************************
 **
+** Copyright (C) 2008 Colin Willcocks.
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
 ** This file is part of "GT-10 Fx FloorBoard".
@@ -126,10 +127,11 @@ void customControlListMenu::setComboBox()
 		if(longestItem.size() < item.size()) longestItem = item;
 		this->controlListComboBox->addItem(item);
 	};
+#ifdef macosx
  	int maxWidth = QFontMetrics( this->font() ).width( longestItem );
-
-    this->controlListComboBox->setFixedHeight(15);
-	this->controlListComboBox->setFixedWidth(maxWidth +10);
+ 	this->controlListComboBox->setFixedWidth(maxWidth +10);
+#endif
+  this->controlListComboBox->setFixedHeight(15);
 	this->controlListComboBox->setEditable(false);
 	this->controlListComboBox->setFrame(false);
 	this->controlListComboBox->setMaxVisibleItems(itemcount);

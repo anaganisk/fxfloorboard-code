@@ -1,5 +1,6 @@
 /****************************************************************************
 **
+** Copyright (C) 2008 Colin Willcocks.
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
 ** This file is part of "GT-10 Fx FloorBoard".
@@ -34,6 +35,10 @@
 #include "SysxIO.h"
 #include "globalVariables.h"
 
+#include "menuPage_assign.h"
+#include "menuPage_midi.h"
+#include "menuPage_system.h"
+
 #include "stompbox_fx1.h"
 #include "stompbox_ch_a.h"
 #include "stompbox_ch_b.h"
@@ -52,6 +57,7 @@
 #include "stompbox_ns_1.h"
 #include "stompbox_ns_2.h"
 #include "stompbox_dgt.h"
+
 
 floorBoard::floorBoard(QWidget *parent, 
 						QString imagePathFloor, 
@@ -80,7 +86,6 @@ floorBoard::floorBoard(QWidget *parent,
 	bankTreeList *bankList = new bankTreeList(this);
 	
 	setFloorBoard();
-	initStomps();
 
 	floorBoardDisplay *display = new floorBoardDisplay(this);
 	display->setPos(displayPos);
@@ -92,42 +97,30 @@ floorBoard::floorBoard(QWidget *parent,
 	bar->setDragBarSize(QSize::QSize(4, panelBar->height() ));
 	bar->setDragBarMinOffset(2, 8);
 	bar->setDragBarMaxOffset(offset - panelBarOffset + 5);
-
+  initStomps();
+	initMenuPages();
 	this->editDialog = new editWindow(this);
 	this->editDialog->hide();
 
-	/*floorBoardDisplay *display2 = new floorBoardDisplay(this);
-	display2->setPos(liberainPos);*/
+	floorBoardDisplay *display2 = new floorBoardDisplay(this);
+	display2->setPos(liberainPos);
 
-	QObject::connect(this, SIGNAL( resizeSignal(QRect) ),
-                bankList, SLOT( updateSize(QRect) ) );
-	QObject::connect(display, SIGNAL(connectedSignal()), 
-		bankList, SLOT(connectedSignal()));
-	QObject::connect(this, SIGNAL(valueChanged(QString, QString, QString)), 
-		display, SLOT(setValueDisplay(QString, QString, QString)));
-	QObject::connect(panelBar, SIGNAL(resizeSignal(int)), 
-		this, SLOT(setWidth(int)));
-	QObject::connect(panelBar, SIGNAL(collapseSignal()), 
-		this, SLOT(setCollapse()));
-	QObject::connect(this, SIGNAL(setCollapseState(bool)), 
-		panelBar, SIGNAL(collapseState(bool)));
-	QObject::connect(this, SIGNAL(setDisplayPos(QPoint)), 
-		display, SLOT(setPos(QPoint)));
-	QObject::connect(this, SIGNAL(setFloorPanelBarPos(QPoint)), 
-		panelBar, SLOT(setPos(QPoint)));
-	QObject::connect(this->parent(), SIGNAL(updateSignal()), 
-		this, SIGNAL(updateSignal()));
-	QObject::connect(this, SIGNAL(updateSignal()), 
-		this, SLOT(updateStompBoxes()));
-	QObject::connect(bankList, SIGNAL(patchSelectSignal(int, int)), 
-		display, SLOT(patchSelectSignal(int, int)));
-	QObject::connect(bankList, SIGNAL(patchLoadSignal(int, int)), 
-		display, SLOT(patchLoadSignal(int, int)));
+		QObject::connect(this, SIGNAL( resizeSignal(QRect) ), bankList, SLOT( updateSize(QRect) ) );
+	QObject::connect(display, SIGNAL(connectedSignal()), bankList, SLOT(connectedSignal()));
+	QObject::connect(this, SIGNAL(valueChanged(QString, QString, QString)), display, SLOT(setValueDisplay(QString, QString, QString)));
+	QObject::connect(panelBar, SIGNAL(resizeSignal(int)), this, SLOT(setWidth(int)));
+	QObject::connect(panelBar, SIGNAL(collapseSignal()), this, SLOT(setCollapse()));
+	QObject::connect(this, SIGNAL(setCollapseState(bool)), panelBar, SIGNAL(collapseState(bool)));
+	QObject::connect(this, SIGNAL(setDisplayPos(QPoint)), display, SLOT(setPos(QPoint)));
+	QObject::connect(this, SIGNAL(setFloorPanelBarPos(QPoint)), panelBar, SLOT(setPos(QPoint)));
+	QObject::connect(this->parent(), SIGNAL(updateSignal()), this, SIGNAL(updateSignal()));
+	QObject::connect(this, SIGNAL(updateSignal()), this, SLOT(updateStompBoxes()));
+	QObject::connect(bankList, SIGNAL(patchSelectSignal(int, int)), display, SLOT(patchSelectSignal(int, int)));
+	QObject::connect(bankList, SIGNAL(patchLoadSignal(int, int)), display, SLOT(patchLoadSignal(int, int)));
 
-	QObject::connect(panelBar, SIGNAL(showDragBar(QPoint)), 
-		this, SIGNAL(showDragBar(QPoint)));
-	QObject::connect(panelBar, SIGNAL(hideDragBar()), 
-		this, SIGNAL(hideDragBar()));
+	QObject::connect(panelBar, SIGNAL(showDragBar(QPoint)), this, SIGNAL(showDragBar(QPoint)));
+	QObject::connect(panelBar, SIGNAL(hideDragBar()), this, SIGNAL(hideDragBar()));
+
 
 	bool ok;
 	Preferences *preferences = Preferences::Instance();
@@ -233,8 +226,8 @@ void floorBoard::setFloorBoard() {
 	QPoint newDisplayPos = QPoint::QPoint(offset, 0);
 	this->displayPos = newDisplayPos;
 
-	/*QPoint newLiberainPos = QPoint::QPoint(offset, floorHeight);
-	this->liberainPos = newLiberainPos;*/
+	QPoint newLiberainPos = QPoint::QPoint(offset, floorHeight);
+	this->liberainPos = newLiberainPos;
 
 	QRect newBankListRect = QRect::QRect(borderWidth, borderWidth, offset - panelBarOffset - (borderWidth*2), floorHeight - (borderWidth*2));
 	emit resizeSignal(newBankListRect);
@@ -340,15 +333,94 @@ void floorBoard::dropEvent(QDropEvent *event)
 			if(orgIndex != destIndex) // Prevent sending data when stomp was dropped in the same place.
 			{
 				SysxIO *sysxIO = SysxIO::Instance();
-				QList<QString> hexData;
-				for(int index=0;index<fx.size();index++)
-				{
+					QList<QString> fxChain = sysxIO->getFileSource("0B", "00");
+		
+	MidiTable *midiTable = MidiTable::Instance();
+	//QList<QString> stompOrderName;
+	QList<QString> stompOrderHex;
+  QString shit;
+	QString hexdata_A;
+	QString hexdata_B;
+	QString namedata;
+	QList<QString> hexData;
+	QString hexData2;
+	int hex_A;
+	int hex_B;
+				
+				for(int i= sysxDataOffset;i< (sysxDataOffset + 18);i++ ) 
+				{     	
+        	//stompOrderName.append( midiTable->getMidiMap("Structure", "0B", "00", "00", fxChain.at(i)).name );
+		      shit.append( midiTable->getMidiMap("Structure", "0B", "00", "00", fxChain.at(i)).value );
+		      shit.append(" ");
+        };  
+            hex_A = fx.indexOf(16);
+            hex_B = fx.indexOf(17); 
+            bool ok; 
+            int hex_pos = 0; 
+            QString crap;   
+        for(int index=0;index<fx.size();index++)
+        {        
 					QString fxHexValue = QString::number(fx.at(index), 16).toUpper();
-					if(fxHexValue.length() < 2) fxHexValue.prepend("0");
-
-					hexData.append(fxHexValue);
-				};
+					int pos = fxHexValue.toInt(&ok, 16);
+					hex_pos = fx.indexOf(pos); 				
+					if(fxHexValue.length() < 2 &&  fx.at(index) == 3){ fxHexValue.prepend("4");}  // PreAmp B must always be 43
+					if(fxHexValue.length() < 2)
+            {
+              if (hex_pos > hex_A && hex_pos < hex_B)
+                { 
+                  QString carrots = fxHexValue;
+                  if(carrots.length() < 2){carrots.prepend("0");};
+                   if (shit.contains(carrots)){fxHexValue.prepend("0");}
+                       else {fxHexValue.prepend("4"); };
+                  
+                } else { fxHexValue.prepend("0"); };
+					  };	    
+          hexData2.append(fxHexValue);
+          hexData2.append(" ");
+          crap.append(QString::number(hex_pos, 16).toUpper());
+          crap.append(" ");
+			  };
+			 			  QString part1;
+			  for (int index = 0;index<((hex_A*3)+3);index++)     // copy chain data up to the split point.
+			  {
+          part1.append(hexData2.at(index));
+        };
+			  QString part4;
+			  for (int index = ((hex_B*3));index<54;index++)     // copy chain data after the merge point.
+			  {
+          part4.append(hexData2.at(index));
+        };
+        QString part2;
+        QString part3;
+        for ( int index = ((hex_A*3)+3);index<((hex_B*3));index++  )  // seperate and copy A path and B path data
+        {   
+          QString hexa = hexData2.at(index);
+          QString hexc = hexData2.at(index-1);
+          if ( hexa =="4" && hexc ==" "   ){
+           part3.append(hexData2.at(index)); 
+           index++; 
+           part3.append(hexData2.at(index));
+           index++;
+           part3.append(hexData2.at(index)); }
+           else { part2.append(hexData2.at(index));
+           index++; 
+           part2.append(hexData2.at(index));
+           index++; 
+           part2.append(hexData2.at(index)); };
+        };
+        hexData2 ="";
+        hexData2.append(part1).append(part2).append(part3).append(part4).remove(" ");
+        for (int index=0; index<36; index++)
+           {
+             QString hex = hexData2.at(index);
+             index++;
+             hex.append(hexData2.at(index));
+             hexData.append(hex);
+           };     
+			  		  
 				sysxIO->setFileSource("0B", "00", "00", "11", hexData);
+				emit pathUpdateSignal();
+				updateStompBoxes();
 			};
 		}
 		else
@@ -706,22 +778,6 @@ void floorBoard::updateStompBoxes()
 		stompOrder.append( midiTable->getMidiMap("Structure", "0B", "00", "00", fxChain.at(i)).name );
 	};
 	setStomps(stompOrder);
-	/*
-	QString name ="IN>";
-for(int x=0;x<stompOrder.size();x++)
-	{
-	   name.append("{");
-		name.append(stompOrder.at(x));
-		name.append("} ");
-	};
-	name.append(">OUT");
-		QMessageBox *msgBox = new QMessageBox();
-			msgBox->setWindowTitle("dBug Result for Chain order");
-			msgBox->setIcon(QMessageBox::Information);
-			msgBox->setText(name);
-			msgBox->setStandardButtons(QMessageBox::Ok);
-			msgBox->exec();
-	*/
 };
 
 void floorBoard::setEditDialog(editWindow* editDialog)
@@ -740,3 +796,21 @@ void floorBoard::centerEditDialog()
 	this->editDialog->move(x, y);
 };
 
+void floorBoard::initMenuPages()
+{
+	QVector<menuPage *> initMenuPages(3);
+	this->menuPages = initMenuPages.toList();;
+	
+	/* MENU_PAGES */
+	menuPage *assign = new menuPage_assign(this);
+	assign->setId(20);
+	assign->setPos(QPoint(1061, 5));
+	/*menuPage *midi = new menuPage_midi(this);
+	midi->setId(19);
+	midi->setPos(QPoint(1150, 5));
+	menuPage *system = new menuPage_system(this);
+	system->setId(18);
+	system->setPos(QPoint(1239, 5)); */
+	
+	};
+	
