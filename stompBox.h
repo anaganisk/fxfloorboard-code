@@ -91,7 +91,7 @@ public slots:
 	virtual void updateSignal() {};
 	void setDisplayToFxName();
 	void pathSwitchSignal(bool value);   //cjw
-	void stompBox::updateStompBoxes();   //cjw
+	void stompBox::updateStompPath();   //cjw
 		
 signals:
 	void valueChanged(QString fxName, QString valueName, QString valueStr);
@@ -101,6 +101,7 @@ signals:
 	void notConnectedSignal();
 	void pathSwitchSignal();
 	void pathUpdateSignal();
+	void updateStompBoxes();
 
 protected:
 	void paintEvent(QPaintEvent *event);

@@ -274,7 +274,7 @@ void midiIO::receiveMsg(QString sysxInMsg, int midiInPort)
 	Preferences *preferences = Preferences::Instance(); bool ok;// Load the preferences.
 	const int maxWait = preferences->getPreferences("Midi", "Time", "set").toInt(&ok, 10);
 	if(multiple){loopCount = maxWait*11;}
-	  else {loopCount = maxWait/45;};
+	  else {loopCount = maxWait/40;};
 			int bytesReceived = 0;	
       RtMidiIn *midiin = 0;	
 	  midiin = new RtMidiIn();		   //RtMidi constructor

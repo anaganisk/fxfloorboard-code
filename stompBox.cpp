@@ -25,6 +25,7 @@
 #include "SysxIO.h"
 #include "globalVariables.h"
 #include "floorBoardDisplay.h"
+#include "floorBoard.h"
 
 stompBox::stompBox(QWidget *parent, unsigned int id, QString imagePath, QPoint stompPos)
     : QWidget(parent)
@@ -59,7 +60,9 @@ stompBox::stompBox(QWidget *parent, unsigned int id, QString imagePath, QPoint s
  
   QObject::connect(this->parent(), SIGNAL( pathUpdateSignal() ), this, SIGNAL( pathUpdateSignal() ));
   
-  QObject::connect(this, SIGNAL( pathUpdateSignal() ), this, SLOT( updateStompBoxes() ));
+  QObject::connect(this, SIGNAL( pathUpdateSignal() ), this, SLOT( updateStompPath() ));
+  
+  QObject::connect(this, SIGNAL( updateStompBoxes() ), this->parent(), SLOT( updateStompBoxes() ));
  
 };
 
@@ -151,7 +154,7 @@ void stompBox::mouseMoveEvent(QMouseEvent *event)
 				event->ignore();
 				show();	
 			};
-			if (this->id < 16) updateStompBoxes();
+			if (this->id < 16) updateStompPath();
 		};
 	};
 };
@@ -159,60 +162,88 @@ void stompBox::mouseMoveEvent(QMouseEvent *event)
 void stompBox::pathSwitchSignal(bool value)	
 {
 	this->pathSwitchActive = value;
-	bool x;
 	if(pathSwitchActive == true)
     { 
-      x = true;
-      //this->pathSwitch->setBlink(true);
-      this->pathSwitch->setValue(true);   //from A to B
-      
+      this->pathSwitch->setValue(true);    //from A to B
     }
   else
     {
-      x = false;
-      //this->pathSwitch->setBlink(false);
       this->pathSwitch->setValue(false);   // from B to A
     };
     getStompOrder();
-    int hex = stompOrderName.indexOf(this->namedata);
+    int hex_A = stompOrderName.indexOf("CN_S");
+    int hex_B = stompOrderName.indexOf("CN_M");
+    QString hexData2;
+    
+    int hex = stompOrderName.indexOf(this->namedata);    
     QString stompString = stompOrderHex.simplified().toUpper().remove("0X").remove(" ");
+    
     if (this->stompOrderHex.contains(hexdata_A))  
-      { stompString.replace(hex*2 ,2 ,hexdata_B ); }
-    else /*if (this->stompOrderHex.contains(hexdata_B))  */
-      { stompString.replace(hex*2 ,2 ,hexdata_A ); };
+      { stompString.replace(hex*2 ,2 ,hexdata_B );/* this->pathSwitch->setValue(true);*/ }  // toggle the byte with either "0x" or "4x"
+    else 
+      { stompString.replace(hex*2 ,2 ,hexdata_A ); /*this->pathSwitch->setValue(false);*/};
+      
+      for (int index=0;index<36;index++)
+      {
+      hexData2.append(stompString.at(index));
+      index++;
+      hexData2.append(stompString.at(index));
+      hexData2.append(" ");      
+      };
+
+      QString part1;
+			  for (int index = 0;index<((hex_A*3)+3);index++)     // copy chain data up to the split point.
+			  {
+          part1.append(hexData2.at(index));
+        };
+			  QString part4;
+			  for (int index = ((hex_B*3));index<54;index++)     // copy chain data after the merge point.
+			  {
+          part4.append(hexData2.at(index));
+        };
+        QString part2;
+        QString part3;
+        for ( int index = ((hex_A*3)+3);index<((hex_B*3));index++  )  // seperate and copy A path and B path data
+        {   
+          QString hexa = hexData2.at(index);
+          QString hexc = hexData2.at(index+2);
+          if ( hexa =="4" && hexc ==" "   ){
+           part3.append(hexData2.at(index)); 
+           index++; 
+           part3.append(hexData2.at(index));
+           index++;
+           part3.append(hexData2.at(index)); }
+           else { part2.append(hexData2.at(index));
+           index++; 
+           part2.append(hexData2.at(index));
+           index++; 
+           part2.append(hexData2.at(index)); };
+        };
+        hexData2.clear();
+        hexData2.append(part1).append(part2).append(part3).append(part4);
+        hexData2.remove(" ");
+      
       QList<QString> hexData;
       for(int index=0;index<36;index++)
         {        
-					QString fxHexValue = stompString.at(index).toUpper();
+					QString fxHexValue = hexData2.at(index).toUpper();
 					index++;
-					fxHexValue.append(stompString.at(index).toUpper());
+					fxHexValue.append(hexData2.at(index).toUpper());
 					hexData.append(fxHexValue);				
 				 };
       
       SysxIO *sysxIO = SysxIO::Instance();
       sysxIO->setFileSource("0B", "00", "00", "11", hexData);
-      emit updateSignal();
       
-      /*QString snork;
-			snork.append("<font size='-1'>");
-			snork.append(stompString);
-			snork.append("<br>");
-			QString number = QString::number(hex, 16).toUpper();
-			snork.append(number);
-			snork.append(" = hex");
-			QMessageBox *msgBox = new QMessageBox();
-			msgBox->setWindowTitle("stompOrder data");
-			msgBox->setIcon(QMessageBox::Information);
-			msgBox->setText(snork);
-			msgBox->setStandardButtons(QMessageBox::Ok);
-			msgBox->exec(); */     
+      emit updateSignal();
+      emit updateStompBoxes();
 };
 
 void stompBox::setPos(QPoint newPos)
 {
 	this->move(newPos);
 	this->stompPos = newPos;
-	updateStompBoxes();
+	updateStompPath();
 };
 
 void stompBox::updatePos(signed int offsetDif)
@@ -531,7 +562,7 @@ void stompBox::setDisplayToFxName()
 	emit valueChanged(this->fxName, "", "");
 };
 
-void stompBox::updateStompBoxes()
+void stompBox::updateStompPath()
 {
 	getStompOrder();
 	
@@ -560,21 +591,7 @@ void stompBox::updateStompBoxes()
      int hex_Pos = stompOrderName.indexOf(this->namedata);
      if (hex_Pos > hex_A && hex_Pos < hex_B){this->pathSwitch->show(); }else{this->pathSwitch->hide();}; 
      if (stompOrderHex.contains(hexdata_A)){this->pathSwitch->setValue(false);}else{this->pathSwitch->setValue(true);};
-	   
-     
-      /*QString snork;
-			snork.append("<font size='-1'>");
-			snork.append(stompOrderHex);
-			//snork.append(hexdata_B);
-			QMessageBox *msgBox = new QMessageBox();
-			msgBox->setWindowTitle("stompOrder data");
-			msgBox->setIcon(QMessageBox::Information);
-			msgBox->setText(snork);
-			msgBox->setStandardButtons(QMessageBox::Ok);
-			msgBox->exec(); */
-	
-	//QApplication::beep();
-};
+ };
 
 void stompBox::getStompOrder()
 {

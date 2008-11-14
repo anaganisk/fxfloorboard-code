@@ -350,7 +350,6 @@ void floorBoard::dropEvent(QDropEvent *event)
 	QList<QString> fxChain = sysxIO->getFileSource("0B", "00");
 		
 	MidiTable *midiTable = MidiTable::Instance();
-	//QList<QString> stompOrderName;
 	QList<QString> stompOrderHex;
   QString shit;
 	QString hexdata_A;
@@ -358,15 +357,16 @@ void floorBoard::dropEvent(QDropEvent *event)
 	QString namedata;
 	QList<QString> hexData;
 	QString hexData2;
+	int hex_A;
+	int hex_B;
 				
 				for(int i= sysxDataOffset;i< (sysxDataOffset + 18);i++ ) 
 				{     	
-        	//stompOrderName.append( midiTable->getMidiMap("Structure", "0B", "00", "00", fxChain.at(i)).name );
-		      shit.append( midiTable->getMidiMap("Structure", "0B", "00", "00", fxChain.at(i)).value );
+          shit.append( midiTable->getMidiMap("Structure", "0B", "00", "00", fxChain.at(i)).value );
 		      shit.append(" ");
         };  
-            int hex_A = fx.indexOf(16);
-            int hex_B = fx.indexOf(17); 
+            hex_A = fx.indexOf(16);
+            hex_B = fx.indexOf(17); 
             bool ok; 
             int hex_pos = 0; 
             QString crap;   
@@ -375,50 +375,63 @@ void floorBoard::dropEvent(QDropEvent *event)
 					QString fxHexValue = QString::number(fx.at(index), 16).toUpper();
 					int pos = fxHexValue.toInt(&ok, 16);
 					hex_pos = fx.indexOf(pos); 				
-					if(fxHexValue.length() < 2 && index == 17){ fxHexValue.prepend("4");}  // last chain item is hidden =43 by default (preamp-2)
+					if(fxHexValue.length() < 2 && index == 17){ fxHexValue.prepend("4");}  // last chain item is hidden =43 by default (preamp-B not shown on GT-10B)
 					if(fxHexValue.length() < 2)
             {
-              if (hex_pos > hex_A && hex_pos < hex_B)
+              if (hex_pos > hex_A && hex_pos < hex_B)    // find items between split and merge
                 { 
                   QString carrots = fxHexValue;
                   if(carrots.length() < 2){carrots.prepend("0");};
-                   if (shit.contains(carrots)){fxHexValue.prepend("0");}
-                       else {fxHexValue.prepend("4"); };
-                  
+                     if (shit.contains(carrots)){fxHexValue.prepend("0");}   // prepend "0" = path A, prepend "4" = path B
+                     else {fxHexValue.prepend("4"); };                
                 } else { fxHexValue.prepend("0"); };
 					  };	    
-          hexData.append(fxHexValue);
           hexData2.append(fxHexValue);
           hexData2.append(" ");
           crap.append(QString::number(hex_pos, 16).toUpper());
           crap.append(" ");
 			  };
-			  QList<QString> temp = hexData;
-			  
+			  QString part1;
+			  for (int index = 0;index<((hex_A*3)+3);index++)     // copy chain data up to the split point.
+			  {
+          part1.append(hexData2.at(index));
+        };
+			  QString part4;
+			  for (int index = ((hex_B*3));index<54;index++)     // copy chain data after the merge point.
+			  {
+          part4.append(hexData2.at(index));
+        };
+        QString part2;
+        QString part3;
+        for ( int index = ((hex_A*3)+3);index<((hex_B*3));index++  )  // seperate and copy A path and B path data
+        {   
+          QString hexa = hexData2.at(index);
+          QString hexc = hexData2.at(index-1);
+          if ( hexa =="4" && hexc ==" "   ){
+           part3.append(hexData2.at(index)); 
+           index++; 
+           part3.append(hexData2.at(index));
+           index++;
+           part3.append(hexData2.at(index)); }
+           else { part2.append(hexData2.at(index));
+           index++; 
+           part2.append(hexData2.at(index));
+           index++; 
+           part2.append(hexData2.at(index)); };
+        };
+        hexData2 ="";
+        hexData2.append(part1).append(part2).append(part3).append(part4).remove(" ");
+        for (int index=0; index<36; index++)
+           {
+             QString hex = hexData2.at(index);
+             index++;
+             hex.append(hexData2.at(index));
+             hexData.append(hex);
+           };     
 				sysxIO->setFileSource("0B", "00", "00", "11", hexData);
-			/*QString snork;
-			snork.append("<font size='-1'>");
-			snork.append(hexData2);
-			snork.append("<br>");
-			snork.append(shit);
-			snork.append("<br>");
-			QString number = QString::number(hex_A, 16).toUpper();
-			snork.append(number);
-			snork.append(" = hex_A");
-			snork.append("<br>");
-			number = QString::number(hex_B, 16).toUpper();
-			snork.append(number);
-			snork.append(" = hex_B");
-			snork.append("<br>");
-			snork.append(crap);
-			snork.append(" = hex_pos");
-			QMessageBox *msgBox = new QMessageBox();
-			msgBox->setWindowTitle("stompOrder data");
-			msgBox->setIcon(QMessageBox::Information);
-			msgBox->setText(snork);
-			msgBox->setStandardButtons(QMessageBox::Ok);
-			msgBox->exec(); */
-				emit pathUpdateSignal();
+		
+			emit pathUpdateSignal();
+			updateStompBoxes();
 			};
 		}
 		else
@@ -781,8 +794,12 @@ void floorBoard::updateStompBoxes()
 	{
 		stompOrder.append( midiTable->getMidiMap("Structure", "0B", "00", "00", fxChain.at(i)).name );
 	};
-	setStomps(stompOrder);
-	
+	if ( stompOrder.contains("CH_B") )
+	{
+	stompOrder.removeOne("CH_B");    // move Channel B to the list end.
+	stompOrder.append("CH_B");
+	};
+	setStomps(stompOrder);	
 };
 
 void floorBoard::setEditDialog(editWindow* editDialog)
