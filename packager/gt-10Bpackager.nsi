@@ -2,7 +2,7 @@
 
 ; HM NIS Edit Wizard helper defines
 !define PRODUCT_NAME "GT-10BFxFloorBoard"
-!define PRODUCT_VERSION "20081006"
+!define PRODUCT_VERSION "20081120"
 !define PRODUCT_PUBLISHER "gumtownbassman"
 !define PRODUCT_WEB_SITE "http://www.gtx.tinfoilmusic.net"
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\GT-10BFxFloorBoard.exe"
@@ -52,6 +52,7 @@ ShowUnInstDetails show
 
 Section "MainSection" SEC01
   SetOutPath "$INSTDIR\"
+  Delete "$INSTDIR\preferences.xml"
   SetOverwrite ifnewer
   File "GT-10BFxFloorBoard.exe"
   CreateDirectory "$SMPROGRAMS\GT-10BFxFloorBoard"

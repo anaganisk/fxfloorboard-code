@@ -1,9 +1,12 @@
-<<<<<<< .mine
-GT10BFxFloorBoard Copyright (C) 2007-2008 Colin Willcocks (gumtownbassman@yahoo.com). All rights reserved.
+
+GT-10BFxFloorBoard Copyright (C) 2007-2008 Colin Willcocks (gumtownbassman@yahoo.com).
+ All rights reserved.
 based on the GT8 FxFloorBoard Copyright (C)2006 2007 Uco Mesdag <ucomesdag@gmail.com>.
 =======
-GT-FxFloorBoard Preview version: 30 September 2008
->>>>>>> .r415
+
+
+GT-10BFxFloorBoard BETA version 20081120: 20 NOVEMBER 2008
+
 
 This program is free software; you can redistribute it and/or modify it under 
 the terms of the GNU General Public License as published by the Free Software 
@@ -49,7 +52,7 @@ LINUX:
 CONTACT:
 ------
 
-Colin Willcocks <gumtownbassman.com>
+Colin Willcocks <gumtownbassman@yahoo.com>
 
 
 DISCLAIMER:
@@ -87,27 +90,21 @@ g.) Any knob turning will change the sound of the effect being adjusted, when th
 
 h.) To save the patch to the GT10 press the "write/sync" button. there is a bit of a trick here, sometimes the editor is not syncronised to the GT10 so toggle the 'Connect' button, then try the 'Write' button again.
 
-GT-FxFloorBoard Preview version: 30 September 2008
+GT-FxFloorBoard Beta version: 20 November 2008
 
-NOTE: THIS IS A PREVIEW VERSION AND MANY FEATURES HAVE NOT YET BEEN IMPLIMENTED, OR SOME FUNCTIONS MAY BE INCORRECT. 
-yet to sort chain structure concept. chain will currently place all FX into channel A path.
-try out all the pedals by double or right click on stomp body, let me know which parameters are incorrect.
+NOTE: THIS IS A BETA VERSION AND MANY FEATURES HAVE NOT YET BEEN IMPLIMENTED, OR SOME FUNCTIONS MAY BE INCORRECT. 
 
 saved files will now produce %100 GT10B accurate files. files can be saved/loaded as syx or mid
 the GT10BFxFloorBoard will also open (guitar version) GT10 SMF (.mid) files, but with unpredicable reasults.
 
 layout increased to fit 17 chain events, may be a problem for low screen resolutions. (i use 1280 X 800)
 
-continuing sessions at converting from GT-10 version most items are listed, exception of assigns and custom user settings for harmonizer.
+continuing sessions at construction, most items are listed.
 
 patch tree to the left side should give patch change on single click and (when 'connected' button active), double click should request patch transfer.
 opening each bank node should request patch names (while 'connected'). preset patches may not be accessable.
 
 patch rename by doubleclicking name display panel.
 
-my wish list:  find temp buffer individual write address, the bulk one is too slow for patch tweaking.
-	        user patch change works one single click of patch tree item.
-		  check realtime edit parameters are correct address and correct data range.
-
-
+IF YOU FIND A BUG OR HAVE SOME ISSUES......
 reply email to gumtownbassman@yahoo.com

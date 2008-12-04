@@ -2,8 +2,8 @@
 <!-- Preferences of the GT-10B Fx FloorBoard application. -->
 <Preferences>
 	<General>
-		<Application version="beta 20080829"/>
-		<Donate url="http://sourceforge.net/donate/index.php?group_id=171049"/>
+		<Application version="beta 20081120"/>
+		<Donate url="http://gtx.tinfoilmusic.net/donate.html"/>
 		<Files dir=""/>
 		<Help url="GT-10BFxFloorBoard_help.html"/>
 		<Language code="en"/>
@@ -13,8 +13,8 @@
 		<MidiIn device=""/>
 		<MidiOut device=""/>
 		<DBug bool="false"/>
-		<Time set="45"/>
-		<Delay set="15"/>
+		<Time set="80"/>
+		<Delay set="20"/>
 	</Midi>
 	<Window>
     <Collapsed bool="false" defaultwidth="1210" width=""/>
