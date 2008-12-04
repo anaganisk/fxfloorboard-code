@@ -76,7 +76,7 @@ private:
 	QSize sliderButtonSize;
 	QPoint sliderPos;
 
-	signed int yOffset;
+	double yOffset;
 	double _lastValue;
 	QPoint _startpos;
 	QPoint _lastpos;

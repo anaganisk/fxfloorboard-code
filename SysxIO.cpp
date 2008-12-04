@@ -310,7 +310,7 @@ void SysxIO::setFileSource(QString hex1, QString hex2, QString hex3, QString siz
 		sysxList.replace(sysxList.size() - 2, getCheckSum(dataSize));
 
 		this->fileSource.hex.replace(this->fileSource.address.indexOf(address), sysxList);
-		int pointerOffset1 = hex1.toInt(&ok, 16);
+		//int pointerOffset1 = hex1.toInt(&ok, 16);
 		if (pointerOffset2 > 0x7F)
      {
       //pointerOffset1 = (pointerOffset1 + 1);
@@ -497,7 +497,7 @@ QList<QString> SysxIO::correctSysxMsg(QList<QString> sysxMsg)
 
 	bool ok;
 
-	MidiTable *midiTable = MidiTable::Instance();
+	//MidiTable *midiTable = MidiTable::Instance();
 	for(int i=sysxDataOffset;i<sysxMsg.size() - 3;i++)
 	{
 		if(i==(sysxDataOffset + 1)) i++; // is reserved memmory address on the GT-10 so we skip it.

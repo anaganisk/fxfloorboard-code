@@ -208,14 +208,14 @@ void editWindow::valueChanged(int index)
 
 void editWindow::pageUpdateSignal()
 {
-	if(this->pages > 1 && hex1 != "void" && hex2 != "void")
+	/*if(this->pages > 1 && hex1 != "void" && hex2 != "void")
 	{
 		SysxIO *sysxIO = SysxIO::Instance();
 		int index = sysxIO->getSourceValue(this->hex1, this->hex2, this->hex3);
 		this->pageComboBox->setCurrentIndex(index);
 		this->pagesWidget->setCurrentIndex(index);
 		//this->valueChanged(index);
-	};
+	}; */
 };
 
 editPage* editWindow::page()

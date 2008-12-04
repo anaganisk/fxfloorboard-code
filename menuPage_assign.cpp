@@ -3,7 +3,7 @@
 ** Copyright (C) 2008 Colin Willcocks
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT-10BFxFloorBoard".
+** This file is part of "GT-10FxFloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@
 menuPage_assign::menuPage_assign(QWidget *parent)
     : menuPage(parent)
 {
-  this->setImage(":/images/menu_pushbutton.png");
+  this->setImage(":/images/assigns_pushbutton.png");
   setLSB("0B", "00");
 	setEditPages();
 };
@@ -41,7 +41,7 @@ void menuPage_assign::setEditPages()
 	editDetails()->page()->newGroupBox("Assigns");
 	editDetails()->page()->newGroupBox("Assign 1-8");
 	editDetails()->page()->newStackControl(0);
-	editDetails()->page()->addComboBox(0, 0, 1, 1, "0C", "00", "21");	
+	editDetails()->page()->addComboBox(0, 0, 1, 1, "0C", "00", "23");	
 	editDetails()->page()->addStackControl();
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->page()->newGroupBox("Assign 1");

@@ -113,3 +113,4 @@ void customKnob::valueChanged(int value, QString hex1, QString hex2, QString hex
 	emit updateDisplay(valueStr);
 	emit updateSignal();
 };
+

@@ -39,7 +39,7 @@ menuPage::menuPage(QWidget *parent, unsigned int id, QString imagePath, QPoint s
 
 	this->editDialog = new editWindow();
 	   
-	this->assignButton = new customButton(tr(""), false, QPoint(0, 0), this, ":/images/assigns_pushbutton.png");
+	this->assignButton = new customButton(tr(""), false, QPoint(0, 0), this, ":/images/menu_pushbutton.png");
 
 	QObject::connect(this, SIGNAL( valueChanged(QString, QString, QString) ),
                 this->parent(), SIGNAL( valueChanged(QString, QString, QString) ));
@@ -88,7 +88,10 @@ menuPage::menuPage(QWidget *parent, unsigned int id, QString imagePath, QPoint s
 		  if (this->id == 17)this->fxName = "Chain Merge";
 		  if (this->id == 18)this->fxName = "System settings";
 		  if (this->id == 19)this->fxName = "System Midi";
-		  if (this->id == 20)this->fxName = "Assigns";          
+		  if (this->id == 20)this->fxName = "Assigns";   
+      if (this->id == 21)this->fxName = "FX1 AutoRiff User Scales"; 
+      if (this->id == 22)this->fxName = "FX2 AutoRiff User Scales"; 
+      if (this->id == 23)this->fxName = "Master";            
       /*QString snork;
 			snork.append("<font size='-1'>");
 			snork.append(fxName);
@@ -248,6 +251,9 @@ void menuPage::emitValueChanged(QString hex1, QString hex2, QString hex3, QStrin
 		  if (this->id == 18)this->fxName = "System settings";
 		  if (this->id == 19)this->fxName = "System Midi";
 		  if (this->id == 20)this->fxName = "Assigns";
+		  if (this->id == 21)this->fxName = "FX1 AutoRiff User Scales";  
+      if (this->id == 22)this->fxName = "FX2 AutoRiff User Scales";  
+      if (this->id == 23)this->fxName = "Master";  
 				 //midiTable->getMidiMap("Structure", hex1, hex2, hex3).name;//hex1).customdesc;
 		};
 	};

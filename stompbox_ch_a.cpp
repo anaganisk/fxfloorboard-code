@@ -45,21 +45,18 @@ void stompbox_ch_a::setEditPages()
 
 	editDetails()->page()->newGroupBox("Pre Amp");
 	editDetails()->page()->newStackControl(0);
-	editDetails()->page()->addComboBox(1, 0, 1, 1, "01", "00", "10");        //pre type
+	editDetails()->page()->addComboBox(0, 0, 1, 1, "01", "00", "10");        //pre type
 	editDetails()->page()->addStackControl();
-	editDetails()->page()->addComboBox(0, 0, 1, 1, "01", "00", "18", "bottom", Qt::AlignLeft); //gain sw
+	editDetails()->page()->addComboBox(1, 0, 1, 1, "01", "00", "18", "bottom", Qt::AlignLeft); //gain sw
 	editDetails()->page()->addKnob(0, 2, 1, 1, "01", "00", "11", "turbo");   // gain
 	editDetails()->page()->addKnob(0, 3, 1, 1, "01", "00", "12");            //bass
 	editDetails()->page()->addKnob(0, 4, 1, 1, "01", "00", "13");            // mid
 	editDetails()->page()->addKnob(0, 5, 1, 1, "01", "00", "14");            // treble
 	editDetails()->page()->addKnob(0, 6, 1, 1, "01", "00", "15");            // presence
-	editDetails()->page()->insertStackField(0, 0, 1, 1, 1);                // bright button
+	editDetails()->page()->addKnob(0, 7, 1, 1, "01", "00", "16");            // effect level
+	editDetails()->page()->insertStackField(0, 1, 1, 1, 1);                // bright button
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
-
-	editDetails()->page()->newGroupBox("Level");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "16");            // effect level
-	editDetails()->page()->addKnob(0, 1, 1, 1, "01", "00", "20");            // direct level
-	editDetails()->page()->addGroupBox(0, 1, 1, 1);  
+ 
 
 	editDetails()->page()->newGroupBox("Speaker");
 	editDetails()->page()->newStackControl(1);
@@ -69,12 +66,13 @@ void stompbox_ch_a::setEditPages()
 	editDetails()->page()->addComboBox(1, 0, 1, 2, "01", "00", "1D");
 	editDetails()->page()->addKnob(0, 2, 2, 1, "01", "00", "1E");
 	editDetails()->page()->addKnob(0, 3, 2, 1, "01", "00", "1F");
+	editDetails()->page()->addKnob(0, 4, 1, 1, "01", "00", "20");            // direct level
 	editDetails()->page()->addGroupBox(2, 0, 1, 1);
 	
 	editDetails()->page()->newGroupBox("Solo");
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "19", "middle", Qt::AlignLeft | Qt::AlignTop);
-	editDetails()->page()->addKnob(0, 1, 1, 1, "01", "00", "1A");
-	editDetails()->page()->addGroupBox(2, 1, 1, 1);	
+	editDetails()->page()->addKnob(1, 0, 1, 1, "01", "00", "1A");
+	editDetails()->page()->addGroupBox(0, 1, 3, 1);	
 	
 	editDetails()->page()->insertStackField(1, 0, 3, 3, 1);
 	
@@ -86,102 +84,149 @@ void stompbox_ch_a::setEditPages()
 	editDetails()->page()->addKnob(0, 4, 1, 1, "01", "00", "25");
 	editDetails()->page()->addKnob(0, 5, 1, 1, "01", "00", "26");
 	editDetails()->page()->addKnob(0, 6, 1, 1, "01", "00", "27");
-	editDetails()->page()->addGroupBox(1, 0, 1, 2);
+	editDetails()->page()->addGroupBox(1, 0, 1, 1);
 	
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	
 	
 	
 
-	editDetails()->page()->newStackField(0);
+	// Bright Button stack fields
+	editDetails()->page()->newStackField(0);  //boss clean
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "17", "middle", Qt::AlignCenter);
 	editDetails()->page()->addStackField();
 	
-	editDetails()->page()->newStackField(0);
+	editDetails()->page()->newStackField(0); // jc-120
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "17", "middle", Qt::AlignCenter);
 	editDetails()->page()->addStackField();
 	
-	editDetails()->page()->newStackField(0);
+	editDetails()->page()->newStackField(0);  //jazz combo
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "17", "middle", Qt::AlignCenter);
 	editDetails()->page()->addStackField();
 	
-	editDetails()->page()->newStackField(0);editDetails()->page()->addStackField();
-	
-	editDetails()->page()->newStackField(0);editDetails()->page()->addStackField();
-	
-	editDetails()->page()->newStackField(0);
+	editDetails()->page()->newStackField(0); // full range
+  editDetails()->page()->addStackField();
+  
+	editDetails()->page()->newStackField(0); //clean twin
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "17", "middle", Qt::AlignCenter);
+  editDetails()->page()->addStackField();
+  
+	editDetails()->page()->newStackField(0); // pro crunch
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "17", "middle", Qt::AlignCenter);
 	editDetails()->page()->addStackField();
 	
-	editDetails()->page()->newStackField(0);
+	editDetails()->page()->newStackField(0); // tweed
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "17", "middle", Qt::AlignCenter);
 	editDetails()->page()->addStackField();
 	
-	editDetails()->page()->newStackField(0);
+	editDetails()->page()->newStackField(0); //delux crunch
+	editDetails()->page()->addStackField();
+	
+	editDetails()->page()->newStackField(0); //boss crunch
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "17", "middle", Qt::AlignCenter);
 	editDetails()->page()->addStackField();
 	
-	editDetails()->page()->newStackField(0);
+	editDetails()->page()->newStackField(0);  //blues
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "17", "middle", Qt::AlignCenter);
 	editDetails()->page()->addStackField();
 	
-	editDetails()->page()->newStackField(0);
+	editDetails()->page()->newStackField(0); //wild crunch
+	editDetails()->page()->addStackField();
+	
+	editDetails()->page()->newStackField(0); //stack crunch
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "17", "middle", Qt::AlignCenter);
+  editDetails()->page()->addStackField();
+  
+	editDetails()->page()->newStackField(0); //VO drive
+	editDetails()->page()->addStackField();
+	
+	editDetails()->page()->newStackField(0); //VO lead
+  editDetails()->page()->addStackField();
+  
+	editDetails()->page()->newStackField(0); // VO clean
+  editDetails()->page()->addStackField();
+  
+	editDetails()->page()->newStackField(0);  // match drive
+  editDetails()->page()->addStackField();
+  
+	editDetails()->page()->newStackField(0);  //fat match
+  editDetails()->page()->addStackField();
+  
+	editDetails()->page()->newStackField(0);  // match lead
+  editDetails()->page()->addStackField();
+  
+	editDetails()->page()->newStackField(0); // bg lead
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "17", "middle", Qt::AlignCenter);
+  editDetails()->page()->addStackField();
+  
+	editDetails()->page()->newStackField(0); // bg drive
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "17", "middle", Qt::AlignCenter);
 	editDetails()->page()->addStackField();
 	
-	editDetails()->page()->newStackField(0);
+	editDetails()->page()->newStackField(0);  // bg rhythm
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "17", "middle", Qt::AlignCenter);
 	editDetails()->page()->addStackField();
 	
-	editDetails()->page()->newStackField(0);editDetails()->page()->addStackField();
-	
-	editDetails()->page()->newStackField(0);
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "17", "middle", Qt::AlignCenter);
+	editDetails()->page()->newStackField(0); // ms1959 I
 	editDetails()->page()->addStackField();
 	
-	editDetails()->page()->newStackField(0);editDetails()->page()->addStackField();
-	
-	editDetails()->page()->newStackField(0);editDetails()->page()->addStackField();
-	
-	editDetails()->page()->newStackField(0);editDetails()->page()->addStackField();
-	
-	editDetails()->page()->newStackField(0);editDetails()->page()->addStackField();
-	
-	editDetails()->page()->newStackField(0);editDetails()->page()->addStackField();
-	
-	editDetails()->page()->newStackField(0);editDetails()->page()->addStackField();
-	
-	editDetails()->page()->newStackField(0);
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "17", "middle", Qt::AlignCenter);
-	editDetails()->page()->addStackField();
-	
-	editDetails()->page()->newStackField(0);
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "17", "middle", Qt::AlignCenter);
-	editDetails()->page()->addStackField();
-	
-	editDetails()->page()->newStackField(0);
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "17", "middle", Qt::AlignCenter);
-	editDetails()->page()->addStackField();
-	
-	editDetails()->page()->newStackField(0);editDetails()->page()->addStackField();
-	editDetails()->page()->newStackField(0);editDetails()->page()->addStackField();
-	editDetails()->page()->newStackField(0);editDetails()->page()->addStackField();
-	editDetails()->page()->newStackField(0);editDetails()->page()->addStackField();
-	editDetails()->page()->newStackField(0);editDetails()->page()->addStackField();
-	editDetails()->page()->newStackField(0);editDetails()->page()->addStackField();
-	editDetails()->page()->newStackField(0);editDetails()->page()->addStackField();
-	editDetails()->page()->newStackField(0);editDetails()->page()->addStackField();
-	editDetails()->page()->newStackField(0);editDetails()->page()->addStackField();
-	editDetails()->page()->newStackField(0);editDetails()->page()->addStackField();
-	editDetails()->page()->newStackField(0);editDetails()->page()->addStackField();
-	editDetails()->page()->newStackField(0);editDetails()->page()->addStackField();
-	editDetails()->page()->newStackField(0);editDetails()->page()->addStackField();
-	editDetails()->page()->newStackField(0);editDetails()->page()->addStackField();
-	editDetails()->page()->newStackField(0);editDetails()->page()->addStackField();
-	editDetails()->page()->newStackField(0);editDetails()->page()->addStackField();
-	editDetails()->page()->newStackField(0);editDetails()->page()->addStackField();
-	editDetails()->page()->newStackField(0);editDetails()->page()->addStackField();
-	editDetails()->page()->newStackField(0);editDetails()->page()->addStackField();
+	editDetails()->page()->newStackField(0); // ms1959 II
+  editDetails()->page()->addStackField();
+  
+	editDetails()->page()->newStackField(0); // MS hi gain
+  editDetails()->page()->addStackField();
+  
+	editDetails()->page()->newStackField(0);  // ms scoop
+  editDetails()->page()->addStackField();
+  
+	editDetails()->page()->newStackField(0); // r-fier vint
+  editDetails()->page()->addStackField();
+  
+	editDetails()->page()->newStackField(0); // r-fier mdn
+  editDetails()->page()->addStackField();
+  
+	editDetails()->page()->newStackField(0);  // r-fier cln
+  editDetails()->page()->addStackField();
+  
+	editDetails()->page()->newStackField(0); // t-amp lead
+  editDetails()->page()->addStackField();
+  
+	editDetails()->page()->newStackField(0); // t-amp crunch
+  editDetails()->page()->addStackField();
+  
+	editDetails()->page()->newStackField(0); // t-amp clean
+  editDetails()->page()->addStackField();
+  
+	editDetails()->page()->newStackField(0); // boss drive
+  editDetails()->page()->addStackField();
+  
+	editDetails()->page()->newStackField(0);  //SLDN
+  editDetails()->page()->addStackField();
+  
+	editDetails()->page()->newStackField(0);  // lead stack
+  editDetails()->page()->addStackField();
+  
+	editDetails()->page()->newStackField(0); // heavy lead
+  editDetails()->page()->addStackField();
+  
+	editDetails()->page()->newStackField(0);  // boss metal
+  editDetails()->page()->addStackField();
+  
+	editDetails()->page()->newStackField(0); // 5150 drive
+  editDetails()->page()->addStackField();
+  
+	editDetails()->page()->newStackField(0); // metal lead
+  editDetails()->page()->addStackField();
+  
+	editDetails()->page()->newStackField(0); // edge lead
+  editDetails()->page()->addStackField();
+  
+	editDetails()->page()->newStackField(0); // custom
+  editDetails()->page()->addStackField();
+  
+	editDetails()->page()->newStackField(0); // through
+  editDetails()->page()->addStackField();
+  
 	
 	editDetails()->page()->newStackField(1);editDetails()->page()->addStackField();
 	editDetails()->page()->newStackField(1);editDetails()->page()->addStackField();

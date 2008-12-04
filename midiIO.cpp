@@ -30,9 +30,11 @@
 #include "MidiTable.h"
 
 int midiIO::bytesTotal = 0;
+int midiIO::bytesReceived = 0;
 int loopCount;
 bool midiIO::dataReceive = false;
 bool midiIO::multiple = false;
+bool midiIO::system = false;
 QString midiIO::sysxBuffer;
 
 // Platform-dependent sleep routines.
@@ -201,7 +203,7 @@ void midiIO::sendSyxMsg(QString sysxOutMsg, int midiOutPort)
     };   
    /* Clean up */
  cleanup:
-	SLEEP(20);						// wait as long as the message is sending.
+	SLEEP(40);						// wait as long as the message is sending.
 	midiMsgOut->closePort();
     delete midiMsgOut;	
 };
@@ -237,7 +239,6 @@ void midiIO::sendMidiMsg(QString sysxOutMsg, int midiOutPort)
     };   
    /* Clean up*/
  cleanup:
-	//SLEEP(30);						// wait as long as the message is sending.
 	midiMsgOut->closePort();
     delete midiMsgOut;	
 };
@@ -258,24 +259,27 @@ void midicallback(double deltatime, std::vector<unsigned char> *message, void *u
 					 QString hex = QString::number(n, 16).toUpper();
 					 if (hex.length() < 2) hex.prepend("0");
 					 rxData.append(hex);	
-                     midi->emitProgress(nBytes);			
+           int bytesReceived = rxData.size();
+           midi->emitProgress(bytesReceived);				
 				};	
 		midi->callbackMsg(rxData);
 };
 void midiIO::callbackMsg(QString rxData)
 {
-	sysxBuffer.append(rxData);
+	this->sysxBuffer.append(rxData);
 };
 
 void midiIO::receiveMsg(QString sysxInMsg, int midiInPort)
 {
+	int count = 0;
 	emit setStatusSymbol(3);
 	emit setStatusProgress(100);
 	Preferences *preferences = Preferences::Instance(); bool ok;// Load the preferences.
 	const int maxWait = preferences->getPreferences("Midi", "Time", "set").toInt(&ok, 10);
-	if(multiple){loopCount = maxWait*11;}
-	  else {loopCount = maxWait/40;};
-			int bytesReceived = 0;	
+	if(multiple){loopCount = maxWait*11; count = patchReplySize; } //patch reply size
+	else if (system){loopCount = maxWait*22; count = systemSize;}  // system reply size
+	  else {loopCount = maxWait/40; count = nameReplySize;};   // name reply size
+			//this->bytesReceived = 0;	
       RtMidiIn *midiin = 0;	
 	  midiin = new RtMidiIn();		   //RtMidi constructor
 	unsigned int nPorts = midiin->getPortCount();	   // check we have a midiout port
@@ -285,9 +289,15 @@ void midiIO::receiveMsg(QString sysxInMsg, int midiInPort)
 			midiin->openPort(midiInPort);             // open the midi in port			
 			midiin->setCallback(&midicallback);    // set the callback 
 			sendSyxMsg(sysxOutMsg, midiOutPort);      // send the data request message out	
-			bytesReceived = sysxBuffer.size() / 2;
-			emitProgress(bytesReceived);	
-			SLEEP(loopCount);                    // time it takes to get all sysx messages in.		
+			
+      int x = 0;	
+			while (x<loopCount && this->sysxBuffer.size()/2 < count)  // wait until exact bytes recieved or timeout
+      {
+      SLEEP(1); 
+       //this->bytesReceived = this->sysxBuffer.size()/2;
+      	//emitProgress(bytesReceived);
+        x++;
+      };                   // time it takes to get all sysx messages in.		
 		goto cleanup;
 	    }
 	 catch (RtError &error)
@@ -298,7 +308,7 @@ void midiIO::receiveMsg(QString sysxInMsg, int midiInPort)
 		/*Clean up */
 cleanup:
 		midiin->cancelCallback();
-		this->sysxInMsg = sysxBuffer;		   //get the returning data string
+		this->sysxInMsg = this->sysxBuffer;		   //get the returning data string
 		dataReceive = true;
 		midiin->closePort();             // open the midi in port	
 		delete midiin;
@@ -345,7 +355,6 @@ void midiIO::run()
 
 						
 		emit setStatusSymbol(2);
-		//emit setStatusMessage("Sending");
 		emit setStatusProgress(33); // time wasting sinusidal statusbar progress animation
 		SLEEP(40);
 		emit setStatusProgress(66);
@@ -356,9 +365,7 @@ void midiIO::run()
 		SLEEP(100);		
 		emit setStatusProgress(42);
 		SLEEP(150);
-		//emit setStatusSymbol(1);
 		emit setStatusProgress(0);
-//		emit setStatusMessage(tr("Ready"));
 		emit midiFinished(); // We are finished so we send a signal to free the device.		
 	}
 	else   // if not a midi message, then it must be a sysx message
@@ -373,7 +380,7 @@ void midiIO::run()
 		if(receive==true)
 		{
 			emit setStatusSymbol(3);
-			//emit setStatusMessage(tr("Receiving Data"));
+
 			/* Get the size of data bytes returned to calculate the progress percentage */
 			bool ok;
 			QString sizeChunk = sysxOutMsg.mid(sysxDataOffset * 2, 4 * 2);
@@ -383,12 +390,16 @@ void midiIO::run()
 			{
 				bytesTotal += 2;
 			}
-			else if(sizeChunk == patchRequestDataSize) // Patch Request data size = "00000D63".
+			else if(sizeChunk == patchRequestDataSize) // Patch Request data size
 			{
-				bytesTotal = patchSize;     // progressbar scaled to patch size
-			};
-					dataReceive = true;
-					receiveMsg(sysxInMsg, midiInPort);
+				bytesTotal = patchReplySize;     // progressbar scaled to patch size
+			}
+			else if (sizeChunk == "00020900")
+			{
+        bytesTotal = systemSize;
+      };
+      dataReceive = true;
+			receiveMsg(sysxInMsg, midiInPort);
 		 }
 		else 
 		{
@@ -411,9 +422,7 @@ void midiIO::run()
 		emit replyMsg(sysxInMsg);
 		emit setStatusSymbol(1);
 		emit setStatusProgress(0);
-		//emit setStatusMessage(tr("Ready"));
-	};
-	//this->exec();    /* this was causing an overflow of new threads on each midi event */
+		};
 };
 
 /*********************** sendSysxMsg() ***********************************
@@ -442,10 +451,7 @@ void midiIO::sendSysxMsg(QString sysxOutMsg, int midiOutPort, int midiInPort)
       	hex.append(checksum);
         hex.append("F7");   
         reBuild.append(hex);   
-    /*SysxIO *sysxIO = SysxIO::Instance();
-		QString dBug = reBuild;//QString::number(dataSize, 16).toUpper();
-		sysxIO->emitStatusdBugMessage(dBug);	*/
-		hex = "";
+   		hex = "";
 		sysxEOF = "";
 		i=i+2;
     }; 
@@ -454,8 +460,8 @@ void midiIO::sendSysxMsg(QString sysxOutMsg, int midiOutPort, int midiInPort)
 	this->sysxOutMsg = reBuild.simplified().toUpper().remove("0X").remove(" ");
 	
       if((sysxOutMsg.size() == (sysxDataOffset*2 + 12)) && (sysxOutMsg.mid(sysxOutMsg.size()-12, 8) == patchRequestDataSize) && (sysxOutMsg.mid((sysxAddressOffset*2-2), 2) == "11") )  
-    {this->multiple = true;} else {this->multiple = false;}
-     
+    {this->multiple = true;} else {this->multiple = false;};
+     if (this->sysxOutMsg == systemRequest ){this->system = true;} else {this->system = false;};
 	this->midiOutPort = midiOutPort;
 	this->midiInPort = midiInPort;
 	this->midi = false;
@@ -483,7 +489,7 @@ void midiIO::emitProgress(int bytesReceived)
 	if(bytesReceived != 0) // This is to prevent flickering of the progress bar.
 	{
 		int percentage;
-		percentage = (100 / /*(double)*/bytesTotal) * /*(double)*/bytesReceived;
+		percentage = (100 / bytesTotal) * bytesReceived;
 		SysxIO *sysxIO = SysxIO::Instance();
 		sysxIO->emitStatusProgress(percentage);
 	};

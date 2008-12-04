@@ -82,11 +82,11 @@ void stompbox_fx1::setEditPages()
 	editDetails()->page()->addKnob(0, 3, 1, 1, "02", "00", "15", "normal","right", 105);
 	editDetails()->page()->addKnob(0, 1, 1, 1, "02", "00", "16");
 	editDetails()->page()->addKnob(0, 2, 1, 1, "02", "00", "17");
-	editDetails()->page()->addKnob(0, 4, 1, 1, "02", "00", "19");
+	editDetails()->page()->addKnob(0, 4, 1, 1, "02", "00", "18");
 	editDetails()->page()->addGroupBox(0, 1, 1, 1);
 
 	editDetails()->page()->newGroupBox("Level");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "02", "00", "1B");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "02", "00", "19");
 	editDetails()->page()->addKnob(0, 1, 1, 1, "02", "00", "1A");
 	editDetails()->page()->addGroupBox(0, 2, 1, 1);
 	//editDetails()->addPage("02", "00", "01", "01");
@@ -159,21 +159,21 @@ void stompbox_fx1::setEditPages()
 
 	editDetails()->page()->newGroupBox("Equalizer");
 	editDetails()->page()->newGroupBox("Band");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "05", "00", "36");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "05", "00", "37");
-	editDetails()->page()->addKnob(0, 2, 1, 1, "05", "00", "38");
-	editDetails()->page()->addKnob(0, 3, 1, 1, "05", "00", "39");
-	editDetails()->page()->addKnob(0, 4, 1, 1, "05", "00", "3A");
-	editDetails()->page()->addKnob(0, 5, 1, 1, "05", "00", "3B");
-	editDetails()->page()->addKnob(0, 6, 1, 1, "05", "00", "3C");
-	editDetails()->page()->addKnob(0, 7, 1, 1, "05", "00", "3D");
-	editDetails()->page()->addKnob(0, 8, 1, 1, "05", "00", "3E");
-	editDetails()->page()->addKnob(0, 9, 1, 1, "05", "00", "3F");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "05", "00", "37");
+	editDetails()->page()->addKnob(0, 1, 1, 1, "05", "00", "38");
+	editDetails()->page()->addKnob(0, 2, 1, 1, "05", "00", "39");
+	editDetails()->page()->addKnob(0, 3, 1, 1, "05", "00", "3A");
+	editDetails()->page()->addKnob(0, 4, 1, 1, "05", "00", "3B");
+	editDetails()->page()->addKnob(0, 5, 1, 1, "05", "00", "3C");
+	editDetails()->page()->addKnob(0, 6, 1, 1, "05", "00", "3D");
+	editDetails()->page()->addKnob(0, 7, 1, 1, "05", "00", "3E");
+	editDetails()->page()->addKnob(0, 8, 1, 1, "05", "00", "3F");
+	editDetails()->page()->addKnob(0, 9, 1, 1, "05", "00", "40");
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->page()->addGroupBox(0, 1, 2, 1);
     
 	editDetails()->page()->newGroupBox("Level");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "05", "00", "40");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "05", "00", "36");
 	editDetails()->page()->addGroupBox(0, 2, 2, 1);
 	//editDetails()->addPage("02", "00", "01", "05");
 	editDetails()->page()->addStackField();

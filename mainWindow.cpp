@@ -188,8 +188,13 @@ void mainWindow::createActions()
 	homepageAct->setStatusTip(tr("........"));
 	connect(homepageAct, SIGNAL(triggered()), this, SLOT(homepage()));
 
-	donationAct = new QAction(/*QIcon(":/images/donate.png"),*/ tr("User Manual PDF"), this);
+	donationAct = new QAction(/*QIcon(":/images/donate.png"),*/ tr("Donate towards a GT-10 for Gumtown"), this);
+	donationAct->setStatusTip(tr("........"));
 	connect(donationAct, SIGNAL(triggered()), this, SLOT(donate()));
+	
+	manualAct = new QAction(/*QIcon(":/images/manual.png"),*/ tr("User Manual PDF"), this);
+	manualAct->setStatusTip(tr("........"));
+	connect(manualAct, SIGNAL(triggered()), this, SLOT(manual())); 
 
 	licenseAct = new QAction(/*QIcon(":/images/license.png"),*/ tr("&License"), this);
 	licenseAct->setStatusTip(tr("........"));
@@ -230,6 +235,8 @@ void mainWindow::createMenus()
 	helpMenu->addAction(homepageAct);
 	helpMenu->addSeparator();
 	helpMenu->addAction(donationAct);
+	helpMenu->addSeparator();
+	helpMenu->addAction(manualAct);
 	helpMenu->addAction(licenseAct);
 	helpMenu->addSeparator(); 
 	helpMenu->addAction(aboutAct);
@@ -467,6 +474,12 @@ void mainWindow::donate()
 	Preferences *preferences = Preferences::Instance();
 	QDesktopServices::openUrl(QUrl( preferences->getPreferences("General", "Donate", "url") ));
 };
+
+void mainWindow::manual()
+{
+	Preferences *preferences = Preferences::Instance();
+	QDesktopServices::openUrl(QUrl( preferences->getPreferences("General", "Manual", "url") ));
+}; 
 
 void mainWindow::license()
 {

@@ -72,7 +72,7 @@ void customSlider::setOffset(double _newValue)
 {
 	double dataRange = max - min;
 	double range = slideSize.height()  - sliderButtonSize.height();
-	double result = (max - _newValue) * (range / dataRange);
+	double result = (max - _newValue) * (range / dataRange); 
 	
 	this->value = _newValue;	
 	this->yOffset = result;

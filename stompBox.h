@@ -81,7 +81,7 @@ public:
 
 	virtual void setEditPages() {};
 	editWindow* editDetails();
-	void stompBox::getStompOrder();
+	void getStompOrder();
 	
 
 public slots:
@@ -92,7 +92,7 @@ public slots:
 	virtual void updateSignal() {};
 	void setDisplayToFxName();
 	void pathSwitchSignal(bool value);   //cjw
-	void stompBox::updateStompPath();   //cjw
+	void updateStompPath();   //cjw
 		
 signals:
 	void valueChanged(QString fxName, QString valueName, QString valueStr);

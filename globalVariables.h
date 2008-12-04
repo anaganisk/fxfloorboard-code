@@ -1,7 +1,7 @@
 /****************************************************************************
 **
+** Copyright (C) 2008 Colin willcocks.
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
-** Copyright (C) 2008 GT-10 mods Colin willcocks.
 ** This file is part of "GT-10 Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
@@ -53,9 +53,13 @@ const int patchPerBank = 4;			// Number of patches in a bank.
 const int bankSize = 100;       // Number of patches in a midi bank before bank change message is required.
 
 /* Midi Send & Receive */
-const int patchPackets = 13;	 // number of sysx packets "F0....F7" which make up a patch.
-const int patchSize = 1763;    // size of bytes in a patch.
+const int patchReplySize = 1784;    // size of bytes in a patch before trimming.
+const int patchSize = 1763;    // size of bytes in a patch after trimming.
+const int systemSize = 2236;    // size of bytes for system data.
+const int nameReplySize = 29;    // size of bytes for name data.
 const QString patchRequestDataSize = "00000D63";
+const QString systemRequest = "F0410000002F11000000000002090075F7";
+
 //const int maxWait = 40;			 // Maximum times we loop through the receive handle before we give up waiting.(for whole patch) tempory used by midi prefs
 //const int minWait = 5;			 // Minimum times we loop through the receive handle before we give up waiting.(for small data)   "      "       "       "
 const int maxRetry = 4;			   // Maximum times we retry to load a patch in case of a transfer error .
@@ -65,7 +69,7 @@ const int sellectionBlinks = 5;				// Times we blink to indicate we have sellect
 const int sellectionBlinkInterval = 500;	// Interval (ms) the item blinks.
 
 /* Patch addresses */
-const QString chainAddress = "11";
+const QString chainAddress = "0B";
 const QString nameAddress = "00";
 const QString tempBulkWrite = "60";
 //const QString tempDataWrite = "60";

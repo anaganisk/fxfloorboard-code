@@ -1,5 +1,6 @@
 /****************************************************************************
 **
+** Copyright (C) 2008 Colin Willcocks.
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
 ** This file is part of "GT-10 Fx FloorBoard".
@@ -70,7 +71,9 @@ private:
 	static QString sysxBuffer;
 	static bool dataReceive;
 	static int bytesTotal;
+	static int bytesReceived;
 	static bool multiple;
+	static bool system;
 	int midiOutPort;
 	int midiInPort;
 	QString sysxOutMsg;

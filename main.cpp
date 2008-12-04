@@ -83,11 +83,11 @@ int main(int argc, char *argv[])
 	
 	app.processEvents();
 
-	splash->showStatusMessage(QObject::tr("Loading midi mapping..."));
-	MidiTable *midiTable = MidiTable::Instance();
-	midiTable;
+	//splash->showStatusMessage(QObject::tr("Loading midi mapping..."));
+	//MidiTable *midiTable = MidiTable::Instance();
+	//midiTable;
 
-	app.processEvents(); 
+	//app.processEvents(); 
 
 	splash->showStatusMessage(QObject::tr("Initializing main window..."));
 	window.setWindowFlags( Qt::WindowTitleHint 

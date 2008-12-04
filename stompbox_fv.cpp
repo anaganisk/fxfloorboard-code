@@ -39,11 +39,11 @@ void stompbox_fv::updateSignal()
 
 void stompbox_fv::setEditPages()
 {
-    editDetails()->page()->newGroupBox("Foot Volume");
-	editDetails()->page()->addComboBox(0, 0, 1, 1, "0A", "00", "5D", "bottom", Qt::AlignTop);
+    editDetails()->page()->newGroupBox("Settings located in PEDAL/FX stomp");
+/*	editDetails()->page()->addComboBox(0, 0, 1, 1, "0A", "00", "5D", "bottom", Qt::AlignTop);
 	editDetails()->page()->addKnob(0, 1, 1, 1, "0A", "00", "5B");
 	editDetails()->page()->addKnob(0, 2, 1, 1, "0A", "00", "5C");
-	editDetails()->page()->addKnob(0, 3, 1, 1, "0A", "00", "5A");
+	editDetails()->page()->addKnob(0, 3, 1, 1, "0A", "00", "5A");*/
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 
 	editDetails()->addPage();

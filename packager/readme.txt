@@ -1,4 +1,4 @@
-************GT-FxFloorBoard Preview version: 14 November 2008 *************************
+************GT-FxFloorBoard Preview version: 17 November 2008 *************************
 
 
 ****NOTE: THIS IS A BETA VERSION AND SOME FEATURES MAY HAVE NOT YET BEEN IMPLIMENTED, 
@@ -39,7 +39,8 @@ g.)  GT-8 patch conversion. Gt-8 patches can be opened and saved as GT-10 patche
 **IMPORTAINT !! ** If you find any errors or issues, most likely i don't know about them  
 		(i don't have a GT-10 or GT-8 for testing),
  		and i am relying on you to let me know. 
-                Quite often no-one bothers to let me know
+
+                >>>>>>>>>Quite often no-one bothers to let me know<<<<<<<
 
 	reply email to <gumtownbassman@yahoo.com> 
         as your information will help with the project progress.

@@ -38,6 +38,9 @@
 #include "menuPage_assign.h"
 #include "menuPage_midi.h"
 #include "menuPage_system.h"
+#include "menuPage_autoriff.h"
+#include "menuPage_autoriff_FX2.h"
+#include "menuPage_master.h"
 
 #include "stompbox_fx1.h"
 #include "stompbox_ch_a.h"
@@ -805,6 +808,15 @@ void floorBoard::initMenuPages()
 	menuPage *assign = new menuPage_assign(this);
 	assign->setId(20);
 	assign->setPos(QPoint(1061, 5));
+	menuPage *autoriff = new menuPage_autoriff(this);
+	autoriff->setId(21);
+	autoriff->setPos(QPoint(1150, 5));
+	menuPage *autoriff_FX2 = new menuPage_autoriff_FX2(this);
+	autoriff_FX2->setId(22);
+	autoriff_FX2->setPos(QPoint(1239, 5));
+	menuPage *master = new menuPage_master(this);
+	master->setId(23);
+	master->setPos(QPoint(1061, 24));
 	/*menuPage *midi = new menuPage_midi(this);
 	midi->setId(19);
 	midi->setPos(QPoint(1150, 5));

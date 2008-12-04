@@ -141,9 +141,9 @@ MidiPage::MidiPage(QWidget *parent)
 
 	QGroupBox *dBugScreenGroup = new QGroupBox(tr("Advanced settings"));
 
-	QLabel *dBugDescriptionLabel = new QLabel(tr("Debug mode & advanced midi settings."));
-	QLabel *midiTimeDescriptionLabel = new QLabel(tr("Data receive wait time."));
-	QLabel *midiDelayDescriptionLabel = new QLabel(tr("Realtime edit send rate."));
+	QLabel *dBugDescriptionLabel = new QLabel(tr("Debug mode."));
+	//QLabel *midiTimeDescriptionLabel = new QLabel(tr("Data receive wait time."));
+	//QLabel *midiDelayDescriptionLabel = new QLabel(tr("Realtime edit send rate."));
 
 	QCheckBox *dBugCheckBox = new QCheckBox(tr("deBug Mode"));
 	QSpinBox *midiTimeSpinBox = new QSpinBox;
@@ -172,14 +172,13 @@ MidiPage::MidiPage(QWidget *parent)
 
 	QVBoxLayout *dBugLabelLayout = new QVBoxLayout;
 	dBugLabelLayout->addWidget(dBugDescriptionLabel);
-	dBugLabelLayout->addWidget(midiTimeDescriptionLabel);
-	//dBugLabelLayout->addSpacing(12);
-	dBugLabelLayout->addWidget(midiDelayDescriptionLabel);
+	//dBugLabelLayout->addWidget(midiTimeDescriptionLabel);
+	//dBugLabelLayout->addWidget(midiDelayDescriptionLabel);
 
 	QVBoxLayout *dBugTimeBoxLayout = new QVBoxLayout;
 	dBugTimeBoxLayout->addWidget(dBugCheckBox);
-	dBugTimeBoxLayout->addWidget(midiTimeSpinBox);
-	dBugTimeBoxLayout->addWidget(midiDelaySpinBox);
+	//dBugTimeBoxLayout->addWidget(midiTimeSpinBox);
+	//dBugTimeBoxLayout->addWidget(midiDelaySpinBox);
 
 	QHBoxLayout *dBugSelectLayout = new QHBoxLayout;
 	dBugSelectLayout->addLayout(dBugLabelLayout);
@@ -187,7 +186,6 @@ MidiPage::MidiPage(QWidget *parent)
 
 	QVBoxLayout *dBugScreenLayout = new QVBoxLayout;
 	dBugScreenLayout->addWidget(dBugDescriptionLabel);
-	//dBugScreenLayout->addSpacing(12);
 	dBugScreenLayout->addLayout(dBugSelectLayout);
 
 	dBugScreenGroup->setLayout(dBugScreenLayout);

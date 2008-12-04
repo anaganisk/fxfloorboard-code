@@ -49,7 +49,10 @@ HEADERS += ./editPage.h \
     ./initPatchListMenu.h \
     ./menuPage.h \
     ./menuPage_assign.h \
+    ./menuPage_autoriff.h \
+    ./menuPage_autoriff_FX2.h \
     ./menuPage_midi.h \
+    ./menuPage_master.h \
     ./menuPage_system.h \
     ./renameDialog.h \
     ./renameWidget.h \
@@ -119,7 +122,10 @@ SOURCES += ./editPage.cpp \
     ./initPatchListMenu.cpp \
     ./menuPage.cpp \
     ./menuPage_assign.cpp \
+    ./menuPage_autoriff.cpp \
+    ./menuPage_autoriff_FX2.cpp \
     ./menuPage_midi.cpp \
+    ./menuPage_master.cpp \
     ./menuPage_system.cpp \
     ./renameDialog.cpp \
     ./renameWidget.cpp \
