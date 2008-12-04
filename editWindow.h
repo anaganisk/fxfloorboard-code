@@ -26,6 +26,7 @@
 #include <QMainWindow>
 #include <QtGui>
 #include <QList>
+#include <QCloseEvent>
 #include "editPage.h"
 #include "customControlLabel.h"
 
@@ -36,7 +37,7 @@ class editWindow : public QWidget
 public:
     editWindow(QWidget *parent = 0);
 	~editWindow();
-	void closeEvent(QCloseEvent* ce);
+	//virtual void closeEvent(QCloseEvent* ce);
 
 	void setLSB(QString hex1, QString hex2);
 	void setWindow(QString title);
@@ -48,10 +49,13 @@ signals:
 	void dialogUpdateSignal();
 	void updateSignal();
 	void updateDisplay(QString text);
+	void closeWindow();
 
 public slots:
 	void valueChanged(int index);
 	void pageUpdateSignal();
+	virtual void closeEvent(QCloseEvent* ce);
+	void hideWindow();
 
 protected:
 	void paintEvent(QPaintEvent *event);

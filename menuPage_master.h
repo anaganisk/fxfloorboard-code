@@ -1,5 +1,6 @@
 /****************************************************************************
 **
+** Copyright (C) 2008 Colin Willcocks.
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
 ** This file is part of "GT-10B Fx FloorBoard".
@@ -20,31 +21,23 @@
 **
 ****************************************************************************/
 
-#include "stompbox_fv.h"
+#ifndef MENUPAGE_MASTER_H
+#define MENUPAGE_MASTER_H
 
-stompbox_fv::stompbox_fv(QWidget *parent)
-    : stompBox(parent)
+#include <QtGui>
+#include <QWidget>
+#include "menuPage.h"
+
+class  menuPage_master : public menuPage
 {
-	/* VOLUME */
-	setImage(":/images/fv.png");
-	setLSB("0A", "00");
-	//setButton("15", "00", "00", QPoint::QPoint(0, 109), ":/images/pedal.png");
-	setEditPages();
+    Q_OBJECT
+
+public:
+	menuPage_master(QWidget *parent);
+	void setEditPages();
+
+public slots:
+	void updateSignal();
 };
 
-void stompbox_fv::updateSignal()
-{
-	//updateButton("15", "00", "00");
-};
-
-void stompbox_fv::setEditPages()
-{
-    editDetails()->page()->newGroupBox("Foot Volume contols are located in PEDAL/FX stomp");
-	/*editDetails()->page()->addComboBox(0, 0, 1, 1, "0A", "00", "5D", "bottom", Qt::AlignTop);
-	editDetails()->page()->addKnob(0, 1, 1, 1, "0A", "00", "5B");
-	editDetails()->page()->addKnob(0, 2, 1, 1, "0A", "00", "5C");
-	editDetails()->page()->addKnob(0, 3, 1, 1, "0A", "00", "5A");*/
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
-
-	editDetails()->addPage();
-};
+#endif // MENUPAGE_MASTER_H

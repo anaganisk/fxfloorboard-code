@@ -83,11 +83,11 @@ editWindow::editWindow(QWidget *parent)
 
 	this->tempPage = new editPage;
 
-	QObject::connect(this->pageComboBox, SIGNAL(activated(int)),
-             this->pagesWidget, SLOT(setCurrentIndex(int)));
+	QObject::connect(this->pageComboBox, SIGNAL(activated(int)), this->pagesWidget, SLOT(setCurrentIndex(int)));
 
-	QObject::connect(this->closeButton, SIGNAL(mouseReleased()),
-             this, SLOT(hide()));
+	QObject::connect(this->closeButton, SIGNAL(mouseReleased()), this, SLOT(hide()));
+	
+	QObject::connect(this, SIGNAL( closeWindow() ), this, SLOT(hide()));
 
 	/*QObject::connect(this, SIGNAL( updateSignal() ),
             this->parent(), SIGNAL( updateSignal() ));*/
@@ -200,14 +200,14 @@ void editWindow::valueChanged(int index)
 
 		SysxIO *sysxIO = SysxIO::Instance();
 		sysxIO->setFileSource(this->hex1, this->hex2, this->hex3, valueHex);
-    QApplication::beep;
+    //QApplication::beep;
 		//emit updateDisplay(valueHex);
 		//emit updateSignal();
 	};
 };
 
 void editWindow::pageUpdateSignal()
-{
+{ /*
 	if(this->pages > 1 && hex1 != "void" && hex2 != "void")
 	{
 		SysxIO *sysxIO = SysxIO::Instance();
@@ -216,7 +216,7 @@ void editWindow::pageUpdateSignal()
 		this->pagesWidget->setCurrentIndex(index);
 		//this->valueChanged(index);
 
-	};
+	}; */
 };
 
 editPage* editWindow::page()
@@ -226,5 +226,12 @@ editPage* editWindow::page()
 
 void editWindow::closeEvent(QCloseEvent* ce)
 {
+  
 	ce->accept();
+};
+
+void editWindow::hideWindow()
+{
+  QApplication::beep();
+  emit hide();
 };

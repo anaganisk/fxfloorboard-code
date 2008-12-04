@@ -289,38 +289,24 @@ void SysxIO::setFileSource(QString hex1, QString hex2, QString hex3, QString siz
 	QString address;
 	address.append(hex1);
 	address.append(hex2);
-		bool ok;
+	bool ok;
 	int pointerOffset2 = hex3.toInt(&ok, 16);
 	
-
 	QList<QString> sysxList = this->fileSource.hex.at(this->fileSource.address.indexOf(address));
-	//if(hexData.size() + sysxDataOffset + 2 == sysxList.size())
-	//{
-	
+
 		for(int i=0; i<hexData.size();++i)
 		{
 			sysxList.replace(i + (sysxDataOffset + pointerOffset2), hexData.at(i));
 		};
-
-		int dataSize = 0;
-		for(int i=sysxList.size() - 3; i>=checksumOffset;i--)
-		{
-			dataSize += sysxList.at(i).toInt(&ok, 16);
-		};
-		sysxList.replace(sysxList.size() - 2, getCheckSum(dataSize));
-
+    
 		this->fileSource.hex.replace(this->fileSource.address.indexOf(address), sysxList);
-		int pointerOffset1 = hex1.toInt(&ok, 16);
+		//int pointerOffset1 = hex1.toInt(&ok, 16);
 		if (pointerOffset2 > 0x7F)
      {
-      //pointerOffset1 = (pointerOffset1 + 1);
-      //hex1 = QString::number(pointerOffset1, 16).toUpper();
-      //pointerOffset2 = (pointerOffset2 - 0xF7);
       hex1 = "0B";
       hex3 = "00";
       };
-      
-    
+       
 		QString sysxMsg = "F04100000030126000";
 		sysxMsg.append(hex1);
 		sysxMsg.append(hex3);
@@ -328,14 +314,23 @@ void SysxIO::setFileSource(QString hex1, QString hex2, QString hex3, QString siz
 		{
 			sysxMsg.append(hexData.at(i));
 		};
-		sysxMsg.append("00F7");
+		sysxMsg.append("3CF7");
+		
+		/*int dataSize = 0;
+		QString temp;
+	  for(int i=sysxMsg.size()/2 - 2; i>=checksumOffset;i--)
+	  {
+	    temp = sysxMsg.at(i);
+		  dataSize += temp.toInt(&ok, 16);
+		  i--;
+	  };
+	  sysxMsg.replace(sysxMsg.size() - 4, 2, getCheckSum(dataSize)); */
 
 		if(/*this->isConnected() &&*/ this->deviceReady() /*&& this->getSyncStatus()*/)
 		{
 			this->setDeviceReady(false);
 
 			emit setStatusSymbol(2);
-			//emit setStatusProgress(0);
 			emit setStatusMessage("Sending");
 
 			QObject::connect(this, SIGNAL(sysxReply(QString)),	
@@ -347,7 +342,6 @@ void SysxIO::setFileSource(QString hex1, QString hex2, QString hex3, QString siz
 		{
 			this->sendSpooler.append(sysxMsg);
 		};
-	//};
 };
 
 QList<QString> SysxIO::getSourceItems(QString hex1, QString hex2)
@@ -497,7 +491,7 @@ QList<QString> SysxIO::correctSysxMsg(QList<QString> sysxMsg)
 
 	bool ok;
 
-	MidiTable *midiTable = MidiTable::Instance();
+	//MidiTable *midiTable = MidiTable::Instance();
 	for(int i=sysxDataOffset;i<sysxMsg.size() - 3;i++)
 	{
 		if(i==sysxDataOffset + 1) i++; // is reserved memmory address on the GT-10B so we skip it.

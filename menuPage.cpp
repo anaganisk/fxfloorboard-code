@@ -24,7 +24,9 @@
 #include "menuPage.h"
 #include "MidiTable.h"
 #include "SysxIO.h"
+#include "Preferences.h"
 #include "globalVariables.h"
+#include "editWindow.h"
 //#include "floorBoardDisplay.h"
 
 menuPage::menuPage(QWidget *parent, unsigned int id, QString imagePath, QPoint stompPos)
@@ -39,33 +41,32 @@ menuPage::menuPage(QWidget *parent, unsigned int id, QString imagePath, QPoint s
 
 	this->editDialog = new editWindow();
 	   
-	this->assignButton = new customButton(tr(""), false, QPoint(0, 0), this, ":/images/assigns_pushbutton.png");
+	this->menuButton = new customButton(tr(""), false, QPoint(0, 0), this, ":/images/menu_pushbutton.png");
 
-	QObject::connect(this, SIGNAL( valueChanged(QString, QString, QString) ),
-                this->parent(), SIGNAL( valueChanged(QString, QString, QString) ));
+	QObject::connect(this, SIGNAL( valueChanged(QString, QString, QString) ), this->parent(), SIGNAL( valueChanged(QString, QString, QString) ));
 	
-	QObject::connect(this->parent(), SIGNAL( updateStompOffset(signed int) ),
-                this, SLOT( updatePos(signed int) ));
+	QObject::connect(this->parent(), SIGNAL( updateStompOffset(signed int) ), this, SLOT( updatePos(signed int) ));
 
-	QObject::connect(this->parent(), SIGNAL( updateSignal() ),
-                this, SLOT( updateSignal() ));
+	QObject::connect(this->parent(), SIGNAL( updateSignal() ), this, SLOT( updateSignal() ));
 
-	QObject::connect(this->editDialog, SIGNAL( updateSignal() ),
-                this, SLOT( updateSignal() ));
+	QObject::connect(this->editDialog, SIGNAL( updateSignal() ), this, SLOT( updateSignal() ));
 
-	QObject::connect(this, SIGNAL( dialogUpdateSignal() ),
-                this->editDialog, SIGNAL( dialogUpdateSignal() ));	
+	QObject::connect(this, SIGNAL( dialogUpdateSignal() ), this->editDialog, SIGNAL( dialogUpdateSignal() ));	
 
-	QObject::connect(this->parent(), SIGNAL( updateSignal() ),
-                this->editDialog, SIGNAL( dialogUpdateSignal() ));
+	QObject::connect(this->parent(), SIGNAL( updateSignal() ), this->editDialog, SIGNAL( dialogUpdateSignal() ));
 
-	QObject::connect(this->editDialog, SIGNAL( updateSignal() ),
-                this, SLOT( setDisplayToFxName() ));
+	QObject::connect(this->editDialog, SIGNAL( updateSignal() ), this, SLOT( setDisplayToFxName() ));
 
-	QObject::connect(this, SIGNAL( setEditDialog(editWindow*) ),
-                this->parent(), SLOT( setEditDialog(editWindow*) ));
+	QObject::connect(this, SIGNAL( setEditDialog(editWindow*) ), this->parent(), SLOT( setEditDialog(editWindow*) ));
                 
-  QObject::connect(this->assignButton, SIGNAL(valueChanged(bool)), this, SLOT(assignSignal(bool)));  //cw
+  QObject::connect(this->menuButton, SIGNAL(valueChanged(bool)), this, SLOT(menuButtonSignal(bool))); 
+  
+  QObject::connect(this, SIGNAL( closeWindow() ), this->editDialog, SIGNAL( closeWindow()) );
+  
+  SysxIO *sysxIO = SysxIO::Instance();
+	QObject::connect(this, SIGNAL(setStatusSymbol(int)), sysxIO, SIGNAL(setStatusSymbol(int)));
+	QObject::connect(this, SIGNAL(setStatusProgress(int)), sysxIO, SIGNAL(setStatusProgress(int)));
+	QObject::connect(this, SIGNAL(setStatusMessage(QString)), sysxIO, SIGNAL(setStatusMessage(QString)));
       
       
       if (this->id == 0)this->fxName = "Compressor";
@@ -88,7 +89,8 @@ menuPage::menuPage(QWidget *parent, unsigned int id, QString imagePath, QPoint s
 		  if (this->id == 17)this->fxName = "Chain Merge";
 		  if (this->id == 18)this->fxName = "System settings";
 		  if (this->id == 19)this->fxName = "System Midi";
-		  if (this->id == 20)this->fxName = "Assigns";          
+		  if (this->id == 20)this->fxName = "Assigns";   
+      if (this->id == 21)this->fxName = "Master";          
       /*QString snork;
 			snork.append("<font size='-1'>");
 			snork.append(fxName);
@@ -119,12 +121,122 @@ editWindow* menuPage::editDetails()
 };
 
 
-void menuPage::assignSignal(bool value)	
+void menuPage::menuButtonSignal(bool value)	
 	{
 	  emitValueChanged(this->hex1, this->hex2, "00", "void");
 	  this->editDialog->setWindow(this->fxName);
-		emit setEditDialog(this->editDialog);
-  };
+	  //emit closeWindow();
+	  //this->editDialog->hide();
+	  if(this->id == 20 || this->id == 21)
+    {
+      emit setEditDialog(this->editDialog);
+    };
+	  if(this->id == 19 || this->id == 18)
+	  {
+    QString replyMsg;
+	  SysxIO *sysxIO = SysxIO::Instance();
+     if (sysxIO->isConnected())
+	       {
+	        emit setStatusSymbol(2);
+		      emit setStatusMessage(tr("Request System data"));
+	       	sysxIO->setDeviceReady(false); // Reserve the device for interaction.
+		      QObject::disconnect(sysxIO, SIGNAL(sysxReply(QString)));
+		      QObject::connect(sysxIO, SIGNAL(sysxReply(QString)), this, SLOT(connectionResult(QString)));
+		      sysxIO->sendSysx(systemRequest); // GT-10B System area data Request.      	        
+         }else{
+              QString snork = "Ensure connection is active and retry";
+              QMessageBox *msgBox = new QMessageBox();
+			        msgBox->setWindowTitle(deviceType + " not connected !!");
+		        	msgBox->setIcon(QMessageBox::Information);
+		        	msgBox->setText(snork);
+		        	msgBox->setStandardButtons(QMessageBox::Ok);
+		        	msgBox->exec(); 
+              };  
+    };
+};
+
+void menuPage::connectionResult(QString sysxMsg)
+{
+	SysxIO *sysxIO = SysxIO::Instance();
+	QObject::disconnect(sysxIO, SIGNAL(sysxReply(QString)), this, SLOT(connectionResult(QString)));
+	sysxIO->setDeviceReady(true); // Free the device after finishing interaction.
+   QApplication::beep();
+		 /*DeBugGING OUTPUT */
+	/*Preferences *preferences = Preferences::Instance(); // Load the preferences.
+	if(preferences->getPreferences("Midi", "DBug", "bool")=="true")
+	{ */
+	if (sysxMsg.size() > 0){
+		QString snork;
+			snork.append("<font size='-1'>");
+			snork.append("{ size=");
+			snork.append(QString::number(sysxMsg.size()/2, 10));
+			snork.append("}");	
+			snork.append("<br> midi data received");
+			for(int i=0;i<sysxMsg.size();++i)
+			{
+				snork.append(sysxMsg.mid(i, 2));
+				snork.append(" ");
+				i++;
+			};
+			snork.replace("F7", "F7 }<br>");
+			snork.replace("F0", "{ F0");
+					 
+			QMessageBox *msgBox = new QMessageBox();
+			msgBox->setWindowTitle("dBug Result for re-formatted GT-10B patch data");
+			msgBox->setIcon(QMessageBox::Information);
+			msgBox->setText(snork);
+			msgBox->setStandardButtons(QMessageBox::Ok);
+			msgBox->exec();
+			};	
+			 emit setStatusMessage(tr("Ready"));
+			 emit setEditDialog(this->editDialog);
+	/*}
+
+	else if(sysxIO->noError())
+	{
+		if(sysxMsg.size()==2261)
+		{
+			
+		}
+		else if(!sysxMsg.isEmpty())
+		{		
+			//notConnected();
+
+			QMessageBox *msgBox = new QMessageBox();
+			msgBox->setWindowTitle(deviceType + tr(" Fx FloorBoard connection Error !!"));
+			msgBox->setIcon(QMessageBox::Warning);
+			msgBox->setTextFormat(Qt::RichText);
+			QString msgText;
+			msgText.append("<font size='+1'><b>");
+			msgText.append(tr("The device connected is not a Boss ") + deviceType + (" Effects Processor."));
+			msgText.append("<b></font>");
+			msgBox->setText(msgText);
+			msgBox->setStandardButtons(QMessageBox::Ok);
+			msgBox->exec();
+		}
+		else
+		{
+			//notConnected();
+
+			QMessageBox *msgBox = new QMessageBox();
+			msgBox->setWindowTitle(deviceType + tr(" Fx FloorBoard connection Error !!"));
+			msgBox->setIcon(QMessageBox::Warning);
+			msgBox->setTextFormat(Qt::RichText);
+			QString msgText;
+			msgText.append("<font size='+1'><b>");
+			msgText.append(tr("The Boss ") + deviceType + (" Effects Processor was not found."));
+			msgText.append("<b></font><br>");
+			msgBox->setText(msgText);
+			msgBox->setStandardButtons(QMessageBox::Ok);
+			msgBox->exec();
+		};
+	}
+	else
+	{
+		//notConnected();
+		sysxIO->setNoError(true);		// Reset the error status (else we could never retry :) ).
+	};  */
+};
 
 void menuPage::setPos(QPoint newPos)
 {
@@ -248,6 +360,7 @@ void menuPage::emitValueChanged(QString hex1, QString hex2, QString hex3, QStrin
 		  if (this->id == 18)this->fxName = "System settings";
 		  if (this->id == 19)this->fxName = "System Midi";
 		  if (this->id == 20)this->fxName = "Assigns";
+		  if (this->id == 21)this->fxName = "Master";  
 				 //midiTable->getMidiMap("Structure", hex1, hex2, hex3).name;//hex1).customdesc;
 		};
 	};

@@ -70,7 +70,9 @@ private:
 	static QString sysxBuffer;
 	static bool dataReceive;
 	static int bytesTotal;
+	static int bytesReceived;
 	static bool multiple;
+	static bool system;
 	int midiOutPort;
 	int midiInPort;
 	QString sysxOutMsg;

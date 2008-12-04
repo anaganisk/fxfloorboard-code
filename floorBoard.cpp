@@ -36,6 +36,7 @@
 
 
 #include "menuPage_assign.h"
+#include "menuPage_master.h"
 #include "menuPage_midi.h"
 #include "menuPage_system.h"
 
@@ -828,11 +829,14 @@ void floorBoard::initMenuPages()
 	menuPage *assign = new menuPage_assign(this);
 	assign->setId(20);
 	assign->setPos(QPoint(1061, 5));
-	/*menuPage *midi = new menuPage_midi(this);
+	menuPage *master = new menuPage_master(this);
+	master->setId(21);
+	master->setPos(QPoint(1061, 24));
+	menuPage *midi = new menuPage_midi(this);
 	midi->setId(19);
 	midi->setPos(QPoint(1150, 5));
 	menuPage *system = new menuPage_system(this);
 	system->setId(18);
-	system->setPos(QPoint(1239, 5)); */
+	system->setPos(QPoint(1239, 5)); 
 	
 	};

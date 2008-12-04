@@ -421,7 +421,7 @@ bool sysxWriter::readFile()
 	msgText.append("<font size='+1'><b>");
 	msgText.append(QObject::tr("This is not a ") + deviceType + (" patch!"));
 	msgText.append("<b></font><br>");
-	if (data.size() == 1839){
+	if (data.size() == 1763){
   msgText.append("but appears to be a GT-10 patch<br>");};
   if (data.size() == 1010){
   msgText.append("but appears to be a GT-8 patch<br>");};

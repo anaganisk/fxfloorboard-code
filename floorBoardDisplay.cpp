@@ -89,11 +89,7 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
 
 	QObject::connect(this->connectButton, SIGNAL(valueChanged(bool)), this, SLOT(connectSignal(bool)));
 	QObject::connect(this->writeButton, SIGNAL(valueChanged(bool)), this, SLOT(writeSignal(bool)));
-	//QObject::connect(this->assignButton, SIGNAL(valueChanged(bool)), this, SLOT(assignSignal(bool)));  //cw
-	//QObject::connect(this->assignButton, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(assignSignal(bool)));  //cw
-	//QObject::connect(this->manualButton, SIGNAL(valueChanged(bool)), this, SLOT(manualSignal(bool)));  //cw
-	//QObject::connect(this->masterButton, SIGNAL(valueChanged(bool)), this, SLOT(masterSignal(bool)));  //cw
-	//QObject::connect(this->systemButton, SIGNAL(valueChanged(bool)), this, SLOT(systemSignal(bool)));  //cw
+	
 	QObject::connect(this, SIGNAL( setEditDialog(editWindow*) ), this->parent(), SLOT( setEditDialog(editWindow*) ));
 	
   };
@@ -279,48 +275,7 @@ void floorBoardDisplay::updateDisplay()
 	};  */// to here
     };
 
-/*
-void floorBoardDisplay::assignSignal(bool value)	
-	{
-	this->assignButtonActive = value;
-	if(assignButtonActive == true){emit assignSignal();}
-	emit setStatusMessage(tr("Assign"));
-	emit assignSignal();
-	this->editDialog->setLSB("0B", "00");
-	this->editDialog->setWindow("Assign");	
 
-  };
-  
-	void floorBoardDisplay::manualSignal(bool value)	
-	{
-	this->assignButtonActive = value;
-	if(manualButtonActive == true){emit manualSignal();}
-	emit setStatusMessage(tr("Manual"));
-	emit manualSignal();
-  emit setEditDialog(this->editDialog);
-	this->editDialog->setWindow("Manual");
-  };
-
-void floorBoardDisplay::masterSignal(bool value)	
-	{
-	this->masterButtonActive = value;
-	if(masterButtonActive == true){emit masterSignal();}
-	emit setStatusMessage(tr("Master"));
-	emit masterSignal();
-  //emit setEditDialog(this->editDialog);
-	this->editDialog->setWindow("Master");
-  };
- 
-void floorBoardDisplay::systemSignal(bool value)	
-	{
-	this->systemButtonActive = value;
-	if(systemButtonActive == true){emit systemSignal();}
-	emit setStatusMessage(tr("System"));
-	emit systemSignal();
-  emit setEditDialog(this->editDialog);
-	this->editDialog->setWindow("System");
-  };
-*/
 void floorBoardDisplay::connectSignal(bool value)
 {
 	QString replyMsg;

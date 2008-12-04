@@ -63,9 +63,9 @@ renameDialog::renameDialog(QWidget *parent)
 
 	QHBoxLayout *arrowButtonLayout = new QHBoxLayout;
 	arrowButtonLayout->addStretch(1);
-	arrowButtonLayout->addWidget(charLabel);
-	arrowButtonLayout->addWidget(rightArrowButton);
-	arrowButtonLayout->addWidget(leftArrowButton);
+	//arrowButtonLayout->addWidget(charLabel);
+	//arrowButtonLayout->addWidget(rightArrowButton);
+	//arrowButtonLayout->addWidget(leftArrowButton);
 
 	QHBoxLayout *buttonsLayout = new QHBoxLayout;
 	buttonsLayout->addStretch(1);
@@ -92,15 +92,15 @@ renameDialog::renameDialog(QWidget *parent)
 
 void renameDialog::addRightArrow()
 {
-	nameEdit->insert((QChar)(0x2190));
-	nameEdit->setFocus();
+	//nameEdit->insert((QChar)(0x2190));
+	//nameEdit->setFocus();
 
 };
 
 void renameDialog::addLeftArrow()
 {
-	nameEdit->insert((QChar)(0x2192));
-	nameEdit->setFocus();
+	//nameEdit->insert((QChar)(0x2192));
+	//nameEdit->setFocus();
 };
 
 void renameDialog::emitValue()
