@@ -1,6 +1,8 @@
 /****************************************************************************
 **
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
+** Copyright (C) 2007, 2008 Colin Willcocks.
+** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
+** All rights reserved.
 **
 ** This file is part of "GT-10 Fx FloorBoard".
 **
@@ -96,13 +98,13 @@ void stompbox_pdl::setEditPages()
 	editDetails()->page()->addKnob(0, 1, 1, 1, "0A", "00", "56");
 	editDetails()->page()->addKnob(1, 1, 1, 1, "0A", "00", "55");
 	editDetails()->page()->addKnob(2, 1, 1, 1, "0A", "00", "58");
-	editDetails()->page()->addGroupBox(0, 2, 1, 1);	
+	editDetails()->page()->addGroupBox(0, 1, 1, 1);	
 	editDetails()->page()->newGroupBox("Foot Volume");
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "0A", "00", "5D");
 	editDetails()->page()->addKnob(2, 1, 1, 1, "0A", "00", "5B");
 	editDetails()->page()->addKnob(0, 1, 1, 1, "0A", "00", "5A");
 	editDetails()->page()->addKnob(1, 1, 1, 1, "0A", "00", "5C");
-	editDetails()->page()->addGroupBox(0, 4, 1, 1);
+	editDetails()->page()->addGroupBox(0, 2, 1, 1);
 	editDetails()->page()->addStackField();
 	
 	editDetails()->page()->newStackField(0);
@@ -122,7 +124,7 @@ void stompbox_pdl::setEditPages()
 	editDetails()->page()->addKnob(2, 1, 1, 1, "0A", "00", "5B");
 	editDetails()->page()->addKnob(0, 1, 1, 1, "0A", "00", "5A");
 	editDetails()->page()->addKnob(1, 1, 1, 1, "0A", "00", "5C");
-	editDetails()->page()->addGroupBox(0, 5, 1, 1);
+	editDetails()->page()->addGroupBox(0, 2, 1, 1);
 	editDetails()->page()->addStackField();
 	
 	

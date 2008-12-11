@@ -1,6 +1,8 @@
 /****************************************************************************
 **
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
+** Copyright (C) 2008 Colin Willcocks.
+** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
+** All rights reserved.
 **
 ** This file is part of "GT-10 Fx FloorBoard".
 **
@@ -35,6 +37,7 @@ customKnob::customKnob(QWidget *parent,
 
 	MidiTable *midiTable = MidiTable::Instance();
 	int range = midiTable->getRange("Structure", hex1, hex2, hex3);
+	int rangeMin = midiTable->getRangeMinimum("Structure", hex1, hex2, hex3);
 	
 	QPoint bgPos = QPoint(0, -3); // Correction needed y-3.
 	QPoint knobPos = QPoint(5, 4); // Correction needed y+1 x-1.
@@ -56,7 +59,7 @@ customKnob::customKnob(QWidget *parent,
 
 	QString imagePath(":/images/knob.png");
 	unsigned int imageRange = 63;
-	this->knob = new customDial(0, 0, range, 1, 10, knobPos, this, hex1, hex2, hex3, imagePath, imageRange);
+	this->knob = new customDial(0, rangeMin, range, 1, 10, knobPos, this, hex1, hex2, hex3, imagePath, imageRange);
 	this->setFixedSize(newBackGround->pixmap()->size() - QSize::QSize(0, 4)); // Correction needed h-4.
 
 	QObject::connect(this, SIGNAL( updateSignal() ),

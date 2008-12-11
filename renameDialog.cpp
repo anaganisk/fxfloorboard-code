@@ -63,9 +63,9 @@ renameDialog::renameDialog(QWidget *parent)
 
 	QHBoxLayout *arrowButtonLayout = new QHBoxLayout;
 	arrowButtonLayout->addStretch(1);
-	arrowButtonLayout->addWidget(charLabel);
-	arrowButtonLayout->addWidget(rightArrowButton);
-	arrowButtonLayout->addWidget(leftArrowButton);
+	//arrowButtonLayout->addWidget(charLabel);
+	//arrowButtonLayout->addWidget(rightArrowButton);
+	//arrowButtonLayout->addWidget(leftArrowButton);
 
 	QHBoxLayout *buttonsLayout = new QHBoxLayout;
 	buttonsLayout->addStretch(1);

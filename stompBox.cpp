@@ -463,11 +463,6 @@ void stompBox::updateButton(QString hex1, QString hex2, QString hex3)
 {
 	SysxIO *sysxIO = SysxIO::Instance();
 	int value = sysxIO->getSourceValue(hex1, hex2, hex3);
-	if(hex1 == "15")
-	{
-		//Exception for the Foot Volume -> it's on when Expresion switch is off.
-		(value==1)?value=0:value=1;
-	};
 	led->setValue((value==1)?true:false);
 	button->setValue((value==1)?true:false);
 };

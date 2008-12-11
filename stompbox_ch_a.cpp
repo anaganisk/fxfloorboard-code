@@ -39,7 +39,12 @@ void stompbox_ch_a::updateSignal()
 
 void stompbox_ch_a::setEditPages()
 {
+  editDetails()->page()->newGroupBox("Effect");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "00");   // off/on effect
+	editDetails()->page()->addGroupBox(0, 0, 1, 1);
+
 	// CHANNEL A 
+	
 	
 	editDetails()->page()->newGroupBox("Channel A");
 
@@ -47,26 +52,26 @@ void stompbox_ch_a::setEditPages()
 	editDetails()->page()->newStackControl(0);
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "01", "00", "10");        //pre type
 	editDetails()->page()->addStackControl();
-	editDetails()->page()->addComboBox(1, 0, 1, 1, "01", "00", "18", "bottom", Qt::AlignLeft); //gain sw
+	editDetails()->page()->addComboBox(0, 1, 1, 1, "01", "00", "18", "bottom", Qt::AlignLeft); //gain sw
 	editDetails()->page()->addKnob(0, 2, 1, 1, "01", "00", "11", "turbo");   // gain
 	editDetails()->page()->addKnob(0, 3, 1, 1, "01", "00", "12");            //bass
 	editDetails()->page()->addKnob(0, 4, 1, 1, "01", "00", "13");            // mid
 	editDetails()->page()->addKnob(0, 5, 1, 1, "01", "00", "14");            // treble
 	editDetails()->page()->addKnob(0, 6, 1, 1, "01", "00", "15");            // presence
 	editDetails()->page()->addKnob(0, 7, 1, 1, "01", "00", "16");            // effect level
-	editDetails()->page()->insertStackField(0, 1, 1, 1, 1);                // bright button
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
  
+  editDetails()->page()->insertStackField(0, 1, 0, 1, 1);                // bright button
 
 	editDetails()->page()->newGroupBox("Speaker");
 	editDetails()->page()->newStackControl(1);
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "01", "00", "1B");
 	editDetails()->page()->addStackControl();
 	editDetails()->page()->addComboBox(0, 1, 1, 1, "01", "00", "1C", "bottom", Qt::AlignRight);
-	editDetails()->page()->addComboBox(1, 0, 1, 2, "01", "00", "1D");
-	editDetails()->page()->addKnob(0, 2, 2, 1, "01", "00", "1E");
-	editDetails()->page()->addKnob(0, 3, 2, 1, "01", "00", "1F");
-	editDetails()->page()->addKnob(0, 4, 1, 1, "01", "00", "20");            // direct level
+	editDetails()->page()->addComboBox(0, 2, 1, 1, "01", "00", "1D");
+	editDetails()->page()->addKnob(0, 3, 1, 1, "01", "00", "1E");
+	editDetails()->page()->addKnob(0, 4, 1, 1, "01", "00", "1F");
+	editDetails()->page()->addKnob(0, 5, 1, 1, "01", "00", "20");            // direct level
 	editDetails()->page()->addGroupBox(2, 0, 1, 1);
 	
 	editDetails()->page()->newGroupBox("Solo");
@@ -74,67 +79,75 @@ void stompbox_ch_a::setEditPages()
 	editDetails()->page()->addKnob(1, 0, 1, 1, "01", "00", "1A");
 	editDetails()->page()->addGroupBox(0, 1, 3, 1);	
 	
-	editDetails()->page()->insertStackField(1, 0, 3, 3, 1);
+	editDetails()->page()->insertStackField(1, 0, 2, 4, 1);
 	
-	editDetails()->page()->newGroupBox("Custom PreAmp");
-	editDetails()->page()->addComboBox(0, 0, 1, 1, "01", "00", "21");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "01", "00", "22");
-	editDetails()->page()->addKnob(0, 2, 1, 1, "01", "00", "23");
-	editDetails()->page()->addKnob(0, 3, 1, 1, "01", "00", "24");
-	editDetails()->page()->addKnob(0, 4, 1, 1, "01", "00", "25");
-	editDetails()->page()->addKnob(0, 5, 1, 1, "01", "00", "26");
-	editDetails()->page()->addKnob(0, 6, 1, 1, "01", "00", "27");
-	editDetails()->page()->addGroupBox(1, 0, 1, 1);
-	
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
+	editDetails()->page()->addGroupBox(0, 1, 1, 1);
 	
 	
 	
 
 	// Bright Button stack fields
 	editDetails()->page()->newStackField(0);  //boss clean
+	editDetails()->page()->newGroupBox("");
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "17", "middle", Qt::AlignCenter);
+	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->page()->addStackField();
 	
 	editDetails()->page()->newStackField(0); // jc-120
+	editDetails()->page()->newGroupBox("");
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "17", "middle", Qt::AlignCenter);
+	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->page()->addStackField();
 	
 	editDetails()->page()->newStackField(0);  //jazz combo
+	editDetails()->page()->newGroupBox("");
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "17", "middle", Qt::AlignCenter);
+	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->page()->addStackField();
 	
 	editDetails()->page()->newStackField(0); // full range
   editDetails()->page()->addStackField();
   
 	editDetails()->page()->newStackField(0); //clean twin
+	editDetails()->page()->newGroupBox("");
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "17", "middle", Qt::AlignCenter);
+	editDetails()->page()->addGroupBox(0, 0, 1, 1);
   editDetails()->page()->addStackField();
   
 	editDetails()->page()->newStackField(0); // pro crunch
+	editDetails()->page()->newGroupBox("");
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "17", "middle", Qt::AlignCenter);
+	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->page()->addStackField();
 	
 	editDetails()->page()->newStackField(0); // tweed
+	editDetails()->page()->newGroupBox("");
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "17", "middle", Qt::AlignCenter);
+	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->page()->addStackField();
 	
 	editDetails()->page()->newStackField(0); //delux crunch
 	editDetails()->page()->addStackField();
 	
 	editDetails()->page()->newStackField(0); //boss crunch
+	editDetails()->page()->newGroupBox("");
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "17", "middle", Qt::AlignCenter);
+	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->page()->addStackField();
 	
 	editDetails()->page()->newStackField(0);  //blues
+	editDetails()->page()->newGroupBox("");
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "17", "middle", Qt::AlignCenter);
+	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->page()->addStackField();
 	
 	editDetails()->page()->newStackField(0); //wild crunch
 	editDetails()->page()->addStackField();
 	
 	editDetails()->page()->newStackField(0); //stack crunch
+	editDetails()->page()->newGroupBox("");
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "17", "middle", Qt::AlignCenter);
+	editDetails()->page()->addGroupBox(0, 0, 1, 1);
   editDetails()->page()->addStackField();
   
 	editDetails()->page()->newStackField(0); //VO drive
@@ -156,15 +169,21 @@ void stompbox_ch_a::setEditPages()
   editDetails()->page()->addStackField();
   
 	editDetails()->page()->newStackField(0); // bg lead
+	editDetails()->page()->newGroupBox("");
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "17", "middle", Qt::AlignCenter);
+	editDetails()->page()->addGroupBox(0, 0, 1, 1);
   editDetails()->page()->addStackField();
   
 	editDetails()->page()->newStackField(0); // bg drive
+	editDetails()->page()->newGroupBox("");
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "17", "middle", Qt::AlignCenter);
+	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->page()->addStackField();
 	
 	editDetails()->page()->newStackField(0);  // bg rhythm
+	editDetails()->page()->newGroupBox("");
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "17", "middle", Qt::AlignCenter);
+	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->page()->addStackField();
 	
 	editDetails()->page()->newStackField(0); // ms1959 I
@@ -222,6 +241,18 @@ void stompbox_ch_a::setEditPages()
   editDetails()->page()->addStackField();
   
 	editDetails()->page()->newStackField(0); // custom
+	editDetails()->page()->newGroupBox("Custom PreAmp");
+	editDetails()->page()->newStackControl(2);
+	editDetails()->page()->addComboBox(0, 0, 1, 1, "01", "00", "21");
+	editDetails()->page()->addStackControl();
+	editDetails()->page()->insertStackField(2, 0, 1, 1, 1);
+	editDetails()->page()->addKnob(0, 2, 1, 1, "01", "00", "22");
+	editDetails()->page()->addKnob(0, 3, 1, 1, "01", "00", "23");
+	editDetails()->page()->addKnob(0, 4, 1, 1, "01", "00", "24");
+	editDetails()->page()->addKnob(0, 5, 1, 1, "01", "00", "25");
+	editDetails()->page()->addKnob(0, 6, 1, 1, "01", "00", "26");
+	editDetails()->page()->addKnob(0, 7, 1, 1, "01", "00", "27");
+	editDetails()->page()->addGroupBox(0, 0, 1, 1);
   editDetails()->page()->addStackField();
   
 	editDetails()->page()->newStackField(0); // through
@@ -239,13 +270,30 @@ void stompbox_ch_a::setEditPages()
 	editDetails()->page()->newStackField(1);editDetails()->page()->addStackField();
 	editDetails()->page()->newStackField(1);
   editDetails()->page()->newGroupBox("Custom Speaker");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "29");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "01", "00", "2A");
-	editDetails()->page()->addKnob(2, 0, 1, 2, "01", "00", "28");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "2A", "normal","right", 40);
+	editDetails()->page()->addKnob(1, 0, 1, 1, "01", "00", "29", "normal","right", 40);
+	editDetails()->page()->addKnob(2, 0, 1, 2, "01", "00", "28", "normal","right", 40);
 	editDetails()->page()->addComboBox(3, 0, 1, 1, "01", "00", "2B", "bottom", Qt::AlignHCenter);
-	editDetails()->page()->addComboBox(4, 1, 1, 1, "01", "00", "2C", "bottom", Qt::AlignHCenter);
-	editDetails()->page()->addGroupBox(0, 3, 3, 1);
+	editDetails()->page()->addComboBox(4, 0, 1, 1, "01", "00", "2C", "bottom", Qt::AlignHCenter);
+	editDetails()->page()->addGroupBox(0, 0, 1, 1);
   editDetails()->page()->addStackField();
+  
+  editDetails()->page()->newStackField(2);
+  editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "17", "middle", Qt::AlignCenter);
+  editDetails()->page()->addStackField();
+  editDetails()->page()->newStackField(2);
+  editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "17", "middle", Qt::AlignCenter);
+  editDetails()->page()->addStackField();
+  editDetails()->page()->newStackField(2);
+  editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "17", "middle", Qt::AlignCenter);
+  editDetails()->page()->addStackField();
+  editDetails()->page()->newStackField(2);editDetails()->page()->addStackField();
+  editDetails()->page()->newStackField(2);
+  editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "17", "middle", Qt::AlignCenter);
+  editDetails()->page()->addStackField();
+  editDetails()->page()->newStackField(2);editDetails()->page()->addStackField();
+  editDetails()->page()->newStackField(2);editDetails()->page()->addStackField();
+  
 
 	editDetails()->addPage();	
 };

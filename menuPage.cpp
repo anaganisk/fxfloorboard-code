@@ -67,7 +67,7 @@ menuPage::menuPage(QWidget *parent, unsigned int id, QString imagePath, QPoint s
                 
   QObject::connect(this->assignButton, SIGNAL(valueChanged(bool)), this, SLOT(assignSignal(bool)));  //cw
       
-      
+      /*
       if (this->id == 0)this->fxName = "Compressor";
 		  if (this->id == 1)this->fxName = "Distortion";
 		  if (this->id == 2)this->fxName = "PreAmp/Spkr";
@@ -91,7 +91,7 @@ menuPage::menuPage(QWidget *parent, unsigned int id, QString imagePath, QPoint s
 		  if (this->id == 20)this->fxName = "Assigns";   
       if (this->id == 21)this->fxName = "FX1 AutoRiff User Scales"; 
       if (this->id == 22)this->fxName = "FX2 AutoRiff User Scales"; 
-      if (this->id == 23)this->fxName = "Master";            
+      if (this->id == 23)this->fxName = "Master";        */    
       /*QString snork;
 			snork.append("<font size='-1'>");
 			snork.append(fxName);
@@ -230,7 +230,7 @@ void menuPage::emitValueChanged(QString hex1, QString hex2, QString hex3, QStrin
 		}
 		else
 		{
-		  if (this->id == 0)this->fxName = "Compressor";
+		  /*if (this->id == 0)this->fxName = "Compressor";
 		  if (this->id == 1)this->fxName = "Distortion";
 		  if (this->id == 2)this->fxName = "PreAmp/Spkr";
 		  if (this->id == 3)this->fxName = "GT-10 preamp";
@@ -247,7 +247,7 @@ void menuPage::emitValueChanged(QString hex1, QString hex2, QString hex3, QStrin
 		  if (this->id == 14)this->fxName = "Send/Return";
 		  if (this->id == 15)this->fxName = "Digital Out";
 		  if (this->id == 16)this->fxName = "Chain Split";
-		  if (this->id == 17)this->fxName = "Chain Merge";
+		  if (this->id == 17)this->fxName = "Chain Merge";*/
 		  if (this->id == 18)this->fxName = "System settings";
 		  if (this->id == 19)this->fxName = "System Midi";
 		  if (this->id == 20)this->fxName = "Assigns";

@@ -100,9 +100,9 @@ void stompbox_od::setEditPages()
 		editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Custom");
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "00", "00", "79");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "00", "00", "7A", "turbo");
+	editDetails()->page()->addKnob(0, 1, 1, 1, "00", "00", "7A");
 	editDetails()->page()->addKnob(0, 2, 1, 1, "00", "00", "7B");
-	editDetails()->page()->addKnob(0, 3, 1, 1, "00", "00", "7C", "turbo");
+	editDetails()->page()->addKnob(0, 3, 1, 1, "00", "00", "7C");
 	editDetails()->page()->addKnob(0, 4, 1, 1, "00", "00", "7D");
 	editDetails()->page()->addGroupBox(1, 0, 1, 4);
 		editDetails()->page()->addStackField();

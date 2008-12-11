@@ -41,7 +41,7 @@ class MidiTable
 {
 
 public:
-	static MidiTable* Instance(); //Singleton patern design
+	static MidiTable* Instance(); //Singleton pattern design
 
 	void loadMidiMap();
 	Midi getMidiMap(QString root);
@@ -54,6 +54,7 @@ public:
 	//int getRange(QString root, QString hex1);
 	//int getRange(QString root, QString hex1, QString hex2);
 	int getRange(QString root, QString hex1, QString hex2, QString hex3);
+	int getRangeMinimum(QString root, QString hex1, QString hex2, QString hex3);
 	//int getRange(QString root, QString hex1, QString hex2, QString hex3, QString hex4);
 	//int getRange(QString root, QString hex1, QString hex2, QString hex3, QString hex4, QString hex5);
 

@@ -1,37 +1,39 @@
-************GT-FxFloorBoard Preview version: 17 November 2008 *************************
+************GT-FxFloorBoard Preview version: 09 December 2008 *************************
 
 
 ****NOTE: THIS IS A BETA VERSION AND SOME FEATURES MAY HAVE NOT YET BEEN IMPLIMENTED, 
 	OR SOME FUNCTIONS MAY BE INCORRECT.****PLEASE LET ME KNOW IF THERE IS AN ERROR!!  
 
 
-a.)  The Chain concept is now implemented, conditional placement and auto sorting of A/B path items.
+a.)  The Chain concept is now implemented, conditional placement and auto sorting of A/B 
+        path items.
 	 
-b.) Assigns 1-8 have now been included.
+b.)  Assigns 1-8 have now been included.
 
-c.)  layout increased to fit 18 chain events, may be a problem for low screen resolutions.
+c.)  Layout increased to fit 18 chain events, may be a problem for low screen resolutions.
 		 (i use 1280 X 800) does this fit on your screen?
 
-d.)  continuing sessions at building this GT-10 version, most items are listed,
-	with exception of the user settings for autoriff.
+d.)  Continuing sessions at building this GT-10 version, most items are listed,
+	with exception of the System & Quick FX data area.
 
-e.)  patch tree to the left side should give patch change on single click and 
-	(when 'connected' button active), double clicking the tree patch item will request 
-	a patch transfer from the GT-10.
-	opening each patch tree bank node will request patch names (while 'connected'). 
+e.)  Patch-tree items in the sidepanel to the left side, patch change with a mouse left 
+        single-click and (when 'connected' button active), double clicking the tree patch 
+        item will request a patch transfer from the GT-10.
+	opening each patch-tree bank node will request patch names (while 'connected') and 
+        update the list. 
 
-f.)  patch rename by doubleclicking name display panel (top display with patch name in it).
+f.)  Patch rename by double-clicking name display panel (top display with patch name in it).
 
 g.)  GT-8 patch conversion. Gt-8 patches can be opened and saved as GT-10 patches. 
-	SMF file type support added,
- 	files are compatable with Boss Librarian SMF files (single patch).
+	SMF file type support added, files are compatable with Boss Librarian SMF 
+        files (single patch).
 
 
 
-****my wish list (things i would like to know, or help needed): 
+****my wish list**** (things i would like to know, *help needed*): 
 
 		1.)  ***check realtime edit parameters are to the correct addresses (the knobs do what they should)
-			 and correct data range (is the editor tweaking the right GT-10 item).
+			 and correct data range (is the editor tweaking the right GT-10 item).>>> Thanks Pete !!!
 
 		3.)  ***check GT-8 patch convertion matches GT-10 equivilent values.
 			if anyone has some info on better conversion ideas (i.e. matching preamps correctly)
@@ -43,5 +45,5 @@ g.)  GT-8 patch conversion. Gt-8 patches can be opened and saved as GT-10 patche
                 >>>>>>>>>Quite often no-one bothers to let me know<<<<<<<
 
 	reply email to <gumtownbassman@yahoo.com> 
-        as your information will help with the project progress.
+        as your information is importaint and will help with the project progress.
         regards Colin...
