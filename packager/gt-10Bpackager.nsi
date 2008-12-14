@@ -2,7 +2,7 @@
 
 ; HM NIS Edit Wizard helper defines
 !define PRODUCT_NAME "GT-10BFxFloorBoard"
-!define PRODUCT_VERSION "20081120"
+!define PRODUCT_VERSION "20081212"
 !define PRODUCT_PUBLISHER "gumtownbassman"
 !define PRODUCT_WEB_SITE "http://www.gtx.tinfoilmusic.net"
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\GT-10BFxFloorBoard.exe"
@@ -172,7 +172,7 @@ Section Uninstall
   Delete "$INSTDIR\Init Patches\70's Jazz-Fusion.syx"
   Delete "$INSTDIR\Init Patches\$$toneBlue drive.syx"
   Delete "$INSTDIR\Init Patches\$$toneBlue Chorus.syx"
-  Delete "$INSTDIR\Init Patches\$toneBlue_Fuzzy.syx"
+  Delete "$INSTDIR\Init Patches\$$toneBlue_Fuzzy.syx"
   Delete "$INSTDIR\Init Patches\Blank_Init_patch.syx"
   Delete "$INSTDIR\GT-10BFxFloorBoard_help.html"
   Delete "$INSTDIR\license.txt"

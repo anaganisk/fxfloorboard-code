@@ -22,7 +22,7 @@ if errorlevel 2 goto B-OPTION
 if errorlevel 1 goto A-OPTION
 
 :A-OPTION
-c:\qt\4.4.2\bin\qmake
+C:\Qt\4.4.2\bin\qmake
 c:\MinGW\bin\mingw32-make 
 pause
 goto CHECK

@@ -1,7 +1,8 @@
 /****************************************************************************
 **
 ** Copyright (C) 2008 Colin Willcocks.
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
+** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
+** All rights reserved.
 **
 ** This file is part of "GT-10B Fx FloorBoard".
 **
@@ -214,5 +215,6 @@ if (this->background != "target")
   {
     MidiTable *midiTable = MidiTable::Instance();
     this->max = midiTable->getRange("Structure", hex1, hex2, hex3); 
+    this->min = midiTable->getRangeMinimum("Structure", hex1, hex2, hex3); 
   };
 };

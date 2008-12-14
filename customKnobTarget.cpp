@@ -1,7 +1,8 @@
 /****************************************************************************
 **
 ** Copyright (C) 2008 Colin Willcocks.
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
+** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
+** All rights reserved.
 **
 ** This file is part of "GT-10B Fx FloorBoard".
 **
@@ -44,25 +45,28 @@ customKnobTarget::customKnobTarget(QWidget *parent,
 	QPoint knobPos = QPoint(5, 4); // Correction needed y+1 x-1.
 	QLabel *newBackGround = new QLabel(this);
 	this->range = range;
+	this->rangeMin = rangeMin;
 	this->range = midiTable->getRange("Structure", hex1, hex2, hex3);
-	if (background == "target")
+	if (this->background == "target")
 	{
 		this->range = midiTable->getRange("Structure", hex1, hex2, hex3); 
+		this->rangeMin = midiTable->getRangeMinimum("Structure", hex1, hex2, hex3); 
 	}
-	else if (background == "min")
+	else /*if (background == "min")*/
 	{
 		this->range = midiTable->getRange("Structure", hexMsb, hex2, hexLsb); 
-	}
-	else if (background == "max")
-	{
-		this->range = midiTable->getRange("Structure", hexMsb, hex2, hexLsb); 
+		this->rangeMin = midiTable->getRangeMinimum("Structure", hexMsb, hex2, hexLsb); 
 	};
+	/*else if (background == "max")
+	{
+		this->range = midiTable->getRange("Structure", hexMsb, hex2, hexLsb); 
+	}; */
 	newBackGround->setPixmap(QPixmap(":/images/knobbgn.png"));
 	newBackGround->move(bgPos);
 
 	QString imagePath(":/images/knob.png");
 	unsigned int imageRange = 63;
-	this->knob = new customTargetDial(0, 0, range, 1, 10, knobPos, this, hex1, hex2, hex3, imagePath, imageRange, background);
+	this->knob = new customTargetDial(0, rangeMin, range, 1, 10, knobPos, this, hex1, hex2, hex3, imagePath, imageRange, background);
 	this->setFixedSize(newBackGround->pixmap()->size() - QSize::QSize(0, 4)); // Correction needed h-4.
 
 

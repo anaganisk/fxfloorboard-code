@@ -36,7 +36,7 @@
 /* General Parameters */
 const QString deviceType = "GT-10B";
 const QString idRequestString = "F07E000601F7";		// Indentity Request (GT-10B).
-const QString idReplyPatern = "F07E000602413002";			// part of Returned device id message must contain/match this (QRegExp or a string without spaces and all caps).
+const QString idReplyPatern = "F07E000602413002000000000000";			// part of Returned device id message must contain/match this (QRegExp or a string without spaces and all caps).
 const int buttonBlinkInterval = 250;				// The interval (ms) the led on buttons blink.
 
 /* Sysex Message Parameters */

@@ -290,6 +290,61 @@ int MidiTable::getRange(QString root, QString hex1, QString hex2, QString hex3)
 	return lastIndex;
 };
 
+int MidiTable::getRangeMinimum(QString root, QString hex1, QString hex2, QString hex3)
+{
+	Midi range;
+	
+	/* When FX has alot off settings (more than ) it's spanned over more then one entry in the 
+	midi.xml, so when out of range we jump to the next entry and start from 00. */
+	bool ok;
+  int onePage = QString("7F").toInt(&ok, 16);
+	int twoPage = QString("FF").toInt(&ok, 16);
+	int threePage = QString("17F").toInt(&ok, 16);
+	if((hex3.toInt(&ok, 16) > onePage) && (hex3.toInt(&ok, 16) < twoPage + 1))
+	{
+	    hex1 = QString::number(hex1.toInt(&ok, 16) + 1, 16).toUpper();
+      if(hex1.length() < 2) hex1.prepend("0");
+		  hex3 = QString::number(hex3.toInt(&ok, 16) - (0x80), 16).toUpper();
+		  if(hex3.length() < 2) hex3.prepend("0"); 
+		  range = getMidiMap(root, hex1, hex2, hex3);
+  } 
+  else if ((hex3.toInt(&ok, 16) > twoPage) && (hex3.toInt(&ok, 16) < threePage + 1)) 
+  {
+     hex1 = QString::number(hex1.toInt(&ok, 16) + 2, 16).toUpper();
+     if(hex1.length() < 2) hex1.prepend("0");
+		hex3 = QString::number(hex3.toInt(&ok, 16) - (0x100), 16).toUpper();
+		if(hex3.length() < 2) hex3.prepend("0"); 
+		range = getMidiMap(root, hex1, hex2, hex3);
+  }
+	else if (hex3.toInt(&ok, 16) > threePage) 
+  {
+     hex1 = QString::number(hex1.toInt(&ok, 16) + 3, 16).toUpper();
+     if(hex1.length() < 2) hex1.prepend("0");
+		 hex3 = QString::number(hex3.toInt(&ok, 16) - (0x180), 16).toUpper();
+		 if(hex3.length() < 2) hex3.prepend("0");
+		 range = getMidiMap(root, hex1, hex2, hex3);
+  }	
+	else
+	{
+		range = getMidiMap(root, hex1, hex2, hex3);	
+	};
+
+	int firstIndex;
+	if(range.level.first().value == "range")
+	{
+		firstIndex = range.level.last().name.split("/").at(0).toInt(&ok, 16);
+	}
+	else if(range.level.last().type.contains("DATA"))
+	{
+	  firstIndex = range.level.last().customdesc.toInt(&ok, 16);  //get manually entered value from level 4 bottom customdesc.
+	}
+	else
+	{
+		firstIndex = range.level.first().value.toInt(&ok, 16);
+	};
+	return firstIndex;
+};
+
 bool MidiTable::isData(QString root, QString hex1, QString hex2, QString hex3)
 {
 	Midi range;

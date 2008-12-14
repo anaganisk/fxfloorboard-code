@@ -1,7 +1,8 @@
 /****************************************************************************
 **
 ** Copyright (C) 2008 Colin Willcocks.
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
+** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
+** All rights reserved.
 **
 ** This file is part of "GT-10B Fx FloorBoard".
 **
@@ -30,13 +31,13 @@
 #include "globalVariables.h"
 
 
-mainWindow::mainWindow(QWidget *parent)
+ mainWindow::mainWindow(QWidget *parent)
     : QWidget(parent)
 /* For a stange reason when deriving from QMainWindow 
-	the performance is dead slow???
+	the performance is dead slow??? */
 
-mainWindow::mainWindow(QWidget *parent)
-	: QMainWindow(parent) */
+//mainWindow::mainWindow(QWidget *parent)
+	//: QMainWindow(parent) 
 {
 	fxsBoard = new floorBoard(this);
 
@@ -95,7 +96,7 @@ mainWindow::mainWindow(QWidget *parent)
 	mainLayout->setSizeConstraint(QLayout::SetFixedSize);
 	setLayout(mainLayout);
 
-	//this->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+	this->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
 
 	QObject::connect(fxsBoard, SIGNAL( sizeChanged(QSize, QSize) ),
                 this, SLOT( updateSize(QSize, QSize) ) );

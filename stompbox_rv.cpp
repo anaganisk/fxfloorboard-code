@@ -1,6 +1,8 @@
 /****************************************************************************
 **
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
+** Copyright (C) 2008 Colin Willcocks.
+** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
+** All rights reserved.
 **
 ** This file is part of "GT-10B Fx FloorBoard".
 **
@@ -47,13 +49,15 @@ void stompbox_rv::setEditPages()
 {
 	editDetails()->page()->newGroupBox("Effect");
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "0A", "00", "30");
+	editDetails()->page()->newStackControl(0);
 	editDetails()->page()->addComboBox(1, 0, 1, 1, "0A", "00", "31");
+	editDetails()->page()->addStackControl();
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 
 	editDetails()->page()->newGroupBox("Reverb");
 	editDetails()->page()->addKnob(0, 2, 1, 1, "0A", "00", "32");
 	editDetails()->page()->addKnob(0, 3, 1, 1, "0A", "00", "36");
-	editDetails()->page()->addKnob(0, 5, 1, 1, "0A", "00", "39");
+	editDetails()->page()->insertStackField(0, 0, 5, 1, 1);
 	editDetails()->page()->addKnob(0, 6, 1, 1, "0A", "00", "3A");
 	editDetails()->page()->addGroupBox(0, 1, 1, 1);
 
@@ -68,5 +72,16 @@ void stompbox_rv::setEditPages()
 	editDetails()->page()->addGroupBox(0, 3, 1, 1);
 
 	editDetails()->addPage();
+	
+	editDetails()->page()->newStackField(0);editDetails()->page()->addStackField();
+	editDetails()->page()->newStackField(0);editDetails()->page()->addStackField();
+	editDetails()->page()->newStackField(0);editDetails()->page()->addStackField();
+	editDetails()->page()->newStackField(0);editDetails()->page()->addStackField();
+	editDetails()->page()->newStackField(0);editDetails()->page()->addStackField();
+	editDetails()->page()->newStackField(0);
+	editDetails()->page()->addKnob(0, 0, 1, 1, "0A", "00", "39"); // spring sensitivity
+	editDetails()->page()->addStackField();
+	editDetails()->page()->newStackField(0);editDetails()->page()->addStackField();
+	
 };
 

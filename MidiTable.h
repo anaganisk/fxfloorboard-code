@@ -1,6 +1,8 @@
  /****************************************************************************
 **
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
+** Copyright (C) 2008 Colin Willcocks.
+** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
+** All rights reserved.
 **
 ** This file is part of "GT-10B Fx FloorBoard".
 **
@@ -41,7 +43,7 @@ class MidiTable
 {
 
 public:
-	static MidiTable* Instance(); //Singleton patern design
+	static MidiTable* Instance(); //Singleton pattern design
 
 	void loadMidiMap();
 	Midi getMidiMap(QString root);
@@ -54,6 +56,7 @@ public:
 	//int getRange(QString root, QString hex1);
 	//int getRange(QString root, QString hex1, QString hex2);
 	int getRange(QString root, QString hex1, QString hex2, QString hex3);
+	int getRangeMinimum(QString root, QString hex1, QString hex2, QString hex3);
 	//int getRange(QString root, QString hex1, QString hex2, QString hex3, QString hex4);
 	//int getRange(QString root, QString hex1, QString hex2, QString hex3, QString hex4, QString hex5);
 
