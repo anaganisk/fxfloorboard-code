@@ -1,6 +1,8 @@
 /****************************************************************************
 **
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
+** Copyright (C) 2007, 2008, 2009 Colin Willcocks.
+** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
+** All rights reserved.
 **
 ** This file is part of "GT-10 Fx FloorBoard".
 **
@@ -175,7 +177,7 @@ int main(int argc, char *argv[])
 	window.show();
 	splash->finish(&window);
 
-	/* PREVIEW WARNING */
+	/* PREVIEW WARNING 
 	QMessageBox *msgBox = new QMessageBox();
 	msgBox->setWindowTitle(QObject::tr("               GT-10FxFloorBoard beta version!"));
 	msgBox->setIcon(QMessageBox::Warning);
@@ -191,7 +193,7 @@ int main(int argc, char *argv[])
 	msgBox->setText(msgText);
 	msgBox->setStandardButtons(QMessageBox::Ok);
 	msgBox->exec();
-	/* END WARNING */
+	 END WARNING */
 
 	return app.exec();
 };

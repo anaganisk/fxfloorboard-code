@@ -1,7 +1,9 @@
 /****************************************************************************
 **
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
-** Copyright (C) 2007, 2008, Colin Willcocks. All rights reserved.
+** Copyright (C) 2007, 2008, 2009 Colin Willcocks.
+** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
+** All rights reserved.
+**
 ** This file is part of "GT-10 Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
@@ -74,11 +76,7 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
 
  	this->connectButton = new customButton(tr("Connect"), false, QPoint(405, 5), this, ":/images/greenledbutton.png");
 	this->writeButton = new customButton(tr("Write/Sync"), false, QPoint(494, 5), this, ":/images/ledbutton.png");
-	//this->manualButton = new customButton(tr("Manual"), false, QPoint(583, 24), this, ":/images/pushbutton.png");
-//	this->assignButton = new customButton(tr("Assign"), false, QPoint(583, 5), this, ":/images/pushbutton.png");
-//	this->masterButton = new customButton(tr("Master"), false, QPoint(672, 5), this, ":/images/pushbutton.png");
-//	this->systemButton = new customButton(tr("System"), false, QPoint(672, 24), this, ":/images/pushbutton.png");
-
+	
 	SysxIO *sysxIO = SysxIO::Instance();
 	QObject::connect(this, SIGNAL(setStatusSymbol(int)), sysxIO, SIGNAL(setStatusSymbol(int)));
 	QObject::connect(this, SIGNAL(setStatusProgress(int)), sysxIO, SIGNAL(setStatusProgress(int)));
@@ -91,8 +89,7 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
 
 	QObject::connect(this->connectButton, SIGNAL(valueChanged(bool)), this, SLOT(connectSignal(bool)));
 	QObject::connect(this->writeButton, SIGNAL(valueChanged(bool)), this, SLOT(writeSignal(bool)));
-	//QObject::connect(this->assignButton, SIGNAL(valueChanged(bool)), this, SLOT(assignSignal(bool)));  //cw
-  };
+	};
 
 QPoint floorBoardDisplay::getPos()
 {
@@ -275,21 +272,6 @@ void floorBoardDisplay::updateDisplay()
 	};  */// to here
     };
 
-/*void floorBoardDisplay::assignSignal(bool value)    //cw
-{
-  this->assignButtonActive = value;
-	stompBox->editDialog->setWindow("Assign");
-	emit assignSignal();
-	stompBox->setEditDialog();
-	floorBoard->editDialog->show();
-	emit setStatusMessage(tr("ASSIGN"));
-	editWindow *edit = new editWindow();
-	this->assignButton->setBlink(true);	
-};
-*/
- 
-
-
 void floorBoardDisplay::connectSignal(bool value)
 {
 	QString replyMsg;
@@ -324,7 +306,7 @@ void floorBoardDisplay::connectionResult(QString sysxMsg)
 
 	sysxIO->setDeviceReady(true); // Free the device after finishing interaction.
 
-		 /*DeBugGING OUTPUT */
+		 /*DeBugGING OUTPUT 
 	Preferences *preferences = Preferences::Instance(); // Load the preferences.
 	if(preferences->getPreferences("Midi", "DBug", "bool")=="true")
 	{
@@ -341,7 +323,7 @@ void floorBoardDisplay::connectionResult(QString sysxMsg)
 			};
 	}
 
-	else if(sysxIO->noError())
+	else*/ if(sysxIO->noError())
 	{
 		if(sysxMsg.contains(idReplyPatern) && connectButtonActive == true)
 		{
@@ -358,15 +340,9 @@ void floorBoardDisplay::connectionResult(QString sysxMsg)
 		}
 		else if(!sysxMsg.isEmpty())
 		{
-			/*this->connectButton->setBlink(false);
+			this->connectButton->setBlink(false);
 			this->connectButton->setValue(false);
 			sysxIO->setConnected(false);
-
-			emit setStatusSymbol(0);
-			emit setStatusProgress(0);
-			emit setStatusMessage(tr("Not connected"));*/
-			
-			notConnected();
 
 			QMessageBox *msgBox = new QMessageBox();
 			msgBox->setWindowTitle(deviceType + tr(" Fx FloorBoard connection Error !!"));
@@ -379,18 +355,18 @@ void floorBoardDisplay::connectionResult(QString sysxMsg)
 			msgBox->setText(msgText);
 			msgBox->setStandardButtons(QMessageBox::Ok);
 			msgBox->exec();
+			
+			notConnected();
+			
+			emit setStatusSymbol(0);
+			emit setStatusProgress(0);
+			emit setStatusMessage(tr("Not connected"));	
 		}
 		else
 		{
-			/*this->connectButton->setBlink(false);
+			this->connectButton->setBlink(false);
 			this->connectButton->setValue(false);
 			sysxIO->setConnected(false);
-
-			emit setStatusSymbol(0);
-			emit setStatusProgress(0);
-			emit setStatusMessage(tr("Not connected"));*/
-			
-			notConnected();
 
 			QMessageBox *msgBox = new QMessageBox();
 			msgBox->setWindowTitle(deviceType + tr(" Fx FloorBoard connection Error !!"));
@@ -400,15 +376,15 @@ void floorBoardDisplay::connectionResult(QString sysxMsg)
 			msgText.append("<font size='+1'><b>");
 			msgText.append(tr("The Boss ") + deviceType + (" Effects Processor was not found."));
 			msgText.append("<b></font><br>");
-		/*	msgText.append(tr("Ensure the unit is selected to Bulk Load for data retrieval-"));
-			msgText.append("<b></font><br>");
-			msgText.append(tr("by pressing UTILITY 4 times and left PARAMETER 3 times."));
-			msgText.append("<b></font><br>");
-			msgText.append(tr("press EXIT when leaving Bulk Mode."));
-			msgText.append("<b></font>");*/
 			msgBox->setText(msgText);
 			msgBox->setStandardButtons(QMessageBox::Ok);
 			msgBox->exec();
+			
+			notConnected();
+			
+			emit setStatusSymbol(0);
+			emit setStatusProgress(0);
+			emit setStatusMessage(tr("Not connected"));		
 		};
 	}
 	else
@@ -537,10 +513,10 @@ void floorBoardDisplay::writeSignal(bool)
 		};
   }
 	
- if((sysxIO->isConnected() == !true) && sysxIO->deviceReady())
+ /*if((sysxIO->isConnected() == !true) && sysxIO->deviceReady())
 	{
 		writeToBuffer();                           // update patch to temp buffer only if not in bulk mode
-	};
+	}; */
 		sysxIO->getCurrentPatchName();
 };
 
@@ -599,13 +575,13 @@ void floorBoardDisplay::writeToBuffer()
 	sysxIO->sendSysx(sysxMsg);	// Send the data.
 		
 		emit setStatusProgress(33); // time wasting sinusidal statusbar progress
-		SLEEP(30);
+		SLEEP(150);
 		emit setStatusProgress(66);
-		SLEEP(60);		
+		SLEEP(150);		
 		emit setStatusProgress(100);
-		SLEEP(100);		
+		SLEEP(150);		
 		emit setStatusProgress(75);
-		SLEEP(100);		
+		SLEEP(150);		
 		emit setStatusProgress(42);
 		SLEEP(150);
 	  emit setStatusMessage(tr("Ready"));
@@ -764,7 +740,7 @@ void floorBoardDisplay::blinkSellectedPatch(bool active)
 		{
 			writeButton->setBlink(false);
 		};
-		setPatchNumDisplay(bank,patch);//(sysxIO->getLoadedBank(),  sysxIO->getLoadedPatch()); setPatchNumDisplay(sysxIO->getLoadedBank(),  sysxIO->getLoadedPatch()); //(bank,patch);//
+		setPatchNumDisplay(bank,patch);//(sysxIO->getLoadedBank(),  sysxIO->getLoadedPatch()); 
   };
 	emit setStatusSymbol(1);
 	emit setStatusMessage(tr("Ready"));
@@ -781,10 +757,6 @@ void floorBoardDisplay::patchLoadSignal(int bank, int patch)
 
 void floorBoardDisplay::notConnected()
 {
-	emit setStatusSymbol(0);
-	emit setStatusProgress(0);
-	emit setStatusMessage(tr("Not connected"));
-
 	this->connectButton->setBlink(false);
 	this->connectButton->setValue(false);	
 	this->writeButton->setBlink(false);
@@ -794,6 +766,10 @@ void floorBoardDisplay::notConnected()
 	sysxIO->setConnected(false);
 	sysxIO->setSyncStatus(false);	
 	sysxIO->setDeviceReady(true);	// Free the device after finishing interaction.	
+	
+	emit setStatusSymbol(0);
+	emit setStatusProgress(0);
+	emit setStatusMessage(tr("Not connected"));
 };
 
 /*void floorBoardDisplay::valueChanged(bool value, QString hex1, QString hex2, QString hex3)
@@ -803,3 +779,5 @@ void floorBoardDisplay::notConnected()
 	hex2;
 	hex3;
 };*/
+
+

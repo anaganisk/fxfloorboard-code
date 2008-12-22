@@ -37,6 +37,7 @@ public:
 
 public slots:
 	void updateSignal();
+
 };
 
 #endif // STOMPBOX_CH_A_H

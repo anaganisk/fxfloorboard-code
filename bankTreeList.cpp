@@ -1,8 +1,10 @@
 /****************************************************************************
 **
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
-** Copyright (C) 2008 Colin Willcocks.
-** This file is part of "GT6B Fx FloorBoard".
+** Copyright (C) 2007, 2008, 2009 Colin Willcocks.
+** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
+** All rights reserved.
+**
+** This file is part of "GT-10 Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -307,18 +309,7 @@ QTreeWidget* bankTreeList::newTreeList()
     for (int a=1; a<=bankTotalUser; a++)
 	{
 		QTreeWidgetItem* bankRange = new QTreeWidgetItem; // don't pass a parent here!
-		if (deviceType == "GT-6B")
-    {
-		if (a<=5)
-		{bankRange->setText(0, QString::QString("Bank U1-U5"));}
-		else if (a<=10)
-		{bankRange->setText(0, QString::QString("Bank U6-U0"));}
-		else if (a<=15)
-		{bankRange->setText(0, QString::QString("Bank u1-u5"));}
-		else
-		{bankRange->setText(0, QString::QString("Bank u6-u0"));};
-		} else {bankRange->setText(0, QString::QString("Bank ").append(QString::number(a, 10)).append(" - ").append(QString::number(a+4, 10)) );
-    };
+		bankRange->setText(0, QString::QString("Bank U").append(QString::number(a, 10)).append("-U").append(QString::number(a+4, 10)) );
 		bankRange->setWhatsThis(0, "what the ?");
 		//bankRange->setIcon(QIcon(":/images/gt6b_icon_1.png"));
 
@@ -359,7 +350,7 @@ QTreeWidget* bankTreeList::newTreeList()
 		for (int b=a; b<=(a+4); b++)
 		{
 			QTreeWidgetItem* bank = new QTreeWidgetItem(bankRange);
-			bank->setText(0, QString::QString("Bank ").append(QString::number(b, 10)));
+			bank->setText(0, QString::QString("Bank ").append(QString::number(b-50, 10)));
 			bank->setWhatsThis(0, "");
 			//bank->setIcon(...);
 
@@ -401,11 +392,13 @@ void bankTreeList::setItemClicked(QTreeWidgetItem *item, int column)
 	else if (item->childCount() == 0)
 	{
 		SysxIO *sysxIO = SysxIO::Instance();
-		if(/*sysxIO->isConnected() && */sysxIO->deviceReady())
+		if(sysxIO->isConnected() && sysxIO->deviceReady())
 		{
 			bool ok;
 			int bank = item->parent()->text(0).section(" ", 1, 1).trimmed().toInt(&ok, 10);
 			int patch = item->parent()->indexOfChild(item) + 1;
+			QString preset = item->parent()->parent()->text(0);
+			if (preset.contains("P")) { bank = bank + 50; };
 			emit patchSelectSignal(bank, patch);
 			 sysxIO->requestPatchChange(bank, patch); // extra to try patch change
 			sysxIO->setRequestName(item->text(0));	// Set the name of the patch we have sellected in case we load it.
@@ -434,6 +427,8 @@ void bankTreeList::setItemDoubleClicked(QTreeWidgetItem *item, int column)
 		bool ok;
 		int bank = item->parent()->text(0).section(" ", 1, 1).trimmed().toInt(&ok, 10); // Get the bank
 		int patch = item->parent()->indexOfChild(item) + 1;								// and the patch number.
+		QString preset = item->parent()->parent()->text(0);
+		if (preset.contains("P")) { bank = bank + 50; };
 		//if(bank == sysxIO->getLoadedBank() && patch == sysxIO->getLoadedPatch())
 		//{ 
 			requestPatch(bank, patch);
@@ -570,8 +565,6 @@ void bankTreeList::updatePatch(QString replyMsg)
     }; 
   };    
 	replyMsg = reBuild.simplified().toUpper().remove("0X").remove(" ");
-	
-	
 	emit setStatusMessage(tr("Ready"));
 
 		sysxIO->setFileSource(replyMsg);		// Set the source to the data received.
@@ -625,7 +618,6 @@ void bankTreeList::updatePatch(QString replyMsg)
 	/* END WARNING */
 	};
 	
-	////////
 	Preferences *preferences = Preferences::Instance(); // Load the preferences.
 	if(preferences->getPreferences("Midi", "DBug", "bool")=="true")
 	{
@@ -654,7 +646,6 @@ void bankTreeList::updatePatch(QString replyMsg)
 			msgBox->exec();
 			};
 		};	
-		/////////
 };
 
 /********************************** connectedSignal() ****************************
@@ -740,6 +731,8 @@ void bankTreeList::updatePatchNames(QString name)
 			bool ok;
 			int bank = this->currentPatchTreeItems.at(listIndex)->text(0).section(" ", 1, 1).trimmed().toInt(&ok, 10);
 			int patch = itemIndex + 1 ;
+			QString preset = this->currentPatchTreeItems.at(listIndex)->parent()->text(0);
+			if (preset.contains("P")) { bank = bank + 50; };
 		  sysxIO->requestPatchName(bank, patch); // The patch name request.
 	
 	     if(sysxIO->isConnected())
@@ -766,3 +759,4 @@ void bankTreeList::updatePatchNames(QString name)
         emit setStatusMessage(tr("Ready"));
          };
 };
+

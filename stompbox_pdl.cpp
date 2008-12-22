@@ -64,7 +64,7 @@ void stompbox_pdl::setEditPages()
 	editDetails()->page()->addKnob(2, 1, 1, 1, "0A", "00", "5B");
 	editDetails()->page()->addKnob(0, 1, 1, 1, "0A", "00", "5A");
 	editDetails()->page()->addKnob(1, 1, 1, 1, "0A", "00", "5C");
-	editDetails()->page()->addGroupBox(0, 1, 3, 1);
+	editDetails()->page()->addGroupBox(0, 1, 1, 1);
 	editDetails()->page()->addStackField();
 	
 	editDetails()->page()->newStackField(0);
@@ -88,7 +88,7 @@ void stompbox_pdl::setEditPages()
 	editDetails()->page()->addKnob(1, 1, 1, 1, "0A", "00", "4C");
 	editDetails()->page()->addKnob(2, 1, 1, 1, "0A", "00", "4E");
 	editDetails()->page()->addGroupBox(0, 1, 1, 1);
-	editDetails()->page()->insertStackField(1, 0, 2, 1, 3);
+	editDetails()->page()->insertStackField(1, 0, 2, 1, 1);
   editDetails()->page()->addStackField();
   
   editDetails()->page()->newStackField(0);
@@ -118,7 +118,7 @@ void stompbox_pdl::setEditPages()
 	editDetails()->page()->addKnob(1, 1, 1, 1, "0A", "00", "4C");
 	editDetails()->page()->addKnob(2, 1, 1, 1, "0A", "00", "4E");
 	editDetails()->page()->addGroupBox(0, 1, 1, 1);
-	editDetails()->page()->insertStackField(2, 0, 2, 1, 3);
+	editDetails()->page()->insertStackField(2, 0, 3, 1, 1);
 	editDetails()->page()->newGroupBox("Foot Volume");
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "0A", "00", "5D");
 	editDetails()->page()->addKnob(2, 1, 1, 1, "0A", "00", "5B");

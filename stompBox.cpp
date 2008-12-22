@@ -65,7 +65,7 @@ stompBox::stompBox(QWidget *parent, unsigned int id, QString imagePath, QPoint s
   
   QObject::connect(this, SIGNAL( updateStompBoxes() ), this->parent(), SLOT( updateStompBoxes() ));
 
-
+  QObject::connect(this, SIGNAL( switchSignal() ), this->parent(), SLOT( updateSignal() ));
  
 
 
@@ -472,6 +472,8 @@ void stompBox::updateSwitch(QString hex1, QString hex2, QString hex3)
 	SysxIO *sysxIO = SysxIO::Instance();
 	int value = sysxIO->getSourceValue(hex1, hex2, hex3);
 	switchbutton->setValue((value==1)?true:false);
+	//emit switchSignal();
+	//QApplication::beep();
 };
 
 void stompBox::valueChanged(int value, QString hex1, QString hex2, QString hex3)

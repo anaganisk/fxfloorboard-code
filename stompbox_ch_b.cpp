@@ -30,6 +30,7 @@ stompbox_ch_b::stompbox_ch_b(QWidget *parent)
 	setLSB("01", "00");
 	setSwitch("01", "00", "00");
 	setEditPages();
+
 };
 
 void stompbox_ch_b::updateSignal()

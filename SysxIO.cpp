@@ -1,7 +1,8 @@
 /****************************************************************************
 **
-** Copyright (C) 2008 Colin Willcocks.
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
+** Copyright (C) 2007, 2008, 2009 Colin Willcocks.
+** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
+** All rights reserved.
 **
 ** This file is part of "GT-10 Fx FloorBoard".
 **
@@ -206,12 +207,11 @@ void SysxIO::setFileSource(QString hex1, QString hex2, QString hex3, QString hex
 
 	QString sysxMsg = midiTable->dataChange(hex1, hex2, hex3, hex4);
 
-	if(/*this->isConnected() && */this->deviceReady() /*&& this->getSyncStatus()*/)
+	if(this->isConnected() && this->deviceReady() /*&& this->getSyncStatus()*/)
 	{
 		this->setDeviceReady(false);
 
 		emit setStatusSymbol(2);
-		//emit setStatusProgress(0);
 		emit setStatusMessage("Sending");
 
 		QObject::connect(this, SIGNAL(sysxReply(QString)),	
@@ -265,12 +265,11 @@ void SysxIO::setFileSource(QString hex1, QString hex2, QString hex3, QString hex
 
 	QString sysxMsg = midiTable->dataChange(hex1, hex2, hex3, hex4, hex5);
 
-	if(/*this->isConnected() && */this->deviceReady() /*&& this->getSyncStatus()*/)
+	if(this->isConnected() && this->deviceReady() /*&& this->getSyncStatus()*/)
 	{
 		this->setDeviceReady(false);
 
 		emit setStatusSymbol(2);
-		//emit setStatusProgress(0);
 		emit setStatusMessage("Sending");
 
 		QObject::connect(this, SIGNAL(sysxReply(QString)),	
@@ -278,7 +277,7 @@ void SysxIO::setFileSource(QString hex1, QString hex2, QString hex3, QString hex
 		
 		this->sendSysx(sysxMsg);
 	}
-	else //if(this->isConnected())
+	else if(this->isConnected())
 	{
 		this->sendSpooler.append(sysxMsg);
 	};
@@ -292,35 +291,21 @@ void SysxIO::setFileSource(QString hex1, QString hex2, QString hex3, QString siz
 		bool ok;
 	int pointerOffset2 = hex3.toInt(&ok, 16);
 	
-
 	QList<QString> sysxList = this->fileSource.hex.at(this->fileSource.address.indexOf(address));
-	//if(hexData.size() + sysxDataOffset + 2 == sysxList.size())
-	//{
-	
+
 		for(int i=0; i<hexData.size();++i)
 		{
 			sysxList.replace(i + (sysxDataOffset + pointerOffset2), hexData.at(i));
 		};
 
-		int dataSize = 0;
-		for(int i=sysxList.size() - 3; i>=checksumOffset;i--)
-		{
-			dataSize += sysxList.at(i).toInt(&ok, 16);
-		};
-		sysxList.replace(sysxList.size() - 2, getCheckSum(dataSize));
-
 		this->fileSource.hex.replace(this->fileSource.address.indexOf(address), sysxList);
 		//int pointerOffset1 = hex1.toInt(&ok, 16);
 		if (pointerOffset2 > 0x7F)
      {
-      //pointerOffset1 = (pointerOffset1 + 1);
-      //hex1 = QString::number(pointerOffset1, 16).toUpper();
-      //pointerOffset2 = (pointerOffset2 - 0xF7);
       hex1 = "0B";
       hex3 = "00";
       };
-      
-    
+        
 		QString sysxMsg = "F0410000002F126000";
 		sysxMsg.append(hex1);
 		sysxMsg.append(hex3);
@@ -328,14 +313,20 @@ void SysxIO::setFileSource(QString hex1, QString hex2, QString hex3, QString siz
 		{
 			sysxMsg.append(hexData.at(i));
 		};
-		sysxMsg.append("00F7");
+		sysxMsg.append("3CF7");
+		
+		/*int dataSize = 0;
+		for(int i=sysxList.size() - 3; i>=checksumOffset;i--)
+		{
+			dataSize += sysxList.at(i).toInt(&ok, 16);
+		};
+		sysxList.replace(sysxList.size() - 2, getCheckSum(dataSize)); */
 
-		if(/*this->isConnected() &&*/ this->deviceReady() /*&& this->getSyncStatus()*/)
+		if(this->isConnected() && this->deviceReady() /*&& this->getSyncStatus()*/)
 		{
 			this->setDeviceReady(false);
 
 			emit setStatusSymbol(2);
-			//emit setStatusProgress(0);
 			emit setStatusMessage("Sending");
 
 			QObject::connect(this, SIGNAL(sysxReply(QString)),	
@@ -343,11 +334,10 @@ void SysxIO::setFileSource(QString hex1, QString hex2, QString hex3, QString siz
 			
 			this->sendSysx(sysxMsg);
 		}
-		else //if(this->isConnected())
+		else if(this->isConnected())
 		{
 			this->sendSpooler.append(sysxMsg);
 		};
-	//};
 };
 
 QList<QString> SysxIO::getSourceItems(QString hex1, QString hex2)
@@ -685,12 +675,17 @@ QString SysxIO::getPatchChangeMsg(int bank, int patch)
 ****************************************************************************/
 void SysxIO::sendMidi(QString midiMsg)
 {
-	//if(isConnected())
+	if(isConnected())
 	{
 		Preferences *preferences = Preferences::Instance(); bool ok;
 		int midiOutPort = preferences->getPreferences("Midi", "MidiOut", "device").toInt(&ok, 10);	// Get midi out device from preferences.
 		
 		midiIO *midi = new midiIO();
+		QList<QString> midiOutDevices = midi->getMidiOutDevices();
+	  if ( midiOutDevices.contains("BOSS GT-10") )
+    {
+      midiOutPort = midiOutDevices.indexOf("BOSS GT-10");
+    };
 
 		midi->sendMidi(midiMsg, midiOutPort);
 			 /*DeBugGING OUTPUT */
@@ -807,7 +802,16 @@ void SysxIO::sendSysx(QString sysxMsg)
 	int midiInPort = preferences->getPreferences("Midi", "MidiIn", "device").toInt(&ok, 10);	// Get midi in device from preferences.
 	
 	midiIO *midi = new midiIO();
-
+	QList<QString> midiInDevices = midi->getMidiInDevices();
+	  QList<QString> midiOutDevices = midi->getMidiOutDevices();
+	  if ( midiInDevices.contains("BOSS GT-10") )
+    {
+      midiInPort = midiInDevices.indexOf("BOSS GT-10");
+    };
+	  if ( midiOutDevices.contains("BOSS GT-10") )
+    {
+      midiOutPort = midiOutDevices.indexOf("BOSS GT-10");
+    };
 	midi->sendSysxMsg(sysxMsg, midiOutPort, midiInPort);
 			 /*DeBugGING OUTPUT */
 	if(preferences->getPreferences("Midi", "DBug", "bool")=="true")
@@ -815,7 +819,6 @@ void SysxIO::sendSysx(QString sysxMsg)
 		dBug = (sysxMsg);
 		emit setStatusdBugMessage(dBug);
 	}
-
 };
 
 /***************************** receiveSysx() *******************************
@@ -911,12 +914,8 @@ void SysxIO::returnPatchName(QString sysxMsg)
 	};
 	if (sysxMsg != "" && sysxMsg.size()/2 != 29){name = "bad data";}; 
   if(sysxMsg == ""){name = "no reply"; };  
-	emit patchName(name.trimmed());
-	
-	
-	
+	emit patchName(name.trimmed());	
 };
-
 
 /***************************** requestPatch() ******************************
 * Send a patch request. Result will be send directly with receiveSysx signal
@@ -937,7 +936,6 @@ void SysxIO::errorSignal(QString windowTitle, QString errorMsg)
 	if(noError())
 	{
 		setNoError(false);
-
 		emit notConnectedSignal();
 
 		QMessageBox *msgBox = new QMessageBox();

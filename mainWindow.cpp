@@ -1,7 +1,8 @@
 /****************************************************************************
 **
-** Copyright (C) 2008 Colin Willcocks.
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
+** Copyright (C) 2007, 2008, 2009 Colin Willcocks.
+** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
+** All rights reserved.
 **
 ** This file is part of "GT-10 Fx FloorBoard".
 **
@@ -144,30 +145,40 @@ void mainWindow::updateSize(QSize floorSize, QSize oldFloorSize)
 
 void mainWindow::createActions()
 {
-	openAct = new QAction(/*QIcon(":/images/open.png"),*/ tr("&Open File..."), this);
+	openAct = new QAction(/*QIcon(":/images/open.png"),*/ tr("&Open File... (*.syx)"), this);
 	openAct->setShortcut(tr("Ctrl+O"));
 	openAct->setStatusTip(tr("Open an existing file"));
 	connect(openAct, SIGNAL(triggered()), this, SLOT(open()));
 	
-	importSMFAct = new QAction(/*QIcon(":/images/importSMF.png"),*/ tr("&Import SMF..."), this);
-	importSMFAct->setShortcut(tr("Ctrl+I"));
-	importSMFAct->setStatusTip(tr("Import an existing SMF"));
-	connect(importSMFAct, SIGNAL(triggered()), this, SLOT(importSMF()));
-
-	saveAct = new QAction(/*QIcon(":/images/save.png"),*/ tr("&Save"), this);
+	saveAct = new QAction(/*QIcon(":/images/save.png"),*/ tr("&Save...       (*.syx)"), this);
 	saveAct->setShortcut(tr("Ctrl+S"));
 	saveAct->setStatusTip(tr("Save the document to disk"));
 	connect(saveAct, SIGNAL(triggered()), this, SLOT(save()));
 
-	saveAsAct = new QAction(/*QIcon(":/images/saveas.png"),*/ tr("Save &As..."), this);
+	saveAsAct = new QAction(/*QIcon(":/images/saveas.png"),*/ tr("Save &As...  (*.syx)"), this);
 	saveAsAct->setShortcut(tr("Ctrl+Shift+S"));
 	saveAsAct->setStatusTip(tr("Save the document under a new name"));
 	connect(saveAsAct, SIGNAL(triggered()), this, SLOT(saveAs()));
 	
-	exportSMFAct = new QAction(/*QIcon(":/images/exportSMF.png"),*/ tr("Export &SMF..."), this);
+	importSMFAct = new QAction(/*QIcon(":/images/importSMF.png"),*/ tr("&Import SMF... (*.mid)"), this);
+	importSMFAct->setShortcut(tr("Ctrl+I"));
+	importSMFAct->setStatusTip(tr("Import an existing SMF"));
+	connect(importSMFAct, SIGNAL(triggered()), this, SLOT(importSMF()));
+	
+	exportSMFAct = new QAction(/*QIcon(":/images/exportSMF.png"),*/ tr("Export &SMF... (*.mid)"), this);
 	exportSMFAct->setShortcut(tr("Ctrl+Shift+E"));
 	exportSMFAct->setStatusTip(tr("Export as a Standard Midi File"));
 	connect(exportSMFAct, SIGNAL(triggered()), this, SLOT(exportSMF()));
+	
+	bulkLoadAct = new QAction(/*QIcon(":/images/importSMF.png"),*/ tr("&Load Bulk Dump..."), this);
+	bulkLoadAct->setShortcut(tr("Ctrl+L"));
+	bulkLoadAct->setStatusTip(tr("Load Bulk Dump to GT-10B"));
+	connect(bulkLoadAct, SIGNAL(triggered()), this, SLOT(bulkLoad()));
+
+	bulkSaveAct = new QAction(/*QIcon(":/images/exportSMF.png"),*/ tr("Save &Bulk Dump..."), this);
+	bulkSaveAct->setShortcut(tr("Ctrl+D"));
+	bulkSaveAct->setStatusTip(tr("Save Bulk Dump to File"));
+	connect(bulkSaveAct, SIGNAL(triggered()), this, SLOT(bulkSave()));
 
 	exitAct = new QAction(tr("E&xit"), this);
 	exitAct->setShortcut(tr("Ctrl+Q"));
@@ -200,7 +211,7 @@ void mainWindow::createActions()
 	licenseAct->setStatusTip(tr("........"));
 	connect(licenseAct, SIGNAL(triggered()), this, SLOT(license()));
 
-	aboutAct = new QAction(tr("&About"), this);
+	aboutAct = new QAction(tr("&About FxFloorBoard"), this);
 	aboutAct->setStatusTip(tr("Show the application's About box"));
 	connect(aboutAct, SIGNAL(triggered()), this, SLOT(about()));
 
@@ -215,10 +226,14 @@ void mainWindow::createMenus()
 
     QMenu *fileMenu = new QMenu(tr("&File"), this);
 	fileMenu->addAction(openAct);
-	fileMenu->addAction(importSMFAct);
 	fileMenu->addAction(saveAct);
 	fileMenu->addAction(saveAsAct);
+	fileMenu->addSeparator();
+	fileMenu->addAction(importSMFAct);
 	fileMenu->addAction(exportSMFAct);
+	fileMenu->addSeparator();
+	fileMenu->addAction(bulkLoadAct);
+	fileMenu->addAction(bulkSaveAct);
 	fileMenu->addSeparator();
   fileMenu->addAction(exitAct);
 	menuBar->addMenu(fileMenu);
@@ -240,7 +255,7 @@ void mainWindow::createMenus()
 	helpMenu->addAction(licenseAct);
 	helpMenu->addSeparator(); 
 	helpMenu->addAction(aboutAct);
-	//helpMenu->addAction(aboutQtAct);
+	helpMenu->addAction(aboutQtAct);
 	menuBar->addMenu(helpMenu);
     //menuBar()->addMenu(helpMenu);
 };
@@ -279,33 +294,6 @@ void mainWindow::open()
                 "Choose a file",
                 dir,
                 "System Exclusive GT-10 & GT-8 (*.syx)");
-	if (!fileName.isEmpty())	
-	{
-		file.setFile(fileName);  
-		if(file.readFile())
-		{	
-			// DO SOMETHING AFTER READING THE FILE (UPDATE THE GUI)
-			SysxIO *sysxIO = SysxIO::Instance();
-			sysxIO->setFileSource(file.getFileSource());
-			sysxIO->setFileName(fileName);
-			sysxIO->setSyncStatus(false);
-			sysxIO->setDevice(false);
-
-			emit updateSignal();
-		};
-	};
-};
-
-void mainWindow::importSMF()
-{
-	Preferences *preferences = Preferences::Instance();
-	QString dir = preferences->getPreferences("General", "Files", "dir");
-
-	QString fileName = QFileDialog::getOpenFileName(
-                this,
-                "Choose a file",
-                dir,
-                "Standard Midi File (*.mid)");
 	if (!fileName.isEmpty())	
 	{
 		file.setFile(fileName);  
@@ -393,6 +381,33 @@ void mainWindow::saveAs()
 	};
 };
 
+void mainWindow::importSMF()
+{
+	Preferences *preferences = Preferences::Instance();
+	QString dir = preferences->getPreferences("General", "Files", "dir");
+
+	QString fileName = QFileDialog::getOpenFileName(
+                this,
+                "Choose a file",
+                dir,
+                "Standard Midi File (*.mid)");
+	if (!fileName.isEmpty())	
+	{
+		file.setFile(fileName);  
+		if(file.readFile())
+		{	
+			// DO SOMETHING AFTER READING THE FILE (UPDATE THE GUI)
+			SysxIO *sysxIO = SysxIO::Instance();
+			sysxIO->setFileSource(file.getFileSource());
+			sysxIO->setFileName(fileName);
+			sysxIO->setSyncStatus(false);
+			sysxIO->setDevice(false);
+
+			emit updateSignal();
+		};
+	};
+};
+
 void mainWindow::exportSMF()
 {
 	Preferences *preferences = Preferences::Instance();
@@ -419,6 +434,55 @@ void mainWindow::exportSMF()
 			sysxIO->setFileSource(file.getFileSource());
 
 			emit updateSignal();
+		};
+	};
+};
+
+void mainWindow::bulkLoad()
+{
+	Preferences *preferences = Preferences::Instance();
+	QString dir = preferences->getPreferences("General", "Files", "dir");
+
+	QString fileName = QFileDialog::getOpenFileName(
+                this,
+                "Choose a file",
+                dir,
+                "Bulk Dump File (*.syx)");
+	if (!fileName.isEmpty())	
+	{
+		file.setFile(fileName);  
+		if(file.readFile())
+		{	
+			// DO SOMETHING AFTER READING THE FILE (UPDATE THE GUI)
+		
+		};
+	};
+};
+
+void mainWindow::bulkSave()
+{
+	Preferences *preferences = Preferences::Instance();
+	QString dir = preferences->getPreferences("General", "Files", "dir");
+
+	QString fileName = QFileDialog::getSaveFileName(
+                    this,
+                    "Save Bulk Dump",
+                    dir,
+                    "System Exclusive File (*.syx)");
+	if (!fileName.isEmpty())	
+	{
+		if(!fileName.contains(".syx"))
+		{
+			fileName.append(".syx");
+		};
+		
+		file.writeFile(fileName);
+
+		file.setFile(fileName);  
+		if(file.readFile())
+		{	
+			// DO SOMETHING AFTER READING THE FILE (UPDATE THE GUI)
+		
 		};
 	};
 };

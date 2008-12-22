@@ -1,4 +1,7 @@
-GT6BFxFloorBoard Copyright (C) 2005-2006 Uco Mesdag (mesdag.uco@gmail.com). All rights reserved.
+GT-10 FxFloorBoard 
+Copyright (C) 2007-2008-2009 Colin Willcocks.
+Copyright (C) 2005-2006 Uco Mesdag.
+All rights reserved.
 
 This program is free software; you can redistribute it and/or modify it under 
 the terms of the GNU General Public License as published by the Free Software 
@@ -44,6 +47,7 @@ LINUX:
 CONTACT:
 ------
 
+Colin Willcocks <gumtownbassman@yahoo.com>
 Uco Mesdag <ucomesdag@gmail.com>
 
 
@@ -56,8 +60,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 LEGAL:
 ------
 
-GT6B FxFloorBoard Copyright (C)2006 2007 Uco Mesdag <ucomesdag@gmail.com>.
-GT6B FxFloorBoard Copyright (C)2006 2007 Colin Willcocks <gumtownbassman@yahoo.com>.
+GT-10 FxFloorBoard Copyright (C)2007 2008 2009 Colin Willcocks <gumtownbassman@yahoo.com>.
+GT-10 FxFloorBoard Copyright (C)2006 2007 Uco Mesdag <ucomesdag@gmail.com>.
 
 Windows(TM), Windows 95(TM), Windows 98(TM), Windows ME(TM), Windows NT(TM), 
 Windows 2000(TM) and Windows XP(TM) and Windows Vista(TM) are Copyright (C)Microsoft Corporation. 

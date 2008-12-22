@@ -3,7 +3,7 @@
 cls
 echo ********************************************************************
 echo *                    ___________________________________           *
-echo ***                   Build MENU for GT-10FxFloorBoard          ***
+echo ***                   Build MENU for GT-10FxFloorBoard           ***
 echo *                    -----------------------------------           *
 echo *                      Press [1] to "Compile"                      *
 echo *                               or                                 *

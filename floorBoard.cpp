@@ -1,7 +1,8 @@
 /****************************************************************************
 **
-** Copyright (C) 2008 Colin Willcocks.
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
+** Copyright (C) 2007, 2008, 2009 Colin Willcocks.
+** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
+** All rights reserved.
 **
 ** This file is part of "GT-10 Fx FloorBoard".
 **
@@ -108,7 +109,7 @@ floorBoard::floorBoard(QWidget *parent,
 	floorBoardDisplay *display2 = new floorBoardDisplay(this);
 	display2->setPos(liberainPos);
 
-		QObject::connect(this, SIGNAL( resizeSignal(QRect) ), bankList, SLOT( updateSize(QRect) ) );
+	QObject::connect(this, SIGNAL( resizeSignal(QRect) ), bankList, SLOT( updateSize(QRect) ) );
 	QObject::connect(display, SIGNAL(connectedSignal()), bankList, SLOT(connectedSignal()));
 	QObject::connect(this, SIGNAL(valueChanged(QString, QString, QString)), display, SLOT(setValueDisplay(QString, QString, QString)));
 	QObject::connect(panelBar, SIGNAL(resizeSignal(int)), this, SLOT(setWidth(int)));
@@ -785,7 +786,8 @@ void floorBoard::updateStompBoxes()
 
 void floorBoard::setEditDialog(editWindow* editDialog)
 {
-	this->editDialog = editDialog;
+  this->oldDialog = this->editDialog; 
+	this->editDialog = editDialog;	
 	this->editDialog->setParent(this);
 	this->centerEditDialog();
 	this->editDialog->pageUpdateSignal();
@@ -801,28 +803,38 @@ void floorBoard::centerEditDialog()
 
 void floorBoard::initMenuPages()
 {
-	QVector<menuPage *> initMenuPages(3);
+	QVector<menuPage *> initMenuPages(6);
 	this->menuPages = initMenuPages.toList();;
 	
 	/* MENU_PAGES */
+	menuPage *system = new menuPage_system(this);
+	system->setId(18);
+	system->setPos(QPoint(1239, 5));
+	
+	menuPage *midi = new menuPage_midi(this);
+	midi->setId(19);
+	midi->setPos(QPoint(1150, 5));
+	
 	menuPage *assign = new menuPage_assign(this);
 	assign->setId(20);
 	assign->setPos(QPoint(1061, 5));
+	
 	menuPage *autoriff = new menuPage_autoriff(this);
 	autoriff->setId(21);
-	autoriff->setPos(QPoint(1150, 5));
+	autoriff->setPos(QPoint(1150, 24));
+	
 	menuPage *autoriff_FX2 = new menuPage_autoriff_FX2(this);
 	autoriff_FX2->setId(22);
-	autoriff_FX2->setPos(QPoint(1239, 5));
+	autoriff_FX2->setPos(QPoint(1239, 24));
+	
 	menuPage *master = new menuPage_master(this);
 	master->setId(23);
 	master->setPos(QPoint(1061, 24));
-	/*menuPage *midi = new menuPage_midi(this);
-	midi->setId(19);
-	midi->setPos(QPoint(1150, 5));
-	menuPage *system = new menuPage_system(this);
-	system->setId(18);
-	system->setPos(QPoint(1239, 5)); */
 	
 	};
 	
+void floorBoard::menuButtonSignal()
+{
+  this->oldDialog->hide();
+  this->editDialog->show();
+};

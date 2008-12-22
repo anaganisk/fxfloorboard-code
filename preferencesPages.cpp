@@ -1,6 +1,8 @@
 /****************************************************************************
 **
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
+** Copyright (C) 2007, 2008, 2009 Colin Willcocks.
+** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
+** All rights reserved.
 **
 ** This file is part of "GT-10 Fx FloorBoard".
 **
@@ -100,6 +102,11 @@ MidiPage::MidiPage(QWidget *parent)
 	{
 		midiInCombo->setCurrentIndex(midiInDeviceID + 1); // +1 because there is a default entry at 0
 	};
+	if ( midiInDevices.contains("BOSS GT-10") )
+  {
+    int inputDevice = midiInDevices.indexOf("BOSS GT-10") + 1;
+    midiInCombo->setCurrentIndex(inputDevice);
+	};
 	
 	QComboBox *midiOutCombo = new QComboBox;
 	this->midiOutCombo = midiOutCombo;
@@ -115,6 +122,11 @@ MidiPage::MidiPage(QWidget *parent)
 	{
 		midiOutCombo->setCurrentIndex(midiOutDeviceID + 1); // +1 because there is a default entry at 0
 	};
+	if ( midiOutDevices.contains("BOSS GT-10") )
+  {
+    int outputDevice = midiOutDevices.indexOf("BOSS GT-10") + 1;
+    midiOutCombo->setCurrentIndex(outputDevice);
+  }; 
 
 	QVBoxLayout *midiLabelLayout = new QVBoxLayout;
 	midiLabelLayout->addWidget(midiInLabel);

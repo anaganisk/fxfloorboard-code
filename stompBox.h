@@ -103,6 +103,7 @@ signals:
 	void pathSwitchSignal();
 	void pathUpdateSignal();
 	void updateStompBoxes();
+	void switchSignal();
 
 protected:
 	void paintEvent(QPaintEvent *event);

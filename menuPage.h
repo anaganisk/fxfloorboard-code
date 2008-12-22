@@ -1,8 +1,10 @@
 /****************************************************************************
 **
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
-** 
-** This file is part of "GT-10B Fx FloorBoard".
+** Copyright (C) 2007, 2008, 2009 Colin Willcocks.
+** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
+** All rights reserved.
+**
+** This file is part of "GT-10 Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -58,7 +60,8 @@ public slots:
 	//void valueChanged(int index);
 	virtual void updateSignal() {};
 	void setDisplayToFxName();
-	void assignSignal(bool value);   //cjw
+	void menuButtonSignal(bool value);  
+  void connectionResult(QString); 
 		
 signals:
 	void valueChanged(QString fxName, QString valueName, QString valueStr);
@@ -66,6 +69,9 @@ signals:
 	void dialogUpdateSignal();
 	void setEditDialog(editWindow* editDialog);
 	//void notConnectedSignal();
+	void setStatusSymbol(int value);
+	void setStatusProgress(int value);
+  void setStatusMessage(QString message);
 
 protected:
 	void paintEvent(QPaintEvent *event);
@@ -87,7 +93,7 @@ private:
 	QString hex3;
 	QString fxName;
 	
-	customButton *assignButton;
+	customButton *menuButton;
 };
 
 #endif // MENUPAGE_H

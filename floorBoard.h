@@ -1,7 +1,8 @@
 /****************************************************************************
 **
-** Copyright (C) 2008 Colin Willcocks.
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
+** Copyright (C) 2007, 2008, 2009 Colin Willcocks.
+** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
+** All rights reserved.
 **
 ** This file is part of "GT-10 Fx FloorBoard".
 **
@@ -54,6 +55,7 @@ public slots:
 	void setCollapse();
 	void updateStompBoxes();
 	void setEditDialog(editWindow* editDialog);
+	void menuButtonSignal();
 
 signals:
 	void valueChanged(QString fxName, QString valueName, QString value);
@@ -120,6 +122,7 @@ private:
 	QList<stompBox*> stompBoxes;
 	QList<QString> stompNames;
 	editWindow* editDialog;
+	editWindow* oldDialog;
 };
 
 #endif // FLOORBOARD_H

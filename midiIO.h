@@ -1,7 +1,8 @@
 /****************************************************************************
 **
-** Copyright (C) 2008 Colin Willcocks.
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
+** Copyright (C) 2007, 2008, 2009 Colin Willcocks.
+** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
+** All rights reserved.
 **
 ** This file is part of "GT-10 Fx FloorBoard".
 **
@@ -49,8 +50,6 @@ signals:
 	void replyMsg(QString sysxInMsg);
 	void midiFinished();
 	void started();
-	void finished();
-	void terminated();
 	void setStatusSymbol(int value);
 	void setStatusProgress(int value);
     void setStatusMessage(QString message);
@@ -62,8 +61,6 @@ private:
 	void sendSyxMsg(QString sysxOutMsg, int midiOutport);
 	void sendMidiMsg(QString sysxOutMsg, int midiOutport);
 	void receiveMsg(QString sysxMsg, int midiInPort);
-	QString getMidiOutErrorMsg(unsigned long err);
-	QString getMidiInErrorMsg(unsigned long err);	
 	QList<QString> midiOutDevices;
 	QList<QString> midiInDevices;
 	

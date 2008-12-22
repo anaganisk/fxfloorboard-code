@@ -1,6 +1,8 @@
 /****************************************************************************
 **
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
+** Copyright (C) 2007, 2008, 2009 Colin Willcocks.
+** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
+** All rights reserved.
 **
 ** This file is part of "GT-10 Fx FloorBoard".
 **
@@ -45,10 +47,12 @@ signals:
 public slots:
 	void updateSize(QSize floorSize, QSize oldFloorSize);
 	void open();
-	void importSMF();
 	void save();
 	void saveAs();
+	void importSMF();
 	void exportSMF();
+	void bulkSave();
+	void bulkLoad();
 	void settings();
 	void help();
 	void homepage();
@@ -68,10 +72,12 @@ private:
 	QMenu *toolsMenu;
 	QMenu *helpMenu;
 	QAction *openAct;
-	QAction *importSMFAct;
 	QAction *saveAct;
 	QAction *saveAsAct;
+	QAction *importSMFAct;
 	QAction *exportSMFAct;
+	QAction *bulkLoadAct;
+	QAction *bulkSaveAct;
 	QAction *exitAct;
 	QAction *settingsAct;
 	QAction *helpAct;

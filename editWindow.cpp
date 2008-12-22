@@ -1,6 +1,8 @@
 /****************************************************************************
 **
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
+** Copyright (C) 2007, 2008, 2009 Colin Willcocks.
+** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
+** All rights reserved.
 **
 ** This file is part of "GT-10 Fx FloorBoard".
 **
@@ -51,6 +53,10 @@ editWindow::editWindow(QWidget *parent)
 	this->closeButton = new customControlLabel;
 	this->closeButton->setButton(true);
 	this->closeButton->setImage(":/images/closebutton.png");
+	
+	this->closeButton2 = new customControlLabel;
+	this->closeButton2->setButton(true);
+	this->closeButton2->setImage(":/images/preamp1_button.png");
 
 	QHBoxLayout *headerLayout = new QHBoxLayout;
 	headerLayout->addWidget(this->title);
@@ -59,6 +65,8 @@ editWindow::editWindow(QWidget *parent)
 	headerLayout->addWidget(this->pageComboBox);
 	headerLayout->addStretch();
 	headerLayout->addWidget(this->closeButton);
+	headerLayout->addStretch();
+	headerLayout->addWidget(this->closeButton2);
 
 	/*QHBoxLayout *sellectLayout = new QHBoxLayout;
 	sellectLayout->addStretch();

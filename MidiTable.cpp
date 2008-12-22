@@ -1,7 +1,9 @@
-/**************************************************************************** 
-** 
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved. 
-** 
+/****************************************************************************
+**
+** Copyright (C) 2007, 2008, 2009 Colin Willcocks.
+** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
+** All rights reserved.
+**
 ** This file is part of "GT-10 Fx FloorBoard". 
 ** 
 ** This program is free software; you can redistribute it and/or modify 
@@ -260,9 +262,7 @@ int MidiTable::getRange(QString root, QString hex1, QString hex2, QString hex3)
 		 hex3 = QString::number(hex3.toInt(&ok, 16) - (0x180), 16).toUpper();
 		 if(hex3.length() < 2) hex3.prepend("0");
 		 range = getMidiMap(root, hex1, hex2, hex3);
-  }
-		
-		
+  }	
 	else
 	{
 		range = getMidiMap(root, hex1, hex2, hex3);	
@@ -320,22 +320,20 @@ int MidiTable::getRangeMinimum(QString root, QString hex1, QString hex2, QString
 		 hex3 = QString::number(hex3.toInt(&ok, 16) - (0x180), 16).toUpper();
 		 if(hex3.length() < 2) hex3.prepend("0");
 		 range = getMidiMap(root, hex1, hex2, hex3);
-  }
-		
-		
+  }	
 	else
 	{
 		range = getMidiMap(root, hex1, hex2, hex3);	
 	};
 
 	int firstIndex;
-	if(range.level.last().value == "range")
+	if(range.level.first().value == "range")
 	{
 		firstIndex = range.level.last().name.split("/").at(0).toInt(&ok, 16);
 	}
 	else if(range.level.last().type.contains("DATA"))
 	{
-	  firstIndex = range.level.last().customdesc.toInt(&ok, 16);  //get manually entered value from bottom customdesc.
+	  firstIndex = range.level.last().customdesc.toInt(&ok, 16);  //get manually entered value from level 4 bottom customdesc.
 	}
 	else
 	{
