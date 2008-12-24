@@ -105,6 +105,7 @@ floorBoard::floorBoard(QWidget *parent,
 	initMenuPages();
 	this->editDialog = new editWindow(this);
 	this->editDialog->hide();
+	this->oldDialog = this->editDialog;
 
 	floorBoardDisplay *display2 = new floorBoardDisplay(this);
 	display2->setPos(liberainPos);
@@ -835,6 +836,12 @@ void floorBoard::initMenuPages()
 	
 void floorBoard::menuButtonSignal()
 {
-  this->oldDialog->hide();
-  this->editDialog->show();
+   this->oldDialog->hide();
+   this->editDialog->show();
 };
+
+/*void floorBoard::stompbox_button(bool)
+{
+    emit stompbox_buttonSignal();
+ QApplication::beep();
+};*/

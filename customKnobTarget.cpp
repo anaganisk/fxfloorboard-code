@@ -163,7 +163,7 @@ void customKnobTarget::valueChanged(int value, QString hex1, QString hex2, QStri
 	   emit updateDisplayMax(valueStr);     
      };                                                  // updates display values
 	emit updateSignal();
-	
+		
   if (this->background == "target")   // get the currently selected target value & set min/max address
   { 
 	value = sysxIO->getSourceValue(this->hex1, this->hex2, this->hex3);        // read target value as integer.
@@ -186,6 +186,7 @@ void customKnobTarget::valueChanged(int value, QString hex1, QString hex2, QStri
 	this->hexLsb = items.customdesc;  
   
   emit updateTarget(hexMsb, hex2, hexLsb);                       // hexMsb & hexLsb are lookup address for label value
+  emit updateTarget(hexMsb, hex2, hexLsb);
   };                                                             // updates on knob value change                                            
 };
 

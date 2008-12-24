@@ -183,11 +183,12 @@ void customControlTarget::knobSignal(QString hexMsb, QString hex2, QString hexLs
  { 
 	this->hexMsb = hexMsb;
 	this->hexLsb = hexLsb;
-	int value = 0; 
+	MidiTable *midiTable = MidiTable::Instance();
+	int value = midiTable->getRangeMinimum("Structure", hexMsb, hex2, hexLsb); 
 	this->knobMin->setValue(value);                                                     // sets knob initial position	
 	QString valueHex = QString::number(value, 16).toUpper();
 	if(valueHex.length() < 2) valueHex.prepend("0");
-	MidiTable *midiTable = MidiTable::Instance();
+	
 	QString valueStr = midiTable->getValue("Structure", hexMsb, hex2, hexLsb, valueHex);
 	emit updateDisplayMin(valueStr);                                                   // initial value only is displayed under knob
 	////////////////////////////////////	

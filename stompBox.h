@@ -1,9 +1,10 @@
 /****************************************************************************
 **
-** Copyright (C) 2008 Colin Willcocks.
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
-** 
-** This file is part of "GT-10B Fx FloorBoard".
+** Copyright (C) 2007, 2008, 2009 Colin Willcocks.
+** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
+** All rights reserved.
+**
+** This file is part of "GT-10 Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -91,9 +92,24 @@ public slots:
 	void valueChanged(int index);
 	virtual void updateSignal() {};
 	void setDisplayToFxName();
-	void pathSwitchSignal(bool value);   //cjw
-	void updateStompPath();   //cjw
-		
+	void pathSwitchSignal(bool value); 
+	void updateStompPath(); 
+	void ch_mode_ButtonSignal(bool value);
+	void preamp1_ButtonSignal(bool value);
+	void preamp2_ButtonSignal(bool value);
+	void distortion_ButtonSignal(bool value);
+	void compressor_ButtonSignal(bool value);
+	void ns1_ButtonSignal(bool value);
+	void ns2_ButtonSignal(bool value);
+	void fx1_ButtonSignal(bool value);
+	void fx2_ButtonSignal(bool value);
+	void reverb_ButtonSignal(bool value);
+	void delay_ButtonSignal(bool value);
+	void chorus_ButtonSignal(bool value);
+	void sendreturn_ButtonSignal(bool value);
+	void eq_ButtonSignal(bool value);
+	void pedal_ButtonSignal(bool value);
+			
 signals:
 	void valueChanged(QString fxName, QString valueName, QString valueStr);
 	void currentIndexChanged(int index);

@@ -54,9 +54,9 @@ editWindow::editWindow(QWidget *parent)
 	this->closeButton->setButton(true);
 	this->closeButton->setImage(":/images/closebutton.png");
 	
-	this->closeButton2 = new customControlLabel;
-	this->closeButton2->setButton(true);
-	this->closeButton2->setImage(":/images/preamp1_button.png");
+	//this->closeButton2 = new customControlLabel;
+	//this->closeButton2->setButton(true);
+	//this->closeButton2->setImage(":/images/preamp1_button.png");
 
 	QHBoxLayout *headerLayout = new QHBoxLayout;
 	headerLayout->addWidget(this->title);
@@ -65,8 +65,8 @@ editWindow::editWindow(QWidget *parent)
 	headerLayout->addWidget(this->pageComboBox);
 	headerLayout->addStretch();
 	headerLayout->addWidget(this->closeButton);
-	headerLayout->addStretch();
-	headerLayout->addWidget(this->closeButton2);
+	//headerLayout->addStretch();
+	//headerLayout->addWidget(this->closeButton2);
 
 	/*QHBoxLayout *sellectLayout = new QHBoxLayout;
 	sellectLayout->addStretch();

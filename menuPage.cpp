@@ -27,7 +27,6 @@
 #include "SysxIO.h"
 #include "globalVariables.h"
 #include "floorBoard.h"
-//#include "floorBoardDisplay.h"
 
 menuPage::menuPage(QWidget *parent, unsigned int id, QString imagePath, QPoint stompPos)
     : QWidget(parent)
@@ -93,8 +92,7 @@ void menuPage::menuButtonSignal(bool value)
 	{
 	  emitValueChanged(this->hex1, this->hex2, "00", "void");
 	  this->editDialog->setWindow(this->fxName);
-	  //emit closeWindow();
-	  //this->editDialog->hide();
+	  
 	  if(this->id > 19)
     {
       emit setEditDialog(this->editDialog);
@@ -110,7 +108,7 @@ void menuPage::menuButtonSignal(bool value)
 	       	sysxIO->setDeviceReady(false); // Reserve the device for interaction.
 		      QObject::disconnect(sysxIO, SIGNAL(sysxReply(QString)));
 		      QObject::connect(sysxIO, SIGNAL(sysxReply(QString)), this, SLOT(connectionResult(QString)));
-		      sysxIO->sendSysx(systemRequest); // GT-10B System area data Request.      	        
+		      sysxIO->sendSysx(systemRequest); // GT-10 System area data Request.      	        
          }else{
               QString snork = "Ensure connection is active and retry";
               QMessageBox *msgBox = new QMessageBox();
@@ -120,6 +118,7 @@ void menuPage::menuButtonSignal(bool value)
 		        	msgBox->setStandardButtons(QMessageBox::Ok);
 		        	msgBox->exec(); 
               };  
+              emit setEditDialog(this->editDialog);
     };
 };
 
@@ -133,7 +132,7 @@ void menuPage::connectionResult(QString sysxMsg)
 	/*Preferences *preferences = Preferences::Instance(); // Load the preferences.
 	if(preferences->getPreferences("Midi", "DBug", "bool")=="true")
 	{ */
-	//if (sysxMsg.size() > 0){
+	if (sysxMsg.size() > 0){
 		QString snork;
 			snork.append("<font size='-1'>");
 			snork.append("{ size=");
@@ -150,14 +149,14 @@ void menuPage::connectionResult(QString sysxMsg)
 			snork.replace("F0", "{ F0");
 					 
 			QMessageBox *msgBox = new QMessageBox();
-			msgBox->setWindowTitle("dBug Result for re-formatted GT-10B patch data");
+			msgBox->setWindowTitle("dBug Result for GT-10 System data request");
 			msgBox->setIcon(QMessageBox::Information);
 			msgBox->setText(snork);
 			msgBox->setStandardButtons(QMessageBox::Ok);
 			msgBox->exec();
-			//};	
+			};	
 			 emit setStatusMessage(tr("Ready"));
-			 emit setEditDialog(this->editDialog);
+			 
 	/*}
 
 	else if(sysxIO->noError())
