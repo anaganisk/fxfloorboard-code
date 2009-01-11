@@ -43,7 +43,7 @@ void stompbox_ns::updateSignal()
 
 void stompbox_ns::setEditPages()
 {
-   editDetails()->page()->newGroupBox("Effect");
+  editDetails()->page()->newGroupBox("Effect");
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "0A", "00", "71");
 	editDetails()->page()->addComboBox(1, 0, 1, 1, "0A", "00", "74");
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);

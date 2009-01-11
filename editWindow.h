@@ -42,7 +42,7 @@ public:
 	void setLSB(QString hex1, QString hex2);
 	void setWindow(QString title);
 	QString getTitle();
-	void addPage(QString hex1 = "void", QString hex2 = "void", QString hex3 = "void", QString hex4 = "void");
+	void addPage(QString hex1 = "void", QString hex2 = "void", QString hex3 = "void", QString hex4 = "void", QString area = "Structure");
 	editPage* page();
 
 signals:
@@ -65,6 +65,7 @@ private:
 	QString hex1;
 	QString hex2;
 	QString hex3;
+	QString area;
 	int pages;
 	QLabel* title;
 	QLabel* comboBoxLabel;

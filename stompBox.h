@@ -80,7 +80,7 @@ public:
 
 	virtual void setEditPages() {};
 	editWindow* editDetails();
-	void stompBox::getStompOrder();
+	void getStompOrder();
 	
 
 public slots:
@@ -90,8 +90,23 @@ public slots:
 	void valueChanged(int index);
 	virtual void updateSignal() {};
 	void setDisplayToFxName();
-	void pathSwitchSignal(bool value);   //cjw
-	void updateStompPath();   //cjw
+	void pathSwitchSignal(bool value); 
+	void updateStompPath(); 
+	void ch_mode_ButtonSignal(bool value);
+	void preamp1_ButtonSignal(bool value);
+	//void preamp2_ButtonSignal(bool value);
+	void distortion_ButtonSignal(bool value);
+	void compressor_ButtonSignal(bool value);
+	void ns1_ButtonSignal(bool value);
+	void ns2_ButtonSignal(bool value);
+	void fx1_ButtonSignal(bool value);
+	void fx2_ButtonSignal(bool value);
+	void reverb_ButtonSignal(bool value);
+	void delay_ButtonSignal(bool value);
+	void chorus_ButtonSignal(bool value);
+	void sendreturn_ButtonSignal(bool value);
+	void eq_ButtonSignal(bool value);
+	void pedal_ButtonSignal(bool value);
 		
 signals:
 	void valueChanged(QString fxName, QString valueName, QString valueStr);

@@ -75,5 +75,6 @@
         <file>qss/linux.qss</file>
         <file>qss/macosx.qss</file>
         <file>qss/windows.qss</file>
+        <file>system.syx</file>
     </qresource>
 </RCC>

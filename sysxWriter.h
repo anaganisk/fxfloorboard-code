@@ -37,7 +37,9 @@ public:
 	void setFile(QString fileName);
 	bool readFile();
 	SysxData getFileSource();
+	SysxData getSystemSource();
 	void writeFile(QString fileName);
+	void writeSystemFile(QString fileName);
 	void writeSMF(QString fileName);
 	QString getFileName();
 
@@ -45,6 +47,7 @@ public:
 private:
 	QString fileName;
 	SysxData fileSource;
+	SysxData systemSource;
 };
 
 #endif // SYSXWRITTER_H

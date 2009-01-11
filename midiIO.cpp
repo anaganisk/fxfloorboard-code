@@ -69,7 +69,8 @@ void midiIO::queryMidiOutDevices()
 	 unsigned int outPorts; 
    try { midiout = new RtMidiOut(); }   /* RtMidiOut constructor */
    catch (RtError &error) {
-    error.printMessage();
+    //error.printMessage();
+    emit errorSignal("Midi Output Error", "port error");
     goto cleanup; };
    outPorts = midiout->getPortCount();      /* Check outputs. */ 
    for ( unsigned int i=0; i<outPorts; i++ ) {
@@ -77,7 +78,8 @@ void midiIO::queryMidiOutDevices()
       portName = midiout->getPortName(i);
         }
     catch (RtError &error) {
-      error.printMessage();
+      //error.printMessage();
+      emit errorSignal("Midi Output Error", "data error");
       goto cleanup; };
 #ifdef Q_OS_WIN
 	/* if we are running msdos based windows, use device numbers instead, UNICODE not supported*/
@@ -116,13 +118,15 @@ void midiIO::queryMidiInDevices()
 	 unsigned int inPorts;
   try { midiin = new RtMidiIn(); }    /* RtMidiIn constructor */
   catch (RtError &error) {
-    error.printMessage();
+    //error.printMessage();
+    emit errorSignal("Midi Input Error", "port error");
     goto cleanup; };
   inPorts = midiin->getPortCount();   /* Check inputs. */
   for ( unsigned int i=0; i<inPorts; i++ ) {
      try { portName = midiin->getPortName(i); }
      catch (RtError &error) {
-        error.printMessage();
+        //error.printMessage();
+        emit errorSignal("Midi Input Error", "data error");
         goto cleanup; };
 #ifdef Q_OS_WIN
   if(QSysInfo::WindowsVersion <= QSysInfo::WV_Me) 
@@ -271,7 +275,7 @@ void midiIO::receiveMsg(QString sysxInMsg, int midiInPort)
 	  else {loopCount = maxWait/40; count = nameReplySize;};   // name reply size
 		RtMidiIn *midiin = 0;	
 	  midiin = new RtMidiIn();		                   //RtMidi constructor
-	unsigned int nPorts = midiin->getPortCount();	   // check we have a midiout port
+	unsigned int nPorts = midiin->getPortCount();	   // check we have a midiIn port
     if ( nPorts < 1 ) { goto cleanup; };
     try {
 			midiin->ignoreTypes(false, true, true);   //don,t ignore sysex messages, but ignore other crap like active-sensing
@@ -279,7 +283,7 @@ void midiIO::receiveMsg(QString sysxInMsg, int midiInPort)
 			midiin->setCallback(&midicallback);       // set the callback 
 			sendSyxMsg(sysxOutMsg, midiOutPort);      // send the data request message out			
       int x = 0;	
-			while (x<loopCount && this->sysxBuffer.size()/2 < count)  // wait until exact bytes recieved or timeout
+			while (x<loopCount && this->sysxBuffer.size()/2 < count)  // wait until exact bytes received or timeout
       {
       SLEEP(1); 
       x++;
@@ -374,7 +378,6 @@ void midiIO::run()
 			{
         bytesTotal = systemSize;
       };
-      bytesTotal = systemSize;
 			dataReceive = true;
 			receiveMsg(sysxInMsg, midiInPort);
 		 }
@@ -435,9 +438,9 @@ void midiIO::sendSysxMsg(QString sysxOutMsg, int midiOutPort, int midiInPort)
   };    
   if (sysxOutMsg.size() == 12){reBuild = sysxOutMsg;};  // identity request not require checksum
 	this->sysxOutMsg = reBuild.simplified().toUpper().remove("0X").remove(" ");
-    if((sysxOutMsg.size() == (sysxDataOffset*2 + 12)) && (sysxOutMsg.mid(sysxOutMsg.size()-12, 8) == patchRequestDataSize) && (sysxOutMsg.mid((sysxAddressOffset*2-2), 2) == "11") )  
-    {this->multiple = true;} else {this->multiple = false;};
-     if (this->sysxOutMsg == systemRequest ){this->system = true;} else {this->system = false;};
+  if((sysxOutMsg.size() == (sysxDataOffset*2 + 12)) && (sysxOutMsg.mid(sysxOutMsg.size()-12, 8) == patchRequestDataSize) && (sysxOutMsg.mid((sysxAddressOffset*2-2), 2) == "11") )  
+  {this->multiple = true;} else {this->multiple = false;};
+  if (this->sysxOutMsg == systemRequest ){this->system = true;} else {this->system = false;};
 	this->midiOutPort = midiOutPort;
 	this->midiInPort = midiInPort;
 	this->midi = false;

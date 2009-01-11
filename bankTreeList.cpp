@@ -1,8 +1,9 @@
 /****************************************************************************
 **
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 ** Copyright (C) 2008 Colin Willcocks.
-** This file is part of "GT6B Fx FloorBoard".
+** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
+** All rights reserved.
+** This file is part of "GT-10B Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -307,18 +308,7 @@ QTreeWidget* bankTreeList::newTreeList()
     for (int a=1; a<=bankTotalUser; a++)
 	{
 		QTreeWidgetItem* bankRange = new QTreeWidgetItem; // don't pass a parent here!
-		if (deviceType == "GT-6B")
-    {
-		if (a<=5)
-		{bankRange->setText(0, QString::QString("Bank U1-U5"));}
-		else if (a<=10)
-		{bankRange->setText(0, QString::QString("Bank U6-U0"));}
-		else if (a<=15)
-		{bankRange->setText(0, QString::QString("Bank u1-u5"));}
-		else
-		{bankRange->setText(0, QString::QString("Bank u6-u0"));};
-		} else {bankRange->setText(0, QString::QString("Bank ").append(QString::number(a, 10)).append(" - ").append(QString::number(a+4, 10)) );
-    };
+    bankRange->setText(0, QString::QString("Bank U").append(QString::number(a, 10)).append("-U").append(QString::number(a+4, 10)) );
 		bankRange->setWhatsThis(0, "what the ?");
 		//bankRange->setIcon(QIcon(":/images/gt6b_icon_1.png"));
 
@@ -359,7 +349,7 @@ QTreeWidget* bankTreeList::newTreeList()
 		for (int b=a; b<=(a+4); b++)
 		{
 			QTreeWidgetItem* bank = new QTreeWidgetItem(bankRange);
-			bank->setText(0, QString::QString("Bank ").append(QString::number(b, 10)));
+			bank->setText(0, QString::QString("Bank ").append(QString::number(b-50, 10)));
 			bank->setWhatsThis(0, "");
 			//bank->setIcon(...);
 
@@ -401,13 +391,15 @@ void bankTreeList::setItemClicked(QTreeWidgetItem *item, int column)
 	else if (item->childCount() == 0)
 	{
 		SysxIO *sysxIO = SysxIO::Instance();
-		if(/*sysxIO->isConnected() && */sysxIO->deviceReady())
+		if(sysxIO->isConnected() && sysxIO->deviceReady())
 		{
 			bool ok;
 			int bank = item->parent()->text(0).section(" ", 1, 1).trimmed().toInt(&ok, 10);
 			int patch = item->parent()->indexOfChild(item) + 1;
+			QString preset = item->parent()->parent()->text(0);
+			if (preset.contains("P")) { bank = bank + 50; };
 			emit patchSelectSignal(bank, patch);
-			 sysxIO->requestPatchChange(bank, patch); // extra to try patch change
+			sysxIO->requestPatchChange(bank, patch); // extra to try patch change
 			sysxIO->setRequestName(item->text(0));	// Set the name of the patch we have sellected in case we load it.
 		};
 		
@@ -434,6 +426,8 @@ void bankTreeList::setItemDoubleClicked(QTreeWidgetItem *item, int column)
 		bool ok;
 		int bank = item->parent()->text(0).section(" ", 1, 1).trimmed().toInt(&ok, 10); // Get the bank
 		int patch = item->parent()->indexOfChild(item) + 1;								// and the patch number.
+		QString preset = item->parent()->parent()->text(0);
+		if (preset.contains("P")) { bank = bank + 50; };
 		//if(bank == sysxIO->getLoadedBank() && patch == sysxIO->getLoadedPatch())
 		//{ 
 			requestPatch(bank, patch);
@@ -502,7 +496,7 @@ void bankTreeList::updatePatch(QString replyMsg)
 		this, SLOT(updatePatch(QString)));		
 	
 	replyMsg = replyMsg.remove(" ").toUpper();       /* TRANSLATE SYSX MESSAGE FORMAT to 128 byte data blocks */
-	if (replyMsg.size()/2 == 1530){              // size of patch sent from GT10B   10=1784
+	if (replyMsg.size()/2 == 1530){              // size of patch sent from GT10B   GT-10=1784
 	QString header = "F0410000003012";
 	QString footer ="00F7";
 	QString addressMsb = replyMsg.mid(14,4);
@@ -567,10 +561,9 @@ void bankTreeList::updatePatch(QString replyMsg)
     }; 
   };    
 	replyMsg = reBuild.simplified().toUpper().remove("0X").remove(" ");
-	//};
 	emit setStatusMessage(tr("Ready"));
-
-		sysxIO->setFileSource(replyMsg);		// Set the source to the data received.
+    QString area = "Structure";
+		sysxIO->setFileSource(area, replyMsg);		// Set the source to the data received.
 		sysxIO->setFileName(tr("Patch from ") + deviceType);	// Set the file name to GT-10B patch for the display.
 		sysxIO->setDevice(true);				// Patch received from the device so this is set to true.
 		sysxIO->setSyncStatus(true);			// We can't be more in sync than right now! :)
@@ -639,7 +632,7 @@ void bankTreeList::updatePatch(QString replyMsg)
 			snork.replace("F0", "{ F0");
 					 
 			QMessageBox *msgBox = new QMessageBox();
-			msgBox->setWindowTitle("dBug Result for re-formatted GT-10B patch data");
+			msgBox->setWindowTitle("dBug Result for re-formatted" + deviceType + "patch data");
 			msgBox->setIcon(QMessageBox::Information);
 			msgBox->setText(snork);
 			msgBox->setStandardButtons(QMessageBox::Ok);
@@ -702,7 +695,7 @@ void bankTreeList::updateTree(QTreeWidgetItem *item)
 	}
 	else
 	{
-		this->currentPatchTreeItems.append(item);
+		//this->currentPatchTreeItems.append(item);
 	};
 };
 
@@ -712,7 +705,7 @@ void bankTreeList::updateTree(QTreeWidgetItem *item)
 *********************************************************************************/
 void bankTreeList::updatePatchNames(QString name)
 {		SysxIO *sysxIO = SysxIO::Instance();
-		if(name != "" && sysxIO->isConnected()) //  If not empty we can assume that we did receive a patch name.
+		if(!name.isEmpty() && sysxIO->isConnected()) //  If not empty we can assume that we did receive a patch name.
 		{
 			this->currentPatchTreeItems.at(listIndex)->child(itemIndex)->setText(0, name); // Set the patch name of the item in the tree list.
 			if(itemIndex >= patchPerBank - 1) // If we reach the last patch in this bank we need to increment the bank and restart at patch 1.
@@ -731,12 +724,14 @@ void bankTreeList::updatePatchNames(QString name)
 			bool ok;
 			int bank = this->currentPatchTreeItems.at(listIndex)->text(0).section(" ", 1, 1).trimmed().toInt(&ok, 10);
 			int patch = itemIndex + 1 ;
+			QString preset = this->currentPatchTreeItems.at(listIndex)->parent()->text(0);
+			if (preset.contains("P")) { bank = bank + 50; };
 		  sysxIO->requestPatchName(bank, patch); // The patch name request.
 	
 	     if(sysxIO->isConnected())
 	     {
 		      emit setStatusSymbol(3);
-		      emit setStatusMessage(tr("Receiving names"));
+		      emit setStatusMessage(tr("Reading patch names"));
 	     }
 		  else  
 		    {         

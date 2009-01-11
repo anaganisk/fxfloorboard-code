@@ -103,6 +103,7 @@ floorBoard::floorBoard(QWidget *parent,
 	initMenuPages();
 	this->editDialog = new editWindow(this);
 	this->editDialog->hide();
+	this->oldDialog = this->editDialog;
 
 	floorBoardDisplay *display2 = new floorBoardDisplay(this);
 	display2->setPos(liberainPos);
@@ -348,7 +349,8 @@ void floorBoard::dropEvent(QDropEvent *event)
 			{	
       
   SysxIO *sysxIO = SysxIO::Instance();
-	QList<QString> fxChain = sysxIO->getFileSource("0B", "00");
+  QString area = "Structure";
+	QList<QString> fxChain = sysxIO->getFileSource(area, "0B", "00");
 		
 	MidiTable *midiTable = MidiTable::Instance();
 	QList<QString> stompOrderHex;
@@ -428,8 +430,9 @@ void floorBoard::dropEvent(QDropEvent *event)
              index++;
              hex.append(hexData2.at(index));
              hexData.append(hex);
-           };     
-				sysxIO->setFileSource("0B", "00", "00", "11", hexData);
+           };   
+        
+				sysxIO->setFileSource("0B", "00", "00", hexData);
 		
 			emit pathUpdateSignal();
 			updateStompBoxes();
@@ -785,7 +788,8 @@ void floorBoard::setStompPos(int index, int order)
 void floorBoard::updateStompBoxes()
 {
 	SysxIO *sysxIO = SysxIO::Instance();
-	QList<QString> fxChain = sysxIO->getFileSource("0B", "00");
+	QString area = "Structure";
+	QList<QString> fxChain = sysxIO->getFileSource(area, "0B", "00");
 	
 	
 	MidiTable *midiTable = MidiTable::Instance();
@@ -805,7 +809,7 @@ void floorBoard::updateStompBoxes()
 
 void floorBoard::setEditDialog(editWindow* editDialog)
 {
-  
+  this->oldDialog = this->editDialog;
 	this->editDialog = editDialog;
 	this->editDialog->setParent(this);
 	this->centerEditDialog();
@@ -839,4 +843,10 @@ void floorBoard::initMenuPages()
 	system->setId(18);
 	system->setPos(QPoint(1239, 5)); 
 	
-	};
+};
+	
+void floorBoard::menuButtonSignal()
+{
+   this->oldDialog->hide();
+   this->editDialog->show();
+};

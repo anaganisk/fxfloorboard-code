@@ -144,11 +144,13 @@ void customKnobTarget::valueChanged(int value, QString hex1, QString hex2, QStri
 		QString valueHex2 = QString::number(value - (dif * maxRange), 16).toUpper();
 		if(valueHex2.length() < 2) valueHex2.prepend("0");
  
-		sysxIO->setFileSource(hex1, hex2, hex3, valueHex1, valueHex2);		
+    QString area;
+		sysxIO->setFileSource(area, hex1, hex2, hex3, valueHex1, valueHex2);		
 	}
 	else
 	{
-		sysxIO->setFileSource(hex1, hex2, hex3, valueHex);
+	  QString area;
+		sysxIO->setFileSource(area, hex1, hex2, hex3, valueHex);
 	};
 	QString valueStr;
 	if (this->background == "target") {valueStr = midiTable->getValue("Structure", hex1, hex2, hex3, valueHex); 
@@ -164,7 +166,8 @@ void customKnobTarget::valueChanged(int value, QString hex1, QString hex2, QStri
 	
   if (this->background == "target")   // get the currently selected target value & set min/max address
   { 
-	value = sysxIO->getSourceValue(this->hex1, this->hex2, this->hex3);        // read target value as integer.
+  QString area;
+	value = sysxIO->getSourceValue(area, this->hex1, this->hex2, this->hex3);        // read target value as integer.
 	valueHex = QString::number(value, 16).toUpper();                        // convert to hex qstring.
 	if(valueHex.length() < 2) valueHex.prepend("0");  
 	valueStr = midiTable->getValue("Structure", hex1, hex2, hex3, valueHex);  // lookup the target values
@@ -184,6 +187,7 @@ void customKnobTarget::valueChanged(int value, QString hex1, QString hex2, QStri
 	this->hexLsb = items.customdesc;  
   
   emit updateTarget(hexMsb, hex2, hexLsb);                       // hexMsb & hexLsb are lookup address for label value
+  emit updateTarget(hexMsb, hex2, hexLsb);   
   };                                                             // updates on knob value change                                            
 };
 

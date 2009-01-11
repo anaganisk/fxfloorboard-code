@@ -38,7 +38,8 @@ public:
 		QString hex1 = "void",
 		QString hex2 = "void",
 		QString hex3 = "void",
-		QString background = "normal");
+		QString background = "normal",
+    QString direction = "Structure");
 	void setValue(int value);
 
 public slots:
@@ -56,6 +57,7 @@ private:
 	QString hex1;
 	QString hex2;
 	QString hex3;
+	QString area;
 };
 
 #endif // CUSTOMKNOB_H

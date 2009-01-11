@@ -30,7 +30,6 @@
 #include "customButton.h"
 #include "customDisplay.h"
 #include "initPatchListMenu.h"
-#include "editWindow.h"
 
 class floorBoardDisplay : public QWidget
 {
@@ -47,10 +46,7 @@ public slots:
 	void setPatchNumDisplay(int bank, int patch);
 	void setPos(QPoint newPos);
 	void updateDisplay();
-	//void assignSignal(bool value);   //cjw
-	//void manualSignal(bool value);   //cjw
-	//void masterSignal(bool value);   //cjw
-	//void systemSignal(bool value);   //cjw
+	void autoconnect();   
 	void connectSignal(bool value);
 	void writeSignal(bool value);
 	void connectionResult(QString);
@@ -77,8 +73,6 @@ signals:
 	void setStatusSymbol(int value);
 	void setStatusProgress(int value);
   void setStatusMessage(QString message);
-  void setEditDialog(editWindow* editDialog);
-  
 
 private:
 	QPoint pos;
@@ -93,6 +87,21 @@ private:
 	//customButton *assignButton;
 	//customButton *masterButton;
 	//customButton *systemButton;
+	customButton *ch_mode_Button;
+	customButton *preamp1_Button;
+	//customButton *preamp2_Button;
+	customButton *distortion_Button;
+	customButton *compressor_Button;
+	customButton *ns1_Button;
+	customButton *ns2_Button;
+	customButton *fx1_Button;
+	customButton *fx2_Button;
+	customButton *reverb_Button;
+	customButton *delay_Button;
+	customButton *chorus_Button;
+	customButton *sendreturn_Button;
+	customButton *eq_Button;
+	customButton *pedal_Button;
 
 	bool connectButtonActive;
   //bool assignButtonActive;
@@ -104,7 +113,6 @@ private:
 	int blinkCount;
 	bool currentSyncStatus;
 	initPatchListMenu *initPatch;
-	editWindow *editDialog;
 	
 	};
 

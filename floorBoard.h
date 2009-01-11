@@ -54,7 +54,7 @@ public slots:
 	void setCollapse();
 	void updateStompBoxes();
 	void setEditDialog(editWindow* editDialog);
-	//void assignSignal(bool value);
+	void menuButtonSignal();
 
 signals:
 	void valueChanged(QString fxName, QString valueName, QString value);
@@ -68,6 +68,21 @@ signals:
 	void hideDragBar();
 	void updateSignal();
 	void pathUpdateSignal();
+	void ch_mode_buttonSignal(bool value);
+	void preamp1_buttonSignal(bool value);
+	//void preamp2_buttonSignal(bool value);
+	void distortion_buttonSignal(bool value);
+	void compressor_buttonSignal(bool value);
+	void ns1_buttonSignal(bool value);
+	void ns2_buttonSignal(bool value);
+	void fx1_buttonSignal(bool value);
+	void fx2_buttonSignal(bool value);
+	void reverb_buttonSignal(bool value);
+	void delay_buttonSignal(bool value);
+	void chorus_buttonSignal(bool value);
+	void sendreturn_buttonSignal(bool value);
+	void eq_buttonSignal(bool value);
+	void pedal_buttonSignal(bool value);
 	
 protected:
 	void paintEvent(QPaintEvent *event);
@@ -122,6 +137,7 @@ private:
 	QList<stompBox*> stompBoxes;
 	QList<QString> stompNames;
 	editWindow* editDialog;
+	editWindow* oldDialog;
 };
 
 #endif // FLOORBOARD_H

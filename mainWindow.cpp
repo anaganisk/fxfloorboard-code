@@ -145,27 +145,27 @@ void mainWindow::updateSize(QSize floorSize, QSize oldFloorSize)
 
 void mainWindow::createActions()
 {
-	openAct = new QAction(/*QIcon(":/images/open.png"),*/ tr("&Open File..."), this);
+	openAct = new QAction(/*QIcon(":/images/open.png"),*/ tr("&Open File... (*.syx)"), this);
 	openAct->setShortcut(tr("Ctrl+O"));
 	openAct->setStatusTip(tr("Open an existing file"));
 	connect(openAct, SIGNAL(triggered()), this, SLOT(open()));
 	
-	saveAct = new QAction(/*QIcon(":/images/save.png"),*/ tr("&Save"), this);
+	saveAct = new QAction(/*QIcon(":/images/save.png"),*/ tr("&Save...       (*.syx)"), this);
 	saveAct->setShortcut(tr("Ctrl+S"));
 	saveAct->setStatusTip(tr("Save the document to disk"));
 	connect(saveAct, SIGNAL(triggered()), this, SLOT(save()));
 
-	saveAsAct = new QAction(/*QIcon(":/images/saveas.png"),*/ tr("Save &As..."), this);
+	saveAsAct = new QAction(/*QIcon(":/images/saveas.png"),*/ tr("Save &As...  (*.syx)"), this);
 	saveAsAct->setShortcut(tr("Ctrl+Shift+S"));
 	saveAsAct->setStatusTip(tr("Save the document under a new name"));
 	connect(saveAsAct, SIGNAL(triggered()), this, SLOT(saveAs()));
 	
-	importSMFAct = new QAction(/*QIcon(":/images/importSMF.png"),*/ tr("&Import SMF..."), this);
+	importSMFAct = new QAction(/*QIcon(":/images/importSMF.png"),*/ tr("&Import SMF... (*.mid)"), this);
 	importSMFAct->setShortcut(tr("Ctrl+I"));
 	importSMFAct->setStatusTip(tr("Import an existing SMF"));
 	connect(importSMFAct, SIGNAL(triggered()), this, SLOT(importSMF()));
 
-	exportSMFAct = new QAction(/*QIcon(":/images/exportSMF.png"),*/ tr("Export &SMF..."), this);
+	exportSMFAct = new QAction(/*QIcon(":/images/exportSMF.png"),*/ tr("Export &SMF... (*.mid)"), this);
 	exportSMFAct->setShortcut(tr("Ctrl+Shift+E"));
 	exportSMFAct->setStatusTip(tr("Export as a Standard Midi File"));
 	connect(exportSMFAct, SIGNAL(triggered()), this, SLOT(exportSMF()));
@@ -175,9 +175,9 @@ void mainWindow::createActions()
 	bulkLoadAct->setStatusTip(tr("Load Bulk Dump to GT-10B"));
 	connect(bulkLoadAct, SIGNAL(triggered()), this, SLOT(bulkLoad()));
 
-	bulkSaveAct = new QAction(/*QIcon(":/images/exportSMF.png"),*/ tr("Save &Bulk Dump..."), this);
+	bulkSaveAct = new QAction(/*QIcon(":/images/exportSMF.png"),*/ tr("Save GT System Data..."), this);
 	bulkSaveAct->setShortcut(tr("Ctrl+D"));
-	bulkSaveAct->setStatusTip(tr("Save Bulk Dump to File"));
+	bulkSaveAct->setStatusTip(tr("Save System Data to File"));
 	connect(bulkSaveAct, SIGNAL(triggered()), this, SLOT(bulkSave()));
 
 	exitAct = new QAction(tr("E&xit"), this);
@@ -199,14 +199,14 @@ void mainWindow::createActions()
 	homepageAct->setStatusTip(tr("........"));
 	connect(homepageAct, SIGNAL(triggered()), this, SLOT(homepage()));
 
-	donationAct = new QAction(/*QIcon(":/images/donate.png"),*/ tr("Make a &Donation to Gumtown for a GT-10"), this);
+	donationAct = new QAction(/*QIcon(":/images/donate.png"),*/ tr("Donate towards GT test equipment for Gumtown"), this);
 	connect(donationAct, SIGNAL(triggered()), this, SLOT(donate()));
 
 	licenseAct = new QAction(/*QIcon(":/images/license.png"),*/ tr("&License"), this);
 	licenseAct->setStatusTip(tr("........"));
 	connect(licenseAct, SIGNAL(triggered()), this, SLOT(license()));
 
-	aboutAct = new QAction(tr("&About"), this);
+	aboutAct = new QAction(tr("&About FxFloorBoard"), this);
 	aboutAct->setStatusTip(tr("Show the application's About box"));
 	connect(aboutAct, SIGNAL(triggered()), this, SLOT(about()));
 
@@ -248,7 +248,7 @@ void mainWindow::createMenus()
 	helpMenu->addAction(licenseAct);
 	helpMenu->addSeparator(); 
 	helpMenu->addAction(aboutAct);
-	//helpMenu->addAction(aboutQtAct);
+	helpMenu->addAction(aboutQtAct);
 	menuBar->addMenu(helpMenu);
     //menuBar()->addMenu(helpMenu);
 };
@@ -294,7 +294,8 @@ void mainWindow::open()
 		{	
 			// DO SOMETHING AFTER READING THE FILE (UPDATE THE GUI)
 			SysxIO *sysxIO = SysxIO::Instance();
-			sysxIO->setFileSource(file.getFileSource());
+			QString area = "Structure";
+			sysxIO->setFileSource(area, file.getFileSource());
 			sysxIO->setFileName(fileName);
 			sysxIO->setSyncStatus(false);
 			sysxIO->setDevice(false);
@@ -332,7 +333,8 @@ void mainWindow::save()
 			{	
 				// DO SOMETHING AFTER READING THE FILE (UPDATE THE GUI)
 				SysxIO *sysxIO = SysxIO::Instance();
-				sysxIO->setFileSource(file.getFileSource());
+				QString area = "Structure";
+				sysxIO->setFileSource(area, file.getFileSource());
 
 				emit updateSignal();
 			};
@@ -367,7 +369,8 @@ void mainWindow::saveAs()
 		{	
 			// DO SOMETHING AFTER READING THE FILE (UPDATE THE GUI)
 			SysxIO *sysxIO = SysxIO::Instance();
-			sysxIO->setFileSource(file.getFileSource());
+			QString area = "Structure";
+			sysxIO->setFileSource(area, file.getFileSource());
 
 			emit updateSignal();
 		};
@@ -392,7 +395,8 @@ void mainWindow::importSMF()
 		{	
 			// DO SOMETHING AFTER READING THE FILE (UPDATE THE GUI)
 			SysxIO *sysxIO = SysxIO::Instance();
-			sysxIO->setFileSource(file.getFileSource());
+			QString area = "Structure";
+			sysxIO->setFileSource(area, file.getFileSource());
 			sysxIO->setFileName(fileName);
 			sysxIO->setSyncStatus(false);
 			sysxIO->setDevice(false);
@@ -425,7 +429,8 @@ void mainWindow::exportSMF()
 		{	
 			// DO SOMETHING AFTER READING THE FILE (UPDATE THE GUI)
 			SysxIO *sysxIO = SysxIO::Instance();
-			sysxIO->setFileSource(file.getFileSource());
+			QString area = "Structure";
+			sysxIO->setFileSource(area, file.getFileSource());
 
 			emit updateSignal();
 		};
@@ -441,14 +446,29 @@ void mainWindow::bulkLoad()
                 this,
                 "Choose a file",
                 dir,
-                "Bulk Dump File (*.syx)");
+                "GT10 System Data File (*.syx)");
 	if (!fileName.isEmpty())	
 	{
 		file.setFile(fileName);  
 		if(file.readFile())
 		{	
 			// DO SOMETHING AFTER READING THE FILE (UPDATE THE GUI)
-		
+	 /*	QString snork = "Bulk Dump area still under Construction.";
+              QMessageBox *msgBox = new QMessageBox();
+			        msgBox->setWindowTitle("Under Construction !!");
+		        	msgBox->setIcon(QMessageBox::Information);
+		        	msgBox->setText(snork);
+		        	msgBox->setStandardButtons(QMessageBox::Ok);
+		        	msgBox->exec(); */
+		        	
+		  SysxIO *sysxIO = SysxIO::Instance();
+			QString area = "System";
+			sysxIO->setFileSource(area, file.getSystemSource());
+			sysxIO->setFileName(fileName);
+			sysxIO->setSyncStatus(false);
+			sysxIO->setDevice(false);
+
+			emit updateSignal();
 		};
 	};
 };
@@ -460,7 +480,7 @@ void mainWindow::bulkSave()
 
 	QString fileName = QFileDialog::getSaveFileName(
                     this,
-                    "Save Bulk Dump",
+                    "Save System Data",
                     dir,
                     "System Exclusive File (*.syx)");
 	if (!fileName.isEmpty())	
@@ -470,13 +490,25 @@ void mainWindow::bulkSave()
 			fileName.append(".syx");
 		};
 		
-		file.writeFile(fileName);
+		file.writeSystemFile(fileName);
 
 		file.setFile(fileName);  
 		if(file.readFile())
 		{	
 			// DO SOMETHING AFTER READING THE FILE (UPDATE THE GUI)
-		
+	          /*	QString snork = "Bulk Dump area still under Construction.";
+              QMessageBox *msgBox = new QMessageBox();
+			        msgBox->setWindowTitle("Under Construction !!");
+		        	msgBox->setIcon(QMessageBox::Information);
+		        	msgBox->setText(snork);
+		        	msgBox->setStandardButtons(QMessageBox::Ok);
+		        	msgBox->exec(); */
+		        	
+		  SysxIO *sysxIO = SysxIO::Instance();
+			QString area = "System";
+			sysxIO->setFileSource(area, file.getSystemSource());
+
+			emit updateSignal();
 		};
 	};
 };
@@ -501,7 +533,7 @@ void mainWindow::settings()
 
 		if(midiIn=="-1") { midiIn = ""; };
 		if(midiOut=="-1") {	midiOut = ""; };
-
+		
 		preferences->setPreferences("General", "Files", "dir", dir);
 		preferences->setPreferences("Midi", "MidiIn", "device", midiIn);
 		preferences->setPreferences("Midi", "MidiOut", "device", midiOut);

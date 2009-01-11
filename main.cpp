@@ -1,6 +1,8 @@
 /****************************************************************************
 **
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
+** Copyright (C) 2008 Colin Willcocks.
+** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
+** All rights reserved.
 **
 ** This file is part of "GT-10B Fx FloorBoard".
 **
@@ -28,7 +30,7 @@
 #include "sysxWriter.h"
 #include "customSplashScreen.h"
 
-int main(int argc, char *argv[])
+int main(int argc, char **argv)
 {
 	QApplication app(argc, argv);
 
@@ -191,6 +193,6 @@ int main(int argc, char *argv[])
 	msgBox->setStandardButtons(QMessageBox::Ok);
 	msgBox->exec();
 	 END WARNING */
-
+  
 	return app.exec();
 };

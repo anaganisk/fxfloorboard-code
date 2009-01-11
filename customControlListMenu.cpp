@@ -36,9 +36,11 @@ customControlListMenu::customControlListMenu(QWidget *parent,
 	this->hex1 = hex1;
 	this->hex2 = hex2;
 	this->hex3 = hex3;
+	this->area = direction;
 
 	MidiTable *midiTable = MidiTable::Instance();
-	Midi items = midiTable->getMidiMap("Structure", hex1, hex2, hex3);
+	if (direction != "System") {this->area = "Structure";};
+	Midi items = midiTable->getMidiMap(this->area, hex1, hex2, hex3);
 	QString labeltxt = items.customdesc;
 	
 	this->label->setUpperCase(true);
@@ -72,6 +74,23 @@ customControlListMenu::customControlListMenu(QWidget *parent,
 
 		this->setLayout(mainLayout);
 		this->setFixedHeight(12 + 15);
+		
+	}
+  else if(direction == "System")
+	{
+		this->area = "System";
+		this->label->setAlignment(Qt::AlignLeft);
+
+		QVBoxLayout *mainLayout = new QVBoxLayout;
+		mainLayout->setMargin(0);
+		mainLayout->setSpacing(0);
+		mainLayout->addStretch(0);
+		mainLayout->addWidget(this->label, 0, Qt::AlignLeft);
+		mainLayout->addWidget(this->controlListComboBox, 0, Qt::AlignLeft);
+
+		this->setLayout(mainLayout);
+		this->setFixedHeight(12 + 15);
+		
 	};
 
 	QObject::connect(this->parent(), SIGNAL( dialogUpdateSignal() ),
@@ -106,7 +125,7 @@ void customControlListMenu::setComboBox()
 	this->hex3 = hex3;
 
 	MidiTable *midiTable = MidiTable::Instance();
-	Midi items = midiTable->getMidiMap("Structure", hex1, hex2, hex3);
+	Midi items = midiTable->getMidiMap(this->area, hex1, hex2, hex3);
    
     QString longestItem = "";
 	int itemcount;
@@ -146,9 +165,29 @@ void customControlListMenu::valueChanged(int index)
 {
 	QString valueHex = QString::number(index, 16).toUpper();
 	if(valueHex.length() < 2) valueHex.prepend("0");
-
+	
 	SysxIO *sysxIO = SysxIO::Instance();
-	sysxIO->setFileSource(hex1, hex2, hex3, valueHex);
+	MidiTable *midiTable = MidiTable::Instance();
+	bool ok;
+		if(midiTable->isData(this->area, hex1, hex2, hex3))
+	{	
+		int maxRange = QString("7F").toInt(&ok, 16) + 1;
+		int value = valueHex.toInt(&ok, 16);
+		int dif = value/maxRange;
+		QString valueHex1 = QString::number(dif, 16).toUpper();
+		if(valueHex1.length() < 2) valueHex1.prepend("0");
+		QString valueHex2 = QString::number(value - (dif * maxRange), 16).toUpper();
+		if(valueHex2.length() < 2) valueHex2.prepend("0");
+	
+		sysxIO->setFileSource(this->area, hex1, hex2, hex3, valueHex1, valueHex2);		
+	}
+	else
+	{
+	 
+		sysxIO->setFileSource(this->area, hex1, hex2, hex3, valueHex);
+	};
+	
+	//sysxIO->setFileSource(this->area, hex1, hex2, hex3, valueHex);
 
 	//emit updateDisplay(valueStr);
 	emit updateSignal();
@@ -157,7 +196,8 @@ void customControlListMenu::valueChanged(int index)
 void customControlListMenu::dialogUpdateSignal()
 {
 	SysxIO *sysxIO = SysxIO::Instance();
-	int index = sysxIO->getSourceValue(this->hex1, this->hex2, this->hex3);
+	
+	int index = sysxIO->getSourceValue(this->area, this->hex1, this->hex2, this->hex3);
 	this->controlListComboBox->setCurrentIndex(index);
 	//this->valueChanged(index);
 };

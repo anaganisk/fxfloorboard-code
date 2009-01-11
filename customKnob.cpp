@@ -26,24 +26,22 @@
 #include "MidiTable.h"
 #include "SysxIO.h"
 
-customKnob::customKnob(QWidget *parent, 
-						 QString hex1, QString hex2, QString hex3, 
-						 QString background)
-	: QWidget(parent)
+customKnob::customKnob(QWidget *parent, QString hex1, QString hex2, QString hex3, QString background, QString direction) : QWidget(parent)
 {
 	this->hex1 = hex1;
 	this->hex2 = hex2;
 	this->hex3 = hex3;
-
+  this->area = direction;
 	MidiTable *midiTable = MidiTable::Instance();
-	int range = midiTable->getRange("Structure", hex1, hex2, hex3);
-	int rangeMin = midiTable->getRangeMinimum("Structure", hex1, hex2, hex3);
+	if (this->area != "System"){this->area = "Structure";};
+	int range = midiTable->getRange(this->area, hex1, hex2, hex3);
+	int rangeMin = midiTable->getRangeMinimum(this->area, hex1, hex2, hex3);
 	
 	QPoint bgPos = QPoint(0, -3); // Correction needed y-3.
 	QPoint knobPos = QPoint(5, 4); // Correction needed y+1 x-1.
 
 	QLabel *newBackGround = new QLabel(this);
-	if (background == "normal")
+	if (background == "normal" || background == "System")
 	{
 		newBackGround->setPixmap(QPixmap(":/images/knobbgn.png"));
 	}
@@ -94,7 +92,7 @@ void customKnob::valueChanged(int value, QString hex1, QString hex2, QString hex
 	if(valueHex.length() < 2) valueHex.prepend("0");
 
 	SysxIO *sysxIO = SysxIO::Instance(); bool ok;
-	if(midiTable->isData("Structure", hex1, hex2, hex3))
+	if(midiTable->isData(this->area, hex1, hex2, hex3))
 	{	
 		int maxRange = QString("7F").toInt(&ok, 16) + 1;
 		int value = valueHex.toInt(&ok, 16);
@@ -103,15 +101,16 @@ void customKnob::valueChanged(int value, QString hex1, QString hex2, QString hex
 		if(valueHex1.length() < 2) valueHex1.prepend("0");
 		QString valueHex2 = QString::number(value - (dif * maxRange), 16).toUpper();
 		if(valueHex2.length() < 2) valueHex2.prepend("0");
-		
-		sysxIO->setFileSource(hex1, hex2, hex3, valueHex1, valueHex2);		
+	
+		sysxIO->setFileSource(this->area, hex1, hex2, hex3, valueHex1, valueHex2);		
 	}
 	else
 	{
-		sysxIO->setFileSource(hex1, hex2, hex3, valueHex);
+	 
+		sysxIO->setFileSource(this->area, hex1, hex2, hex3, valueHex);
 	};
 
-	QString valueStr = midiTable->getValue("Structure", hex1, hex2, hex3, valueHex);
+	QString valueStr = midiTable->getValue(this->area, hex1, hex2, hex3, valueHex);
 
 	emit updateDisplay(valueStr);
 	emit updateSignal();

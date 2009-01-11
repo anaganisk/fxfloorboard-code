@@ -36,14 +36,17 @@ customControlKnob::customControlKnob(QWidget *parent,
 	this->hex1 = hex1;
 	this->hex2 = hex2;
 	this->hex3 = hex3;
+	this->area = background;
 
 	MidiTable *midiTable = MidiTable::Instance();
-	Midi items = midiTable->getMidiMap("Structure", hex1, hex2, hex3);
+	if (this->area != "System") {this->area = "Structure";};
+	
+	Midi items = midiTable->getMidiMap(this->area, hex1, hex2, hex3);
 	
 	this->label->setText(items.customdesc);
 	this->label->setUpperCase(true);
 	
-	this->knob = new customKnob(this, hex1, hex2, hex3, background);
+	this->knob = new customKnob(this, hex1, hex2, hex3, background, this->area);
 
 	this->display->setObjectName("editdisplay");
 	this->display->setFixedWidth(lenght);
@@ -53,7 +56,7 @@ customControlKnob::customControlKnob(QWidget *parent,
 
 	if(direction == "left")
 	{
-		
+	
 	}
 	else if(direction == "right")
 	{
@@ -77,10 +80,11 @@ customControlKnob::customControlKnob(QWidget *parent,
 
 		this->setLayout(mainLayout);
 		this->setFixedHeight(this->knob->height());
+		
 	}
 	else if(direction == "top")
 	{
-		
+	
 	}
 	else if(direction == "bottom")
 	{
@@ -97,6 +101,24 @@ customControlKnob::customControlKnob(QWidget *parent,
 
 		this->setLayout(mainLayout);
 		this->setFixedHeight(this->knob->height() + 13 + 12);
+		
+	}
+  else if(direction == "System")
+	{
+		this->label->setAlignment(Qt::AlignCenter);
+		this->display->setFixedWidth(lenght);
+		
+		QVBoxLayout *mainLayout = new QVBoxLayout;
+		mainLayout->setMargin(0);
+		mainLayout->setSpacing(0);
+		mainLayout->addWidget(this->label, 0, Qt::AlignCenter);
+		mainLayout->addWidget(this->knob, 0, Qt::AlignCenter);
+		mainLayout->addWidget(this->display, 0, Qt::AlignCenter);
+		mainLayout->addStretch(0);
+
+		this->setLayout(mainLayout);
+		this->setFixedHeight(this->knob->height() + 13 + 12);
+		//this->area = "System";
 	};
 
 
@@ -125,14 +147,15 @@ void customControlKnob::paintEvent(QPaintEvent *)
 void customControlKnob::dialogUpdateSignal()
 {
 	SysxIO *sysxIO = SysxIO::Instance();
-	int value = sysxIO->getSourceValue(this->hex1, this->hex2, this->hex3);
+	
+	int value = sysxIO->getSourceValue(this->area, this->hex1, this->hex2, this->hex3);
 	this->knob->setValue(value);
 
 	QString valueHex = QString::number(value, 16).toUpper();
 	if(valueHex.length() < 2) valueHex.prepend("0");
 
 	MidiTable *midiTable = MidiTable::Instance();
-	QString valueStr = midiTable->getValue("Structure", hex1, hex2, hex3, valueHex);
+	QString valueStr = midiTable->getValue(this->area, hex1, hex2, hex3, valueHex);
 	
 	//this->display->setText(valueStr);
 	emit updateDisplay(valueStr);

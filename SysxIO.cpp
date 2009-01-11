@@ -1,7 +1,8 @@
 /****************************************************************************
 **
 ** Copyright (C) 2008 Colin Willcocks.
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
+** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
+** All rights reserved.
 **
 ** This file is part of "GT-10B Fx FloorBoard".
 **
@@ -65,15 +66,29 @@ SysxIO* SysxIO::Instance()
 	*/
 };
 
-void SysxIO::setFileSource(SysxData fileSource)
-{
-	this->fileSource = fileSource;
+void SysxIO::setFileSource(QString area, SysxData fileSource)
+{ 
+ if (area == "System")
+ {
+	this->systemSource = fileSource;
+	}
+	else
+	{
+  this->fileSource = fileSource;
+  };
 };
 
-void SysxIO::setFileSource(QByteArray data)
+void SysxIO::setFileSource(QString area, QByteArray data)
 {
+ if (area == "System")
+ {
+   this->systemSource.address.clear();
+	 this->systemSource.hex.clear();
+ }else
+ {
 	this->fileSource.address.clear();
 	this->fileSource.hex.clear();
+	};
 	
 	QString errorList;
 	QList<QString> sysxBuffer; 
@@ -118,8 +133,16 @@ void SysxIO::setFileSource(QByteArray data)
 
 		if(hex == "F7") 
 		{	
-			this->fileSource.address.append( sysxBuffer.at(sysxAddressOffset + 2) + sysxBuffer.at(sysxAddressOffset +3) );
-			this->fileSource.hex.append(sysxBuffer);
+		  if (area == "System")
+		  {
+        this->systemSource.address.append( sysxBuffer.at(sysxAddressOffset + 2) + sysxBuffer.at(sysxAddressOffset +3) );
+		  	this->systemSource.hex.append(sysxBuffer);
+      }
+       else
+      {
+		   	this->fileSource.address.append( sysxBuffer.at(sysxAddressOffset + 2) + sysxBuffer.at(sysxAddressOffset +3) );
+		  	this->fileSource.hex.append(sysxBuffer);
+			};
 			sysxBuffer.clear();
 			dataSize = 0;
 			offset = 0;
@@ -146,10 +169,18 @@ void SysxIO::setFileSource(QByteArray data)
 	};
 };
 
-void SysxIO::setFileSource(QString data)
+void SysxIO::setFileSource(QString area, QString data)
 {
-	this->fileSource.address.clear();
-	this->fileSource.hex.clear();
+  if (area == "System") 
+   { 
+    	this->systemSource.address.clear();
+	    this->systemSource.hex.clear();
+	  } 
+    else
+    {
+      this->fileSource.address.clear();
+	    this->fileSource.hex.clear();   
+    };
 	
 	QList<QString> sysxBuffer;
 	for(int i=0;i<data.size();i++)
@@ -160,15 +191,24 @@ void SysxIO::setFileSource(QString data)
 
 		if(hex == "F7") 
 		{	
+		  if (area == "System") 
+		  {
+			this->systemSource.address.append( sysxBuffer.at(sysxAddressOffset + 2) + sysxBuffer.at(sysxAddressOffset + 3) );
+			this->systemSource.hex.append(sysxBuffer);
+			}
+      else
+			{
 			this->fileSource.address.append( sysxBuffer.at(sysxAddressOffset + 2) + sysxBuffer.at(sysxAddressOffset + 3) );
 			this->fileSource.hex.append(sysxBuffer);
+      };
 			sysxBuffer.clear();
 		};
 	};
 };
 
-void SysxIO::setFileSource(QString hex1, QString hex2, QString hex3, QString hex4)
+void SysxIO::setFileSource(QString area, QString hex1, QString hex2, QString hex3, QString hex4)
 {
+  if (area != "System")  {area = "Structure";};
 	MidiTable *midiTable = MidiTable::Instance();
 	bool ok;
 
@@ -178,9 +218,9 @@ void SysxIO::setFileSource(QString hex1, QString hex2, QString hex3, QString hex
 	{
 		QString prevHex = QString::number((hex1.toInt(&ok, 16) - 1), 16).toUpper();
 		if(prevHex.length() < 2) prevHex.prepend("0");
-		if(midiTable->getMidiMap("Structure").id.contains(prevHex))
+		if(midiTable->getMidiMap(area).id.contains(prevHex))
 		{
-			if(midiTable->getMidiMap("Structure", hex1).name == midiTable->getMidiMap("Structure", prevHex).name)
+			if(midiTable->getMidiMap(area, hex1).name == midiTable->getMidiMap(area, prevHex).name)
 			{
 				sourceHex1 = prevHex;
 				sourceHex3 = QString::number(hex3.toInt(&ok, 16) + QString("7F").toInt(&ok, 16) + 1, 16);
@@ -192,7 +232,15 @@ void SysxIO::setFileSource(QString hex1, QString hex2, QString hex3, QString hex
 	QString address;
 	address.append(sourceHex1);
 	address.append(hex2);
-	QList<QString> sysxList = this->fileSource.hex.at(this->fileSource.address.indexOf(address));
+	QList<QString> sysxList;
+	if(area == "System")
+	{
+	  sysxList = this->systemSource.hex.at(this->systemSource.address.indexOf(address));
+	}
+     else 
+	{
+	  sysxList = this->fileSource.hex.at(this->fileSource.address.indexOf(address));
+	};
 	sysxList.replace(index, hex4);
 
 	int dataSize = 0;
@@ -201,17 +249,23 @@ void SysxIO::setFileSource(QString hex1, QString hex2, QString hex3, QString hex
 		dataSize += sysxList.at(i).toInt(&ok, 16);
 	};
 	sysxList.replace(sysxList.size() - 2, getCheckSum(dataSize));
+	
+  if(area == "System")
+	{
+  	this->systemSource.hex.replace(this->systemSource.address.indexOf(address), sysxList);
+	}
+	else
+	{
+    this->fileSource.hex.replace(this->fileSource.address.indexOf(address), sysxList);
+  };
 
-	this->fileSource.hex.replace(this->fileSource.address.indexOf(address), sysxList);
+	QString sysxMsg = midiTable->dataChange(area, hex1, hex2, hex3, hex4);
 
-	QString sysxMsg = midiTable->dataChange(hex1, hex2, hex3, hex4);
-
-	if(/*this->isConnected() && */this->deviceReady() /*&& this->getSyncStatus()*/)
+	if(this->isConnected() && this->deviceReady() /*&& this->getSyncStatus()*/)
 	{
 		this->setDeviceReady(false);
 
 		emit setStatusSymbol(2);
-		//emit setStatusProgress(0);
 		emit setStatusMessage("Sending");
 
 		QObject::connect(this, SIGNAL(sysxReply(QString)),	
@@ -225,20 +279,20 @@ void SysxIO::setFileSource(QString hex1, QString hex2, QString hex3, QString hex
 	};
 };
 
-void SysxIO::setFileSource(QString hex1, QString hex2, QString hex3, QString hex4, QString hex5)
+void SysxIO::setFileSource(QString area, QString hex1, QString hex2, QString hex3, QString hex4, QString hex5)
 {
 	MidiTable *midiTable = MidiTable::Instance();
 	bool ok;
-
+  if (area != "System")  {area = "Structure";};
 	QString sourceHex1 = hex1;
 	QString sourceHex3 = hex3;
 	if(hex1 != "00")
 	{
 		QString prevHex = QString::number((hex1.toInt(&ok, 16) - 1), 16).toUpper();
 		if(prevHex.length() < 2) prevHex.prepend("0");
-		if(midiTable->getMidiMap("Structure").id.contains(prevHex))
+		if(midiTable->getMidiMap(area).id.contains(prevHex))
 		{
-			if(midiTable->getMidiMap("Structure", hex1).name == midiTable->getMidiMap("Structure", prevHex).name)
+			if(midiTable->getMidiMap(area, hex1).name == midiTable->getMidiMap(area, prevHex).name)
 			{
 				sourceHex1 = prevHex;
 				sourceHex3 = QString::number(hex3.toInt(&ok, 16) + QString("7F").toInt(&ok, 16) + 1, 16);
@@ -249,7 +303,16 @@ void SysxIO::setFileSource(QString hex1, QString hex2, QString hex3, QString hex
 	QString address;
 	address.append(sourceHex1);
 	address.append(hex2);
-	QList<QString> sysxList = this->fileSource.hex.at(this->fileSource.address.indexOf(address));
+	
+	QList<QString> sysxList;
+	if (area == "System")
+	{
+  sysxList = this->systemSource.hex.at(this->systemSource.address.indexOf(address));
+  }
+  else
+  {
+  sysxList = this->fileSource.hex.at(this->fileSource.address.indexOf(address));
+  };
 	int index = sourceHex3.toInt(&ok, 16) + sysxDataOffset;
 	sysxList.replace(index, hex4);
 	sysxList.replace(index + 1, hex5);
@@ -261,16 +324,22 @@ void SysxIO::setFileSource(QString hex1, QString hex2, QString hex3, QString hex
 	};
 	sysxList.replace(sysxList.size() - 2, getCheckSum(dataSize));
 
-	this->fileSource.hex.replace(this->fileSource.address.indexOf(address), sysxList);
+  if (area == "System")
+  {
+	this->systemSource.hex.replace(this->systemSource.address.indexOf(address), sysxList);
+	}
+	else 
+	{
+  this->fileSource.hex.replace(this->fileSource.address.indexOf(address), sysxList);
+  };
 
-	QString sysxMsg = midiTable->dataChange(hex1, hex2, hex3, hex4, hex5);
+	QString sysxMsg = midiTable->dataChange(area, hex1, hex2, hex3, hex4, hex5);
 
-	if(/*this->isConnected() && */this->deviceReady() /*&& this->getSyncStatus()*/)
+	if(this->isConnected() && this->deviceReady() /*&& this->getSyncStatus()*/)
 	{
 		this->setDeviceReady(false);
 
 		emit setStatusSymbol(2);
-		//emit setStatusProgress(0);
 		emit setStatusMessage("Sending");
 
 		QObject::connect(this, SIGNAL(sysxReply(QString)),	
@@ -278,13 +347,13 @@ void SysxIO::setFileSource(QString hex1, QString hex2, QString hex3, QString hex
 		
 		this->sendSysx(sysxMsg);
 	}
-	else //if(this->isConnected())
+	else if(this->isConnected())
 	{
 		this->sendSpooler.append(sysxMsg);
 	};
 };
 
-void SysxIO::setFileSource(QString hex1, QString hex2, QString hex3, QString size, QList<QString> hexData)
+void SysxIO::setFileSource(QString hex1, QString hex2, QString hex3, QList<QString> hexData)
 {
 	QString address;
 	address.append(hex1);
@@ -326,7 +395,7 @@ void SysxIO::setFileSource(QString hex1, QString hex2, QString hex3, QString siz
 	  };
 	  sysxMsg.replace(sysxMsg.size() - 4, 2, getCheckSum(dataSize)); */
 
-		if(/*this->isConnected() &&*/ this->deviceReady() /*&& this->getSyncStatus()*/)
+		if(this->isConnected() && this->deviceReady() /*&& this->getSyncStatus()*/)
 		{
 			this->setDeviceReady(false);
 
@@ -338,31 +407,30 @@ void SysxIO::setFileSource(QString hex1, QString hex2, QString hex3, QString siz
 			
 			this->sendSysx(sysxMsg);
 		}
-		else //if(this->isConnected())
+		else if(this->isConnected())
 		{
 			this->sendSpooler.append(sysxMsg);
 		};
 };
 
-QList<QString> SysxIO::getSourceItems(QString hex1, QString hex2)
+QList<QString> SysxIO::getSourceItems(QString area, QString hex1, QString hex2)
 {
-	QList<QString> items = this->getFileSource(hex1, hex2);	
+	QList<QString> items = this->getFileSource(area, hex1, hex2);	
 	return items; 
 };
 
-int SysxIO::getSourceValue(QString hex1, QString hex2, QString hex3)
+int SysxIO::getSourceValue(QString area, QString hex1, QString hex2, QString hex3)
 {
 	MidiTable *midiTable = MidiTable::Instance();
-
 	bool ok;
-
+  if (area != "System")  {area = "Structure";};
 	if(hex1 != "00")
 	{
 		QString prevHex = QString::number((hex1.toInt(&ok, 16) - 1), 16).toUpper();
 		if(prevHex.length() < 2) prevHex.prepend("0");
-		if(midiTable->getMidiMap("Structure").id.contains(prevHex))
+		if(midiTable->getMidiMap(area).id.contains(prevHex))
 		{
-			if(midiTable->getMidiMap("Structure", hex1).name == midiTable->getMidiMap("Structure", prevHex).name)
+			if(midiTable->getMidiMap(area, hex1).name == midiTable->getMidiMap(area, prevHex).name)
 			{
 				hex1 = prevHex;
 				hex3 = QString::number(hex3.toInt(&ok, 16) + QString("7F").toInt(&ok, 16) + 1, 16);
@@ -371,8 +439,8 @@ int SysxIO::getSourceValue(QString hex1, QString hex2, QString hex3)
 	};
 
 	int value;
-	QList<QString> items = this->getSourceItems(hex1, hex2);
-	if(midiTable->isData("Structure", hex1, hex2, hex3))
+	QList<QString> items = this->getSourceItems(area, hex1, hex2);
+	if(midiTable->isData(area, hex1, hex2, hex3))
 	{
 		int maxRange = QString("7F").toInt(&ok, 16) + 1;
 		int listindex = sysxDataOffset + QString(hex3).toInt(&ok, 16);
@@ -452,23 +520,48 @@ SysxData SysxIO::getFileSource()
 	return this->fileSource;
 };
 
-QList<QString> SysxIO::getFileSource(QString hex1, QString hex2)
+SysxData SysxIO::getSystemSource()
+{
+  	return this->systemSource;
+};
+
+QList<QString> SysxIO::getFileSource(QString area, QString hex1, QString hex2)
 {
 	QString address;
 	address.append(hex1);
 	address.append(hex2);
-	if(this->fileSource.address.indexOf(address) == -1)
+	QList<QString> sysxMsg;
+	if (area == "System")
+	{
+	if(this->systemSource.address.indexOf(address) == -1)
+	{
+		sysxWriter file;
+		file.setFile(":system.syx");  // Read the default sysex file so whe don't start empty handed.
+		if(file.readFile())
+		{	
+			setFileSource(area, file.getSystemSource());
+		};
+	};
+	sysxMsg = this->systemSource.hex.at( this->systemSource.address.indexOf(address) );
+	
+   }
+   else
+   { 
+    area = "Structure";
+   	if(this->fileSource.address.indexOf(address) == -1)
 	{
 		sysxWriter file;
 		file.setFile(":default.syx");  // Read the default sysex file so whe don't start empty handed.
 		if(file.readFile())
 		{	
-			setFileSource(file.getFileSource());
+			setFileSource(area, file.getFileSource());
 		};
 	};
-	QList<QString> sysxMsg = this->fileSource.hex.at( this->fileSource.address.indexOf(address) );
-	return sysxMsg;
+	sysxMsg = this->fileSource.hex.at( this->fileSource.address.indexOf(address) );
 
+   
+   };
+   return sysxMsg;
 };
 
 QString SysxIO::getCheckSum(int dataSize)
@@ -679,12 +772,17 @@ QString SysxIO::getPatchChangeMsg(int bank, int patch)
 ****************************************************************************/
 void SysxIO::sendMidi(QString midiMsg)
 {
-	//if(isConnected())
+	if(isConnected())
 	{
 		Preferences *preferences = Preferences::Instance(); bool ok;
 		int midiOutPort = preferences->getPreferences("Midi", "MidiOut", "device").toInt(&ok, 10);	// Get midi out device from preferences.
 		
 		midiIO *midi = new midiIO();
+		QList<QString> midiOutDevices = midi->getMidiOutDevices();
+	  if ( midiOutDevices.contains("BOSS GT-10B") )
+    {
+      midiOutPort = midiOutDevices.indexOf("BOSS GT-10B");
+    };
 
 		midi->sendMidi(midiMsg, midiOutPort);
 			 /*DeBugGING OUTPUT */
@@ -802,7 +900,16 @@ void SysxIO::sendSysx(QString sysxMsg)
 	int midiInPort = preferences->getPreferences("Midi", "MidiIn", "device").toInt(&ok, 10);	// Get midi in device from preferences.
 	
 	midiIO *midi = new midiIO();
-
+    QList<QString> midiInDevices = midi->getMidiInDevices();
+	  QList<QString> midiOutDevices = midi->getMidiOutDevices();
+	  if ( midiInDevices.contains("BOSS GT-10B") )
+    {
+      midiInPort = midiInDevices.indexOf("BOSS GT-10B");
+    };
+	  if ( midiOutDevices.contains("BOSS GT-10B") )
+    {
+      midiOutPort = midiOutDevices.indexOf("BOSS GT-10B");
+    };
 	midi->sendSysxMsg(sysxMsg, midiOutPort, midiInPort);
 			 /*DeBugGING OUTPUT */
 	if(preferences->getPreferences("Midi", "DBug", "bool")=="true")
@@ -880,7 +987,7 @@ void SysxIO::returnPatchName(QString sysxMsg)
 			this, SLOT(returnPatchName(QString)));
 	
 	QString name; 
-	if(sysxMsg != "" && sysxMsg.size()/2 == 29)
+	if(sysxMsg.size()/2 == 29)   
 	{		
 		int dataStartOffset = sysxNameOffset;   //pointer to start of names in patch file at xxxx bytes.
 		QString hex1, hex2, hex3, hex4;
@@ -903,13 +1010,11 @@ void SysxIO::returnPatchName(QString sysxMsg)
 
 			i++;
 		};
-	}; 
-	if (sysxMsg != "" && sysxMsg.size()/2 != 29){name = "bad data";}; 
-  if(sysxMsg == ""){name = "no reply"; }; 
-	emit patchName(name.trimmed());
-
-
-
+	}
+	else if (sysxMsg.size()/2 > 0 && sysxMsg.size()/2 != 29)
+  {name = "bad data";} 
+  else {name = "no reply"; };  
+	emit patchName(name);	
 };
 
 

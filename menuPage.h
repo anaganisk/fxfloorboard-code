@@ -58,19 +58,19 @@ public slots:
 	//void valueChanged(int index);
 	virtual void updateSignal() {};
 	void setDisplayToFxName();
-	void menuButtonSignal(bool value);   //cjw
-	void connectionResult(QString);
+	void menuButtonSignal(bool value); 
+	void systemReply(QString);
 		
 signals:
 	void valueChanged(QString fxName, QString valueName, QString valueStr);
 	void currentIndexChanged(int index);
 	void dialogUpdateSignal();
 	void setEditDialog(editWindow* editDialog);
-	void closeWindow();
 	//void notConnectedSignal();
 	void setStatusSymbol(int value);
 	void setStatusProgress(int value);
   void setStatusMessage(QString message);
+  void systemUpdateSignal();
 
 protected:
 	void paintEvent(QPaintEvent *event);
@@ -91,6 +91,7 @@ private:
 	QString hex2;
 	QString hex3;
 	QString fxName;
+	QString area_mode;
   	
 	customButton *menuButton;
 };

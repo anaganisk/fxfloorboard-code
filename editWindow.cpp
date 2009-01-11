@@ -92,11 +92,9 @@ editWindow::editWindow(QWidget *parent)
 	/*QObject::connect(this, SIGNAL( updateSignal() ),
             this->parent(), SIGNAL( updateSignal() ));*/
 
-	QObject::connect(this, SIGNAL( dialogUpdateSignal() ),
-                this, SLOT( pageUpdateSignal() ));
+	QObject::connect(this, SIGNAL( dialogUpdateSignal() ), this, SLOT( pageUpdateSignal() ));
 
-	QObject::connect(this->pageComboBox, SIGNAL(activated(int)),
-                this, SLOT(valueChanged(int)));
+	QObject::connect(this->pageComboBox, SIGNAL(activated(int)), this, SLOT(valueChanged(int)));
 };
 
 void editWindow::paintEvent(QPaintEvent *)
@@ -130,11 +128,12 @@ QString editWindow::getTitle()
 	return this->title->text();
 };
 
-void editWindow::addPage(QString hex1, QString hex2, QString hex3, QString hex4)
+void editWindow::addPage(QString hex1, QString hex2, QString hex3, QString hex4, QString area)
 {
 	this->hex1 = hex1;
 	this->hex2 = hex2;
 	this->hex3 = hex3;
+	this->area = area;
 
 	this->tempPage->setGridLayout();
 	this->editPages.append(this->tempPage);
@@ -146,13 +145,13 @@ void editWindow::addPage(QString hex1, QString hex2, QString hex3, QString hex4)
 
 	QObject::connect(editPages.last(), SIGNAL( updateSignal() ),
 		this, SIGNAL( updateSignal() ));
-
+   if (area != "System"){this->area = "Structure";};
 	if(hex1 != "void" && hex2 != "void" && hex3 != "void")
 	{
 		MidiTable *midiTable = MidiTable::Instance();
-		Midi items = midiTable->getMidiMap("Structure", hex1, hex2, hex3);
-
-		int itemsCount;
+		Midi items = midiTable->getMidiMap(this->area, hex1, hex2, hex3);
+    
+    int itemsCount;
 		if(hex4 == "void")
 		{
 			itemsCount = this->pagesWidget->count() - 1;
@@ -174,14 +173,13 @@ void editWindow::addPage(QString hex1, QString hex2, QString hex3, QString hex4)
 		{
 			item = desc;
 		};
-		//int pixelWidth = QFontMetrics(this->getFont()).width(item);
-		//if(maxLenght < pixelWidth) maxLenght = pixelWidth;
+
 
 		this->pageComboBox->addItem(item);
 		this->tempPage = new editPage;
 
 		this->pageComboBox->setMaxVisibleItems(this->pages);
-		//this->pageComboBox->view()->setMinimumWidth( this->comboWidth );
+		//this->pageComboBox->view()->setMinimumWidth(50);
 
 		if(this->pages > 1)
 		{
@@ -197,9 +195,10 @@ void editWindow::valueChanged(int index)
 	{
 		QString valueHex = QString::number(index, 16).toUpper();
 		if(valueHex.length() < 2) valueHex.prepend("0");
+		//QString area = "Structure"; 
 
 		SysxIO *sysxIO = SysxIO::Instance();
-		sysxIO->setFileSource(this->hex1, this->hex2, this->hex3, valueHex);
+		sysxIO->setFileSource(this->area, this->hex1, this->hex2, this->hex3, valueHex);
     //QApplication::beep;
 		//emit updateDisplay(valueHex);
 		//emit updateSignal();

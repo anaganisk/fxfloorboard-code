@@ -1,5 +1,6 @@
 /****************************************************************************
 **
+** Copyright (C) 2008 Colin Willcocks.
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
 ** This file is part of "GT-10B Fx FloorBoard".
@@ -48,12 +49,10 @@ signals:
 	void replyMsg(QString sysxInMsg);
 	void midiFinished();
 	void started();
-	void finished();
-	void terminated();
 	void setStatusSymbol(int value);
 	void setStatusProgress(int value);
-    void setStatusMessage(QString message);
-    void setStatusdBugMessage(QString dBug);
+  void setStatusMessage(QString message);
+  void setStatusdBugMessage(QString dBug);
 		
 private:
 	void queryMidiInDevices();
@@ -61,11 +60,9 @@ private:
 	void sendSyxMsg(QString sysxOutMsg, int midiOutport);
 	void sendMidiMsg(QString sysxOutMsg, int midiOutport);
 	void receiveMsg(QString sysxMsg, int midiInPort);
-	QString getMidiOutErrorMsg(unsigned long err);
-	QString getMidiInErrorMsg(unsigned long err);	
 	QList<QString> midiOutDevices;
 	QList<QString> midiInDevices;
-	
+		
 	
 	static QString sysxBuffer;
 	static bool dataReceive;
@@ -83,6 +80,7 @@ private:
 	QString reBuild;
 	QString hex;
 	bool midi;
+	QString errorMsg;
 };
 
 #endif // MIDIIO_H

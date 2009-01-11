@@ -1,9 +1,10 @@
 /****************************************************************************
 **
-** Copyright (C) 2008 Colin Willcocks
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
+** Copyright (C) 2007, 2008, 2009 Colin Willcocks.
+** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
+** All rights reserved.
 **
-** This file is part of "GT-10BFxFloorBoard".
+** This file is part of "GT-10B Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -27,7 +28,7 @@ menuPage_system::menuPage_system(QWidget *parent)
     : menuPage(parent)
 { 
   setImage(":/images/system_pushbutton.png");
-  setLSB("0B", "00");
+  setLSB("00", "00");
 	setEditPages();
 };
 
@@ -39,196 +40,82 @@ void menuPage_system::updateSignal()
 void menuPage_system::setEditPages()
 {
 
-	editDetails()->page()->newGroupBox("systems");
-	editDetails()->page()->newGroupBox("system 1-8");
-	editDetails()->page()->newStackControl(0);
-	editDetails()->page()->addComboBox(0, 0, 1, 1, "0C", "00", "21");
-	editDetails()->page()->addStackControl();
+	editDetails()->page()->newGroupBox("Systems Area still under Construction");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "00", "00", "00", "System"); // lcd contrast
+	editDetails()->page()->addComboBox(0, 1, 1, 1, "00", "00", "10", "System"); // preamp mode
+	editDetails()->page()->addComboBox(0, 2, 1, 1, "00", "00", "11", "System"); // patch change mode
+	editDetails()->page()->addComboBox(0, 3, 1, 1, "00", "00", "12", "System"); // bank change mode
+	editDetails()->page()->addKnob(0, 4, 1, 1, "00", "00", "13", "System"); // bank extent min
+	editDetails()->page()->addKnob(0, 5, 1, 1, "00", "00", "15", "System"); // bank extent max
+	editDetails()->page()->addComboBox(0, 6, 1, 1, "00", "00", "17", "System"); //exp hold
+	editDetails()->page()->addComboBox(0, 7, 1, 1, "00", "00", "18", "System"); //exp indication
+	
+	editDetails()->page()->addComboBox(1, 0, 1, 1, "00", "00", "20", "System"); //usb driver mode
+	editDetails()->page()->addComboBox(1, 1, 1, 1, "00", "00", "21", "System"); //usb monitor cmd
+	editDetails()->page()->addKnob(1, 2, 1, 1, "00", "00", "22", "System"); //dgt out level
+	editDetails()->page()->addKnob(1, 3, 1, 1, "00", "00", "23", "System"); //usb mix level
+	editDetails()->page()->addComboBox(1, 4, 1, 1, "00", "00", "30", "System"); // tuner pitch
+	editDetails()->page()->addComboBox(1, 5, 1, 1, "00", "00", "31", "System"); //tuner bypass
+	
+	editDetails()->page()->addKnob(2, 0, 1, 1, "00", "00", "40", "System"); // gat 1 input level
+	editDetails()->page()->addKnob(2, 1, 1, 1, "00", "00", "41", "System"); // gat 1 input pres
+	editDetails()->page()->addKnob(2, 2, 1, 1, "00", "00", "42", "System"); // gat 2 input level
+	editDetails()->page()->addKnob(2, 3, 1, 1, "00", "00", "43", "System"); // gat 2 input pres
+	editDetails()->page()->addKnob(2, 4, 1, 1, "00", "00", "44", "System"); // gat 3 input level
+	editDetails()->page()->addKnob(2, 5, 1, 1, "00", "00", "45", "System"); // gat 3 input pres
+	editDetails()->page()->addKnob(2, 6, 1, 1, "00", "00", "46", "System"); // usb input level
+	editDetails()->page()->addKnob(2, 7, 1, 1, "00", "00", "47", "System"); // usb input pres
+	editDetails()->page()->addKnob(2, 8, 1, 1, "00", "00", "52", "System"); // main out
+	
+	editDetails()->page()->addKnob(3, 0, 1, 1, "00", "00", "48", "System"); // eq low
+  editDetails()->page()->addKnob(3, 1, 1, 1, "00", "00", "49", "System"); // eq mid
+  editDetails()->page()->addKnob(3, 2, 1, 1, "00", "00", "4A", "System"); // eq mid
+  editDetails()->page()->addKnob(3, 3, 1, 1, "00", "00", "4B", "System"); // eq mid
+  editDetails()->page()->addKnob(3, 4, 1, 1, "00", "00", "4C", "System"); // eq high
+  editDetails()->page()->addComboBox(3, 5, 1, 1, "00", "00", "4D", "System"); // input select
+  editDetails()->page()->addComboBox(3, 6, 1, 1, "00", "00", "4E", "System"); // output mode
+  editDetails()->page()->addComboBox(3, 7, 1, 1, "00", "00", "4F", "System"); // output select
+  editDetails()->page()->addKnob(3, 8, 1, 1, "00", "00", "50", "System"); // NS threshold
+  editDetails()->page()->addKnob(3, 9, 1, 1, "00", "00", "51", "System"); // revberb level
+  editDetails()->page()->addGroupBox(0, 0, 1, 1);
+  editDetails()->addPage("00", "00", "01", "00", "System");
+	//editDetails()->page()->addComboBox(1, 0, 1, 1, "00", "00", "10");
+	
+	editDetails()->page()->newGroupBox("Systems Area still under Construction");
+	editDetails()->page()->addComboBox(0, 0, 1, 1, "00", "00", "52", "System"); // main out mode
+	editDetails()->page()->addComboBox(0, 1, 1, 1, "00", "00", "53", "System"); // sub out mode 
+	editDetails()->page()->addKnob(0, 2, 1, 1, "00", "00", "54", "System"); // sub out level
+	editDetails()->page()->addComboBox(0, 3, 1, 1, "00", "00", "60", "System"); // PH LOOP mode
+	editDetails()->page()->addComboBox(0, 4, 1, 1, "00", "00", "61", "System"); // record mode
+	editDetails()->page()->addComboBox(0, 5, 1, 1, "00", "00", "62", "System"); // pedal mode
+	editDetails()->page()->addComboBox(0, 6, 1, 1, "00", "00", "63", "System"); // clear pdl
+	editDetails()->page()->addKnob(0, 7, 1, 1, "00", "00", "64", "System"); // play level 
+	
+	
+	editDetails()->page()->addComboBox(1, 0, 1, 1, "00", "00", "70", "System"); // sys num pdl ctrl
+	editDetails()->page()->addComboBox(1, 1, 1, 1, "00", "00", "71", "System"); // dial function
+	editDetails()->page()->addComboBox(1, 2, 1, 1, "00", "00", "72", "System"); // knob P1
+	editDetails()->page()->addComboBox(1, 3, 1, 1, "00", "00", "74", "System"); // knob P2
+	editDetails()->page()->addComboBox(1, 4, 1, 1, "00", "00", "76", "System"); // knob P3
+	editDetails()->page()->addComboBox(1, 5, 1, 1, "00", "00", "78", "System"); // knob P4
+	
+	editDetails()->page()->addComboBox(2, 0, 1, 1, "00", "00", "7A", "System"); //  exp1 pdl
+	editDetails()->page()->addComboBox(2, 1, 1, 1, "00", "00", "7B", "System"); // exp1 pdl sw
+	editDetails()->page()->addComboBox(2, 2, 1, 1, "00", "00", "7C", "System"); // ctrl 1
+	editDetails()->page()->addComboBox(2, 3, 1, 1, "00", "00", "7D", "System"); // ctrl 2
+	editDetails()->page()->addComboBox(2, 4, 1, 1, "00", "00", "7E", "System"); // exp2 pdl
+	editDetails()->page()->addComboBox(2, 5, 1, 1, "00", "00", "7F", "System"); // ctrl 3
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
-	editDetails()->page()->newGroupBox("system 1");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "0B", "00", "20");
-	editDetails()->page()->addGroupBox(0, 1, 1, 1);
-	editDetails()->page()->newGroupBox("system 2");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "0B", "00", "30");
-	editDetails()->page()->addGroupBox(0, 2, 1, 1);
-	editDetails()->page()->newGroupBox("system 3");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "0B", "00", "40");
-	editDetails()->page()->addGroupBox(0, 3, 1, 1);
-	editDetails()->page()->newGroupBox("system 4");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "0B", "00", "50");
-	editDetails()->page()->addGroupBox(0, 4, 1, 1);
-	editDetails()->page()->newGroupBox("system 5");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "0B", "00", "60");
-	editDetails()->page()->addGroupBox(0, 5, 1, 1);
-	editDetails()->page()->newGroupBox("system 6");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "0B", "00", "70");
-	editDetails()->page()->addGroupBox(0, 6, 1, 1);
-	editDetails()->page()->newGroupBox("system 7");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "0C", "00", "00");
-	editDetails()->page()->addGroupBox(0, 7, 1, 1);
-	editDetails()->page()->newGroupBox("system 8");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "0C", "00", "10");
-	editDetails()->page()->addGroupBox(0, 8, 1, 1);
-	editDetails()->page()->newGroupBox("Input");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "0C", "00", "20", "normal","right", 85);
-	editDetails()->page()->addGroupBox(0, 9, 1, 1);
-	editDetails()->page()->addGroupBox(1, 0, 1, 1);
-	editDetails()->page()->newGroupBox("");
-	editDetails()->page()->insertStackField(0, 0, 1, 1, 1);
+  editDetails()->addPage("00", "00", "01", "01", "System");
+	
+	editDetails()->page()->newGroupBox("Systems Area still under Construction");
+	//editDetails()->page()->addKnob(0, 0, 1, 1, "00", "03", "60", "System"); // ctrl 4
+	
+	
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
+  editDetails()->addPage("00", "00", "01", "02", "System");
+	
+	
 	editDetails()->addPage();
 
-  editDetails()->page()->newStackField(0);
-  editDetails()->page()->newGroupBox("system 1 Target");
-	editDetails()->page()->addTarget(0, 0, 1, 3, "0B", "00", "21", "target","target", 120); // Target
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
-	editDetails()->page()->newGroupBox("system 1 Internal Pedal");
-	editDetails()->page()->addComboBox(0, 0, 1, 1, "0B", "00", "2B");                    // Internal Pedal Trigger
-  editDetails()->page()->addKnob(0, 1, 1, 1, "0B", "00", "2C");                        // Internal Pedal Time
-	editDetails()->page()->addComboBox(0, 2, 1, 1, "0B", "00", "2D");                    // Internal Pedal Curve
-	editDetails()->page()->addKnob(1, 0, 1, 1, "0B", "00", "2E", "normal","bottom", 105);// Wave Form Rate
-	editDetails()->page()->addComboBox(1, 1, 1, 1, "0B", "00", "2F");                    // Wave Form
-	editDetails()->page()->addGroupBox(0, 1, 2, 1);
-	editDetails()->page()->newGroupBox("system 1 Source");
-	editDetails()->page()->addComboBox(1, 0, 1, 1, "0B", "00", "27");                    // Source
-  editDetails()->page()->addComboBox(1, 1, 1, 1, "0B", "00", "28");                    // Source Mode
-	editDetails()->page()->addKnob(1, 2, 1, 1, "0B", "00", "29");                        // Active Range High
-	editDetails()->page()->addKnob(1, 3, 1, 1, "0B", "00", "2A");                        // Active Range Low
-  editDetails()->page()->addGroupBox(1, 0, 1, 1);
-	editDetails()->page()->addStackField();
-
-	editDetails()->page()->newStackField(0);
-	editDetails()->page()->newGroupBox("system 2 Target");
-	editDetails()->page()->addTarget(0, 0, 1, 3, "0B", "00", "31", "target","target", 120); // Target
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
-	editDetails()->page()->newGroupBox("system 2 Internal Pedal");
-	editDetails()->page()->addComboBox(0, 0, 1, 1, "0B", "00", "3B");                    // Internal Pedal Trigger
-  editDetails()->page()->addKnob(0, 1, 1, 1, "0B", "00", "3C");                        // Internal Pedal Time
-	editDetails()->page()->addComboBox(0, 2, 1, 1, "0B", "00", "3D");                    // Internal Pedal Curve
-	editDetails()->page()->addKnob(1, 0, 1, 1, "0B", "00", "3E", "normal","bottom", 105);// Wave Form Rate
-	editDetails()->page()->addComboBox(1, 1, 1, 1, "0B", "00", "3F");                    // Wave Form
-	editDetails()->page()->addGroupBox(0, 1, 2, 1);
-	editDetails()->page()->newGroupBox("system 2 Source");
-	editDetails()->page()->addComboBox(1, 0, 1, 1, "0B", "00", "37");                    // Source
-  editDetails()->page()->addComboBox(1, 1, 1, 1, "0B", "00", "38");                    // Source Mode
-	editDetails()->page()->addKnob(1, 2, 1, 1, "0B", "00", "39");                        // Active Range High
-	editDetails()->page()->addKnob(1, 3, 1, 1, "0B", "00", "3A");                        // Active Range Low
-  editDetails()->page()->addGroupBox(1, 0, 1, 1);
-	editDetails()->page()->addStackField();
-
-	editDetails()->page()->newStackField(0);
-	editDetails()->page()->newGroupBox("system 3 Target");
-	editDetails()->page()->addTarget(0, 0, 1, 3, "0B", "00", "41", "target","target", 120); // Target
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
-	editDetails()->page()->newGroupBox("system 3 Internal Pedal");
-	editDetails()->page()->addComboBox(0, 0, 1, 1, "0B", "00", "4B");                    // Internal Pedal Trigger
-  editDetails()->page()->addKnob(0, 1, 1, 1, "0B", "00", "4C");                        // Internal Pedal Time
-	editDetails()->page()->addComboBox(0, 2, 1, 1, "0B", "00", "4D");                    // Internal Pedal Curve
-	editDetails()->page()->addKnob(1, 0, 1, 1, "0B", "00", "4E", "normal","bottom", 105);// Wave Form Rate
-	editDetails()->page()->addComboBox(1, 1, 1, 1, "0B", "00", "4F");                    // Wave Form
-	editDetails()->page()->addGroupBox(0, 1, 2, 1);
-	editDetails()->page()->newGroupBox("system 3 Source");
-	editDetails()->page()->addComboBox(1, 0, 1, 1, "0B", "00", "47");                    // Source
-  editDetails()->page()->addComboBox(1, 1, 1, 1, "0B", "00", "48");                    // Source Mode
-	editDetails()->page()->addKnob(1, 2, 1, 1, "0B", "00", "49");                        // Active Range High
-	editDetails()->page()->addKnob(1, 3, 1, 1, "0B", "00", "4A");                        // Active Range Low
-  editDetails()->page()->addGroupBox(1, 0, 1, 1);
-	editDetails()->page()->addStackField();
-
-	editDetails()->page()->newStackField(0);
-	editDetails()->page()->newGroupBox("system 4 Target");
-	editDetails()->page()->addTarget(0, 0, 1, 3, "0B", "00", "51", "target","target", 120); // Target
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
-	editDetails()->page()->newGroupBox("system 4 Internal Pedal");
-	editDetails()->page()->addComboBox(0, 0, 1, 1, "0B", "00", "5B");                    // Internal Pedal Trigger
-  editDetails()->page()->addKnob(0, 1, 1, 1, "0B", "00", "5C");                        // Internal Pedal Time
-	editDetails()->page()->addComboBox(0, 2, 1, 1, "0B", "00", "5D");                    // Internal Pedal Curve
-	editDetails()->page()->addKnob(1, 0, 1, 1, "0B", "00", "5E", "normal","bottom", 105);// Wave Form Rate
-	editDetails()->page()->addComboBox(1, 1, 1, 1, "0B", "00", "5F");                    // Wave Form
-	editDetails()->page()->addGroupBox(0, 1, 2, 1);
-	editDetails()->page()->newGroupBox("system 4 Source");
-	editDetails()->page()->addComboBox(1, 0, 1, 1, "0B", "00", "57");                    // Source
-  editDetails()->page()->addComboBox(1, 1, 1, 1, "0B", "00", "58");                    // Source Mode
-	editDetails()->page()->addKnob(1, 2, 1, 1, "0B", "00", "59");                        // Active Range High
-	editDetails()->page()->addKnob(1, 3, 1, 1, "0B", "00", "5A");                        // Active Range Low
-  editDetails()->page()->addGroupBox(1, 0, 1, 1);
-	editDetails()->page()->addStackField();
-
-	editDetails()->page()->newStackField(0);
-	editDetails()->page()->newGroupBox("system 5 Target");
-	editDetails()->page()->addTarget(0, 0, 1, 3, "0B", "00", "61", "target","target", 120); // Target
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
-	editDetails()->page()->newGroupBox("system 5 Internal Pedal");
-	editDetails()->page()->addComboBox(0, 0, 1, 1, "0B", "00", "6B");                    // Internal Pedal Trigger
-  editDetails()->page()->addKnob(0, 1, 1, 1, "0B", "00", "6C");                        // Internal Pedal Time
-	editDetails()->page()->addComboBox(0, 2, 1, 1, "0B", "00", "6D");                    // Internal Pedal Curve
-	editDetails()->page()->addKnob(1, 0, 1, 1, "0B", "00", "6E", "normal","bottom", 105);// Wave Form Rate
-	editDetails()->page()->addComboBox(1, 1, 1, 1, "0B", "00", "6F");                    // Wave Form
-	editDetails()->page()->addGroupBox(0, 1, 2, 1);
-	editDetails()->page()->newGroupBox("system 5 Source");
-	editDetails()->page()->addComboBox(1, 0, 1, 1, "0B", "00", "67");                    // Source
-  editDetails()->page()->addComboBox(1, 1, 1, 1, "0B", "00", "68");                    // Source Mode
-	editDetails()->page()->addKnob(1, 2, 1, 1, "0B", "00", "69");                        // Active Range High
-	editDetails()->page()->addKnob(1, 3, 1, 1, "0B", "00", "6A");                        // Active Range Low
-  editDetails()->page()->addGroupBox(1, 0, 1, 1);
-	editDetails()->page()->addStackField();
-
-
-	editDetails()->page()->newStackField(0);
-	editDetails()->page()->newGroupBox("system 6 Target");
-	editDetails()->page()->addTarget(0, 0, 1, 3, "0B", "00", "71", "target","target", 120); // Target
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
-	editDetails()->page()->newGroupBox("system 6 Internal Pedal");
-	editDetails()->page()->addComboBox(0, 0, 1, 1, "0B", "00", "7B");                    // Internal Pedal Trigger
-  editDetails()->page()->addKnob(0, 1, 1, 1, "0B", "00", "7C");                        // Internal Pedal Time
-	editDetails()->page()->addComboBox(0, 2, 1, 1, "0B", "00", "7D");                    // Internal Pedal Curve
-	editDetails()->page()->addKnob(1, 0, 1, 1, "0B", "00", "7E", "normal","bottom", 105);// Wave Form Rate
-	editDetails()->page()->addComboBox(1, 1, 1, 1, "0B", "00", "7F");                    // Wave Form
-	editDetails()->page()->addGroupBox(0, 1, 2, 1);
-	editDetails()->page()->newGroupBox("system 6 Source");
-	editDetails()->page()->addComboBox(1, 0, 1, 1, "0B", "00", "77");                    // Source
-  editDetails()->page()->addComboBox(1, 1, 1, 1, "0B", "00", "78");                    // Source Mode
-	editDetails()->page()->addKnob(1, 2, 1, 1, "0B", "00", "79");                        // Active Range High
-	editDetails()->page()->addKnob(1, 3, 1, 1, "0B", "00", "7A");                        // Active Range Low
-  editDetails()->page()->addGroupBox(1, 0, 1, 1);
-	editDetails()->page()->addStackField();
-
-	editDetails()->page()->newStackField(0);
-	editDetails()->page()->newGroupBox("system 7 Target");
-	editDetails()->page()->addTarget(0, 0, 1, 3, "0C", "00", "01", "target","target", 120); // Target
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
-	editDetails()->page()->newGroupBox("system 7 Internal Pedal");
-	editDetails()->page()->addComboBox(0, 0, 1, 1, "0C", "00", "0B");                    // Internal Pedal Trigger
-  editDetails()->page()->addKnob(0, 1, 1, 1, "0C", "00", "0C");                        // Internal Pedal Time
-	editDetails()->page()->addComboBox(0, 2, 1, 1, "0C", "00", "0D");                    // Internal Pedal Curve
-	editDetails()->page()->addKnob(1, 0, 1, 1, "0C", "00", "0E", "normal","bottom", 105);// Wave Form Rate
-	editDetails()->page()->addComboBox(1, 1, 1, 1, "0C", "00", "0F");                    // Wave Form
-	editDetails()->page()->addGroupBox(0, 1, 2, 1);
-	editDetails()->page()->newGroupBox("system 7 Source");
-	editDetails()->page()->addComboBox(1, 0, 1, 1, "0C", "00", "07");                    // Source
-  editDetails()->page()->addComboBox(1, 1, 1, 1, "0C", "00", "08");                    // Source Mode
-	editDetails()->page()->addKnob(1, 2, 1, 1, "0C", "00", "09");                        // Active Range High
-	editDetails()->page()->addKnob(1, 3, 1, 1, "0C", "00", "0A");                        // Active Range Low
-  editDetails()->page()->addGroupBox(1, 0, 1, 1);
-	editDetails()->page()->addStackField();
-
-
-	editDetails()->page()->newStackField(0);
-	editDetails()->page()->newGroupBox("system 8 Target");
-	editDetails()->page()->addTarget(0, 0, 1, 3, "0C", "00", "11", "target","target", 120); // Target
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
-	editDetails()->page()->newGroupBox("system 8 Internal Pedal");
-	editDetails()->page()->addComboBox(0, 0, 1, 1, "0C", "00", "1B");                    // Internal Pedal Trigger
-  editDetails()->page()->addKnob(0, 1, 1, 1, "0C", "00", "1C");                        // Internal Pedal Time
-	editDetails()->page()->addComboBox(0, 2, 1, 1, "0C", "00", "1D");                    // Internal Pedal Curve
-	editDetails()->page()->addKnob(1, 0, 1, 1, "0C", "00", "1E", "normal","bottom", 105);// Wave Form Rate
-	editDetails()->page()->addComboBox(1, 1, 1, 1, "0C", "00", "1F");                    // Wave Form
-	editDetails()->page()->addGroupBox(0, 1, 2, 1);
-	editDetails()->page()->newGroupBox("system 8 Source");
-	editDetails()->page()->addComboBox(1, 0, 1, 1, "0C", "00", "17");                    // Source
-  editDetails()->page()->addComboBox(1, 1, 1, 1, "0C", "00", "18");                    // Source Mode
-	editDetails()->page()->addKnob(1, 2, 1, 1, "0C", "00", "19");                        // Active Range High
-	editDetails()->page()->addKnob(1, 3, 1, 1, "0C", "00", "1A");                        // Active Range Low
-  editDetails()->page()->addGroupBox(1, 0, 1, 1);
-  editDetails()->page()->addStackField();
 };

@@ -68,15 +68,27 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
   renameWidget *nameEdit = new renameWidget(this); 
   nameEdit->setGeometry(85, 5, 150, 34); 
   
-  this->editDialog = new editWindow();
+  //this->editDialog = new editWindow();
 
  	this->connectButton = new customButton(tr("Connect"), false, QPoint(405, 5), this, ":/images/greenledbutton.png");
 	this->writeButton = new customButton(tr("Write/Sync"), false, QPoint(494, 5), this, ":/images/ledbutton.png");
-	//this->manualButton = new customButton(tr("Manual"), false, QPoint(583, 24), this, ":/images/pushbutton.png");
-	//this->assignButton = new customButton(tr("Assign"), false, QPoint(583, 5), this, ":/images/pushbutton.png");
-	//this->masterButton = new customButton(tr("Master"), false, QPoint(672, 5), this, ":/images/pushbutton.png");
-	//this->systemButton = new customButton(tr("System"), false, QPoint(672, 24), this, ":/images/pushbutton.png");
 
+  this->ch_mode_Button = new customButton(tr("Channel Mode"), false, QPoint(10, 467), this, ":/images/pushbutton.png");
+  this->preamp1_Button = new customButton(tr("PreAmp"), false, QPoint(100, 467), this, ":/images/pushbutton.png");
+	//this->preamp2_Button = new customButton(tr("PreAmp B"), false, QPoint(100, 485), this, ":/images/pushbutton.png");
+	this->distortion_Button = new customButton(tr("Distortion"), false, QPoint(190,467), this, ":/images/pushbutton.png");
+	this->compressor_Button = new customButton(tr("Compressor"), false, QPoint(190,485), this, ":/images/pushbutton.png");
+	this->ns1_Button = new customButton(tr("NS 1"), false, QPoint(280, 467), this, ":/images/pushbutton.png");
+	this->ns2_Button = new customButton(tr("NS 2"), false, QPoint(280, 485), this, ":/images/pushbutton.png");
+	this->fx1_Button = new customButton(tr("FX 1"), false, QPoint(370, 467), this, ":/images/pushbutton.png");
+	this->fx2_Button = new customButton(tr("FX 2"), false, QPoint(370, 485), this, ":/images/pushbutton.png");
+	this->reverb_Button = new customButton(tr("Reverb"), false, QPoint(460, 467), this, ":/images/pushbutton.png");
+	this->delay_Button = new customButton(tr("Delay"), false, QPoint(460, 485), this, ":/images/pushbutton.png");
+	this->chorus_Button = new customButton(tr("Chorus"), false, QPoint(550, 467), this, ":/images/pushbutton.png");
+	this->sendreturn_Button = new customButton(tr("Send/Return"), false, QPoint(550, 485), this, ":/images/pushbutton.png");
+	this->eq_Button = new customButton(tr("Equalizer"), false, QPoint(640, 467), this, ":/images/pushbutton.png");
+	this->pedal_Button = new customButton(tr("Pedal"), false, QPoint(640, 485), this, ":/images/pushbutton.png");
+	
 	SysxIO *sysxIO = SysxIO::Instance();
 	QObject::connect(this, SIGNAL(setStatusSymbol(int)), sysxIO, SIGNAL(setStatusSymbol(int)));
 	QObject::connect(this, SIGNAL(setStatusProgress(int)), sysxIO, SIGNAL(setStatusProgress(int)));
@@ -90,7 +102,22 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
 	QObject::connect(this->connectButton, SIGNAL(valueChanged(bool)), this, SLOT(connectSignal(bool)));
 	QObject::connect(this->writeButton, SIGNAL(valueChanged(bool)), this, SLOT(writeSignal(bool)));
 	
-	QObject::connect(this, SIGNAL( setEditDialog(editWindow*) ), this->parent(), SLOT( setEditDialog(editWindow*) ));
+  QObject::connect(this->ch_mode_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(ch_mode_buttonSignal(bool)));
+	QObject::connect(this->preamp1_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(preamp1_buttonSignal(bool)));	
+	//QObject::connect(this->preamp2_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(preamp2_buttonSignal(bool)));
+	QObject::connect(this->distortion_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(distortion_buttonSignal(bool)));
+	QObject::connect(this->compressor_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(compressor_buttonSignal(bool)));
+	QObject::connect(this->ns1_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(ns1_buttonSignal(bool)));
+	QObject::connect(this->ns2_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(ns2_buttonSignal(bool)));
+	QObject::connect(this->fx1_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(fx1_buttonSignal(bool)));
+	QObject::connect(this->fx2_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(fx2_buttonSignal(bool)));
+	QObject::connect(this->reverb_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(reverb_buttonSignal(bool)));
+	QObject::connect(this->delay_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(delay_buttonSignal(bool)));
+	QObject::connect(this->chorus_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(chorus_buttonSignal(bool)));
+	QObject::connect(this->sendreturn_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(sendreturn_buttonSignal(bool)));
+	QObject::connect(this->eq_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(eq_buttonSignal(bool)));
+	QObject::connect(this->pedal_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(pedal_buttonSignal(bool)));
+	
 	
   };
 
@@ -191,7 +218,8 @@ void floorBoardDisplay::setPatchNumDisplay(int bank, int patch)
 void floorBoardDisplay::updateDisplay()
 {
 	SysxIO *sysxIO = SysxIO::Instance();
-	QList<QString> nameArray = sysxIO->getFileSource(nameAddress, "00");
+	QString area = "Structure";
+	QList<QString> nameArray = sysxIO->getFileSource(area, nameAddress, "00");
 
 	//MidiTable *midiTable = MidiTable::Instance();
 	QString name;
@@ -275,6 +303,32 @@ void floorBoardDisplay::updateDisplay()
 	};  */// to here
     };
 
+void floorBoardDisplay::autoconnect()
+{
+	QString replyMsg;
+	SysxIO *sysxIO = SysxIO::Instance();
+	//this->connectButtonActive = value;
+	if(!sysxIO->isConnected() && sysxIO->deviceReady())
+	{
+		emit setStatusSymbol(2);
+		emit setStatusMessage(tr("Connecting"));
+
+		this->connectButton->setBlink(true);
+		sysxIO->setDeviceReady(false); // Reserve the device for interaction.
+
+		QObject::disconnect(sysxIO, SIGNAL(sysxReply(QString)));
+		QObject::connect(sysxIO, SIGNAL(sysxReply(QString)), 
+			this, SLOT(connectionResult(QString)));
+
+		sysxIO->sendSysx(idRequestString); // GT-10B Identity Request.
+	}
+	else
+	{
+		emit notConnected();
+		sysxIO->setNoError(true);		// Reset the error status (else we could never retry :) ).
+	};
+};
+
 
 void floorBoardDisplay::connectSignal(bool value)
 {
@@ -310,7 +364,7 @@ void floorBoardDisplay::connectionResult(QString sysxMsg)
 
 	sysxIO->setDeviceReady(true); // Free the device after finishing interaction.
 
-		 /*DeBugGING OUTPUT */
+		 /*DeBugGING OUTPUT 
 	Preferences *preferences = Preferences::Instance(); // Load the preferences.
 	if(preferences->getPreferences("Midi", "DBug", "bool")=="true")
 	{
@@ -327,7 +381,7 @@ void floorBoardDisplay::connectionResult(QString sysxMsg)
 			};
 	}
 
-	else if(sysxIO->noError())
+	else*/ if(sysxIO->noError())
 	{
 		if(sysxMsg.contains(idReplyPatern) && connectButtonActive == true)
 		{
@@ -344,15 +398,9 @@ void floorBoardDisplay::connectionResult(QString sysxMsg)
 		}
 		else if(!sysxMsg.isEmpty())
 		{
-			/*this->connectButton->setBlink(false);
+			this->connectButton->setBlink(false);
 			this->connectButton->setValue(false);
-			sysxIO->setConnected(false);
-
-			emit setStatusSymbol(0);
-			emit setStatusProgress(0);
-			emit setStatusMessage(tr("Not connected"));*/
-			
-			notConnected();
+			sysxIO->setConnected(false);	
 
 			QMessageBox *msgBox = new QMessageBox();
 			msgBox->setWindowTitle(deviceType + tr(" Fx FloorBoard connection Error !!"));
@@ -365,18 +413,18 @@ void floorBoardDisplay::connectionResult(QString sysxMsg)
 			msgBox->setText(msgText);
 			msgBox->setStandardButtons(QMessageBox::Ok);
 			msgBox->exec();
+			
+			notConnected();
+			
+			emit setStatusSymbol(0);
+			emit setStatusProgress(0);
+			emit setStatusMessage(tr("Not connected"));
 		}
 		else
 		{
-			/*this->connectButton->setBlink(false);
+			this->connectButton->setBlink(false);
 			this->connectButton->setValue(false);
-			sysxIO->setConnected(false);
-
-			emit setStatusSymbol(0);
-			emit setStatusProgress(0);
-			emit setStatusMessage(tr("Not connected"));*/
-			
-			notConnected();
+			sysxIO->setConnected(false);			
 
 			QMessageBox *msgBox = new QMessageBox();
 			msgBox->setWindowTitle(deviceType + tr(" Fx FloorBoard connection Error !!"));
@@ -386,15 +434,15 @@ void floorBoardDisplay::connectionResult(QString sysxMsg)
 			msgText.append("<font size='+1'><b>");
 			msgText.append(tr("The Boss ") + deviceType + (" Effects Processor was not found."));
 			msgText.append("<b></font><br>");
-		/*	msgText.append(tr("Ensure the unit is selected to Bulk Load for data retrieval-"));
-			msgText.append("<b></font><br>");
-			msgText.append(tr("by pressing UTILITY 4 times and left PARAMETER 3 times."));
-			msgText.append("<b></font><br>");
-			msgText.append(tr("press EXIT when leaving Bulk Mode."));
-			msgText.append("<b></font>");*/
 			msgBox->setText(msgText);
 			msgBox->setStandardButtons(QMessageBox::Ok);
 			msgBox->exec();
+			
+			notConnected();
+			
+			emit setStatusSymbol(0);
+			emit setStatusProgress(0);
+			emit setStatusMessage(tr("Not connected"));
 		};
 	}
 	else
@@ -407,7 +455,7 @@ void floorBoardDisplay::connectionResult(QString sysxMsg)
 void floorBoardDisplay::writeSignal(bool)
 {
 	SysxIO *sysxIO = SysxIO::Instance();	
-	if(sysxIO->isConnected() )//&& sysxIO->deviceReady())  Check if we are connected and if the device is free. */
+	if(sysxIO->isConnected() )//&& sysxIO->deviceReady()) /* Check if we are connected and if the device is free. */
 	{
 	 this->writeButton->setBlink(true);
 	 
@@ -523,12 +571,12 @@ void floorBoardDisplay::writeSignal(bool)
 		}; 
 	}
 	
- if((sysxIO->isConnected() == !true) && sysxIO->deviceReady())
+/* if((sysxIO->isConnected() == !true) && sysxIO->deviceReady())
 	{
 		writeToBuffer();                           // update patch to temp buffer only if not in bulk mode
-	};
+	}; */
 	sysxIO->getCurrentPatchName();
-	};
+	}; 
 
 void floorBoardDisplay::writeToBuffer() 
 {
@@ -585,15 +633,15 @@ void floorBoardDisplay::writeToBuffer()
 	sysxIO->sendSysx(sysxMsg);	// Send the data.
 		
 		emit setStatusProgress(33); // time wasting sinusidal statusbar progress
-		SLEEP(30);
-		emit setStatusProgress(66);
-		SLEEP(60);		
-		emit setStatusProgress(100);
-		SLEEP(100);		
-		emit setStatusProgress(75);
-		SLEEP(100);		
-		emit setStatusProgress(42);
 		SLEEP(150);
+		emit setStatusProgress(66);
+		SLEEP(150);		
+		emit setStatusProgress(100);
+		SLEEP(150);		
+		emit setStatusProgress(75);
+		SLEEP(150);		
+		emit setStatusProgress(42);
+		SLEEP(150); 
 	emit setStatusMessage(tr("Ready"));
 	sysxIO->setDeviceReady(true);
 };
@@ -604,7 +652,7 @@ void floorBoardDisplay::writeToMemory()
 
 	QString sysxMsg; bool ok;
 	QList< QList<QString> > patchData = sysxIO->getFileSource().hex; // Get the loaded patch data.
-	QList<QString> patchAddress = sysxIO->getFileSource().address;
+//	QList<QString> patchAddress = sysxIO->getFileSource().address;
 
 	emit setStatusSymbol(2);
 	emit setStatusMessage(tr("Writing to Patch"));
@@ -767,10 +815,6 @@ void floorBoardDisplay::patchLoadSignal(int bank, int patch)
 
 void floorBoardDisplay::notConnected()
 {
-	emit setStatusSymbol(0);
-	emit setStatusProgress(0);
-	emit setStatusMessage(tr("Not connected"));
-
 	this->connectButton->setBlink(false);
 	this->connectButton->setValue(false);	
 	this->writeButton->setBlink(false);
@@ -780,6 +824,11 @@ void floorBoardDisplay::notConnected()
 	sysxIO->setConnected(false);
 	sysxIO->setSyncStatus(false);	
 	sysxIO->setDeviceReady(true);	// Free the device after finishing interaction.	
+	
+	emit setStatusSymbol(0);
+	emit setStatusProgress(0);
+	emit setStatusMessage(tr("Not connected"));
+	
 };
 
 /*void floorBoardDisplay::valueChanged(bool value, QString hex1, QString hex2, QString hex3)

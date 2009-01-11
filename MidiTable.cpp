@@ -633,22 +633,34 @@ QString MidiTable::dataRequest(QString hex1, QString hex2, QString hex3)
 	return sysxMsg;
 };
 
-QString MidiTable::dataChange(QString hex1, QString hex2, QString hex3, QString hex4)
+QString MidiTable::dataChange(QString area, QString hex1, QString hex2, QString hex3, QString hex4)
 {
 	QString sysxMsg;
 	sysxMsg.append(getHeader(false));
 	/*Preferences *preferences = Preferences::Instance();*/ bool ok;// Load the preferences.
 	//const int tempDataWrite = preferences->getPreferences("Midi", "Time", "set").toInt(&ok, 16);
-	sysxMsg.append("60");
-	sysxMsg.append("00");
-
-	sysxMsg.append(hex1);
-	//sysxMsg.append(hex2);
-	sysxMsg.append(hex3);
-
+	if (area != "System")
+    {
+      area = "Structure"; 
+      sysxMsg.append("60");
+      sysxMsg.append("00");
+	    sysxMsg.append(hex1);
+	    //sysxMsg.append(hex2);
+	    sysxMsg.append(hex3);
+    } 
+    else
+    {
+       area = "System";
+      //sysxMsg.append("00");
+      sysxMsg.append("00");
+	    sysxMsg.append(hex1);
+	    sysxMsg.append(hex2);
+	    sysxMsg.append(hex3);
+    };
+	
 	sysxMsg.append(hex4);
 
-	int dataSize = 0; //bool ok;
+	int dataSize = 0;
 	for(int i=checksumOffset;i<sysxMsg.size()-1;++i)
 	{ dataSize += sysxMsg.mid(i*2, 2).toInt(&ok, 16); };
 	sysxMsg.append(getCheckSum(dataSize));
@@ -657,20 +669,34 @@ QString MidiTable::dataChange(QString hex1, QString hex2, QString hex3, QString 
 	return sysxMsg;
 };
 
-QString MidiTable::dataChange(QString hex1, QString hex2, QString hex3, QString hex4, QString hex5)
+QString MidiTable::dataChange(QString area, QString hex1, QString hex2, QString hex3, QString hex4, QString hex5)
 {
 	QString sysxMsg;
 	sysxMsg.append(getHeader(false));
 
 	//Preferences *preferences = Preferences::Instance(); bool ok;// Load the preferences.
 	//const int tempDataWrite = preferences->getPreferences("Midi", "Time", "set").toInt(&ok, 16);
-	sysxMsg.append("60");
-	sysxMsg.append("00");
+	if (area != "System")
+    {
+      area = "Structure"; 
+      sysxMsg.append("60");
+      sysxMsg.append("00");
+	    sysxMsg.append(hex1);
+	    //sysxMsg.append(hex2);
+	    sysxMsg.append(hex3);
+    } 
+    else
+    {
+       area = "System";
+      //sysxMsg.append("00");
+      sysxMsg.append("00");
+	    sysxMsg.append(hex1);
+	    sysxMsg.append(hex2);
+	    sysxMsg.append(hex3);
+    };
+	
 
-	sysxMsg.append(hex1);
-	//sysxMsg.append(hex2);
-	sysxMsg.append(hex3);
-
+	
 	sysxMsg.append(hex4);
 	sysxMsg.append(hex5);
 
