@@ -56,6 +56,8 @@ void menuPage_system::setEditPages()
 	editDetails()->page()->addKnob(1, 3, 1, 1, "00", "00", "23", "System"); //usb mix level
 	editDetails()->page()->addComboBox(1, 4, 1, 1, "00", "00", "30", "System"); // tuner pitch
 	editDetails()->page()->addComboBox(1, 5, 1, 1, "00", "00", "31", "System"); //tuner bypass
+	editDetails()->page()->addKnob(1, 6, 1, 1, "00", "00", "50", "System"); // NS threshold
+  editDetails()->page()->addKnob(1, 7, 1, 1, "00", "00", "51", "System"); // revberb level
 	
 	editDetails()->page()->addKnob(2, 0, 1, 1, "00", "00", "40", "System"); // gat 1 input level
 	editDetails()->page()->addKnob(2, 1, 1, 1, "00", "00", "41", "System"); // gat 1 input pres
@@ -75,8 +77,6 @@ void menuPage_system::setEditPages()
   editDetails()->page()->addComboBox(3, 5, 1, 1, "00", "00", "4D", "System"); // input select
   editDetails()->page()->addComboBox(3, 6, 1, 1, "00", "00", "4E", "System"); // output mode
   editDetails()->page()->addComboBox(3, 7, 1, 1, "00", "00", "4F", "System"); // output select
-  editDetails()->page()->addKnob(3, 8, 1, 1, "00", "00", "50", "System"); // NS threshold
-  editDetails()->page()->addKnob(3, 9, 1, 1, "00", "00", "51", "System"); // revberb level
   editDetails()->page()->addGroupBox(0, 0, 1, 1);
   editDetails()->addPage("00", "00", "01", "00", "System");
 	//editDetails()->page()->addComboBox(1, 0, 1, 1, "00", "00", "10");
@@ -105,17 +105,71 @@ void menuPage_system::setEditPages()
 	editDetails()->page()->addComboBox(2, 3, 1, 1, "00", "00", "7D", "System"); // ctrl 2
 	editDetails()->page()->addComboBox(2, 4, 1, 1, "00", "00", "7E", "System"); // exp2 pdl
 	editDetails()->page()->addComboBox(2, 5, 1, 1, "00", "00", "7F", "System"); // ctrl 3
+	editDetails()->page()->addComboBox(2, 6, 1, 1, "00", "01", "00", "System"); // ctrl 4
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
   editDetails()->addPage("00", "00", "01", "01", "System");
 	
 	editDetails()->page()->newGroupBox("Systems Area still under Construction");
-	//editDetails()->page()->addKnob(0, 0, 1, 1, "00", "03", "60", "System"); // ctrl 4
+	editDetails()->page()->addComboBox(0, 0, 1, 1, "00", "01", "10", "System"); // exp1 setting
+	editDetails()->page()->addComboBox(0, 1, 1, 1, "00", "01", "11", "System"); // exp1 function
+	editDetails()->page()->addKnob(0, 2, 1, 1, "00", "01", "13", "System"); // exp1 min
+	editDetails()->page()->addKnob(0, 3, 1, 1, "00", "01", "15", "System"); // exp1 max
+	editDetails()->page()->addComboBox(0, 4, 1, 1, "00", "01", "17", "System"); // exp1 src mode
+	editDetails()->page()->addKnob(0, 5, 1, 1, "00", "01", "18", "System"); // exp1 act range lo
+	editDetails()->page()->addKnob(0, 6, 1, 1, "00", "01", "19", "System"); // exp1 act range hi
 	
+	editDetails()->page()->addComboBox(1, 0, 1, 1, "00", "01", "20", "System"); // exp1 sw setting
+	editDetails()->page()->addComboBox(1, 1, 1, 1, "00", "01", "21", "System"); // exp1 sw function
+	editDetails()->page()->addKnob(1, 2, 1, 1, "00", "01", "23", "System"); // exp1 sw min
+	editDetails()->page()->addKnob(1, 3, 1, 1, "00", "01", "25", "System"); // exp1 sw max
+	editDetails()->page()->addComboBox(1, 4, 1, 1, "00", "01", "27", "System"); // exp1 sw src mode
+	editDetails()->page()->addKnob(1, 5, 1, 1, "00", "01", "28", "System"); // exp1 sw act range lo
+	editDetails()->page()->addKnob(1, 6, 1, 1, "00", "01", "29", "System"); // exp1 sw act range hi
 	
+	editDetails()->page()->addComboBox(2, 0, 1, 1, "00", "01", "30", "System"); // ctl1 setting
+	editDetails()->page()->addComboBox(2, 1, 1, 1, "00", "01", "31", "System"); // ctl1 function
+	editDetails()->page()->addKnob(2, 2, 1, 1, "00", "01", "33", "System"); // ctl1 min
+	editDetails()->page()->addKnob(2, 3, 1, 1, "00", "01", "35", "System"); // ctl1 max
+	editDetails()->page()->addComboBox(2, 4, 1, 1, "00", "01", "37", "System"); // ctl1 src mode
+	editDetails()->page()->addKnob(2, 5, 1, 1, "00", "01", "38", "System"); // ctl1 act range lo
+	editDetails()->page()->addKnob(2, 6, 1, 1, "00", "01", "39", "System"); // ctl1 act range hi
+	
+	editDetails()->page()->addComboBox(3, 0, 1, 1, "00", "01", "40", "System"); // ctl2 setting
+	editDetails()->page()->addComboBox(3, 1, 1, 1, "00", "01", "41", "System"); // ctl2 function
+	editDetails()->page()->addKnob(3, 2, 1, 1, "00", "01", "43", "System"); // ctl2 min
+	editDetails()->page()->addKnob(3, 3, 1, 1, "00", "01", "45", "System"); // ctl2 max
+	editDetails()->page()->addComboBox(3, 4, 1, 1, "00", "01", "47", "System"); // ctl2 src mode
+	editDetails()->page()->addKnob(3, 5, 1, 1, "00", "01", "48", "System"); // ctl2 act range lo
+	editDetails()->page()->addKnob(3, 6, 1, 1, "00", "01", "49", "System"); // ctl2 act range hi
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
   editDetails()->addPage("00", "00", "01", "02", "System");
 	
+		editDetails()->page()->newGroupBox("Systems Area still under Construction");
+	editDetails()->page()->addComboBox(0, 0, 1, 1, "00", "01", "50", "System"); // exp2 setting
+	editDetails()->page()->addComboBox(0, 1, 1, 1, "00", "01", "51", "System"); // exp2 function
+	editDetails()->page()->addKnob(0, 2, 1, 1, "00", "01", "53", "System"); // exp2 min
+	editDetails()->page()->addKnob(0, 3, 1, 1, "00", "01", "55", "System"); // exp2 max
+	editDetails()->page()->addComboBox(0, 4, 1, 1, "00", "01", "57", "System"); // exp2 src mode
+	editDetails()->page()->addKnob(0, 5, 1, 1, "00", "01", "58", "System"); // exp2 act range lo
+	editDetails()->page()->addKnob(0, 6, 1, 1, "00", "01", "59", "System"); // exp2 act range hi
 	
+	editDetails()->page()->addComboBox(1, 0, 1, 1, "00", "01", "60", "System"); // ctl3 setting
+	editDetails()->page()->addComboBox(1, 1, 1, 1, "00", "01", "61", "System"); // ctl3 function
+	editDetails()->page()->addKnob(1, 2, 1, 1, "00", "01", "63", "System"); // ctl3 min
+	editDetails()->page()->addKnob(1, 3, 1, 1, "00", "01", "65", "System"); // ctl3 max
+	editDetails()->page()->addComboBox(1, 4, 1, 1, "00", "01", "67", "System"); // ctl3 src mode
+	editDetails()->page()->addKnob(1, 5, 1, 1, "00", "01", "68", "System"); // ctl3 act range lo
+	editDetails()->page()->addKnob(1, 6, 1, 1, "00", "01", "69", "System"); // ctl3 act range hi
+	
+	editDetails()->page()->addComboBox(2, 0, 1, 1, "00", "01", "70", "System"); // ctl4 setting
+	editDetails()->page()->addComboBox(2, 1, 1, 1, "00", "01", "71", "System"); // ctl4 function
+	editDetails()->page()->addKnob(2, 2, 1, 1, "00", "01", "73", "System"); // ctl4 min
+	editDetails()->page()->addKnob(2, 3, 1, 1, "00", "01", "75", "System"); // ctl4 max
+	editDetails()->page()->addComboBox(2, 4, 1, 1, "00", "01", "77", "System"); // ctl4 src mode
+	editDetails()->page()->addKnob(2, 5, 1, 1, "00", "01", "78", "System"); // ctl4 act range lo
+	editDetails()->page()->addKnob(2, 6, 1, 1, "00", "01", "79", "System"); // ctl4 act range hi
+	editDetails()->page()->addGroupBox(0, 0, 1, 1);
+  editDetails()->addPage("00", "00", "01", "03", "System");
 	editDetails()->addPage();
 
 };

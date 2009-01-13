@@ -44,12 +44,6 @@ MidiTable* MidiTable::Instance()
         _destroyer.SetMidiTable(_instance);
     };
     return _instance; // address of sole instance
-
-    /* Single-threading */
-    /*
-    static Preferences inst;
-    return &inst;
-    */
 };
 
 void MidiTable::loadMidiMap()
@@ -172,13 +166,13 @@ Midi MidiTable::getMidiMap(QString root, QString hex1)
 	return level1;
 };
 
-/*Midi MidiTable::getMidiMap(QString root, QString hex1, QString hex2)
+Midi MidiTable::getMidiMap(QString root, QString hex1, QString hex2)
 {
 	Midi section = midiMap.level.at( midiMap.id.indexOf(root) );
 	Midi level1 = section.level.at( section.id.indexOf(hex1) );
 	Midi level2 = level1.level.at( level1.id.indexOf(hex2) );
 	return level2;
-};*/
+};
 
 Midi MidiTable::getMidiMap(QString root, QString hex1, QString hex2, QString hex3)
 {
@@ -217,7 +211,7 @@ Midi MidiTable::getMidiMap(QString root, QString hex1, QString hex2, QString hex
 };
 
 
-Midi MidiTable::getMidiMap(QString root, QString hex1, QString hex2, QString hex3,  QString hex4, QString hex5)
+Midi MidiTable::getMidiMap(QString root, QString hex1, QString hex2, QString hex3, QString hex4, QString hex5)
 { 
 	Midi section = midiMap.level.at( midiMap.id.indexOf(root) );
 	Midi level1 = section.level.at( section.id.indexOf(hex1) );
@@ -236,7 +230,7 @@ int MidiTable::getRange(QString root, QString hex1, QString hex2, QString hex3)
 	/* When FX has alot off settings (more than ) it's spanned over more then one entry in the
 	midi.xml, so when out of range we jump to the next entry and start from 00. */
 	bool ok;
-  int onePage = QString("7F").toInt(&ok, 16);
+  /*int onePage = QString("7F").toInt(&ok, 16);
 	int twoPage = QString("FF").toInt(&ok, 16);
 	int threePage = QString("17F").toInt(&ok, 16);
 
@@ -267,9 +261,9 @@ int MidiTable::getRange(QString root, QString hex1, QString hex2, QString hex3)
 
 
 	else
-	{
+	{ */
 		range = getMidiMap(root, hex1, hex2, hex3);
-	};
+	//};
 
 	int lastIndex;
 	if(range.level.last().value == "range")
@@ -297,7 +291,7 @@ int MidiTable::getRangeMinimum(QString root, QString hex1, QString hex2, QString
 	/* When FX has alot off settings (more than ) it's spanned over more then one entry in the 
 	midi.xml, so when out of range we jump to the next entry and start from 00. */
 	bool ok;
-  int onePage = QString("7F").toInt(&ok, 16);
+  /*int onePage = QString("7F").toInt(&ok, 16);
 	int twoPage = QString("FF").toInt(&ok, 16);
 	int threePage = QString("17F").toInt(&ok, 16);
 	if((hex3.toInt(&ok, 16) > onePage) && (hex3.toInt(&ok, 16) < twoPage + 1))
@@ -325,9 +319,9 @@ int MidiTable::getRangeMinimum(QString root, QString hex1, QString hex2, QString
 		 range = getMidiMap(root, hex1, hex2, hex3);
   }	
 	else
-	{
+	{ */
 		range = getMidiMap(root, hex1, hex2, hex3);	
-	};
+	//};
 
 	int firstIndex;
 	if(range.level.first().value == "range")
@@ -351,7 +345,7 @@ bool MidiTable::isData(QString root, QString hex1, QString hex2, QString hex3)
 
 	/* When FX has alot off settings (more than ) it's spanned over more then one entry in the
 	midi.xml, so when out of range we jump to the next entry and start from 00. */
-	bool ok;
+	//bool ok;
 	/*int maxRange = QString("7F").toInt(&ok, 16);
 	if(hex3.toInt(&ok, 16) > maxRange)
 	{
@@ -364,7 +358,7 @@ bool MidiTable::isData(QString root, QString hex1, QString hex2, QString hex3)
 	else
 	{
 		range = getMidiMap(root, hex1, hex2, hex3);
-	};*/
+	};
 
 
 	int onePage = QString("7F").toInt(&ok, 16);
@@ -399,9 +393,9 @@ bool MidiTable::isData(QString root, QString hex1, QString hex2, QString hex3)
 
 
 	else
-	{
+	{ */
 		range = getMidiMap(root, hex1, hex2, hex3);
-	};
+	//};
 
 	if(range.level.last().type.contains("DATA"))
 	{
@@ -651,7 +645,6 @@ QString MidiTable::dataChange(QString area, QString hex1, QString hex2, QString 
     else
     {
        area = "System";
-      //sysxMsg.append("00");
       sysxMsg.append("00");
 	    sysxMsg.append(hex1);
 	    sysxMsg.append(hex2);

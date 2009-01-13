@@ -135,12 +135,12 @@ void SysxIO::setFileSource(QString area, QByteArray data)
 		{	
 		  if (area == "System")
 		  {
-        this->systemSource.address.append( sysxBuffer.at(sysxAddressOffset + 2) + sysxBuffer.at(sysxAddressOffset +3) );
+        this->systemSource.address.append( sysxBuffer.at(sysxAddressOffset + 1) + sysxBuffer.at(sysxAddressOffset + 2) );
 		  	this->systemSource.hex.append(sysxBuffer);
       }
        else
       {
-		   	this->fileSource.address.append( sysxBuffer.at(sysxAddressOffset + 2) + sysxBuffer.at(sysxAddressOffset +3) );
+		   	this->fileSource.address.append( sysxBuffer.at(sysxAddressOffset + 2) + sysxBuffer.at(sysxAddressOffset + 3) );
 		  	this->fileSource.hex.append(sysxBuffer);
 			};
 			sysxBuffer.clear();
@@ -193,7 +193,7 @@ void SysxIO::setFileSource(QString area, QString data)
 		{	
 		  if (area == "System") 
 		  {
-			this->systemSource.address.append( sysxBuffer.at(sysxAddressOffset + 2) + sysxBuffer.at(sysxAddressOffset + 3) );
+			this->systemSource.address.append( sysxBuffer.at(sysxAddressOffset + 1) + sysxBuffer.at(sysxAddressOffset + 2) );
 			this->systemSource.hex.append(sysxBuffer);
 			}
       else
@@ -211,10 +211,9 @@ void SysxIO::setFileSource(QString area, QString hex1, QString hex2, QString hex
   if (area != "System")  {area = "Structure";};
 	MidiTable *midiTable = MidiTable::Instance();
 	bool ok;
-
-	QString sourceHex1 = hex1;
+  QString sourceHex1 = hex1;
 	QString sourceHex3 = hex3;
-	if(hex1 != "00")
+	/*if(hex1 != "00")
 	{
 		QString prevHex = QString::number((hex1.toInt(&ok, 16) - 1), 16).toUpper();
 		if(prevHex.length() < 2) prevHex.prepend("0");
@@ -227,7 +226,7 @@ void SysxIO::setFileSource(QString area, QString hex1, QString hex2, QString hex
 			};
 		};
 	};
-
+*/
 	int index = sourceHex3.toInt(&ok, 16) + sysxDataOffset;
 	QString address;
 	address.append(sourceHex1);
@@ -235,7 +234,7 @@ void SysxIO::setFileSource(QString area, QString hex1, QString hex2, QString hex
 	QList<QString> sysxList;
 	if(area == "System")
 	{
-	  sysxList = this->systemSource.hex.at(this->systemSource.address.indexOf(address));
+	    sysxList = this->systemSource.hex.at(this->systemSource.address.indexOf(address));
 	}
      else 
 	{
@@ -286,7 +285,7 @@ void SysxIO::setFileSource(QString area, QString hex1, QString hex2, QString hex
   if (area != "System")  {area = "Structure";};
 	QString sourceHex1 = hex1;
 	QString sourceHex3 = hex3;
-	if(hex1 != "00")
+	/*if(hex1 != "00")
 	{
 		QString prevHex = QString::number((hex1.toInt(&ok, 16) - 1), 16).toUpper();
 		if(prevHex.length() < 2) prevHex.prepend("0");
@@ -298,7 +297,7 @@ void SysxIO::setFileSource(QString area, QString hex1, QString hex2, QString hex
 				sourceHex3 = QString::number(hex3.toInt(&ok, 16) + QString("7F").toInt(&ok, 16) + 1, 16);
 			};
 		};
-	};
+	}; */
 
 	QString address;
 	address.append(sourceHex1);
@@ -424,7 +423,7 @@ int SysxIO::getSourceValue(QString area, QString hex1, QString hex2, QString hex
 	MidiTable *midiTable = MidiTable::Instance();
 	bool ok;
   if (area != "System")  {area = "Structure";};
-	if(hex1 != "00")
+	/*if(hex1 != "00")
 	{
 		QString prevHex = QString::number((hex1.toInt(&ok, 16) - 1), 16).toUpper();
 		if(prevHex.length() < 2) prevHex.prepend("0");
@@ -436,7 +435,7 @@ int SysxIO::getSourceValue(QString area, QString hex1, QString hex2, QString hex
 				hex3 = QString::number(hex3.toInt(&ok, 16) + QString("7F").toInt(&ok, 16) + 1, 16);
 			};
 		};
-	};
+	}; */
 
 	int value;
 	QList<QString> items = this->getSourceItems(area, hex1, hex2);

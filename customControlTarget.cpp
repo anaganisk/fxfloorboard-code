@@ -61,12 +61,12 @@ customControlTarget::customControlTarget(QWidget *parent,
 	
 	SysxIO *sysxIO = SysxIO::Instance();
 	QString area;
-	int value = sysxIO->getSourceValue(area, this->hex1, this->hex2, this->hex3);        // read target value as integer.
+	int value = sysxIO->getSourceValue(area, this->hex1, this->hex2, this->hex3);        // read target value as integer from sysx.
 	QString valueHex = QString::number(value, 16).toUpper();                        // convert to hex qstring.
 	if(valueHex.length() < 2) valueHex.prepend("0");
   
 	MidiTable *midiTable = MidiTable::Instance();	
-	QString valueStr = midiTable->getValue("Structure", hex1, hex2, hex3, valueHex);  // lookup the target values
+	QString valueStr = midiTable->getValue("Structure", "0B", "00", "21", valueHex);  // lookup the target values
 		
   	int maxRange = QString("7F").toInt(&ok, 16) + 1;
 		value = valueHex.toInt(&ok, 16);
@@ -78,7 +78,7 @@ customControlTarget::customControlTarget(QWidget *parent,
 		this->hex4 = valueHex1;
 		this->hex5 = valueHex2;
 	                                                                                   //convert valueStr to 7bit hex4, hex5
-	Midi items = midiTable->getMidiMap("Structure", hex1, hex2, hex3, hex4, hex5);	
+	Midi items = midiTable->getMidiMap("Structure", "0B", "00", "21", hex4, hex5);	
 	this->hexMsb = items.desc;
 	this->hexLsb = items.customdesc;                                                  //
 	
@@ -222,7 +222,7 @@ void customControlTarget::dialogUpdateSignal()
 		this->hex4 = valueHex1;
 		this->hex5 = valueHex2;
 	                                                                                   //convert valueStr to 7bit hex4, hex5
-	Midi items = midiTable->getMidiMap("Structure", hex1, hex2, hex3, hex4, hex5);	
+	Midi items = midiTable->getMidiMap("Structure", "0B", "00", "21", hex4, hex5);	
 	this->hexMsb = items.desc;
 	this->hexLsb = items.customdesc;                   
 
@@ -232,7 +232,7 @@ void customControlTarget::dialogUpdateSignal()
 	valueHex = QString::number(value, 16).toUpper();
 	if(valueHex.length() < 2) valueHex.prepend("0");
   
-	valueStr = midiTable->getValue("Structure", hex1, hex2, hex3, valueHex);	
+	valueStr = midiTable->getValue("Structure", "0B", "00", "21", valueHex);	
 	emit updateDisplayTarget(valueStr);                                           // initial value only is displayed under knob
 	//////////////////////////
 	value = sysxIO->getSourceValue(area, this->hex1, this->hex2, this->hexMin);
