@@ -23,12 +23,6 @@
 ****************************************************************************/
 
 #include "stompbox_dd.h"
-#include "MidiTable.h"
-#include "SysxIO.h"
-
-#include "customButton.h"
-#include "customLed.h"
-#include "customDial.h"
 
 stompbox_dd::stompbox_dd(QWidget *parent)
     : stompBox(parent)

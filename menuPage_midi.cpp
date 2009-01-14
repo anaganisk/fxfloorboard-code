@@ -27,7 +27,7 @@
 menuPage_midi::menuPage_midi(QWidget *parent)
     : menuPage(parent)
 {
-  setImage(":/images/midi_pushbutton.png");
+  //setImage(":/images/midi_pushbutton.png");
   setLSB("0B", "00");
 	setEditPages();
 };
@@ -41,6 +41,22 @@ void menuPage_midi::setEditPages()
 {
 
 	editDetails()->page()->newGroupBox("System Midi area still under Construction.");
+	editDetails()->page()->addComboBox(0, 0, 1, 1, "02", "00", "00", "System"); // omni mode
+	editDetails()->page()->addComboBox(0, 1, 1, 1, "02", "00", "01", "System"); // rx channel
+	editDetails()->page()->addComboBox(0, 2, 1, 1, "02", "00", "02", "System"); // tx channel
+	editDetails()->page()->addComboBox(0, 3, 1, 1, "02", "00", "04", "System"); // sync clock
+	editDetails()->page()->addComboBox(0, 4, 1, 1, "02", "00", "05", "System"); // pc out
+	
+	
+	editDetails()->page()->addComboBox(1, 0, 1, 1, "02", "00", "06", "System"); // exp1 out
+	editDetails()->page()->addComboBox(1, 1, 1, 1, "02", "00", "07", "System"); // exp sw out
+	editDetails()->page()->addComboBox(1, 2, 1, 1, "02", "00", "08", "System"); // ctl 1 out
+	editDetails()->page()->addComboBox(1, 3, 1, 1, "02", "00", "09", "System"); // ctl 2 out
+	editDetails()->page()->addComboBox(2, 0, 1, 1, "02", "00", "0A", "System"); // exp2 out
+	editDetails()->page()->addComboBox(2, 1, 1, 1, "02", "00", "0B", "System"); // ctl 3 out
+	editDetails()->page()->addComboBox(2, 2, 1, 1, "02", "00", "0C", "System"); // ctl 4 out
+	editDetails()->page()->addComboBox(2, 3, 1, 1, "02", "00", "0D", "System"); // map select
+	
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->addPage();
 

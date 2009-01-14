@@ -47,9 +47,11 @@ public slots:
 	void setPatchNumDisplay(int bank, int patch);
 	void setPos(QPoint newPos);
 	void updateDisplay();
+	void autoconnect();   
 	void connectSignal(bool value);
 	void writeSignal(bool value);
 	void connectionResult(QString);
+	void autoConnectionResult(QString);
 	void resetDevice(QString replyMsg);
 	void patchSelectSignal(int bank, int patch);
 	void blinkSellectedPatch(bool active = true);
@@ -79,6 +81,12 @@ private:
 
 	customButton *connectButton;
 	customButton *writeButton;
+	customButton *assign_Button;
+	customButton *system_midi_Button;
+	customButton *system_Button;
+	customButton *master_Button;
+	customButton *fx1_autoriff_Button;
+	customButton *fx2_autoriff_Button;
 	customButton *ch_mode_Button;
 	customButton *preamp1_Button;
 	customButton *preamp2_Button;

@@ -116,8 +116,9 @@ void customControlSwitch::valueChanged(bool value, QString hex1, QString hex2, Q
 		valueHex = "00";
 	};
 
+	QString area;
 	SysxIO *sysxIO = SysxIO::Instance();
-	sysxIO->setFileSource(hex1, hex2, hex3, valueHex);
+	sysxIO->setFileSource(area, hex1, hex2, hex3, valueHex);
 
 	//emit updateDisplay(valueStr);
 	emit updateSignal();
@@ -126,7 +127,8 @@ void customControlSwitch::valueChanged(bool value, QString hex1, QString hex2, Q
 void customControlSwitch::dialogUpdateSignal()
 {
 	SysxIO *sysxIO = SysxIO::Instance();
-	int value = sysxIO->getSourceValue(this->hex1, this->hex2, this->hex3);
+	QString area;
+	int value = sysxIO->getSourceValue(area, this->hex1, this->hex2, this->hex3);
 	if(value == 0)
 	{
 		this->switchbutton->setValue(false);

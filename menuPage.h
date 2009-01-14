@@ -60,8 +60,11 @@ public slots:
 	//void valueChanged(int index);
 	virtual void updateSignal() {};
 	void setDisplayToFxName();
+	void master_ButtonSignal(bool value);	
+	void fx1_autoriff_ButtonSignal(bool value);	
+	void fx2_autoriff_ButtonSignal(bool value);	
 	void menuButtonSignal(bool value);  
-  void connectionResult(QString); 
+  void systemReply(QString);
 		
 signals:
 	void valueChanged(QString fxName, QString valueName, QString valueStr);
@@ -72,6 +75,7 @@ signals:
 	void setStatusSymbol(int value);
 	void setStatusProgress(int value);
   void setStatusMessage(QString message);
+  void systemUpdateSignal();
 
 protected:
 	void paintEvent(QPaintEvent *event);

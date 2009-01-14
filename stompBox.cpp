@@ -432,7 +432,7 @@ void stompBox::pathSwitchSignal(bool value)
 				 };
       
       SysxIO *sysxIO = SysxIO::Instance();
-      sysxIO->setFileSource("0B", "00", "00", "11", hexData);
+      sysxIO->setFileSource("0B", "00", "00", hexData);
       
       emit updateSignal();
       emit updateStompBoxes();
@@ -605,7 +605,8 @@ void stompBox::updateComboBox(QString hex1, QString hex2, QString hex3)
                 this, SLOT(valueChanged(int)));
 	
 	SysxIO *sysxIO = SysxIO::Instance();
-	setComboBoxCurrentIndex(sysxIO->getSourceValue(hex1, hex2, hex3));
+	QString area;
+	setComboBoxCurrentIndex(sysxIO->getSourceValue(area, hex1, hex2, hex3));
 
 	QObject::connect(this->stompComboBox, SIGNAL(currentIndexChanged(int)),
                 this, SLOT(valueChanged(int)));
@@ -614,49 +615,57 @@ void stompBox::updateComboBox(QString hex1, QString hex2, QString hex3)
 void stompBox::updateKnob1(QString hex1, QString hex2, QString hex3)
 {	
 	SysxIO *sysxIO = SysxIO::Instance();
-	knob1->setValue(sysxIO->getSourceValue(hex1, hex2, hex3));
+  QString area;
+	knob1->setValue(sysxIO->getSourceValue(area, hex1, hex2, hex3));
 };
 
 void stompBox::updateKnob2(QString hex1, QString hex2, QString hex3)
 {	
 	SysxIO *sysxIO = SysxIO::Instance();
-	knob2->setValue(sysxIO->getSourceValue(hex1, hex2, hex3));
+	QString area;
+	knob2->setValue(sysxIO->getSourceValue(area, hex1, hex2, hex3));
 };
 
 void stompBox::updateSlider1(QString hex1, QString hex2, QString hex3)
 {	
 	SysxIO *sysxIO = SysxIO::Instance();
-	slider1->setValue(sysxIO->getSourceValue(hex1, hex2, hex3));
+	QString area;
+	slider1->setValue(sysxIO->getSourceValue(area, hex1, hex2, hex3));
 };
 
 void stompBox::updateSlider2(QString hex1, QString hex2, QString hex3)
 {	
 	SysxIO *sysxIO = SysxIO::Instance();
-	slider2->setValue(sysxIO->getSourceValue(hex1, hex2, hex3));
+	QString area;
+	slider2->setValue(sysxIO->getSourceValue(area, hex1, hex2, hex3));
 };
 
 void stompBox::updateSlider3(QString hex1, QString hex2, QString hex3)
 {	
 	SysxIO *sysxIO = SysxIO::Instance();
-	slider3->setValue(sysxIO->getSourceValue(hex1, hex2, hex3));
+	QString area;
+	slider3->setValue(sysxIO->getSourceValue(area, hex1, hex2, hex3));
 };
 
 void stompBox::updateSlider4(QString hex1, QString hex2, QString hex3)
 {	
 	SysxIO *sysxIO = SysxIO::Instance();
-	slider4->setValue(sysxIO->getSourceValue(hex1, hex2, hex3));
+	QString area;
+	slider4->setValue(sysxIO->getSourceValue(area, hex1, hex2, hex3));
 };
 
 void stompBox::updateSlider5(QString hex1, QString hex2, QString hex3)
 {	
 	SysxIO *sysxIO = SysxIO::Instance();
-	slider5->setValue(sysxIO->getSourceValue(hex1, hex2, hex3));
+	QString area;
+	slider5->setValue(sysxIO->getSourceValue(area, hex1, hex2, hex3));
 };
 
 void stompBox::updateButton(QString hex1, QString hex2, QString hex3)
 {
 	SysxIO *sysxIO = SysxIO::Instance();
-	int value = sysxIO->getSourceValue(hex1, hex2, hex3);
+	QString area;
+	int value = sysxIO->getSourceValue(area, hex1, hex2, hex3);
 	led->setValue((value==1)?true:false);
 	button->setValue((value==1)?true:false);
 };
@@ -664,7 +673,8 @@ void stompBox::updateButton(QString hex1, QString hex2, QString hex3)
 void stompBox::updateSwitch(QString hex1, QString hex2, QString hex3)
 {
 	SysxIO *sysxIO = SysxIO::Instance();
-	int value = sysxIO->getSourceValue(hex1, hex2, hex3);
+	QString area;
+	int value = sysxIO->getSourceValue(area, hex1, hex2, hex3);
 	switchbutton->setValue((value==1)?true:false);
 	//emit switchSignal();
 	//QApplication::beep();
@@ -688,11 +698,13 @@ void stompBox::valueChanged(int value, QString hex1, QString hex2, QString hex3)
 		QString valueHex2 = QString::number(value - (dif * maxRange), 16).toUpper();
 		if(valueHex2.length() < 2) valueHex2.prepend("0");
 		
-		sysxIO->setFileSource(hex1, hex2, hex3, valueHex1, valueHex2);
+		QString area;
+		sysxIO->setFileSource(area, hex1, hex2, hex3, valueHex1, valueHex2);
 	}
 	else
 	{
-		sysxIO->setFileSource(hex1, hex2, hex3, valueHex);
+	  QString area;
+		sysxIO->setFileSource(area, hex1, hex2, hex3, valueHex);
 	};
 
 	emitValueChanged(hex1, hex2, hex3, valueHex);
@@ -706,7 +718,8 @@ void stompBox::valueChanged(bool value, QString hex1, QString hex2, QString hex3
 	if(valueHex.length() < 2) valueHex.prepend("0");
 	
 	SysxIO *sysxIO = SysxIO::Instance();
-	sysxIO->setFileSource(hex1, hex2, hex3, valueHex);
+	QString area;
+	sysxIO->setFileSource(area, hex1, hex2, hex3, valueHex);
 
 	emitValueChanged(hex1, hex2, hex3, valueHex);
 };
@@ -717,7 +730,8 @@ void stompBox::valueChanged(int index)
 	if(valueHex.length() < 2) valueHex.prepend("0");
 	
 	SysxIO *sysxIO = SysxIO::Instance();
-	sysxIO->setFileSource(this->hex1, this->hex2, this->hex3, valueHex);
+	QString area;
+	sysxIO->setFileSource(area, this->hex1, this->hex2, this->hex3, valueHex);
 
 	emitValueChanged(this->hex1, this->hex2, this->hex3, valueHex);
 
@@ -745,7 +759,7 @@ void stompBox::emitValueChanged(QString hex1, QString hex2, QString hex3, QStrin
 		{
 			Midi items = midiTable->getMidiMap("Structure", hex1, hex2, hex3);
 			valueName = items.desc;
-			this->fxName = midiTable->getMidiMap("Structure", hex1, hex2, hex3).name;
+			//this->fxName = midiTable->getMidiMap("Structure", hex1, hex2, hex3).name;
 			valueStr = midiTable->getValue("Structure", hex1, hex2, hex3, valueHex);
 			emit dialogUpdateSignal();
 		};
@@ -755,7 +769,7 @@ void stompBox::emitValueChanged(QString hex1, QString hex2, QString hex3, QStrin
 
 void stompBox::setDisplayToFxName()
 {
-	emit valueChanged(this->fxName, "", "");
+	//emit valueChanged(this->fxName, "", "");
 };
 
 void stompBox::updateStompPath()
@@ -778,7 +792,7 @@ void stompBox::updateStompPath()
 	if (this->id == 13){this->hexdata_A = "0D"; this->hexdata_B = "4D"; this->namedata = "NS_2"; this->fxName = "Noise Suppressor 2";};
 	if (this->id == 14){this->hexdata_A = "0E"; this->hexdata_B = "4E"; this->namedata = "LP";   this->fxName = "Send/Return";};
 	if (this->id == 15){this->hexdata_A = "0F"; this->hexdata_B = "4F"; this->namedata = "DGT";  this->fxName = "Digital Out";};
-	if (this->id == 16){this->hexdata_A = "10"; this->hexdata_B = "10"; this->namedata = "CN_S"; this->fxName = "Chain Split";};
+	if (this->id == 16){this->hexdata_A = "10"; this->hexdata_B = "10"; this->namedata = "CN_S"; this->fxName = "PreAmp CH Mode";};
 	if (this->id == 17){this->hexdata_A = "11"; this->hexdata_B = "11"; this->namedata = "CN_M"; this->fxName = "Chain Merge";};
 	
 
@@ -787,26 +801,14 @@ void stompBox::updateStompPath()
      int hex_Pos = stompOrderName.indexOf(this->namedata);
      if (hex_Pos > hex_A && hex_Pos < hex_B && this->id != 2 && this->id != 3){this->pathSwitch->show(); }else{this->pathSwitch->hide();}; 
      if (stompOrderHex.contains(hexdata_A)){this->pathSwitch->setValue(false);}else{this->pathSwitch->setValue(true);};
-	   
-     
-      /*QString snork;
-			snork.append("<font size='-1'>");
-			snork.append(stompOrderHex);
-			//snork.append(hexdata_B);
-			QMessageBox *msgBox = new QMessageBox();
-			msgBox->setWindowTitle("stompOrder data");
-			msgBox->setIcon(QMessageBox::Information);
-			msgBox->setText(snork);
-			msgBox->setStandardButtons(QMessageBox::Ok);
-			msgBox->exec(); */
-	
-	//QApplication::beep();
+
 };
 
 void stompBox::getStompOrder()
 {
   SysxIO *sysxIO = SysxIO::Instance();
-	QList<QString> fxChain = sysxIO->getFileSource("0B", "00");	
+	QString area = "Structure";
+	QList<QString> fxChain = sysxIO->getFileSource(area, "0B", "00");		
 	
 	MidiTable *midiTable = MidiTable::Instance();
 	QList<QString> stompOrderName;

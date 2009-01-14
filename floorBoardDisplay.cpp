@@ -77,7 +77,12 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
 
  	this->connectButton = new customButton(tr("Connect"), false, QPoint(405, 5), this, ":/images/greenledbutton.png");
 	this->writeButton = new customButton(tr("Write/Sync"), false, QPoint(494, 5), this, ":/images/ledbutton.png");
-	
+	this->assign_Button = new customButton(tr("Assigns"), false, QPoint(584, 5), this, ":/images/pushbutton.png");
+	this->system_midi_Button = new customButton(tr("System Midi"), false, QPoint(673, 5), this, ":/images/pushbutton.png");
+	this->system_Button = new customButton(tr("System Settings"), false, QPoint(762, 5), this, ":/images/pushbutton.png");
+	this->master_Button = new customButton(tr("Master"), false, QPoint(584, 24), this, ":/images/pushbutton.png");
+	this->fx1_autoriff_Button = new customButton(tr("FX1 User AutoRiff"), false, QPoint(673, 24), this, ":/images/pushbutton.png");
+	this->fx2_autoriff_Button = new customButton(tr("FX2 User AutoRiff"), false, QPoint(762, 24), this, ":/images/pushbutton.png");
 	this->ch_mode_Button = new customButton(tr("Channel Mode"), false, QPoint(10, 467), this, ":/images/pushbutton.png");
   this->preamp1_Button = new customButton(tr("PreAmp A"), false, QPoint(100, 467), this, ":/images/pushbutton.png");
 	this->preamp2_Button = new customButton(tr("PreAmp B"), false, QPoint(100, 485), this, ":/images/pushbutton.png");
@@ -107,6 +112,9 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
 	QObject::connect(this->connectButton, SIGNAL(valueChanged(bool)), this, SLOT(connectSignal(bool)));
 	QObject::connect(this->writeButton, SIGNAL(valueChanged(bool)), this, SLOT(writeSignal(bool)));
 	
+	QObject::connect(this->master_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(master_buttonSignal(bool)));
+	QObject::connect(this->fx1_autoriff_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(fx1_autoriff_buttonSignal(bool)));
+	QObject::connect(this->fx2_autoriff_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(fx2_autoriff_buttonSignal(bool)));
 	QObject::connect(this->ch_mode_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(ch_mode_buttonSignal(bool)));
 	QObject::connect(this->preamp1_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(preamp1_buttonSignal(bool)));	
 	QObject::connect(this->preamp2_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(preamp2_buttonSignal(bool)));
@@ -123,6 +131,7 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
 	QObject::connect(this->eq_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(eq_buttonSignal(bool)));
 	QObject::connect(this->pedal_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(pedal_buttonSignal(bool)));
 	
+  autoconnect();
 	};
 
 QPoint floorBoardDisplay::getPos()
@@ -222,7 +231,9 @@ void floorBoardDisplay::setPatchNumDisplay(int bank, int patch)
 void floorBoardDisplay::updateDisplay()
 {
 	SysxIO *sysxIO = SysxIO::Instance();
-	QList<QString> nameArray = sysxIO->getFileSource(nameAddress, "00");
+	QString area = "Structure";
+	QList<QString> nameArray = sysxIO->getFileSource(area, nameAddress, "00");
+
 
 	//MidiTable *midiTable = MidiTable::Instance();
 	QString name;
@@ -304,7 +315,69 @@ void floorBoardDisplay::updateDisplay()
 		this->writeButton->setBlink(false);   //cjw
 		this->writeButton->setValue(false);
 	};  */// to here
+};
+
+void floorBoardDisplay::autoconnect()
+{
+	QString replyMsg;
+	SysxIO *sysxIO = SysxIO::Instance();
+	//this->connectButtonActive = value;
+	if(!sysxIO->isConnected() && sysxIO->deviceReady())
+	{
+		emit setStatusSymbol(2);
+		emit setStatusMessage(tr("Connecting"));
+
+		this->connectButton->setBlink(true);
+		sysxIO->setDeviceReady(false); // Reserve the device for interaction.
+
+		QObject::disconnect(sysxIO, SIGNAL(sysxReply(QString)));
+		QObject::connect(sysxIO, SIGNAL(sysxReply(QString)), 
+			this, SLOT(autoConnectionResult(QString)));
+
+		sysxIO->sendSysx(idRequestString); // GT-10B Identity Request.
+	}
+	else
+	{
+		emit notConnected();
+		sysxIO->setNoError(true);		// Reset the error status (else we could never retry :) ).
+	};
+};
+
+void floorBoardDisplay::autoConnectionResult(QString sysxMsg)
+{
+	SysxIO *sysxIO = SysxIO::Instance();
+	QObject::disconnect(sysxIO, SIGNAL(sysxReply(QString)), 
+			this, SLOT(autoConnectionResult(QString)));
+
+	sysxIO->setDeviceReady(true); // Free the device after finishing interaction.
+ if(sysxIO->noError())
+	{
+		if(sysxMsg.contains(idReplyPatern))
+		{
+			this->connectButton->setBlink(false);
+			this->connectButton->setValue(true);
+			sysxIO->setConnected(true);
+			emit connectedSignal();
+
+			if(sysxIO->getBank() != 0)
+			{
+				this->writeButton->setBlink(true);
+				this->writeButton->setValue(false);
+			};
+		}else
+    {
+     this->connectButton->setBlink(false);
+			this->connectButton->setValue(false);
+			sysxIO->setConnected(false);	
     };
+  }
+  else
+  {
+   notConnected();
+   sysxIO->setNoError(true);		// Reset the error status (else we could never retry :) ).
+  };
+};  
+
 
 void floorBoardDisplay::connectSignal(bool value)
 {
@@ -563,7 +636,7 @@ void floorBoardDisplay::writeToBuffer()
 
 	QString sysxMsg;
 	QList< QList<QString> > patchData = sysxIO->getFileSource().hex; // Get the loaded patch data.
-	QList<QString> patchAddress = sysxIO->getFileSource().address;
+	//QList<QString> patchAddress = sysxIO->getFileSource().address;
 
 		emit setStatusSymbol(2);
 		emit setStatusMessage(tr("Sync to ")+deviceType);

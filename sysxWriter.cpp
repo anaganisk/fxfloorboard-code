@@ -52,10 +52,19 @@ bool sysxWriter::readFile()
     if (file.open(QIODevice::ReadOnly))
 	{
 		QByteArray data = file.readAll();     // read the pre-selected file, copy to 'data'
-
-		if(data.size() == patchSize){         // if GT-10 patch file size is correct- load file >>>  currently at 1763 bytes.
+		
+    if(data.size() == 2399  || data.size() == 2261){         // if GT-10B system file size is correct- load file. 
 		SysxIO *sysxIO = SysxIO::Instance();
-		sysxIO->setFileSource(data);
+		QString area = "System";
+		sysxIO->setFileSource(area, data);
+		sysxIO->setFileName(this->fileName);
+		this->systemSource = sysxIO->getSystemSource();
+		return true;
+		}
+		else if(data.size() == patchSize){         // if GT-10 patch file size is correct- load file >>>  currently at 1763 bytes.
+		SysxIO *sysxIO = SysxIO::Instance();
+		QString area = "Structure";
+		sysxIO->setFileSource(area, data);
 		sysxIO->setFileName(this->fileName);
 		this->fileSource = sysxIO->getFileSource();
 		return true;
@@ -92,7 +101,7 @@ bool sysxWriter::readFile()
 	temp = gt8_data.mid(212, 1);             // copy gt8 dist/od part1
 	data.replace(123, 1, temp);              // replace gt10 distortion part1
 	r = gt8_data.at(214);
-	temp = Qhex.mid((180+r), 1);             // convert DISTORTION types from HexLookupTable 180->
+	temp = Qhex.mid((180+r), 1);             // convert DISTORTION types from HexLookupTable address 180->
 	temp.append(gt8_data.mid(215,5));        // copy gt8 dist/od part2
 	data.replace(124, 6, temp);              // replace gt10 distortion
 
@@ -285,7 +294,8 @@ bool sysxWriter::readFile()
 
 	
     SysxIO *sysxIO = SysxIO::Instance();
-		sysxIO->setFileSource(data);
+		QString area = "Structure";
+		sysxIO->setFileSource(area, data);
 		sysxIO->setFileName(this->fileName);
 		this->fileSource = sysxIO->getFileSource();
 		return true;
@@ -300,7 +310,8 @@ bool sysxWriter::readFile()
     data.remove(1761, 49);
     
 		SysxIO *sysxIO = SysxIO::Instance();
-		sysxIO->setFileSource(data);
+		QString area = "Structure";
+		sysxIO->setFileSource(area, data);
 		sysxIO->setFileName(this->fileName);
 		this->fileSource = sysxIO->getFileSource();
 		return true;
@@ -362,7 +373,8 @@ bool sysxWriter::readFile()
 	data.replace(1633,128, temp);            // replace gt10 address "0C"
     
     SysxIO *sysxIO = SysxIO::Instance();
-		sysxIO->setFileSource(data);
+		QString area = "Structure";
+		sysxIO->setFileSource(area, data);
 		sysxIO->setFileName(this->fileName);
 		this->fileSource = sysxIO->getFileSource();
 		return true;   
@@ -377,6 +389,11 @@ bool sysxWriter::readFile()
 	msgText.append("<font size='+1'><b>");
 	msgText.append(QObject::tr("This is not a ") + deviceType + (" patch!"));
 	msgText.append("<b></font><br>");
+	if (data.size() == 670){
+  msgText.append("but appears to be a GT-6 patch<br>");};
+  if (data.size() == 650){
+  msgText.append("but appears to be a GT-3 patch<br>");};
+
 	msgText.append(QObject::tr("Patch size is not ") + (QString::number(patchSize, 10)) + (" bytes, please try another file."));
 	msgBox->setText(msgText);
 	msgBox->setStandardButtons(QMessageBox::Ok);
@@ -401,6 +418,33 @@ void sysxWriter::writeFile(QString fileName)
 		QByteArray out;
 		unsigned int count=0;
 		for (QList< QList<QString> >::iterator dev = fileSource.hex.begin(); dev != fileSource.hex.end(); ++dev)
+		{
+			QList<QString> data(*dev);
+			for (QList<QString>::iterator code = data.begin(); code != data.end(); ++code)
+			{
+				QString str(*code);
+				bool ok;
+				unsigned int n = str.toInt(&ok, 16);
+				out[count] = (char)n;
+				count++;
+			};
+		};
+		file.write(out);
+	};
+
+};
+
+void sysxWriter::writeSystemFile(QString fileName)
+{	
+	QFile file(fileName);
+    if (file.open(QIODevice::WriteOnly))
+	{
+		SysxIO *sysxIO = SysxIO::Instance();
+		this->systemSource = sysxIO->getSystemSource();
+		
+		QByteArray out;
+		unsigned int count=0;
+		for (QList< QList<QString> >::iterator dev = systemSource.hex.begin(); dev != systemSource.hex.end(); ++dev)
 		{
 			QList<QString> data(*dev);
 			for (QList<QString>::iterator code = data.begin(); code != data.end(); ++code)
@@ -562,6 +606,11 @@ void sysxWriter::writeSMF(QString fileName)
 SysxData sysxWriter::getFileSource()
 {
 	return fileSource;	
+};
+
+SysxData sysxWriter::getSystemSource()
+{
+	return systemSource;	
 };
 
 QString sysxWriter::getFileName()

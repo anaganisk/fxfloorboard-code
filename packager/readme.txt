@@ -1,4 +1,4 @@
-************GT-FxFloorBoard Preview version: 09 December 2008 *************************
+************GT-10FxFloorBoard beta version: 24 December 2008 *************************
 
 
 ****NOTE: THIS IS A BETA VERSION AND SOME FEATURES MAY HAVE NOT YET BEEN IMPLIMENTED, 
@@ -32,14 +32,14 @@ g.)  GT-8 patch conversion. Gt-8 patches can be opened and saved as GT-10 patche
 
 ****my wish list**** (things i would like to know, *help needed*): 
 
-		1.)  ***check realtime edit parameters are to the correct addresses (the knobs do what they should)
-			 and correct data range (is the editor tweaking the right GT-10 item).>>> Thanks Pete !!!
+  1.)  ***Suggestions on features or improvements are welcome.
+      
 
-		3.)  ***check GT-8 patch convertion matches GT-10 equivilent values.
-			if anyone has some info on better conversion ideas (i.e. matching preamps correctly)
+  2.)  ***check GT-8 patch convertion matches GT-10 equivilent values.
+	if anyone has some preferences on better conversion ideas (i.e. matching preamps differently)
 
 **IMPORTAINT !! ** If you find any errors or issues, most likely i don't know about them  
-		(i don't have a GT-10 or GT-8 for testing),
+		(i don't have a GT-8 for patch conversion testing),
  		and i am relying on you to let me know. 
 
                 >>>>>>>>>Quite often no-one bothers to let me know<<<<<<<

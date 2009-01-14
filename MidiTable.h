@@ -48,7 +48,7 @@ public:
 	void loadMidiMap();
 	Midi getMidiMap(QString root);
 	Midi getMidiMap(QString root, QString hex1);
-	//Midi getMidiMap(QString root, QString hex1, QString hex2);
+	Midi getMidiMap(QString root, QString hex1, QString hex2);
 	Midi getMidiMap(QString root, QString hex1, QString hex2, QString hex3);
 	Midi getMidiMap(QString root, QString hex1, QString hex2, QString hex3, QString hex4);
 	Midi getMidiMap(QString root, QString hex1, QString hex2, QString hex3, QString hex4, QString hex5);
@@ -69,8 +69,8 @@ public:
 	QString getSize(QString hex1, QString hex2);
 	QString getSize();
 	QString dataRequest(QString hex1, QString hex2, QString hex3);
-	QString dataChange(QString hex1, QString hex2, QString hex3, QString hex4);
-	QString dataChange(QString hex1, QString hex2, QString hex3, QString hex4, QString hex5);
+	QString dataChange(QString area, QString hex1, QString hex2, QString hex3, QString hex4);
+	QString dataChange(QString area, QString hex1, QString hex2, QString hex3, QString hex4, QString hex5);
 	QString nameRequest(int bank, int patch);
 	QString getCheckSum(int dataSize);
 	QString patchRequest(int bank, int patch);

@@ -1,10 +1,10 @@
 /****************************************************************************
 **
-** Copyright (C) 2007, 2008, 2009 Colin Willcocks.
+** Copyright (C) 2008 Colin Willcocks.
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
 ** All rights reserved.
 **
-** This file is part of "GT-10 Fx FloorBoard".
+** This file is part of "GT-10B Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -46,22 +46,17 @@ customKnobTarget::customKnobTarget(QWidget *parent,
 	QLabel *newBackGround = new QLabel(this);
 	this->range = range;
 	this->rangeMin = rangeMin;
-	this->range = midiTable->getRange("Structure", hex1, hex2, hex3);
+	//this->range = midiTable->getRange("Structure", hex1, hex2, hex3);
 	if (this->background == "target")
 	{
-		this->range = midiTable->getRange("Structure", hex1, hex2, hex3); 
-		this->rangeMin = midiTable->getRangeMinimum("Structure", hex1, hex2, hex3); 
+		this->range = midiTable->getRange("Structure", "0B", "00", "21"); 
+		this->rangeMin = midiTable->getRangeMinimum("Structure", "0B", "00", "21"); 
 	}
-	else /*if (this->background == "min")*/
-	{
-		this->range = midiTable->getRange("Structure", hexMsb, hex2, hexLsb);
-    this->rangeMin = midiTable->getRangeMinimum("Structure", hexMsb, hex2, hexLsb); 
-	};
-	/*else if (this->background == "max")
+	else 
 	{
 		this->range = midiTable->getRange("Structure", hexMsb, hex2, hexLsb); 
-		this->rangeMin = midiTable->getRangeMinimum("Structure", hexMsb, hex2, hexLsb);
-	};*/
+		this->rangeMin = midiTable->getRangeMinimum("Structure", hexMsb, hex2, hexLsb); 
+	};
 	
 	newBackGround->setPixmap(QPixmap(":/images/knobbgn.png"));
 	newBackGround->move(bgPos);
@@ -136,24 +131,27 @@ void customKnobTarget::valueChanged(int value, QString hex1, QString hex2, QStri
 	if(valueHex.length() < 2) valueHex.prepend("0");
  
 	SysxIO *sysxIO = SysxIO::Instance(); bool ok;
-	if(midiTable->isData("Structure", hex1, hex2, hex3))
-	{	
-		int maxRange = QString("7F").toInt(&ok, 16) + 1;
-		int value = valueHex.toInt(&ok, 16);
-		int dif = value/maxRange;
-		QString valueHex1 = QString::number(dif, 16).toUpper();
-		if(valueHex1.length() < 2) valueHex1.prepend("0");
-		QString valueHex2 = QString::number(value - (dif * maxRange), 16).toUpper();
-		if(valueHex2.length() < 2) valueHex2.prepend("0");
- 
-		sysxIO->setFileSource(hex1, hex2, hex3, valueHex1, valueHex2);		
-	}
-	else
-	{
-		sysxIO->setFileSource(hex1, hex2, hex3, valueHex);
-	};
+	
+	  if(midiTable->isData("Structure", hex1, hex2, hex3))
+	  {	
+		  int maxRange = QString("7F").toInt(&ok, 16) + 1;
+		  int value = valueHex.toInt(&ok, 16);
+		  int dif = value/maxRange;
+		  QString valueHex1 = QString::number(dif, 16).toUpper();
+		  if(valueHex1.length() < 2) valueHex1.prepend("0");
+		  QString valueHex2 = QString::number(value - (dif * maxRange), 16).toUpper();
+		  if(valueHex2.length() < 2) valueHex2.prepend("0");
+      QString area;
+		  sysxIO->setFileSource(area, hex1, hex2, hex3, valueHex1, valueHex2);		
+	  }
+	  else
+	  {
+	    QString area;
+		  sysxIO->setFileSource(area, hex1, hex2, hex3, valueHex);
+	  };
+	
 	QString valueStr;
-	if (this->background == "target") {valueStr = midiTable->getValue("Structure", hex1, hex2, hex3, valueHex); 
+	if (this->background == "target") {valueStr = midiTable->getValue("Structure", "0B", "00", "21", valueHex); 
   emit updateDisplayTarget(valueStr);                                                       // updates display values
       } else if (this->background == "min") {
        valueStr = midiTable->getValue("Structure", hexMsb, hex2, hexLsb, valueHex); 
@@ -163,13 +161,14 @@ void customKnobTarget::valueChanged(int value, QString hex1, QString hex2, QStri
 	   emit updateDisplayMax(valueStr);     
      };                                                  // updates display values
 	emit updateSignal();
-		
+	
   if (this->background == "target")   // get the currently selected target value & set min/max address
   { 
-	value = sysxIO->getSourceValue(this->hex1, this->hex2, this->hex3);        // read target value as integer.
+  QString area;
+	value = sysxIO->getSourceValue(area, this->hex1, this->hex2, this->hex3);        // read target value as integer.
 	valueHex = QString::number(value, 16).toUpper();                        // convert to hex qstring.
 	if(valueHex.length() < 2) valueHex.prepend("0");  
-	valueStr = midiTable->getValue("Structure", hex1, hex2, hex3, valueHex);  // lookup the target values
+	valueStr = midiTable->getValue("Structure", "0B", "00", "21", valueHex);  // lookup the target values
 		
   	int maxRange = QString("7F").toInt(&ok, 16) + 1;
 		value = valueHex.toInt(&ok, 16);
@@ -181,12 +180,12 @@ void customKnobTarget::valueChanged(int value, QString hex1, QString hex2, QStri
 		QString hex4 = valueHex1;
 		QString hex5 = valueHex2;
 	                                                                                   //convert valueStr to 7bit hex4, hex5
-	Midi items = midiTable->getMidiMap("Structure", hex1, hex2, hex3, hex4, hex5);	
+	Midi items = midiTable->getMidiMap("Structure", "0B", "00", "21", hex4, hex5);	
 	this->hexMsb = items.desc;
 	this->hexLsb = items.customdesc;  
   
   emit updateTarget(hexMsb, hex2, hexLsb);                       // hexMsb & hexLsb are lookup address for label value
-  emit updateTarget(hexMsb, hex2, hexLsb);
+  emit updateTarget(hexMsb, hex2, hexLsb);   
   };                                                             // updates on knob value change                                            
 };
 

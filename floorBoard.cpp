@@ -338,7 +338,9 @@ void floorBoard::dropEvent(QDropEvent *event)
 			if(orgIndex != destIndex) // Prevent sending data when stomp was dropped in the same place.
 			{
 				SysxIO *sysxIO = SysxIO::Instance();
-					QList<QString> fxChain = sysxIO->getFileSource("0B", "00");
+				QString area = "Structure";
+	      QList<QString> fxChain = sysxIO->getFileSource(area, "0B", "00");
+
 		
 	MidiTable *midiTable = MidiTable::Instance();
 	//QList<QString> stompOrderName;
@@ -423,7 +425,7 @@ void floorBoard::dropEvent(QDropEvent *event)
              hexData.append(hex);
            };     
 			  		  
-				sysxIO->setFileSource("0B", "00", "00", "11", hexData);
+				sysxIO->setFileSource("0B", "00", "00", hexData);
 				emit pathUpdateSignal();
 				updateStompBoxes();
 			};
@@ -773,7 +775,9 @@ void floorBoard::setStompPos(int index, int order)
 void floorBoard::updateStompBoxes()
 {
 	SysxIO *sysxIO = SysxIO::Instance();
-	QList<QString> fxChain = sysxIO->getFileSource("0B", "00");
+  QString area = "Structure";
+	QList<QString> fxChain = sysxIO->getFileSource(area, "0B", "00");
+
 		
 	MidiTable *midiTable = MidiTable::Instance();
 	QList<QString> stompOrder;

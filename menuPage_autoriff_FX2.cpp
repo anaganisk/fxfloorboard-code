@@ -27,7 +27,7 @@
 menuPage_autoriff_FX2::menuPage_autoriff_FX2(QWidget *parent)
     : menuPage(parent)
 { 
-  setImage(":/images/autoriff_FX2_pushbutton.png");
+  //setImage(":/images/autoriff_FX2_pushbutton.png");
   setLSB("0B", "00");
 	setEditPages();
 };

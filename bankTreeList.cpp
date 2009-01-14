@@ -567,7 +567,8 @@ void bankTreeList::updatePatch(QString replyMsg)
 	replyMsg = reBuild.simplified().toUpper().remove("0X").remove(" ");
 	emit setStatusMessage(tr("Ready"));
 
-		sysxIO->setFileSource(replyMsg);		// Set the source to the data received.
+		QString area = "Structure";
+		sysxIO->setFileSource(area, replyMsg);		// Set the source to the data received.
 		sysxIO->setFileName(tr("Patch from ") + deviceType);	// Set the file name to GT-10 patch for the display.
 		sysxIO->setDevice(true);				// Patch received from the device so this is set to true.
 		sysxIO->setSyncStatus(true);			// We can't be more in sync than right now! :)
@@ -702,7 +703,7 @@ void bankTreeList::updateTree(QTreeWidgetItem *item)
 	}
 	else
 	{
-		this->currentPatchTreeItems.append(item);
+		//this->currentPatchTreeItems.append(item);
 	};
 };
 
@@ -712,7 +713,7 @@ void bankTreeList::updateTree(QTreeWidgetItem *item)
 *********************************************************************************/
 void bankTreeList::updatePatchNames(QString name)
 {		SysxIO *sysxIO = SysxIO::Instance();
-		if(name != "" && sysxIO->isConnected()) //  If not empty we can assume that we did receive a patch name.
+		if(!name.isEmpty() && sysxIO->isConnected()) //  If not empty we can assume that we did receive a patch name.
 		{
 			this->currentPatchTreeItems.at(listIndex)->child(itemIndex)->setText(0, name); // Set the patch name of the item in the tree list.
 			if(itemIndex >= patchPerBank - 1) // If we reach the last patch in this bank we need to increment the bank and restart at patch 1.
@@ -738,7 +739,7 @@ void bankTreeList::updatePatchNames(QString name)
 	     if(sysxIO->isConnected())
 	     {
 		      emit setStatusSymbol(3);
-		      emit setStatusMessage(tr("Receiving names"));
+		      emit setStatusMessage(tr("Reading patch names"));
 	     }
 		  else  
 		    {         

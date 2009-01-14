@@ -1,10 +1,8 @@
 /****************************************************************************
 **
-** Copyright (C) 2007, 2008, 2009 Colin Willcocks.
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
-** All rights reserved.
+** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT-10 Fx FloorBoard".
+** This file is part of "GT-10B Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -28,6 +26,7 @@
 #include <QMainWindow>
 #include <QtGui>
 #include <QList>
+#include <QCloseEvent>
 #include "editPage.h"
 #include "customControlLabel.h"
 
@@ -38,21 +37,25 @@ class editWindow : public QWidget
 public:
     editWindow(QWidget *parent = 0);
 	~editWindow();
-	void closeEvent(QCloseEvent* ce);
+	//virtual void closeEvent(QCloseEvent* ce);
 
 	void setLSB(QString hex1, QString hex2);
 	void setWindow(QString title);
 	QString getTitle();
-	void addPage(QString hex1 = "void", QString hex2 = "void", QString hex3 = "void", QString hex4 = "void");
+	void addPage(QString hex1 = "void", QString hex2 = "void", QString hex3 = "void", QString hex4 = "void", QString area = "Structure");
 	editPage* page();
 
 signals:
 	void dialogUpdateSignal();
 	void updateSignal();
+	void updateDisplay(QString text);
+	void closeWindow();
 
 public slots:
 	void valueChanged(int index);
 	void pageUpdateSignal();
+	virtual void closeEvent(QCloseEvent* ce);
+	void hideWindow();
 
 protected:
 	void paintEvent(QPaintEvent *event);
@@ -62,13 +65,13 @@ private:
 	QString hex1;
 	QString hex2;
 	QString hex3;
+	QString area;
 	int pages;
 	QLabel* title;
 	QLabel* comboBoxLabel;
 	QStackedWidget* pagesWidget;
 	QComboBox* pageComboBox;
 	customControlLabel* closeButton;
-	customControlLabel* closeButton2;
 	editPage* tempPage;
 	QList<editPage*> editPages;
 };

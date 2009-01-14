@@ -1,10 +1,10 @@
 /****************************************************************************
 **
-** Copyright (C) 2007, 2008, 2009 Colin Willcocks.
+** Copyright (C) 2008 Colin Willcocks.
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
 ** All rights reserved.
 **
-** This file is part of "GT-10 Fx FloorBoard".
+** This file is part of "GT-10B Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -60,12 +60,13 @@ customControlTarget::customControlTarget(QWidget *parent,
 	this->hexMin = hexTemp;
 	
 	SysxIO *sysxIO = SysxIO::Instance();
-	int value = sysxIO->getSourceValue(this->hex1, this->hex2, this->hex3);        // read target value as integer.
+	QString area;
+	int value = sysxIO->getSourceValue(area, this->hex1, this->hex2, this->hex3);        // read target value as integer from sysx.
 	QString valueHex = QString::number(value, 16).toUpper();                        // convert to hex qstring.
 	if(valueHex.length() < 2) valueHex.prepend("0");
   
 	MidiTable *midiTable = MidiTable::Instance();	
-	QString valueStr = midiTable->getValue("Structure", hex1, hex2, hex3, valueHex);  // lookup the target values
+	QString valueStr = midiTable->getValue("Structure", "0B", "00", "21", valueHex);  // lookup the target values
 		
   	int maxRange = QString("7F").toInt(&ok, 16) + 1;
 		value = valueHex.toInt(&ok, 16);
@@ -77,15 +78,15 @@ customControlTarget::customControlTarget(QWidget *parent,
 		this->hex4 = valueHex1;
 		this->hex5 = valueHex2;
 	                                                                                   //convert valueStr to 7bit hex4, hex5
-	Midi items = midiTable->getMidiMap("Structure", hex1, hex2, hex3, hex4, hex5);	
+	Midi items = midiTable->getMidiMap("Structure", "0B", "00", "21", hex4, hex5);	
 	this->hexMsb = items.desc;
 	this->hexLsb = items.customdesc;                                                  //
 	
 	this->knobTarget = new customKnobTarget(this, hex1, hex2, hex3, hexMsb, hexLsb, "target");                // create knob with target address
 	this->display->setObjectName("editdisplay");
 	this->display->setFixedWidth(lenght);
-	this->display->setFixedHeight(13);
-	this->display->setAlignment(Qt::AlignCenter);
+	this->display->setFixedHeight(14);
+	this->display->setAlignment(Qt::AlignLeft);
 	this->display->setDisabled(true);	
 	this->label->setText("TARGET");
 	this->label->setAlignment(Qt::AlignCenter);
@@ -93,7 +94,7 @@ customControlTarget::customControlTarget(QWidget *parent,
 	this->knobMin = new customKnobTarget(this, hex1, hex2, hexMin, hexMsb, hexLsb, "min");                // create knob with target address
 	this->displayMin->setObjectName("editdisplay");
 	this->displayMin->setFixedWidth(lenght);
-	this->displayMin->setFixedHeight(13);
+	this->displayMin->setFixedHeight(14);
 	this->displayMin->setAlignment(Qt::AlignCenter);
 	this->displayMin->setDisabled(true);	
 	this->labelMin->setText("MINIMUM");
@@ -102,7 +103,7 @@ customControlTarget::customControlTarget(QWidget *parent,
 	this->knobMax = new customKnobTarget(this, hex1, hex2, hexMax, hexMsb, hexLsb, "max");                // create knob with target address
 	this->displayMax->setObjectName("editdisplay");
 	this->displayMax->setFixedWidth(lenght);
-	this->displayMax->setFixedHeight(13);
+	this->displayMax->setFixedHeight(14);
 	this->displayMax->setAlignment(Qt::AlignCenter);
 	this->displayMax->setDisabled(true);	
 	this->labelMax->setText("MAXIMUM");
@@ -183,12 +184,11 @@ void customControlTarget::knobSignal(QString hexMsb, QString hex2, QString hexLs
  { 
 	this->hexMsb = hexMsb;
 	this->hexLsb = hexLsb;
-	MidiTable *midiTable = MidiTable::Instance();
-	int value = midiTable->getRangeMinimum("Structure", hexMsb, hex2, hexLsb); 
+	int value = 0; 
 	this->knobMin->setValue(value);                                                     // sets knob initial position	
 	QString valueHex = QString::number(value, 16).toUpper();
 	if(valueHex.length() < 2) valueHex.prepend("0");
-	
+	MidiTable *midiTable = MidiTable::Instance();
 	QString valueStr = midiTable->getValue("Structure", hexMsb, hex2, hexLsb, valueHex);
 	emit updateDisplayMin(valueStr);                                                   // initial value only is displayed under knob
 	////////////////////////////////////	
@@ -203,8 +203,9 @@ void customControlTarget::knobSignal(QString hexMsb, QString hex2, QString hexLs
 void customControlTarget::dialogUpdateSignal()
 {
 
-SysxIO *sysxIO = SysxIO::Instance();
-	int value = sysxIO->getSourceValue(this->hex1, this->hex2, this->hex3);           // read target value as integer.
+  SysxIO *sysxIO = SysxIO::Instance();
+  QString area;
+	int value = sysxIO->getSourceValue(area, this->hex1, this->hex2, this->hex3);           // read target value as integer.
 	QString valueHex = QString::number(value, 16).toUpper();                          // convert to hex qstring.
 	if(valueHex.length() < 2) valueHex.prepend("0");
   
@@ -221,28 +222,27 @@ SysxIO *sysxIO = SysxIO::Instance();
 		this->hex4 = valueHex1;
 		this->hex5 = valueHex2;
 	                                                                                   //convert valueStr to 7bit hex4, hex5
-	Midi items = midiTable->getMidiMap("Structure", hex1, hex2, hex3, hex4, hex5);	
+	Midi items = midiTable->getMidiMap("Structure", "0B", "00", "21", hex4, hex5);	
 	this->hexMsb = items.desc;
 	this->hexLsb = items.customdesc;                   
 
    emit updateHex(hexMsb, hex2, hexLsb);
-	
-	value = sysxIO->getSourceValue(this->hex1, this->hex2, this->hex3);
+		value = sysxIO->getSourceValue(area, this->hex1, this->hex2, this->hex3);
 	this->knobTarget->setValue(value);                                                     // sets knob initial position
 	valueHex = QString::number(value, 16).toUpper();
 	if(valueHex.length() < 2) valueHex.prepend("0");
   
-	valueStr = midiTable->getValue("Structure", hex1, hex2, hex3, valueHex);	
+	valueStr = midiTable->getValue("Structure", "0B", "00", "21", valueHex);	
 	emit updateDisplayTarget(valueStr);                                           // initial value only is displayed under knob
 	//////////////////////////
-	value = sysxIO->getSourceValue(this->hex1, this->hex2, this->hexMin);
+	value = sysxIO->getSourceValue(area, this->hex1, this->hex2, this->hexMin);
 	this->knobMin->setValue(value);                                                     // sets knob initial position	
 	valueHex = QString::number(value, 16).toUpper();
 	if(valueHex.length() < 2) valueHex.prepend("0");
 	valueStr = midiTable->getValue("Structure", hexMsb, hex2, hexLsb, valueHex);
 	emit updateDisplayMin(valueStr);                                           // initial value only is displayed under knob
 	////////////////////////////////////	
-	value = sysxIO->getSourceValue(this->hex1, this->hex2, this->hexMax);
+	value = sysxIO->getSourceValue(area, this->hex1, this->hex2, this->hexMax);
 	this->knobMax->setValue(value);                                                     // sets knob initial position
 	valueHex = QString::number(value, 16).toUpper();
 	if(valueHex.length() < 2) valueHex.prepend("0");

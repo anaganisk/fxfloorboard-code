@@ -31,24 +31,30 @@ stompbox_cn_s::stompbox_cn_s(QWidget *parent)
 	this->setImage(":/images/cn_s.png");
 	setLSB("01", "00");
 	setComboBox("01", "00", "01", QRect(8, 78, 79, 13));
+	setSwitch("01", "00", "00");
 	setEditPages();
 };
 
 void stompbox_cn_s::updateSignal()
 {
 	updateComboBox("01", "00", "01");
+	updateSwitch("01", "00", "00");
 };
 
 void stompbox_cn_s::setEditPages()
 {
+  editDetails()->page()->newGroupBox("PreAmp Effect");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "00");   // off/on effect
+	editDetails()->page()->addGroupBox(0, 0, 1, 1);
+	
   editDetails()->page()->newGroupBox("Channel");
 	editDetails()->page()->newStackControl(0);
 	editDetails()->page()->addComboBox(2, 0, 1, 1, "01", "00", "01");   //mode
 	editDetails()->page()->addStackControl();
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
+	editDetails()->page()->addGroupBox(1, 0, 1, 1);
 
 	// TYPE SETTINGS 
-	editDetails()->page()->insertStackField(0, 1, 0, 1, 1);
+	editDetails()->page()->insertStackField(0, 2, 0, 1, 1);
 
 	editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Channel select");

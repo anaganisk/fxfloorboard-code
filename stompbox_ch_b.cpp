@@ -30,21 +30,27 @@ stompbox_ch_b::stompbox_ch_b(QWidget *parent)
 	/* PRE */
 	setImage(":/images/ch_b.png");
 	setLSB("01", "00");
-	setSwitch("01", "00", "00");
+	setButton("01", "00", "39");
+	setComboBox("01", "00", "30");
+	setKnob1("01", "00", "31");
+	setKnob2("01", "00", "36");
 	setEditPages();
 
 };
 
 void stompbox_ch_b::updateSignal()
 {
-	updateSwitch("01", "00", "00");
+	updateButton("01", "00", "39");
+	updateComboBox("01", "00", "30");
+	updateKnob1("01", "00", "31");
+	updateKnob2("01", "00", "36");
 };
 
 void stompbox_ch_b::setEditPages()
 {
-	editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "00");   // off/on effect
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
+	//editDetails()->page()->newGroupBox("Effect");
+	//editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "00");   // off/on effect
+	//editDetails()->page()->addGroupBox(0, 0, 1, 1);
 
 	
 	// CHANNEL B 
