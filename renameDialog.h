@@ -33,8 +33,6 @@ public:
 	renameDialog(QWidget *parent = 0);
 
 public slots:
-	void addRightArrow();
-	void addLeftArrow();
 	void emitValue();
 
 signals:

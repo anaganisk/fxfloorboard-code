@@ -440,7 +440,7 @@ void midiIO::sendSysxMsg(QString sysxOutMsg, int midiOutPort, int midiInPort)
 	this->sysxOutMsg = reBuild.simplified().toUpper().remove("0X").remove(" ");
   if((sysxOutMsg.size() == (sysxDataOffset*2 + 12)) && (sysxOutMsg.mid(sysxOutMsg.size()-12, 8) == patchRequestDataSize) && (sysxOutMsg.mid((sysxAddressOffset*2-2), 2) == "11") )  
   {this->multiple = true;} else {this->multiple = false;};
-  if (this->sysxOutMsg == systemRequest ){this->system = true;} else {this->system = false;};
+  if (this->sysxOutMsg == systemRequestMsg ){this->system = true;} else {this->system = false;};
 	this->midiOutPort = midiOutPort;
 	this->midiInPort = midiInPort;
 	this->midi = false;

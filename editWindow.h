@@ -50,7 +50,7 @@ signals:
 	void updateSignal();
 	void updateDisplay(QString text);
 	void closeWindow();
-
+	
 public slots:
 	void valueChanged(int index);
 	void pageUpdateSignal();

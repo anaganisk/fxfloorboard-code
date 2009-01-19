@@ -23,6 +23,7 @@
 #include "editWindow.h"
 #include "MidiTable.h"
 #include "SysxIO.h"
+#include "floorBoardDisplay.h"
 
 editWindow::editWindow(QWidget *parent)
     : QWidget(parent)
@@ -95,6 +96,7 @@ editWindow::editWindow(QWidget *parent)
 	QObject::connect(this, SIGNAL( dialogUpdateSignal() ), this, SLOT( pageUpdateSignal() ));
 
 	QObject::connect(this->pageComboBox, SIGNAL(activated(int)), this, SLOT(valueChanged(int)));
+	
 };
 
 void editWindow::paintEvent(QPaintEvent *)
@@ -191,6 +193,7 @@ void editWindow::addPage(QString hex1, QString hex2, QString hex3, QString hex4,
 
 void editWindow::valueChanged(int index)
 {
+  QString valueName, valueStr;
 	if(hex1 != "void" && hex2 != "void")
 	{
 		QString valueHex = QString::number(index, 16).toUpper();
@@ -202,7 +205,7 @@ void editWindow::valueChanged(int index)
     //QApplication::beep;
 		//emit updateDisplay(valueHex);
 		//emit updateSignal();
-	};
+  };
 };
 
 void editWindow::pageUpdateSignal()

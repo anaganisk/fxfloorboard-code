@@ -27,28 +27,15 @@ renameDialog::renameDialog(QWidget *parent)
      : QDialog(parent)
 {
 	SysxIO *sysxIO = SysxIO::Instance();
-
-	QRegExp rx( QString::fromUtf8( "[\x20-\x7F\xe2\x86\x92\xe2\x86\x90]{1,16}" ) );
+  QRegExp rx( QString::fromUtf8( "[\x20-\x7F\xe2\x86\x92\xe2\x86\x90]{1,16}" ) );
 	QValidator *validator = new QRegExpValidator(rx, this);
 	
 	nameLabel = new QLabel(tr("Name:"));
 	nameEdit = new QLineEdit(sysxIO->getCurrentPatchName());
 	nameEdit->setValidator(validator);
-
-	QPushButton *leftArrowButton =	new QPushButton((QChar)(0x2192));
-	leftArrowButton->setMaximumWidth(20);
-	leftArrowButton->setMaximumHeight(15);
-	leftArrowButton->setFlat(true);
-	QPushButton *rightArrowButton = new QPushButton((QChar)(0x2190));
-	rightArrowButton->setMaximumWidth(20);
-	rightArrowButton->setMaximumHeight(15);
-	rightArrowButton->setFlat(true);
-
+	
 	charLabel = new QLabel(tr("Insert :"));
 	charLabel->setAlignment(Qt::AlignRight|Qt::AlignBottom);
-
-	connect(rightArrowButton, SIGNAL(clicked()), this, SLOT(addRightArrow()));
-	connect(leftArrowButton, SIGNAL(clicked()), this, SLOT(addLeftArrow()));
 
 	QPushButton *cancelButton =	new QPushButton(tr("Cancel"));
 	QPushButton *okButton = new QPushButton(tr("Apply"));
@@ -61,12 +48,6 @@ renameDialog::renameDialog(QWidget *parent)
 	QHBoxLayout *nameEditLayout = new QHBoxLayout;
 	nameEditLayout->addWidget(nameEdit);
 
-	QHBoxLayout *arrowButtonLayout = new QHBoxLayout;
-	arrowButtonLayout->addStretch(1);
-	//arrowButtonLayout->addWidget(charLabel);
-	//arrowButtonLayout->addWidget(rightArrowButton);
-	//arrowButtonLayout->addWidget(leftArrowButton);
-
 	QHBoxLayout *buttonsLayout = new QHBoxLayout;
 	buttonsLayout->addStretch(1);
 	buttonsLayout->addWidget(okButton);
@@ -78,7 +59,6 @@ renameDialog::renameDialog(QWidget *parent)
 
 	QVBoxLayout *renameLayout = new QVBoxLayout;
 	renameLayout->addLayout(nameLayout);
-	renameLayout->addLayout(arrowButtonLayout);
 	renameGroup->setLayout(renameLayout);
 
 	QVBoxLayout *mainLayout = new QVBoxLayout;
@@ -87,20 +67,6 @@ renameDialog::renameDialog(QWidget *parent)
 	setLayout(mainLayout);
 
 	this->setMinimumWidth(250);
-};
-
-
-void renameDialog::addRightArrow()
-{
-	//nameEdit->insert((QChar)(0x2190));
-	//nameEdit->setFocus();
-
-};
-
-void renameDialog::addLeftArrow()
-{
-	//nameEdit->insert((QChar)(0x2192));
-	//nameEdit->setFocus();
 };
 
 void renameDialog::emitValue()

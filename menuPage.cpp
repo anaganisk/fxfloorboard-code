@@ -28,6 +28,15 @@
 #include "floorBoard.h"
 #include "preferences.h"
 
+// Platform-dependent sleep routines.
+#ifdef Q_OS_WIN
+  #include <windows.h>
+  #define SLEEP( milliseconds ) Sleep( (DWORD) milliseconds ) 
+#else // Unix variants & Mac
+  #include <unistd.h>
+  #define SLEEP( milliseconds ) usleep( (unsigned long) (milliseconds * 1000.0) )
+#endif
+
 menuPage::menuPage(QWidget *parent, unsigned int id, QString imagePath, QPoint stompPos)
     : QWidget(parent)
 {
@@ -47,9 +56,9 @@ menuPage::menuPage(QWidget *parent, unsigned int id, QString imagePath, QPoint s
 	QObject::connect(this->parent(), SIGNAL( updateStompOffset(signed int) ), this, SLOT( updatePos(signed int) ));
 
 	QObject::connect(this->parent(), SIGNAL( updateSignal() ), this, SLOT( updateSignal() ));
-	
-	QObject::connect(this, SIGNAL( systemUpdateSignal() ), this->parent()->parent(), SIGNAL( updateSignal() ));
 
+  QObject::connect(this, SIGNAL( systemUpdateSignal() ), this->parent()->parent(), SIGNAL( updateSignal() ));
+  
 	QObject::connect(this->editDialog, SIGNAL( updateSignal() ), this, SLOT( updateSignal() ));
 
 	QObject::connect(this, SIGNAL( dialogUpdateSignal() ), this->editDialog, SIGNAL( dialogUpdateSignal() ));	
@@ -100,20 +109,21 @@ void menuPage::menuButtonSignal(bool value)
     SysxIO *sysxIO = SysxIO::Instance();
 	  if((this->id == 19 || this->id == 18) && sysxIO->deviceReady())
 	  {
-    QString replyMsg;
-	  //SysxIO *sysxIO = SysxIO::Instance();
-     if (sysxIO->isConnected())
+	    emit setStatusProgress(100);
+      QString replyMsg;
+	     if (sysxIO->isConnected())
 	       {
 	        emit setStatusSymbol(2);
 		      emit setStatusMessage(tr("Request System data"));
 	       	sysxIO->setDeviceReady(false); // Reserve the device for interaction.
 		      QObject::disconnect(sysxIO, SIGNAL(sysxReply(QString)));
 		      QObject::connect(sysxIO, SIGNAL(sysxReply(QString)), this, SLOT(systemReply(QString)));
-		      sysxIO->sendSysx(systemRequest); // GT-10B System area data Request.    
+		      sysxIO->sendSysx(systemRequestMsg); // GT-10B System area data Request.    
           
           emitValueChanged(this->hex1, this->hex2, "00", "void");
-	  this->editDialog->setWindow(this->fxName);
-		emit setEditDialog(this->editDialog);  	        
+	        this->editDialog->setWindow(this->fxName);
+	       	emit setEditDialog(this->editDialog);  	
+          emit setStatusProgress(0);
          }
          else
              {
@@ -125,7 +135,6 @@ void menuPage::menuButtonSignal(bool value)
 		        	msgBox->setStandardButtons(QMessageBox::Ok);
 		        	msgBox->exec(); 
               };  
-              //emit setEditDialog(this->editDialog);
     };
 };
 
@@ -178,24 +187,25 @@ void menuPage::systemReply(QString replyMsg)
 	QString part2 = replyMsg.mid(278, 226);
 	QString part2B = replyMsg.mid(530, 30);
 	part2.prepend("0100").prepend(addressMsb).prepend(header).append(part2B).append(footer); 
-	QString part3 = replyMsg.mid(560, 256);
+	QString part3 = replyMsg.mid(562, 256);
 	part3.prepend("0200").prepend(addressMsb).prepend(header).append(footer);
-	QString part4 = replyMsg.mid(816, 198);	
-	part4.prepend("0300").prepend(addressMsb).prepend(header).append(footer); 
+	QString part4 = replyMsg.mid(816, 198);	  // spare space
+	part4.prepend("0300").prepend(addressMsb).prepend(header).append(footer); //address 00 00 03 00
 	addressMsb = "0001"; // new address range "00 01 00 00"
-	QString part5 = replyMsg.mid(1040, 228);   
-	part5.prepend("0000000000000000000000000000"); // add 14 extra places for start
+	QString part5 = replyMsg.mid(1040, 216);   
+	part5.prepend("0000000000000000000000000000000000000000"); // add 20 extra places for start
 	part5.prepend("0000").prepend(addressMsb).prepend(header).append(footer);   
-	QString part6 = replyMsg.mid(1268, 256);   // 
-	part6.prepend("0100").prepend(addressMsb).prepend(header).append(footer);   
-  QString part7 = replyMsg.mid(1550, 228);  // 
-  part7.prepend("0000000000000000000000000000"); // add 14 extra places for start
-	part7.prepend("0200").prepend(addressMsb).prepend(header).append(footer); 
-	QString part8 = replyMsg.mid(1778,256);    //
-	part8.prepend("0300").prepend(addressMsb).prepend(header).append(footer);
-	QString part9 = replyMsg.mid(2060, 24);
-	part9.prepend("000000000000"); // add 6 extra places for start
-	part9.prepend("0400").prepend(addressMsb).prepend(header).append(footer);
+	QString part6 = replyMsg.mid(1256, 256);   // 
+	part6.prepend("0100").prepend(addressMsb).prepend(header).append(footer); 
+  QString part7 = replyMsg.mid(1512, 12);  
+  QString part7B = replyMsg.mid(1550, 214);  // 
+  part7.append("0000000000000000000000000000"); // add 14 extra places for start
+	part7.prepend("0200").prepend(addressMsb).prepend(header).append(part7B).append(footer); // address 00 01 02 00
+	QString part8 = replyMsg.mid(1764,256);    //
+	part8.prepend("0300").prepend(addressMsb).prepend(header).append(footer);  // address 00 01 03 00
+	QString part9 = replyMsg.mid(2020, 14);
+	QString part9B = replyMsg.mid(2060, 24);
+	part9.prepend("0400").prepend(addressMsb).prepend(header).append(part9B).append(footer);  // address 00 01 04 00
 	addressMsb = "0002"; // new address range "00 02 00 00"
 	QString part10 = replyMsg.mid(2110, 256);   //
 	part10.prepend("0000").prepend(addressMsb).prepend(header).append(footer);
@@ -254,10 +264,6 @@ void menuPage::systemReply(QString replyMsg)
   };    
 	replyMsg = reBuild.simplified().toUpper().remove("0X").remove(" ");
 		
-		
-		
-		
-		
 		QString area = "System";
 		sysxIO->setFileSource(area, replyMsg);		// Set the source to the data received.
 		//sysxIO->setFileSource(area, sysxMsg.getSystemSource());
@@ -268,8 +274,6 @@ void menuPage::systemReply(QString replyMsg)
 		}
 		else
 		{
-			//notConnected();
-
 			QMessageBox *msgBox = new QMessageBox();
 			msgBox->setWindowTitle(deviceType + tr(" Fx FloorBoard connection Error !!"));
 			msgBox->setIcon(QMessageBox::Warning);

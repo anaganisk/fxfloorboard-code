@@ -96,6 +96,8 @@ public:
 	void emitStatusdBugMessage(QString dBug);
 	void errorReturn();
 	QString dBug;
+	void systemWrite();
+	void systemDataRequest();
 
 public slots:
 	void errorSignal(QString windowTitle, QString errorMsg);
@@ -107,6 +109,8 @@ private slots:
 	void namePatchChange();
 	void resetDevice(QString sysxMsg);
 	void checkPatchChange(QString name);
+	void systemReply(QString replyMsg);
+	
 
 signals:
 	void sysxReply(QString sysxMsg);
@@ -120,6 +124,8 @@ signals:
 	void setStatusdBugMessage(QString dBug);
 	void patchChangeFailed();
 	void notConnectedSignal();
+	
+
 
 protected :
 	SysxIO();

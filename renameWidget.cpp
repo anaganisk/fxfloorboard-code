@@ -29,8 +29,7 @@
 renameWidget::renameWidget(QWidget *parent)
     : QWidget(parent)
 {
-	QObject::connect(this, SIGNAL(nameChanged(QString)), 
-		this->parentWidget(), SLOT(setPatchDisplay(QString)));
+	 QObject::connect(this, SIGNAL(nameChanged(QString)), this->parentWidget(), SLOT(setPatchDisplay(QString)));
 };
 
 void renameWidget::mouseReleaseEvent(QMouseEvent *event)
@@ -51,23 +50,12 @@ void renameWidget::updateName(QString name)
 	for(int i=0; i<16; ++i)
 	{
 		if(i<name.size())
-		{
-			if(name.at(i) == (QChar)(0x2192))
-			{
-				hexData.append("7E");
-			}
-			else if(name.at(i) == (QChar)(0x2190))
-			{
-				hexData.append("7F");
-			}
-			else
-			{
+		{	
 				char asciiChar = name.at(i).toAscii();
 				int asciiValue = (int)asciiChar;
 				QString nameHexValue = QString::number(asciiValue, 16).toUpper();
 				if(nameHexValue.length() < 2) nameHexValue.prepend("0");
-				hexData.append(nameHexValue);
-			};
+				hexData.append(nameHexValue);	
 		}
 		else
 		{
@@ -75,10 +63,7 @@ void renameWidget::updateName(QString name)
 		};
 	};
 	
-	sysxIO->setFileSource(nameAddress, "00", "00", hexData);
-	
-	
+	sysxIO->setFileSource(nameAddress, "00", "00", hexData);	
 	sysxIO->setCurrentPatchName(name);
-
 	emit nameChanged(name);
 };

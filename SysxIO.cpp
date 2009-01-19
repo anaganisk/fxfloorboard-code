@@ -905,10 +905,10 @@ void SysxIO::sendSysx(QString sysxMsg)
     {
       midiInPort = midiInDevices.indexOf("BOSS GT-10B");
     };
-	  if ( midiOutDevices.contains("BOSS GT-10B") )
+	/*  if ( midiOutDevices.contains("BOSS GT-10B") )
     {
       midiOutPort = midiOutDevices.indexOf("BOSS GT-10B");
-    };
+    }; */
 	midi->sendSysxMsg(sysxMsg, midiOutPort, midiInPort);
 			 /*DeBugGING OUTPUT */
 	if(preferences->getPreferences("Midi", "DBug", "bool")=="true")
@@ -1104,5 +1104,191 @@ void SysxIO::emitStatusdBugMessage(QString dBug)
 void SysxIO::errorReturn()
 {
    emit notConnectedSignal();
+};
+
+void SysxIO::systemWrite()
+{
+  
+	setDeviceReady(false);			// Reserve the device for interaction.
+	
+	QString sysxMsg;
+	QList< QList<QString> > systemData = getSystemSource().hex; // Get the loaded system data.
+	//QList<QString> systemAddress = getSystemSource().address;
+
+	//QString addr1 = QString::number(0, 16).toUpper();
+	//QString addr2 = addr1;
+
+	for(int i=0;i<systemData.size();++i)
+	{
+		QList<QString> data = systemData.at(i);
+		for(int x=0;x<data.size();++x)
+		{
+			QString hex;
+			/*if(x == sysxAddressOffset)
+			{ 
+				hex = addr1;
+			}
+			else if(x == sysxAddressOffset + 1)
+			{
+				hex = addr2;
+			}
+			else
+			{ */
+				hex = data.at(x);
+			//};
+			if (hex.length() < 2) hex.prepend("0");
+			sysxMsg.append(hex);
+		}; 
+	}; 
+	//setSyncStatus(true);		// In advance of the actual data transfer we set it already to sync.
+	sendSysx(sysxMsg);	// Send the data.
+	setDeviceReady(true);
+};
+
+void SysxIO::systemDataRequest()
+{
+   emit setStatusProgress(100);
+      QString replyMsg;
+	     if (isConnected())
+	       {
+	        emit setStatusSymbol(2);
+		      emit setStatusMessage(tr("Request System data"));
+	       	setDeviceReady(false); // Reserve the device for interaction.
+		      QObject::disconnect(this, SIGNAL(sysxReply(QString)));
+		      QObject::connect(this, SIGNAL(sysxReply(QString)), this, SLOT(systemReply(QString)));
+		      sendSysx(systemRequestMsg); // GT-10B System area data Request.    
+          
+          emit setStatusProgress(0);
+         }
+         else
+             {
+              QString snork = "Ensure connection is active and retry";
+              QMessageBox *msgBox = new QMessageBox();
+			        msgBox->setWindowTitle(deviceType + " not connected !!");
+		        	msgBox->setIcon(QMessageBox::Information);
+		        	msgBox->setText(snork);
+		        	msgBox->setStandardButtons(QMessageBox::Ok);
+		        	msgBox->exec(); 
+              };  
+};
+
+void SysxIO::systemReply(QString replyMsg)
+{
+	QObject::disconnect(this, SIGNAL(sysxReply(QString)), this, SLOT(systemReply(QString)));
+	setDeviceReady(true); // Free the device after finishing interaction.
+  
+	if(noError())
+	{
+		if(replyMsg.size()/2 == 2261)
+		{
+		/* TRANSLATE SYSX MESSAGE FORMAT to 128 byte data blocks */
+	QString header = "F0410000003012";
+	QString footer ="00F7";
+	QString addressMsb = replyMsg.mid(14,4); // read  MSb word at bits 7 & 8 from sysxReply (which is "0000")
+	QString part1 = replyMsg.mid(22, 256); //from 11, copy 128 bits (values are doubled for QString)
+  part1.prepend("0000").prepend(addressMsb).prepend(header).append(footer);    
+	QString part2 = replyMsg.mid(278, 226);
+	QString part2B = replyMsg.mid(530, 30);
+	part2.prepend("0100").prepend(addressMsb).prepend(header).append(part2B).append(footer); 
+	QString part3 = replyMsg.mid(560, 256);
+	part3.prepend("0200").prepend(addressMsb).prepend(header).append(footer);
+	QString part4 = replyMsg.mid(816, 198);	
+	part4.prepend("0300").prepend(addressMsb).prepend(header).append(footer); 
+	addressMsb = "0001"; // new address range "00 01 00 00"
+	QString part5 = replyMsg.mid(1040, 228);   
+	part5.prepend("0000000000000000000000000000"); // add 14 extra places for start
+	part5.prepend("0000").prepend(addressMsb).prepend(header).append(footer);   
+	QString part6 = replyMsg.mid(1268, 256);   // 
+	part6.prepend("0100").prepend(addressMsb).prepend(header).append(footer);   
+  QString part7 = replyMsg.mid(1550, 228);  // 
+  part7.prepend("0000000000000000000000000000"); // add 14 extra places for start
+	part7.prepend("0200").prepend(addressMsb).prepend(header).append(footer); 
+	QString part8 = replyMsg.mid(1778,256);    //
+	part8.prepend("0300").prepend(addressMsb).prepend(header).append(footer);
+	QString part9 = replyMsg.mid(2060, 24);
+	part9.prepend("000000000000"); // add 6 extra places for start
+	part9.prepend("0400").prepend(addressMsb).prepend(header).append(footer);
+	addressMsb = "0002"; // new address range "00 02 00 00"
+	QString part10 = replyMsg.mid(2110, 256);   //
+	part10.prepend("0000").prepend(addressMsb).prepend(header).append(footer);
+	QString part11 = replyMsg.mid(2366, 228);
+	QString part11B = replyMsg.mid(2620, 28);
+	part11.prepend("0100").prepend(addressMsb).prepend(header).append(part11B).append(footer); 
+	QString part12 = replyMsg.mid(2648, 256);   //
+	part12.prepend("0200").prepend(addressMsb).prepend(header).append(footer);
+	QString part13 = replyMsg.mid(2904, 200);
+	QString part13B = replyMsg.mid(3130, 56);
+	part13.prepend("0300").prepend(addressMsb).prepend(header).append(part13B).append(footer);  
+	QString part14 = replyMsg.mid(3186, 256);   //
+	part14.prepend("0400").prepend(addressMsb).prepend(header).append(footer);
+	QString part15 = replyMsg.mid(3442, 172);
+	QString part15B = replyMsg.mid(3640, 84);
+	part15.prepend("0500").prepend(addressMsb).prepend(header).append(part15B).append(footer);  
+	QString part16 = replyMsg.mid(3724, 256);   //
+	part16.prepend("0600").prepend(addressMsb).prepend(header).append(footer);
+	QString part17 = replyMsg.mid(3980, 144);
+	QString part17B = replyMsg.mid(4150, 112);
+	part17.prepend("0700").prepend(addressMsb).prepend(header).append(part17B).append(footer);  
+	QString part18 = replyMsg.mid(4262, 256);   //
+	part18.prepend("0800").prepend(addressMsb).prepend(header).append(footer);
+	
+	replyMsg = "";
+	replyMsg.append(part1).append(part2).append(part3).append(part4).append(part5)
+  .append(part6).append(part7).append(part8).append(part9).append(part10).append(part11)
+  .append(part12).append(part13).append(part14).append(part15).append(part16).append(part17).append(part18);
+	
+	QString reBuild = "";       /* Add correct checksum to patch strings */
+  QString sysxEOF = "";	
+  QString hex = "";
+  int msgLength = replyMsg.length()/2;
+  for(int i=0;i<msgLength*2;++i) 
+  {
+	hex.append(replyMsg.mid(i*2, 2));
+	sysxEOF = (replyMsg.mid((i*2)+4, 2));
+  if (sysxEOF == "F7")
+    {   
+  	int dataSize = 0; bool ok;
+	  for(int h=checksumOffset;h<hex.size()-1;++h)
+	  { dataSize += hex.mid(h*2, 2).toInt(&ok, 16); };
+	 	QString base = "80";                       // checksum calculate.
+	  unsigned int sum = dataSize % base.toInt(&ok, 16);
+  	if(sum!=0) { sum = base.toInt(&ok, 16) - sum; };
+	  QString checksum = QString::number(sum, 16).toUpper();
+	   if(checksum.length()<2) {checksum.prepend("0");};
+      	hex.append(checksum);
+        hex.append("F7");   
+        reBuild.append(hex);   
+    
+		hex = "";
+		sysxEOF = "";
+		i=i+2;
+    }; 
+  };    
+	replyMsg = reBuild.simplified().toUpper().remove("0X").remove(" ");
+		
+		QString area = "System";
+		setFileSource(area, replyMsg);		// Set the source to the data received.
+		//sysxIO->setFileSource(area, sysxMsg.getSystemSource());
+		setFileName(tr("System Data from ") + deviceType);	// Set the file name to GT-10B system for the display.
+		setDevice(true);				// Patch received from the device so this is set to true.
+		setSyncStatus(true);			// We can't be more in sync than right now! :)
+		
+		}
+		else
+		{
+			QMessageBox *msgBox = new QMessageBox();
+			msgBox->setWindowTitle(deviceType + tr(" Fx FloorBoard connection Error !!"));
+			msgBox->setIcon(QMessageBox::Warning);
+			msgBox->setTextFormat(Qt::RichText);
+			QString msgText;
+			msgText.append("<font size='+1'><b>");
+			msgText.append(tr("The Boss ") + deviceType + (" Effects Processor was not found."));
+			msgText.append("<b></font><br>");
+			msgBox->setText(msgText);
+			msgBox->setStandardButtons(QMessageBox::Ok);
+			msgBox->exec();
+		};
+   };
+		emit setStatusMessage(tr("Ready"));   
 };
 

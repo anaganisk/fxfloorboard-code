@@ -33,9 +33,10 @@ customControlSwitch::customControlSwitch(QWidget *parent,
 	this->hex1 = hex1;
 	this->hex2 = hex2;
 	this->hex3 = hex3;
-
+  this->area = direction;
+  if (this->area != "System"){area = "Structure";};
 	MidiTable *midiTable = MidiTable::Instance();
-	Midi items = midiTable->getMidiMap("Structure", hex1, hex2, hex3);
+	Midi items = midiTable->getMidiMap(this->area, hex1, hex2, hex3);
 	QString labeltxt = items.customdesc;
 	
 	this->label->setUpperCase(true);
@@ -70,7 +71,7 @@ customControlSwitch::customControlSwitch(QWidget *parent,
 		this->setLayout(mainLayout);
 		this->setFixedHeight(12 + 15);
 	}
-	else if(direction == "middle")
+	else if(direction == "middle" || direction == "System")
 	{
 		this->label->setAlignment(Qt::AlignLeft);
 
@@ -116,9 +117,8 @@ void customControlSwitch::valueChanged(bool value, QString hex1, QString hex2, Q
 		valueHex = "00";
 	};
 
-  QString area;
-	SysxIO *sysxIO = SysxIO::Instance();
-	sysxIO->setFileSource(area, hex1, hex2, hex3, valueHex);
+  SysxIO *sysxIO = SysxIO::Instance();
+	sysxIO->setFileSource(this->area, hex1, hex2, hex3, valueHex);
 
 	//emit updateDisplay(valueStr);
 	emit updateSignal();
@@ -127,8 +127,7 @@ void customControlSwitch::valueChanged(bool value, QString hex1, QString hex2, Q
 void customControlSwitch::dialogUpdateSignal()
 {
 	SysxIO *sysxIO = SysxIO::Instance();
-	QString area;
-	int value = sysxIO->getSourceValue(area, this->hex1, this->hex2, this->hex3);
+	int value = sysxIO->getSourceValue(this->area, this->hex1, this->hex2, this->hex3);
 	if(value == 0)
 	{
 		this->switchbutton->setValue(false);

@@ -51,12 +51,17 @@ bool sysxWriter::readFile()
     if (file.open(QIODevice::ReadOnly))
 	{
 		QByteArray data = file.readAll();     // read the pre-selected file, copy to 'data'
-    if(data.size() == 2399  || data.size() == 2261){         // if GT-10B system file size is correct- load file. 
 		SysxIO *sysxIO = SysxIO::Instance();
+    if(data.size() == 2399)  {         // if GT-10B system file size is correct- load file. 
+    
+ 
 		QString area = "System";
 		sysxIO->setFileSource(area, data);
 		sysxIO->setFileName(this->fileName);
 		this->systemSource = sysxIO->getSystemSource();
+		
+
+		
 		return true;
 		}
 		else if(data.size() == patchSize){         // if GT-10B patch file size is correct- load file.

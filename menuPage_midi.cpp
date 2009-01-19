@@ -27,7 +27,7 @@
 menuPage_midi::menuPage_midi(QWidget *parent)
     : menuPage(parent)
 {
-  setImage(":/images/midi_pushbutton.png");
+  setImage(":/images/menuPage_stomp.png");
   setLSB("02", "00");
 	setEditPages();
 };
@@ -40,7 +40,7 @@ void menuPage_midi::updateSignal()
 void menuPage_midi::setEditPages()
 {
 
-	editDetails()->page()->newGroupBox("System Midi area still under Construction.");
+	editDetails()->page()->newGroupBox("System Midi ***CAUTION*** Settings changes are automatically written to GT-10B.");
 	
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "02", "00", "00", "System"); // omni mode
 	editDetails()->page()->addComboBox(0, 1, 1, 1, "02", "00", "01", "System"); // rx channel

@@ -72,6 +72,10 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
 
  	this->connectButton = new customButton(tr("Connect"), false, QPoint(405, 5), this, ":/images/greenledbutton.png");
 	this->writeButton = new customButton(tr("Write/Sync"), false, QPoint(494, 5), this, ":/images/ledbutton.png");
+  this->assign_Button = new customButton(tr("Assigns"), false, QPoint(584, 5), this, ":/images/pushbutton.png");
+	this->system_midi_Button = new customButton(tr("System Midi"), false, QPoint(673, 5), this, ":/images/pushbutton.png");
+	this->system_Button = new customButton(tr("System Settings"), false, QPoint(762, 5), this, ":/images/pushbutton.png");
+	this->master_Button = new customButton(tr("Master"), false, QPoint(584, 24), this, ":/images/pushbutton.png");
 
   this->ch_mode_Button = new customButton(tr("Channel Mode"), false, QPoint(10, 467), this, ":/images/pushbutton.png");
   this->preamp1_Button = new customButton(tr("PreAmp"), false, QPoint(100, 467), this, ":/images/pushbutton.png");
@@ -118,6 +122,7 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
 	QObject::connect(this->eq_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(eq_buttonSignal(bool)));
 	QObject::connect(this->pedal_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(pedal_buttonSignal(bool)));
 	
+	autoconnect();
 	
   };
 
@@ -318,7 +323,7 @@ void floorBoardDisplay::autoconnect()
 
 		QObject::disconnect(sysxIO, SIGNAL(sysxReply(QString)));
 		QObject::connect(sysxIO, SIGNAL(sysxReply(QString)), 
-			this, SLOT(connectionResult(QString)));
+			this, SLOT(autoConnectionResult(QString)));
 
 		sysxIO->sendSysx(idRequestString); // GT-10B Identity Request.
 	}
@@ -329,6 +334,40 @@ void floorBoardDisplay::autoconnect()
 	};
 };
 
+void floorBoardDisplay::autoConnectionResult(QString sysxMsg)
+{
+	SysxIO *sysxIO = SysxIO::Instance();
+	QObject::disconnect(sysxIO, SIGNAL(sysxReply(QString)), 
+			this, SLOT(autoConnectionResult(QString)));
+
+	sysxIO->setDeviceReady(true); // Free the device after finishing interaction.
+ if(sysxIO->noError())
+	{
+		if(sysxMsg.contains(idReplyPatern))
+		{
+			this->connectButton->setBlink(false);
+			this->connectButton->setValue(true);
+			sysxIO->setConnected(true);
+			emit connectedSignal();
+
+			if(sysxIO->getBank() != 0)
+			{
+				this->writeButton->setBlink(true);
+				this->writeButton->setValue(false);
+			};
+		}else
+    {
+     this->connectButton->setBlink(false);
+			this->connectButton->setValue(false);
+			sysxIO->setConnected(false);	
+    };
+  }
+  else
+  {
+   notConnected();
+   sysxIO->setNoError(true);		// Reset the error status (else we could never retry :) ).
+  };
+};  
 
 void floorBoardDisplay::connectSignal(bool value)
 {
@@ -401,7 +440,7 @@ void floorBoardDisplay::connectionResult(QString sysxMsg)
 			this->connectButton->setBlink(false);
 			this->connectButton->setValue(false);
 			sysxIO->setConnected(false);	
-
+			
 			QMessageBox *msgBox = new QMessageBox();
 			msgBox->setWindowTitle(deviceType + tr(" Fx FloorBoard connection Error !!"));
 			msgBox->setIcon(QMessageBox::Warning);
@@ -424,8 +463,8 @@ void floorBoardDisplay::connectionResult(QString sysxMsg)
 		{
 			this->connectButton->setBlink(false);
 			this->connectButton->setValue(false);
-			sysxIO->setConnected(false);			
-
+			sysxIO->setConnected(false);	
+      
 			QMessageBox *msgBox = new QMessageBox();
 			msgBox->setWindowTitle(deviceType + tr(" Fx FloorBoard connection Error !!"));
 			msgBox->setIcon(QMessageBox::Warning);

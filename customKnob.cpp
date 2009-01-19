@@ -60,11 +60,11 @@ customKnob::customKnob(QWidget *parent, QString hex1, QString hex2, QString hex3
 	this->knob = new customDial(0, rangeMin, range, 1, 10, knobPos, this, hex1, hex2, hex3, imagePath, imageRange);
 	this->setFixedSize(newBackGround->pixmap()->size() - QSize::QSize(0, 4)); // Correction needed h-4.
 
-	QObject::connect(this, SIGNAL( updateSignal() ),
-                this->parent(), SIGNAL( updateSignal() ));
+	QObject::connect(this, SIGNAL( updateSignal() ), this->parent(), SIGNAL( updateSignal() ));
 
-	QObject::connect(this, SIGNAL( updateDisplay(QString) ),
-                this->parent(), SIGNAL( updateDisplay(QString) ));
+	QObject::connect(this, SIGNAL( updateDisplay(QString) ), this->parent(), SIGNAL( updateDisplay(QString) ));
+	
+	//QObject::connect(this, SIGNAL( valueChanged(QString, QString, QString) ), this->parent()->parent()->parent(), SIGNAL( valueChanged(QString, QString, QString) ));
 };
 
 void customKnob::paintEvent(QPaintEvent *)
@@ -111,7 +111,22 @@ void customKnob::valueChanged(int value, QString hex1, QString hex2, QString hex
 	};
 
 	QString valueStr = midiTable->getValue(this->area, hex1, hex2, hex3, valueHex);
-
+  
 	emit updateDisplay(valueStr);
 	emit updateSignal();
+	
+	/*QString valueName;
+	QString fxName;
+	if(hex1 != "void" && hex2 != "void")
+	{
+		MidiTable *midiTable = MidiTable::Instance();
+		if(valueHex != "void")
+		{
+			Midi items = midiTable->getMidiMap(this->area, hex1, hex2, hex3);
+			valueName = items.desc;
+			fxName = midiTable->getMidiMap(this->area, hex1, hex2, hex3).name;
+		};
+	};
+	emit valueChanged(fxName, valueName, valueStr);
+	*/
 };

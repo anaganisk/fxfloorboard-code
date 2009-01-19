@@ -50,6 +50,7 @@ public slots:
 	void connectSignal(bool value);
 	void writeSignal(bool value);
 	void connectionResult(QString);
+	void autoConnectionResult(QString);
 	void resetDevice(QString replyMsg);
 	void patchSelectSignal(int bank, int patch);
 	void blinkSellectedPatch(bool active = true);
@@ -66,11 +67,7 @@ signals:
 	void updateSignal();
 	void connectedSignal();
 	void notConnectedSignal();
-  //void assignSignal();
-  //void manualSignal();
-  //void masterSignal();
-  //void systemSignal();
-	void setStatusSymbol(int value);
+ 	void setStatusSymbol(int value);
 	void setStatusProgress(int value);
   void setStatusMessage(QString message);
 
@@ -83,10 +80,10 @@ private:
 
 	customButton *connectButton;
 	customButton *writeButton;
-	//customButton *manualButton;
-	//customButton *assignButton;
-	//customButton *masterButton;
-	//customButton *systemButton;
+	customButton *assign_Button;
+	customButton *system_midi_Button;
+	customButton *system_Button;
+	customButton *master_Button;
 	customButton *ch_mode_Button;
 	customButton *preamp1_Button;
 	//customButton *preamp2_Button;
@@ -104,11 +101,7 @@ private:
 	customButton *pedal_Button;
 
 	bool connectButtonActive;
-  //bool assignButtonActive;
-  //bool manualButtonActive;
-  //bool masterButtonActive;
-  //bool systemButtonActive;
-	bool patchLoadError;
+  bool patchLoadError;
 	QTimer* timer;
 	int blinkCount;
 	bool currentSyncStatus;

@@ -159,5 +159,6 @@ void customControlKnob::dialogUpdateSignal()
 	
 	//this->display->setText(valueStr);
 	emit updateDisplay(valueStr);
+	
 	//this->valueChanged(value, this->hex1, this->hex2, this->hex3);
 };

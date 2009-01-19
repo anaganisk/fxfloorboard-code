@@ -793,7 +793,7 @@ void stompBox::updateStompPath()
 	if (this->id == 13){this->hexdata_A = "0D"; this->hexdata_B = "4D"; this->namedata = "NS_2"; this->fxName = "Noise Suppressor 2";};
 	if (this->id == 14){this->hexdata_A = "0E"; this->hexdata_B = "4E"; this->namedata = "LP";   this->fxName = "Send/Return";};
 	if (this->id == 15){this->hexdata_A = "0F"; this->hexdata_B = "4F"; this->namedata = "DGT";  this->fxName = "Digital Out";};
-	if (this->id == 16){this->hexdata_A = "10"; this->hexdata_B = "10"; this->namedata = "CN_S"; this->fxName = "Chain Split";};
+	if (this->id == 16){this->hexdata_A = "10"; this->hexdata_B = "10"; this->namedata = "CN_S"; this->fxName = "Channel Mode";};
 	if (this->id == 17){this->hexdata_A = "11"; this->hexdata_B = "11"; this->namedata = "CN_M"; this->fxName = "Chain Merge";};
 	
 

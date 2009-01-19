@@ -56,6 +56,7 @@ private:
 	QString hex1;
 	QString hex2;
 	QString hex3;
+	QString area;
 };
 
 #endif // CUSTOMCONTROLSWITCH_H

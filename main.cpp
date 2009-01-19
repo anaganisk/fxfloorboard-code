@@ -30,6 +30,7 @@
 #include "sysxWriter.h"
 #include "customSplashScreen.h"
 
+
 int main(int argc, char **argv)
 {
 	QApplication app(argc, argv);
@@ -86,8 +87,8 @@ int main(int argc, char **argv)
 	app.processEvents();
 
 	splash->showStatusMessage(QObject::tr("Loading midi mapping..."));
-	//MidiTable *midiTable = MidiTable::Instance();
-	//midiTable;
+	MidiTable *midiTable = MidiTable::Instance();
+	midiTable;
 
 	app.processEvents(); 
 

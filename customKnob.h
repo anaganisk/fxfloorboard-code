@@ -48,6 +48,7 @@ public slots:
 signals:
 	void updateSignal();
 	void updateDisplay(QString text);
+	void valueChanged(QString fxName, QString valueName, QString valueStr);
 
 protected:
 	void paintEvent(QPaintEvent *event);
