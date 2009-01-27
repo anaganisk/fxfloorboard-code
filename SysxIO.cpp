@@ -352,47 +352,54 @@ void SysxIO::setFileSource(QString area, QString hex1, QString hex2, QString hex
 	};
 };
 
-void SysxIO::setFileSource(QString hex1, QString hex2, QString hex3, QList<QString> hexData)
+void SysxIO::setFileSource(QString area, QString hex1, QString hex2, QString hex3, QList<QString> hexData)
 {
+  QString sysxMsg;
+  bool ok;
+  
 	QString address;
 	address.append(hex1);
-	address.append(hex2);
-	bool ok;
+	address.append(hex2);	
 	int pointerOffset2 = hex3.toInt(&ok, 16);
-	
+	if (area != "System")
+  {
 	QList<QString> sysxList = this->fileSource.hex.at(this->fileSource.address.indexOf(address));
-
 		for(int i=0; i<hexData.size();++i)
 		{
 			sysxList.replace(i + (sysxDataOffset + pointerOffset2), hexData.at(i));
-		};
-    
+		};   
 		this->fileSource.hex.replace(this->fileSource.address.indexOf(address), sysxList);
-		//int pointerOffset1 = hex1.toInt(&ok, 16);
-		if (pointerOffset2 > 0x7F)
-     {
-      hex1 = "0B";
-      hex3 = "00";
-      };
-       
-		QString sysxMsg = "F04100000030126000";
+	
+		sysxMsg = "F04100000030126000";
 		sysxMsg.append(hex1);
 		sysxMsg.append(hex3);
+	} 
+  else
+  {
+  QList<QString> sysxList = this->systemSource.hex.at(this->systemSource.address.indexOf(address));
+		for(int i=0; i<hexData.size();++i)
+		{
+			sysxList.replace(i + (sysxDataOffset + pointerOffset2), hexData.at(i));
+		};   
+		this->systemSource.hex.replace(this->systemSource.address.indexOf(address), sysxList);
+	
+		sysxMsg = "F041000000301200";
+		sysxMsg.append(hex1);
+		sysxMsg.append(hex2);
+		sysxMsg.append(hex3);
+	};
 		for(int i=0;i<hexData.size();++i)
 		{
 			sysxMsg.append(hexData.at(i));
-		};
-		sysxMsg.append("3CF7");
-		
-		/*int dataSize = 0;
+		};	
+		int dataSize = 0;
 		QString temp;
-	  for(int i=sysxMsg.size()/2 - 2; i>=checksumOffset;i--)
-	  {
-	    temp = sysxMsg.at(i);
-		  dataSize += temp.toInt(&ok, 16);
-		  i--;
-	  };
-	  sysxMsg.replace(sysxMsg.size() - 4, 2, getCheckSum(dataSize)); */
+	  for(int i=checksumOffset; i<sysxMsg.size()-1;i++)
+	  {dataSize += sysxMsg.mid(i*2, 2).toInt(&ok, 16); };
+	  sysxMsg.append(getCheckSum(dataSize)); 
+	  sysxMsg.append("F7");
+	  
+	  
 
 		if(this->isConnected() && this->deviceReady() /*&& this->getSyncStatus()*/)
 		{
@@ -905,10 +912,10 @@ void SysxIO::sendSysx(QString sysxMsg)
     {
       midiInPort = midiInDevices.indexOf("BOSS GT-10B");
     };
-	/*  if ( midiOutDevices.contains("BOSS GT-10B") )
+	  if ( midiOutDevices.contains("BOSS GT-10B") )
     {
       midiOutPort = midiOutDevices.indexOf("BOSS GT-10B");
-    }; */
+    }; 
 	midi->sendSysxMsg(sysxMsg, midiOutPort, midiInPort);
 			 /*DeBugGING OUTPUT */
 	if(preferences->getPreferences("Midi", "DBug", "bool")=="true")
@@ -1192,22 +1199,23 @@ void SysxIO::systemReply(QString replyMsg)
 	part2.prepend("0100").prepend(addressMsb).prepend(header).append(part2B).append(footer); 
 	QString part3 = replyMsg.mid(560, 256);
 	part3.prepend("0200").prepend(addressMsb).prepend(header).append(footer);
-	QString part4 = replyMsg.mid(816, 198);	
-	part4.prepend("0300").prepend(addressMsb).prepend(header).append(footer); 
+	QString part4 = replyMsg.mid(816, 198);	  // spare space
+	part4.prepend("0300").prepend(addressMsb).prepend(header).append(footer); //address 00 00 03 00
 	addressMsb = "0001"; // new address range "00 01 00 00"
-	QString part5 = replyMsg.mid(1040, 228);   
-	part5.prepend("0000000000000000000000000000"); // add 14 extra places for start
+	QString part5 = replyMsg.mid(1040, 216);   
+	part5.prepend("0000000000000000000000000000000000000000"); // add 20 extra places for start
 	part5.prepend("0000").prepend(addressMsb).prepend(header).append(footer);   
-	QString part6 = replyMsg.mid(1268, 256);   // 
-	part6.prepend("0100").prepend(addressMsb).prepend(header).append(footer);   
-  QString part7 = replyMsg.mid(1550, 228);  // 
-  part7.prepend("0000000000000000000000000000"); // add 14 extra places for start
-	part7.prepend("0200").prepend(addressMsb).prepend(header).append(footer); 
-	QString part8 = replyMsg.mid(1778,256);    //
-	part8.prepend("0300").prepend(addressMsb).prepend(header).append(footer);
-	QString part9 = replyMsg.mid(2060, 24);
-	part9.prepend("000000000000"); // add 6 extra places for start
-	part9.prepend("0400").prepend(addressMsb).prepend(header).append(footer);
+	QString part6 = replyMsg.mid(1256, 256);   // 
+	part6.prepend("0100").prepend(addressMsb).prepend(header).append(footer); // adress 00 01 01 00
+  QString part7 = replyMsg.mid(1510, 14);  
+  QString part7B = replyMsg.mid(1550, 214);  // 
+  part7.append("0000000000000000000000000000"); // add 14 extra places for start
+	part7.prepend("0200").prepend(addressMsb).prepend(header).append(part7B).append(footer); // address 00 01 02 00
+	QString part8 = replyMsg.mid(1764,256);    //
+	part8.prepend("0300").prepend(addressMsb).prepend(header).append(footer);  // address 00 01 03 00
+	QString part9 = replyMsg.mid(2020, 14);
+	QString part9B = replyMsg.mid(2060, 24);
+	part9.prepend("0400").prepend(addressMsb).prepend(header).append(part9B).append(footer);  // address 00 01 04 00
 	addressMsb = "0002"; // new address range "00 02 00 00"
 	QString part10 = replyMsg.mid(2110, 256);   //
 	part10.prepend("0000").prepend(addressMsb).prepend(header).append(footer);

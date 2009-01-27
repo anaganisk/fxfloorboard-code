@@ -27,6 +27,7 @@
 #include "SysxIO.h"
 #include "midiIO.h"
 #include "renameWidget.h"
+#include "customRenameWidget.h"
 #include "globalVariables.h"
 
 
@@ -67,7 +68,8 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
 	initPatch = new initPatchListMenu(QRect(405, 24, 168, 15), this);
   renameWidget *nameEdit = new renameWidget(this); 
   nameEdit->setGeometry(85, 5, 150, 34); 
-  
+  customRenameWidget *patchDialog = new customRenameWidget(this, "0D", "00", "00", "Structure", "7F"); 
+  patchDialog->setGeometry(10, 502, 980, 25); 
   //this->editDialog = new editWindow();
 
  	this->connectButton = new customButton(tr("Connect"), false, QPoint(405, 5), this, ":/images/greenledbutton.png");
@@ -77,21 +79,21 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
 	this->system_Button = new customButton(tr("System Settings"), false, QPoint(762, 5), this, ":/images/pushbutton.png");
 	this->master_Button = new customButton(tr("Master"), false, QPoint(584, 24), this, ":/images/pushbutton.png");
 
-  this->ch_mode_Button = new customButton(tr("Channel Mode"), false, QPoint(10, 467), this, ":/images/pushbutton.png");
-  this->preamp1_Button = new customButton(tr("PreAmp"), false, QPoint(100, 467), this, ":/images/pushbutton.png");
+  this->ch_mode_Button = new customButton(tr("Channel Mode"), false, QPoint(10, 457), this, ":/images/pushbutton.png");
+  this->preamp1_Button = new customButton(tr("PreAmp"), false, QPoint(100, 457), this, ":/images/pushbutton.png");
 	//this->preamp2_Button = new customButton(tr("PreAmp B"), false, QPoint(100, 485), this, ":/images/pushbutton.png");
-	this->distortion_Button = new customButton(tr("Distortion"), false, QPoint(190,467), this, ":/images/pushbutton.png");
-	this->compressor_Button = new customButton(tr("Compressor"), false, QPoint(190,485), this, ":/images/pushbutton.png");
-	this->ns1_Button = new customButton(tr("NS 1"), false, QPoint(280, 467), this, ":/images/pushbutton.png");
-	this->ns2_Button = new customButton(tr("NS 2"), false, QPoint(280, 485), this, ":/images/pushbutton.png");
-	this->fx1_Button = new customButton(tr("FX 1"), false, QPoint(370, 467), this, ":/images/pushbutton.png");
-	this->fx2_Button = new customButton(tr("FX 2"), false, QPoint(370, 485), this, ":/images/pushbutton.png");
-	this->reverb_Button = new customButton(tr("Reverb"), false, QPoint(460, 467), this, ":/images/pushbutton.png");
-	this->delay_Button = new customButton(tr("Delay"), false, QPoint(460, 485), this, ":/images/pushbutton.png");
-	this->chorus_Button = new customButton(tr("Chorus"), false, QPoint(550, 467), this, ":/images/pushbutton.png");
-	this->sendreturn_Button = new customButton(tr("Send/Return"), false, QPoint(550, 485), this, ":/images/pushbutton.png");
-	this->eq_Button = new customButton(tr("Equalizer"), false, QPoint(640, 467), this, ":/images/pushbutton.png");
-	this->pedal_Button = new customButton(tr("Pedal"), false, QPoint(640, 485), this, ":/images/pushbutton.png");
+	this->distortion_Button = new customButton(tr("Distortion"), false, QPoint(190,457), this, ":/images/pushbutton.png");
+	this->compressor_Button = new customButton(tr("Compressor"), false, QPoint(190,475), this, ":/images/pushbutton.png");
+	this->ns1_Button = new customButton(tr("NS 1"), false, QPoint(280, 457), this, ":/images/pushbutton.png");
+	this->ns2_Button = new customButton(tr("NS 2"), false, QPoint(280, 475), this, ":/images/pushbutton.png");
+	this->fx1_Button = new customButton(tr("FX 1"), false, QPoint(370, 457), this, ":/images/pushbutton.png");
+	this->fx2_Button = new customButton(tr("FX 2"), false, QPoint(370, 475), this, ":/images/pushbutton.png");
+	this->reverb_Button = new customButton(tr("Reverb"), false, QPoint(460, 457), this, ":/images/pushbutton.png");
+	this->delay_Button = new customButton(tr("Delay"), false, QPoint(460, 475), this, ":/images/pushbutton.png");
+	this->chorus_Button = new customButton(tr("Chorus"), false, QPoint(550, 457), this, ":/images/pushbutton.png");
+	this->sendreturn_Button = new customButton(tr("Send/Return"), false, QPoint(550, 475), this, ":/images/pushbutton.png");
+	this->eq_Button = new customButton(tr("Equalizer"), false, QPoint(640, 457), this, ":/images/pushbutton.png");
+	this->pedal_Button = new customButton(tr("Pedal"), false, QPoint(640, 475), this, ":/images/pushbutton.png");
 	
 	SysxIO *sysxIO = SysxIO::Instance();
 	QObject::connect(this, SIGNAL(setStatusSymbol(int)), sysxIO, SIGNAL(setStatusSymbol(int)));
@@ -225,34 +227,19 @@ void floorBoardDisplay::updateDisplay()
 	SysxIO *sysxIO = SysxIO::Instance();
 	QString area = "Structure";
 	QList<QString> nameArray = sysxIO->getFileSource(area, nameAddress, "00");
-
-	//MidiTable *midiTable = MidiTable::Instance();
 	QString name;
 	for(int i=sysxDataOffset;i<(sysxDataOffset+nameLength);i++ )
 		{
-		//name.append( midiTable->getMidiMap("Structure", "0B", "00", "00", nameArray.at(i)).name );
-
-		QString hexStr = nameArray.at(i);
-		if(hexStr == "7E")
-		{
-			name.append((QChar)(0x2192));
-		}
-		else if (hexStr == "7F")
-		{
-			name.append((QChar)(0x2190));
-		}
-		else
-	{
+		QString hexStr = nameArray.at(i);	
 		bool ok;
 		name.append( (char)(hexStr.toInt(&ok, 16)) );
-	 };
-  };	
+    };	
 
 	QString patchName = name.trimmed();
 	sysxIO->setCurrentPatchName(patchName);
 	if(sysxIO->getRequestName().trimmed() != patchName.trimmed())
 	{
-		this->patchLoadError = false;//cjw true;
+		this->patchLoadError = true;
 	}
 	else
 	{

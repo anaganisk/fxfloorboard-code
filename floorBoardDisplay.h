@@ -73,7 +73,7 @@ signals:
 
 private:
 	QPoint pos;
- 
+  //customRenameWidget *patchDialog;
 	customDisplay *valueDisplay;
 	customDisplay *patchDisplay;
 	customDisplay *patchNumDisplay;

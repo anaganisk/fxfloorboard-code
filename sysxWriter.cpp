@@ -64,7 +64,7 @@ bool sysxWriter::readFile()
 		
 		return true;
 		}
-		else if(data.size() == patchSize){         // if GT-10B patch file size is correct- load file.
+		else if(data.size() == patchSize || data.size() == 1636){         // if GT-10B patch file size is correct- load file.
 		SysxIO *sysxIO = SysxIO::Instance();
 		QString area = "Structure";
 		sysxIO->setFileSource(area, data);

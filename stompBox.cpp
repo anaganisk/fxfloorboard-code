@@ -430,7 +430,7 @@ void stompBox::pathSwitchSignal(bool value)
 				 };
       
       SysxIO *sysxIO = SysxIO::Instance();
-      sysxIO->setFileSource("0B", "00", "00", hexData);
+      sysxIO->setFileSource("Structure", "0B", "00", "00", hexData);
       
       emit updateSignal();
       emit updateStompBoxes();

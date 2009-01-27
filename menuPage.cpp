@@ -100,6 +100,8 @@ editWindow* menuPage::editDetails()
 
 void menuPage::menuButtonSignal(bool value)	
 	{
+	  emit setStatusMessage(tr("Opening Page..."));
+	  emit setStatusSymbol(3);
 	  if(this->id > 19)
     {
       emitValueChanged(this->hex1, this->hex2, "00", "void");
@@ -108,16 +110,17 @@ void menuPage::menuButtonSignal(bool value)
     };
     SysxIO *sysxIO = SysxIO::Instance();
 	  if((this->id == 19 || this->id == 18) && sysxIO->deviceReady())
-	  {
-	    emit setStatusProgress(100);
+	  {   
       QString replyMsg;
 	     if (sysxIO->isConnected())
 	       {
-	        emit setStatusSymbol(2);
-		      emit setStatusMessage(tr("Request System data"));
+	        
 	       	sysxIO->setDeviceReady(false); // Reserve the device for interaction.
 		      QObject::disconnect(sysxIO, SIGNAL(sysxReply(QString)));
 		      QObject::connect(sysxIO, SIGNAL(sysxReply(QString)), this, SLOT(systemReply(QString)));
+		      emit setStatusProgress(100);
+	        emit setStatusSymbol(2);
+		      emit setStatusMessage(tr("Request System data"));
 		      sysxIO->sendSysx(systemRequestMsg); // GT-10B System area data Request.    
           
           emitValueChanged(this->hex1, this->hex2, "00", "void");
@@ -187,7 +190,7 @@ void menuPage::systemReply(QString replyMsg)
 	QString part2 = replyMsg.mid(278, 226);
 	QString part2B = replyMsg.mid(530, 30);
 	part2.prepend("0100").prepend(addressMsb).prepend(header).append(part2B).append(footer); 
-	QString part3 = replyMsg.mid(562, 256);
+	QString part3 = replyMsg.mid(560, 256);
 	part3.prepend("0200").prepend(addressMsb).prepend(header).append(footer);
 	QString part4 = replyMsg.mid(816, 198);	  // spare space
 	part4.prepend("0300").prepend(addressMsb).prepend(header).append(footer); //address 00 00 03 00

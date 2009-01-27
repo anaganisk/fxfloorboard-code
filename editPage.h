@@ -49,6 +49,12 @@ public:
 		QString direction = "bottom", 
 		int lenght = 45,
 		Qt::Alignment alignment = 0);
+	void addRange(int row, int column, int rowSpan, int columnSpan,
+		QString hex1 = "void",
+		QString hex2 = "void",
+		QString hex3 = "void",
+		QString area = "Structure", 
+		Qt::Alignment alignment = 0);
 	void addSwitch(int row, int column, int rowSpan, int columnSpan,
 		QString hex1 = "void",
 		QString hex2 = "void",
@@ -61,6 +67,13 @@ public:
 		QString hex3 = "void",
 		QString direction = "bottom",
 		Qt::Alignment alignment = 0);
+	void addNameEdit(int row, int column, int rowSpan, int columnSpan,
+		QString hex1 = "void",
+		QString hex2 = "void",
+		QString hex3 = "void",
+		QString area = "System",
+		QString length = 10,
+    Qt::Alignment alignment = 0);
 	void addLabel(int row, int column, int rowSpan, int columnSpan, QString text, Qt::Alignment alignment = 0);
 	void newGroupBox(QString title, Qt::Alignment alignment = Qt::AlignCenter);
 	void addGroupBox(int row, int column, int rowSpan, int columnSpan);
