@@ -244,13 +244,13 @@ void stompbox_fx2::setEditPages()
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 
 	editDetails()->page()->newGroupBox("Guitar Simulator");
-	editDetails()->page()->addKnob(0, 3, 1, 1, "09", "00", "25");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "09", "00", "26");
-	editDetails()->page()->addKnob(0, 2, 1, 1, "09", "00", "27");;
+	editDetails()->page()->addKnob(0, 1, 1, 1, "09", "00", "25");
+	editDetails()->page()->addKnob(0, 2, 1, 1, "09", "00", "26");
+	editDetails()->page()->addKnob(0, 3, 1, 1, "09", "00", "28");;
 	editDetails()->page()->addGroupBox(0, 1, 1, 1);
 
 	editDetails()->page()->newGroupBox("Level");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "09", "00", "28");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "09", "00", "27");
 	editDetails()->page()->addGroupBox(0, 2, 1, 1);
 	//editDetails()->addPage("06", "00", "01", "08");
 	editDetails()->page()->addStackField();

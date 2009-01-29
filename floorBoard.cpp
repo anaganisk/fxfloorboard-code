@@ -197,6 +197,7 @@ void floorBoard::setFloorBoard() {
 	this->offset = imageFloor.width() - imageInfoBar.width();
 	this->infoBarWidth = imageInfoBar.width();
 	this->stompSize = imagestompBG.size();
+	this->infoBarHeight = imageInfoBar.height();
 
 	initSize(imageFloor.size());
 	this->maxSize = floorSize;
@@ -210,7 +211,9 @@ void floorBoard::setFloorBoard() {
 	// Draw LiberianBar
 	QRectF sourceLiberianBar(0.0, 0.0, imageInfoBar.width(), imageInfoBar.height());
 	QRectF targetLiberianBar(offset, (imageFloor.height() - imageInfoBar.height()) - 2, imageInfoBar.width(), imageInfoBar.height());
-	painter.drawPixmap(targetLiberianBar, imageInfoBar, sourceLiberianBar);
+	QRectF targetLiberianBar2(offset, (imageFloor.height() - (imageInfoBar.height()*2)+2), imageInfoBar.width(), imageInfoBar.height());
+  painter.drawPixmap(targetLiberianBar, imageInfoBar, sourceLiberianBar);
+  painter.drawPixmap(targetLiberianBar2, imageInfoBar, sourceLiberianBar);
 
 	// Draw stomp boxes background
 	QRectF source(0.0, 0.0, imagestompBG.width(), imagestompBG.height());
@@ -425,7 +428,7 @@ void floorBoard::dropEvent(QDropEvent *event)
              hexData.append(hex);
            };     
 			  		  
-				sysxIO->setFileSource("0B", "00", "00", hexData);
+				sysxIO->setFileSource("Structure", "0B", "00", "00", hexData);
 				emit pathUpdateSignal();
 				updateStompBoxes();
 			};
@@ -496,7 +499,7 @@ void floorBoard::initSize(QSize floorSize)
 			y = y + stompSize.height() + spacingV;
 			x = x - (( stompSize.width() + spacingH ) * 9);
 		};
-		fxPos.append(QPoint::QPoint(offset + x, y));
+		fxPos.append(QPoint::QPoint(offset + x, y - (this->infoBarHeight/2)));
 	};
 
 	this->fxPos = fxPos;
@@ -802,8 +805,8 @@ void floorBoard::setEditDialog(editWindow* editDialog)
 void floorBoard::centerEditDialog()
 {
 	int x = this->displayPos.x() + (((this->floorSize.width() - this->displayPos.x()) - this->editDialog->width()) / 2);
-	int y = this->pos.y() + ((this->floorSize.height() - this->editDialog->height()) / 2);
-	this->editDialog->move(x, y);
+	int y = this->pos.y() + (((this->floorSize.height() - this->infoBarHeight) - this->editDialog->height()) / 2);
+  this->editDialog->move(x, y);
 };
 
 void floorBoard::initMenuPages()

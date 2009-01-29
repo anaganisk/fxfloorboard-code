@@ -1,8 +1,13 @@
-************GT-10FxFloorBoard beta version: 24 December 2008 *************************
+************GT-10FxFloorBoard beta version: 28 January 2009 *************************
 
 
-****NOTE: THIS IS A BETA VERSION AND SOME FEATURES MAY HAVE NOT YET BEEN IMPLIMENTED, 
-	OR SOME FUNCTIONS MAY BE INCORRECT.****PLEASE LET ME KNOW IF THERE IS AN ERROR!!  
+****NOTE: SOME FEATURES MAY HAVE NOT YET BEEN IMPLIMENTED, 
+	OR SOME FUNCTIONS MAY BE INCORRECT.****PLEASE LET ME KNOW IF THERE IS AN ERROR!! 
+
+****************************************************************************************
+*        VERY IMPORTAINT !!! SYSTEM SETTINGS ADJUSTMENTS REMAIN AS THEY ARE SET,       *
+*         BE CAREFUL WHEN ADJUSTING SYSTEM SETTINGS, SAVE SYSTEM SETTINGS FIRST !!     * ****************************************************************************************
+
 
 
 a.)  The Chain concept is now implemented, conditional placement and auto sorting of A/B 
@@ -30,7 +35,7 @@ g.)  GT-8 patch conversion. Gt-8 patches can be opened and saved as GT-10 patche
 
 
 
-****my wish list**** (things i would like to know, *help needed*): 
+****my wish list**** (things i would like to know, *help needed please*): 
 
   1.)  ***Suggestions on features or improvements are welcome.
       

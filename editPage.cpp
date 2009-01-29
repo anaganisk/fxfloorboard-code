@@ -27,9 +27,11 @@
 #include "customSwitch.h"
 #include "customControlKnob.h"
 #include "customControlTarget.h"
+#include "customControlRange.h"
 #include "customControlLabel.h"
 #include "customControlSwitch.h"
 #include "customControlListMenu.h"
+#include "customRenameWidget.h"
 
 editPage::editPage(QWidget *parent)
     : QWidget(parent)
@@ -105,6 +107,27 @@ void editPage::addTarget(int row, int column, int rowSpan, int columnSpan,
 		this->layout->addWidget(target, row, column, rowSpan, columnSpan, alignment);
 	};
 };
+
+void editPage::addRange(int row, int column, int rowSpan, int columnSpan,
+					   QString hex1, QString hex2, QString hex3, 
+					   QString area, 
+					   Qt::Alignment alignment)
+{
+	customControlRange *range = new customControlRange(this, hex1, hex2, hex3, area);
+	if(this->groupBoxMode)
+	{
+		this->groupBoxLayout->addWidget(range, row, column, rowSpan, columnSpan, alignment);
+	}
+	else if(this->stackFieldMode)
+	{
+		this->stackField->addWidget(range, row, column, rowSpan, columnSpan, alignment);
+	}
+	else
+	{
+		this->layout->addWidget(range, row, column, rowSpan, columnSpan, alignment);
+	};
+};
+
 void editPage::addSwitch(int row, int column, int rowSpan, int columnSpan,
 		QString hex1,
 		QString hex2,
@@ -153,6 +176,30 @@ void editPage::addComboBox(int row, int column, int rowSpan, int columnSpan,
 	else
 	{
 		this->layout->addWidget(combobox, row, column, rowSpan, columnSpan, alignment);
+	};
+};
+
+void editPage::addNameEdit(int row, int column, int rowSpan, int columnSpan,
+		QString hex1,
+		QString hex2,
+		QString hex3,
+		QString area,
+		QString length,
+    Qt::Alignment alignment)
+{
+	customRenameWidget *nameEdit = new customRenameWidget(this, hex1, hex2, hex3, area, length);
+	
+	if(this->groupBoxMode)
+	{
+		this->groupBoxLayout->addWidget(nameEdit, row, column, rowSpan, columnSpan, alignment);
+	}
+	else if(this->stackFieldMode)
+	{
+		this->stackField->addWidget(nameEdit, row, column, rowSpan, columnSpan, alignment);
+	}
+	else
+	{
+		this->layout->addWidget(nameEdit, row, column, rowSpan, columnSpan, alignment);
 	};
 };
 

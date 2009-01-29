@@ -109,6 +109,7 @@ private:
 
 	unsigned int offset;
 	unsigned int infoBarWidth;
+	unsigned int infoBarHeight;
 	unsigned int panelBarOffset;
 	unsigned int borderWidth;
 	unsigned int floorHeight;

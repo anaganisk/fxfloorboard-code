@@ -47,7 +47,7 @@ mainWindow::mainWindow(QWidget *parent)
 	#ifdef Q_OS_WIN
 	/* This set the floorboard default style to the "plastique" style, 
 	   as it comes the nearest what the stylesheet uses. */
-	fxsBoard->setStyle(QStyleFactory::create("plastique"));
+	//fxsBoard->setStyle(QStyleFactory::create("plastique"));
 		if(QFile(":qss/windows.qss").exists())
 		{
 			QFile file(":qss/windows.qss");
@@ -58,7 +58,7 @@ mainWindow::mainWindow(QWidget *parent)
 	#endif
 
 	#ifdef Q_WS_X11
-	fxsBoard->setStyle(QStyleFactory::create("plastique"));
+	//fxsBoard->setStyle(QStyleFactory::create("plastique"));
 		if(QFile(":qss/linux.qss").exists())
 		{
 			QFile file(":qss/linux.qss");
@@ -69,7 +69,7 @@ mainWindow::mainWindow(QWidget *parent)
 	#endif
 
 	#ifdef Q_WS_MAC
-	fxsBoard->setStyle(QStyleFactory::create("plastique"));
+	//fxsBoard->setStyle(QStyleFactory::create("plastique"));
 		if(QFile(":qss/macosx.qss").exists())
 		{
 			QFile file(":qss/macosx.qss");
@@ -96,7 +96,7 @@ mainWindow::mainWindow(QWidget *parent)
 	mainLayout->setSizeConstraint(QLayout::SetFixedSize);
 	setLayout(mainLayout);
 
-	//this->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+	this->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 
 	QObject::connect(fxsBoard, SIGNAL( sizeChanged(QSize, QSize) ),
                 this, SLOT( updateSize(QSize, QSize) ) );
@@ -170,15 +170,15 @@ void mainWindow::createActions()
 	exportSMFAct->setStatusTip(tr("Export as a Standard Midi File"));
 	connect(exportSMFAct, SIGNAL(triggered()), this, SLOT(exportSMF()));
 	
-	bulkLoadAct = new QAction(/*QIcon(":/images/importSMF.png"),*/ tr("&Load Bulk Dump..."), this);
-	bulkLoadAct->setShortcut(tr("Ctrl+L"));
-	bulkLoadAct->setStatusTip(tr("Load Bulk Dump to GT-10B"));
-	connect(bulkLoadAct, SIGNAL(triggered()), this, SLOT(bulkLoad()));
+  systemLoadAct = new QAction(/*QIcon(":/images/importSMF.png"),*/ tr("&Load GT System Data..."), this);
+	systemLoadAct->setShortcut(tr("Ctrl+L"));
+	systemLoadAct->setStatusTip(tr("Load System Data to GT-10"));
+	connect(systemLoadAct, SIGNAL(triggered()), this, SLOT(systemLoad()));
 
-	bulkSaveAct = new QAction(/*QIcon(":/images/exportSMF.png"),*/ tr("Save GT System Data..."), this);
-	bulkSaveAct->setShortcut(tr("Ctrl+D"));
-	bulkSaveAct->setStatusTip(tr("Save System Data to File"));
-	connect(bulkSaveAct, SIGNAL(triggered()), this, SLOT(bulkSave()));
+	systemSaveAct = new QAction(/*QIcon(":/images/exportSMF.png"),*/ tr("Save GT System Data..."), this);
+	systemSaveAct->setShortcut(tr("Ctrl+D"));
+	systemSaveAct->setStatusTip(tr("Save System Data to File"));
+	connect(systemSaveAct, SIGNAL(triggered()), this, SLOT(systemSave()));
 
 	exitAct = new QAction(tr("E&xit"), this);
 	exitAct->setShortcut(tr("Ctrl+Q"));
@@ -232,8 +232,8 @@ void mainWindow::createMenus()
 	fileMenu->addAction(importSMFAct);
 	fileMenu->addAction(exportSMFAct);
 	fileMenu->addSeparator();
-	fileMenu->addAction(bulkLoadAct);
-	fileMenu->addAction(bulkSaveAct);
+  fileMenu->addAction(systemLoadAct);
+	fileMenu->addAction(systemSaveAct);
 	fileMenu->addSeparator();
   fileMenu->addAction(exitAct);
 	menuBar->addMenu(fileMenu);
@@ -443,8 +443,11 @@ void mainWindow::exportSMF()
 	};
 };
 
-void mainWindow::bulkLoad()
+void mainWindow::systemLoad()
 {
+   SysxIO *sysxIO = SysxIO::Instance();
+     if (sysxIO->isConnected())
+	       {
 	Preferences *preferences = Preferences::Instance();
 	QString dir = preferences->getPreferences("General", "Files", "dir");
 
@@ -452,35 +455,53 @@ void mainWindow::bulkLoad()
                 this,
                 "Choose a file",
                 dir,
-                "GT-10 System Data File (*.syx)");
+                "GT10 System Data File (*.GT10_system_syx)");
 	if (!fileName.isEmpty())	
 	{
 		file.setFile(fileName);  
 		if(file.readFile())
 		{	
 			// DO SOMETHING AFTER READING THE FILE (UPDATE THE GUI)
-		          /*QString snork = "Bulk Dump area still under Construction.";
-              QMessageBox *msgBox = new QMessageBox();
-			        msgBox->setWindowTitle("Under Construction !!");
-		        	msgBox->setIcon(QMessageBox::Information);
-		        	msgBox->setText(snork);
-		        	msgBox->setStandardButtons(QMessageBox::Ok);
-		        	msgBox->exec(); */
-		        	
+
+
+
+
+
+
+
+	
 		  SysxIO *sysxIO = SysxIO::Instance();
 			QString area = "System";
 			sysxIO->setFileSource(area, file.getSystemSource());
 			sysxIO->setFileName(fileName);
-			sysxIO->setSyncStatus(false);
-			sysxIO->setDevice(false);
+			//sysxIO->setSyncStatus(false);
+			//sysxIO->setDevice(false);
 
 			emit updateSignal();
+			sysxIO->systemWrite();
 		};
 	};
+	}
+         else
+             {
+              QString snork = "Ensure connection is active and retry";
+              QMessageBox *msgBox = new QMessageBox();
+			        msgBox->setWindowTitle(deviceType + " not connected !!");
+		        	msgBox->setIcon(QMessageBox::Information);
+		        	msgBox->setText(snork);
+		        	msgBox->setStandardButtons(QMessageBox::Ok);
+		        	msgBox->exec(); 
+              };  
 };
 
-void mainWindow::bulkSave()
-{
+void mainWindow::systemSave()
+{ 
+SysxIO *sysxIO = SysxIO::Instance();
+     if (sysxIO->isConnected())
+	       {
+  sysxIO->systemDataRequest();
+  //SLEEP(3000);
+
 	Preferences *preferences = Preferences::Instance();
 	QString dir = preferences->getPreferences("General", "Files", "dir");
 
@@ -488,35 +509,36 @@ void mainWindow::bulkSave()
                     this,
                     "Save System Data",
                     dir,
-                    "System Exclusive File (*.syx)");
+                    "System Exclusive File (*.GT10_system_syx)");
 	if (!fileName.isEmpty())	
 	{
-		if(!fileName.contains(".syx"))
+	  if(!fileName.contains(".GT10_system_syx"))
 		{
-			fileName.append(".syx");
+			fileName.append(".GT10_system_syx");
 		};
-		
+    	
 		file.writeSystemFile(fileName);
 
 		file.setFile(fileName);  
 		if(file.readFile())
 		{	
-			// DO SOMETHING AFTER READING THE FILE (UPDATE THE GUI)
-		          /*QString snork = "Bulk Dump area still under Construction.";
-              QMessageBox *msgBox = new QMessageBox();
-			        msgBox->setWindowTitle("Under Construction !!");
-		        	msgBox->setIcon(QMessageBox::Information);
-		        	msgBox->setText(snork);
-		        	msgBox->setStandardButtons(QMessageBox::Ok);
-		        	msgBox->exec(); */
-		        	
 		  SysxIO *sysxIO = SysxIO::Instance();
 			QString area = "System";
 			sysxIO->setFileSource(area, file.getSystemSource());
-
 			emit updateSignal();
 		};
 	};
+	 }
+         else
+             { 
+              QString snork = "Ensure connection is active and retry";
+              QMessageBox *msgBox = new QMessageBox();
+			        msgBox->setWindowTitle(deviceType + " not connected !!");
+		        	msgBox->setIcon(QMessageBox::Information);
+		        	msgBox->setText(snork);
+		        	msgBox->setStandardButtons(QMessageBox::Ok);
+		        	msgBox->exec(); 
+              };  
 };
 
 /* TOOLS MENU */

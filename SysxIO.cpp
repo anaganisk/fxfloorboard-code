@@ -352,48 +352,56 @@ void SysxIO::setFileSource(QString area, QString hex1, QString hex2, QString hex
 	};
 };
 
-void SysxIO::setFileSource(QString hex1, QString hex2, QString hex3, QList<QString> hexData)
+void SysxIO::setFileSource(QString area, QString hex1, QString hex2, QString hex3, QList<QString> hexData)
 {
+	  QString sysxMsg;
+  bool ok;
+  
 	QString address;
 	address.append(hex1);
-	address.append(hex2);
-	bool ok;
+	address.append(hex2);	
+
 	int pointerOffset2 = hex3.toInt(&ok, 16);
-	
+	if (area != "System")
+  {
 	QList<QString> sysxList = this->fileSource.hex.at(this->fileSource.address.indexOf(address));
 
 		for(int i=0; i<hexData.size();++i)
 		{
 			sysxList.replace(i + (sysxDataOffset + pointerOffset2), hexData.at(i));
-		};
-    
+		};   
 		this->fileSource.hex.replace(this->fileSource.address.indexOf(address), sysxList);
-		//int pointerOffset1 = hex1.toInt(&ok, 16);
-		if (pointerOffset2 > 0x7F)
-     {
-      hex1 = "0B";
-      hex3 = "00";
-      };
-       
-		QString sysxMsg = "F0410000002F126000";
+	
+		sysxMsg = "F0410000002F126000";
 		sysxMsg.append(hex1);
 		sysxMsg.append(hex3);
+	} 
+  else
+  {
+  QList<QString> sysxList = this->systemSource.hex.at(this->systemSource.address.indexOf(address));
+		for(int i=0; i<hexData.size();++i)
+		{
+			sysxList.replace(i + (sysxDataOffset + pointerOffset2), hexData.at(i));
+
+		};   
+		this->systemSource.hex.replace(this->systemSource.address.indexOf(address), sysxList);
+	
+		sysxMsg = "F0410000002F1200";
+		sysxMsg.append(hex1);
+		sysxMsg.append(hex2);
+		sysxMsg.append(hex3);
+	};
 		for(int i=0;i<hexData.size();++i)
 		{
 			sysxMsg.append(hexData.at(i));
-		};
-		sysxMsg.append("3CF7");
-		
-		/*int dataSize = 0;
+		};	
+		int dataSize = 0;
 		QString temp;
-	  for(int i=sysxMsg.size()/2 - 2; i>=checksumOffset;i--)
-	  {
-	    temp = sysxMsg.at(i);
-		  dataSize += temp.toInt(&ok, 16);
-		  i--;
-	  };
-	  sysxMsg.replace(sysxMsg.size() - 4, 2, getCheckSum(dataSize)); */
-
+	  for(int i=checksumOffset; i<sysxMsg.size()-1;i++)
+	  {dataSize += sysxMsg.mid(i*2, 2).toInt(&ok, 16); };
+	  sysxMsg.append(getCheckSum(dataSize)); 
+	  sysxMsg.append("F7");
+	  
 		if(this->isConnected() && this->deviceReady() /*&& this->getSyncStatus()*/)
 		{
 			this->setDeviceReady(false);
@@ -1106,3 +1114,182 @@ void SysxIO::errorReturn()
    emit notConnectedSignal();
 };
 
+void SysxIO::systemWrite()
+{
+  
+	setDeviceReady(false);			// Reserve the device for interaction.
+	
+	QString sysxMsg;
+	QList< QList<QString> > systemData = getSystemSource().hex; // Get the loaded system data.
+	//QList<QString> systemAddress = getSystemSource().address;
+
+	//QString addr1 = QString::number(0, 16).toUpper();
+	//QString addr2 = addr1;
+
+	for(int i=0;i<systemData.size();++i)
+	{
+		QList<QString> data = systemData.at(i);
+		for(int x=0;x<data.size();++x)
+		{
+			QString hex;
+			/*if(x == sysxAddressOffset)
+			{ 
+				hex = addr1;
+			}
+			else if(x == sysxAddressOffset + 1)
+			{
+				hex = addr2;
+			}
+			else
+			{ */
+				hex = data.at(x);
+			//};
+			if (hex.length() < 2) hex.prepend("0");
+			sysxMsg.append(hex);
+		}; 
+	}; 
+	//setSyncStatus(true);		// In advance of the actual data transfer we set it already to sync.
+	sendSysx(sysxMsg);	// Send the data.
+	setDeviceReady(true);
+};
+
+void SysxIO::systemDataRequest()
+{
+   emit setStatusProgress(100);
+      QString replyMsg;
+	     if (isConnected())
+	       {
+	        emit setStatusSymbol(2);
+		      emit setStatusMessage(tr("Request System data"));
+	       	setDeviceReady(false); // Reserve the device for interaction.
+		      QObject::disconnect(this, SIGNAL(sysxReply(QString)));
+		      QObject::connect(this, SIGNAL(sysxReply(QString)), this, SLOT(systemReply(QString)));
+		      sendSysx(systemRequest); // GT-10 System area data Request.    
+          
+          emit setStatusProgress(0);
+         }
+         else
+             {
+              QString snork = "Ensure connection is active and retry";
+              QMessageBox *msgBox = new QMessageBox();
+			        msgBox->setWindowTitle(deviceType + " not connected !!");
+		        	msgBox->setIcon(QMessageBox::Information);
+		        	msgBox->setText(snork);
+		        	msgBox->setStandardButtons(QMessageBox::Ok);
+		        	msgBox->exec(); 
+              };  
+};
+
+void SysxIO::systemReply(QString replyMsg)
+{
+	QObject::disconnect(this, SIGNAL(sysxReply(QString)), this, SLOT(systemReply(QString)));
+	setDeviceReady(true); // Free the device after finishing interaction.
+  
+	if(noError())
+	{
+		if(replyMsg.size()/2 == 2236)
+		{
+		/* TRANSLATE SYSX MESSAGE FORMAT to 128 byte data blocks */
+	QString header = "F0410000002F12";
+	QString footer ="00F7";
+	QString addressMsb = replyMsg.mid(14,4); // read  MSb word at bits 7 & 8 from sysxReply (which is "0000")
+	QString part1 = replyMsg.mid(22, 256); //from 11, copy 128 bits (values are doubled for QString)
+  part1.prepend("0000").prepend(addressMsb).prepend(header).append(footer);    
+	QString part2 = replyMsg.mid(278, 226);
+	QString part2B = replyMsg.mid(530, 30);
+	part2.prepend("0100").prepend(addressMsb).prepend(header).append(part2B).append(footer); 
+	QString part3 = replyMsg.mid(560, 256);
+	part3.prepend("0200").prepend(addressMsb).prepend(header).append(footer);
+	QString part4 = replyMsg.mid(816, 198);	
+	part4.prepend("0300").prepend(addressMsb).prepend(header).append(footer); 
+	addressMsb = "0001"; // new address range "00 01 00 00"
+	QString part5 = replyMsg.mid(1040, 256);   
+	part5.prepend("0000").prepend(addressMsb).prepend(header).append(footer);   
+	QString part6 = replyMsg.mid(1296, 228);   // 
+	part6.prepend("0100").prepend(addressMsb).prepend(header).append(footer);   
+  QString part7 = replyMsg.mid(1550, 256);  // 
+  part7.prepend("0200").prepend(addressMsb).prepend(header).append(footer); 
+	QString part8 = replyMsg.mid(1806,228);    // spare 
+	part8.prepend("0300").prepend(addressMsb).prepend(header).append(footer);
+	addressMsb = "0002"; // new address range "00 02 00 00"  midi area
+	QString part10 = replyMsg.mid(2060, 256);   //
+	part10.prepend("0000").prepend(addressMsb).prepend(header).append(footer);
+	QString part11 = replyMsg.mid(2316, 228);
+	QString part11B = replyMsg.mid(2570, 28);
+	part11.prepend("0100").prepend(addressMsb).prepend(header).append(part11B).append(footer); 
+	QString part12 = replyMsg.mid(2598, 256);   //
+	part12.prepend("0200").prepend(addressMsb).prepend(header).append(footer);
+	QString part13 = replyMsg.mid(2854, 200);
+	QString part13B = replyMsg.mid(3080, 56);
+	part13.prepend("0300").prepend(addressMsb).prepend(header).append(part13B).append(footer);  
+	QString part14 = replyMsg.mid(3136, 256);   //
+	part14.prepend("0400").prepend(addressMsb).prepend(header).append(footer);
+	QString part15 = replyMsg.mid(3392, 172);
+	QString part15B = replyMsg.mid(3590, 84);
+	part15.prepend("0500").prepend(addressMsb).prepend(header).append(part15B).append(footer);  
+	QString part16 = replyMsg.mid(3674, 256);   //
+	part16.prepend("0600").prepend(addressMsb).prepend(header).append(footer);
+	QString part17 = replyMsg.mid(3930, 144);
+	QString part17B = replyMsg.mid(4100, 112);
+	part17.prepend("0700").prepend(addressMsb).prepend(header).append(part17B).append(footer);  
+	QString part18 = replyMsg.mid(4212, 256);   //
+	part18.prepend("0800").prepend(addressMsb).prepend(header).append(footer);
+	
+	replyMsg = "";
+	replyMsg.append(part1).append(part2).append(part3).append(part4).append(part5)
+  .append(part6).append(part7).append(part8).append(part10).append(part11)
+  .append(part12).append(part13).append(part14).append(part15).append(part16).append(part17).append(part18);
+	
+	QString reBuild = "";       /* Add correct checksum to patch strings */
+  QString sysxEOF = "";	
+  QString hex = "";
+  int msgLength = replyMsg.length()/2;
+  for(int i=0;i<msgLength*2;++i) 
+  {
+	hex.append(replyMsg.mid(i*2, 2));
+	sysxEOF = (replyMsg.mid((i*2)+4, 2));
+  if (sysxEOF == "F7")
+    {   
+  	int dataSize = 0; bool ok;
+	  for(int h=checksumOffset;h<hex.size()-1;++h)
+	  { dataSize += hex.mid(h*2, 2).toInt(&ok, 16); };
+	 	QString base = "80";                       // checksum calculate.
+	  unsigned int sum = dataSize % base.toInt(&ok, 16);
+  	if(sum!=0) { sum = base.toInt(&ok, 16) - sum; };
+	  QString checksum = QString::number(sum, 16).toUpper();
+	   if(checksum.length()<2) {checksum.prepend("0");};
+      	hex.append(checksum);
+        hex.append("F7");   
+        reBuild.append(hex);   
+    
+		hex = "";
+		sysxEOF = "";
+		i=i+2;
+    }; 
+  };    
+	replyMsg = reBuild.simplified().toUpper().remove("0X").remove(" ");
+		
+		QString area = "System";
+		setFileSource(area, replyMsg);		// Set the source to the data received.
+		setFileName(tr("System Data from ") + deviceType);	// Set the file name to GT-10B system for the display.
+		setDevice(true);				// Patch received from the device so this is set to true.
+		setSyncStatus(true);			// We can't be more in sync than right now! :)
+		
+		}
+		else
+		{
+			QMessageBox *msgBox = new QMessageBox();
+			msgBox->setWindowTitle(deviceType + tr(" Fx FloorBoard connection Error !!"));
+			msgBox->setIcon(QMessageBox::Warning);
+			msgBox->setTextFormat(Qt::RichText);
+			QString msgText;
+			msgText.append("<font size='+1'><b>");
+			msgText.append(tr("The Boss ") + deviceType + (" Effects Processor was not found."));
+			msgText.append("<b></font><br>");
+			msgBox->setText(msgText);
+			msgBox->setStandardButtons(QMessageBox::Ok);
+			msgBox->exec();
+		};
+   };
+		emit setStatusMessage(tr("Ready"));   
+};

@@ -145,22 +145,21 @@ void menuPage::menuButtonSignal(bool value)
 	  if((this->id == 19 || this->id == 18) && sysxIO->deviceReady())
 	  {
     QString replyMsg;
-	  //SysxIO *sysxIO = SysxIO::Instance();
-     if (sysxIO->isConnected())
+	   if (sysxIO->isConnected())
 	       {
 	        emit setStatusSymbol(2);
 		      emit setStatusMessage(tr("Request System data"));
 	       	sysxIO->setDeviceReady(false); // Reserve the device for interaction.
 		      QObject::disconnect(sysxIO, SIGNAL(sysxReply(QString)));
 		      QObject::connect(sysxIO, SIGNAL(sysxReply(QString)), this, SLOT(systemReply(QString)));
-		      sysxIO->sendSysx(systemRequest); // GT-10B System area data Request.    
+		      sysxIO->sendSysx(systemRequest); // GT-10 System area data Request.    
           
           emitValueChanged(this->hex1, this->hex2, "00", "void");
-	  this->editDialog->setWindow(this->fxName);
-		emit setEditDialog(this->editDialog);  	        
+	        this->editDialog->setWindow(this->fxName);
+		      emit setEditDialog(this->editDialog);  	        
          }
          else
-             {
+            {
               QString snork = "Ensure connection is active and retry";
               QMessageBox *msgBox = new QMessageBox();
 			        msgBox->setWindowTitle(deviceType + " not connected !!");
@@ -168,8 +167,7 @@ void menuPage::menuButtonSignal(bool value)
 		        	msgBox->setText(snork);
 		        	msgBox->setStandardButtons(QMessageBox::Ok);
 		        	msgBox->exec(); 
-              };  
-              //emit setEditDialog(this->editDialog);
+             };  
     };
 };
 
@@ -178,43 +176,13 @@ void menuPage::systemReply(QString replyMsg)
 	SysxIO *sysxIO = SysxIO::Instance();
 	QObject::disconnect(sysxIO, SIGNAL(sysxReply(QString)), this, SLOT(systemReply(QString)));
 	sysxIO->setDeviceReady(true); // Free the device after finishing interaction.
-   
-		 /*DeBugGING OUTPUT */
-	Preferences *preferences = Preferences::Instance(); // Load the preferences.
-	if(preferences->getPreferences("Midi", "DBug", "bool")=="true")
-	{ 
-	if (replyMsg.size() > 0){
-		QString snork;
-			snork.append("<font size='-1'>");
-			snork.append("{ size=");
-			snork.append(QString::number(replyMsg.size()/2, 10));
-			snork.append("}");	
-			snork.append("<br> midi data received");
-			snork.append("<font size='-2'>");
-			for(int i=0;i<replyMsg.size();++i)
-			{
-				snork.append(replyMsg.mid(i, 2));
-				snork.append(" ");
-				i++;
-			};
-			snork.replace("F7", "F7 }<br>");
-			snork.replace("F0", "{ F0");
-					 
-			QMessageBox *msgBox = new QMessageBox();
-			msgBox->setWindowTitle("dBug Result for GT-10B System area data");
-			msgBox->setIcon(QMessageBox::Information);
-			msgBox->setText(snork);
-			msgBox->setStandardButtons(QMessageBox::Ok);
-			msgBox->exec();
-			};	
-		};
 
 	if(sysxIO->noError())
 	{
-		if(replyMsg.size()/2 == 2261)
+	if(replyMsg.size()/2 == 2236)
 		{
 		/* TRANSLATE SYSX MESSAGE FORMAT to 128 byte data blocks */
-	QString header = "F0410000003012";
+	QString header = "F0410000002F12";
 	QString footer ="00F7";
 	QString addressMsb = replyMsg.mid(14,4); // read  MSb word at bits 7 & 8 from sysxReply (which is "0000")
 	QString part1 = replyMsg.mid(22, 256); //from 11, copy 128 bits (values are doubled for QString)
@@ -227,46 +195,41 @@ void menuPage::systemReply(QString replyMsg)
 	QString part4 = replyMsg.mid(816, 198);	
 	part4.prepend("0300").prepend(addressMsb).prepend(header).append(footer); 
 	addressMsb = "0001"; // new address range "00 01 00 00"
-	QString part5 = replyMsg.mid(1040, 228);   
-	part5.prepend("0000000000000000000000000000"); // add 14 extra places for start
+	QString part5 = replyMsg.mid(1040, 256);   
 	part5.prepend("0000").prepend(addressMsb).prepend(header).append(footer);   
-	QString part6 = replyMsg.mid(1268, 256);   // 
+	QString part6 = replyMsg.mid(1296, 228);   // 
 	part6.prepend("0100").prepend(addressMsb).prepend(header).append(footer);   
-  QString part7 = replyMsg.mid(1550, 228);  // 
-  part7.prepend("0000000000000000000000000000"); // add 14 extra places for start
-	part7.prepend("0200").prepend(addressMsb).prepend(header).append(footer); 
-	QString part8 = replyMsg.mid(1778,256);    //
+  QString part7 = replyMsg.mid(1550, 256);  // 
+  part7.prepend("0200").prepend(addressMsb).prepend(header).append(footer); 
+	QString part8 = replyMsg.mid(1806,228);    // spare 
 	part8.prepend("0300").prepend(addressMsb).prepend(header).append(footer);
-	QString part9 = replyMsg.mid(2060, 24);
-	part9.prepend("000000000000"); // add 6 extra places for start
-	part9.prepend("0400").prepend(addressMsb).prepend(header).append(footer);
-	addressMsb = "0002"; // new address range "00 02 00 00"
-	QString part10 = replyMsg.mid(2110, 256);   //
+	addressMsb = "0002"; // new address range "00 02 00 00"  midi area
+	QString part10 = replyMsg.mid(2060, 256);   //
 	part10.prepend("0000").prepend(addressMsb).prepend(header).append(footer);
-	QString part11 = replyMsg.mid(2366, 228);
-	QString part11B = replyMsg.mid(2620, 28);
+	QString part11 = replyMsg.mid(2316, 228);
+	QString part11B = replyMsg.mid(2570, 28);
 	part11.prepend("0100").prepend(addressMsb).prepend(header).append(part11B).append(footer); 
-	QString part12 = replyMsg.mid(2648, 256);   //
+	QString part12 = replyMsg.mid(2598, 256);   //
 	part12.prepend("0200").prepend(addressMsb).prepend(header).append(footer);
-	QString part13 = replyMsg.mid(2904, 200);
-	QString part13B = replyMsg.mid(3130, 56);
+	QString part13 = replyMsg.mid(2854, 200);
+	QString part13B = replyMsg.mid(3080, 56);
 	part13.prepend("0300").prepend(addressMsb).prepend(header).append(part13B).append(footer);  
-	QString part14 = replyMsg.mid(3186, 256);   //
+	QString part14 = replyMsg.mid(3136, 256);   //
 	part14.prepend("0400").prepend(addressMsb).prepend(header).append(footer);
-	QString part15 = replyMsg.mid(3442, 172);
-	QString part15B = replyMsg.mid(3640, 84);
+	QString part15 = replyMsg.mid(3392, 172);
+	QString part15B = replyMsg.mid(3590, 84);
 	part15.prepend("0500").prepend(addressMsb).prepend(header).append(part15B).append(footer);  
-	QString part16 = replyMsg.mid(3724, 256);   //
+	QString part16 = replyMsg.mid(3674, 256);   //
 	part16.prepend("0600").prepend(addressMsb).prepend(header).append(footer);
-	QString part17 = replyMsg.mid(3980, 144);
-	QString part17B = replyMsg.mid(4150, 112);
+	QString part17 = replyMsg.mid(3930, 144);
+	QString part17B = replyMsg.mid(4100, 112);
 	part17.prepend("0700").prepend(addressMsb).prepend(header).append(part17B).append(footer);  
-	QString part18 = replyMsg.mid(4262, 256);   //
+	QString part18 = replyMsg.mid(4212, 256);   //
 	part18.prepend("0800").prepend(addressMsb).prepend(header).append(footer);
 	
 	replyMsg = "";
 	replyMsg.append(part1).append(part2).append(part3).append(part4).append(part5)
-  .append(part6).append(part7).append(part8).append(part9).append(part10).append(part11)
+  .append(part6).append(part7).append(part8).append(part10).append(part11)
   .append(part12).append(part13).append(part14).append(part15).append(part16).append(part17).append(part18);
 	
 	QString reBuild = "";       /* Add correct checksum to patch strings */

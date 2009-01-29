@@ -51,8 +51,8 @@ public slots:
 	void saveAs();
 	void importSMF();
 	void exportSMF();
-	void bulkSave();
-	void bulkLoad();
+	void systemSave();
+	void systemLoad();
 	void settings();
 	void help();
 	void homepage();
@@ -76,8 +76,8 @@ private:
 	QAction *saveAsAct;
 	QAction *importSMFAct;
 	QAction *exportSMFAct;
-	QAction *bulkLoadAct;
-	QAction *bulkSaveAct;
+	QAction *systemLoadAct;
+	QAction *systemSaveAct;
 	QAction *exitAct;
 	QAction *settingsAct;
 	QAction *helpAct;
