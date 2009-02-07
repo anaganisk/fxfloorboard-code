@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT-8 Fx FloorBoard".
+** This file is part of "GT-10B Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -33,9 +33,10 @@ customControlSwitch::customControlSwitch(QWidget *parent,
 	this->hex1 = hex1;
 	this->hex2 = hex2;
 	this->hex3 = hex3;
-
+  this->area = direction;
+  if (this->area != "System"){area = "Structure";};
 	MidiTable *midiTable = MidiTable::Instance();
-	Midi items = midiTable->getMidiMap("Structure", hex1, hex2, hex3);
+	Midi items = midiTable->getMidiMap(this->area, hex1, hex2, hex3);
 	QString labeltxt = items.customdesc;
 	
 	this->label->setUpperCase(true);
@@ -70,7 +71,7 @@ customControlSwitch::customControlSwitch(QWidget *parent,
 		this->setLayout(mainLayout);
 		this->setFixedHeight(12 + 15);
 	}
-	else if(direction == "middle")
+	else if(direction == "middle" || direction == "System")
 	{
 		this->label->setAlignment(Qt::AlignLeft);
 
@@ -94,7 +95,7 @@ customControlSwitch::customControlSwitch(QWidget *parent,
 
 void customControlSwitch::paintEvent(QPaintEvent *)
 {
-	/*DRAWS RED BACKGROUND FOR DeBugGING PURPOSE */
+	/*DRAWS RED BACKGROUND FOR DEBUGGING PURPOSE */
 	/*QPixmap image(":images/dragbar.png");
 	
 	QRectF target(0.0, 0.0, this->width(), this->height());
@@ -116,8 +117,8 @@ void customControlSwitch::valueChanged(bool value, QString hex1, QString hex2, Q
 		valueHex = "00";
 	};
 
-	SysxIO *sysxIO = SysxIO::Instance();
-	sysxIO->setFileSource(hex1, hex2, hex3, valueHex);
+  SysxIO *sysxIO = SysxIO::Instance();
+	sysxIO->setFileSource(this->area, hex1, hex2, hex3, valueHex);
 
 	//emit updateDisplay(valueStr);
 	emit updateSignal();
@@ -126,7 +127,7 @@ void customControlSwitch::valueChanged(bool value, QString hex1, QString hex2, Q
 void customControlSwitch::dialogUpdateSignal()
 {
 	SysxIO *sysxIO = SysxIO::Instance();
-	int value = sysxIO->getSourceValue(this->hex1, this->hex2, this->hex3);
+	int value = sysxIO->getSourceValue(this->area, this->hex1, this->hex2, this->hex3);
 	if(value == 0)
 	{
 		this->switchbutton->setValue(false);

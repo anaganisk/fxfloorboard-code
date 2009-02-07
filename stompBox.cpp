@@ -319,7 +319,8 @@ void stompBox::updateComboBox(QString hex1, QString hex2, QString hex3)
                 this, SLOT(valueChanged(int)));
 	
 	SysxIO *sysxIO = SysxIO::Instance();
-	setComboBoxCurrentIndex(sysxIO->getSourceValue(hex1, hex2, hex3));
+	QString area;
+	setComboBoxCurrentIndex(sysxIO->getSourceValue(area, hex1, hex2, hex3));
 
 	QObject::connect(this->stompComboBox, SIGNAL(currentIndexChanged(int)),
                 this, SLOT(valueChanged(int)));
@@ -328,49 +329,57 @@ void stompBox::updateComboBox(QString hex1, QString hex2, QString hex3)
 void stompBox::updateKnob1(QString hex1, QString hex2, QString hex3)
 {	
 	SysxIO *sysxIO = SysxIO::Instance();
-	knob1->setValue(sysxIO->getSourceValue(hex1, hex2, hex3));
+	QString area;
+	knob1->setValue(sysxIO->getSourceValue(area, hex1, hex2, hex3));
 };
 
 void stompBox::updateKnob2(QString hex1, QString hex2, QString hex3)
 {	
 	SysxIO *sysxIO = SysxIO::Instance();
-	knob2->setValue(sysxIO->getSourceValue(hex1, hex2, hex3));
+	QString area;
+	knob2->setValue(sysxIO->getSourceValue(area, hex1, hex2, hex3));
 };
 
 void stompBox::updateSlider1(QString hex1, QString hex2, QString hex3)
 {	
 	SysxIO *sysxIO = SysxIO::Instance();
-	slider1->setValue(sysxIO->getSourceValue(hex1, hex2, hex3));
+	QString area;
+	slider1->setValue(sysxIO->getSourceValue(area, hex1, hex2, hex3));
 };
 
 void stompBox::updateSlider2(QString hex1, QString hex2, QString hex3)
 {	
 	SysxIO *sysxIO = SysxIO::Instance();
-	slider2->setValue(sysxIO->getSourceValue(hex1, hex2, hex3));
+	QString area;
+	slider2->setValue(sysxIO->getSourceValue(area, hex1, hex2, hex3));
 };
 
 void stompBox::updateSlider3(QString hex1, QString hex2, QString hex3)
 {	
 	SysxIO *sysxIO = SysxIO::Instance();
-	slider3->setValue(sysxIO->getSourceValue(hex1, hex2, hex3));
+	QString area;
+	slider3->setValue(sysxIO->getSourceValue(area, hex1, hex2, hex3));
 };
 
 void stompBox::updateSlider4(QString hex1, QString hex2, QString hex3)
 {	
 	SysxIO *sysxIO = SysxIO::Instance();
-	slider4->setValue(sysxIO->getSourceValue(hex1, hex2, hex3));
+	QString area;
+	slider4->setValue(sysxIO->getSourceValue(area, hex1, hex2, hex3));
 };
 
 void stompBox::updateSlider5(QString hex1, QString hex2, QString hex3)
 {	
 	SysxIO *sysxIO = SysxIO::Instance();
-	slider5->setValue(sysxIO->getSourceValue(hex1, hex2, hex3));
+	QString area;
+	slider5->setValue(sysxIO->getSourceValue(area, hex1, hex2, hex3));
 };
 
 void stompBox::updateButton(QString hex1, QString hex2, QString hex3)
 {
 	SysxIO *sysxIO = SysxIO::Instance();
-	int value = sysxIO->getSourceValue(hex1, hex2, hex3);
+	QString area;
+	int value = sysxIO->getSourceValue(area, hex1, hex2, hex3);
 	if(hex1 == "0C")
 	{
 		//Exception for the Foot Volume -> it's on when Expresion switch is off.
@@ -383,7 +392,8 @@ void stompBox::updateButton(QString hex1, QString hex2, QString hex3)
 void stompBox::updateSwitch(QString hex1, QString hex2, QString hex3)
 {
 	SysxIO *sysxIO = SysxIO::Instance();
-	int value = sysxIO->getSourceValue(hex1, hex2, hex3);
+	QString area;
+	int value = sysxIO->getSourceValue(area, hex1, hex2, hex3);
 	switchbutton->setValue((value==1)?true:false);
 };
 
@@ -404,12 +414,13 @@ void stompBox::valueChanged(int value, QString hex1, QString hex2, QString hex3)
 		if(valueHex1.length() < 2) valueHex1.prepend("0");
 		QString valueHex2 = QString::number(value - (dif * maxRange), 16).toUpper();
 		if(valueHex2.length() < 2) valueHex2.prepend("0");
-		
-		sysxIO->setFileSource(hex1, hex2, hex3, valueHex1, valueHex2);
+		QString area;
+		sysxIO->setFileSource(area, hex1, hex2, hex3, valueHex1, valueHex2);
 	}
 	else
 	{
-		sysxIO->setFileSource(hex1, hex2, hex3, valueHex);
+  	QString area;
+		sysxIO->setFileSource(area, hex1, hex2, hex3, valueHex);
 	};
 
 	emitValueChanged(hex1, hex2, hex3, valueHex);
@@ -423,7 +434,8 @@ void stompBox::valueChanged(bool value, QString hex1, QString hex2, QString hex3
 	if(valueHex.length() < 2) valueHex.prepend("0");
 	
 	SysxIO *sysxIO = SysxIO::Instance();
-	sysxIO->setFileSource(hex1, hex2, hex3, valueHex);
+	QString area;
+	sysxIO->setFileSource(area, hex1, hex2, hex3, valueHex);
 
 	emitValueChanged(hex1, hex2, hex3, valueHex);
 };
@@ -434,7 +446,8 @@ void stompBox::valueChanged(int index)
 	if(valueHex.length() < 2) valueHex.prepend("0");
 	
 	SysxIO *sysxIO = SysxIO::Instance();
-	sysxIO->setFileSource(this->hex1, this->hex2, this->hex3, valueHex);
+	QString area;
+	sysxIO->setFileSource(area, this->hex1, this->hex2, this->hex3, valueHex);
 
 	emitValueChanged(this->hex1, this->hex2, this->hex3, valueHex);
 

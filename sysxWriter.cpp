@@ -50,16 +50,48 @@ bool sysxWriter::readFile()
     if (file.open(QIODevice::ReadOnly))
 	{
 		QByteArray data = file.readAll();
+		QByteArray default_data;
+		QFile file(":default.syx");           // Read the default GT-6 sysx file .
+    if (file.open(QIODevice::ReadOnly))
+	  {	default_data = file.readAll(); };
+	  
+	  QByteArray default_header = default_data.mid(0, 6);           // copy header from default.syx
+	  QByteArray file_header = data.mid(0, 6);                      // copy header from read file.syx
+	  bool isHeader = false;
+	  if (default_header == file_header) {isHeader = true;};
 
-		if(data.size() == patchSize){
+		if(data.size() == 950 && isHeader == true){
 		SysxIO *sysxIO = SysxIO::Instance();
-		sysxIO->setFileSource(data);
+		QString area = "Structure";
+		sysxIO->setFileSource(area, data);
 		sysxIO->setFileName(this->fileName);
 
 		this->fileSource = sysxIO->getFileSource();
 		return true;
 		}
-		else {
+		else if (data.size() == 670 && isHeader == true)
+    {
+    QByteArray standard_data = data;
+	  QFile file(":default.syx");   // Read the default GT-6 sysx file so we don't start empty handed.
+    if (file.open(QIODevice::ReadOnly))
+	  {	data = file.readAll(); };
+	  
+	  QByteArray temp;                      
+    temp = data.mid(670, 280);           // copy patch description from default.syx  address 00 17 00 00
+    
+    standard_data.append(temp);  
+    data = standard_data;
+    
+    SysxIO *sysxIO = SysxIO::Instance();
+    QString area = "Structure";
+		sysxIO->setFileSource(area, data);
+		sysxIO->setFileName(this->fileName);
+
+		this->fileSource = sysxIO->getFileSource();
+		return true;
+    }
+    else
+    {
 	QMessageBox *msgBox = new QMessageBox();
 	msgBox->setWindowTitle(QObject::tr("Patch size Error!"));
 	msgBox->setIcon(QMessageBox::Warning);
@@ -107,9 +139,41 @@ void sysxWriter::writeFile(QString fileName)
 
 };
 
+void sysxWriter::writeSystemFile(QString fileName)
+{	
+	QFile file(fileName);
+    if (file.open(QIODevice::WriteOnly))
+	{
+		SysxIO *sysxIO = SysxIO::Instance();
+		this->systemSource = sysxIO->getSystemSource();
+		
+		QByteArray out;
+		unsigned int count=0;
+		for (QList< QList<QString> >::iterator dev = systemSource.hex.begin(); dev != systemSource.hex.end(); ++dev)
+		{
+			QList<QString> data(*dev);
+			for (QList<QString>::iterator code = data.begin(); code != data.end(); ++code)
+			{
+				QString str(*code);
+				bool ok;
+				unsigned int n = str.toInt(&ok, 16);
+				out[count] = (char)n;
+				count++;
+			};
+		};
+		file.write(out);
+	};
+
+};
+
 SysxData sysxWriter::getFileSource()
 {
 	return fileSource;	
+};
+
+SysxData sysxWriter::getSystemSource()
+{
+	return systemSource;	
 };
 
 QString sysxWriter::getFileName()

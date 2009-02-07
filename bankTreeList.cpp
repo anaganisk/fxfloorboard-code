@@ -504,7 +504,8 @@ void bankTreeList::updatePatch(QString replyMsg)
 	replyMsg = replyMsg.remove(" ").toUpper();
 	if(replyMsg != "" && replyMsg.size()/2 == patchSize) // cjw
 	{
-		sysxIO->setFileSource(replyMsg);		// Set the source to the data received.
+		QString area = "Structure";
+		sysxIO->setFileSource(area, replyMsg);		// Set the source to the data received.
 		sysxIO->setFileName(tr("Patch from ") + deviceType);	// Set the file name to GT-6 patch for the display.
 		sysxIO->setDevice(true);				// Patch received from the device so this is set to true.
 		sysxIO->setSyncStatus(true);			// We can't be more in sync than right now! :)

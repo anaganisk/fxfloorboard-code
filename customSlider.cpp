@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT6B Fx FloorBoard".
+** This file is part of "GT-10 Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -72,7 +72,7 @@ void customSlider::setOffset(double _newValue)
 {
 	double dataRange = max - min;
 	double range = slideSize.height()  - sliderButtonSize.height();
-	double result = (max - _newValue) * (range / dataRange);
+	double result = (max - _newValue) * (range / dataRange); 
 	
 	this->value = _newValue;	
 	this->yOffset = result;
@@ -186,9 +186,8 @@ void customSlider::emitValue(double value)
 {
     if (value != m_value) {
         this->m_value = value;
-		
     };
-    emit valueChanged((int)value, this->hex1, this->hex2, this->hex3);
+	emit valueChanged((int)value, this->hex1, this->hex2, this->hex3);
 };
 
 void customSlider::setValue(int value)

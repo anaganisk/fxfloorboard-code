@@ -8,6 +8,7 @@
         <file>images/4.png</file>
         <file>images/GT6FxFloorBoard.png</file>
         <file>images/ampswitch.png</file>
+        <file>images/assigns_pushbutton.png</file>
         <file>images/button.png</file>
         <file>images/ce.png</file>
         <file>images/closebutton.png</file>
@@ -33,6 +34,7 @@
         <file>images/knobbgt.png</file>
         <file>images/led.png</file>
         <file>images/ledbutton.png</file>
+        <file>images/menu_pushbutton.png</file>
         <file>images/midi.png</file>
         <file>images/ns.png</file>
         <file>images/od.png</file>

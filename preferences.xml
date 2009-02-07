@@ -3,8 +3,8 @@
 <!-- Preferences of the GT-6 Fx FloorBoard application. -->
 <Preferences>
 	<General>
-		<Application version="beta 20080609"/>
-		<Donate url="http://sourceforge.net/donate/index.php?group_id=171049"/>
+		<Application version="beta 20090204"/>
+		<Donate url="http://gtx.tinfoilmusic.net/donate.html"/>
 		<Files dir=""/>
 		<Help url="GT-6EditorManual_E.htm"/>
 		<Language code="en"/>
@@ -12,13 +12,13 @@
 	</General>
 	<Midi>
 		<DBug bool="true"/>
-		<Delay set="15"/>
+		<Delay set="30"/>
 		<MidiIn device="1"/>
-		<MidiOut device="1"/>
-		<Time set="45"/>
+		<MidiOut device="3"/>
+		<Time set="70"/>
 	</Midi>
 	<Window>
-		<Collapsed width="" defaultwidth="975" bool="true"/>
+		<Collapsed width="" defaultwidth="975" bool="false"/>
 		<Position x="" y=""/>
 		<Restore window="false" sidepanel="false"/>
 		<Size width="" minwidth="788" height="" minheight="548"/>

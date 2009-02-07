@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT-8 Fx FloorBoard".
+** This file is part of "GT-10B Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -30,9 +30,9 @@ editWindow::editWindow(QWidget *parent)
 	this->image = QPixmap(":images/editwindow.png");
 	this->setFixedSize(image.width(), image.height());
 	/*this->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-	this->setWindowFlags(Qt::WindowStaysOnTopHint 
-		| Qt::WindowTitleHint 
-		| Qt::WindowMinimizeButtonHint 
+	this->setWindowFlags(Qt::WindowStaysOnTopHint
+		| Qt::WindowTitleHint
+		| Qt::WindowMinimizeButtonHint
 		| Qt::MSWindowsFixedSizeDialogHint);*/
 
 	this->title = new QLabel;
@@ -63,7 +63,7 @@ editWindow::editWindow(QWidget *parent)
 	/*QHBoxLayout *sellectLayout = new QHBoxLayout;
 	sellectLayout->addStretch();
 	sellectLayout->addWidget(this->pageComboBox);
-	sellectLayout->addStretch();*/	
+	sellectLayout->addStretch();*/
 
 	this->pagesWidget = new QStackedWidget;
 
@@ -83,20 +83,22 @@ editWindow::editWindow(QWidget *parent)
 
 	this->tempPage = new editPage;
 
-	QObject::connect(this->pageComboBox, SIGNAL(activated(int)),
-             this->pagesWidget, SLOT(setCurrentIndex(int)));
+	QObject::connect(this->pageComboBox, SIGNAL(activated(int)), this->pagesWidget, SLOT(setCurrentIndex(int)));
 
-	QObject::connect(this->closeButton, SIGNAL(mouseReleased()),
-             this, SLOT(hide()));
+	QObject::connect(this->closeButton, SIGNAL(mouseReleased()), this, SLOT(hide()));
+
+	
+	QObject::connect(this, SIGNAL( closeWindow() ), this, SLOT(hide()));
+
 
 	/*QObject::connect(this, SIGNAL( updateSignal() ),
             this->parent(), SIGNAL( updateSignal() ));*/
 
-	QObject::connect(this, SIGNAL( dialogUpdateSignal() ),
-                this, SLOT( pageUpdateSignal() ));
+	QObject::connect(this, SIGNAL( dialogUpdateSignal() ), this, SLOT( pageUpdateSignal() ));
 
-	QObject::connect(this->pageComboBox, SIGNAL(activated(int)),
-                this, SLOT(valueChanged(int)));
+
+	QObject::connect(this->pageComboBox, SIGNAL(activated(int)), this, SLOT(valueChanged(int)));
+
 };
 
 void editWindow::paintEvent(QPaintEvent *)
@@ -130,29 +132,30 @@ QString editWindow::getTitle()
 	return this->title->text();
 };
 
-void editWindow::addPage(QString hex1, QString hex2, QString hex3, QString hex4)
+void editWindow::addPage(QString hex1, QString hex2, QString hex3, QString hex4, QString area)
 {
 	this->hex1 = hex1;
 	this->hex2 = hex2;
-	this->hex3 = hex3;	
-	
+	this->hex3 = hex3;
+	this->area = area;
+
 	this->tempPage->setGridLayout();
-	this->editPages.append(this->tempPage); 
-	this->pagesWidget->addWidget(editPages.last()); 
-	this->pages = this->pagesWidget->count(); 
+	this->editPages.append(this->tempPage);
+	this->pagesWidget->addWidget(editPages.last());
+	this->pages = this->pagesWidget->count();
 
 	QObject::connect(this, SIGNAL( dialogUpdateSignal() ),
 			editPages.last(), SIGNAL( dialogUpdateSignal() ));
 
 	QObject::connect(editPages.last(), SIGNAL( updateSignal() ),
 		this, SIGNAL( updateSignal() ));
-	
+   if (area != "System"){this->area = "Structure";};
 	if(hex1 != "void" && hex2 != "void" && hex3 != "void")
 	{
 		MidiTable *midiTable = MidiTable::Instance();
-		Midi items = midiTable->getMidiMap("Structure", hex1, hex2, hex3);
-		
-		int itemsCount;
+		Midi items = midiTable->getMidiMap(this->area, hex1, hex2, hex3);
+    
+    int itemsCount;
 		if(hex4 == "void")
 		{
 			itemsCount = this->pagesWidget->count() - 1;
@@ -174,14 +177,14 @@ void editWindow::addPage(QString hex1, QString hex2, QString hex3, QString hex4)
 		{
 			item = desc;
 		};
-		//int pixelWidth = QFontMetrics(this->getFont()).width(item);
-		//if(maxLenght < pixelWidth) maxLenght = pixelWidth;
 
-		this->pageComboBox->addItem(item); 
-		this->tempPage = new editPage; 
+
+
+		this->pageComboBox->addItem(item);
+		this->tempPage = new editPage;
 
 		this->pageComboBox->setMaxVisibleItems(this->pages);
-		//this->pageComboBox->view()->setMinimumWidth( this->comboWidth );
+		//this->pageComboBox->view()->setMinimumWidth(50);
 
 		if(this->pages > 1)
 		{
@@ -197,17 +200,18 @@ void editWindow::valueChanged(int index)
 	{
 		QString valueHex = QString::number(index, 16).toUpper();
 		if(valueHex.length() < 2) valueHex.prepend("0");
+		//QString area = "Structure"; 
 
 		SysxIO *sysxIO = SysxIO::Instance();
-		sysxIO->setFileSource(this->hex1, this->hex2, this->hex3, valueHex);
-
-		//emit updateDisplay(valuestr);
-		emit updateSignal();
+		sysxIO->setFileSource(this->area, this->hex1, this->hex2, this->hex3, valueHex);
+    //QApplication::beep;
+		//emit updateDisplay(valueHex);
+		//emit updateSignal();
 	};
 };
 
 void editWindow::pageUpdateSignal()
-{
+{ /*
 	if(this->pages > 1 && hex1 != "void" && hex2 != "void")
 	{
 		SysxIO *sysxIO = SysxIO::Instance();
@@ -215,7 +219,8 @@ void editWindow::pageUpdateSignal()
 		this->pageComboBox->setCurrentIndex(index);
 		this->pagesWidget->setCurrentIndex(index);
 		//this->valueChanged(index);
-	};
+
+	}; */
 };
 
 editPage* editWindow::page()
@@ -225,5 +230,6 @@ editPage* editWindow::page()
 
 void editWindow::closeEvent(QCloseEvent* ce)
 {
+  
 	ce->accept();
 };

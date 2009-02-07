@@ -48,6 +48,9 @@
 #include "stompbox_fv.h"
 #include "stompbox_ns.h"
 //#include "manual.h"
+#include "menuPage_assign.h"
+#include "menuPage_midi.h"
+#include "menuPage_system.h"
 
 floorBoard::floorBoard(QWidget *parent, 
 						QString imagePathFloor, 
@@ -76,8 +79,7 @@ floorBoard::floorBoard(QWidget *parent,
 	bankTreeList *bankList = new bankTreeList(this);
 	
 	setFloorBoard();
-	initStomps();
-
+	
 	floorBoardDisplay *display = new floorBoardDisplay(this);
 	display->setPos(displayPos);
 
@@ -89,6 +91,9 @@ floorBoard::floorBoard(QWidget *parent,
 	bar->setDragBarMinOffset(2, 8);
 	bar->setDragBarMaxOffset(offset - panelBarOffset + 5);
 
+  initStomps();
+	initMenuPages();
+	
 	this->editDialog = new editWindow(this);
 	this->editDialog->hide();
 	
@@ -344,7 +349,7 @@ void floorBoard::dropEvent(QDropEvent *event)
 
 				hexData.append(fxHexValue);
 			};
-			sysxIO->setFileSource("0A", "00", hexData);
+			sysxIO->setFileSource("Structure", "0A", "00", "00", hexData);
 			};
 		}
 		else
@@ -641,7 +646,7 @@ void floorBoard::setStompPos(int index, int order)
 void floorBoard::updateStompBoxes()
 {
 	SysxIO *sysxIO = SysxIO::Instance();
-	QList<QString> fxChain = sysxIO->getFileSource("0A", "00");
+	QList<QString> fxChain = sysxIO->getFileSource("Structure", "0A", "00");
 
 	MidiTable *midiTable = MidiTable::Instance();
 	QList<QString> stompOrder;
@@ -667,3 +672,21 @@ void floorBoard::centerEditDialog()
 	int y = this->pos.y() + ((this->floorSize.height() - this->editDialog->height()) / 2);
 	this->editDialog->move(x, y);
 };
+
+void floorBoard::initMenuPages()
+{
+	QVector<menuPage *> initMenuPages(1);
+	this->menuPages = initMenuPages.toList();
+	
+	/* EDITPAGES */
+	menuPage *assign = new menuPage_assign(this);
+	assign->setId(20);
+	assign->setPos(QPoint(943, 5));
+	/*menuPage *midi = new menuPage_midi(this);
+	midi->setId(19);
+	midi->setPos(QPoint(461, 45));
+	menuPage *system = new menuPage_system(this);
+	system->setId(18);
+	system->setPos(QPoint(550, 45));
+	*/
+	};

@@ -1,8 +1,8 @@
 /****************************************************************************
 **
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
+** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved. 
 **
-** This file is part of "GT-8 Fx FloorBoard".
+** This file is part of "GT-10B Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -145,11 +145,13 @@ void initPatchListMenu::loadInitPatch(int index)
 			{	
 				// DO SOMETHING AFTER READING THE FILE (UPDATE THE GUI)
 				SysxIO *sysxIO = SysxIO::Instance();
-				sysxIO->setFileSource(file.getFileSource());
+				QString area = "Structure";
+				sysxIO->setFileSource(area, file.getFileSource());
 				sysxIO->setFileName(tr("init patch"));
 				sysxIO->setSyncStatus(false);
 				sysxIO->setDevice(false);
 				emit updateSignal();
+				sysxIO->writeToBuffer(); 
 			};
 		};
 	};

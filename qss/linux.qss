@@ -184,19 +184,19 @@ QLabel#display {
 font-family: FreeSans;
 font-size: 12px;
 font-weight: bold;
-color: rgb(0,0,0);
+color: rgb(255,255,255);
 }
 QLabel#title {
 font-family: FreeSans;
 font-size: 16px;
 font-weight: bold;
-color: rgb(0,0,0);
+color: rgb(255,255,255);
 }
 QLabel#selectlabel {
 font-family: FreeSans;
 font-size: 10px;
 font-weight: bold;
-color: rgb(0,0,0);
+color: rgb(255,255,255);
 }
 
 /* CUSTOM BUTTON STYLE */
@@ -223,10 +223,10 @@ QGroupBox#groupbox {
 font-family: FreeSans;
 font-size: 12px;
 font-weight: bold;
-color: rgb(0,0,0);
+color: rgb(255,255,255);
 border-width: 1px;
 border-style: solid;
-border-color:  rgb(0,0,0);
+border-color:  rgb(255,255,255);
 border-radius: 5px;
 margin-top: 8px;
 padding: 2px;
