@@ -27,6 +27,8 @@
 #include "MidiTable.h"
 #include "editWindow.h"
 #include "editPage.h"
+#include "customButton.h"
+#include "customComboBox.h"
 
 class menuPage : public QWidget
 {
@@ -55,18 +57,25 @@ public slots:
 	void valueChanged(bool value, QString hex1, QString hex2, QString hex3);
 	virtual void updateSignal() {};
 	void setDisplayToFxName();
-	void assignSignal(bool value);   //cjw
+	void master_ButtonSignal(bool value);	
+	void menuButtonSignal(bool value);  
+  void systemReply(QString);
+		
 		
 signals:
 	void valueChanged(QString fxName, QString valueName, QString valueStr);
 	void currentIndexChanged(int index);
 	void dialogUpdateSignal();
 	void setEditDialog(editWindow* editDialog);
-	void notConnectedSignal();
+	//void notConnectedSignal();
+	void setStatusSymbol(int value);
+	void setStatusProgress(int value);
+  void setStatusMessage(QString message);
+  void systemUpdateSignal();
 
 protected:
 	void paintEvent(QPaintEvent *event);
-	void mousePressEvent(QMouseEvent *event);
+	//void mousePressEvent(QMouseEvent *event);
 
 private:
 
@@ -83,6 +92,7 @@ private:
 	QString hex2;
 	QString hex3;
 	QString fxName;
+	customButton *menuButton;
 };
 
 #endif // MENUPAGE_H

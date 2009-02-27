@@ -466,8 +466,8 @@ QString MidiTable::getSize(QString hex1, QString hex2, QString hex3)
 	QString size;
 	size.append(hex3);
 	size.append("00");
-	size.append(itemSize);
-	size.append("00");//("00");
+	size.append("00");//itemSize);
+	size.append("01");//("00");
 	return size;
 };
 
@@ -573,20 +573,18 @@ QString MidiTable::dataChange(QString area, QString hex1, QString hex2, QString 
 	sysxMsg.append(getHeader(false));
 	/*Preferences *preferences = Preferences::Instance(); bool ok;// Load the preferences.
 	const int tempDataWrite = preferences->getPreferences("Midi", "Time", "set").toInt(&ok, 16);	*/
-		if (area != "System")
+		if (area == "Structure" || area.isEmpty() )
     {
-      area = "Structure"; 
       sysxMsg.append(tempDataWrite);
       sysxMsg.append("00");
-
 	    sysxMsg.append(hex1);
 	    //sysxMsg.append(hex2);
 	    sysxMsg.append(hex3);
     } 
     else
     {
-       area = "System";
-      sysxMsg.append("00");
+      if (area.contains("System")){sysxMsg.append(area.remove("System"));}
+      else {sysxMsg.append(area); }; 
 	    sysxMsg.append(hex1);
 	    sysxMsg.append(hex2);
 	    sysxMsg.append(hex3);
@@ -611,21 +609,19 @@ QString MidiTable::dataChange(QString area, QString hex1, QString hex2, QString 
 	
 	/*Preferences *preferences = Preferences::Instance(); bool ok;// Load the preferences.
 	const int tempDataWrite = preferences->getPreferences("Midi", "Time", "set").toInt(&ok, 16);	*/
-	if (area != "System")
+	if (area == "Structure")
     {
-      area = "Structure"; 
       sysxMsg.append(tempDataWrite);
       sysxMsg.append("00");
-
 	    sysxMsg.append(hex1);
 	    //sysxMsg.append(hex2);
 	    sysxMsg.append(hex3);
     } 
     else
     {
-       area = "System";
-      //sysxMsg.append("00");
-      sysxMsg.append("00");
+     if (area.contains("System")){sysxMsg.append(area.remove("System"));}
+      else {sysxMsg.append(area); }; 
+       //sysxMsg.append("00");
 	    sysxMsg.append(hex1);
 	    sysxMsg.append(hex2);
 	    sysxMsg.append(hex3);

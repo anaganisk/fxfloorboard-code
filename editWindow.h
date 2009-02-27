@@ -39,7 +39,7 @@ public:
 	~editWindow();
 	//virtual void closeEvent(QCloseEvent* ce);
 
-	void setLSB(QString hex1, QString hex2);
+	void setLSB(QString hex1 = "void", QString hex2 = "void");
 	void setWindow(QString title);
 	QString getTitle();
 	void addPage(QString hex1 = "void", QString hex2 = "void", QString hex3 = "void", QString hex4 = "void", QString area = "Structure");

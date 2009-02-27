@@ -39,7 +39,7 @@ customControlKnob::customControlKnob(QWidget *parent,
 	this->area = background;
 
 	MidiTable *midiTable = MidiTable::Instance();
-	if (this->area != "System") {this->area = "Structure";};
+	if (area == "normal" || area == "turbo" || area.isEmpty()) {this->area = "Structure";};
 	
 	Midi items = midiTable->getMidiMap(this->area, hex1, hex2, hex3);
 	
@@ -103,7 +103,7 @@ customControlKnob::customControlKnob(QWidget *parent,
 		this->setFixedHeight(this->knob->height() + 13 + 12);
 		
 	}
-  else if(direction == "System")
+  else if(direction.contains("System"))
 	{
 		this->label->setAlignment(Qt::AlignCenter);
 		this->display->setFixedWidth(lenght);
@@ -118,8 +118,7 @@ customControlKnob::customControlKnob(QWidget *parent,
 
 		this->setLayout(mainLayout);
 		this->setFixedHeight(this->knob->height() + 13 + 12);
-		//this->area = "System";
-	};
+	 };
 
 
 	QObject::connect(this->parent(), SIGNAL( dialogUpdateSignal() ),

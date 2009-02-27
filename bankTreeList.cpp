@@ -22,6 +22,9 @@
 
 #include <QLayout>
 #include <QMessageBox>
+#include <QFile>
+#include <QDataStream>
+#include <QByteArray>
 #include "bankTreeList.h"
 #include "Preferences.h"
 #include "MidiTable.h"
@@ -434,22 +437,8 @@ void bankTreeList::setItemDoubleClicked(QTreeWidgetItem *item, int column)
 		bool ok;
 		int bank = item->parent()->text(0).section(" ", 1, 1).trimmed().toInt(&ok, 10); // Get the bank
 		int patch = item->parent()->indexOfChild(item) + 1;								// and the patch number.
-		//if(bank == sysxIO->getLoadedBank() && patch == sysxIO->getLoadedPatch())
-		//{ 
-			requestPatch(bank, patch);
-		/*}
-		else
-		{
-			emit patchLoadSignal(bank, patch); // Tell to stop blinking a sellected patch and prepare to load this one instead.
-			
-			QObject::disconnect(sysxIO, SIGNAL(isChanged()),	
-				this, SLOT(requestPatch()));
-			QObject::connect(sysxIO, SIGNAL(isChanged()),	// Connect the isChanged message
-				this, SLOT(requestPatch()));				// to requestPatch.
-
-			sysxIO->requestPatchChange(bank, patch);
-		};*/
-	}
+		requestPatch(bank, patch);
+	};
 };
 /*********************** requestPatch() *******************************
  * Does the actual requesting of the patch data and hands the 
@@ -500,10 +489,27 @@ void bankTreeList::updatePatch(QString replyMsg)
 	
 	QObject::disconnect(sysxIO, SIGNAL(sysxReply(QString)),
 		this, SLOT(updatePatch(QString)));		
-	
-	replyMsg = replyMsg.remove(" ").toUpper();
-	if(replyMsg != "" && replyMsg.size()/2 == patchSize) // cjw
+		replyMsg = replyMsg.remove(" ").toUpper();
+	if(replyMsg.size()/2 == patchSize) // cjw
 	{
+	 QByteArray data;
+   QFile file(":default.syx");   // Read the default GT-10 sysx file so we don't start empty handed.
+    if (file.open(QIODevice::ReadOnly))
+	  {	data = file.readAll(); };
+	  QByteArray temp;                      
+    temp = data.mid(670, 228);           // copy patch description from default.syx  address 00 0D 00 00   
+	
+	QString sysxBuffer; 
+	for(int i=0;i<temp.size();i++)
+	{
+		unsigned char byte = (char)temp[i];
+		unsigned int n = (int)byte;
+		QString hex = QString::number(n, 16).toUpper();     // convert QByteArray to QString
+		if (hex.length() < 2) hex.prepend("0");
+		sysxBuffer.append(hex);
+  };
+	replyMsg.append(sysxBuffer);
+	
 		QString area = "Structure";
 		sysxIO->setFileSource(area, replyMsg);		// Set the source to the data received.
 		sysxIO->setFileName(tr("Patch from ") + deviceType);	// Set the file name to GT-6 patch for the display.
@@ -515,46 +521,10 @@ void bankTreeList::updatePatch(QString replyMsg)
 
 		emit updateSignal();
 		emit setStatusProgress(0);
-/*
-		QList<QString> nameArray = sysxIO->getFileSource(nameAddress, "00");
-
-	MidiTable *midiTable = MidiTable::Instance();
-	QString name;
-	for(int i=sysxDataOffset;i<nameArray.size() - 2;i++ )
-		{
-		name.append( midiTable->getMidiMap("Structure", nameAddress, "00", "00", nameArray.at(i)).name );
-
-		QString hexStr = nameArray.at(i);
-		if(hexStr == "7E")
-		{
-			name.append((QChar)(0x2192));
-		}
-		if (hexStr == "7F")
-		{
-			name.append((QChar)(0x2190));  
-		}
-*/
-		//this->listIndex = 0;
-		//this->itemIndex = 0;
-		//this->currentPatchTreeItems.at(listIndex)->child(itemIndex)->setText(0,name); // Set the patch name of the item in the tree list.
-		/* if(itemIndex >= patchPerBank - 1) // If we reach the last patch in this bank we need to increment the bank and restart at patch 1.
-			{
-				this->listIndex++;
-				this->itemIndex = 0;
-			}
-			else 
-			{ 
-				this->itemIndex++;  
-			};*/
-		//};
-	//};	
-
-
 
 
 	}
-	if(replyMsg != "" && replyMsg.size()/2 != patchSize) // cjw
-	//else
+	else if(!replyMsg.isEmpty() && replyMsg.size()/2 != patchSize) // cjw
 	{
 		emit notConnectedSignal();				// No message returned so connection must be lost.
 	
@@ -571,8 +541,8 @@ void bankTreeList::updatePatch(QString replyMsg)
 	msgBox->setStandardButtons(QMessageBox::Ok);
 	msgBox->exec();
 	/* END WARNING */
-	};
-	if(replyMsg == "") // cjw
+	}
+	else if(replyMsg.isEmpty()) // cjw
 	{
 		emit notConnectedSignal();				// No message returned so connection must be lost.
 		/* NO-REPLY WARNING */

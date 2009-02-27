@@ -33,7 +33,7 @@ customKnob::customKnob(QWidget *parent, QString hex1, QString hex2, QString hex3
 	this->hex3 = hex3;
   this->area = direction;
 	MidiTable *midiTable = MidiTable::Instance();
-	if (this->area != "System"){this->area = "Structure";};
+	if (area == "normal" || area == "turbo" || area.isEmpty()){this->area = "Structure";};
 	int range = midiTable->getRange(this->area, hex1, hex2, hex3);
 	int rangeMin = midiTable->getRangeMinimum(this->area, hex1, hex2, hex3);
 	
@@ -41,7 +41,7 @@ customKnob::customKnob(QWidget *parent, QString hex1, QString hex2, QString hex3
 	QPoint knobPos = QPoint(5, 4); // Correction needed y+1 x-1.
 
 	QLabel *newBackGround = new QLabel(this);
-	if (background == "normal" || background == "System")
+	if (background == "normal" || background != "Structure")
 	{
 		newBackGround->setPixmap(QPixmap(":/images/knobbgn.png"));
 	}

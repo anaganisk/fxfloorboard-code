@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT-10B Fx FloorBoard".
+** This file is part of "GT-6 Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -87,15 +87,11 @@ editWindow::editWindow(QWidget *parent)
 
 	QObject::connect(this->closeButton, SIGNAL(mouseReleased()), this, SLOT(hide()));
 
-	
 	QObject::connect(this, SIGNAL( closeWindow() ), this, SLOT(hide()));
 
-
-	/*QObject::connect(this, SIGNAL( updateSignal() ),
-            this->parent(), SIGNAL( updateSignal() ));*/
+	/*QObject::connect(this, SIGNAL( updateSignal() ), this->parent(), SIGNAL( updateSignal() ));*/
 
 	QObject::connect(this, SIGNAL( dialogUpdateSignal() ), this, SLOT( pageUpdateSignal() ));
-
 
 	QObject::connect(this->pageComboBox, SIGNAL(activated(int)), this, SLOT(valueChanged(int)));
 
@@ -117,8 +113,8 @@ editWindow::~editWindow()
 
 void editWindow::setLSB(QString hex1, QString hex2)
 {
-	this->hex1 = hex1;
-	this->hex2 = hex2;
+	//this->hex1 = hex1;
+	//this->hex2 = hex2;
 };
 
 void editWindow::setWindow(QString title)
@@ -137,19 +133,17 @@ void editWindow::addPage(QString hex1, QString hex2, QString hex3, QString hex4,
 	this->hex1 = hex1;
 	this->hex2 = hex2;
 	this->hex3 = hex3;
-	this->area = area;
-
+  if (area == "normal" || area == "turbo" || area.isEmpty())
+  {this->area = "Structure";} else {this->area = area; }; 
 	this->tempPage->setGridLayout();
 	this->editPages.append(this->tempPage);
 	this->pagesWidget->addWidget(editPages.last());
 	this->pages = this->pagesWidget->count();
 
-	QObject::connect(this, SIGNAL( dialogUpdateSignal() ),
-			editPages.last(), SIGNAL( dialogUpdateSignal() ));
+	QObject::connect(this, SIGNAL( dialogUpdateSignal() ), editPages.last(), SIGNAL( dialogUpdateSignal() ));
 
-	QObject::connect(editPages.last(), SIGNAL( updateSignal() ),
-		this, SIGNAL( updateSignal() ));
-   if (area != "System"){this->area = "Structure";};
+	QObject::connect(editPages.last(), SIGNAL( updateSignal() ), this, SIGNAL( updateSignal() ));
+   
 	if(hex1 != "void" && hex2 != "void" && hex3 != "void")
 	{
 		MidiTable *midiTable = MidiTable::Instance();
@@ -178,8 +172,6 @@ void editWindow::addPage(QString hex1, QString hex2, QString hex3, QString hex4,
 			item = desc;
 		};
 
-
-
 		this->pageComboBox->addItem(item);
 		this->tempPage = new editPage;
 
@@ -200,27 +192,24 @@ void editWindow::valueChanged(int index)
 	{
 		QString valueHex = QString::number(index, 16).toUpper();
 		if(valueHex.length() < 2) valueHex.prepend("0");
-		//QString area = "Structure"; 
-
+		
 		SysxIO *sysxIO = SysxIO::Instance();
 		sysxIO->setFileSource(this->area, this->hex1, this->hex2, this->hex3, valueHex);
-    //QApplication::beep;
-		//emit updateDisplay(valueHex);
-		//emit updateSignal();
+    emit updateDisplay(valueHex);
+		emit updateSignal();
 	};
 };
 
 void editWindow::pageUpdateSignal()
-{ /*
-	if(this->pages > 1 && hex1 != "void" && hex2 != "void")
+{ 
+	if(this->pages > 1 && this->hex1 != "void" && this->hex2 != "void" && !this->hex1.isEmpty() && !this->hex2.isEmpty())
 	{
 		SysxIO *sysxIO = SysxIO::Instance();
-		int index = sysxIO->getSourceValue(this->hex1, this->hex2, this->hex3);
+		int index = sysxIO->getSourceValue(this->area, this->hex1, this->hex2, this->hex3);
 		this->pageComboBox->setCurrentIndex(index);
 		this->pagesWidget->setCurrentIndex(index);
-		//this->valueChanged(index);
-
-	}; */
+		this->valueChanged(index);
+	}; 
 };
 
 editPage* editWindow::page()
@@ -230,6 +219,5 @@ editPage* editWindow::page()
 
 void editWindow::closeEvent(QCloseEvent* ce)
 {
-  
 	ce->accept();
 };

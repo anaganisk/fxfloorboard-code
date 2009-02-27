@@ -48,7 +48,8 @@ void stompbox_fv::setEditPages()
 	editDetails()->page()->addGroupBox(1, 0, 1, 3);
 
 	editDetails()->page()->newGroupBox("Expression Pedal Switch");
-	editDetails()->page()->addTarget(0, 0, 1, 3, "0D", "00", "00", "target", "04", "06"); // Target
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "0D", "00", "00", "middle", Qt::AlignCenter);
+	editDetails()->page()->addTarget(0, 1, 1, 3, "0D", "00", "02", "target", "04", "06"); // Target
 	editDetails()->page()->addComboBox(0, 5, 1, 1, "0D", "00", "08");         // source mode
 	editDetails()->page()->addGroupBox(2, 0, 1, 4);
 
@@ -57,7 +58,8 @@ void stompbox_fv::setEditPages()
 	editDetails()->page()->addGroupBox(1, 3, 1, 1);
 
 	editDetails()->page()->newGroupBox("CTRL Pedal");
-	editDetails()->page()->addTarget(0, 0, 1, 3, "0E", "00", "00", "target", "04", "06"); // Target
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "0E", "00", "00", "middle", Qt::AlignCenter);
+	editDetails()->page()->addTarget(0, 1, 1, 3, "0E", "00", "02", "target", "04", "06"); // Target
 	editDetails()->page()->addComboBox(0, 5, 1, 1, "0E", "00", "08");         // source mode
 	editDetails()->page()->addGroupBox(3, 0, 1, 4);
 	

@@ -34,7 +34,7 @@ customControlSwitch::customControlSwitch(QWidget *parent,
 	this->hex2 = hex2;
 	this->hex3 = hex3;
   this->area = direction;
-  if (this->area != "System"){area = "Structure";};
+  if (area == "bottom" || area == "middle" || area.isEmpty()){area = "Structure";};
 	MidiTable *midiTable = MidiTable::Instance();
 	Midi items = midiTable->getMidiMap(this->area, hex1, hex2, hex3);
 	QString labeltxt = items.customdesc;
@@ -71,7 +71,7 @@ customControlSwitch::customControlSwitch(QWidget *parent,
 		this->setLayout(mainLayout);
 		this->setFixedHeight(12 + 15);
 	}
-	else if(direction == "middle" || direction == "System")
+	else if(direction == "middle" || direction != "Structure")
 	{
 		this->label->setAlignment(Qt::AlignLeft);
 

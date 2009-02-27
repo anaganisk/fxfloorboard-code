@@ -53,6 +53,7 @@ public slots:
 	void setCollapse();
 	void updateStompBoxes();
 	void setEditDialog(editWindow* editDialog);
+	void menuButtonSignal();
 
 signals:
 	void valueChanged(QString fxName, QString valueName, QString value);
@@ -65,12 +66,27 @@ signals:
 	void showDragBar(QPoint newpos);
 	void hideDragBar();
 	void updateSignal();
+	void ch_mode_buttonSignal(bool value);
+	void preamp1_buttonSignal(bool value);
+	void preamp2_buttonSignal(bool value);
+	void distortion_buttonSignal(bool value);
+	void compressor_buttonSignal(bool value);
+	void ns1_buttonSignal(bool value);
+	void ns2_buttonSignal(bool value);
+	void fx1_buttonSignal(bool value);
+	void fx2_buttonSignal(bool value);
+	void reverb_buttonSignal(bool value);
+	void delay_buttonSignal(bool value);
+	void chorus_buttonSignal(bool value);
+	void sendreturn_buttonSignal(bool value);
+	void eq_buttonSignal(bool value);
+	void pedal_buttonSignal(bool value);
 	
 protected:
 	void paintEvent(QPaintEvent *event);
 	void dragEnterEvent(QDragEnterEvent *event);
-    void dragMoveEvent(QDragMoveEvent *event);
-    void dropEvent(QDropEvent *event);
+  void dragMoveEvent(QDragMoveEvent *event);
+  void dropEvent(QDropEvent *event);
 
 private:
 	void initSize(QSize floorSize);
@@ -90,6 +106,7 @@ private:
 
 	unsigned int offset;
 	unsigned int infoBarWidth;
+	unsigned int infoBarHeight;
 	unsigned int panelBarOffset;
 	unsigned int borderWidth;
 	unsigned int floorHeight;
@@ -119,6 +136,7 @@ private:
 	QList<stompBox*> stompBoxes;
 	QList<QString> stompNames;
 	editWindow* editDialog;
+	editWindow* oldDialog;
 };
 
 #endif // FLOORBOARD_H

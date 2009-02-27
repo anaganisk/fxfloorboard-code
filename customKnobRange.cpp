@@ -38,7 +38,7 @@ customKnobRange::customKnobRange(QWidget *parent, QString area, QString hex1, QS
 	int range;
 	int rangeMin;
 	MidiTable *midiTable = MidiTable::Instance();
-	if (this->area != "System"){this->area = "Structure";};
+	if (area == "normal" || area == "turbo" || area.isEmpty()){this->area = "Structure";};
 	if (this->type == "Min")
   {
     hex3 = hexMin;

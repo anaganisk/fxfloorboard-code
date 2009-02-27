@@ -41,7 +41,7 @@ customControlRange::customControlRange(QWidget *parent,
 	this->area = area;
 
 	MidiTable *midiTable = MidiTable::Instance();
-	if (this->area != "System") {this->area = "Structure";};
+	if (area == "normal" || area == "turbo" || area.isEmpty()) {this->area = "Structure";};
 	
 	Midi items = midiTable->getMidiMap(this->area, hex1, hex2, hex3);
 	

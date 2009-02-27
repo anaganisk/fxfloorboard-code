@@ -29,7 +29,8 @@
 #include "midiIO.h"
 #include "renameWidget.h"
 #include "globalVariables.h"
-
+#include "customRenameWidget.h"
+#include "customControlListMenu.h"
 
 
 // Platform-dependent sleep routines.
@@ -69,14 +70,36 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
 	initPatch = new initPatchListMenu(QRect(405, 24, 168, 15), this);
   renameWidget *nameEdit = new renameWidget(this); 
   nameEdit->setGeometry(85, 5, 150, 34); 
+  customRenameWidget *userDialog = new customRenameWidget(this, "18", "00", "00", "Structure", "20"); 
+  userDialog->setGeometry(500, 462, 262, 25); 
+  customRenameWidget *patchDialog = new customRenameWidget(this, "17", "00", "00", "Structure", "80"); 
+  patchDialog->setGeometry(10, 502, 750, 25); 
+  //customControlListMenu *output = new customControlListMenu(this, "00", "00", "11", "top");
+  //output->setGeometry(860, 5, 150, 30); 
+  //customControlListMenu *catagory = new customControlListMenu(this, "00", "00", "10", "right");
+  //catagory->setGeometry(860, 24, 150, 30); 
 
  	this->connectButton = new customButton(tr("Bulk Mode"), false, QPoint(405, 5), this, ":/images/greenledbutton.png");
 	this->writeButton = new customButton(tr("Write/Sync"), false, QPoint(494, 5), this, ":/images/ledbutton.png");
-	//this->manualButton = new customButton(tr("Manual"), false, QPoint(583, 5), this, ":/images/pushbutton.png");
-	this->assignButton = new customButton(tr("Assigns"), false, QPoint(583, 5), this, ":/images/pushbutton.png");
-	//this->masterButton = new customButton(tr("Master"), false, QPoint(672, 5), this, ":/images/pushbutton.png");
-	//this->systemButton = new customButton(tr("System"), false, QPoint(672, 24), this, ":/images/pushbutton.png");
-
+	this->assign_Button = new customButton(tr("Assigns"), false, QPoint(584, 5), this, ":/images/pushbutton.png");
+	//this->system_midi_Button = new customButton(tr("System Midi"), false, QPoint(673, 5), this, ":/images/pushbutton.png");
+	//this->system_Button = new customButton(tr("System Settings"), false, QPoint(673, 24), this, ":/images/pushbutton.png");
+	//this->master_Button = new customButton(tr("Master"), false, QPoint(584, 24), this, ":/images/pushbutton.png");
+	
+	this->preamp1_Button = new customButton(tr("PreAmp"), false, QPoint(10, 457), this, ":/images/pushbutton.png");
+	this->pedal_Button = new customButton(tr("Wah"), false, QPoint(10, 475), this, ":/images/pushbutton.png");
+	this->eq_Button = new customButton(tr("Equalizer"), false, QPoint(100, 457), this, ":/images/pushbutton.png");
+	this->chorus_Button = new customButton(tr("Chorus"), false, QPoint(100, 475), this, ":/images/pushbutton.png");
+	this->distortion_Button = new customButton(tr("Distortion"), false, QPoint(190,457), this, ":/images/pushbutton.png");
+	this->ns1_Button = new customButton(tr("NoiseSupp"), false, QPoint(190, 475), this, ":/images/pushbutton.png");
+	this->fx1_Button = new customButton(tr("FX 1"), false, QPoint(280, 457), this, ":/images/pushbutton.png");
+	this->fx2_Button = new customButton(tr("FX 2"), false, QPoint(280, 475), this, ":/images/pushbutton.png");
+	this->reverb_Button = new customButton(tr("Reverb"), false, QPoint(370, 457), this, ":/images/pushbutton.png");
+	this->delay_Button = new customButton(tr("Delay"), false, QPoint(370, 475), this, ":/images/pushbutton.png");
+	
+	
+	
+	
 	SysxIO *sysxIO = SysxIO::Instance();
 	QObject::connect(this, SIGNAL(setStatusSymbol(int)), sysxIO, SIGNAL(setStatusSymbol(int)));
 	QObject::connect(this, SIGNAL(setStatusProgress(int)), sysxIO, SIGNAL(setStatusProgress(int)));
@@ -89,7 +112,17 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
 
 	QObject::connect(this->connectButton, SIGNAL(valueChanged(bool)), this, SLOT(connectSignal(bool)));
 	QObject::connect(this->writeButton, SIGNAL(valueChanged(bool)), this, SLOT(writeSignal(bool)));
-	//QObject::connect(this->assignButton, SIGNAL(valueChanged(bool)), this, SLOT(assignSignal(bool)));
+	QObject::connect(this->master_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(master_buttonSignal(bool)));
+	QObject::connect(this->preamp1_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(preamp1_buttonSignal(bool)));	
+	QObject::connect(this->distortion_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(distortion_buttonSignal(bool)));
+	QObject::connect(this->ns1_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(ns1_buttonSignal(bool)));
+	QObject::connect(this->fx1_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(fx1_buttonSignal(bool)));
+	QObject::connect(this->fx2_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(fx2_buttonSignal(bool)));
+	QObject::connect(this->reverb_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(reverb_buttonSignal(bool)));
+	QObject::connect(this->delay_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(delay_buttonSignal(bool)));
+	QObject::connect(this->chorus_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(chorus_buttonSignal(bool)));
+	QObject::connect(this->eq_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(eq_buttonSignal(bool)));
+	QObject::connect(this->pedal_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(pedal_buttonSignal(bool)));
   };
 
 QPoint floorBoardDisplay::getPos()
@@ -230,7 +263,7 @@ void floorBoardDisplay::updateDisplay()
 	sysxIO->setCurrentPatchName(patchName);
 	if(sysxIO->getRequestName().trimmed() != patchName.trimmed())
 	{
-		this->patchLoadError = false;//cjw true;
+		this->patchLoadError = true;
 	}
 	else
 	{
@@ -371,13 +404,13 @@ void floorBoardDisplay::connectionResult(QString sysxMsg)
 		}
 		else if(!sysxMsg.isEmpty())
 		{
-			/*this->connectButton->setBlink(false);
+			this->connectButton->setBlink(false);
 			this->connectButton->setValue(false);
 			sysxIO->setConnected(false);
 
 			emit setStatusSymbol(0);
 			emit setStatusProgress(0);
-			emit setStatusMessage(tr("Not connected"));*/
+			emit setStatusMessage(tr("Not connected"));
 			
 			notConnected();
 
@@ -395,13 +428,13 @@ void floorBoardDisplay::connectionResult(QString sysxMsg)
 		}
 		else
 		{
-			/*this->connectButton->setBlink(false);
+			this->connectButton->setBlink(false);
 			this->connectButton->setValue(false);
 			sysxIO->setConnected(false);
 
 			emit setStatusSymbol(0);
 			emit setStatusProgress(0);
-			emit setStatusMessage(tr("Not connected"));*/
+			emit setStatusMessage(tr("Not connected"));
 			
 			notConnected();
 

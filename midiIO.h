@@ -52,8 +52,8 @@ signals:
 	void terminated();
 	void setStatusSymbol(int value);
 	void setStatusProgress(int value);
-    void setStatusMessage(QString message);
-    void setStatusdBugMessage(QString dBug);
+  void setStatusMessage(QString message);
+  void setStatusdBugMessage(QString dBug);
 		
 private:
 	void queryMidiInDevices();
@@ -71,6 +71,7 @@ private:
 	static bool dataReceive;
 	static int bytesTotal;
 	static bool multiple;
+	static bool system;
 	int midiOutPort;
 	int midiInPort;
 	QString sysxOutMsg;

@@ -33,6 +33,7 @@ int midiIO::bytesTotal = 0;
 int loopCount;
 bool midiIO::dataReceive = false;
 bool midiIO::multiple = false;
+bool midiIO::system = false;
 QString midiIO::sysxBuffer;
 
 // Platform-dependent sleep routines.
@@ -255,7 +256,7 @@ void midicallback(double deltatime, std::vector<unsigned char> *message, void *u
 					 rxData.append(hex);
            midi->emitProgress(nBytes);	
         };	
-        if (!rxData.contains("F04100004611"))
+        if (rxData.contains("F04100004612"))
 		{ midi->callbackMsg(rxData); };
 };
 void midiIO::callbackMsg(QString rxData)
@@ -271,10 +272,10 @@ void midiIO::receiveMsg(QString sysxInMsg, int midiInPort)
 	Preferences *preferences = Preferences::Instance(); bool ok;// Load the preferences.
 	const int maxWait = preferences->getPreferences("Midi", "Time", "set").toInt(&ok, 10);
 	if(multiple){
-  loopCount = maxWait*10;
+  loopCount = maxWait*40;
   count = patchSize;
   } else {
-  loopCount = maxWait*2;
+  loopCount = maxWait*6;
   count = idRequestString.size()/2; };
 			int bytesReceived = 0;	
       RtMidiIn *midiin = 0;	
@@ -438,25 +439,26 @@ void midiIO::sendSysxMsg(QString sysxOutMsg, int midiOutPort, int midiInPort)
 	   if(checksum.length()<2) {checksum.prepend("0");};
       	hex.append(checksum);
         hex.append("F7");  
-        if (!hex.contains("F04100001B12")) // remove txt portions of the message from address 00 0D 00 00 onwards
+        if (!hex.contains("F00000001B12")) // remove txt portions of the message from address 00 0D 00 00 onwards
          {reBuild.append(hex); };    
 		hex = "";
 		sysxEOF = "";
 		i=i+2;
     }; 
   };    
-  if (sysxOutMsg == idRequestString){reBuild = sysxOutMsg; this->multiple = false;};  // identity request not require checksum
+  if (sysxOutMsg == idRequestString){reBuild = sysxOutMsg; this->multiple = false;} else  {this->multiple = true;};  // identity request not require checksum
 	this->sysxOutMsg = reBuild.simplified().toUpper().remove("0X").remove(" ");
-	if((sysxOutMsg.size() == (sysxDataOffset*2 + 12)) && (sysxOutMsg.mid(sysxOutMsg.size()-12, 8) == patchRequestSize)
-   && (sysxOutMsg.mid((sysxAddressOffset*2-2), 2) == "11") && (sysxOutMsg.mid((sysxAddressOffset*2), 2) != "00")) 
-  {this->multiple = true;};
+	//if((sysxOutMsg.size() == (sysxDataOffset*2 + 12)) && (sysxOutMsg.mid(sysxOutMsg.size()-12, 8) == patchRequestSize)
+   //&& (sysxOutMsg.mid((sysxAddressOffset*2-2), 2) == "11") && (sysxOutMsg.mid((sysxAddressOffset*2), 2) != "00")) 
+ 
 	this->midiOutPort = midiOutPort;
 	this->midiInPort = midiInPort;
 	this->midi = false;
 	Preferences *preferences = Preferences::Instance();// Load the preferences.
 	QString midiOut = preferences->getPreferences("Midi", "MidiOut", "device");
   if(midiOut!="") {start();} else {
-  emit setStatusSymbol(1);
+  emit setStatusSymbol(0);
+  emit setStatusMessage(tr("no midi device set"));
   emit replyMsg("");};
 	
 };
@@ -471,7 +473,10 @@ void midiIO::sendMidi(QString midiMsg, int midiOutPort)
 	this->midi = true;
 	Preferences *preferences = Preferences::Instance();// Load the preferences.
 	QString midiOut = preferences->getPreferences("Midi", "MidiOut", "device");
-  if(midiOut!="") {start();} else { emit setStatusSymbol(1); };
+  if(midiOut!="") {start();} else { 
+  emit setStatusSymbol(0);
+  emit setStatusMessage(tr("no midi device set"));
+   };
 };
 
 /*********************** emitProgress() **********************************

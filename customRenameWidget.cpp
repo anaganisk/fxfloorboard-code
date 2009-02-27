@@ -41,7 +41,7 @@ customRenameWidget::customRenameWidget(QWidget *parent, QString hex1, QString he
     
 	  this->catagoryDisplay->setObjectName("catalogdisplay");
 	  if (this->length == "80")
-	  {this->catagoryDisplay->setFixedWidth(980);}
+	  {this->catagoryDisplay->setFixedWidth(755);}
     else if (this->length == "20")
 	  {this->catagoryDisplay->setFixedWidth(262);} 
     else 
@@ -50,7 +50,7 @@ customRenameWidget::customRenameWidget(QWidget *parent, QString hex1, QString he
 	  this->catagoryDisplay->setFixedHeight(25);
 	  this->catagoryDisplay->setAlignment(Qt::AlignCenter);
 	  this->catagoryDisplay->setDisabled(true);
-	  if (this->area == "System"){
+	  if (this->area != "Structure"){
 	  MidiTable *midiTable = MidiTable::Instance();
     Midi items = midiTable->getMidiMap(this->area, hex1, hex2, hex3);
 	  this->label->setText(items.customdesc);
@@ -69,7 +69,7 @@ customRenameWidget::customRenameWidget(QWidget *parent, QString hex1, QString he
 		this->setFixedHeight(40);
     
    
-      if (this->area != "System")
+      if (this->area == "Structure")
       { QObject::connect(this->parent()->parent(), SIGNAL(updateSignal()), this, SLOT(dialogUpdateSignal())); };
 };
 

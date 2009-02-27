@@ -38,6 +38,23 @@ void menuPage_midi::updateSignal()
 
 void menuPage_midi::setEditPages()
 {
+  editDetails()->page()->newGroupBox("System Midi area still under Construction.");
+	editDetails()->page()->addComboBox(0, 0, 1, 1, "02", "00", "00", "System02"); // rx channel
+	editDetails()->page()->addComboBox(1, 0, 1, 1, "02", "00", "01", "System02"); // omni mode
+	editDetails()->page()->addComboBox(2, 0, 1, 1, "02", "00", "02", "System02"); // tx channel
+	editDetails()->page()->addComboBox(3, 0, 1, 1, "02", "00", "04", "System02"); // pc out
+	editDetails()->page()->addComboBox(4, 0, 1, 1, "02", "00", "0A", "System02"); // map select
+	
+	
+	editDetails()->page()->addComboBox(0, 1, 1, 1, "02", "00", "05", "System02"); // exp1 out
+	editDetails()->page()->addComboBox(1, 1, 1, 1, "02", "00", "06", "System02"); // exp sw out
+	editDetails()->page()->addComboBox(2, 1, 1, 1, "02", "00", "07", "System02"); // ctl out
+	editDetails()->page()->addComboBox(3, 1, 1, 1, "02", "00", "08", "System02"); // sub ctl1 out
+	editDetails()->page()->addComboBox(4, 1, 1, 1, "02", "00", "09", "System02"); // sub ctl2 out
+	
+	editDetails()->page()->addGroupBox(0, 0, 1, 1);
+	editDetails()->addPage();
 
+ 
 
 };
