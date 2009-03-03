@@ -70,7 +70,7 @@ void midiIO::queryMidiOutDevices()
 	 unsigned int outPorts; 
   try { midiout = new RtMidiOut(); }   /* RtMidiOut constructor */
   catch (RtError &error) {
-    //error.printMessage();
+    error.printMessage();
     emit errorSignal("Midi Output Error", "port error");
     goto cleanup; };
   outPorts = midiout->getPortCount();      /* Check outputs. */ 
@@ -79,7 +79,7 @@ void midiIO::queryMidiOutDevices()
       portName = midiout->getPortName(i);
         }
     catch (RtError &error) {
-      //error.printMessage();
+      error.printMessage();
       emit errorSignal("Midi Output Error", "data error");
       goto cleanup; };
 #ifdef Q_OS_WIN
@@ -119,14 +119,14 @@ void midiIO::queryMidiInDevices()
 	 unsigned int inPorts;
   try { midiin = new RtMidiIn(); }    /* RtMidiIn constructor */
   catch (RtError &error) {
-    //error.printMessage();
+    error.printMessage();
     emit errorSignal("Midi Input Error", "port error");
     goto cleanup; };
   inPorts = midiin->getPortCount();   /* Check inputs. */
   for ( unsigned int i=0; i<inPorts; i++ ) {
      try { portName = midiin->getPortName(i); }
      catch (RtError &error) {
-        //error.printMessage();
+        error.printMessage();
         emit errorSignal("Midi Input Error", "data error");
         goto cleanup; };
 #ifdef Q_OS_WIN
@@ -194,6 +194,7 @@ void midiIO::sendSyxMsg(QString sysxOutMsg, int midiOutPort)
  catch (RtError &error)
    {
 	  error.printMessage();
+	  emit errorSignal("Midi Output Error", "data error");
 	  goto cleanup;
     };   
    /* Clean up */
@@ -230,6 +231,7 @@ void midiIO::sendMidiMsg(QString sysxOutMsg, int midiOutPort)
  catch (RtError &error)
    {
 	  error.printMessage();
+	  emit errorSignal("Midi Output Error", "data error");
 	  goto cleanup;
     };   
    /* Clean up*/
@@ -257,7 +259,8 @@ void midicallback(double deltatime, std::vector<unsigned char> *message, void *u
            int bytesReceived = rxData.size();
            midi->emitProgress(bytesReceived);				
 				};	
-		midi->callbackMsg(rxData);
+		if (!rxData.contains("F0410000002F11"))
+		{ midi->callbackMsg(rxData); };
 };
 void midiIO::callbackMsg(QString rxData)
 {
@@ -266,10 +269,10 @@ void midiIO::callbackMsg(QString rxData)
 
 void midiIO::receiveMsg(QString sysxInMsg, int midiInPort)
 {
+  Preferences *preferences = Preferences::Instance(); bool ok;// Load the preferences.
 	int count = 0;
 	emit setStatusSymbol(3);
 	emit setStatusProgress(100);
-	Preferences *preferences = Preferences::Instance(); bool ok;// Load the preferences.
 	const int maxWait = preferences->getPreferences("Midi", "Time", "set").toInt(&ok, 10);
 	if(multiple){loopCount = maxWait*11; count = patchReplySize; } //patch reply size
 	else if (system){loopCount = maxWait*22; count = systemSize;}  // system reply size
@@ -294,6 +297,7 @@ void midiIO::receiveMsg(QString sysxInMsg, int midiInPort)
 	 catch (RtError &error)
 	 {
 	  error.printMessage();
+	  emit errorSignal("Midi Input Error", "data error");
 	  goto cleanup;
      };   		
 		/*Clean up */
@@ -431,7 +435,8 @@ void midiIO::sendSysxMsg(QString sysxOutMsg, int midiOutPort, int midiInPort)
 	   if(checksum.length()<2) {checksum.prepend("0");};
       	hex.append(checksum);
         hex.append("F7");   
-        reBuild.append(hex);   
+        if (!hex.contains("F0410000001B12")) // remove txt portions of the message from address 00 0D 00 00 onwards
+         {reBuild.append(hex); };   
    		hex = "";
 		sysxEOF = "";
 		i=i+2;
@@ -445,7 +450,13 @@ void midiIO::sendSysxMsg(QString sysxOutMsg, int midiOutPort, int midiInPort)
 	this->midiOutPort = midiOutPort;
 	this->midiInPort = midiInPort;
 	this->midi = false;
-	start();
+	Preferences *preferences = Preferences::Instance();// Load the preferences.
+	QString midiOut = preferences->getPreferences("Midi", "MidiOut", "device");
+  if(midiOut!="") {start();} else {
+  //emit midiFinished();
+  
+  emit replyMsg("");};
+	
 };
 
 /*********************** sendMidi() **********************************
@@ -456,7 +467,9 @@ void midiIO::sendMidi(QString midiMsg, int midiOutPort)
 	this->midiOutPort = midiOutPort;
 	this->midiMsg = midiMsg;
 	this->midi = true;
-	start();
+  Preferences *preferences = Preferences::Instance();// Load the preferences.
+	QString midiOut = preferences->getPreferences("Midi", "MidiOut", "device");
+  if(midiOut!="") {start();} else { emit setStatusSymbol(1); };
 };
 
 /*********************** emitProgress() **********************************

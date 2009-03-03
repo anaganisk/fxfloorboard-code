@@ -19,6 +19,7 @@
         <file>images/cn_m.png</file>
         <file>images/cs.png</file>
         <file>images/dd.png</file>
+        <file>images/donate.png</file>
         <file>images/dgt.png</file>
         <file>images/downarrow.png</file>
         <file>images/dragbar.png</file>
@@ -26,12 +27,16 @@
         <file>images/editwindow.png</file>
         <file>images/eq.png</file>
         <file>images/expand.png</file>
+        <file>images/exit.png</file>
+        <file>images/fileopen.png</file>
+        <file>images/filesave.png</file>
         <file>images/floor.png</file>
         <file>images/fv.png</file>
         <file>images/fx1.png</file>
         <file>images/fx2.png</file>
         <file>images/general.png</file>
         <file>images/greenledbutton.png</file>
+        <file>images/help.png</file>
         <file>images/infobar.png</file>
         <file>images/knob.png</file>
         <file>images/knobbg.png</file>
@@ -39,7 +44,9 @@
         <file>images/knobbgt.png</file>
         <file>images/led.png</file>
         <file>images/ledbutton.png</file>
+        <file>images/licence.png</file>
         <file>images/lp.png</file>
+        <file>images/manual.png</file>
         <file>images/menu_pushbutton.png</file>
         <file>images/midi.png</file>
         <file>images/ns.png</file>
@@ -50,7 +57,9 @@
         <file>images/panelbarbutton.png</file>
         <file>images/pathswitch.png</file>
         <file>images/pedal.png</file>
+        <file>images/preferences.png</file>
         <file>images/pushbutton.png</file>
+        <file>images/qt-logo.png</file>
         <file>images/rv.png</file>
         <file>images/slide.png</file>
         <file>images/sliderbutton.png</file>

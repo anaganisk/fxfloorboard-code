@@ -2,7 +2,7 @@
 
 ; HM NIS Edit Wizard helper defines
 !define PRODUCT_NAME "GT-10FxFloorBoard"
-!define PRODUCT_VERSION "20090128"
+!define PRODUCT_VERSION "20090131"
 !define PRODUCT_PUBLISHER "Gumtownbassman"
 !define PRODUCT_WEB_SITE "http://gtx.tinfoilmusic.net"
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\GT-10FxFloorBoard.exe"
@@ -100,6 +100,8 @@ Section "MainSection" SEC01
   File "Init Patches\BD_Marshall.syx"
   File "Init Patches\BD_Marshall_2.syx"
   File "Init Patches\Egin_1st.syx"
+  File "Init Patches\dave's clean.syx"
+  File "Init Patches\Dave's Lead.syx"
   File "Init Patches\EJ_1.syx"
   File "Init Patches\EJ_2.syx"
   File "Init Patches\eXPERIMENT.syx"
@@ -193,6 +195,8 @@ Section Uninstall
   Delete "$INSTDIR\Init Patches\EJ_2.syx"
   Delete "$INSTDIR\Init Patches\EJ_1.syx"
   Delete "$INSTDIR\Init Patches\Egin_1st.syx"
+  Delete "$INSTDIR\Init Patches\dave's clean.syx"
+  Delete "$INSTDIR\Init Patches\Dave's Lead.syx"
   Delete "$INSTDIR\Init Patches\BD_Marshall_2.syx"
   Delete "$INSTDIR\Init Patches\BD_Marshall.syx"
   Delete "$INSTDIR\Init Patches\BD_Lead_2.syx"

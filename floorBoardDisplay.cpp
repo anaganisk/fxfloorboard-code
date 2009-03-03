@@ -30,6 +30,7 @@
 #include "midiIO.h"
 #include "renameWidget.h"
 #include "customRenameWidget.h"
+#include "customControlListMenu.h"
 #include "globalVariables.h"
 
 
@@ -76,6 +77,10 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
   userDialog->setGeometry(728, 462, 262, 25); 
   customRenameWidget *patchDialog = new customRenameWidget(this, "0D", "00", "00", "Structure", "80"); 
   patchDialog->setGeometry(10, 502, 980, 25); 
+  customControlListMenu *output = new customControlListMenu(this, "00", "00", "11", "top");
+  output->setGeometry(860, 5, 150, 30); 
+  customControlListMenu *catagory = new customControlListMenu(this, "00", "00", "10", "right");
+  catagory->setGeometry(860, 24, 150, 30); 
   
 
  	this->connectButton = new customButton(tr("Connect"), false, QPoint(405, 5), this, ":/images/greenledbutton.png");
@@ -135,7 +140,10 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
 	QObject::connect(this->eq_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(eq_buttonSignal(bool)));
 	QObject::connect(this->pedal_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(pedal_buttonSignal(bool)));
 	
-  autoconnect();
+	QString midiIn = preferences->getPreferences("Midi", "MidiIn", "device");
+	QString midiOut = preferences->getPreferences("Midi", "MidiOut", "device");
+	if(midiIn!="" && midiOut!="") 
+  {autoconnect(); };
 	};
 
 QPoint floorBoardDisplay::getPos()
@@ -357,8 +365,8 @@ void floorBoardDisplay::autoConnectionResult(QString sysxMsg)
 		}else
     {
      this->connectButton->setBlink(false);
-			this->connectButton->setValue(false);
-			sysxIO->setConnected(false);	
+		 this->connectButton->setValue(false);
+		 notConnected();
     };
   }
   else
@@ -448,6 +456,8 @@ void floorBoardDisplay::connectionResult(QString sysxMsg)
 			QString msgText;
 			msgText.append("<font size='+1'><b>");
 			msgText.append(tr("The device connected is not a Boss ") + deviceType + (" Effects Processor."));
+			if (sysxMsg.contains(idRequestString))
+			{msgText.append(tr("<br>Midi loopback detected, ensure midi device 'thru' is switched off.")); };
 			msgText.append("<b></font>");
 			msgBox->setText(msgText);
 			msgBox->setStandardButtons(QMessageBox::Ok);
@@ -472,6 +482,9 @@ void floorBoardDisplay::connectionResult(QString sysxMsg)
 			QString msgText;
 			msgText.append("<font size='+1'><b>");
 			msgText.append(tr("The Boss ") + deviceType + (" Effects Processor was not found."));
+			msgText.append(tr("<br><br>Ensure correct midi device is selected in Menu, "));
+			msgText.append(tr("<br>Boss drivers are installed and the GT-10 is switched on,"));
+			msgText.append(tr("<br>and GT-10 USB driver mode is set to advanced"));
 			msgText.append("<b></font><br>");
 			msgBox->setText(msgText);
 			msgBox->setStandardButtons(QMessageBox::Ok);
@@ -585,7 +598,7 @@ void floorBoardDisplay::writeSignal(bool)
 					msgText.append("<font size='+1'><b>");
 					msgText.append(tr("You have chosen to write the patch permanently into ") + deviceType + (" memory."));
 					msgText.append("<b></font><br>");
-					msgText.append(tr("This will overwrite the patch currently stored at patch location\n"));
+					msgText.append(tr("This will overwrite the patch currently stored at patch location<br>"));
 					msgText.append("<font size='+2'><b>");
 					msgText.append(bankNum +(":") +patchNum	);
 					msgText.append("<b></font><br>");

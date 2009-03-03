@@ -296,11 +296,6 @@ void menuPage::systemReply(QString replyMsg)
 		};
    };
 		emit setStatusMessage(tr("Ready"));   
-
-
-
-
-
 };
 
 void menuPage::setPos(QPoint newPos)

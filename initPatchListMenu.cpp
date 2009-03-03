@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT-10 Fx FloorBoard".
+** This file is part of "GT-10B Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -151,6 +151,8 @@ void initPatchListMenu::loadInitPatch(int index)
 				sysxIO->setSyncStatus(false);
 				sysxIO->setDevice(false);
 				emit updateSignal();
+				if(sysxIO->isConnected())
+				{sysxIO->writeToBuffer(); };
 			};
 		};
 	};

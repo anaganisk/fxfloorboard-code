@@ -50,11 +50,13 @@ customRenameWidget::customRenameWidget(QWidget *parent, QString hex1, QString he
 	  this->catagoryDisplay->setFixedHeight(25);
 	  this->catagoryDisplay->setAlignment(Qt::AlignCenter);
 	  this->catagoryDisplay->setDisabled(true);
-	  if (this->length == "08"){
+	  if (this->area == "System"){
 	  MidiTable *midiTable = MidiTable::Instance();
     Midi items = midiTable->getMidiMap(this->area, hex1, hex2, hex3);
 	  this->label->setText(items.customdesc);
-	  this->label->setUpperCase(true); };
+	  this->label->setUpperCase(true);
+    QObject::connect(this->parent(), SIGNAL( dialogUpdateSignal() ), this, SLOT( dialogUpdateSignal() ));
+     };
 	  
 	  QVBoxLayout *Layout = new QVBoxLayout;
 		Layout->setMargin(0);
@@ -67,10 +69,8 @@ customRenameWidget::customRenameWidget(QWidget *parent, QString hex1, QString he
 		this->setFixedHeight(40);
     
    
-      if (this->length != "08"){          
-   QObject::connect(this->parent()->parent(), SIGNAL(updateSignal()), this, SLOT(dialogUpdateSignal()));
-   } else {
-   QObject::connect(this->parent(), SIGNAL( dialogUpdateSignal() ), this, SLOT( dialogUpdateSignal() )); };
+      if (this->area != "System")
+      { QObject::connect(this->parent()->parent(), SIGNAL(updateSignal()), this, SLOT(dialogUpdateSignal())); };
 };
 
 void customRenameWidget::mouseReleaseEvent(QMouseEvent *event)

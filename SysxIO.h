@@ -96,13 +96,14 @@ public:
 	void emitStatusProgress(int value);
   void emitStatusMessage(QString message);
 	void emitStatusdBugMessage(QString dBug);
-	void errorReturn();
+	void errorReturn(QString errorType, QString errorMsg);
 	QString dBug;
 	void systemWrite();
 	void systemDataRequest();
 
 public slots:
 	void errorSignal(QString windowTitle, QString errorMsg);
+	void writeToBuffer();
 
 private slots:
 	void returnPatchName(QString sysxMsg);
@@ -159,6 +160,8 @@ private:
 	QString currentName;
 	QList<QString> sendSpooler;
 	QString xml_area;
+	QString errorType;
+	QString errorMsg;
 };
 
 #endif // SYSXIO_H

@@ -1,4 +1,4 @@
-************GT-10FxFloorBoard beta version: 28 January 2009 *************************
+************GT-10FxFloorBoard version 20090130: 30 January 2009 *************************
 
 
 ****NOTE: SOME FEATURES MAY HAVE NOT YET BEEN IMPLIMENTED, 
@@ -6,7 +6,8 @@
 
 ****************************************************************************************
 *        VERY IMPORTAINT !!! SYSTEM SETTINGS ADJUSTMENTS REMAIN AS THEY ARE SET,       *
-*         BE CAREFUL WHEN ADJUSTING SYSTEM SETTINGS, SAVE SYSTEM SETTINGS FIRST !!     * ****************************************************************************************
+*         BE CAREFUL WHEN ADJUSTING SYSTEM SETTINGS, SAVE SYSTEM SETTINGS FIRST !!     *
+****************************************************************************************
 
 
 

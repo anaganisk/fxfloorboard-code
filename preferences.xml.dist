@@ -2,12 +2,13 @@
 <!-- Preferences of the GT-10 Fx FloorBoard application. -->
 <Preferences>
 	<General>
-		<Application version="20090128"/>
-		<Donate url="http://gtx.tinfoilmusic.net/donate.html"/> 
-		<Manual url="GT-10FxFloorBoard_Operation_Manual.pdf"/>
+		<Application version="20090210"/>
+		<Donate url="http://gtx.tinfoilmusic.net/donate.html"/>
 		<Files dir=""/>
 		<Help url="GT-10FxFloorBoard_help.html"/>
 		<Language code="en"/>
+		<Manual url="GT-10FxFloorBoard_Operation_Manual.pdf"/>
+		<Upload url="http://www.bossgtcentral.com/dm"/>
 		<Webpage url="http://gtx.tinfoilmusic.net/"/>
 	</General>
 	<Midi>
