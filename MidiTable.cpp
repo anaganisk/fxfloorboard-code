@@ -418,8 +418,8 @@ QString MidiTable::getSize(QString hex1, QString hex2, QString hex3)
 	QString size;
 	size.append(hex3);
 	size.append("00");
-	size.append(itemSize);
-	size.append("00");
+	size.append("00");//itemSize);
+	size.append("01");
 	return size;
 };
 
@@ -472,7 +472,7 @@ QString MidiTable::getSize(QString hex1, QString hex2)
 	size.append("00");
 	size.append("00");
 	size.append("00");
-	size.append(itemSize);//"01");
+	size.append("01");
 	return size;
 };
 
@@ -579,7 +579,7 @@ QString MidiTable::nameRequest(int bank, int patch)
 		int addrMaxSize = QString("80").toInt(&ok, 16);
 		int n = (int)(patchOffset / addrMaxSize);
 		
-		addr1 = QString::number(6 + n, 16).toUpper();
+		addr1 = QString::number(7 + n, 16).toUpper();
 		addr2 = QString::number(patchOffset - (addrMaxSize * n), 16).toUpper();
 		if (addr1.length() < 2) addr1.prepend("0");
 		if (addr2.length() < 2) addr2.prepend("0");
@@ -590,7 +590,7 @@ QString MidiTable::nameRequest(int bank, int patch)
 		addr2 = "00";
 	};
 
-	QString hex1 = "0C";    // patch names memory location
+	QString hex1 = "00";    // whole patch
 	QString hex2 = "00";
 
 	QString sysxMsg;
@@ -623,7 +623,7 @@ QString MidiTable::patchRequest(int bank, int patch)
 		int addrMaxSize = QString("80").toInt(&ok, 16);
 		int n = (int)(patchOffset / addrMaxSize);
 		
-		addr1 = QString::number(6 + n, 16).toUpper();
+		addr1 = QString::number(7 + n, 16).toUpper();
 		addr2 = QString::number(patchOffset - (addrMaxSize * n), 16).toUpper();
 		if (addr1.length() < 2) addr1.prepend("0");
 		if (addr2.length() < 2) addr2.prepend("0");

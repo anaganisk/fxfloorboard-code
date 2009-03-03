@@ -28,7 +28,7 @@ renameDialog::renameDialog(QWidget *parent)
 {
 	SysxIO *sysxIO = SysxIO::Instance();
 
-	QRegExp rx( QString::fromUtf8( "[\x20-\x7F\xe2\x86\x92\xe2\x86\x90]{1,14}" ) );//GT-3 name length = 14 chars
+	QRegExp rx( QString::fromUtf8( "[\x20-\x7F\xe2\x86\x92\xe2\x86\x90]{1,11}" ) );//GT-3 name length = 11 chars
 	QValidator *validator = new QRegExpValidator(rx, this);
 	
 	nameLabel = new QLabel(tr("Name:"));

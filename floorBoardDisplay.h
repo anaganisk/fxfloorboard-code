@@ -85,7 +85,7 @@ private:
 	customButton *systemButton;
 
 	bool connectButtonActive;
-    bool assignButtonActive;
+  bool assignButtonActive;
 	bool patchLoadError;
 	QTimer* timer;
 	int blinkCount;

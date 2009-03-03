@@ -228,7 +228,7 @@ void floorBoardDisplay::updateDisplay()
 	sysxIO->setCurrentPatchName(patchName);
 	if(sysxIO->getRequestName().trimmed() != patchName.trimmed())
 	{
-		this->patchLoadError = false;//cjw true;
+		this->patchLoadError = true;
 	}
 	else
 	{
@@ -314,10 +314,8 @@ void floorBoardDisplay::connectSignal(bool value)
 		sysxIO->setDeviceReady(false); // Reserve the device for interaction.
 
 		QObject::disconnect(sysxIO, SIGNAL(sysxReply(QString)));
-		QObject::connect(sysxIO, SIGNAL(sysxReply(QString)), 
-			this, SLOT(connectionResult(QString)));
-
-		sysxIO->sendSysx(idRequestString); // GT6B Identity Request.
+		QObject::connect(sysxIO, SIGNAL(sysxReply(QString)), this, SLOT(connectionResult(QString)));
+		sysxIO->sendSysx(idRequestString); // GT-3 Identity Request.		
 	}
 	else
 	{
@@ -329,13 +327,11 @@ void floorBoardDisplay::connectSignal(bool value)
 void floorBoardDisplay::connectionResult(QString sysxMsg)
 {
 	SysxIO *sysxIO = SysxIO::Instance();
-	QObject::disconnect(sysxIO, SIGNAL(sysxReply(QString)), 
-			this, SLOT(connectionResult(QString)));
-
+	QObject::disconnect(sysxIO, SIGNAL(sysxReply(QString)), this, SLOT(connectionResult(QString)));
 	sysxIO->setDeviceReady(true); // Free the device after finishing interaction.
 
 		 /*DeBugGING OUTPUT */
-	Preferences *preferences = Preferences::Instance(); // Load the preferences.
+/*	Preferences *preferences = Preferences::Instance(); // Load the preferences.
 	if(preferences->getPreferences("Midi", "DBug", "bool")=="true")
 	{
 			this->connectButton->setBlink(false);
@@ -352,7 +348,7 @@ void floorBoardDisplay::connectionResult(QString sysxMsg)
 	}
 
 	else if(sysxIO->noError())
-	{
+	{ */
 		if(sysxMsg.contains(idReplyPatern) && connectButtonActive == true)
 		{
 			this->connectButton->setBlink(false);
@@ -368,13 +364,13 @@ void floorBoardDisplay::connectionResult(QString sysxMsg)
 		}
 		else if(!sysxMsg.isEmpty())
 		{
-			/*this->connectButton->setBlink(false);
+			this->connectButton->setBlink(false);
 			this->connectButton->setValue(false);
 			sysxIO->setConnected(false);
 
 			emit setStatusSymbol(0);
 			emit setStatusProgress(0);
-			emit setStatusMessage(tr("Not connected"));*/
+			emit setStatusMessage(tr("Not connected"));
 			
 			notConnected();
 
@@ -392,13 +388,13 @@ void floorBoardDisplay::connectionResult(QString sysxMsg)
 		}
 		else
 		{
-			/*this->connectButton->setBlink(false);
+			this->connectButton->setBlink(false);
 			this->connectButton->setValue(false);
 			sysxIO->setConnected(false);
 
 			emit setStatusSymbol(0);
 			emit setStatusProgress(0);
-			emit setStatusMessage(tr("Not connected"));*/
+			emit setStatusMessage(tr("Not connected"));
 			
 			notConnected();
 
@@ -420,12 +416,12 @@ void floorBoardDisplay::connectionResult(QString sysxMsg)
 			msgBox->setStandardButtons(QMessageBox::Ok);
 			msgBox->exec();
 		};
-	}
+/*	}
 	else
 	{
 		notConnected();
 		sysxIO->setNoError(true);		// Reset the error status (else we could never retry :) ).
-	};
+	}; */
 };
 
 void floorBoardDisplay::writeSignal(bool)

@@ -31,6 +31,15 @@
 #include "MidiTable.h"
 #include "globalVariables.h"
 
+// Platform-dependent sleep routines.
+#ifdef Q_OS_WIN
+  #include <windows.h>
+  #define SLEEP( milliseconds ) Sleep( (DWORD) milliseconds ) 
+#else // Unix variants
+  #include <unistd.h>
+  #define SLEEP( milliseconds ) usleep( (unsigned long) (milliseconds * 1000.0) )
+#endif
+
 SysxIO::SysxIO() 
 {
 	this->setConnected(false);
@@ -862,9 +871,9 @@ void SysxIO::returnPatchName(QString sysxMsg)
 			this, SLOT(returnPatchName(QString)));
 	
 	QString name; 
-	if(sysxMsg != "" && sysxMsg.size() >= 34)
+	if(sysxMsg.size()/2 == patchSize)
 	{		
-		int dataStartOffset = sysxDataOffset;//sysxNameOffset;   //pointer to start of names in patch file at 403 bytes.
+		int dataStartOffset = sysxNameOffset;   //pointer to start of names in patch file at 403 bytes.
 		QString hex1, hex2, hex3, hex4;
 		for(int i=dataStartOffset*2; i<(dataStartOffset*2)+(nameLength*2);++i)   //read the length of name string.
 		{ 
@@ -885,12 +894,10 @@ void SysxIO::returnPatchName(QString sysxMsg)
 
 			i++;
 		};
-	} else {
-	if (sysxMsg != "" && sysxMsg.size() < 34 ){name = "bad data";}; 
-  if(sysxMsg == ""){name = "no reply"; }; 
-	//emit notConnectedSignal();
-	};
-	emit patchName(name.trimmed());
+	} else if(!sysxMsg.isEmpty() && sysxMsg.size()/2 < patchSize ){name = "bad data"; } 
+  else {name = "no reply"; }; 
+  
+	emit patchName(name);
 };
 
 /***************************** requestPatch() ******************************
@@ -909,11 +916,11 @@ void SysxIO::requestPatch(int bank, int patch)
 ****************************************************************************/
 void SysxIO::errorSignal(QString windowTitle, QString errorMsg)
 {
-	if(noError())
-	{
-		setNoError(false);
+			windowTitle = this->errorType;
+		errorMsg = this->errorMsg;
+		errorMsg.append("\n please press the [Connect] button to resume");
 
-		emit notConnectedSignal();
+
 
 		QMessageBox *msgBox = new QMessageBox();
 		msgBox->setWindowTitle(windowTitle);
@@ -922,7 +929,10 @@ void SysxIO::errorSignal(QString windowTitle, QString errorMsg)
 		msgBox->setText(errorMsg);
 		msgBox->setStandardButtons(QMessageBox::Ok);
 		msgBox->exec();
-	};
+		
+		emit notConnectedSignal();
+		this->errorType = "";
+		this->errorMsg = "";	
 };
 
 /***************************** noError() ******************************
@@ -977,7 +987,69 @@ void SysxIO::emitStatusdBugMessage(QString dBug)
 {
 	emit setStatusdBugMessage(dBug);
 };
-void SysxIO::errorReturn()
+
+void SysxIO::errorReturn(QString errorType, QString errorMsg)
 {
-emit notConnectedSignal();
+    this->errorType = errorType;
+    this->errorMsg = errorMsg; 
 };
+
+void SysxIO::writeToBuffer() 
+{
+	setDeviceReady(false);			// Reserve the device for interaction.
+	QObject::disconnect(this, SIGNAL(isChanged()),	
+					this, SLOT(writeToBuffer()));
+
+	QString sysxMsg;
+	QList< QList<QString> > patchData = getFileSource().hex; // Get the loaded patch data.
+	QList<QString> patchAddress = getFileSource().address;
+
+		emit setStatusSymbol(2);
+		emit setStatusMessage(tr("Sync to ")+deviceType);
+
+	QString addr1 = QString::number(96, 16).toUpper();  // temp address
+	QString addr2 = QString::number(0, 16).toUpper();
+
+	for(int i=0;i<patchData.size();++i)
+	{
+		QList<QString> data = patchData.at(i);
+		for(int x=0;x<data.size();++x)
+		{
+			QString hex;
+			if(x == sysxAddressOffset)
+			{ 
+				hex = addr1;
+			}
+			else if(x == sysxAddressOffset + 1)
+			{
+				hex = addr2;
+			}
+			else
+			{
+				hex = data.at(x);
+			};
+			if (hex.length() < 2) hex.prepend("0");
+			sysxMsg.append(hex);
+		}; 
+	}; 
+	setSyncStatus(true);		// In advance of the actual data transfer we set it already to sync.
+	
+	QObject::connect(this, SIGNAL(sysxReply(QString)),	// Connect the result signal 
+		this, SLOT(resetDevice(QString)));					// to a slot that will reset the device after sending.
+	sendSysx(sysxMsg);	// Send the data.
+		
+		emit setStatusProgress(33); // time wasting sinusidal statusbar progress
+		SLEEP(150);
+		emit setStatusProgress(66);
+		SLEEP(150);		
+		emit setStatusProgress(100);
+		SLEEP(150);		
+		emit setStatusProgress(75);
+		SLEEP(150);		
+		emit setStatusProgress(42);
+		SLEEP(150); 
+	emit setStatusMessage(tr("Ready"));
+	setDeviceReady(true);
+};
+
+

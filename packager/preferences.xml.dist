@@ -2,18 +2,18 @@
 <!-- Preferences of the GT-3 Fx FloorBoard application. -->
 <Preferences>
 	<General>
-		<Application version="beta 20080901"/>
-		<Donate url="http://sourceforge.net/donate/index.php?group_id=171049"/>
+		<Application version="beta 20090224"/>
+		<Donate url="http://gtx.tinfoilmusic.net/donate.html"/>
 		<Files dir=""/>
 		<Help url="GT-3EditorManual_E.htm"/>
 		<Language code="en"/>
-		<Webpage url="http://fxfloorboard.sourceforge.net/"/>
+		<Webpage url="http://gtx.tinfoilmusic.net/"/>
 	</General>
 	<Midi>
 		<MidiIn device=""/>
 		<MidiOut device=""/>
 		<DBug bool="false"/>
-		<Time set="60"/>
+		<Time set="45"/>
 		<Delay set="15"/>
 	</Midi>
 	<Window>

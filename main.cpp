@@ -169,7 +169,7 @@ int main(int argc, char *argv[])
 	window.show();
 	splash->finish(&window);
 
-/*	 PREVIEW WARNING  */ 
+/*	 PREVIEW WARNING   
 	QMessageBox *msgBox = new QMessageBox();
 	msgBox->setWindowTitle(QObject::tr("Warning this is beta version software"));
 	msgBox->setIcon(QMessageBox::Warning);
@@ -183,7 +183,7 @@ int main(int argc, char *argv[])
 	msgBox->setText(msgText);
 	msgBox->setStandardButtons(QMessageBox::Ok);
 	msgBox->exec();
-	/* END WARNING */
+	 END WARNING */
 
 	return app.exec();
 };
