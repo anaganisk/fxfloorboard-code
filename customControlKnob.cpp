@@ -41,7 +41,14 @@ customControlKnob::customControlKnob(QWidget *parent,
 	MidiTable *midiTable = MidiTable::Instance();
 	if (area == "normal" || area == "turbo" || area.isEmpty()) {this->area = "Structure";};
 	
-	Midi items = midiTable->getMidiMap(this->area, hex1, hex2, hex3);
+	Midi items;
+	QString hex0 = area;
+	  if (!area.contains("System")){
+	items = midiTable->getMidiMap(this->area, hex1, hex2, hex3);
+	} else {
+	hex0.remove("System");
+  items = midiTable->getMidiMap("System", hex0, hex1, hex2, hex3);
+  };
 	
 	this->label->setText(items.customdesc);
 	this->label->setUpperCase(true);

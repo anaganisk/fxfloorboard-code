@@ -85,11 +85,12 @@ void SysxIO::setFileSource(QString area, QByteArray data)
  {
    this->systemSource.address.clear();
 	 this->systemSource.hex.clear();
- }else
+ }
+ else
  {
 	this->fileSource.address.clear();
 	this->fileSource.hex.clear();
-	};
+ };
 	
 	QString errorList;
 	QList<QString> sysxBuffer; 
@@ -127,7 +128,7 @@ void SysxIO::setFileSource(QString area, QByteArray data)
 				errorString.append("\n");
 				errorList.append(errorString);			
 			};
-			sysxBuffer = correctSysxMsg(sysxBuffer);
+			//sysxBuffer = correctSysxMsg(sysxBuffer);
 		};
 		offset++;
     
@@ -135,8 +136,14 @@ void SysxIO::setFileSource(QString area, QByteArray data)
 			{	
 		  if (area.contains("System"))
 		  {
-        this->systemSource.address.append( sysxBuffer.at(sysxAddressOffset + 1) + sysxBuffer.at(sysxAddressOffset + 2) );
+        this->systemSource.address.append(  sysxBuffer.at(sysxAddressOffset) + sysxBuffer.at(sysxAddressOffset + 1) + sysxBuffer.at(sysxAddressOffset + 2) /*+ sysxBuffer.at(sysxAddressOffset + 3)*/);
 		  	this->systemSource.hex.append(sysxBuffer);
+	/*QString address = (  sysxBuffer.at(sysxAddressOffset) + sysxBuffer.at(sysxAddressOffset + 1) + sysxBuffer.at(sysxAddressOffset + 2) + sysxBuffer.at(sysxAddressOffset + 3));
+	QMessageBox *msgBox = new QMessageBox();
+	msgBox->setWindowTitle(QObject::tr("deBug"));
+	msgBox->setText(address);
+	msgBox->setStandardButtons(QMessageBox::Ok);
+	msgBox->exec(); */
       }
        else
       {
@@ -170,7 +177,7 @@ void SysxIO::setFileSource(QString area, QByteArray data)
 
 void SysxIO::setFileSource(QString area, QString data)
 {
-  if (area != "Structure") 
+  if (area.contains("System")) 
    { 
     	this->systemSource.address.clear();
 	    this->systemSource.hex.clear();
@@ -190,9 +197,9 @@ void SysxIO::setFileSource(QString area, QString data)
 
 		if(hex == "F7") 
 		{	
-		  if (area != "Structure") 
+		  if (area.contains("System")) 
 		  {
-			this->systemSource.address.append( sysxBuffer.at(sysxAddressOffset + 1) + sysxBuffer.at(sysxAddressOffset + 2) );
+			this->systemSource.address.append(  sysxBuffer.at(sysxAddressOffset) + sysxBuffer.at(sysxAddressOffset + 1) + sysxBuffer.at(sysxAddressOffset + 2)/* + sysxBuffer.at(sysxAddressOffset + 3)*/);
 			this->systemSource.hex.append(sysxBuffer);
 			}
       else
@@ -225,15 +232,17 @@ void SysxIO::setFileSource(QString area, QString hex1, QString hex2, QString hex
 				sourceHex3 = QString::number(hex3.toInt(&ok, 16) + QString("7F").toInt(&ok, 16) + 1, 16);
 			};
 		};
-	};	*/
+	};	*/ 
 	int index = hex3.toInt(&ok, 16) + sysxDataOffset;
 	QString address;
 	QList<QString> sysxList;
 	if(area.contains("System"))
 	{
-	  //address = "02";//area.remove("System");
+	  address = area;
+	  address.remove("System");
 	  address.append(hex1);
     address.append(hex2);
+    //address.append(hex3);
     sysxList = this->systemSource.hex.at(this->systemSource.address.indexOf(address));
 	}
      else 
@@ -242,22 +251,23 @@ void SysxIO::setFileSource(QString area, QString hex1, QString hex2, QString hex
     address.append(hex2);
 	  sysxList = this->fileSource.hex.at(this->fileSource.address.indexOf(address));
 	};
+	
 	sysxList.replace(index, hex4);
 	
-	QString temp;
+	/*QString temp;
 	for(int i=0;i<sysxList.size();i++)
 	{
 		QString hex = sysxList[i];
 		temp.append(hex);
 		temp.append(" ");
 	};
-	/*
+	
 	QMessageBox *msgBox = new QMessageBox();
 	msgBox->setWindowTitle(QObject::tr("deBug"));
 	msgBox->setText(temp);
 	msgBox->setStandardButtons(QMessageBox::Ok);
-	msgBox->exec();
-	*/
+	msgBox->exec(); */
+	
 
 	int dataSize = 0;
 	for(int i=sysxList.size() - 3; i>=checksumOffset;i--)
@@ -265,6 +275,7 @@ void SysxIO::setFileSource(QString area, QString hex1, QString hex2, QString hex
 		dataSize += sysxList.at(i).toInt(&ok, 16);
 	};
 	sysxList.replace(sysxList.size() - 2, getCheckSum(dataSize));
+	
  if(area.contains("System"))
 	{
   	this->systemSource.hex.replace(this->systemSource.address.indexOf(address), sysxList);
@@ -273,10 +284,14 @@ void SysxIO::setFileSource(QString area, QString hex1, QString hex2, QString hex
 	{
     this->fileSource.hex.replace(this->fileSource.address.indexOf(address), sysxList);
   };
-  
+  /*QMessageBox *msgBox = new QMessageBox();
+	msgBox->setWindowTitle(QObject::tr("deBug"));
+	msgBox->setText(address);
+	msgBox->setStandardButtons(QMessageBox::Ok);
+	msgBox->exec();*/
 	QString sysxMsg = midiTable->dataChange(area, hex1, hex2, hex3, hex4); 
   
-	if(/*this->isConnected() && */this->deviceReady() /*&& this->getSyncStatus()*/)         //realtime editing
+	if(this->deviceReady())         //realtime editing
 	{
 		this->setDeviceReady(false);
 
@@ -290,7 +305,7 @@ void SysxIO::setFileSource(QString area, QString hex1, QString hex2, QString hex
 	else if(this->isConnected())
 	{
 		this->sendSpooler.append(sysxMsg);
-	};
+	}; 
 };
 
 void SysxIO::setFileSource(QString area, QString hex1, QString hex2, QString hex3, QString hex4, QString hex5)
@@ -315,15 +330,20 @@ void SysxIO::setFileSource(QString area, QString hex1, QString hex2, QString hex
 	}; */
 
 	QString address;
-	address.append(sourceHex1);
-	address.append(hex2);
 	QList<QString> sysxList;
-	if (area != "Structure")
+	if (area.contains("System"))
 	{
+	  address = area;
+	  address.remove("System");
+	  address.append(hex1);
+    address.append(hex2);
+    //address.append(hex3);
   sysxList = this->systemSource.hex.at(this->systemSource.address.indexOf(address));
   }
   else
   {
+  address.append(sourceHex1);
+	address.append(hex2);
   sysxList = this->fileSource.hex.at(this->fileSource.address.indexOf(address));
   };
 	int index = sourceHex3.toInt(&ok, 16) + sysxDataOffset;
@@ -336,7 +356,7 @@ void SysxIO::setFileSource(QString area, QString hex1, QString hex2, QString hex
 		dataSize += sysxList.at(i).toInt(&ok, 16);
 	};
 	sysxList.replace(sysxList.size() - 2, getCheckSum(dataSize));
-if (area != "Structure")
+if (area.contains("System"))
   {
 	this->systemSource.hex.replace(this->systemSource.address.indexOf(address), sysxList);
 	}
@@ -439,8 +459,8 @@ void SysxIO::setFileSource(QString area, QString hex1, QString hex2, QString hex
 };
 
 QList<QString> SysxIO::getSourceItems(QString area, QString hex1, QString hex2)
-{
-	QList<QString> items = this->getFileSource(area, hex1, hex2);	
+{ 
+  QList<QString> items = this->getFileSource(area, hex1, hex2);	
 	return items; 
 };
 
@@ -450,7 +470,7 @@ int SysxIO::getSourceValue(QString area, QString hex1, QString hex2, QString hex
 
 	bool ok;
   if (!area.contains("System"))  {area = "Structure"; };
-	if(hex1 != "01")
+	/*if(hex1 != "01")
 	{
 		QString prevHex = QString::number((hex1.toInt(&ok, 16) - 1), 16).toUpper();
 		if(prevHex.length() < 2) prevHex.prepend("0");
@@ -462,7 +482,7 @@ int SysxIO::getSourceValue(QString area, QString hex1, QString hex2, QString hex
 				hex3 = QString::number(hex3.toInt(&ok, 16) + QString("7F").toInt(&ok, 16) + 1, 16);
 			};
 		};
-	}; 
+	};  */
 
 	int value;
 	QList<QString> items = this->getSourceItems(area, hex1, hex2);
@@ -550,38 +570,39 @@ SysxData SysxIO::getSystemSource()
 QList<QString> SysxIO::getFileSource(QString area, QString hex1, QString hex2)
 {
 	QString address;
+	QString temp = area;
 	address.append(hex1);
 	address.append(hex2);
 	QList<QString> sysxMsg;
-	if (area != "Structure")
+	if (area.contains("System"))
 	{
+	  address.prepend(temp.remove("System"));
 	if(this->systemSource.address.indexOf(address) == -1)
-	{
-		sysxWriter file;
-		file.setFile(":system.syx");  // Read the default sysex file so whe don't start empty handed.
-		if(file.readFile())
-		{	
+	  {
+		 sysxWriter file;
+		 file.setFile(":system.syx");  // Read the default sysex file so whe don't start empty handed.
+		 if(file.readFile())
+	   {	
 			setFileSource(area, file.getSystemSource());
-		};
-	};
-	sysxMsg = this->systemSource.hex.at( this->systemSource.address.indexOf(address) );
-	
+		 };
+	  };
+	  sysxMsg = this->systemSource.hex.at( this->systemSource.address.indexOf(address) );	
    }
    else
    { 
     area = "Structure";
    	if(this->fileSource.address.indexOf(address) == -1)
-	{
-		sysxWriter file;
-		file.setFile(":default.syx");  // Read the default sysex file so whe don't start empty handed.
-		if(file.readFile())
-		{	
-			setFileSource(area, file.getFileSource());
-		};
-	};
-	sysxMsg = this->fileSource.hex.at( this->fileSource.address.indexOf(address) );  
+	   {
+		  sysxWriter file;
+		  file.setFile(":default.syx");  // Read the default sysex file so whe don't start empty handed.
+		  if(file.readFile())
+		   {	
+		  	setFileSource(area, file.getFileSource());
+		   };
+	    };
+	   sysxMsg = this->fileSource.hex.at( this->fileSource.address.indexOf(address) );  
    };
-   return sysxMsg;
+  return sysxMsg;
 };
 
 QString SysxIO::getCheckSum(int dataSize)

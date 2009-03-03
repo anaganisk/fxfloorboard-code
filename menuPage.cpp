@@ -25,6 +25,7 @@
 #include "SysxIO.h"
 #include "globalVariables.h"
 #include "floorBoardDisplay.h"
+#include "sysxWriter.h"
 
 menuPage::menuPage(QWidget *parent, unsigned int id, QString imagePath, QPoint stompPos)
     : QWidget(parent)
@@ -144,12 +145,19 @@ void menuPage::systemReply(QString replyMsg)
 	SysxIO *sysxIO = SysxIO::Instance();
 	QObject::disconnect(sysxIO, SIGNAL(sysxReply(QString)), this, SLOT(systemReply(QString)));
 	sysxIO->setDeviceReady(true); // Free the device after finishing interaction.
-
+	
+	   sysxWriter file;
+		 file.setFile(":system.syx");  // Read the default sysex file so whe don't start empty handed.
+		 if(file.readFile())
+	   {	
+			sysxIO->setFileSource("System", file.getSystemSource());
+		 };
+  /*
 	if(sysxIO->noError())
-	{
+	{ 
 	if(replyMsg.size()/2 == 2236)
 		{
-		/* TRANSLATE SYSX MESSAGE FORMAT to 128 byte data blocks */
+		// TRANSLATE SYSX MESSAGE FORMAT to 128 byte data blocks 
 	QString header = "F0410000002F12";
 	QString footer ="00F7";
 	QString addressMsb = replyMsg.mid(14,4); // read  MSb word at bits 7 & 8 from sysxReply (which is "0000")
@@ -200,7 +208,7 @@ void menuPage::systemReply(QString replyMsg)
   .append(part6).append(part7).append(part8).append(part10).append(part11)
   .append(part12).append(part13).append(part14).append(part15).append(part16).append(part17).append(part18);
 	
-	QString reBuild = "";       /* Add correct checksum to patch strings */
+	QString reBuild = "";       // Add correct checksum to patch strings 
   QString sysxEOF = "";	
   QString hex = "";
   int msgLength = replyMsg.length()/2;
@@ -249,8 +257,8 @@ void menuPage::systemReply(QString replyMsg)
 			msgBox->setText(msgText);
 			msgBox->setStandardButtons(QMessageBox::Ok);
 			msgBox->exec();
-		};
-   };
+		}; 
+   };  */
 		emit setStatusMessage(tr("Ready"));   
 };
 

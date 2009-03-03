@@ -239,7 +239,13 @@ int MidiTable::getRange(QString root, QString hex1, QString hex2, QString hex3)
 	}
 	else
 	{ */
+		QString hex0 = root;
+		if (!root.contains("System")){
 		range = getMidiMap(root, hex1, hex2, hex3);	
+		} else {
+		hex0.remove("System");
+    range = getMidiMap("System", hex0, hex1, hex2, hex3);	
+    };
 //	};
 
 	int lastIndex;
@@ -297,7 +303,13 @@ int MidiTable::getRangeMinimum(QString root, QString hex1, QString hex2, QString
   }	
 	else
 	{ */
+	  QString hex0 = root;
+	  if (!root.contains("System")){
 		range = getMidiMap(root, hex1, hex2, hex3);	
+		} else {
+		hex0.remove("System");
+    range = getMidiMap("System", hex0, hex1, hex2, hex3);	
+    };
 	//};
 
 	int firstIndex;
@@ -334,7 +346,13 @@ bool MidiTable::isData(QString root, QString hex1, QString hex2, QString hex3)
 	}
 	else
 	{ */
+	  QString hex0 = root;
+	  if (!root.contains("System")){
 		range = getMidiMap(root, hex1, hex2, hex3);	
+		} else {
+		 hex0.remove("System");
+     range = getMidiMap("System", hex0, hex1, hex2, hex3);
+    };
 //	};
 
 	if(range.level.last().type.contains("DATA"))
@@ -349,7 +367,14 @@ bool MidiTable::isData(QString root, QString hex1, QString hex2, QString hex3)
 
 QString MidiTable::getValue(QString root, QString hex1, QString hex2, QString hex3, QString hex4)
 {
-	Midi range = getMidiMap(root, hex1, hex2, hex3);
+  Midi range;
+  QString hex0 = root;
+  if (!root.contains("System")){
+	range = getMidiMap(root, hex1, hex2, hex3);
+	} else {
+	hex0.remove("System");
+  range = getMidiMap("System",hex0, hex1, hex2, hex3);
+  };
 	QString valueStr; bool ok;
 	if(range.level.last().type.contains("DATA"))
 	{
@@ -570,22 +595,20 @@ QString MidiTable::dataRequest(QString hex1, QString hex2, QString hex3)
 QString MidiTable::dataChange(QString area, QString hex1, QString hex2, QString hex3, QString hex4)
 {
 	QString sysxMsg;
+	QString temp;
 	sysxMsg.append(getHeader(false));
-	/*Preferences *preferences = Preferences::Instance(); bool ok;// Load the preferences.
-	const int tempDataWrite = preferences->getPreferences("Midi", "Time", "set").toInt(&ok, 16);	*/
-		if (area == "Structure" || area.isEmpty() )
+		if (!area.contains("System") || area.isEmpty() )
     {
       sysxMsg.append(tempDataWrite);
       sysxMsg.append("00");
 	    sysxMsg.append(hex1);
-	    //sysxMsg.append(hex2);
 	    sysxMsg.append(hex3);
     } 
     else
     {
-      if (area.contains("System")){sysxMsg.append(area.remove("System"));}
-      else {sysxMsg.append(area); }; 
-	    sysxMsg.append(hex1);
+      temp = area;
+      sysxMsg.append(temp.remove("System"));
+      sysxMsg.append(hex1);
 	    sysxMsg.append(hex2);
 	    sysxMsg.append(hex3);
     };
@@ -605,24 +628,21 @@ QString MidiTable::dataChange(QString area, QString hex1, QString hex2, QString 
 QString MidiTable::dataChange(QString area, QString hex1, QString hex2, QString hex3, QString hex4, QString hex5)
 {
 	QString sysxMsg;
+	QString temp;
 	sysxMsg.append(getHeader(false));
 	
-	/*Preferences *preferences = Preferences::Instance(); bool ok;// Load the preferences.
-	const int tempDataWrite = preferences->getPreferences("Midi", "Time", "set").toInt(&ok, 16);	*/
-	if (area == "Structure")
+	if (!area.contains("System") || area.isEmpty() )
     {
       sysxMsg.append(tempDataWrite);
       sysxMsg.append("00");
 	    sysxMsg.append(hex1);
-	    //sysxMsg.append(hex2);
 	    sysxMsg.append(hex3);
     } 
     else
     {
-     if (area.contains("System")){sysxMsg.append(area.remove("System"));}
-      else {sysxMsg.append(area); }; 
-       //sysxMsg.append("00");
-	    sysxMsg.append(hex1);
+      temp = area;
+      sysxMsg.append(temp.remove("System"));
+      sysxMsg.append(hex1);
 	    sysxMsg.append(hex2);
 	    sysxMsg.append(hex3);
     };

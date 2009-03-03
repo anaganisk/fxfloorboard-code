@@ -82,9 +82,9 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
  	this->connectButton = new customButton(tr("Bulk Mode"), false, QPoint(405, 5), this, ":/images/greenledbutton.png");
 	this->writeButton = new customButton(tr("Write/Sync"), false, QPoint(494, 5), this, ":/images/ledbutton.png");
 	this->assign_Button = new customButton(tr("Assigns"), false, QPoint(584, 5), this, ":/images/pushbutton.png");
-	//this->system_midi_Button = new customButton(tr("System Midi"), false, QPoint(673, 5), this, ":/images/pushbutton.png");
-	//this->system_Button = new customButton(tr("System Settings"), false, QPoint(673, 24), this, ":/images/pushbutton.png");
-	//this->master_Button = new customButton(tr("Master"), false, QPoint(584, 24), this, ":/images/pushbutton.png");
+	this->system_midi_Button = new customButton(tr("System Midi"), false, QPoint(673, 5), this, ":/images/pushbutton.png");
+	this->system_Button = new customButton(tr("System Settings"), false, QPoint(673, 24), this, ":/images/pushbutton.png");
+	this->master_Button = new customButton(tr("Master"), false, QPoint(584, 24), this, ":/images/pushbutton.png");
 	
 	this->preamp1_Button = new customButton(tr("PreAmp"), false, QPoint(10, 457), this, ":/images/pushbutton.png");
 	this->pedal_Button = new customButton(tr("Wah"), false, QPoint(10, 475), this, ":/images/pushbutton.png");

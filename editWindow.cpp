@@ -147,8 +147,14 @@ void editWindow::addPage(QString hex1, QString hex2, QString hex3, QString hex4,
 	if(hex1 != "void" && hex2 != "void" && hex3 != "void")
 	{
 		MidiTable *midiTable = MidiTable::Instance();
-		Midi items = midiTable->getMidiMap(this->area, hex1, hex2, hex3);
-    
+		QString hex0 = area;
+		Midi items;
+		if(!area.contains("System")) {
+		items = midiTable->getMidiMap(this->area, hex1, hex2, hex3);
+    } else {
+    hex0.remove("System");
+    items = midiTable->getMidiMap("System", hex0, hex1, hex2, hex3);
+    };
     int itemsCount;
 		if(hex4 == "void")
 		{

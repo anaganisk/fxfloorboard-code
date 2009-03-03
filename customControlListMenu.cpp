@@ -40,7 +40,14 @@ customControlListMenu::customControlListMenu(QWidget *parent,
 	else {this->area = direction; };
 
 	MidiTable *midiTable = MidiTable::Instance();
-	Midi items = midiTable->getMidiMap(area, hex1, hex2, hex3);
+	Midi items;
+	QString hex0 = area;
+	  if (!area.contains("System")){
+	items = midiTable->getMidiMap(this->area, hex1, hex2, hex3);
+	} else {
+	hex0.remove("System");
+  items = midiTable->getMidiMap("System", hex0, hex1, hex2, hex3);
+  };
 	QString labeltxt = items.customdesc;
 	
 	this->label->setUpperCase(true);
@@ -122,7 +129,14 @@ void customControlListMenu::setComboBox()
 	this->hex3 = hex3;
 
 	MidiTable *midiTable = MidiTable::Instance();
-	Midi items = midiTable->getMidiMap(this->area, hex1, hex2, hex3);
+	Midi items;
+	QString hex0 = area;
+	  if (!area.contains("System")){
+	items = midiTable->getMidiMap(this->area, hex1, hex2, hex3);
+	} else {
+	hex0.remove("System");
+  items = midiTable->getMidiMap("System", hex0, hex1, hex2, hex3);
+  };
    
     QString longestItem = "";
 	int itemcount;
@@ -189,9 +203,9 @@ void customControlListMenu::valueChanged(int index)
 
 void customControlListMenu::dialogUpdateSignal()
 {
-	/*SysxIO *sysxIO = SysxIO::Instance();
+	SysxIO *sysxIO = SysxIO::Instance();
 	
 	int index = sysxIO->getSourceValue(this->area, this->hex1, this->hex2, this->hex3);
 	this->controlListComboBox->setCurrentIndex(index);
-	//this->valueChanged(index); */
+	//this->valueChanged(index); 
 };
