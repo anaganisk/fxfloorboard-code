@@ -440,7 +440,7 @@ void midiIO::sendSysxMsg(QString sysxOutMsg, int midiOutPort, int midiInPort)
 	   if(checksum.length()<2) {checksum.prepend("0");};
       	hex.append(checksum);
         hex.append("F7");   
-       //if (!hex.contains("F00000001B12")) // remove txt portions of the message from address 00 0D 00 00 onwards
+       if (!hex.contains("F00000001B12")) // remove txt portions of the message from address 00 16 00 00 onwards
          {reBuild.append(hex); };    
 		hex = "";
 		sysxEOF = "";

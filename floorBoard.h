@@ -26,6 +26,7 @@
 #include <QWidget>
 #include <QPixmap>
 #include "stompBox.h"
+#include "menuPage.h"
 #include "editWindow.h"
 
 class floorBoard : public QWidget
@@ -52,6 +53,7 @@ public slots:
 	void setCollapse();
 	void updateStompBoxes();
 	void setEditDialog(editWindow* editDialog);
+	void menuButtonSignal();
 
 signals:
 	void valueChanged(QString fxName, QString valueName, QString value);
@@ -64,6 +66,22 @@ signals:
 	void showDragBar(QPoint newpos);
 	void hideDragBar();
 	void updateSignal();
+	void ch_mode_buttonSignal(bool value);
+	void preamp1_buttonSignal(bool value);
+	void preamp2_buttonSignal(bool value);
+	void distortion_buttonSignal(bool value);
+	void compressor_buttonSignal(bool value);
+	void ns1_buttonSignal(bool value);
+	void ns2_buttonSignal(bool value);
+	void fx1_buttonSignal(bool value);
+	void fx2_buttonSignal(bool value);
+	void reverb_buttonSignal(bool value);
+	void delay_buttonSignal(bool value);
+	void chorus_buttonSignal(bool value);
+	void sendreturn_buttonSignal(bool value);
+	void eq_buttonSignal(bool value);
+	void pedal_buttonSignal(bool value);
+	void fv_buttonSignal(bool value);
 	
 protected:
 	void paintEvent(QPaintEvent *event);
@@ -76,6 +94,7 @@ private:
 	void setSize(QSize newSize);
 	void setFloorBoard();
 	void initStomps();
+	void initMenuPages();
 	void setStomps(QList<QString> stompOrder);
 	void setStompPos(QString name, int order);
 	void setStompPos(int index, int order);
@@ -88,6 +107,7 @@ private:
 
 	unsigned int offset;
 	unsigned int infoBarWidth;
+	unsigned int infoBarHeight;
 	unsigned int panelBarOffset;
 	unsigned int borderWidth;
 	unsigned int floorHeight;
@@ -113,9 +133,11 @@ private:
 	QList<int> fx;
 	bool colapseState;
 
+  QList<menuPage*> menuPages;
 	QList<stompBox*> stompBoxes;
 	QList<QString> stompNames;
 	editWindow* editDialog;
+	editWindow* oldDialog;
 };
 
 #endif // FLOORBOARD_H

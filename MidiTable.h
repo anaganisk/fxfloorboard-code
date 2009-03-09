@@ -1,8 +1,10 @@
- /****************************************************************************
+/****************************************************************************
 **
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
+** Copyright (C) 2007, 2008, 2009 Colin Willcocks.
+** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
+** All rights reserved.
 **
-** This file is part of "GT-3 Fx FloorBoard".
+** This file is part of "GT-10 Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -41,19 +43,20 @@ class MidiTable
 {
 
 public:
-	static MidiTable* Instance(); //Singleton patern design
+	static MidiTable* Instance(); //Singleton pattern design
 
 	void loadMidiMap();
 	Midi getMidiMap(QString root);
 	Midi getMidiMap(QString root, QString hex1);
-	//Midi getMidiMap(QString root, QString hex1, QString hex2);
+	Midi getMidiMap(QString root, QString hex1, QString hex2);
 	Midi getMidiMap(QString root, QString hex1, QString hex2, QString hex3);
 	Midi getMidiMap(QString root, QString hex1, QString hex2, QString hex3, QString hex4);
-	//Midi getMidiMap(QString root, QString hex1, QString hex2, QString hex3, QString hex4, QString hex5);
+	Midi getMidiMap(QString root, QString hex1, QString hex2, QString hex3, QString hex4, QString hex5);
 
 	//int getRange(QString root, QString hex1);
 	//int getRange(QString root, QString hex1, QString hex2);
 	int getRange(QString root, QString hex1, QString hex2, QString hex3);
+	int getRangeMinimum(QString root, QString hex1, QString hex2, QString hex3);
 	//int getRange(QString root, QString hex1, QString hex2, QString hex3, QString hex4);
 	//int getRange(QString root, QString hex1, QString hex2, QString hex3, QString hex4, QString hex5);
 
@@ -66,11 +69,12 @@ public:
 	QString getSize(QString hex1, QString hex2);
 	QString getSize();
 	QString dataRequest(QString hex1, QString hex2, QString hex3);
-	QString dataChange(QString hex1, QString hex2, QString hex3, QString hex4);
-	QString dataChange(QString hex1, QString hex2, QString hex3, QString hex4, QString hex5);
+	QString dataChange(QString area, QString hex1, QString hex2, QString hex3, QString hex4);
+	QString dataChange(QString area, QString hex1, QString hex2, QString hex3, QString hex4, QString hex5);
 	QString nameRequest(int bank, int patch);
 	QString getCheckSum(int dataSize);
 	QString patchRequest(int bank, int patch);
+
 	
 protected:
 	MidiTable();
@@ -86,3 +90,4 @@ private:
 };
 
 #endif // MIDITABLE_H
+

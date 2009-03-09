@@ -55,7 +55,6 @@ public slots:
 	void notConnected();
 
 	void patchChangeFailed();
-	void assignSignal(bool value);   //cw
 	void writeToBuffer();
 	void writeToMemory();
 
@@ -79,14 +78,24 @@ private:
 
 	customButton *connectButton;
 	customButton *writeButton;
-	customButton *manualButton;
-	customButton *assignButton;
-	customButton *masterButton;
-	customButton *systemButton;
+	customButton *assign_Button;
+	customButton *system_midi_Button;
+	customButton *system_Button;
+	customButton *fv_Button;
+	customButton *preamp1_Button;
+	customButton *distortion_Button;
+	customButton *compressor_Button;
+	customButton *ns1_Button;
+	customButton *fx1_Button;
+	customButton *fx2_Button;
+	customButton *reverb_Button;
+	customButton *delay_Button;
+	customButton *chorus_Button;
+	customButton *eq_Button;
+	customButton *pedal_Button;
 
 	bool connectButtonActive;
-  bool assignButtonActive;
-	bool patchLoadError;
+  bool patchLoadError;
 	QTimer* timer;
 	int blinkCount;
 	bool currentSyncStatus;

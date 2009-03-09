@@ -87,12 +87,25 @@ public slots:
 	void valueChanged(int index);
 	virtual void updateSignal() {};
 	void setDisplayToFxName();
+	void preamp1_ButtonSignal(bool value);
+	void distortion_ButtonSignal(bool value);
+	void ns1_ButtonSignal(bool value);
+	void fx1_ButtonSignal(bool value);
+	void fx2_ButtonSignal(bool value);
+	void reverb_ButtonSignal(bool value);
+	void delay_ButtonSignal(bool value);
+	void chorus_ButtonSignal(bool value);
+	void eq_ButtonSignal(bool value);
+	void pedal_ButtonSignal(bool value);
+	void fv_ButtonSignal(bool value);
 	
 signals:
 	void valueChanged(QString fxName, QString valueName, QString valueStr);
 	void currentIndexChanged(int index);
 	void dialogUpdateSignal();
 	void setEditDialog(editWindow* editDialog);
+	void notConnectedSignal();
+	void switchSignal();
 
 protected:
 	void paintEvent(QPaintEvent *event);
@@ -132,3 +145,4 @@ private:
 };
 
 #endif // STOMPBOX_H
+

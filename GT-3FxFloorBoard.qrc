@@ -2,12 +2,14 @@
     <qresource prefix="/" >
         <file>about</file>
         <file>default.syx</file>
+        <file>system.syx</file>
         <file>images/1.png</file>
         <file>images/2.png</file>
         <file>images/3.png</file>
         <file>images/4.png</file>
         <file>images/GT-3FxFloorBoard.png</file>
         <file>images/ampswitch.png</file>
+        <file>images/assigns_pushbutton.png</file>
         <file>images/button.png</file>
         <file>images/ce.png</file>
         <file>images/closebutton.png</file>
@@ -33,6 +35,7 @@
         <file>images/knobbgt.png</file>
         <file>images/led.png</file>
         <file>images/ledbutton.png</file>
+        <file>images/menu_pushbutton.png</file>
         <file>images/midi.png</file>
         <file>images/ns.png</file>
         <file>images/od.png</file>
@@ -49,6 +52,7 @@
         <file>images/statusbarsymbols.png</file>
         <file>images/stompbg.png</file>
         <file>images/stompknob.png</file>
+        <file>images/system_pushbutton.png</file>
         <file>images/switch.png</file>
         <file>images/uparrow.png</file>
         <file>images/wah.png</file>

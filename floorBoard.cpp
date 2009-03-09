@@ -37,7 +37,6 @@
 #include "stompbox_fx1.h"
 #include "stompbox_cs.h"
 #include "stompbox_wah.h"
-//#include "stompbox_lp.h"
 #include "stompbox_od.h"
 #include "stompbox_pre.h"
 #include "stompbox_eq.h"
@@ -47,7 +46,9 @@
 #include "stompbox_rv.h"
 #include "stompbox_fv.h"
 #include "stompbox_ns.h"
-//#include "stompbox_dgt.h"
+#include "menuPage_assign.h"
+#include "menuPage_midi.h"
+#include "menuPage_system.h"
 
 floorBoard::floorBoard(QWidget *parent, 
 						QString imagePathFloor, 
@@ -76,8 +77,7 @@ floorBoard::floorBoard(QWidget *parent,
 	bankTreeList *bankList = new bankTreeList(this);
 	
 	setFloorBoard();
-	initStomps();
-
+	
 	floorBoardDisplay *display = new floorBoardDisplay(this);
 	display->setPos(displayPos);
 
@@ -88,42 +88,32 @@ floorBoard::floorBoard(QWidget *parent,
 	bar->setDragBarSize(QSize::QSize(4, panelBar->height() ));
 	bar->setDragBarMinOffset(2, 8);
 	bar->setDragBarMaxOffset(offset - panelBarOffset + 5);
+	
+	initStomps();
+	initMenuPages();
 
 	this->editDialog = new editWindow(this);
 	this->editDialog->hide();
+	this->oldDialog = this->editDialog;
 	
 	/*floorBoardDisplay *display2 = new floorBoardDisplay(this);
 	display2->setPos(liberainPos);*/
 
-	QObject::connect(this, SIGNAL( resizeSignal(QRect) ),
-                bankList, SLOT( updateSize(QRect) ) );
-	QObject::connect(display, SIGNAL(connectedSignal()), 
-		bankList, SLOT(connectedSignal()));
-	QObject::connect(this, SIGNAL(valueChanged(QString, QString, QString)), 
-		display, SLOT(setValueDisplay(QString, QString, QString)));
-	QObject::connect(panelBar, SIGNAL(resizeSignal(int)), 
-		this, SLOT(setWidth(int)));
-	QObject::connect(panelBar, SIGNAL(collapseSignal()), 
-		this, SLOT(setCollapse()));
-	QObject::connect(this, SIGNAL(setCollapseState(bool)), 
-		panelBar, SIGNAL(collapseState(bool)));
-	QObject::connect(this, SIGNAL(setDisplayPos(QPoint)), 
-		display, SLOT(setPos(QPoint)));
-	QObject::connect(this, SIGNAL(setFloorPanelBarPos(QPoint)), 
-		panelBar, SLOT(setPos(QPoint)));
-	QObject::connect(this->parent(), SIGNAL(updateSignal()), 
-		this, SIGNAL(updateSignal()));
-	QObject::connect(this, SIGNAL(updateSignal()), 
-		this, SLOT(updateStompBoxes()));
-	QObject::connect(bankList, SIGNAL(patchSelectSignal(int, int)), 
-		display, SLOT(patchSelectSignal(int, int)));
-	QObject::connect(bankList, SIGNAL(patchLoadSignal(int, int)), 
-		display, SLOT(patchLoadSignal(int, int)));
+QObject::connect(this, SIGNAL( resizeSignal(QRect) ), bankList, SLOT( updateSize(QRect) ) );
+	QObject::connect(display, SIGNAL(connectedSignal()), bankList, SLOT(connectedSignal()));
+	QObject::connect(this, SIGNAL(valueChanged(QString, QString, QString)),	display, SLOT(setValueDisplay(QString, QString, QString)));
+	QObject::connect(panelBar, SIGNAL(resizeSignal(int)),	this, SLOT(setWidth(int)));
+	QObject::connect(panelBar, SIGNAL(collapseSignal()), this, SLOT(setCollapse()));
+	QObject::connect(this, SIGNAL(setCollapseState(bool)), panelBar, SIGNAL(collapseState(bool)));
+	QObject::connect(this, SIGNAL(setDisplayPos(QPoint)), display, SLOT(setPos(QPoint)));
+	QObject::connect(this, SIGNAL(setFloorPanelBarPos(QPoint)), panelBar, SLOT(setPos(QPoint)));
+	QObject::connect(this->parent(), SIGNAL(updateSignal()), this, SIGNAL(updateSignal()));
+	QObject::connect(this, SIGNAL(updateSignal()), this, SLOT(updateStompBoxes()));
+	QObject::connect(bankList, SIGNAL(patchSelectSignal(int, int)),	display, SLOT(patchSelectSignal(int, int)));
+	QObject::connect(bankList, SIGNAL(patchLoadSignal(int, int)),	display, SLOT(patchLoadSignal(int, int)));
 
-	QObject::connect(panelBar, SIGNAL(showDragBar(QPoint)), 
-		this, SIGNAL(showDragBar(QPoint)));
-	QObject::connect(panelBar, SIGNAL(hideDragBar()), 
-		this, SIGNAL(hideDragBar()));
+	QObject::connect(panelBar, SIGNAL(showDragBar(QPoint)), this, SIGNAL(showDragBar(QPoint)));
+	QObject::connect(panelBar, SIGNAL(hideDragBar()), this, SIGNAL(hideDragBar()));
 
 	bool ok;
 	Preferences *preferences = Preferences::Instance();
@@ -195,6 +185,7 @@ void floorBoard::setFloorBoard() {
 	this->offset = imageFloor.width() - imageInfoBar.width();
 	this->infoBarWidth = imageInfoBar.width();
 	this->stompSize = imagestompBG.size();
+	this->infoBarHeight = imageInfoBar.height();
 
 	initSize(imageFloor.size());
 	this->maxSize = floorSize;
@@ -208,7 +199,9 @@ void floorBoard::setFloorBoard() {
 	// Draw LiberianBar
 	QRectF sourceLiberianBar(0.0, 0.0, imageInfoBar.width(), imageInfoBar.height());
 	QRectF targetLiberianBar(offset, (imageFloor.height() - imageInfoBar.height()) - 2, imageInfoBar.width(), imageInfoBar.height());
-	painter.drawPixmap(targetLiberianBar, imageInfoBar, sourceLiberianBar);
+	QRectF targetLiberianBar2(offset, (imageFloor.height() - (imageInfoBar.height()*2)+2), imageInfoBar.width(), imageInfoBar.height());
+  painter.drawPixmap(targetLiberianBar, imageInfoBar, sourceLiberianBar);
+  painter.drawPixmap(targetLiberianBar2, imageInfoBar, sourceLiberianBar);
 
 	// Draw stomp boxes background
 	QRectF source(0.0, 0.0, imagestompBG.width(), imagestompBG.height());
@@ -344,7 +337,7 @@ void floorBoard::dropEvent(QDropEvent *event)
 
 				hexData.append(fxHexValue);
 			};
-			sysxIO->setFileSource("0B", "00", hexData);
+			sysxIO->setFileSource("Structure", "0B", "00", "00", hexData);
 			};
 		}
 		else
@@ -413,7 +406,7 @@ void floorBoard::initSize(QSize floorSize)
 			y = y + stompSize.height() + spacingV;
 			x = x - (( stompSize.width() + spacingH ) * 6);
 		};
-		fxPos.append(QPoint::QPoint(offset + x, y));
+		fxPos.append(QPoint::QPoint(offset + x, y - (this->infoBarHeight/2)));
 	};
 
 	this->fxPos = fxPos;
@@ -559,13 +552,6 @@ void floorBoard::initStomps()
 	this->stompBoxes.replace(wah->getId(), wah);
 	this->stompNames.replace(wah->getId(), "WAH");
 
-	/* LOOP	
-	stompBox *lp = new stompbox_lp(this);
-	lp->setId( fxID.at(fxNAMES.indexOf("LP")) );
-	lp->setPos(this->getStompPos(lp->getId()));
-	this->stompBoxes.replace(lp->getId(), lp);
-	this->stompNames.replace(lp->getId(), "LP"); */
-
 	/* OD/DS */
 	stompBox *od = new stompbox_od(this);
 	od->setId( fxID.at(fxNAMES.indexOf("OD")) );
@@ -622,13 +608,6 @@ void floorBoard::initStomps()
 	this->stompBoxes.replace(ns->getId(), ns);
 	this->stompNames.replace(ns->getId(), "NS");
 
-	/* D-OUT 
-	stompBox *dgt = new stompbox_dgt(this);
-	dgt->setId( fxID.at(fxNAMES.indexOf("DGT")) );
-	dgt->setPos(this->getStompPos(dgt->getId()));
-	this->stompBoxes.replace(dgt->getId(), dgt);
-	this->stompNames.replace(dgt->getId(), "DGT");*/
-
 	/* VOLUME */
 	stompBox *fv = new stompbox_fv(this);
 	fv->setId( fxID.at(fxNAMES.indexOf("FV")) );
@@ -662,7 +641,7 @@ void floorBoard::setStompPos(int index, int order)
 void floorBoard::updateStompBoxes()
 {
 	SysxIO *sysxIO = SysxIO::Instance();
-	QList<QString> fxChain = sysxIO->getFileSource("0B", "00");
+	QList<QString> fxChain = sysxIO->getFileSource("Structure", "0B", "00");
 
 	MidiTable *midiTable = MidiTable::Instance();
 	QList<QString> stompOrder;
@@ -675,6 +654,7 @@ void floorBoard::updateStompBoxes()
 
 void floorBoard::setEditDialog(editWindow* editDialog)
 {
+  this->oldDialog = this->editDialog; 
 	this->editDialog = editDialog;
 	this->editDialog->setParent(this);
 	this->centerEditDialog();
@@ -685,6 +665,31 @@ void floorBoard::setEditDialog(editWindow* editDialog)
 void floorBoard::centerEditDialog()
 {
 	int x = this->displayPos.x() + (((this->floorSize.width() - this->displayPos.x()) - this->editDialog->width()) / 2);
-	int y = this->pos.y() + ((this->floorSize.height() - this->editDialog->height()) / 2);
+	int y = this->pos.y() + ((this->floorSize.height() - this->infoBarHeight - this->editDialog->height()) / 2);
 	this->editDialog->move(x, y);
 };
+
+void floorBoard::initMenuPages()
+{
+	QVector<menuPage *> initMenuPages(3);
+	this->menuPages = initMenuPages.toList();
+	
+	/* EDITPAGES */
+	menuPage *assign = new menuPage_assign(this);
+	assign->setId(20);
+	assign->setPos(QPoint(943, 5));
+	menuPage *midi = new menuPage_midi(this);
+	midi->setId(19);
+	midi->setPos(QPoint(1034, 5));
+	menuPage *system = new menuPage_system(this);
+	system->setId(18);
+	system->setPos(QPoint(1034, 24));
+	
+	};
+
+void floorBoard::menuButtonSignal()
+{
+   this->oldDialog->hide();
+   this->editDialog->show();
+};
+

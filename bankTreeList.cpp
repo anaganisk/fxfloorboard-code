@@ -22,6 +22,9 @@
 
 #include <QLayout>
 #include <QMessageBox>
+#include <QFile>
+#include <QDataStream>
+#include <QByteArray>
 #include "bankTreeList.h"
 #include "Preferences.h"
 #include "MidiTable.h"
@@ -317,7 +320,7 @@ QTreeWidget* bankTreeList::newTreeList()
 		{bankRange->setText(0, QString::QString("Bank u1-u5"));}
 		else
 		{bankRange->setText(0, QString::QString("Bank u6-u0"));};
-		} else {bankRange->setText(0, QString::QString("Bank ").append(QString::number(a, 10)).append(" - ").append(QString::number(a+4, 10)) );
+		} else {bankRange->setText(0, QString::QString("Bank U").append(QString::number(a, 10)).append(" - U").append(QString::number(a+4, 10)) );
     };
 		bankRange->setWhatsThis(0, "what the ?");
 		//bankRange->setIcon(QIcon(":/images/gt6b_icon_1.png"));
@@ -426,7 +429,7 @@ void bankTreeList::setItemDoubleClicked(QTreeWidgetItem *item, int column)
 		// Make sure it's a patch (Patches are the last in line so no children).
 	{
 		emit setStatusSymbol(2);
-		emit setStatusMessage(tr("Patch requst"));
+		emit setStatusMessage(tr("Patch request"));
 
 		sysxIO->setDeviceReady(false);
 		sysxIO->setRequestName(item->text(0));	// Set the name of the patch we are going to load, so we can check if we have loaded the correct patch at the end.
@@ -494,18 +497,37 @@ void bankTreeList::requestPatch(int bank, int patch)
  *********************************************************************/
 void bankTreeList::updatePatch(QString replyMsg)
 {
-	SysxIO *sysxIO = SysxIO::Instance();
+		SysxIO *sysxIO = SysxIO::Instance();
 
 	sysxIO->setDeviceReady(true); // Free the device after finishing interaction.
 	
 	QObject::disconnect(sysxIO, SIGNAL(sysxReply(QString)),
 		this, SLOT(updatePatch(QString)));		
-	
-	replyMsg = replyMsg.remove(" ").toUpper();
+
+		replyMsg = replyMsg.remove(" ").toUpper();
 	if(replyMsg.size()/2 == patchSize) // cjw
 	{
-		sysxIO->setFileSource(replyMsg);		// Set the source to the data received.
-		sysxIO->setFileName(tr("Patch from ") + deviceType);	// Set the file name to GT-6B patch for the display.
+	 QByteArray data;
+   QFile file(":default.syx");   // Read the default GT-3 sysx file so we don't start empty handed.
+    if (file.open(QIODevice::ReadOnly))
+	  {	data = file.readAll(); };
+	  QByteArray temp;                      
+    temp = data.mid(650, 228);           // copy patch description from default.syx  address 00 16 00 00   
+	
+	QString sysxBuffer; 
+	for(int i=0;i<temp.size();i++)
+	{
+		unsigned char byte = (char)temp[i];
+		unsigned int n = (int)byte;
+		QString hex = QString::number(n, 16).toUpper();     // convert QByteArray to QString
+		if (hex.length() < 2) hex.prepend("0");
+		sysxBuffer.append(hex);
+  };
+	replyMsg.append(sysxBuffer);
+	
+		QString area = "Structure";
+		sysxIO->setFileSource(area, replyMsg);		// Set the source to the data received.
+		sysxIO->setFileName(tr("Patch from ") + deviceType);	// Set the file name to GT-3 patch for the display.
 		sysxIO->setDevice(true);				// Patch received from the device so this is set to true.
 		sysxIO->setSyncStatus(true);			// We can't be more in sync than right now! :)
 
@@ -515,11 +537,12 @@ void bankTreeList::updatePatch(QString replyMsg)
 		emit updateSignal();
 		emit setStatusProgress(0);
 
+
 	}
 	else if(!replyMsg.isEmpty() && replyMsg.size()/2 != patchSize) // cjw
 	{
 		emit notConnectedSignal();				// No message returned so connection must be lost.
-		/* NO-REPLY WARNING */
+	
 		QMessageBox *msgBox = new QMessageBox();
 	msgBox->setWindowTitle(QObject::tr("Warning - Patch data received is incorrect!"));
 	msgBox->setIcon(QMessageBox::Warning);

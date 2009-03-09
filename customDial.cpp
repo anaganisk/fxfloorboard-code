@@ -1,8 +1,10 @@
 /****************************************************************************
 **
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
+** Copyright (C) 2007, 2008, 2009 Colin Willcocks.
+** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
+** All rights reserved.
 **
-** This file is part of "GT-8 Fx FloorBoard".
+** This file is part of "GT-10 Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -101,7 +103,7 @@ void customDial::mouseMoveEvent(QMouseEvent *event)
 	//double range = imageRange - 0;
 	double distY = (double)event->pos().y() - (double)_startpos.y();
 	double numSteps = (int)((distY/1.5) + 0.5);
-  double relativeSteps = numSteps * (dataRange / 100); // To make the mousing distance the same for all.
+	double relativeSteps = numSteps * (dataRange / 100); // To make the mousing distance the same for all.
 	numSteps = relativeSteps;
 	
 	double _newValue = _lastValue - (numSteps * single);
