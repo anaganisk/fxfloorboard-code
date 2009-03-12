@@ -52,7 +52,7 @@ stompBox::stompBox(QWidget *parent, unsigned int id, QString imagePath, QPoint s
 
 	QObject::connect(this, SIGNAL( setEditDialog(editWindow*) ), this->parent(), SLOT( setEditDialog(editWindow*) ));
 	
-	  QObject::connect(this, SIGNAL( switchSignal() ), this->parent(), SLOT( updateSignal() ));
+         // QObject::connect(this, SIGNAL( switchSignal() ), this->parent(), SLOT( updateSignal() ));
  
   
   QObject::connect(this->parent(), SIGNAL(preamp1_buttonSignal(bool)), this, SLOT(preamp1_ButtonSignal(bool) )); 
@@ -88,7 +88,8 @@ stompBox::stompBox(QWidget *parent, unsigned int id, QString imagePath, QPoint s
   QObject::connect(this->parent(), SIGNAL(fv_buttonSignal(bool)), this, SLOT(fv_ButtonSignal(bool) )); 
   QObject::connect(this->parent(), SIGNAL(fv_buttonSignal(bool)), this->parent(), SLOT(menuButtonSignal()));
 
-
+  QObject::connect(this->parent(), SIGNAL(compressor_buttonSignal(bool)), this, SLOT(compressor_ButtonSignal(bool) )); 
+  QObject::connect(this->parent(), SIGNAL(compressor_buttonSignal(bool)), this->parent(), SLOT(menuButtonSignal()));
 
 };
 
@@ -126,7 +127,7 @@ void stompBox::mousePressEvent(QMouseEvent *event)
 
 void stompBox::mouseDoubleClickEvent(QMouseEvent *event)
 {
-	event;
+        //event;
 	this->editDialog->setWindow(this->fxName);
 	emit setEditDialog(this->editDialog);
 };
@@ -186,7 +187,7 @@ void stompBox::mouseMoveEvent(QMouseEvent *event)
 
 void stompBox::preamp1_ButtonSignal(bool value)	
 {  
-    if (this->id == 3)
+    if (this->id == 4)
     { 
       emitValueChanged(this->hex1, this->hex2, "00", "void");
 	    this->editDialog->setWindow(this->fxName);
@@ -196,7 +197,7 @@ void stompBox::preamp1_ButtonSignal(bool value)
 
 void stompBox::distortion_ButtonSignal(bool value)	
 {  
-    if (this->id == 2)
+    if (this->id == 3)
     { 
       emitValueChanged(this->hex1, this->hex2, "00", "void");
 	    this->editDialog->setWindow(this->fxName);
@@ -206,7 +207,7 @@ void stompBox::distortion_ButtonSignal(bool value)
 
 void stompBox::ns1_ButtonSignal(bool value)	
 {  
-    if (this->id == 9)
+    if (this->id == 10)
     { 
       emitValueChanged(this->hex1, this->hex2, "00", "void");
 	    this->editDialog->setWindow(this->fxName);
@@ -226,7 +227,7 @@ void stompBox::fx1_ButtonSignal(bool value)
 
 void stompBox::fx2_ButtonSignal(bool value)	
 {  
-    if (this->id == 5)
+    if (this->id == 6)
     { 
       emitValueChanged(this->hex1, this->hex2, "00", "void");
 	    this->editDialog->setWindow(this->fxName);
@@ -236,7 +237,7 @@ void stompBox::fx2_ButtonSignal(bool value)
 
 void stompBox::reverb_ButtonSignal(bool value)	
 {  
-    if (this->id == 8)
+    if (this->id == 9)
     { 
       emitValueChanged(this->hex1, this->hex2, "00", "void");
 	    this->editDialog->setWindow(this->fxName);
@@ -246,7 +247,7 @@ void stompBox::reverb_ButtonSignal(bool value)
 
 void stompBox::delay_ButtonSignal(bool value)	
 {  
-    if (this->id == 6)
+    if (this->id == 7)
     { 
       emitValueChanged(this->hex1, this->hex2, "00", "void");
 	    this->editDialog->setWindow(this->fxName);
@@ -256,7 +257,7 @@ void stompBox::delay_ButtonSignal(bool value)
 
 void stompBox::chorus_ButtonSignal(bool value)	
 {  
-    if (this->id == 7)
+    if (this->id == 8)
     { 
       emitValueChanged(this->hex1, this->hex2, "00", "void");
 	    this->editDialog->setWindow(this->fxName);
@@ -266,7 +267,7 @@ void stompBox::chorus_ButtonSignal(bool value)
 
 void stompBox::eq_ButtonSignal(bool value)	
 {  
-    if (this->id == 4)
+    if (this->id == 5)
     { 
       emitValueChanged(this->hex1, this->hex2, "00", "void");
 	    this->editDialog->setWindow(this->fxName);
@@ -276,7 +277,7 @@ void stompBox::eq_ButtonSignal(bool value)
 
 void stompBox::pedal_ButtonSignal(bool value)	
 {  
-    if (this->id == 1)
+    if (this->id == 2)
     { 
       emitValueChanged(this->hex1, this->hex2, "00", "void");
 	    this->editDialog->setWindow(this->fxName);
@@ -286,7 +287,17 @@ void stompBox::pedal_ButtonSignal(bool value)
 
 void stompBox::fv_ButtonSignal(bool value)	
 {  
-    if (this->id == 10)
+    if (this->id == 11)
+    { 
+      emitValueChanged(this->hex1, this->hex2, "00", "void");
+	    this->editDialog->setWindow(this->fxName);
+      emit setEditDialog(this->editDialog);
+    };
+};
+
+void stompBox::compressor_ButtonSignal(bool value)	
+{  
+    if (this->id == 1)
     { 
       emitValueChanged(this->hex1, this->hex2, "00", "void");
 	    this->editDialog->setWindow(this->fxName);

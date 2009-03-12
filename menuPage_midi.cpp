@@ -37,7 +37,7 @@ void menuPage_midi::updateSignal()
 };
 
 void menuPage_midi::setEditPages()
-{
+{ /*
   editDetails()->page()->addLabel(0, 0, 1, 1, "***CAUTION*** Settings changes are automatically written to GT-6");
   editDetails()->page()->newGroupBox("Custom Preamp 1");
   editDetails()->page()->addComboBox(0, 0, 1, 1, "06", "00", "00", "System02"); // preamp type
@@ -123,7 +123,7 @@ void menuPage_midi::setEditPages()
   editDetails()->page()->addGroupBox(3, 0, 1, 2);
   
   editDetails()->addPage("19", "00", "02", "02");
-  
+  */
 	editDetails()->addPage();
 	
 

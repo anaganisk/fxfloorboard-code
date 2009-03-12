@@ -54,6 +54,6 @@ void customComboBox::showPopup()
  	};
 
  	this->view()->setMinimumWidth(popupWidth);
-	QComboBox::AdjustToContents;
+        //QComboBox::AdjustToContents;
  	QComboBox::showPopup();
 };

@@ -2,11 +2,12 @@
 <!-- Preferences of the GT-3 Fx FloorBoard application. -->
 <Preferences>
 	<General>
-		<Application version="beta 20090224"/>
+		<Application version="20090311"/>
 		<Donate url="http://gtx.tinfoilmusic.net/donate.html"/>
 		<Files dir=""/>
 		<Help url="GT-3EditorManual_E.htm"/>
 		<Language code="en"/>
+		<Upload url="http://www.bossgtcentral.com/dm"/>
 		<Webpage url="http://gtx.tinfoilmusic.net/"/>
 	</General>
 	<Midi>

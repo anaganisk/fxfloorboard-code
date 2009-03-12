@@ -197,10 +197,10 @@ void editPage::addLabel(int row, int column, int rowSpan, int columnSpan, QStrin
 
 void editPage::valueChanged(bool value, QString hex1, QString hex2, QString hex3)
 {
-	value;
-	hex1;
-	hex2;
-	hex3;
+        //value;
+        //hex1;
+        //hex2;
+        //hex3;
 }; 
 
 void editPage::newGroupBox(QString title, Qt::Alignment alignment)
@@ -353,6 +353,6 @@ void editPage::addStackField()
 
 void editPage::updateDialog(int index)
 {
-	index;
+        //index;
 	emit dialogUpdateSignal();
 };

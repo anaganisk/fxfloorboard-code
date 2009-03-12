@@ -79,7 +79,7 @@ bool sysxWriter::readFile()
 		else if (data.size() == 650 && isHeader && !isSystem)
     {
     QByteArray standard_data = data;
-	  QFile file(":default.syx");   // Read the default GT-6 sysx file so we don't start empty handed.
+	  QFile file(":default.syx");   // Read the default GT-3 sysx file so we don't start empty handed.
     if (file.open(QIODevice::ReadOnly))
 	  {	data = file.readAll(); };
 	  
@@ -146,7 +146,7 @@ bool sysxWriter::readFile()
 		this->fileSource = sysxIO->getFileSource();
 		return true;
 		}	
-		else if (data.size() == 4206 && isSystem)   // SYSytem File
+		else if (data.size() == 5258 && isSystem)   // SYSytem File
     {  
     SysxIO *sysxIO = SysxIO::Instance();
     QString area = "System";

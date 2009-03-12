@@ -83,11 +83,12 @@ signals:
 	void pedal_buttonSignal(bool value);
 	void fv_buttonSignal(bool value);
 	
+	
 protected:
 	void paintEvent(QPaintEvent *event);
 	void dragEnterEvent(QDragEnterEvent *event);
-    void dragMoveEvent(QDragMoveEvent *event);
-    void dropEvent(QDropEvent *event);
+  void dragMoveEvent(QDragMoveEvent *event);
+  void dropEvent(QDropEvent *event);
 
 private:
 	void initSize(QSize floorSize);

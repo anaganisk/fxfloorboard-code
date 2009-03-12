@@ -39,20 +39,24 @@ void stompbox_fv::updateSignal()
 
 void stompbox_fv::setEditPages()
 {
-    editDetails()->page()->newGroupBox("Foot Volume");
+  editDetails()->page()->newGroupBox("Foot Volume");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "0A", "00", "06");         //foot volume level
-	editDetails()->page()->addGroupBox(0, 0, 1, 4);
-	editDetails()->page()->newGroupBox("Expression Pedal");
-	editDetails()->page()->addComboBox(0, 0, 1, 1, "0D", "00", "00");    //on/off
-	//editDetails()->page()->addKnob(0, 0, 1, 1, "0D", "00", "03");         //foot volume minimum
-	//editDetails()->page()->addKnob(0, 1, 1, 1, "0D", "00", "05");         //foot volume maximum
-	editDetails()->page()->addGroupBox(1, 0, 1, 4);
-	editDetails()->page()->newGroupBox("Expression Pedal Switch");
+	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	
-	//editDetails()->page()->addKnob(0, 1, 1, 1, "0D", "00", "02", "normal", "right", 135);//target
-	//editDetails()->page()->addKnob(0, 2, 1, 1, "0D", "00", "04", "turbo");       // target min
-	//editDetails()->page()->addKnob(0, 3, 1, 1, "0D", "00", "06", "turbo");    //  target max
-	//editDetails()->page()->addComboBox(0, 4, 1, 1, "0D", "00", "08");         // source mode
+	editDetails()->page()->newGroupBox("Master");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "0A", "00", "00");         //Master level
+	//editDetails()->page()->addKnob(0, 1, 1, 1, "0A", "00", "01");         //Master bpm
+	editDetails()->page()->addGroupBox(0, 2, 1, 2);
+	
+	editDetails()->page()->newGroupBox("Expression Pedal");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "0D", "00", "00");    //on/off
+	editDetails()->page()->addTarget(0, 1, 1, 1, "0D", "00", "01", "target", "03", "05");//target
+	editDetails()->page()->addGroupBox(1, 0, 1, 4);
+	
+	editDetails()->page()->newGroupBox("CTL Pedal");	
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "0E", "00", "00");    //on/off
+	editDetails()->page()->addTarget(0, 1, 1, 1, "0E", "00", "01", "target", "03", "05");//target
+	editDetails()->page()->addComboBox(0, 4, 1, 1, "0E", "00", "07");         // source mode
 	editDetails()->page()->addGroupBox(2, 0, 1, 4);
 	editDetails()->addPage();  // PAGE ABOVE   
 	

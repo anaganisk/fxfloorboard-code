@@ -29,7 +29,7 @@
 #include "MidiTable.h"
 #include <QSysInfo>
 
-int midiIO::bytesTotal = 0;
+int midiIO::bytesTotal = 1;
 int loopCount;
 bool midiIO::dataReceive = false;
 bool midiIO::multiple = false;
@@ -275,7 +275,11 @@ void midiIO::receiveMsg(QString sysxInMsg, int midiInPort)
 	if(multiple){
   loopCount = maxWait*40;
   count = patchSize;
-  } else {
+  } else if(system) {
+  loopCount = maxWait*80;
+  count = 5258;
+  }
+  else {
   loopCount = maxWait*6;
   count = idRequestString.size()/2; };
 			int bytesReceived = 0;	
@@ -288,11 +292,12 @@ void midiIO::receiveMsg(QString sysxInMsg, int midiInPort)
 			midiin->openPort(midiInPort);             // open the midi in port			
 			midiin->setCallback(&midicallback);    // set the callback 
 			sendSyxMsg(sysxOutMsg, midiOutPort);      // send the data request message out	
-			bytesReceived = sysxBuffer.size() / 2;
+			
 			int x = 0;	
 			while (x<loopCount && this->sysxBuffer.size()/2 < count)  // wait until exact bytes received or timeout
       {
       SLEEP(1);
+      bytesReceived = ((sysxBuffer.size() ) / count) * 80;
 			emitProgress(bytesReceived);	
       x++;
       };                 // time it takes to get all sysx messages in.		
@@ -448,10 +453,13 @@ void midiIO::sendSysxMsg(QString sysxOutMsg, int midiOutPort, int midiInPort)
     }; 
   };    
 
-  if (sysxOutMsg == idRequestString){reBuild = sysxOutMsg;  multiple = false;} else {multiple = true;};  // identity request not require checksum
+  if (sysxOutMsg == idRequestString){reBuild = sysxOutMsg;  multiple = false;}/* else {multiple = true; }; */ // identity request not require checksum
 	this->sysxOutMsg = reBuild.simplified().toUpper().remove("0X").remove(" ");
-	//if((sysxOutMsg.size() == (sysxDataOffset*2 + 12)) && (sysxOutMsg.mid(sysxOutMsg.size()-12, 8) == patchRequestSize)
-  // && (sysxOutMsg.mid((sysxAddressOffset*2-2), 2) == "11") && (sysxOutMsg.mid((sysxAddressOffset*2), 2) != "00")) 
+	if((sysxOutMsg.size() == (sysxDataOffset*2 + 12)) && (sysxOutMsg.mid(sysxOutMsg.size()-12, 8) == patchRequestSize)
+   && (sysxOutMsg.mid((sysxAddressOffset*2-2), 2) == "11") && (sysxOutMsg.mid((sysxAddressOffset*2), 2) != "00")) 
+   {multiple = true;};
+  system = false;
+  if (sysxOutMsg == systemRequest) {system = true; multiple = false; };
   
   this->midiOutPort = midiOutPort;
 	this->midiInPort = midiInPort;
@@ -461,7 +469,7 @@ void midiIO::sendSysxMsg(QString sysxOutMsg, int midiOutPort, int midiInPort)
   if(midiOut!="") {start();} else {
   emit setStatusSymbol(0);
   emit setStatusMessage(tr("no midi device set"));
-  emit replyMsg("");};
+  emit replyMsg("");}; 
 };
 
 /*********************** sendMidi() **********************************
@@ -492,7 +500,7 @@ void midiIO::emitProgress(int bytesReceived)
 		int percentage;
 		percentage = (100 / bytesTotal) * bytesReceived; //percentage = ( bytesTotal /bytesReceived) * 15;
 		SysxIO *sysxIO = SysxIO::Instance();
-		sysxIO->emitStatusProgress(percentage);
+		sysxIO->emitStatusProgress(bytesReceived); //percentage
 	};
 };
 

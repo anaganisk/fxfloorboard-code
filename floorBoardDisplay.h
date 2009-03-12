@@ -67,7 +67,7 @@ signals:
 
 	void setStatusSymbol(int value);
 	void setStatusProgress(int value);
-    void setStatusMessage(QString message);
+  void setStatusMessage(QString message);
 
 private:
 	QPoint pos;
@@ -79,7 +79,6 @@ private:
 	customButton *connectButton;
 	customButton *writeButton;
 	customButton *assign_Button;
-	customButton *system_midi_Button;
 	customButton *system_Button;
 	customButton *fv_Button;
 	customButton *preamp1_Button;

@@ -81,9 +81,9 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
 
  	this->connectButton = new customButton(tr("Bulk Mode"), false, QPoint(405, 5), this, ":/images/greenledbutton.png");
 	this->writeButton = new customButton(tr("Write/Sync"), false, QPoint(494, 5), this, ":/images/ledbutton.png");
-	this->assign_Button = new customButton(tr("Assigns"), false, QPoint(584, 5), this, ":/images/pushbutton.png");
-	this->system_midi_Button = new customButton(tr("Custom Settings"), false, QPoint(673, 5), this, ":/images/pushbutton.png");
-	this->system_Button = new customButton(tr("System Settings"), false, QPoint(673, 24), this, ":/images/pushbutton.png");
+	this->assign_Button = new customButton(tr("Assigns"), false, QPoint(584, 5), this, ":/images/pushbutton.png");	
+	this->system_Button = new customButton(tr("System Settings"), false, QPoint(673, 5), this, ":/images/pushbutton.png");
+	this->compressor_Button = new customButton(tr("Compressor"), false, QPoint(673, 24), this, ":/images/pushbutton.png");
 	this->fv_Button = new customButton(tr("Foot Volume"), false, QPoint(584, 24), this, ":/images/pushbutton.png");
 	
 	this->preamp1_Button = new customButton(tr("PreAmp"), false, QPoint(10, 457), this, ":/images/pushbutton.png");
@@ -92,8 +92,8 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
 	this->chorus_Button = new customButton(tr("Chorus"), false, QPoint(100, 475), this, ":/images/pushbutton.png");
 	this->distortion_Button = new customButton(tr("Distortion"), false, QPoint(190,457), this, ":/images/pushbutton.png");
 	this->ns1_Button = new customButton(tr("NoiseSupp"), false, QPoint(190, 475), this, ":/images/pushbutton.png");
-	this->fx1_Button = new customButton(tr("FX 1"), false, QPoint(280, 457), this, ":/images/pushbutton.png");
-	this->fx2_Button = new customButton(tr("FX 2"), false, QPoint(280, 475), this, ":/images/pushbutton.png");
+	this->fx1_Button = new customButton(tr("SFX"), false, QPoint(280, 457), this, ":/images/pushbutton.png");
+	this->fx2_Button = new customButton(tr("MOD"), false, QPoint(280, 475), this, ":/images/pushbutton.png");
 	this->reverb_Button = new customButton(tr("Reverb"), false, QPoint(370, 457), this, ":/images/pushbutton.png");
 	this->delay_Button = new customButton(tr("Delay"), false, QPoint(370, 475), this, ":/images/pushbutton.png");
 	
@@ -110,6 +110,7 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
 	QObject::connect(this->connectButton, SIGNAL(valueChanged(bool)), this, SLOT(connectSignal(bool)));
 	QObject::connect(this->writeButton, SIGNAL(valueChanged(bool)), this, SLOT(writeSignal(bool)));
 	QObject::connect(this->fv_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(fv_buttonSignal(bool)));
+	QObject::connect(this->compressor_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(compressor_buttonSignal(bool)));
 	QObject::connect(this->preamp1_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(preamp1_buttonSignal(bool)));	
 	QObject::connect(this->distortion_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(distortion_buttonSignal(bool)));
 	QObject::connect(this->ns1_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(ns1_buttonSignal(bool)));
@@ -391,7 +392,7 @@ void floorBoardDisplay::connectionResult(QString sysxMsg)
 			notConnected();
 
 			QMessageBox *msgBox = new QMessageBox();
-			msgBox->setWindowTitle(deviceType + tr(" Fx FloorBoard connection Error !!"));
+			msgBox->setWindowTitle(deviceType + tr("BULK MODE connection Required !!"));
 			msgBox->setIcon(QMessageBox::Warning);
 			msgBox->setTextFormat(Qt::RichText);
 			QString msgText;
@@ -415,18 +416,18 @@ void floorBoardDisplay::connectionResult(QString sysxMsg)
 			notConnected();
 
 			QMessageBox *msgBox = new QMessageBox();
-			msgBox->setWindowTitle(deviceType + tr(" Fx FloorBoard connection Error !!"));
+			msgBox->setWindowTitle(deviceType + tr(" BULK MODE connection Required !!"));
 			msgBox->setIcon(QMessageBox::Warning);
 			msgBox->setTextFormat(Qt::RichText);
 			QString msgText;
 			msgText.append("<font size='+1'><b>");
-			msgText.append(tr("The Boss ") + deviceType + (" Effects Processor was not found."));
+			msgText.append(tr("The Boss ") + deviceType + (" Effects Processor BULK MODE connection was not found."));
 			msgText.append("<b></font><br>");
 			msgText.append(tr("Ensure the unit is selected to Bulk Load for data retrieval-"));
 			msgText.append("<b></font><br>");
 			msgText.append(tr("by pressing UTILITY 4 times and right PARAMETER 10 times."));
 			msgText.append("<b></font><br>");
-			msgText.append(tr("press EXIT when leaving Bulk Mode."));
+			msgText.append(tr("Press EXIT on the GT-3 when leaving Bulk Mode."));
 			msgText.append("<b></font>");
 			msgBox->setText(msgText);
 			msgBox->setStandardButtons(QMessageBox::Ok);
@@ -580,9 +581,9 @@ void floorBoardDisplay::writeToBuffer()
 		emit setStatusMessage(tr("Sync to ")+deviceType);
 		
  bool ok;
-	int bank = sysxIO->getBank();
-	int patch = sysxIO->getPatch();
-	int patchOffset = (((bank - 1 ) * patchPerBank) + patch) - 1;
+        //int bank = sysxIO->getBank();
+        //int patch = sysxIO->getPatch();
+        //int patchOffset = (((bank - 1 ) * patchPerBank) + patch) - 1;
 	int k = QString(tempDataWrite).toInt(&ok, 16);                  // data write address at temp buffer.
 	QString addr1 = QString::number(k, 16).toUpper();
 	QString addr2 = QString::number(0, 16).toUpper();
@@ -652,7 +653,7 @@ void floorBoardDisplay::writeToMemory()
 	int addrMaxSize = QString("80").toInt(&ok, 16);
 	int n = (int)(patchOffset / addrMaxSize);
 	
-	QString addr1 = QString::number(6 + n, 16).toUpper();
+	QString addr1 = QString::number(7 + n, 16).toUpper();
 	QString addr2 = QString::number(patchOffset - (addrMaxSize * n), 16).toUpper();
 	
 	for(int i=0;i<patchData.size();++i)
@@ -820,8 +821,8 @@ void floorBoardDisplay::notConnected()
 
 void floorBoardDisplay::valueChanged(bool value, QString hex1, QString hex2, QString hex3)
 {
-	value;
-	hex1;
-	hex2;
-	hex3;
+//	value;
+        //hex1;
+        //hex2;
+        //hex3;
 };
