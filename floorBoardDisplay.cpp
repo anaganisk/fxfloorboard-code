@@ -398,7 +398,7 @@ void floorBoardDisplay::connectionResult(QString sysxMsg)
 
 	sysxIO->setDeviceReady(true); // Free the device after finishing interaction.
 
-		 /*DeBugGING OUTPUT 
+		 //DeBugGING OUTPUT 
 	Preferences *preferences = Preferences::Instance(); // Load the preferences.
 	if(preferences->getPreferences("Midi", "DBug", "bool")=="true")
 	{
@@ -415,7 +415,7 @@ void floorBoardDisplay::connectionResult(QString sysxMsg)
 			};
 	}
 
-	else*/ if(sysxIO->noError())
+	else if(sysxIO->noError())
 	{
 		if(sysxMsg.contains(idReplyPatern) && connectButtonActive == true)
 		{
