@@ -60,11 +60,11 @@ public slots:
 	void patchChangeFailed();
 	void writeToBuffer();
 	void writeToMemory();
-
 	//void valueChanged(bool value, QString hex1, QString hex2, QString hex3); // Not used.
 
 signals:
 	void updateSignal();
+	void dialogUpdateSignal();
 	void connectedSignal();
 	void notConnectedSignal();
  	void setStatusSymbol(int value);
@@ -73,8 +73,7 @@ signals:
 
 private:
 	QPoint pos;
-  //customRenameWidget *patchDialog;
-	customDisplay *valueDisplay;
+  customDisplay *valueDisplay;
 	customDisplay *patchDisplay;
 	customDisplay *patchNumDisplay;
 

@@ -45,26 +45,20 @@ public:
 
   //! The destructor.
   virtual ~RtError(void) {};
-
+   
   //! Prints thrown error message to stderr.
   virtual void printMessage(void) { 
+  
 	  //std::cerr << '\n' << message_ << "\n\n"; 
 	  SysxIO *sysxIO = SysxIO::Instance();
-	  sysxIO->errorReturn();
-	  QString errorType;
-	  errorType.append(type_);
+	  QString errorType = "Midi Error";
 	  QString errorMsg;
 	  errorMsg.append(QString::fromStdString(message_));
-  /*QMessageBox *msgBox = new QMessageBox();
-		msgBox->setWindowTitle("GT10BFxFloorBoard");
-		msgBox->setIcon(QMessageBox::Warning);
-		msgBox->setTextFormat(Qt::RichText);
-		msgBox->setText(errorMsg);
-		msgBox->setStandardButtons(QMessageBox::Ok);
-		msgBox->exec();
-*/
+	  sysxIO->errorReturn(errorType, errorMsg);
+	 
     }
-
+ 
+  
   //! Returns the thrown error message type.
   virtual const Type& getType(void) { return type_; }
 
@@ -74,7 +68,7 @@ public:
   //! Returns the thrown error message as a C string.
   virtual const char *getMessageString(void) { return message_.c_str(); }
   
-
+  
 };
 
 #endif

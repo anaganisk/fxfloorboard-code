@@ -23,11 +23,24 @@
 
 #include <QLayout>
 #include <QMessageBox>
+#include <QFile>
+#include <QDataStream>
+#include <QByteArray>
 #include "bankTreeList.h"
 #include "Preferences.h"
 #include "MidiTable.h"
 #include "SysxIO.h"
 #include "globalVariables.h"
+
+// Platform-dependent sleep routines.
+#ifdef Q_OS_WIN
+  #include <windows.h>
+  #define SLEEP( milliseconds ) Sleep( (DWORD) milliseconds ) 
+#else // Unix variants
+  #include <unistd.h>
+  #define SLEEP( milliseconds ) usleep( (unsigned long) (milliseconds * 1000.0) )
+#endif
+
 
 bankTreeList::bankTreeList(QWidget *parent)
     : QWidget(parent)
@@ -296,7 +309,7 @@ QTreeWidget* bankTreeList::newTreeList()
 	newTreeList->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff); // Qt::ScrollBarAsNeeded
 	
 	QStringList headers;
-	headers << "        Boss " + deviceType;
+	headers << "Double-click tree item to load patch";
     newTreeList->setHeaderLabels(headers);
 
 	QTreeWidgetItem *user = new QTreeWidgetItem(newTreeList);
@@ -428,10 +441,10 @@ void bankTreeList::setItemDoubleClicked(QTreeWidgetItem *item, int column)
 		int patch = item->parent()->indexOfChild(item) + 1;								// and the patch number.
 		QString preset = item->parent()->parent()->text(0);
 		if (preset.contains("P")) { bank = bank + 50; };
-		//if(bank == sysxIO->getLoadedBank() && patch == sysxIO->getLoadedPatch())
-		//{ 
-			requestPatch(bank, patch);
-		/*}
+	//	if(bank == sysxIO->getLoadedBank() && patch == sysxIO->getLoadedPatch())
+	//	{ 
+			requestPatch(bank, patch); // use
+	/*	}
 		else
 		{
 			emit patchLoadSignal(bank, patch); // Tell to stop blinking a sellected patch and prepare to load this one instead.
@@ -442,8 +455,8 @@ void bankTreeList::setItemDoubleClicked(QTreeWidgetItem *item, int column)
 				this, SLOT(requestPatch()));				// to requestPatch.
 
 			sysxIO->requestPatchChange(bank, patch);
-		};*/
-	}
+		}; */
+	};
 };
 /*********************** requestPatch() *******************************
  * Does the actual requesting of the patch data and hands the 
@@ -532,6 +545,24 @@ void bankTreeList::updatePatch(QString replyMsg)
 	replyMsg = "";
 	replyMsg.append(part1).append(part2).append(part3).append(part4).append(part6)
   .append(part7).append(part8).append(part10).append(part11).append(part12).append(part13);
+  QByteArray data;
+  QFile file(":default.syx");   // Read the default GT-10 sysx file so we don't start empty handed.
+    if (file.open(QIODevice::ReadOnly))
+	  {	data = file.readAll(); };
+	  QByteArray temp;                      
+    temp = data.mid(1495, 282);           // copy patch description from default.syx  address 00 0D 00 00   
+	
+	QString sysxBuffer; 
+	for(int i=0;i<temp.size();i++)
+	{
+		unsigned char byte = (char)temp[i];
+		unsigned int n = (int)byte;
+		QString hex = QString::number(n, 16).toUpper();     // convert QByteArray to QString
+		if (hex.length() < 2) hex.prepend("0");
+		sysxBuffer.append(hex);
+  };
+	replyMsg.append(sysxBuffer);
+	
 	
 	QString reBuild = "";       /* Add correct checksum to patch strings */
   QString sysxEOF = "";	
@@ -575,7 +606,7 @@ void bankTreeList::updatePatch(QString replyMsg)
 		emit setStatusProgress(0);
 
 	};
-	if(replyMsg != "" && replyMsg.size()/2 != patchSize) // cjw
+	if(replyMsg != "" && replyMsg.size()/2 != 1777)
 	{
 		emit notConnectedSignal();				// No message returned so connection must be lost.
 		/* NO-REPLY WARNING */
@@ -593,7 +624,7 @@ void bankTreeList::updatePatch(QString replyMsg)
 	msgBox->exec();
 	/* END WARNING */
 	};
-		if(replyMsg == "") // cjw
+		if(replyMsg == "") 
 	{
 		emit notConnectedSignal();				// No message returned so connection must be lost.
 		/* NO-REPLY WARNING */
@@ -688,14 +719,14 @@ void bankTreeList::updateTree(QTreeWidgetItem *item)
 			this, SLOT(updatePatchNames(QString)));
 
 		//this->currentPatchTreeItems.append(item);  //3 lines of mods added below
-		this->currentPatchTreeItems.clear();
-		this->currentPatchTreeItems = this->openPatchTreeItems;
-		qSort(this->currentPatchTreeItems);
+		this->currentPatchTreeItems.clear();  //xtra
+		this->currentPatchTreeItems = this->openPatchTreeItems; //xtra
+		qSort(this->currentPatchTreeItems);  // xtra
 		this->updatePatchNames("");		
 	}
 	else
 	{
-		//this->currentPatchTreeItems.append(item);
+		this->currentPatchTreeItems.append(item);
 	};
 };
 
@@ -727,7 +758,6 @@ void bankTreeList::updatePatchNames(QString name)
 			QString preset = this->currentPatchTreeItems.at(listIndex)->parent()->text(0);
 			if (preset.contains("P")) { bank = bank + 50; };
 		  sysxIO->requestPatchName(bank, patch); // The patch name request.
-	
 	     if(sysxIO->isConnected())
 	     {
 		      emit setStatusSymbol(3);

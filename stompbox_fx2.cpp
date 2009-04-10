@@ -185,26 +185,26 @@ void stompbox_fx2::setEditPages()
 
 	editDetails()->page()->newGroupBox("Equalizer");
 	editDetails()->page()->newGroupBox("Low");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "06", "00", "58");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "06", "00", "59");
+	editDetails()->page()->addKnob(1, 0, 1, 1, "06", "00", "58");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "06", "00", "59");
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 
 	editDetails()->page()->newGroupBox("Low-Middle");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "06", "00", "5A");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "06", "00", "5B");
-	editDetails()->page()->addKnob(0, 2, 1, 1, "06", "00", "5C");
+	editDetails()->page()->addKnob(1, 0, 1, 1, "06", "00", "5A");
+	editDetails()->page()->addKnob(2, 0, 1, 1, "06", "00", "5B");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "06", "00", "5C");
 	editDetails()->page()->addGroupBox(0, 1, 1, 1);
 
 	editDetails()->page()->newGroupBox("High-Middle");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "06", "00", "5D");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "06", "00", "5E");
-	editDetails()->page()->addKnob(0, 2, 1, 1, "06", "00", "5F");
-	editDetails()->page()->addGroupBox(1, 1, 1, 1);
+	editDetails()->page()->addKnob(1, 0, 1, 1, "06", "00", "5D");
+	editDetails()->page()->addKnob(2, 0, 1, 1, "06", "00", "5E");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "06", "00", "5F");
+	editDetails()->page()->addGroupBox(0, 2, 1, 1);
 
 	editDetails()->page()->newGroupBox("High");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "06", "00", "60");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "06", "00", "61");
-	editDetails()->page()->addGroupBox(0, 2, 1, 1);
+	editDetails()->page()->addKnob(1, 0, 1, 1, "06", "00", "61");
+	editDetails()->page()->addGroupBox(0, 3, 1, 1);
 	editDetails()->page()->addGroupBox(0, 1, 2, 1);
 
 	editDetails()->page()->newGroupBox("Level");

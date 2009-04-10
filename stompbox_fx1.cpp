@@ -202,8 +202,8 @@ void stompbox_fx1::setEditPages()
 	editDetails()->page()->addGroupBox(0, 2, 1, 1);
 
 	editDetails()->page()->newGroupBox("High");
-	editDetails()->page()->addKnob(1, 0, 1, 1, "02", "00", "60");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "02", "00", "61");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "02", "00", "60");
+	editDetails()->page()->addKnob(1, 0, 1, 1, "02", "00", "61");
 	editDetails()->page()->addGroupBox(0, 3, 1, 1);
 	editDetails()->page()->addGroupBox(0, 1, 2, 1);
 

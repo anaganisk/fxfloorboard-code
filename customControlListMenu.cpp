@@ -93,17 +93,15 @@ customControlListMenu::customControlListMenu(QWidget *parent,
 		
 	};
 
-	QObject::connect(this->parent(), SIGNAL( dialogUpdateSignal() ),
-                this, SLOT( dialogUpdateSignal() ));
+	QObject::connect(this->parent(), SIGNAL( dialogUpdateSignal() ), this, SLOT( dialogUpdateSignal() ));
 
-	QObject::connect(this, SIGNAL( updateSignal() ),
-                this->parent(), SIGNAL( updateSignal() ));
+	QObject::connect(this, SIGNAL( updateSignal() ), this->parent(), SIGNAL( updateSignal() ));
 
-	QObject::connect(this->controlListComboBox, SIGNAL(currentIndexChanged(int)),
-                this, SLOT(valueChanged(int)));
+	QObject::connect(this->controlListComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(valueChanged(int)));
 
-	QObject::connect(this->controlListComboBox, SIGNAL(currentIndexChanged(int)),
-                this, SIGNAL(currentIndexChanged(int)));
+	QObject::connect(this->controlListComboBox, SIGNAL(currentIndexChanged(int)), this, SIGNAL(currentIndexChanged(int)));
+                
+  //QObject::connect(this->parent()->parent(), SIGNAL(updateSignal()), this, SLOT(dialogUpdateSignal()));
 };
 
 void customControlListMenu::paintEvent(QPaintEvent *)

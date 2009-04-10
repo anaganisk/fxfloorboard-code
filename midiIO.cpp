@@ -69,7 +69,7 @@ void midiIO::queryMidiOutDevices()
 	 unsigned int outPorts; 
    try { midiout = new RtMidiOut(); }   /* RtMidiOut constructor */
    catch (RtError &error) {
-    //error.printMessage();
+    error.printMessage();
     emit errorSignal("Midi Output Error", "port error");
     goto cleanup; };
    outPorts = midiout->getPortCount();      /* Check outputs. */ 
@@ -78,7 +78,7 @@ void midiIO::queryMidiOutDevices()
       portName = midiout->getPortName(i);
         }
     catch (RtError &error) {
-      //error.printMessage();
+      error.printMessage();
       emit errorSignal("Midi Output Error", "data error");
       goto cleanup; };
 #ifdef Q_OS_WIN
@@ -118,14 +118,14 @@ void midiIO::queryMidiInDevices()
 	 unsigned int inPorts;
   try { midiin = new RtMidiIn(); }    /* RtMidiIn constructor */
   catch (RtError &error) {
-    //error.printMessage();
+    error.printMessage();
     emit errorSignal("Midi Input Error", "port error");
     goto cleanup; };
   inPorts = midiin->getPortCount();   /* Check inputs. */
   for ( unsigned int i=0; i<inPorts; i++ ) {
      try { portName = midiin->getPortName(i); }
      catch (RtError &error) {
-        //error.printMessage();
+        error.printMessage();
         emit errorSignal("Midi Input Error", "data error");
         goto cleanup; };
 #ifdef Q_OS_WIN
@@ -168,7 +168,7 @@ void midiIO::sendSyxMsg(QString sysxOutMsg, int midiOutPort)
     try {    
         midiMsgOut->openPort(midiOutPort);	// Open selected port.         
 		    std::vector<unsigned char> message;	
-        //message.reserve(1024);
+        message.reserve(256);
 		int msgLength = sysxOutMsg.length()/2;
 		char *ptr  = new char[msgLength];		// Convert QString to char* (hex value) 
 		for(int i=0;i<msgLength*2;++i)
@@ -181,9 +181,10 @@ void midiIO::sendSyxMsg(QString sysxOutMsg, int midiOutPort)
 			*ptr = (char)n;
 			message.push_back(*ptr);		// insert the char* string into a std::vector	
 			if(hex.contains ("F7")){		
-			  
+			           message.push_back(32);
+			           message.push_back(32);
                 midiMsgOut->sendMessage(&message);  // send the midi data as a std::vector
-                SLEEP(20);
+                SLEEP(10);
                 message.clear();    
                 hex = "0x"; };
                 ptr++; i++; };	
@@ -193,11 +194,12 @@ void midiIO::sendSyxMsg(QString sysxOutMsg, int midiOutPort)
  catch (RtError &error)
    {
 	  error.printMessage();
+	  emit errorSignal("Syx Output Error", "data error");
 	  goto cleanup;
     };   
    /* Clean up */
  cleanup:
-	SLEEP(40);						// wait as long as the message is sending.
+	SLEEP(20);						// wait as long as the message is sending.
   midiMsgOut->closePort();
   delete midiMsgOut;	
 };
@@ -229,6 +231,7 @@ void midiIO::sendMidiMsg(QString sysxOutMsg, int midiOutPort)
  catch (RtError &error)
    {
 	  error.printMessage();
+	  emit errorSignal("Midi Output Error", "data error");
 	  goto cleanup;
     };   
    /* Clean up*/
@@ -256,7 +259,8 @@ void midicallback(double deltatime, std::vector<unsigned char> *message, void *u
 					 int bytesReceived = rxData.size();
            midi->emitProgress(bytesReceived);			
 				};	
-		midi->callbackMsg(rxData);
+		if (rxData.contains("F0410000003012") || rxData.contains("F07E000602413002000000000000"))
+		{ midi->callbackMsg(rxData); };
 };
 void midiIO::callbackMsg(QString rxData)
 {
@@ -272,7 +276,7 @@ void midiIO::receiveMsg(QString sysxInMsg, int midiInPort)
 	const int maxWait = preferences->getPreferences("Midi", "Time", "set").toInt(&ok, 10);
 	if(multiple){loopCount = maxWait*11; count = patchReplySize; } //patch reply size
 	else if (system){loopCount = maxWait*22; count = systemSize;}  // system reply size
-	  else {loopCount = maxWait/40; count = nameReplySize;};   // name reply size
+	  else {loopCount = maxWait; count = nameReplySize;};   // name reply size
 		RtMidiIn *midiin = 0;	
 	  midiin = new RtMidiIn();		                   //RtMidi constructor
 	unsigned int nPorts = midiin->getPortCount();	   // check we have a midiIn port
@@ -293,6 +297,7 @@ void midiIO::receiveMsg(QString sysxInMsg, int midiInPort)
 	 catch (RtError &error)
 	 {
 	  error.printMessage();
+	  emit errorSignal("Midi Input Error", "data error");
 	  goto cleanup;
      };   		
 		/*Clean up */
@@ -390,7 +395,7 @@ void midiIO::run()
 			const int minWait = preferences->getPreferences("Midi", "Delay", "set").toInt(&ok, 10);
 			emit setStatusProgress(33);                                // do the statusbar progress thing
 			SLEEP((100/minWait)*2);		                                 // and wait predetermined time before being able to send more again.
-			emit setStatusProgress(75);
+			emit setStatusProgress(75);  
 			SLEEP((100/minWait)*3);
 			emit setStatusProgress(100);
 			SLEEP((100/minWait)*3);
@@ -429,8 +434,9 @@ void midiIO::sendSysxMsg(QString sysxOutMsg, int midiOutPort, int midiInPort)
 	  QString checksum = QString::number(sum, 16).toUpper();
 	   if(checksum.length()<2) {checksum.prepend("0");};
       	hex.append(checksum);
-        hex.append("F7");   
-        reBuild.append(hex);   
+        hex.append("F7");  
+        if (!hex.contains("F0410000001B12")) 
+         {reBuild.append(hex); };   
         hex = "";
 		    sysxEOF = "";
 		    i=i+2;
@@ -444,7 +450,10 @@ void midiIO::sendSysxMsg(QString sysxOutMsg, int midiOutPort, int midiInPort)
 	this->midiOutPort = midiOutPort;
 	this->midiInPort = midiInPort;
 	this->midi = false;
-	start();
+	Preferences *preferences = Preferences::Instance();// Load the preferences.
+	QString midiOut = preferences->getPreferences("Midi", "MidiOut", "device");
+  if(midiOut!="") {start();} else {
+  emit replyMsg("");};
 };
 
 /*********************** sendMidi() **********************************
@@ -455,7 +464,9 @@ void midiIO::sendMidi(QString midiMsg, int midiOutPort)
 	this->midiOutPort = midiOutPort;
 	this->midiMsg = midiMsg;
 	this->midi = true;
-	start();
+	Preferences *preferences = Preferences::Instance();// Load the preferences.
+	QString midiOut = preferences->getPreferences("Midi", "MidiOut", "device");
+  if(midiOut!="") {start();} else { emit setStatusSymbol(1); };
 };
 
 /*********************** emitProgress() **********************************

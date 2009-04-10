@@ -151,6 +151,8 @@ void initPatchListMenu::loadInitPatch(int index)
 				sysxIO->setSyncStatus(false);
 				sysxIO->setDevice(false);
 				emit updateSignal();
+				if(sysxIO->isConnected() )
+				{ sysxIO->writeToBuffer(); };
 			};
 		};
 	};

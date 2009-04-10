@@ -38,7 +38,7 @@ public:
     menuPage(
 		QWidget *parent = 0,
 		unsigned int id = 0,
-		QString imagePath = ":/images/menu_pushbutton.png",
+		QString imagePath = ":/images/menuPage_stomp.png",
 		QPoint stompPos = QPoint::QPoint(100, 24));
 	void setPos(QPoint newPos);
 	void setImage(QString imagePath);

@@ -32,6 +32,16 @@
 #include "MidiTable.h"
 #include "globalVariables.h"
 
+// Platform-dependent sleep routines.
+#ifdef Q_OS_WIN
+  #include <windows.h>
+  #define SLEEP( milliseconds ) Sleep( (DWORD) milliseconds ) 
+#else // Unix variants
+  #include <unistd.h>
+  #define SLEEP( milliseconds ) usleep( (unsigned long) (milliseconds * 1000.0) )
+#endif
+
+
 SysxIO::SysxIO() 
 {
 	this->setConnected(false);
@@ -656,6 +666,7 @@ void SysxIO::setConnected(bool connected)
 {
 	this->connected = connected;	
 	emit setStatusMessage("Ready");
+	emit setStatusdBugMessage("");
 };
 
 /***************************** deviceReady() ******************************
@@ -859,10 +870,10 @@ void SysxIO::checkPatchChange(QString name)
 	QObject::disconnect(this, SIGNAL(patchName(QString)),
 		this, SLOT(checkPatchChange(QString)));
 
-//	if(this->requestName  == name)
-//	{
-		emit isChanged();
-		this->changeCount = 0;
+	//if(this->requestName  == name)
+	//{
+		emit isChanged();  //use
+		this->changeCount = 0;  //use
 		//this->setDeviceReady(true); //  extra added  line
 		//QObject::disconnect(this, SIGNAL(isChanged()));  //  extra added  line
 /*	}
@@ -974,7 +985,7 @@ void SysxIO::requestPatchName(int bank, int patch)
 {
 	QObject::disconnect(this, SIGNAL(sysxReply(QString)),	
 			this, SLOT(returnPatchName(QString)));
-	
+
 	QObject::connect(this, SIGNAL(sysxReply(QString)),	// Connect the result of the request
 		this, SLOT(returnPatchName(QString)));			// to returnPatchName function.
 	
@@ -1040,11 +1051,10 @@ void SysxIO::requestPatch(int bank, int patch)
 ****************************************************************************/
 void SysxIO::errorSignal(QString windowTitle, QString errorMsg)
 {
-	if(noError())
-	{
-		setNoError(false);
-
-		emit notConnectedSignal();
+	/*
+		windowTitle = this->errorType;
+		errorMsg = this->errorMsg;
+		errorMsg.append("\n please press the [Connect] button to resume");
 
 		QMessageBox *msgBox = new QMessageBox();
 		msgBox->setWindowTitle(windowTitle);
@@ -1053,8 +1063,20 @@ void SysxIO::errorSignal(QString windowTitle, QString errorMsg)
 		msgBox->setText(errorMsg);
 		msgBox->setStandardButtons(QMessageBox::Ok);
 		msgBox->exec();
+		
+		emit notConnectedSignal();
+		*/
+		emit setStatusdBugMessage(this->errorType + "  " + this->errorMsg);
+		this->errorType = "";
+		this->errorMsg = "";	
+};
 
-	};
+void SysxIO::errorReturn(QString errorType, QString errorMsg)
+{
+
+    this->errorType = errorType;
+    this->errorMsg = errorMsg;
+   
 };
 
 /***************************** noError() ******************************
@@ -1104,13 +1126,10 @@ void SysxIO::emitStatusMessage(QString message)
 {
 	emit setStatusMessage(message);
 };
+
 void SysxIO::emitStatusdBugMessage(QString dBug)
 {
 	emit setStatusdBugMessage(dBug);
-};
-void SysxIO::errorReturn()
-{
-   emit notConnectedSignal();
 };
 
 void SysxIO::systemWrite()
@@ -1188,7 +1207,7 @@ void SysxIO::systemReply(QString replyMsg)
 	{
 		if(replyMsg.size()/2 == 2261)
 		{
-		/* TRANSLATE SYSX MESSAGE FORMAT to 128 byte data blocks */
+	/* TRANSLATE SYSX MESSAGE FORMAT to 128 byte data blocks */
 	QString header = "F0410000003012";
 	QString footer ="00F7";
 	QString addressMsb = replyMsg.mid(14,4); // read  MSb word at bits 7 & 8 from sysxReply (which is "0000")
@@ -1199,23 +1218,23 @@ void SysxIO::systemReply(QString replyMsg)
 	part2.prepend("0100").prepend(addressMsb).prepend(header).append(part2B).append(footer); 
 	QString part3 = replyMsg.mid(560, 256);
 	part3.prepend("0200").prepend(addressMsb).prepend(header).append(footer);
-	QString part4 = replyMsg.mid(816, 198);	  // spare space
+	QString part4 = replyMsg.mid(816, 158);	  // spare space
 	part4.prepend("0300").prepend(addressMsb).prepend(header).append(footer); //address 00 00 03 00
 	addressMsb = "0001"; // new address range "00 01 00 00"
-	QString part5 = replyMsg.mid(1040, 216);   
-	part5.prepend("0000000000000000000000000000000000000000"); // add 20 extra places for start
+	QString part5 = replyMsg.mid(974, 40); 
+  QString part5B = replyMsg.mid(1040, 216);   
+	part5.append(part5B);
 	part5.prepend("0000").prepend(addressMsb).prepend(header).append(footer);   
-	QString part6 = replyMsg.mid(1256, 256);   // 
-	part6.prepend("0100").prepend(addressMsb).prepend(header).append(footer); // adress 00 01 01 00
-  QString part7 = replyMsg.mid(1510, 14);  
-  QString part7B = replyMsg.mid(1550, 214);  // 
-  part7.append("0000000000000000000000000000"); // add 14 extra places for start
-	part7.prepend("0200").prepend(addressMsb).prepend(header).append(part7B).append(footer); // address 00 01 02 00
-	QString part8 = replyMsg.mid(1764,256);    //
-	part8.prepend("0300").prepend(addressMsb).prepend(header).append(footer);  // address 00 01 03 00
+	QString part6 = replyMsg.mid(1256, 228);   // "00 01 01 00"
+	part6.prepend("0100").prepend(addressMsb).prepend(header).append(footer); 
+  QString part7 = replyMsg.mid(1484, 42);  
+  QString part7B = replyMsg.mid(1550, 214);  // "00 01 02 00"
+  part7.prepend("0200").prepend(addressMsb).prepend(header).append(part7B).append(footer); 
+	QString part8 = replyMsg.mid(1764,256);    // address 00 01 03 00
+	part8.prepend("0300").prepend(addressMsb).prepend(header).append(footer);  
 	QString part9 = replyMsg.mid(2020, 14);
-	QString part9B = replyMsg.mid(2060, 24);
-	part9.prepend("0400").prepend(addressMsb).prepend(header).append(part9B).append(footer);  // address 00 01 04 00
+	QString part9B = replyMsg.mid(2060, 24);    // address 00 01 04 00
+	part9.prepend("0400").prepend(addressMsb).prepend(header).append(part9B).append(footer);  
 	addressMsb = "0002"; // new address range "00 02 00 00"
 	QString part10 = replyMsg.mid(2110, 256);   //
 	part10.prepend("0000").prepend(addressMsb).prepend(header).append(footer);
@@ -1300,3 +1319,53 @@ void SysxIO::systemReply(QString replyMsg)
 		emit setStatusMessage(tr("Ready"));   
 };
 
+void SysxIO::writeToBuffer() 
+{
+	setDeviceReady(false);			// Reserve the device for interaction.
+	QObject::disconnect(this, SIGNAL(isChanged()), this, SLOT(writeToBuffer()));
+
+	QString sysxMsg;
+	QList< QList<QString> > patchData = getFileSource().hex; // Get the loaded patch data.
+	QList<QString> patchAddress = getFileSource().address;
+
+		emit setStatusSymbol(2);
+		emit setStatusMessage(tr("Sync to ")+deviceType);
+
+	QString addr1 = QString::number(96, 16).toUpper();  // temp address
+	QString addr2 = QString::number(0, 16).toUpper();
+
+	for(int i=0;i<patchData.size();++i)
+	{
+		QList<QString> data = patchData.at(i);
+		for(int x=0;x<data.size();++x)
+		{
+			QString hex;
+			if(x == sysxAddressOffset)
+			{ hex = addr1; }
+			else if(x == sysxAddressOffset + 1)
+			{	hex = addr2; }
+			else
+			{	hex = data.at(x);	};
+			if (hex.length() < 2) hex.prepend("0");
+			sysxMsg.append(hex);
+		}; 
+	}; 
+	setSyncStatus(true);		// In advance of the actual data transfer we set it already to sync.
+	
+	QObject::connect(this, SIGNAL(sysxReply(QString)),	// Connect the result signal 
+		this, SLOT(resetDevice(QString)));					// to a slot that will reset the device after sending.
+	sendSysx(sysxMsg);	// Send the data.
+		
+		emit setStatusProgress(33); // time wasting sinusidal statusbar progress
+		SLEEP(100);
+		emit setStatusProgress(66);
+		SLEEP(200);		
+		emit setStatusProgress(100);
+		SLEEP(100);		
+		emit setStatusProgress(75);
+		SLEEP(100);		
+		emit setStatusProgress(42);
+		SLEEP(100); 
+	emit setStatusMessage(tr("Ready"));
+	setDeviceReady(true);
+};

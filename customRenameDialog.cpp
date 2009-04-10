@@ -33,10 +33,29 @@ customRenameDialog::customRenameDialog(QWidget *parent, QString hex1, QString he
     this->area = area;
     this->length = length;
 	SysxIO *sysxIO = SysxIO::Instance();
-	//QRegExp rx;
-	//if (this->length == "7F"){
-	QRegExp rx( QString::fromUtf8( "[\x20-\x7F\xe2\x86\x92\xe2\x86\x90]{1,127}" ) );// } else {
-  //QRegExp rx( QString::fromUtf8( "[\x20-\x7F\xe2\x86\x92\xe2\x86\x90]{1,8}" ) );   };
+	int dialogLength;
+	QString dialogText;
+	QRegExp ra( QString::fromUtf8( "[\x20-\x7F\xe2\x86\x92\xe2\x86\x90]{1,128}" ) );
+	QRegExp rb( QString::fromUtf8( "[\x20-\x7F\xe2\x86\x92\xe2\x86\x90]{1,32}" ) );
+	QRegExp rc( QString::fromUtf8( "[\x20-\x7F\xe2\x86\x92\xe2\x86\x90]{1,8}" ) );
+	QRegExp rx;
+	if (this->length == "80")
+  {
+	  rx = ra;
+     dialogLength = 1000;
+     dialogText = "Patch Description";
+   } 
+  else if (this->length == "20") 
+  {
+    rx = rb;
+     dialogLength = 350;
+     dialogText = "Patch created by";
+   } else 
+   { 
+    rx = rc;
+     dialogLength = 150;
+     dialogText = "Rename Catagory";
+   };
 	QValidator *validator = new QRegExpValidator(rx, this);
 	
 	nameLabel = new QLabel(tr("Name:"));
@@ -64,9 +83,9 @@ customRenameDialog::customRenameDialog(QWidget *parent, QString hex1, QString he
 
 	connect(okButton, SIGNAL(clicked()), this, SLOT(emitValue()));
 	connect(cancelButton, SIGNAL(clicked()), this, SLOT(close()));
-
-	QGroupBox *renameGroup = new QGroupBox(tr("Rename Catagory"));
-	
+	QGroupBox *renameGroup;
+  renameGroup = new QGroupBox(dialogText); 
+  	
 	QHBoxLayout *nameEditLayout = new QHBoxLayout;
 	nameEditLayout->addWidget(nameEdit);
 
@@ -87,10 +106,7 @@ customRenameDialog::customRenameDialog(QWidget *parent, QString hex1, QString he
 	mainLayout->addWidget(renameGroup);
 	mainLayout->addLayout(buttonsLayout);
 	setLayout(mainLayout);
-  if (this->length == "7F"){
-  this->setMinimumWidth(1000); } else {
-	this->setMinimumWidth(250);  };
-	
+  this->setMinimumWidth(dialogLength);
 };
 
 void customRenameDialog::emitValue()

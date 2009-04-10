@@ -34,7 +34,6 @@
 #include "SysxIO.h"
 #include "globalVariables.h"
 
-
 #include "menuPage_assign.h"
 #include "menuPage_master.h"
 #include "menuPage_midi.h"
@@ -88,7 +87,6 @@ floorBoard::floorBoard(QWidget *parent,
 		
 	setFloorBoard();
 
-
 	floorBoardDisplay *display = new floorBoardDisplay(this);
 	display->setPos(displayPos);
 
@@ -124,7 +122,6 @@ floorBoard::floorBoard(QWidget *parent,
 	QObject::connect(panelBar, SIGNAL(showDragBar(QPoint)), this, SIGNAL(showDragBar(QPoint)));
 	QObject::connect(panelBar, SIGNAL(hideDragBar()), this, SIGNAL(hideDragBar()));
 
-  //QObject::connect(this, SIGNAL(pathUpdateSignal()), stompBox, SLOT(updateStompBoxesSignal()));  //cw
 
 	bool ok;
 	Preferences *preferences = Preferences::Instance();
@@ -242,7 +239,6 @@ void floorBoard::setFloorBoard() {
 
 void floorBoard::dragEnterEvent(QDragEnterEvent *event)
 {
-
 	QByteArray data = event->mimeData()->data("text/uri-list");
 	QString uri(data);
 	
@@ -254,14 +250,10 @@ void floorBoard::dragEnterEvent(QDragEnterEvent *event)
 		  {
       event->setDropAction(Qt::MoveAction);
 			event->accept();
-      } 
-      else 
-      {
+       } else {
       event->acceptProposedAction();
       };
-  } 
-    else 
-  {
+  } else {
      event->ignore();
   };
 };
@@ -301,9 +293,7 @@ void floorBoard::dropEvent(QDropEvent *event)
         dataStream >> stompId >> stompPos >> stompSize >> topLeftOffset;
 		QPoint dragPoint = (event->pos() - topLeftOffset) + QPoint::QPoint(stompSize.width()/2, stompSize.height()/2);
 		int stompSpacing = fxPos.at(1).x() - (fxPos.at(0).x() + stompSize.width());
-		
-		 
-		
+			
 		int destIndex = -1; // Set to out of range by default.
 		int orgIndex = fx.indexOf(stompId);
 		for(int x=0;x<fx.size();x++) 
@@ -322,14 +312,11 @@ void floorBoard::dropEvent(QDropEvent *event)
             }; 
         }; 
  
-
-      
-			
-			
+    		
 		if((destIndex > -1 && destIndex < fx.size() + 1) && (stompId != 16) && (stompId != 17)) // don't move the split and merge stomps
+
 			// Make sure we are not dropping the stomp out of range. 
-		{
-		 
+		{		 
 			if( orgIndex < destIndex )
 			{
 				destIndex = destIndex - 1;
@@ -348,14 +335,16 @@ void floorBoard::dropEvent(QDropEvent *event)
 				setStompPos(stompId, destIndex);
 			};
 
-			if((orgIndex != destIndex) )                    // Prevent sending data when stomp was dropped in the same place.
+			if(orgIndex != destIndex) // Prevent sending data when stomp was dropped in the same place.
 			{	
       
   SysxIO *sysxIO = SysxIO::Instance();
   QString area = "Structure";
 	QList<QString> fxChain = sysxIO->getFileSource(area, "0B", "00");
-		
+	
+  	
 	MidiTable *midiTable = MidiTable::Instance();
+	
 	QList<QString> stompOrderHex;
   QString shit;
 	QString hexdata_A;

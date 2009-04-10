@@ -100,8 +100,6 @@ editWindow* menuPage::editDetails()
 
 void menuPage::menuButtonSignal(bool value)	
 	{
-	  emit setStatusMessage(tr("Opening Page..."));
-	  emit setStatusSymbol(3);
 	  if(this->id > 19)
     {
       emitValueChanged(this->hex1, this->hex2, "00", "void");
@@ -111,6 +109,8 @@ void menuPage::menuButtonSignal(bool value)
     SysxIO *sysxIO = SysxIO::Instance();
 	  if((this->id == 19 || this->id == 18) && sysxIO->deviceReady())
 	  {   
+	  emit setStatusMessage(tr("Opening Page..."));
+	  emit setStatusSymbol(3);
       QString replyMsg;
 	     if (sysxIO->isConnected())
 	       {
@@ -137,6 +137,8 @@ void menuPage::menuButtonSignal(bool value)
 		        	msgBox->setText(snork);
 		        	msgBox->setStandardButtons(QMessageBox::Ok);
 		        	msgBox->exec(); 
+		        	emit setStatusMessage(tr("Not Connected"));
+	            emit setStatusSymbol(0);
               };  
     };
 };
@@ -146,36 +148,6 @@ void menuPage::systemReply(QString replyMsg)
 	SysxIO *sysxIO = SysxIO::Instance();
 	QObject::disconnect(sysxIO, SIGNAL(sysxReply(QString)), this, SLOT(systemReply(QString)));
 	sysxIO->setDeviceReady(true); // Free the device after finishing interaction.
-   
-		 /*DeBugGING OUTPUT */
-	Preferences *preferences = Preferences::Instance(); // Load the preferences.
-	if(preferences->getPreferences("Midi", "DBug", "bool")=="true")
-	{ 
-	if (replyMsg.size() > 0){
-		QString snork;
-			snork.append("<font size='-1'>");
-			snork.append("{ size=");
-			snork.append(QString::number(replyMsg.size()/2, 10));
-			snork.append("}");	
-			snork.append("<br> midi data received");
-			snork.append("<font size='-2'>");
-			for(int i=0;i<replyMsg.size();++i)
-			{
-				snork.append(replyMsg.mid(i, 2));
-				snork.append(" ");
-				i++;
-			};
-			snork.replace("F7", "F7 }<br>");
-			snork.replace("F0", "{ F0");
-					 
-			QMessageBox *msgBox = new QMessageBox();
-			msgBox->setWindowTitle("dBug Result for GT-10B System area data");
-			msgBox->setIcon(QMessageBox::Information);
-			msgBox->setText(snork);
-			msgBox->setStandardButtons(QMessageBox::Ok);
-			msgBox->exec();
-			};	
-		};
 
 	if(sysxIO->noError())
 	{
@@ -192,23 +164,23 @@ void menuPage::systemReply(QString replyMsg)
 	part2.prepend("0100").prepend(addressMsb).prepend(header).append(part2B).append(footer); 
 	QString part3 = replyMsg.mid(560, 256);
 	part3.prepend("0200").prepend(addressMsb).prepend(header).append(footer);
-	QString part4 = replyMsg.mid(816, 198);	  // spare space
+	QString part4 = replyMsg.mid(816, 158);	  // spare space
 	part4.prepend("0300").prepend(addressMsb).prepend(header).append(footer); //address 00 00 03 00
 	addressMsb = "0001"; // new address range "00 01 00 00"
-	QString part5 = replyMsg.mid(1040, 216);   
-	part5.prepend("0000000000000000000000000000000000000000"); // add 20 extra places for start
+	QString part5 = replyMsg.mid(974, 40); 
+  QString part5B = replyMsg.mid(1040, 216);   
+	part5.append(part5B);
 	part5.prepend("0000").prepend(addressMsb).prepend(header).append(footer);   
-	QString part6 = replyMsg.mid(1256, 256);   // 
+	QString part6 = replyMsg.mid(1256, 228);   // "00 01 01 00"
 	part6.prepend("0100").prepend(addressMsb).prepend(header).append(footer); 
-  QString part7 = replyMsg.mid(1512, 12);  
-  QString part7B = replyMsg.mid(1550, 214);  // 
-  part7.append("0000000000000000000000000000"); // add 14 extra places for start
-	part7.prepend("0200").prepend(addressMsb).prepend(header).append(part7B).append(footer); // address 00 01 02 00
-	QString part8 = replyMsg.mid(1764,256);    //
-	part8.prepend("0300").prepend(addressMsb).prepend(header).append(footer);  // address 00 01 03 00
+  QString part7 = replyMsg.mid(1484, 42);  
+  QString part7B = replyMsg.mid(1550, 214);  // "00 01 02 00"
+  part7.prepend("0200").prepend(addressMsb).prepend(header).append(part7B).append(footer); 
+	QString part8 = replyMsg.mid(1764,256);    // address 00 01 03 00
+	part8.prepend("0300").prepend(addressMsb).prepend(header).append(footer);  
 	QString part9 = replyMsg.mid(2020, 14);
-	QString part9B = replyMsg.mid(2060, 24);
-	part9.prepend("0400").prepend(addressMsb).prepend(header).append(part9B).append(footer);  // address 00 01 04 00
+	QString part9B = replyMsg.mid(2060, 24);    // address 00 01 04 00
+	part9.prepend("0400").prepend(addressMsb).prepend(header).append(part9B).append(footer);  
 	addressMsb = "0002"; // new address range "00 02 00 00"
 	QString part10 = replyMsg.mid(2110, 256);   //
 	part10.prepend("0000").prepend(addressMsb).prepend(header).append(footer);

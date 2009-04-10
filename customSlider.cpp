@@ -48,7 +48,7 @@ customSlider::customSlider(double value, double min, double max, double single, 
 
 	QObject::connect(this, SIGNAL( valueChanged(int, QString, QString, QString) ),
                 this->parent(), SLOT( valueChanged(int, QString, QString, QString) ));
-};
+}
 
 void customSlider::paintEvent(QPaintEvent *)
 {
@@ -66,18 +66,18 @@ void customSlider::paintEvent(QPaintEvent *)
 
 	QPainter painter(this);
 	painter.drawPixmap(screen, buffer, screen);
-};
+}
 
 void customSlider::setOffset(double _newValue)
 {
-	double dataRange = max - min;
-	double range = slideSize.height()  - sliderButtonSize.height();
-	double result = (max - _newValue) * (range / dataRange);
+        double dataRange = max - min;
+        int range = slideSize.height()  - sliderButtonSize.height();
+        double result = (max - _newValue) * (range / dataRange);
 	
 	this->value = _newValue;	
 	this->yOffset = result;
 	this->update();
-};
+}
 
 void customSlider::mouseTrigger(QPoint mousePos)
 {
@@ -104,7 +104,7 @@ void customSlider::mouseTrigger(QPoint mousePos)
 	};
 	setOffset(_newValue);
 	emitValue(_newValue);
-};
+}
 
 void customSlider::mousePressEvent(QMouseEvent *event)
 {
@@ -114,12 +114,12 @@ void customSlider::mousePressEvent(QMouseEvent *event)
 		mouseTrigger(event->pos());
 		emitValue(value);
 	};
-};
+}
 
 void customSlider::mouseMoveEvent(QMouseEvent *event)
 {
 	mouseTrigger(event->pos());
-};
+}
 
 void customSlider::wheelEvent(QWheelEvent *event)
 {
@@ -143,7 +143,7 @@ void customSlider::wheelEvent(QWheelEvent *event)
 		setOffset(_newValue);
 		emitValue(_newValue);	
     };
-};
+}
 
 void customSlider::keyPressEvent(QKeyEvent *event)
 {
@@ -180,7 +180,7 @@ void customSlider::keyPressEvent(QKeyEvent *event)
 		setOffset(_newValue);
 		emitValue(_newValue);
 	};
-};
+}
 
 void customSlider::emitValue(double value)
 {
@@ -188,9 +188,9 @@ void customSlider::emitValue(double value)
         this->m_value = value;
     };
 	emit valueChanged((int)value, this->hex1, this->hex2, this->hex3);
-};
+}
 
 void customSlider::setValue(int value)
 {
 	setOffset((double)value);
-};
+}

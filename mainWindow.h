@@ -54,6 +54,7 @@ public slots:
 	void systemSave();
 	void systemLoad();
 	void settings();
+	void upload();
 	void help();
 	void homepage();
 	void donate();
@@ -79,6 +80,7 @@ private:
 	QAction *systemSaveAct;
 	QAction *exitAct;
 	QAction *settingsAct;
+	QAction *uploadAct;
 	QAction *helpAct;
 	QAction *homepageAct;
 	QAction *donationAct;

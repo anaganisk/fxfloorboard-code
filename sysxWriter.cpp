@@ -51,8 +51,22 @@ bool sysxWriter::readFile()
     if (file.open(QIODevice::ReadOnly))
 	{
 		QByteArray data = file.readAll();     // read the pre-selected file, copy to 'data'
+		QByteArray default_data;
+		QFile file(":default.syx");           // Read the default GT-10B sysx file .
+    if (file.open(QIODevice::ReadOnly))
+	  {	default_data = file.readAll(); };
+	  
+	  QByteArray default_header = default_data.mid(0, 7);           // copy header from default.syx
+	  QByteArray file_header = data.mid(0, 7);                      // copy header from read file.syx
+	  bool isHeader = false;
+	  if (default_header == file_header) {isHeader = true;};
+	  QByteArray GTM_bit =  default_data.mid(1765, 5);              // see if the file has a GT-Manager signature.
+	  QByteArray GTM_file = data.mid(1764, 5);
+	  bool isGTM = false;
+	  if (GTM_bit == GTM_file) {isGTM = true;};
+	  
 		SysxIO *sysxIO = SysxIO::Instance();
-    if(data.size() == 2399)  {         // if GT-10B system file size is correct- load file. 
+    if(data.size() == 2366 && isHeader == true)  {         //was 2399 if GT-10B system file size is correct- load file. 
     
  
 		QString area = "System";
@@ -64,8 +78,25 @@ bool sysxWriter::readFile()
 		
 		return true;
 		}
-		else if(data.size() == patchSize || data.size() == 1636){         // if GT-10B patch file size is correct- load file.
-		SysxIO *sysxIO = SysxIO::Instance();
+    else if(data.size() == 1777 && isHeader == true){         //1777 if GT-10B patch file size is correct- load file >>>  currently at 1763 bytes.
+		   
+    SysxIO *sysxIO = SysxIO::Instance();
+		QString area = "Structure";
+		sysxIO->setFileSource(area, data);
+		sysxIO->setFileName(this->fileName);
+		this->fileSource = sysxIO->getFileSource();
+		return true;}
+		else if((data.size() == patchSize || data.size() == 1636) && isHeader == true){         // if GT-10B standard patch file size is correct- load file.
+		QByteArray standard_data = data;
+	  QFile file(":default.syx");   // Read the default GT-10 sysx file so we don't start empty handed.
+    if (file.open(QIODevice::ReadOnly))
+	  {	data = file.readAll(); };
+	  
+	  QByteArray temp;                      
+    temp = data.mid(1495, 282);           // copy patch description from default.syx  address 00 0D 00 00   
+    standard_data.append(temp);  
+    data = standard_data;
+    SysxIO *sysxIO = SysxIO::Instance();
 		QString area = "Structure";
 		sysxIO->setFileSource(area, data);
 		sysxIO->setFileName(this->fileName);

@@ -1,25 +1,57 @@
 /**********************************************************************/
+/*! \class RtMidi 
+    \brief An abstract base class for realtime MIDI input/output.
 
+    This class implements some common functionality for the realtime
+    MIDI input/output subclasses RtMidiIn and RtMidiOut.
+
+    RtMidi WWW site: http://music.mcgill.ca/~gary/rtmidi/
+
+    RtMidi: realtime MIDI i/o C++ classes
+    Copyright (c) 2003-2009 Gary P. Scavone
+
+    Permission is hereby granted, free of charge, to any person
+    obtaining a copy of this software and associated documentation files
+    (the "Software"), to deal in the Software without restriction,
+    including without limitation the rights to use, copy, modify, merge,
+    publish, distribute, sublicense, and/or sell copies of the Software,
+    and to permit persons to whom the Software is furnished to do so,
+    subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be
+    included in all copies or substantial portions of the Software.
+
+    Any person wishing to distribute modifications to the Software is
+    requested to send the modifications to the original developer so that
+    they can be incorporated into the canonical version.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+    IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR
+    ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
+    CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+    WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*/
 /**********************************************************************/
 
-// RtMidi: Version 1.0.6
+// RtMidi: Version 1.0.8
 
 #ifndef RTMIDI_H
 #define RTMIDI_H
 
 #include "RtError.h"
 #include <string>
-#include <vector>
 
 class RtMidi
 {
  public:
 
   //! Pure virtual openPort() function.
-  virtual void openPort( unsigned int portNumber = 0 ) = 0;
+  virtual void openPort( unsigned int portNumber = 0, const std::string portName = std::string( "RtMidi" ) ) = 0;
 
   //! Pure virtual openVirtualPort() function.
-  virtual void openVirtualPort( const std::string portName = std::string( "FxFloorBoard Midi" ) ) = 0;
+  virtual void openVirtualPort( const std::string portName = std::string( "RtMidi" ) ) = 0;
 
   //! Pure virtual getPortCount() function.
   virtual unsigned int getPortCount() = 0;
@@ -59,7 +91,7 @@ class RtMidi
     to open a virtual input port to which other MIDI software clients
     can connect.
 
-    by Gary P. Scavone, 2003-2004.
+    by Gary P. Scavone, 2003-2008.
 */
 /**********************************************************************/
 
@@ -73,11 +105,11 @@ class RtMidiIn : public RtMidi
   //! User callback function type definition.
   typedef void (*RtMidiCallback)( double timeStamp, std::vector<unsigned char> *message, void *userData);
 
-  //! Default constructor.
+  //! Default constructor that allows an optional client name.
   /*!
       An exception will be thrown if a MIDI system initialization error occurs.
   */
-  RtMidiIn();
+  RtMidiIn( const std::string clientName = std::string( "RtMidi Input Client") );
 
   //! If a MIDI connection is still open, it will be closed by the destructor.
   ~RtMidiIn();
@@ -87,7 +119,7 @@ class RtMidiIn : public RtMidi
       An optional port number greater than 0 can be specified.
       Otherwise, the default or first port found is opened.
   */
-  void openPort( unsigned int portNumber = 0 );
+  void openPort( unsigned int portNumber = 0, const std::string Portname = std::string( "RtMidi Input" ) );
 
   //! Create a virtual input port, with optional name, to allow software connections (OS X and ALSA only).
   /*!
@@ -96,7 +128,7 @@ class RtMidiIn : public RtMidi
       is currently only supported by the Macintosh OS-X and Linux ALSA
       APIs (the function does nothing for the other APIs).
   */
-  void openVirtualPort( const std::string portName = std::string( "FxFloorBoard Midi Input" ) );
+  void openVirtualPort( const std::string portName = std::string( "RtMidi Input" ) );
 
   //! Set a callback function to be invoked for incoming MIDI messages.
   /*!
@@ -168,6 +200,7 @@ class RtMidiIn : public RtMidi
   // the MIDI input handling function or thread.
   struct RtMidiInData {
     std::queue<MidiMessage> queue;
+    MidiMessage message;
     unsigned int queueLimit;
     unsigned char ignoreFlags;
     bool doInput;
@@ -176,16 +209,18 @@ class RtMidiIn : public RtMidi
     bool usingCallback;
     void *userCallback;
     void *userData;
+    bool continueSysex;
 
     // Default constructor.
     RtMidiInData()
       : queueLimit(1024), ignoreFlags(7), doInput(false), firstMessage(true),
-        apiData(0), usingCallback(false), userCallback(0), userData(0) {}
+        apiData(0), usingCallback(false), userCallback(0), userData(0),
+        continueSysex(false) {}
   };
 
  private:
 
-  void initialize( void );
+  void initialize( const std::string& clientName );
   RtMidiInData inputData_;
 
 };
@@ -200,7 +235,7 @@ class RtMidiIn : public RtMidi
     the connection.  Create multiple instances of this class to
     connect to more than one MIDI device at the same time.
 
-    by Gary P. Scavone, 2003-2004.
+    by Gary P. Scavone, 2003-2008.
 */
 /**********************************************************************/
 
@@ -208,11 +243,11 @@ class RtMidiOut : public RtMidi
 {
  public:
 
-  //! Default constructor.
+  //! Default constructor that allows an optional client name.
   /*!
       An exception will be thrown if a MIDI system initialization error occurs.
   */
-  RtMidiOut();
+  RtMidiOut( const std::string clientName = std::string( "RtMidi Output Client" ) );
 
   //! The destructor closes any open MIDI connections.
   ~RtMidiOut();
@@ -224,7 +259,7 @@ class RtMidiOut : public RtMidi
       exception is thrown if an error occurs while attempting to make
       the port connection.
   */
-  void openPort( unsigned int portNumber = 0 );
+  void openPort( unsigned int portNumber = 0, const std::string portName = std::string( "RtMidi Output" ) );
 
   //! Close an open MIDI connection (if one exists).
   void closePort();
@@ -238,7 +273,7 @@ class RtMidiOut : public RtMidi
       exception is thrown if an error occurs while attempting to create
       the virtual port.
   */
-  void openVirtualPort( const std::string portName = std::string( "FxFloorBoard Midi Output" ) );
+  void openVirtualPort( const std::string portName = std::string( "RtMidi Output" ) );
 
   //! Return the number of available MIDI output ports.
   unsigned int getPortCount();
@@ -258,7 +293,7 @@ class RtMidiOut : public RtMidi
 
  private:
 
-  void initialize( void );
+  void initialize( const std::string& clientName );
 };
 
 #endif

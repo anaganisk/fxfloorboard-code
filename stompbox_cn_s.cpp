@@ -39,16 +39,13 @@ void stompbox_cn_s::updateSignal()
 
 void stompbox_cn_s::setEditPages()
 {
-  editDetails()->page()->newGroupBox("External Amp Switching");
-	editDetails()->page()->addComboBox(0, 1, 1, 1, "0A", "00", "69"); // External Amp control
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
-	
+  
 	editDetails()->page()->newGroupBox("Channel");
 	editDetails()->page()->newStackControl(0);
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "0A", "00", "6A"); // Channel Mode
 	editDetails()->page()->addStackControl();
 	editDetails()->page()->insertStackField(0, 1, 0, 1, 1);
-	editDetails()->page()->addGroupBox(1, 0, 1, 1);
+	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	
 	editDetails()->page()->newStackField(0);
 	editDetails()->page()->addKnob(0, 1, 1, 1, "0A", "00", "6B");     // Channel A level

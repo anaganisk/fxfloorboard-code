@@ -66,8 +66,7 @@ customButton::customButton(QString text, bool active, QPoint buttonPos, QWidget 
 	timer = new QTimer(this);
     QObject::connect(timer, SIGNAL(timeout()), this, SLOT(blink()) );
 
-	QObject::connect(this, SIGNAL( valueChanged(bool, QString, QString, QString) ),
-                this->parent(), SLOT( valueChanged(bool, QString, QString, QString) ));
+	//QObject::connect(this, SIGNAL( valueChanged(bool, QString, QString, QString) ), this->parent(), SLOT( valueChanged(bool, QString, QString, QString) ));
 };
 
 void customButton::paintEvent(QPaintEvent *)

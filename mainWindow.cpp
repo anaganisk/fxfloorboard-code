@@ -30,14 +30,6 @@
 #include "SysxIO.h"
 #include "globalVariables.h"
 
-// Platform-dependent sleep routines.
-#ifdef Q_OS_WIN
-  #include <windows.h>
-  #define SLEEP( milliseconds ) Sleep( (DWORD) milliseconds ) 
-#else // Unix variants & Mac
-  #include <unistd.h>
-  #define SLEEP( milliseconds ) usleep( (unsigned long) (milliseconds * 1000.0) )
-#endif
 
  mainWindow::mainWindow(QWidget *parent)
     : QWidget(parent)
@@ -153,64 +145,68 @@ void mainWindow::updateSize(QSize floorSize, QSize oldFloorSize)
 
 void mainWindow::createActions()
 {
-	openAct = new QAction(/*QIcon(":/images/open.png"),*/ tr("&Open File... (*.syx)"), this);
+	openAct = new QAction(QIcon(":/images/fileopen.png"), tr("&Open File... (*.syx)"), this);
 	openAct->setShortcut(tr("Ctrl+O"));
 	openAct->setStatusTip(tr("Open an existing file"));
 	connect(openAct, SIGNAL(triggered()), this, SLOT(open()));
 	
-	saveAct = new QAction(/*QIcon(":/images/save.png"),*/ tr("&Save...       (*.syx)"), this);
+	saveAct = new QAction(QIcon(":/images/filesave.png"), tr("&Save...       (*.syx)"), this);
 	saveAct->setShortcut(tr("Ctrl+S"));
 	saveAct->setStatusTip(tr("Save the document to disk"));
 	connect(saveAct, SIGNAL(triggered()), this, SLOT(save()));
 
-	saveAsAct = new QAction(/*QIcon(":/images/saveas.png"),*/ tr("Save &As...  (*.syx)"), this);
+	saveAsAct = new QAction(QIcon(":/images/filesave.png"), tr("Save &As...  (*.syx)"), this);
 	saveAsAct->setShortcut(tr("Ctrl+Shift+S"));
 	saveAsAct->setStatusTip(tr("Save the document under a new name"));
 	connect(saveAsAct, SIGNAL(triggered()), this, SLOT(saveAs()));
 	
-	importSMFAct = new QAction(/*QIcon(":/images/importSMF.png"),*/ tr("&Import SMF... (*.mid)"), this);
+	importSMFAct = new QAction(QIcon(":/images/fileopen.png"), tr("&Import SMF... (*.mid)"), this);
 	importSMFAct->setShortcut(tr("Ctrl+I"));
 	importSMFAct->setStatusTip(tr("Import an existing SMF"));
 	connect(importSMFAct, SIGNAL(triggered()), this, SLOT(importSMF()));
 
-	exportSMFAct = new QAction(/*QIcon(":/images/exportSMF.png"),*/ tr("Export &SMF... (*.mid)"), this);
+	exportSMFAct = new QAction(QIcon(":/images/filesave.png"), tr("Export &SMF... (*.mid)"), this);
 	exportSMFAct->setShortcut(tr("Ctrl+Shift+E"));
 	exportSMFAct->setStatusTip(tr("Export as a Standard Midi File"));
 	connect(exportSMFAct, SIGNAL(triggered()), this, SLOT(exportSMF()));
 	
-	systemLoadAct = new QAction(/*QIcon(":/images/importSMF.png"),*/ tr("&Load GT System Data..."), this);
+	systemLoadAct = new QAction(QIcon(":/images/fileopen.png"), tr("&Load GT System Data..."), this);
 	systemLoadAct->setShortcut(tr("Ctrl+L"));
 	systemLoadAct->setStatusTip(tr("Load System Data to GT-10B"));
 	connect(systemLoadAct, SIGNAL(triggered()), this, SLOT(systemLoad()));
 
-	systemSaveAct = new QAction(/*QIcon(":/images/exportSMF.png"),*/ tr("Save GT System Data..."), this);
+	systemSaveAct = new QAction(QIcon(":/images/filesave.png"), tr("Save GT System Data..."), this);
 	systemSaveAct->setShortcut(tr("Ctrl+D"));
 	systemSaveAct->setStatusTip(tr("Save System Data to File"));
 	connect(systemSaveAct, SIGNAL(triggered()), this, SLOT(systemSave()));
 
-	exitAct = new QAction(tr("E&xit"), this);
+	exitAct = new QAction(QIcon(":/images/exit.png"),tr("E&xit"), this);
 	exitAct->setShortcut(tr("Ctrl+Q"));
 	exitAct->setStatusTip(tr("Exit the application"));
 	connect(exitAct, SIGNAL(triggered()), this, SLOT(close()));
 
-	settingsAct = new QAction(/*QIcon(":/images/preferences.png"),*/ tr("&Preferences"), this);
+	settingsAct = new QAction(QIcon(":/images/preferences.png"), tr("&Preferences"), this);
 	settingsAct->setShortcut(tr("Ctrl+P"));
 	settingsAct->setStatusTip(tr("...."));
 	connect(settingsAct, SIGNAL(triggered()), this, SLOT(settings()));
+	uploadAct = new QAction(QIcon(":/images/upload.png"), tr("Upload patch to GT-Central"), this);
+	uploadAct->setStatusTip(tr("........"));
+	connect(uploadAct, SIGNAL(triggered()), this, SLOT(upload()));
 
-	helpAct = new QAction(/*QIcon(":/images/help.png"),*/ tr("GT-10B Fx FloorBoard &Help"), this);
+	helpAct = new QAction(QIcon(":/images/help.png"), tr("GT-10B Fx FloorBoard &Help"), this);
 	helpAct->setShortcut(tr("Ctrl+F1"));
 	helpAct->setStatusTip(tr("....."));
 	connect(helpAct, SIGNAL(triggered()), this, SLOT(help()));
 
-	homepageAct = new QAction(/*QIcon(":/images/home.png"),*/ tr("GT-10B Fx FloorBoard &Webpage"), this);
+	homepageAct = new QAction(QIcon(":/images/webpage.png"), tr("GT-10B Fx FloorBoard &Webpage"), this);
 	homepageAct->setStatusTip(tr("........"));
 	connect(homepageAct, SIGNAL(triggered()), this, SLOT(homepage()));
 
-	donationAct = new QAction(/*QIcon(":/images/donate.png"),*/ tr("Donate towards GT test equipment for Gumtown"), this);
+	donationAct = new QAction(QIcon(":/images/donate.png"), tr("Donate towards GT test equipment for Gumtown"), this);
+	donationAct->setStatusTip(tr("........"));
 	connect(donationAct, SIGNAL(triggered()), this, SLOT(donate()));
 
-	licenseAct = new QAction(/*QIcon(":/images/license.png"),*/ tr("&License"), this);
+	licenseAct = new QAction(QIcon(":/images/licence.png"), tr("&License"), this);
 	licenseAct->setStatusTip(tr("........"));
 	connect(licenseAct, SIGNAL(triggered()), this, SLOT(license()));
 
@@ -218,7 +214,7 @@ void mainWindow::createActions()
 	aboutAct->setStatusTip(tr("Show the application's About box"));
 	connect(aboutAct, SIGNAL(triggered()), this, SLOT(about()));
 
-	aboutQtAct = new QAction(tr("About &Qt"), this);
+	aboutQtAct = new QAction(QIcon(":/images/qt-logo.png"),tr("About &Qt"), this);
 	aboutQtAct->setStatusTip(tr("Show the Qt library's About box"));
 	connect(aboutQtAct, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
 };
@@ -240,14 +236,13 @@ void mainWindow::createMenus()
 	fileMenu->addSeparator();
   fileMenu->addAction(exitAct);
 	menuBar->addMenu(fileMenu);
-    //menuBar()->addMenu(fileMenu);
-
+  
 
 	QMenu *toolsMenu = new QMenu(tr("&Tools"), this);
 	toolsMenu->addAction(settingsAct);
+	toolsMenu->addAction(uploadAct);
 	menuBar->addMenu(toolsMenu);
-    //menuBar()->addMenu(toolsMenu);
-
+ 
 	QMenu *helpMenu = new QMenu(tr("&Help"), this);
 	helpMenu->addAction(helpAct);
 	helpMenu->addAction(homepageAct);
@@ -307,8 +302,9 @@ void mainWindow::open()
 			sysxIO->setFileName(fileName);
 			sysxIO->setSyncStatus(false);
 			sysxIO->setDevice(false);
-
 			emit updateSignal();
+			if(sysxIO->isConnected())
+			{sysxIO->writeToBuffer(); };
 		};
 	};
 };
@@ -410,6 +406,8 @@ void mainWindow::importSMF()
 			sysxIO->setDevice(false);
 
 			emit updateSignal();
+			if(sysxIO->isConnected())
+			{sysxIO->writeToBuffer(); };
 		};
 	};
 };
@@ -495,8 +493,7 @@ SysxIO *sysxIO = SysxIO::Instance();
      if (sysxIO->isConnected())
 	       {
   sysxIO->systemDataRequest();
-  //SLEEP(3000);
-
+  
 	Preferences *preferences = Preferences::Instance();
 	QString dir = preferences->getPreferences("General", "Files", "dir");
 
@@ -581,6 +578,12 @@ void mainWindow::homepage()
 {
 	Preferences *preferences = Preferences::Instance();
 	QDesktopServices::openUrl(QUrl( preferences->getPreferences("General", "Webpage", "url") ));
+};
+
+void mainWindow::upload()
+{
+	Preferences *preferences = Preferences::Instance();
+	QDesktopServices::openUrl(QUrl( preferences->getPreferences("General", "Upload", "url") ));
 };
 
 void mainWindow::donate()
