@@ -40,11 +40,11 @@ border-color: rgb(150,150,150);
 }
 QTreeWidget#banklist QHeaderView::section:only-one {
 font-family: Arial;
-font-size: 12px;
+font-size: 9px;
 font-weight: bold;
 /*padding-top: 15px;*/
 border-style: solid;
-border-radius: 10px;
+border-radius: 3px;
 border-width: 1px;
 border-color: rgba(150,150,150,255);
 background-color: rgb(0,1,62);
@@ -71,7 +71,7 @@ QComboBox#smallcombo {
 font-family: Arial;
 font-size: 10px;
 font-weight: bold;
-font-stretch: 110;
+/*font-stretch: 110;*/
 color: rgb(0,255,204);
 background-color: rgb(0,1,62);
 border-style: solid;

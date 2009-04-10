@@ -66,7 +66,7 @@ stompBox::stompBox(QWidget *parent, unsigned int id, QString imagePath, QPoint s
   
   QObject::connect(this, SIGNAL( updateStompBoxes() ), this->parent(), SLOT( updateStompBoxes() ));
 
-  QObject::connect(this, SIGNAL( switchSignal() ), this->parent(), SLOT( updateSignal() ));
+  QObject::connect(this, SIGNAL( switchSignal() ), this->parent(), SIGNAL( updateSignal() ));
  
   QObject::connect(this->parent(), SIGNAL(ch_mode_buttonSignal(bool)), this, SLOT(ch_mode_ButtonSignal(bool) )); 
   QObject::connect(this->parent(), SIGNAL(ch_mode_buttonSignal(bool)), this->parent(), SLOT(menuButtonSignal()));
@@ -596,7 +596,7 @@ void stompBox::setButton(QString hex1, QString hex2, QString hex3, QPoint pos, Q
 void stompBox::setSwitch(QString hex1, QString hex2, QString hex3)
 {
 	switchbutton = new customSwitch(false, this, hex1, hex2, hex3);	
-	switchbutton->move(QPoint::QPoint(5, 41)); 
+	switchbutton->move(QPoint::QPoint(15, 45)); 
 };
 
 void stompBox::updateComboBox(QString hex1, QString hex2, QString hex3)

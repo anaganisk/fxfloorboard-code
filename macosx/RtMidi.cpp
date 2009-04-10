@@ -8,7 +8,7 @@
     RtMidi WWW site: http://music.mcgill.ca/~gary/rtmidi/
 
     RtMidi: realtime MIDI i/o C++ classes
-    Copyright (c) 2003-2006 Gary P. Scavone
+    Copyright (c) 2003-2009 Gary P. Scavone
 
     Permission is hereby granted, free of charge, to any person
     obtaining a copy of this software and associated documentation files
@@ -35,10 +35,9 @@
 */
 /**********************************************************************/
 
-// RtMidi: Version 1.0.6
+// RtMidi: Version 1.0.8
 
 #include "RtMidi.h"
-#include "midiIO.h"
 #include <sstream>
 
 //*********************************************************************//
@@ -54,8 +53,11 @@ void RtMidi :: error( RtError::Type type )
 {
   if (type == RtError::WARNING) {
     std::cerr << '\n' << errorString_ << "\n\n";
-	throw RtError( errorString_, type );
-
+  }
+  else if (type == RtError::DEBUG_WARNING) {
+#if defined(__RTMIDI_DEBUG__)
+    std::cerr << '\n' << errorString_ << "\n\n";
+#endif
   }
   else {
     std::cerr << '\n' << errorString_ << "\n\n";
@@ -67,21 +69,21 @@ void RtMidi :: error( RtError::Type type )
 //  Common RtMidiIn Definitions
 //*********************************************************************//
 
-RtMidiIn :: RtMidiIn() : RtMidi()
+RtMidiIn :: RtMidiIn( const std::string clientName ) : RtMidi()
 {
-  this->initialize();
+  this->initialize( clientName );
 }
 
 void RtMidiIn :: setCallback( RtMidiCallback callback, void *userData )
 {
   if ( inputData_.usingCallback ) {
-    errorString_ = "FxFloorBoard MidiIn::setCallback: a callback function is already set!";
+    errorString_ = "RtMidiIn::setCallback: a callback function is already set!";
     error( RtError::WARNING );
     return;
   }
 
   if ( !callback ) {
-    errorString_ = "FxFloorBoard MidiIn::setCallback: callback function value is invalid!";
+    errorString_ = "RtMidiIn::setCallback: callback function value is invalid!";
     error( RtError::WARNING );
     return;
   }
@@ -94,7 +96,7 @@ void RtMidiIn :: setCallback( RtMidiCallback callback, void *userData )
 void RtMidiIn :: cancelCallback()
 {
   if ( !inputData_.usingCallback ) {
-    errorString_ = "FxFloorBoard MidiIn::cancelCallback: no callback function was set!";
+    errorString_ = "RtMidiIn::cancelCallback: no callback function was set!";
     error( RtError::WARNING );
     return;
   }
@@ -122,7 +124,7 @@ double RtMidiIn :: getMessage( std::vector<unsigned char> *message )
   message->clear();
 
   if ( inputData_.usingCallback ) {
-    errorString_ = "FxFloorBoard MidiIn::getNextMessage: a user callback is currently set for this port.";
+    errorString_ = "RtMidiIn::getNextMessage: a user callback is currently set for this port.";
     error( RtError::WARNING );
     return 0.0;
   }
@@ -142,9 +144,9 @@ double RtMidiIn :: getMessage( std::vector<unsigned char> *message )
 //  Common RtMidiOut Definitions
 //*********************************************************************//
 
-RtMidiOut :: RtMidiOut() : RtMidi()
+RtMidiOut :: RtMidiOut( const std::string clientName ) : RtMidi()
 {
-  this->initialize();
+  this->initialize( clientName );
 }
 
 
@@ -153,9 +155,8 @@ RtMidiOut :: RtMidiOut() : RtMidi()
 //*********************************************************************//
 
 // API information found at:
-//   - http://developer.apple.com/audio/pdf/coreaudio.pdf 
+//   - http://developer. apple .com/audio/pdf/coreaudio.pdf 
 
-//#if defined(__MACOSX_CORE__)
 
 // The CoreMIDI API is based on the use of a callback function for
 // MIDI input.  We convert the system specific time stamps to delta
@@ -185,44 +186,50 @@ void midiInputCallback( const MIDIPacketList *list, void *procRef, void *srcRef 
   RtMidiIn::RtMidiInData *data = static_cast<RtMidiIn::RtMidiInData *> (procRef);
   CoreMidiData *apiData = static_cast<CoreMidiData *> (data->apiData);
 
-  bool continueSysex = false;
   unsigned char status;
   unsigned short nBytes, iByte, size;
-//  unsigned long long time;
-  RtMidiIn::MidiMessage message;
+  unsigned long long time;
+
+  bool& continueSysex = data->continueSysex;
+  RtMidiIn::MidiMessage& message = data->message;
+
   const MIDIPacket *packet = &list->packet[0];
   for ( unsigned int i=0; i<list->numPackets; ++i ) {
 
     // My interpretation of the CoreMIDI documentation: all message
     // types, except sysex, are complete within a packet and there may
     // be several of them in a single packet.  Sysex messages can be
-    // broken across multiple packets but are bundled alone within a
-    // packet.  I'm assuming that sysex messages, if segmented, must
-    // be complete within the same MIDIPacketList.
+    // broken across multiple packets and PacketLists but are bundled
+    // alone within each packet (these packets do not contain other
+    // message types).  If sysex messages are split across multiple
+    // MIDIPacketLists, they must be handled by multiple calls to this
+    // function.
 
     nBytes = packet->length;
     if ( nBytes == 0 ) continue;
 
     // Calculate time stamp.
     message.timeStamp = 0.0;
-    /*if ( data->firstMessage )
+    if ( data->firstMessage )
       data->firstMessage = false;
     else {
       time = packet->timeStamp;
       time -= apiData->lastTime;
       time = AudioConvertHostTimeToNanos( time );
       message.timeStamp = time * 0.000000001;
-    }*/
+    }
     apiData->lastTime = packet->timeStamp;
- 
+
     iByte = 0;
-    if ( continueSysex ) {      // We have a continuing, segmented sysex message.
-      //if ( !(data->ignoreFlags & 0x01) ) {
+    if ( continueSysex ) {
+      // We have a continuing, segmented sysex message.
+      if ( !( data->ignoreFlags & 0x01 ) ) {
         // If we're not ignoring sysex messages, copy the entire packet.
         for ( unsigned int j=0; j<nBytes; j++ )
           message.bytes.push_back( packet->data[j] );
-     //}
-      if ( packet->data[nBytes] == 0xF7 ) continueSysex = false;
+      }
+      continueSysex = packet->data[nBytes-1] != 0xF7;
+
       if ( !continueSysex ) {
         // If not a continuing sysex message, invoke the user callback function or queue the message.
         if ( data->usingCallback && message.bytes.size() > 0 ) {
@@ -234,7 +241,7 @@ void midiInputCallback( const MIDIPacketList *list, void *procRef, void *srcRef 
           if ( data->queueLimit > data->queue.size() )
             data->queue.push( message );
           else
-            std::cerr << "\nFxFloorBoard MidiIn: message queue limit reached!!\n\n";
+            std::cerr << "\nRtMidiIn: message queue limit reached!!\n\n";
         }
         message.bytes.clear();
       }
@@ -244,43 +251,43 @@ void midiInputCallback( const MIDIPacketList *list, void *procRef, void *srcRef 
         size = 0;
         // We are expecting that the next byte in the packet is a status byte.
         status = packet->data[iByte];
-        //if ( !(status & 0x80) ) break;
+        if ( !(status & 0x80) ) break;
         // Determine the number of bytes in the MIDI message.
-       // if ( status < 0xC0 ) size = 3;
-       // else if ( status < 0xE0 ) size = 2;
-       // else if ( status < 0xF0 ) size = 3;
-       // else if ( status == 0xF0 ) {
+        if ( status < 0xC0 ) size = 3;
+        else if ( status < 0xE0 ) size = 2;
+        else if ( status < 0xF0 ) size = 3;
+        else if ( status == 0xF0 ) {
           // A MIDI sysex
-         /* if ( data->ignoreFlags & 0x01 ) {
+          if ( data->ignoreFlags & 0x01 ) {
             size = 0;
             iByte = nBytes;
           }
-          else*/ size = nBytes - iByte;
-          //if ( packet->data[nBytes] == 0xF7 ) continueSysex = false;
-       // }
-        /*else if ( status < 0xF3 ) {
+          else size = nBytes - iByte;
+          continueSysex =  packet->data[nBytes-1] != 0xF7;
+        }
+        else if ( status < 0xF3 ) {
           if ( status == 0xF1 && (data->ignoreFlags & 0x02) ) {
             // A MIDI time code message and we're ignoring it.
             size = 0;
             iByte += 3;
           }
           else size = 3;
-        }*/
-       // else if ( status == 0xF3 ) size = 2;
-       /* else if ( status == 0xF8 ) {
+        }
+        else if ( status == 0xF3 ) size = 2;
+        else if ( status == 0xF8 ) {
           size = 1;
           if ( data->ignoreFlags & 0x02 ) {
             // A MIDI timing tick message and we're ignoring it.
             size = 0;
             iByte += 3;
           }
-        }*/
-       /* else if ( status == 0xFE && (data->ignoreFlags & 0x04) ) {
+        }
+        else if ( status == 0xFE && (data->ignoreFlags & 0x04) ) {
           // A MIDI active sensing message and we're ignoring it.
           size = 0;
           iByte += 1;
-        }*/
-        //else size = 1;
+        }
+        else size = 1;
 
         // Copy the MIDI data to our vector.
         if ( size ) {
@@ -296,7 +303,7 @@ void midiInputCallback( const MIDIPacketList *list, void *procRef, void *srcRef 
               if ( data->queueLimit > data->queue.size() )
                 data->queue.push( message );
               else
-                std::cerr << "\nFxFloorBoard MidiIn: message queue limit reached!!\n\n";
+                std::cerr << "\nRtMidiIn: message queue limit reached!!\n\n";
             }
             message.bytes.clear();
           }
@@ -306,15 +313,15 @@ void midiInputCallback( const MIDIPacketList *list, void *procRef, void *srcRef 
     }
     packet = MIDIPacketNext(packet);
   }
-}   //
+}
 
-void RtMidiIn :: initialize( void )
+void RtMidiIn :: initialize( const std::string& clientName )
 {
   // Set up our client.
   MIDIClientRef client;
-  OSStatus result = MIDIClientCreate( CFSTR("FxFloorBoard"), NULL, NULL, &client );
+  OSStatus result = MIDIClientCreate( CFStringCreateWithCString( NULL, clientName.c_str(), kCFStringEncodingASCII ), NULL, NULL, &client );
   if ( result != noErr ) {
-    errorString_ = "FxFloorBoard MidiIn::initialize: error creating OS-X MIDI client object.";
+    errorString_ = "RtMidiIn::initialize: error creating OS-X MIDI client object.";
     error( RtError::DRIVER_ERROR );
   }
 
@@ -326,33 +333,35 @@ void RtMidiIn :: initialize( void )
   inputData_.apiData = (void *) data;
 }
 
-void RtMidiIn :: openPort( unsigned int portNumber )
+void RtMidiIn :: openPort( unsigned int portNumber, const std::string portName )
 {
   if ( connected_ ) {
-    errorString_ = "FxFloorBoard MidiIn::openPort: a valid connection already exists!";
+    errorString_ = "RtMidiIn::openPort: a valid connection already exists!";
     error( RtError::WARNING );
     return;
   }
 
   unsigned int nSrc = MIDIGetNumberOfSources();
   if (nSrc < 1) {
-    errorString_ = "FxFloorBoard MidiIn::openPort: no MIDI input sources found!";
+    errorString_ = "RtMidiIn::openPort: no MIDI input sources found!";
     error( RtError::NO_DEVICES_FOUND );
   }
 
   std::ostringstream ost;
   if ( portNumber >= nSrc ) {
-    ost << "FxFloorBoard MidiIn::openPort: the listed midi device at 'portNumber'(" << portNumber << ") is not present.";
+    ost << "RtMidiIn::openPort: the 'portNumber' argument (" << portNumber << ") is invalid.";
     errorString_ = ost.str();
     error( RtError::INVALID_PARAMETER );
   }
 
   MIDIPortRef port;
   CoreMidiData *data = static_cast<CoreMidiData *> (apiData_);
-  OSStatus result = MIDIInputPortCreate( data->client, CFSTR("FxFloorBoard"), midiInputCallback, (void *)&inputData_, &port );
+  OSStatus result = MIDIInputPortCreate( data->client, 
+                                         CFStringCreateWithCString( NULL, portName.c_str(), kCFStringEncodingASCII ),
+                                         midiInputCallback, (void *)&inputData_, &port );
   if ( result != noErr ) {
     MIDIClientDispose( data->client );
-    errorString_ = "FxFloorBoard MidiIn::openPort: error creating OS-X MIDI input port.";
+    errorString_ = "RtMidiIn::openPort: error creating OS-X MIDI input port.";
     error( RtError::DRIVER_ERROR );
   }
 
@@ -361,7 +370,7 @@ void RtMidiIn :: openPort( unsigned int portNumber )
   if ( endpoint == NULL ) {
     MIDIPortDispose( port );
     MIDIClientDispose( data->client );
-    errorString_ = "FxFloorBoard MidiIn::openPort: error getting MIDI input source reference.";
+    errorString_ = "RtMidiIn::openPort: error getting MIDI input source reference.";
     error( RtError::DRIVER_ERROR );
   }
 
@@ -370,7 +379,7 @@ void RtMidiIn :: openPort( unsigned int portNumber )
   if ( result != noErr ) {
     MIDIPortDispose( port );
     MIDIClientDispose( data->client );
-    errorString_ = "FxFloorBoard MidiIn::openPort: error connecting OS-X MIDI input port.";
+    errorString_ = "RtMidiIn::openPort: error connecting OS-X MIDI input port.";
     error( RtError::DRIVER_ERROR );
   }
 
@@ -390,7 +399,7 @@ void RtMidiIn :: openVirtualPort( const std::string portName )
                                            CFStringCreateWithCString( NULL, portName.c_str(), kCFStringEncodingASCII ),
                                            midiInputCallback, (void *)&inputData_, &endpoint );
   if ( result != noErr ) {
-    errorString_ = "FxFloorBoard MidiIn::openVirtualPort: error creating virtual OS-X MIDI destination.";
+    errorString_ = "RtMidiIn::openVirtualPort: error creating virtual OS-X MIDI destination.";
     error( RtError::DRIVER_ERROR );
   }
 
@@ -432,7 +441,7 @@ std::string RtMidiIn :: getPortName( unsigned int portNumber )
   char name[128];
 
   if ( portNumber >= MIDIGetNumberOfSources() ) {
-    ost << "FxFloorBoard MidiIn::getPortName: the listed midi device at 'portNumber'(" << portNumber << ") is not present.";
+    ost << "RtMidiIn::getPortName: the 'portNumber' argument (" << portNumber << ") is invalid.";
     errorString_ = ost.str();
     error( RtError::INVALID_PARAMETER );
   }
@@ -463,7 +472,7 @@ std::string RtMidiOut :: getPortName( unsigned int portNumber )
   char name[128];
 
   if ( portNumber >= MIDIGetNumberOfDestinations() ) {
-    ost << "FxFloorBoard MidiOut::getPortName: the listed device at 'portNumber'(" << portNumber << ") is invalid.";
+    ost << "RtMidiOut::getPortName: the 'portNumber' argument (" << portNumber << ") is invalid.";
     errorString_ = ost.str();
     error( RtError::INVALID_PARAMETER );
   }
@@ -476,13 +485,13 @@ std::string RtMidiOut :: getPortName( unsigned int portNumber )
   return stringName;
 }
 
-void RtMidiOut :: initialize( void )
+void RtMidiOut :: initialize( const std::string& clientName )
 {
   // Set up our client.
   MIDIClientRef client;
-  OSStatus result = MIDIClientCreate( CFSTR("FxFloorBoard Midi Output Client"), NULL, NULL, &client );
+  OSStatus result = MIDIClientCreate( CFStringCreateWithCString( NULL, clientName.c_str(), kCFStringEncodingASCII ), NULL, NULL, &client );
   if ( result != noErr ) {
-    errorString_ = "FxFloorBoard MidiOut::initialize: error creating OS-X MIDI client object.";
+    errorString_ = "RtMidiOut::initialize: error creating OS-X MIDI client object.";
     error( RtError::DRIVER_ERROR );
   }
 
@@ -493,33 +502,35 @@ void RtMidiOut :: initialize( void )
   apiData_ = (void *) data;
 }
 
-void RtMidiOut :: openPort( unsigned int portNumber )
+void RtMidiOut :: openPort( unsigned int portNumber, const std::string portName )
 {
   if ( connected_ ) {
-    errorString_ = "FxFloorBoard MidiOut::openPort: a valid connection already exists!";
+    errorString_ = "RtMidiOut::openPort: a valid connection already exists!";
     error( RtError::WARNING );
     return;
   }
 
   unsigned int nDest = MIDIGetNumberOfDestinations();
   if (nDest < 1) {
-    errorString_ = "FxFloorBoard MidiOut::openPort: no MIDI output destinations found!";
+    errorString_ = "RtMidiOut::openPort: no MIDI output destinations found!";
     error( RtError::NO_DEVICES_FOUND );
   }
 
   std::ostringstream ost;
   if ( portNumber >= nDest ) {
-    ost << "FxFloorBoard MidiOut::openPort: the listed device at 'portNumber'(" << portNumber << ") is invalid.";
+    ost << "RtMidiOut::openPort: the 'portNumber' argument (" << portNumber << ") is invalid.";
     errorString_ = ost.str();
     error( RtError::INVALID_PARAMETER );
   }
 
   MIDIPortRef port;
   CoreMidiData *data = static_cast<CoreMidiData *> (apiData_);
-  OSStatus result = MIDIOutputPortCreate( data->client, CFSTR("FxFloorBoard Midi Virtual MIDI Output Port"), &port );
+  OSStatus result = MIDIOutputPortCreate( data->client, 
+                                          CFStringCreateWithCString( NULL, portName.c_str(), kCFStringEncodingASCII ),
+                                          &port );
   if ( result != noErr ) {
     MIDIClientDispose( data->client );
-    errorString_ = "FxFloorBoard MidiOut::openPort: error creating OS-X MIDI output port.";
+    errorString_ = "RtMidiOut::openPort: error creating OS-X MIDI output port.";
     error( RtError::DRIVER_ERROR );
   }
 
@@ -528,7 +539,7 @@ void RtMidiOut :: openPort( unsigned int portNumber )
   if ( destination == NULL ) {
     MIDIPortDispose( port );
     MIDIClientDispose( data->client );
-    errorString_ = "FxFloorBoard MidiOut::openPort: error getting MIDI output destination reference.";
+    errorString_ = "RtMidiOut::openPort: error getting MIDI output destination reference.";
     error( RtError::DRIVER_ERROR );
   }
 
@@ -552,7 +563,7 @@ void RtMidiOut :: openVirtualPort( std::string portName )
   CoreMidiData *data = static_cast<CoreMidiData *> (apiData_);
 
   if ( data->endpoint ) {
-    errorString_ = "FxFloorBoard MidiOut::openVirtualPort: a virtual output port already exists!";
+    errorString_ = "RtMidiOut::openVirtualPort: a virtual output port already exists!";
     error( RtError::WARNING );
     return;
   }
@@ -563,7 +574,7 @@ void RtMidiOut :: openVirtualPort( std::string portName )
                                       CFStringCreateWithCString( NULL, portName.c_str(), kCFStringEncodingASCII ),
                                       &endpoint );
   if ( result != noErr ) {
-    errorString_ = "FxFloorBoard MidiOut::initialize: error creating OS-X virtual MIDI source.";
+    errorString_ = "RtMidiOut::initialize: error creating OS-X virtual MIDI source.";
     error( RtError::DRIVER_ERROR );
   }
 
@@ -585,35 +596,61 @@ RtMidiOut :: ~RtMidiOut()
 
 void RtMidiOut :: sendMessage( std::vector<unsigned char> *message )
 {
+  // The CoreMidi documentation indicates a maximum PackList size of
+  // 64K, so we may need to break long sysex messages into pieces and
+  // send via separate lists.
   unsigned int nBytes = message->size();
-  // Pad the buffer for extra (unknown) structure data.
-  Byte buffer[nBytes+32];
-  MIDIPacketList *pktlist = (MIDIPacketList *) buffer;
-  MIDIPacket *curPacket = MIDIPacketListInit( pktlist );
-
-  MIDITimeStamp timeStamp = 0;
-  curPacket = MIDIPacketListAdd( pktlist, sizeof(buffer), curPacket, timeStamp, nBytes, &message->at(0) );
-
-  CoreMidiData *data = static_cast<CoreMidiData *> (apiData_);
-
-  // Send to any destinations that may have connected to us.
-  OSStatus result;
-  if ( data->endpoint ) {
-    result = MIDIReceived( data->endpoint, pktlist );
-    if ( result != noErr ) {
-      errorString_ = "FxFloorBoard MidiOut::sendMessage: error sending MIDI to virtual destinations.";
-      error( RtError::WARNING );
-    }
+  if ( nBytes == 0 ) {
+    errorString_ = "RtMidiOut::sendMessage: no data in message argument!";      
+    error( RtError::WARNING );
+    return;
   }
 
-  // And send to an explicit destination port if we're connected.
-  if ( connected_ ) {
-    result = MIDISend( data->port, data->destinationId, pktlist );
-    if ( result != noErr ) {
-      errorString_ = "FxFloorBoard MidiOut::sendMessage: error sending MIDI message to port.";
-      error( RtError::WARNING );
+  if ( nBytes > 3 && ( message->at(0) != 0xF0 ) ) {
+    errorString_ = "RtMidiOut::sendMessage: message format problem ... not sysex but > 3 bytes?";      
+    error( RtError::WARNING );
+    return;
+  }
+
+  unsigned int packetBytes, bytesLeft = nBytes;
+  unsigned int messageIndex = 0;
+  MIDITimeStamp timeStamp = 0;
+  CoreMidiData *data = static_cast<CoreMidiData *> (apiData_);
+
+  while ( bytesLeft > 0 ) {
+
+    packetBytes = ( bytesLeft > 32736 ) ? 32736 : bytesLeft;
+    Byte buffer[packetBytes + 32]; // extra memory for other structure variables
+    MIDIPacketList *packetList = (MIDIPacketList *) buffer;
+    MIDIPacket *curPacket = MIDIPacketListInit( packetList );
+
+    curPacket = MIDIPacketListAdd( packetList, packetBytes+32, curPacket, timeStamp, packetBytes, (const Byte *) &message->at( messageIndex ) );
+    if ( !curPacket ) {
+      errorString_ = "RtMidiOut::sendMessage: could not allocate packet list";      
+      error( RtError::DRIVER_ERROR );
+    }
+    messageIndex += packetBytes;
+    bytesLeft -= packetBytes;
+
+    // Send to any destinations that may have connected to us.
+    OSStatus result;
+    if ( data->endpoint ) {
+      result = MIDIReceived( data->endpoint, packetList );
+      if ( result != noErr ) {
+        errorString_ = "RtMidiOut::sendMessage: error sending MIDI to virtual destinations.";
+        error( RtError::WARNING );
+      }
+    }
+
+    // And send to an explicit destination port if we're connected.
+    if ( connected_ ) {
+      result = MIDISend( data->port, data->destinationId, packetList );
+      if ( result != noErr ) {
+        errorString_ = "RtMidiOut::sendMessage: error sending MIDI message to port.";
+        error( RtError::WARNING );
+      }
     }
   }
 }
 
-//#endif  // __MACOSX_CORE__
+

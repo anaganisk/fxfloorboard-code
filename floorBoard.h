@@ -89,8 +89,8 @@ signals:
 protected:
 	void paintEvent(QPaintEvent *event);
 	void dragEnterEvent(QDragEnterEvent *event);
-    void dragMoveEvent(QDragMoveEvent *event);
-    void dropEvent(QDropEvent *event);
+        void dragMoveEvent(QDragMoveEvent *event);
+        void dropEvent(QDropEvent *event);
 
 private:
 	void initSize(QSize floorSize);
@@ -135,7 +135,7 @@ private:
 	QList<int> fx;
 	bool colapseState;
 
-  QList<menuPage*> menuPages;
+        QList<menuPage*> menuPages;
 	QList<stompBox*> stompBoxes;
 	QList<QString> stompNames;
 	editWindow* editDialog;

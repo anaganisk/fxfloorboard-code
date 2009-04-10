@@ -28,7 +28,7 @@
 #include "globalVariables.h"
 #include "floorBoardDisplay.h"
 #include "floorBoard.h"
-#include "preferences.h"
+#include "Preferences.h"
 
 menuPage::menuPage(QWidget *parent, unsigned int id, QString imagePath, QPoint stompPos)
     : QWidget(parent)
@@ -66,14 +66,14 @@ menuPage::menuPage(QWidget *parent, unsigned int id, QString imagePath, QPoint s
   
   QObject::connect(this->menuButton, SIGNAL(valueChanged(bool)), this->parent(), SLOT(menuButtonSignal()));
   
-  QObject::connect(this->parent(), SIGNAL(master_buttonSignal(bool)), this, SLOT(master_ButtonSignal(bool) )); 
-  QObject::connect(this->parent(), SIGNAL(master_buttonSignal(bool)), this->parent(), SLOT(menuButtonSignal()));
+  //QObject::connect(this->parent(), SIGNAL(master_buttonSignal(bool)), this, SLOT(master_ButtonSignal(bool) )); 
+  //QObject::connect(this->parent(), SIGNAL(master_buttonSignal(bool)), this->parent(), SLOT(menuButtonSignal()));
   
-  QObject::connect(this->parent(), SIGNAL(fx1_autoriff_buttonSignal(bool)), this, SLOT(fx1_autoriff_ButtonSignal(bool) )); 
-  QObject::connect(this->parent(), SIGNAL(fx1_autoriff_buttonSignal(bool)), this->parent(), SLOT(menuButtonSignal()));
+  //QObject::connect(this->parent(), SIGNAL(fx1_autoriff_buttonSignal(bool)), this, SLOT(fx1_autoriff_ButtonSignal(bool) )); 
+  //QObject::connect(this->parent(), SIGNAL(fx1_autoriff_buttonSignal(bool)), this->parent(), SLOT(menuButtonSignal()));
   
-  QObject::connect(this->parent(), SIGNAL(fx2_autoriff_buttonSignal(bool)), this, SLOT(fx2_autoriff_ButtonSignal(bool) )); 
-  QObject::connect(this->parent(), SIGNAL(fx2_autoriff_buttonSignal(bool)), this->parent(), SLOT(menuButtonSignal()));
+  //QObject::connect(this->parent(), SIGNAL(fx2_autoriff_buttonSignal(bool)), this, SLOT(fx2_autoriff_ButtonSignal(bool) )); 
+  //QObject::connect(this->parent(), SIGNAL(fx2_autoriff_buttonSignal(bool)), this->parent(), SLOT(menuButtonSignal()));
   
   SysxIO *sysxIO = SysxIO::Instance();
 	QObject::connect(this, SIGNAL(setStatusSymbol(int)), sysxIO, SIGNAL(setStatusSymbol(int)));

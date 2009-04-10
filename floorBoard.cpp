@@ -101,7 +101,7 @@ floorBoard::floorBoard(QWidget *parent,
 	bar->setDragBarSize(QSize::QSize(4, panelBar->height() ));
 	bar->setDragBarMinOffset(2, 8);
 	bar->setDragBarMaxOffset(offset - panelBarOffset + 5);
-  initStomps();
+        initStomps();
 	initMenuPages();
 	this->editDialog = new editWindow(this);
 	this->editDialog->hide();
@@ -847,8 +847,4 @@ void floorBoard::menuButtonSignal()
    this->editDialog->show();
 };
 
-/*void floorBoard::stompbox_button(bool)
-{
-    emit stompbox_buttonSignal();
- QApplication::beep();
-};*/
+

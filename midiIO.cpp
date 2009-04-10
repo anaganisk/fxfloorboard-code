@@ -169,7 +169,7 @@ void midiIO::sendSyxMsg(QString sysxOutMsg, int midiOutPort)
     try {    
         midiMsgOut->openPort(midiOutPort);	// Open selected port.         
 		    std::vector<unsigned char> message;	
-        //message.reserve(1024);
+        message.reserve(256);
 		int msgLength = sysxOutMsg.length()/2;
 		char *ptr  = new char[msgLength];		// Convert QString to char* (hex value) 
 		for(int i=0;i<msgLength*2;++i)
@@ -182,7 +182,8 @@ void midiIO::sendSyxMsg(QString sysxOutMsg, int midiOutPort)
 			*ptr = (char)n;
 			message.push_back(*ptr);		// insert the char* string into a std::vector	
 			if(hex.contains ("F7")){		
-			  
+			           message.push_back(32);
+			           message.push_back(32);
                 midiMsgOut->sendMessage(&message);  // send the midi data as a std::vector
                 SLEEP(20);
                 message.clear();    
@@ -194,12 +195,12 @@ void midiIO::sendSyxMsg(QString sysxOutMsg, int midiOutPort)
  catch (RtError &error)
    {
 	  error.printMessage();
-	  emit errorSignal("Midi Output Error", "data error");
+	  emit errorSignal("Sysx Output Error", "data error");
 	  goto cleanup;
     };   
    /* Clean up */
  cleanup:
-	SLEEP(40);						// wait as long as the message is sending.
+	SLEEP(20);						// wait as long as the message is sending.
 	midiMsgOut->closePort();
     delete midiMsgOut;	
 };
@@ -259,7 +260,7 @@ void midicallback(double deltatime, std::vector<unsigned char> *message, void *u
            int bytesReceived = rxData.size();
            midi->emitProgress(bytesReceived);				
 				};	
-		if (!rxData.contains("F0410000002F11"))
+		//if (rxData.contains("F0410000002F12") || rxData.contains("F07E000602412F02000000000000F7"))
 		{ midi->callbackMsg(rxData); };
 };
 void midiIO::callbackMsg(QString rxData)
@@ -274,9 +275,9 @@ void midiIO::receiveMsg(QString sysxInMsg, int midiInPort)
 	emit setStatusSymbol(3);
 	emit setStatusProgress(100);
 	const int maxWait = preferences->getPreferences("Midi", "Time", "set").toInt(&ok, 10);
-	if(multiple){loopCount = maxWait*11; count = patchReplySize; } //patch reply size
-	else if (system){loopCount = maxWait*22; count = systemSize;}  // system reply size
-	  else {loopCount = maxWait/40; count = nameReplySize;};   // name reply size
+	if(multiple){loopCount = maxWait*20; count = patchReplySize; } //patch reply size
+	else if (system){loopCount = maxWait*30; count = systemSize;}  // system reply size
+	  else {loopCount = maxWait*6; count = nameReplySize;};   // name reply size
     RtMidiIn *midiin = 0;	
 	  midiin = new RtMidiIn();		   //RtMidi constructor
 	  unsigned int nPorts = midiin->getPortCount();	   // check we have a midiIn port
@@ -285,6 +286,7 @@ void midiIO::receiveMsg(QString sysxInMsg, int midiInPort)
 			midiin->ignoreTypes(false, true, true);  //don,t ignore sysex messages, but ignore other crap like active-sensing
 			midiin->openPort(midiInPort);             // open the midi in port			
 			midiin->setCallback(&midicallback);    // set the callback 
+			SLEEP(5);
 			sendSyxMsg(sysxOutMsg, midiOutPort);      // send the data request message out	
       int x = 0;	
 			while (x<loopCount && this->sysxBuffer.size()/2 < count)  // wait until exact bytes received or timeout

@@ -663,6 +663,7 @@ void SysxIO::setConnected(bool connected)
 {
 	this->connected = connected;	
 	emit setStatusMessage("Ready");
+	emit setStatusdBugMessage("");
 };
 
 /***************************** deviceReady() ******************************
@@ -866,8 +867,8 @@ void SysxIO::checkPatchChange(QString name)
 	QObject::disconnect(this, SIGNAL(patchName(QString)),
 		this, SLOT(checkPatchChange(QString)));
 
-//	if(this->requestName  == name)
-//	{
+	//if(this->requestName  == name)
+	//{
 		emit isChanged();
 		this->changeCount = 0;
 		//this->setDeviceReady(true); //  extra added  line
@@ -1047,7 +1048,7 @@ void SysxIO::requestPatch(int bank, int patch)
 ****************************************************************************/
 void SysxIO::errorSignal(QString windowTitle, QString errorMsg)
 {
-
+   /*
 		windowTitle = this->errorType;
 		errorMsg = this->errorMsg;
 		errorMsg.append("\n please press the [Connect] button to resume");
@@ -1058,9 +1059,11 @@ void SysxIO::errorSignal(QString windowTitle, QString errorMsg)
 		msgBox->setTextFormat(Qt::RichText);
 		msgBox->setText(errorMsg);
 		msgBox->setStandardButtons(QMessageBox::Ok);
-		msgBox->exec();
+		msgBox->exec();  
 		
-		emit notConnectedSignal();
+		emit notConnectedSignal();  
+    */
+		emit setStatusdBugMessage(this->errorType + "  " + this->errorMsg);
 		this->errorType = "";
 		this->errorMsg = "";	
 };
