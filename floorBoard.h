@@ -81,6 +81,7 @@ signals:
 	void sendreturn_buttonSignal(bool value);
 	void eq_buttonSignal(bool value);
 	void pedal_buttonSignal(bool value);
+	void fv_buttonSignal(bool value);
 	
 protected:
 	void paintEvent(QPaintEvent *event);

@@ -96,6 +96,7 @@ public slots:
 	void chorus_ButtonSignal(bool value);
 	void eq_ButtonSignal(bool value);
 	void pedal_ButtonSignal(bool value);
+	void fv_ButtonSignal(bool value);
 	
 signals:
 	void valueChanged(QString fxName, QString valueName, QString valueStr);

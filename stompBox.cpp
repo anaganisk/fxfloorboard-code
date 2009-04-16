@@ -52,7 +52,7 @@ stompBox::stompBox(QWidget *parent, unsigned int id, QString imagePath, QPoint s
 
 	QObject::connect(this, SIGNAL( setEditDialog(editWindow*) ), this->parent(), SLOT( setEditDialog(editWindow*) ));
 	
-	  QObject::connect(this, SIGNAL( switchSignal() ), this->parent(), SLOT( updateSignal() ));
+	  //QObject::connect(this, SIGNAL( switchSignal() ), this->parent(), SLOT( updateSignal() ));
  
   
   QObject::connect(this->parent(), SIGNAL(preamp1_buttonSignal(bool)), this, SLOT(preamp1_ButtonSignal(bool) )); 
@@ -84,6 +84,9 @@ stompBox::stompBox(QWidget *parent, unsigned int id, QString imagePath, QPoint s
   
   QObject::connect(this->parent(), SIGNAL(pedal_buttonSignal(bool)), this, SLOT(pedal_ButtonSignal(bool) )); 
   QObject::connect(this->parent(), SIGNAL(pedal_buttonSignal(bool)), this->parent(), SLOT(menuButtonSignal()));
+  
+  QObject::connect(this->parent(), SIGNAL(fv_buttonSignal(bool)), this, SLOT(fv_ButtonSignal(bool) )); 
+  QObject::connect(this->parent(), SIGNAL(fv_buttonSignal(bool)), this->parent(), SLOT(menuButtonSignal()));
 
 };
 
@@ -121,7 +124,7 @@ void stompBox::mousePressEvent(QMouseEvent *event)
 
 void stompBox::mouseDoubleClickEvent(QMouseEvent *event)
 {
-	event;
+        //event;
 	this->editDialog->setWindow(this->fxName);
 	emit setEditDialog(this->editDialog);
 };
@@ -272,6 +275,16 @@ void stompBox::eq_ButtonSignal(bool value)
 void stompBox::pedal_ButtonSignal(bool value)	
 {  
     if (this->id == 1)
+    { 
+      emitValueChanged(this->hex1, this->hex2, "00", "void");
+	    this->editDialog->setWindow(this->fxName);
+      emit setEditDialog(this->editDialog);
+    };
+};
+
+void stompBox::fv_ButtonSignal(bool value)	
+{  
+    if (this->id == 10)
     { 
       emitValueChanged(this->hex1, this->hex2, "00", "void");
 	    this->editDialog->setWindow(this->fxName);

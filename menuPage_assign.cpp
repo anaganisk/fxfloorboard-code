@@ -26,7 +26,7 @@
 menuPage_assign::menuPage_assign(QWidget *parent)
     : menuPage(parent)
 {
-  setImage(":/images/menu_pushbutton.png");
+  setImage(":/images/system_pushbutton.png");
   setLSB("0F", "00");
 	setEditPages();
 };

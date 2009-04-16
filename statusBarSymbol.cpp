@@ -55,3 +55,4 @@ void statusBarSymbol::setValue(int value)
 {
 	setOffset(value);
 };
+

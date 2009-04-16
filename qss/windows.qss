@@ -247,7 +247,7 @@ border-color:  rgb(255,255,255);
 border-radius: 5px;
 margin-top: 8px;
 padding: 2px;
-background-color: rgb(230,184,0);
+background-color: rgb(210,170,0);
 }
  
 /* CUSTOM CONTROLLABEL STYLE */
@@ -256,7 +256,7 @@ QLabel#customlabel {
 font-family: Arial;
 font-size: 9px;
 font-weight: bold;
-color: rgb(0,0,0);
+color: rgb(255,255,255);
 }
 
 /* CUSTOM CONTROLKNOB STYLE  */

@@ -80,7 +80,7 @@ private:
 	customButton *assign_Button;
 	customButton *system_midi_Button;
 	customButton *system_Button;
-	customButton *master_Button;
+	customButton *fv_Button;
 	customButton *preamp1_Button;
 	customButton *distortion_Button;
 	customButton *compressor_Button;

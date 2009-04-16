@@ -38,7 +38,7 @@ public:
     menuPage(
 		QWidget *parent = 0,
 		unsigned int id = 0,
-		QString imagePath = ":/images/menu_pushbutton.png",
+		QString imagePath = ":/images/system_pushbutton.png",
 		QPoint stompPos = QPoint::QPoint(100, 24));
 	void setPos(QPoint newPos);
 	void setImage(QString imagePath);
@@ -57,7 +57,7 @@ public slots:
 	void valueChanged(bool value, QString hex1, QString hex2, QString hex3);
 	virtual void updateSignal() {};
 	void setDisplayToFxName();
-	void master_ButtonSignal(bool value);	
+	//void master_ButtonSignal(bool value);	
 	void menuButtonSignal(bool value);  
   void systemReply(QString);
 		

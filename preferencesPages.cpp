@@ -19,7 +19,7 @@
 ** 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 **
 ****************************************************************************/
-
+ 
 #include <QtGui>
 #include "midiIO.h"
 #include "RtMidi.h"
@@ -158,7 +158,7 @@ MidiPage::MidiPage(QWidget *parent)
 	this->midiTimeSpinBox = midiTimeSpinBox;
 	const int maxWait = preferences->getPreferences("Midi", "Time", "set").toInt(&ok, 10);
 	midiTimeSpinBox->setValue(maxWait);
-	midiTimeSpinBox->setRange(10, 99);
+	midiTimeSpinBox->setRange(45, 99);
 	midiTimeSpinBox->setSingleStep(1);
 	midiTimeSpinBox->setPrefix("= ");
 	midiTimeSpinBox->setSuffix("0 ms wait");

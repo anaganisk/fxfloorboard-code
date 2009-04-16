@@ -12,10 +12,10 @@
 			<PARAM value="00" name="Device ID" desc="Dev=00H - 1FH" customdesc=""/>
 		</DATA>
 		<DATA value="03" abbr="" desc="" customdesc="">
-			<PARAM value="00" name="GT6B" desc="Model ID MSB3" customdesc=""/>
+			<PARAM value="00" name="GT6" desc="Model ID MSB3" customdesc=""/>
 		</DATA>
 		<DATA value="04" abbr="" desc="" customdesc="">
-			<PARAM value="46" name="GT6B" desc="Model ID LSB" customdesc=""/>
+			<PARAM value="46" name="GT6" desc="Model ID LSB" customdesc=""/>
 		</DATA>
 		<DATA value="05" abbr="" desc="" customdesc="">
 			<PARAM value="11" name="Receive" desc="Command ID (DT1)" customdesc=""/>
@@ -1258,6 +1258,310 @@
 					<Msb value="0A" name="Midi" abbr="" desc="MIDI SETTING" customdesc="Program Map">
 						<PARAM value="00" name="Fixed" desc="Fixed" customdesc="Fixed"/>
 						<PARAM value="01" name="Programmable" desc="Programmable" customdesc="Programmable"/>
+					</Msb>
+				</Msb>
+			</LSB>
+			<LSB value="06" name="preamp" abbr="" desc="" customdesc="">
+				<Msb value="00" name="preamp 1" abbr="" desc="" customdesc="preamp 1">
+					<Msb value="00" name="preamp 1" abbr="" desc="CUSTOM PREAMP" customdesc="Type">
+						<PARAM value="00" name="" desc="JC Clean" customdesc=""/>
+						<PARAM value="01" name="" desc="TW Clean" customdesc=""/>
+						<PARAM value="02" name="" desc="Crunch" customdesc=""/>
+						<PARAM value="03" name="" desc="VO Lead" customdesc=""/>
+						<PARAM value="04" name="" desc="BG Lead" customdesc=""/>
+						<PARAM value="05" name="" desc="MS 1959 Stack" customdesc=""/>
+						<PARAM value="06" name="" desc="Modern Stack" customdesc=""/>
+					</Msb>
+					<Msb value="01" name="preamp 1" abbr="" desc="CUSTOM PREAMP" customdesc="Bottom">
+						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
+					</Msb>
+					<Msb value="02" name="preamp 1" abbr="" desc="CUSTOM PREAMP" customdesc="Edge">
+						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
+					</Msb>
+					<Msb value="03" name="preamp 1" abbr="" desc="CUSTOM PREAMP" customdesc="Bass Freq">
+						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
+					</Msb>
+					<Msb value="04" name="preamp 1" abbr="" desc="CUSTOM PREAMP" customdesc="Treb Freq">
+						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
+					</Msb>
+					<Msb value="05" name="preamp 1" abbr="" desc="CUSTOM PREAMP" customdesc="Amp Low">
+						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
+					</Msb>
+					<Msb value="06" name="preamp 1" abbr="" desc="CUSTOM PREAMP" customdesc="Amp High">
+						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
+					</Msb>
+					<Msb value="07" name="preamp 1" abbr="" desc="CUSTOM PREAMP" customdesc="Spkr Low">
+						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
+					</Msb>
+					<Msb value="08" name="preamp 1" abbr="" desc="CUSTOM PREAMP" customdesc="Spkr High">
+						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
+					</Msb>
+				</Msb>
+				<Msb value="01" name="preamp 2" abbr="" desc="" customdesc="preamp 2">
+					<Msb value="00" name="preamp 2" abbr="" desc="CUSTOM PREAMP" customdesc="Type">
+						<PARAM value="00" name="" desc="JC Clean" customdesc=""/>
+						<PARAM value="01" name="" desc="TW Clean" customdesc=""/>
+						<PARAM value="02" name="" desc="Crunch" customdesc=""/>
+						<PARAM value="03" name="" desc="VO Lead" customdesc=""/>
+						<PARAM value="04" name="" desc="BG Lead" customdesc=""/>
+						<PARAM value="05" name="" desc="MS 1959 Stack" customdesc=""/>
+						<PARAM value="06" name="" desc="Modern Stack" customdesc=""/>
+					</Msb>
+					<Msb value="01" name="preamp 2" abbr="" desc="CUSTOM PREAMP" customdesc="Bottom">
+						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
+					</Msb>
+					<Msb value="02" name="preamp 2" abbr="" desc="CUSTOM PREAMP" customdesc="Edge">
+						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
+					</Msb>
+					<Msb value="03" name="preamp 2" abbr="" desc="CUSTOM PREAMP" customdesc="Bass Freq">
+						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
+					</Msb>
+					<Msb value="04" name="preamp 2" abbr="" desc="CUSTOM PREAMP" customdesc="Treb Freq">
+						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
+					</Msb>
+					<Msb value="05" name="preamp 2" abbr="" desc="CUSTOM PREAMP" customdesc="Amp Low">
+						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
+					</Msb>
+					<Msb value="06" name="preamp 2" abbr="" desc="CUSTOM PREAMP" customdesc="Amp High">
+						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
+					</Msb>
+					<Msb value="07" name="preamp 2" abbr="" desc="CUSTOM PREAMP" customdesc="Spkr Low">
+						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
+					</Msb>
+					<Msb value="08" name="preamp 2" abbr="" desc="CUSTOM PREAMP" customdesc="Spkr High">
+						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
+					</Msb>
+				</Msb>
+				<Msb value="02" name="preamp 3" abbr="" desc="" customdesc="preamp 3">
+					<Msb value="00" name="preamp 3" abbr="" desc="CUSTOM PREAMP" customdesc="Type">
+						<PARAM value="00" name="" desc="JC Clean" customdesc=""/>
+						<PARAM value="01" name="" desc="TW Clean" customdesc=""/>
+						<PARAM value="02" name="" desc="Crunch" customdesc=""/>
+						<PARAM value="03" name="" desc="VO Lead" customdesc=""/>
+						<PARAM value="04" name="" desc="BG Lead" customdesc=""/>
+						<PARAM value="05" name="" desc="MS 1959 Stack" customdesc=""/>
+						<PARAM value="06" name="" desc="Modern Stack" customdesc=""/>
+					</Msb>
+					<Msb value="01" name="preamp 3" abbr="" desc="CUSTOM PREAMP" customdesc="Bottom">
+						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
+					</Msb>
+					<Msb value="02" name="preamp 3" abbr="" desc="CUSTOM PREAMP" customdesc="Edge">
+						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
+					</Msb>
+					<Msb value="03" name="preamp 3" abbr="" desc="CUSTOM PREAMP" customdesc="Bass Freq">
+						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
+					</Msb>
+					<Msb value="04" name="preamp 3" abbr="" desc="CUSTOM PREAMP" customdesc="Treb Freq">
+						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
+					</Msb>
+					<Msb value="05" name="preamp 3" abbr="" desc="CUSTOM PREAMP" customdesc="Amp Low">
+						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
+					</Msb>
+					<Msb value="06" name="preamp 3" abbr="" desc="CUSTOM PREAMP" customdesc="Amp High">
+						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
+					</Msb>
+					<Msb value="07" name="preamp 3" abbr="" desc="CUSTOM PREAMP" customdesc="Spkr Low">
+						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
+					</Msb>
+					<Msb value="08" name="preamp 3" abbr="" desc="CUSTOM PREAMP" customdesc="Spkr High">
+						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
+					</Msb>
+				</Msb>
+			</LSB>
+			<LSB value="07" name="od/ds" abbr="" desc="" customdesc="">
+				<Msb value="00" name="odds 1" abbr="" desc="" customdesc="odds 1">
+					<Msb value="00" name="odds 1" abbr="" desc="CUSTOm ODDS" customdesc="Type">
+						<PARAM value="00" name="" desc="OD-1" customdesc=""/>
+						<PARAM value="01" name="" desc="OD-2" customdesc=""/>
+						<PARAM value="02" name="" desc="CRUNCH" customdesc=""/>
+						<PARAM value="03" name="" desc="DS-1" customdesc=""/>
+						<PARAM value="04" name="" desc="DS-2" customdesc=""/>
+						<PARAM value="05" name="" desc="Metal-1" customdesc=""/>
+						<PARAM value="06" name="" desc="Metal-2" customdesc=""/>
+					</Msb>
+					<Msb value="01" name="odds 1" abbr="" desc="CUSTOm ODDS" customdesc="Bottom">
+						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
+					</Msb>
+					<Msb value="02" name="odds 1" abbr="" desc="CUSTOm ODDS" customdesc="Top">
+						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
+					</Msb>
+					<Msb value="03" name="odds 1" abbr="" desc="CUSTOm ODDS" customdesc="Low">
+						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
+					</Msb>
+					<Msb value="04" name="odds 1" abbr="" desc="CUSTOm ODDS" customdesc="High">
+						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
+					</Msb>
+				</Msb>
+				<Msb value="01" name="odds 2" abbr="" desc="" customdesc="odds 2">
+					<Msb value="00" name="odds 2" abbr="" desc="CUSTOm ODDS" customdesc="Type">
+						<PARAM value="00" name="" desc="OD-1" customdesc=""/>
+						<PARAM value="01" name="" desc="OD-2" customdesc=""/>
+						<PARAM value="02" name="" desc="CRUNCH" customdesc=""/>
+						<PARAM value="03" name="" desc="DS-1" customdesc=""/>
+						<PARAM value="04" name="" desc="DS-2" customdesc=""/>
+						<PARAM value="05" name="" desc="Metal-1" customdesc=""/>
+						<PARAM value="06" name="" desc="Metal-2" customdesc=""/>
+					</Msb>
+					<Msb value="01" name="odds 2" abbr="" desc="CUSTOm ODDS" customdesc="Bottom">
+						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
+					</Msb>
+					<Msb value="02" name="odds 2" abbr="" desc="CUSTOm ODDS" customdesc="Top">
+						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
+					</Msb>
+					<Msb value="03" name="odds 2" abbr="" desc="CUSTOm ODDS" customdesc="Low">
+						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
+					</Msb>
+					<Msb value="04" name="odds 2" abbr="" desc="CUSTOm ODDS" customdesc="High">
+						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
+					</Msb>
+				</Msb>
+			</LSB>
+			<LSB value="08" name="wah" abbr="" desc="" customdesc="">
+				<Msb value="00" name="wah 1" abbr="" desc="" customdesc="wah 1">
+					<Msb value="00" name="wah 1" abbr="" desc="CUSTOM WAH" customdesc="Type">
+						<PARAM value="00" name="" desc="Cry Wah" customdesc=""/>
+						<PARAM value="01" name="" desc="VO Wah" customdesc=""/>
+						<PARAM value="02" name="" desc="FAT Wah" customdesc=""/>
+						<PARAM value="03" name="" desc="Light Wah" customdesc=""/>
+						<PARAM value="04" name="" desc="7String Wah" customdesc=""/>
+					</Msb>
+					<Msb value="01" name="wah 1" abbr="" desc="CUSTOM WAH" customdesc="Q">
+						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
+					</Msb>
+					<Msb value="02" name="wah 1" abbr="" desc="CUSTOM WAH" customdesc="Range Low">
+						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
+					</Msb>
+					<Msb value="03" name="wah 1" abbr="" desc="CUSTOM WAH" customdesc="Range High">
+						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
+					</Msb>
+					<Msb value="04" name="wah 1" abbr="" desc="CUSTOM WAH" customdesc="Presence">
+						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
+					</Msb>
+				</Msb>
+				<Msb value="01" name="wah 2" abbr="" desc="" customdesc="wah 2">
+					<Msb value="00" name="wah 2" abbr="" desc="CUSTOM WAH" customdesc="Type">
+						<PARAM value="00" name="" desc="Cry Wah" customdesc=""/>
+						<PARAM value="01" name="" desc="VO Wah" customdesc=""/>
+						<PARAM value="02" name="" desc="FAT Wah" customdesc=""/>
+						<PARAM value="03" name="" desc="Light Wah" customdesc=""/>
+						<PARAM value="04" name="" desc="7String Wah" customdesc=""/>
+					</Msb>
+					<Msb value="01" name="wah 2" abbr="" desc="CUSTOM WAH" customdesc="Q">
+						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
+					</Msb>
+					<Msb value="02" name="wah 2" abbr="" desc="CUSTOM WAH" customdesc="Range Low">
+						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
+					</Msb>
+					<Msb value="03" name="wah 2" abbr="" desc="CUSTOM WAH" customdesc="Range High">
+						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
+					</Msb>
+					<Msb value="04" name="wah 2" abbr="" desc="CUSTOM WAH" customdesc="Presence">
+						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
+					</Msb>
+				</Msb>
+				<Msb value="02" name="wah 3" abbr="" desc="" customdesc="wah 3">
+					<Msb value="00" name="wah 3" abbr="" desc="CUSTOM WAH" customdesc="Type">
+						<PARAM value="00" name="" desc="Cry Wah" customdesc=""/>
+						<PARAM value="01" name="" desc="VO Wah" customdesc=""/>
+						<PARAM value="02" name="" desc="FAT Wah" customdesc=""/>
+						<PARAM value="03" name="" desc="Light Wah" customdesc=""/>
+						<PARAM value="04" name="" desc="7String Wah" customdesc=""/>
+					</Msb>
+					<Msb value="01" name="wah 3" abbr="" desc="CUSTOM WAH" customdesc="Q">
+						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
+					</Msb>
+					<Msb value="02" name="wah 3" abbr="" desc="CUSTOM WAH" customdesc="Range Low">
+						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
+					</Msb>
+					<Msb value="03" name="wah 3" abbr="" desc="CUSTOM WAH" customdesc="Range High">
+						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
+					</Msb>
+					<Msb value="04" name="wah 3" abbr="" desc="CUSTOM WAH" customdesc="Presence">
+						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
+					</Msb>
+				</Msb>
+			</LSB>
+		</LSB>
+		<LSB value="03" name="Manual" abbr="Manual" desc="Manual" customdesc="">
+			<LSB value="00" name="Manual" abbr="" desc="" customdesc="">
+				<Msb value="00" name="Manual" abbr="" desc="" customdesc="Manual">
+					<Msb value="00" name="Pedal 1" abbr="" desc="" customdesc="Pedal 1">
+						<PARAM value="00" name="FX1" desc="FX1" customdesc="FX1"/>
+						<PARAM value="01" name="Wah" desc="Wah" customdesc="Wah"/>
+						<PARAM value="02" name="OD/DS" desc="OD/DS" customdesc="OD/DS"/>
+						<PARAM value="03" name="PreAmp/Spkr" desc="PreAmp/Spkr" customdesc="PreAmp/Spkr"/>
+						<PARAM value="04" name="Equalizer" desc="Equalizer" customdesc="Equalizer"/>
+						<PARAM value="05" name="FX2" desc="FX2" customdesc="FX2"/>
+						<PARAM value="06" name="Delay" desc="Delay" customdesc="Delay"/>
+						<PARAM value="07" name="Chorus" desc="Chorus" customdesc="Chorus"/>
+						<PARAM value="08" name="Reverb" desc="Reverb" customdesc="Reverb"/>
+						<PARAM value="09" name="Noise Suppressor" desc="Noise Suppressor" customdesc="Noise Suppressor"/>
+						<PARAM value="0A" name="Tuner" desc="Tuner" customdesc="Tuner"/>
+					</Msb>
+					<Msb value="01" name="Pedal 2" abbr="" desc="" customdesc="Pedal 2">
+						<PARAM value="00" name="FX1" desc="FX1" customdesc="FX1"/>
+						<PARAM value="01" name="Wah" desc="Wah" customdesc="Wah"/>
+						<PARAM value="02" name="OD/DS" desc="OD/DS" customdesc="OD/DS"/>
+						<PARAM value="03" name="PreAmp/Spkr" desc="PreAmp/Spkr" customdesc="PreAmp/Spkr"/>
+						<PARAM value="04" name="Equalizer" desc="Equalizer" customdesc="Equalizer"/>
+						<PARAM value="05" name="FX2" desc="FX2" customdesc="FX2"/>
+						<PARAM value="06" name="Delay" desc="Delay" customdesc="Delay"/>
+						<PARAM value="07" name="Chorus" desc="Chorus" customdesc="Chorus"/>
+						<PARAM value="08" name="Reverb" desc="Reverb" customdesc="Reverb"/>
+						<PARAM value="09" name="Noise Suppressor" desc="Noise Suppressor" customdesc="Noise Suppressor"/>
+						<PARAM value="0A" name="Tuner" desc="Tuner" customdesc="Tuner"/>
+					</Msb>
+					<Msb value="02" name="Pedal 3" abbr="" desc="" customdesc="Pedal 3">
+						<PARAM value="00" name="FX1" desc="FX1" customdesc="FX1"/>
+						<PARAM value="01" name="Wah" desc="Wah" customdesc="Wah"/>
+						<PARAM value="02" name="OD/DS" desc="OD/DS" customdesc="OD/DS"/>
+						<PARAM value="03" name="PreAmp/Spkr" desc="PreAmp/Spkr" customdesc="PreAmp/Spkr"/>
+						<PARAM value="04" name="Equalizer" desc="Equalizer" customdesc="Equalizer"/>
+						<PARAM value="05" name="FX2" desc="FX2" customdesc="FX2"/>
+						<PARAM value="06" name="Delay" desc="Delay" customdesc="Delay"/>
+						<PARAM value="07" name="Chorus" desc="Chorus" customdesc="Chorus"/>
+						<PARAM value="08" name="Reverb" desc="Reverb" customdesc="Reverb"/>
+						<PARAM value="09" name="Noise Suppressor" desc="Noise Suppressor" customdesc="Noise Suppressor"/>
+						<PARAM value="0A" name="Tuner" desc="Tuner" customdesc="Tuner"/>
+					</Msb>
+					<Msb value="03" name="Pedal 4" abbr="" desc="" customdesc="Pedal 4">
+						<PARAM value="00" name="FX1" desc="FX1" customdesc="FX1"/>
+						<PARAM value="01" name="Wah" desc="Wah" customdesc="Wah"/>
+						<PARAM value="02" name="OD/DS" desc="OD/DS" customdesc="OD/DS"/>
+						<PARAM value="03" name="PreAmp/Spkr" desc="PreAmp/Spkr" customdesc="PreAmp/Spkr"/>
+						<PARAM value="04" name="Equalizer" desc="Equalizer" customdesc="Equalizer"/>
+						<PARAM value="05" name="FX2" desc="FX2" customdesc="FX2"/>
+						<PARAM value="06" name="Delay" desc="Delay" customdesc="Delay"/>
+						<PARAM value="07" name="Chorus" desc="Chorus" customdesc="Chorus"/>
+						<PARAM value="08" name="Reverb" desc="Reverb" customdesc="Reverb"/>
+						<PARAM value="09" name="Noise Suppressor" desc="Noise Suppressor" customdesc="Noise Suppressor"/>
+						<PARAM value="0A" name="Tuner" desc="Tuner" customdesc="Tuner"/>
+					</Msb>
+					<Msb value="04" name="Bank Up" abbr="" desc="" customdesc="Bank Up">
+						<PARAM value="00" name="FX1" desc="FX1" customdesc="FX1"/>
+						<PARAM value="01" name="Wah" desc="Wah" customdesc="Wah"/>
+						<PARAM value="02" name="OD/DS" desc="OD/DS" customdesc="OD/DS"/>
+						<PARAM value="03" name="PreAmp/Spkr" desc="PreAmp/Spkr" customdesc="PreAmp/Spkr"/>
+						<PARAM value="04" name="Equalizer" desc="Equalizer" customdesc="Equalizer"/>
+						<PARAM value="05" name="FX2" desc="FX2" customdesc="FX2"/>
+						<PARAM value="06" name="Delay" desc="Delay" customdesc="Delay"/>
+						<PARAM value="07" name="Chorus" desc="Chorus" customdesc="Chorus"/>
+						<PARAM value="08" name="Reverb" desc="Reverb" customdesc="Reverb"/>
+						<PARAM value="09" name="Noise Suppressor" desc="Noise Suppressor" customdesc="Noise Suppressor"/>
+						<PARAM value="0A" name="Tuner" desc="Tuner" customdesc="Tuner"/>
+					</Msb>
+					<Msb value="05" name="Bank Down" abbr="" desc="" customdesc="Bank Down">
+						<PARAM value="00" name="FX1" desc="FX1" customdesc="FX1"/>
+						<PARAM value="01" name="Wah" desc="Wah" customdesc="Wah"/>
+						<PARAM value="02" name="OD/DS" desc="OD/DS" customdesc="OD/DS"/>
+						<PARAM value="03" name="PreAmp/Spkr" desc="PreAmp/Spkr" customdesc="PreAmp/Spkr"/>
+						<PARAM value="04" name="Equalizer" desc="Equalizer" customdesc="Equalizer"/>
+						<PARAM value="05" name="FX2" desc="FX2" customdesc="FX2"/>
+						<PARAM value="06" name="Delay" desc="Delay" customdesc="Delay"/>
+						<PARAM value="07" name="Chorus" desc="Chorus" customdesc="Chorus"/>
+						<PARAM value="08" name="Reverb" desc="Reverb" customdesc="Reverb"/>
+						<PARAM value="09" name="Noise Suppressor" desc="Noise Suppressor" customdesc="Noise Suppressor"/>
+						<PARAM value="0A" name="Tuner" desc="Tuner" customdesc="Tuner"/>
 					</Msb>
 				</Msb>
 			</LSB>
@@ -23474,11 +23778,25 @@
 					<PARAM value="06" name="Assign 7" desc="Assign 7" customdesc="Assign 7"/>
 					<PARAM value="07" name="Assign 8" desc="Assign 8" customdesc="Assign 8"/>
 				</DATA>
-				<DATA value="01" name="Name2" abbr="" desc="" customdesc="">
-					<PARAM value="range" name="00/64/00/100" desc="" customdesc=""/>
+				<DATA value="01" name="System" abbr="" desc="" customdesc="System">
+					<PARAM value="00" name="System" desc="System" customdesc="System"/>
+					<PARAM value="01" name="Midi" desc="Midi" customdesc="Midi"/>
+					<PARAM value="02" name="Manual Mode____" desc="Manual Mode____" customdesc="Manual Mode____"/>
+					<PARAM value="03" name="System 4" desc="System 4" customdesc="System 4"/>
+					<PARAM value="04" name="System 5" desc="System 5" customdesc="System 5"/>
+					<PARAM value="05" name="System 6" desc="System 6" customdesc="System 6"/>
+					<PARAM value="06" name="System 7" desc="System 7" customdesc="System 7"/>
+					<PARAM value="07" name="System 8" desc="System 8" customdesc="System 8"/>
 				</DATA>
-				<DATA value="02" name="Name3" abbr="" desc="" customdesc="">
-					<PARAM value="range" name="00/64/00/100" desc="" customdesc=""/>
+				<DATA value="02" name="Custom" abbr="" desc="" customdesc="Custom">
+					<PARAM value="00" name="Preamp____" desc="Preamp____" customdesc="Preamp____"/>
+					<PARAM value="01" name="Distortion" desc="Distortion" customdesc="Distortion"/>
+					<PARAM value="02" name="Wah" desc="Wah" customdesc="Wah"/>
+					<PARAM value="03" name="Harmonist" desc="Harmonist" customdesc="Harmonist"/>
+					<PARAM value="04" name="Auto Riff" desc="Auto Riff" customdesc="Auto Riff"/>
+					<PARAM value="05" name="System 6" desc="System 6" customdesc="System 6"/>
+					<PARAM value="06" name="System 7" desc="System 7" customdesc="System 7"/>
+					<PARAM value="07" name="System 8" desc="System 8" customdesc="System 8"/>
 				</DATA>
 				<DATA value="03" name="Name4" abbr="" desc="" customdesc="">
 					<PARAM value="range" name="00/64/00/100" desc="" customdesc=""/>

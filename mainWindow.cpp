@@ -381,21 +381,11 @@ void mainWindow::systemLoad()
 		if(file.readFile())
 		{	
 			// DO SOMETHING AFTER READING THE FILE (UPDATE THE GUI)
-
-
-
-
-
-
-
 	
 		  SysxIO *sysxIO = SysxIO::Instance();
 			QString area = "System";
 			sysxIO->setFileSource(area, file.getSystemSource());
 			sysxIO->setFileName(fileName);
-			//sysxIO->setSyncStatus(false);
-			//sysxIO->setDevice(false);
-
 			emit updateSignal();
 			sysxIO->systemWrite();
 		};
@@ -403,9 +393,12 @@ void mainWindow::systemLoad()
 	}
          else
              {
-              QString snork = "Ensure connection is active and retry";
+              QString snork = "DATA TRANSFER REQUIRED<br>"; 
+              snork.append("Ensure connection is active, and<br>");
+              snork.append("Bulk Mode is set on the " + deviceType + "<br>");
+              snork.append("and then set Bulk Mode here");
               QMessageBox *msgBox = new QMessageBox();
-			        msgBox->setWindowTitle(deviceType + " not connected !!");
+			        msgBox->setWindowTitle(deviceType + " Bulk Mode connection required!!");
 		        	msgBox->setIcon(QMessageBox::Information);
 		        	msgBox->setText(snork);
 		        	msgBox->setStandardButtons(QMessageBox::Ok);
@@ -450,9 +443,12 @@ SysxIO *sysxIO = SysxIO::Instance();
 	 }
          else
              { 
-              QString snork = "Ensure connection is active and retry";
+              QString snork = "DATA TRANSFER REQUIRED<br>"; 
+              snork.append("Ensure connection is active, and<br>");
+              snork.append("Bulk Mode is set on the " + deviceType + "<br>");
+              snork.append("and then set Bulk Mode here");
               QMessageBox *msgBox = new QMessageBox();
-			        msgBox->setWindowTitle(deviceType + " not connected !!");
+			        msgBox->setWindowTitle(deviceType + " Bulk Mode connection required!!");
 		        	msgBox->setIcon(QMessageBox::Information);
 		        	msgBox->setText(snork);
 		        	msgBox->setStandardButtons(QMessageBox::Ok);

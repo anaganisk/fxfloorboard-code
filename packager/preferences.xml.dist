@@ -2,11 +2,12 @@
 <!-- Preferences of the GT-6 Fx FloorBoard application. -->
 <Preferences>
 	<General>
-		<Application version="beta 20090227"/>
+		<Application version="beta 20090416"/>
 		<Donate url="http://gtx.tinfoilmusic.net/donate.html"/>
 		<Files dir=""/>
 		<Help url="GT-6EditorManual_E.htm"/>
 		<Language code="en"/>
+		<Upload url="http://www.bossgtcentral.com/dm"/>
 		<Webpage url="http://gtx.tinfoilmusic.net/"/>
 	</General>
 	<Midi>
@@ -17,9 +18,9 @@
 		<Delay set="15"/>
 	</Midi>
 	<Window>
-    <Collapsed bool="false" defaultwidth="975" width=""/>
+    <Collapsed bool="true" defaultwidth="975" width="975"/>
     <Position x="" y=""/>
-    <Restore sidepanel="false" window="false"/>
+    <Restore sidepanel="true" window="false"/>
     <Size height="" minheight="548" minwidth="788" width=""/>
     <Splash bool="true"/>
   </Window>

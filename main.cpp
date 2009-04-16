@@ -58,7 +58,7 @@ int main(int argc, char *argv[])
 	Preferences *preferences = Preferences::Instance(); // Load the preferences.
 	if(preferences->getPreferences("Window", "Splash", "bool")=="true")
 	{
-		//splash->show();
+		splash->show();
 	};
 	/* To intercept mousclick to hide spalsh screen. Since the 
 	splash screen is typically displayed before the event loop 
@@ -85,7 +85,7 @@ int main(int argc, char *argv[])
 
 	splash->showStatusMessage(QObject::tr("Loading midi mapping..."));
 	MidiTable *midiTable = MidiTable::Instance();
-	midiTable;
+	midiTable = 0;
 
 	app.processEvents(); 
 

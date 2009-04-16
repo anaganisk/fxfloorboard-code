@@ -662,7 +662,7 @@ void floorBoard::centerEditDialog()
 
 void floorBoard::initMenuPages()
 {
-	QVector<menuPage *> initMenuPages(1);
+	QVector<menuPage *> initMenuPages(3);
 	this->menuPages = initMenuPages.toList();
 	
 	/* EDITPAGES */

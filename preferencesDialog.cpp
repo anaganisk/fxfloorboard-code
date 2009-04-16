@@ -25,7 +25,6 @@
 #include "preferencesPages.h"
 #include "globalVariables.h"
 
-
 preferencesDialog::preferencesDialog()
 {
 	contentsWidget = new QListWidget;
