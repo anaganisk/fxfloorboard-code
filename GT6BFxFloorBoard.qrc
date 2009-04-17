@@ -2,6 +2,7 @@
     <qresource prefix="/" >
         <file>about</file>
         <file>default.syx</file>
+        <file>system.syx</file>
         <file>images/1.png</file>
         <file>images/2.png</file>
         <file>images/3.png</file>
@@ -34,8 +35,8 @@
         <file>images/knobbgt.png</file>
         <file>images/led.png</file>
         <file>images/ledbutton.png</file>
+        <file>images/menu_pushbutton.png</file>
         <file>images/midi.png</file>
-        <file>images/midi_pushbutton.png</file>
         <file>images/ns.png</file>
         <file>images/od.png</file>
         <file>images/panelbar.png</file>

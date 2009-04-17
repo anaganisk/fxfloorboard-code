@@ -29,7 +29,6 @@
 #include "customButton.h"
 #include "customDisplay.h"
 #include "initPatchListMenu.h"
-#include "stompBox.h"
 
 class floorBoardDisplay : public QWidget
 {
@@ -56,7 +55,6 @@ public slots:
 	void notConnected();
 
 	void patchChangeFailed();
-	//void assignSignal(bool value);   //cw
 	void writeToBuffer();
 	void writeToMemory();
 
@@ -66,10 +64,9 @@ signals:
 	void updateSignal();
 	void connectedSignal();
 	void notConnectedSignal();
-  //void assignSignal(); //cw
 	void setStatusSymbol(int value);
 	void setStatusProgress(int value);
-    void setStatusMessage(QString message);
+  void setStatusMessage(QString message);
    
 
 private:
@@ -81,14 +78,22 @@ private:
 
 	customButton *connectButton;
 	customButton *writeButton;
-	customButton *manualButton;
-	customButton *assignButton;
-	customButton *masterButton;
-	customButton *systemButton;
-
+	customButton *assign_Button;
+	customButton *system_Button;
+	customButton *fv_Button;
+	customButton *preamp1_Button;
+	customButton *distortion_Button;
+	customButton *compressor_Button;
+	customButton *ns1_Button;
+	customButton *fx1_Button;
+	customButton *fx2_Button;
+	customButton *reverb_Button;
+	customButton *delay_Button;
+	customButton *chorus_Button;
+	customButton *eq_Button;
+	customButton *pedal_Button;
 	bool connectButtonActive;
-   // bool assignButtonActive; //cw
-	bool patchLoadError;
+  bool patchLoadError;
 	QTimer* timer;
 	int blinkCount;
 	bool currentSyncStatus;

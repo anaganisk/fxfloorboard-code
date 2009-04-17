@@ -1,6 +1,8 @@
 /****************************************************************************
 **
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
+** Copyright (C) 2008 Colin Willcocks.
+** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
+** All rights reserved.
 **
 ** This file is part of "GT-10B Fx FloorBoard".
 **
@@ -20,45 +22,48 @@
 **
 ****************************************************************************/
 
-#ifndef CUSTOMCONTROLKNOB_H
-#define CUSTOMCONTROLKNOB_H
+#ifndef CUSTOMKNOBRANGE_H
+#define CUSTOMKNOBRANGE_H
 
 #include <QWidget>
 #include <QtGui>
-#include "customKnob.h"
-#include "customControlLabel.h"
+#include "customRangeDial.h"
 
-class customControlKnob : public QWidget
+class customKnobRange : public QWidget
 {
     Q_OBJECT
 
 public:
-    customControlKnob(QWidget *parent = 0, 
+    customKnobRange(QWidget *parent = 0, 
+    QString area = "Structure",
 		QString hex1 = "void",
 		QString hex2 = "void",
-		QString hex3 = "void",
-		QString background = "normal", 
-		QString direction = "bottom", 
-		int lenght = 34);
+		QString hexMin = "void",
+    QString hexMax = "void",
+    QString type = "Min");
+		
+	void setValue(int value);
+
+public slots:
+	void valueChanged(int, QString, QString, QString);
+
+signals:
+	void updateSignal();
+	void updateDisplayMin(QString text);
+	void updateDisplayMax(QString text);
 
 protected:
 	void paintEvent(QPaintEvent *event);
 
-public slots:
-	void dialogUpdateSignal();
-
-signals:
-	void updateSignal();
-	void updateDisplay(QString text);
-
 private:
-	customControlLabel* label;
-	QLineEdit* display;
-	customKnob* knob;
+	customRangeDial* knob;
+	QString area;
 	QString hex1;
 	QString hex2;
-	QString hex3;
-	QString area;
+	QString hexMin;
+	QString hexMax;
+	QString hex3;	
+	QString type;
 };
 
-#endif // CUSTOMCONTROLKNOB_H
+#endif // CUSTOMKNOB_H

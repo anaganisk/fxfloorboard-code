@@ -145,11 +145,13 @@ void initPatchListMenu::loadInitPatch(int index)
 			{	
 				// DO SOMETHING AFTER READING THE FILE (UPDATE THE GUI)
 				SysxIO *sysxIO = SysxIO::Instance();
-				sysxIO->setFileSource(file.getFileSource());
+				QString area = "Structure";
+				sysxIO->setFileSource(area, file.getFileSource());
 				sysxIO->setFileName(tr("init patch"));
 				sysxIO->setSyncStatus(false);
 				sysxIO->setDevice(false);
 				emit updateSignal();
+				sysxIO->writeToBuffer(); 
 			};
 		};
 	};

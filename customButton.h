@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT6B Fx FloorBoard".
+** This file is part of "GT-10 Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@
 #include <QWidget>
 #include <QTimer>
 
-class customButton : public QWidget
+class customButton : public QWidget 
 {
     Q_OBJECT
 
@@ -42,7 +42,7 @@ public:
 	customButton(
 		QString text,
 		bool active = false,
-		QPoint buttonPos = QPoint::QPoint(0, 0),
+		QPoint buttonPos = QPoint::QPoint(0, 0),    
 		QWidget *parent = 0,
 		QString imagePath = ":/images/pushbutton.png");
 	void setValue(bool value);

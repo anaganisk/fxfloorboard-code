@@ -1,8 +1,8 @@
 /****************************************************************************
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
-** Copyright (C) 2008 Colin Willcocks
-** This file is part of "GT-6B Fx FloorBoard".
+**
+** This file is part of "GT-8 Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 ** 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 **
 ****************************************************************************/
-
+ 
 #include "stompBox.h"
 #include "MidiTable.h"
 #include "SysxIO.h"
@@ -34,32 +34,62 @@ stompBox::stompBox(QWidget *parent, unsigned int id, QString imagePath, QPoint s
 	this->stompPos = stompPos;	
 
 	this->setFixedSize(stompSize);
-
 	this->editDialog = new editWindow();
 
-	QObject::connect(this, SIGNAL( valueChanged(QString, QString, QString) ),
-                this->parent(), SIGNAL( valueChanged(QString, QString, QString) ));
+	QObject::connect(this, SIGNAL( valueChanged(QString, QString, QString) ), this->parent(), SIGNAL( valueChanged(QString, QString, QString) ));
 	
-	QObject::connect(this->parent(), SIGNAL( updateStompOffset(signed int) ),
-                this, SLOT( updatePos(signed int) ));
+	QObject::connect(this->parent(), SIGNAL( updateStompOffset(signed int) ), this, SLOT( updatePos(signed int) ));
 
-	QObject::connect(this->parent(), SIGNAL( updateSignal() ),
-                this, SLOT( updateSignal() ));
+	QObject::connect(this->parent(), SIGNAL( updateSignal() ), this, SLOT( updateSignal() ));
 
-	QObject::connect(this->editDialog, SIGNAL( updateSignal() ),
-                this, SLOT( updateSignal() ));
+	QObject::connect(this->editDialog, SIGNAL( updateSignal() ), this, SLOT( updateSignal() ));
 
-	QObject::connect(this, SIGNAL( dialogUpdateSignal() ),
-                this->editDialog, SIGNAL( dialogUpdateSignal() ));	
+	QObject::connect(this, SIGNAL( dialogUpdateSignal() ), this->editDialog, SIGNAL( dialogUpdateSignal() ));	
 
-	QObject::connect(this->parent(), SIGNAL( updateSignal() ),
-                this->editDialog, SIGNAL( dialogUpdateSignal() ));
+	QObject::connect(this->parent(), SIGNAL( updateSignal() ), this->editDialog, SIGNAL( dialogUpdateSignal() ));
 
-	QObject::connect(this->editDialog, SIGNAL( updateSignal() ),
-                this, SLOT( setDisplayToFxName() ));
+	QObject::connect(this->editDialog, SIGNAL( updateSignal() ), this, SLOT( setDisplayToFxName() ));
 
-	QObject::connect(this, SIGNAL( setEditDialog(editWindow*) ),
-                this->parent(), SLOT( setEditDialog(editWindow*) ));
+	QObject::connect(this, SIGNAL( setEditDialog(editWindow*) ), this->parent(), SLOT( setEditDialog(editWindow*) ));
+	
+         // QObject::connect(this, SIGNAL( switchSignal() ), this->parent(), SLOT( updateSignal() ));
+ 
+  QObject::connect(this->parent(), SIGNAL(preamp1_buttonSignal(bool)), this, SLOT(preamp1_ButtonSignal(bool) )); 
+  QObject::connect(this->parent(), SIGNAL(preamp1_buttonSignal(bool)), this->parent(), SLOT(menuButtonSignal()));
+   
+  QObject::connect(this->parent(), SIGNAL(distortion_buttonSignal(bool)), this, SLOT(distortion_ButtonSignal(bool) )); 
+  QObject::connect(this->parent(), SIGNAL(distortion_buttonSignal(bool)), this->parent(), SLOT(menuButtonSignal()));
+  
+  QObject::connect(this->parent(), SIGNAL(ns1_buttonSignal(bool)), this, SLOT(ns1_ButtonSignal(bool) )); 
+  QObject::connect(this->parent(), SIGNAL(ns1_buttonSignal(bool)), this->parent(), SLOT(menuButtonSignal()));
+  
+  QObject::connect(this->parent(), SIGNAL(fx1_buttonSignal(bool)), this, SLOT(fx1_ButtonSignal(bool) )); 
+  QObject::connect(this->parent(), SIGNAL(fx1_buttonSignal(bool)), this->parent(), SLOT(menuButtonSignal()));
+  
+  QObject::connect(this->parent(), SIGNAL(fx2_buttonSignal(bool)), this, SLOT(fx2_ButtonSignal(bool) )); 
+  QObject::connect(this->parent(), SIGNAL(fx2_buttonSignal(bool)), this->parent(), SLOT(menuButtonSignal()));
+  
+  QObject::connect(this->parent(), SIGNAL(reverb_buttonSignal(bool)), this, SLOT(reverb_ButtonSignal(bool) )); 
+  QObject::connect(this->parent(), SIGNAL(reverb_buttonSignal(bool)), this->parent(), SLOT(menuButtonSignal()));
+  
+  QObject::connect(this->parent(), SIGNAL(delay_buttonSignal(bool)), this, SLOT(delay_ButtonSignal(bool) )); 
+  QObject::connect(this->parent(), SIGNAL(delay_buttonSignal(bool)), this->parent(), SLOT(menuButtonSignal()));
+  
+  QObject::connect(this->parent(), SIGNAL(chorus_buttonSignal(bool)), this, SLOT(chorus_ButtonSignal(bool) )); 
+  QObject::connect(this->parent(), SIGNAL(chorus_buttonSignal(bool)), this->parent(), SLOT(menuButtonSignal()));
+  
+  QObject::connect(this->parent(), SIGNAL(eq_buttonSignal(bool)), this, SLOT(eq_ButtonSignal(bool) )); 
+  QObject::connect(this->parent(), SIGNAL(eq_buttonSignal(bool)), this->parent(), SLOT(menuButtonSignal()));
+  
+  QObject::connect(this->parent(), SIGNAL(pedal_buttonSignal(bool)), this, SLOT(pedal_ButtonSignal(bool) )); 
+  QObject::connect(this->parent(), SIGNAL(pedal_buttonSignal(bool)), this->parent(), SLOT(menuButtonSignal()));
+  
+  QObject::connect(this->parent(), SIGNAL(fv_buttonSignal(bool)), this, SLOT(fv_ButtonSignal(bool) )); 
+  QObject::connect(this->parent(), SIGNAL(fv_buttonSignal(bool)), this->parent(), SLOT(menuButtonSignal()));
+
+  QObject::connect(this->parent(), SIGNAL(compressor_buttonSignal(bool)), this, SLOT(compressor_ButtonSignal(bool) )); 
+  QObject::connect(this->parent(), SIGNAL(compressor_buttonSignal(bool)), this->parent(), SLOT(menuButtonSignal()));
+
 };
 
 void stompBox::paintEvent(QPaintEvent *)
@@ -97,7 +127,7 @@ void stompBox::mousePressEvent(QMouseEvent *event)
 
 void stompBox::mouseDoubleClickEvent(QMouseEvent *event)
 {
-	event;
+        //event;
 	this->editDialog->setWindow(this->fxName);
 	emit setEditDialog(this->editDialog);
 };
@@ -153,6 +183,126 @@ void stompBox::mouseMoveEvent(QMouseEvent *event)
 			};
 		};
 	};
+};
+
+void stompBox::preamp1_ButtonSignal(bool value)	
+{  
+    if (this->id == 4)
+    { 
+      emitValueChanged(this->hex1, this->hex2, "00", "void");
+	    this->editDialog->setWindow(this->fxName);
+      emit setEditDialog(this->editDialog);
+    };
+};
+
+void stompBox::distortion_ButtonSignal(bool value)	
+{  
+    if (this->id == 3)
+    { 
+      emitValueChanged(this->hex1, this->hex2, "00", "void");
+	    this->editDialog->setWindow(this->fxName);
+      emit setEditDialog(this->editDialog);
+    };
+};
+
+void stompBox::ns1_ButtonSignal(bool value)	
+{  
+    if (this->id == 10)
+    { 
+      emitValueChanged(this->hex1, this->hex2, "00", "void");
+	    this->editDialog->setWindow(this->fxName);
+      emit setEditDialog(this->editDialog);
+    };
+};
+
+void stompBox::fx1_ButtonSignal(bool value)	
+{  
+    if (this->id == 1)
+    { 
+      emitValueChanged(this->hex1, this->hex2, "00", "void");
+	    this->editDialog->setWindow(this->fxName);
+      emit setEditDialog(this->editDialog);
+    };
+};
+
+void stompBox::fx2_ButtonSignal(bool value)	
+{  
+    if (this->id == 7)
+    { 
+      emitValueChanged(this->hex1, this->hex2, "00", "void");
+	    this->editDialog->setWindow(this->fxName);
+      emit setEditDialog(this->editDialog);
+    };
+};
+
+void stompBox::reverb_ButtonSignal(bool value)	
+{  
+    if (this->id == 9)
+    { 
+      emitValueChanged(this->hex1, this->hex2, "00", "void");
+	    this->editDialog->setWindow(this->fxName);
+      emit setEditDialog(this->editDialog);
+    };
+};
+
+void stompBox::delay_ButtonSignal(bool value)	
+{  
+    if (this->id == 5)
+    { 
+      emitValueChanged(this->hex1, this->hex2, "00", "void");
+	    this->editDialog->setWindow(this->fxName);
+      emit setEditDialog(this->editDialog);
+    };
+};
+
+void stompBox::chorus_ButtonSignal(bool value)	
+{  
+    if (this->id == 8)
+    { 
+      emitValueChanged(this->hex1, this->hex2, "00", "void");
+	    this->editDialog->setWindow(this->fxName);
+      emit setEditDialog(this->editDialog);
+    };
+};
+
+void stompBox::eq_ButtonSignal(bool value)	
+{  
+    if (this->id == 6)
+    { 
+      emitValueChanged(this->hex1, this->hex2, "00", "void");
+	    this->editDialog->setWindow(this->fxName);
+      emit setEditDialog(this->editDialog);
+    };
+};
+
+void stompBox::pedal_ButtonSignal(bool value)	
+{  
+    if (this->id == 2)
+    { 
+      emitValueChanged(this->hex1, this->hex2, "00", "void");
+	    this->editDialog->setWindow(this->fxName);
+      emit setEditDialog(this->editDialog);
+    };
+};
+
+void stompBox::fv_ButtonSignal(bool value)	
+{  
+    if (this->id == 11)
+    { 
+      emitValueChanged(this->hex1, this->hex2, "00", "void");
+	    this->editDialog->setWindow(this->fxName);
+      emit setEditDialog(this->editDialog);
+    };
+};
+
+void stompBox::compressor_ButtonSignal(bool value)	
+{  
+    if (this->id == 0)
+    { 
+      emitValueChanged(this->hex1, this->hex2, "00", "void");
+	    this->editDialog->setWindow(this->fxName);
+      emit setEditDialog(this->editDialog);
+    };
 };
 
 void stompBox::setPos(QPoint newPos)
@@ -320,7 +470,8 @@ void stompBox::updateComboBox(QString hex1, QString hex2, QString hex3)
                 this, SLOT(valueChanged(int)));
 	
 	SysxIO *sysxIO = SysxIO::Instance();
-	setComboBoxCurrentIndex(sysxIO->getSourceValue(hex1, hex2, hex3));
+	QString area;
+	setComboBoxCurrentIndex(sysxIO->getSourceValue(area, hex1, hex2, hex3));
 
 	QObject::connect(this->stompComboBox, SIGNAL(currentIndexChanged(int)),
                 this, SLOT(valueChanged(int)));
@@ -329,49 +480,57 @@ void stompBox::updateComboBox(QString hex1, QString hex2, QString hex3)
 void stompBox::updateKnob1(QString hex1, QString hex2, QString hex3)
 {	
 	SysxIO *sysxIO = SysxIO::Instance();
-	knob1->setValue(sysxIO->getSourceValue(hex1, hex2, hex3));
+	QString area;
+	knob1->setValue(sysxIO->getSourceValue(area, hex1, hex2, hex3));
 };
 
 void stompBox::updateKnob2(QString hex1, QString hex2, QString hex3)
 {	
 	SysxIO *sysxIO = SysxIO::Instance();
-	knob2->setValue(sysxIO->getSourceValue(hex1, hex2, hex3));
+	QString area;
+	knob2->setValue(sysxIO->getSourceValue(area, hex1, hex2, hex3));
 };
 
 void stompBox::updateSlider1(QString hex1, QString hex2, QString hex3)
 {	
 	SysxIO *sysxIO = SysxIO::Instance();
-	slider1->setValue(sysxIO->getSourceValue(hex1, hex2, hex3));
+	QString area;
+	slider1->setValue(sysxIO->getSourceValue(area, hex1, hex2, hex3));
 };
 
 void stompBox::updateSlider2(QString hex1, QString hex2, QString hex3)
 {	
 	SysxIO *sysxIO = SysxIO::Instance();
-	slider2->setValue(sysxIO->getSourceValue(hex1, hex2, hex3));
+	QString area;
+	slider2->setValue(sysxIO->getSourceValue(area, hex1, hex2, hex3));
 };
 
 void stompBox::updateSlider3(QString hex1, QString hex2, QString hex3)
 {	
 	SysxIO *sysxIO = SysxIO::Instance();
-	slider3->setValue(sysxIO->getSourceValue(hex1, hex2, hex3));
+	QString area;
+	slider3->setValue(sysxIO->getSourceValue(area, hex1, hex2, hex3));
 };
 
 void stompBox::updateSlider4(QString hex1, QString hex2, QString hex3)
 {	
 	SysxIO *sysxIO = SysxIO::Instance();
-	slider4->setValue(sysxIO->getSourceValue(hex1, hex2, hex3));
+	QString area;
+	slider4->setValue(sysxIO->getSourceValue(area, hex1, hex2, hex3));
 };
 
 void stompBox::updateSlider5(QString hex1, QString hex2, QString hex3)
 {	
 	SysxIO *sysxIO = SysxIO::Instance();
-	slider5->setValue(sysxIO->getSourceValue(hex1, hex2, hex3));
+	QString area;
+	slider5->setValue(sysxIO->getSourceValue(area, hex1, hex2, hex3));
 };
 
 void stompBox::updateButton(QString hex1, QString hex2, QString hex3)
 {
 	SysxIO *sysxIO = SysxIO::Instance();
-	int value = sysxIO->getSourceValue(hex1, hex2, hex3);
+	QString area;
+	int value = sysxIO->getSourceValue(area, hex1, hex2, hex3);
 	if(hex1 == "0C")
 	{
 		//Exception for the Foot Volume -> it's on when Expresion switch is off.
@@ -384,7 +543,8 @@ void stompBox::updateButton(QString hex1, QString hex2, QString hex3)
 void stompBox::updateSwitch(QString hex1, QString hex2, QString hex3)
 {
 	SysxIO *sysxIO = SysxIO::Instance();
-	int value = sysxIO->getSourceValue(hex1, hex2, hex3);
+	QString area;
+	int value = sysxIO->getSourceValue(area, hex1, hex2, hex3);
 	switchbutton->setValue((value==1)?true:false);
 };
 
@@ -405,12 +565,13 @@ void stompBox::valueChanged(int value, QString hex1, QString hex2, QString hex3)
 		if(valueHex1.length() < 2) valueHex1.prepend("0");
 		QString valueHex2 = QString::number(value - (dif * maxRange), 16).toUpper();
 		if(valueHex2.length() < 2) valueHex2.prepend("0");
-		
-		sysxIO->setFileSource(hex1, hex2, hex3, valueHex1, valueHex2);
+		QString area;
+		sysxIO->setFileSource(area, hex1, hex2, hex3, valueHex1, valueHex2);
 	}
 	else
 	{
-		sysxIO->setFileSource(hex1, hex2, hex3, valueHex);
+  	QString area;
+		sysxIO->setFileSource(area, hex1, hex2, hex3, valueHex);
 	};
 
 	emitValueChanged(hex1, hex2, hex3, valueHex);
@@ -424,7 +585,8 @@ void stompBox::valueChanged(bool value, QString hex1, QString hex2, QString hex3
 	if(valueHex.length() < 2) valueHex.prepend("0");
 	
 	SysxIO *sysxIO = SysxIO::Instance();
-	sysxIO->setFileSource(hex1, hex2, hex3, valueHex);
+	QString area;
+	sysxIO->setFileSource(area, hex1, hex2, hex3, valueHex);
 
 	emitValueChanged(hex1, hex2, hex3, valueHex);
 };
@@ -435,7 +597,8 @@ void stompBox::valueChanged(int index)
 	if(valueHex.length() < 2) valueHex.prepend("0");
 	
 	SysxIO *sysxIO = SysxIO::Instance();
-	sysxIO->setFileSource(this->hex1, this->hex2, this->hex3, valueHex);
+	QString area;
+	sysxIO->setFileSource(area, this->hex1, this->hex2, this->hex3, valueHex);
 
 	emitValueChanged(this->hex1, this->hex2, this->hex3, valueHex);
 

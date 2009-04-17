@@ -22,6 +22,9 @@
 
 #include <QLayout>
 #include <QMessageBox>
+#include <QFile>
+#include <QDataStream>
+#include <QByteArray>
 #include "bankTreeList.h"
 #include "Preferences.h"
 #include "MidiTable.h"
@@ -497,18 +500,37 @@ void bankTreeList::requestPatch(int bank, int patch)
  *********************************************************************/
 void bankTreeList::updatePatch(QString replyMsg)
 {
-	SysxIO *sysxIO = SysxIO::Instance();
+		SysxIO *sysxIO = SysxIO::Instance();
 
 	sysxIO->setDeviceReady(true); // Free the device after finishing interaction.
 	
 	QObject::disconnect(sysxIO, SIGNAL(sysxReply(QString)),
 		this, SLOT(updatePatch(QString)));		
-	
-	replyMsg = replyMsg.remove(" ").toUpper();
-	if(replyMsg != "" && replyMsg.size()/2 == patchSize) // cjw
+
+		replyMsg = replyMsg.remove(" ").toUpper();
+	if(replyMsg.size()/2 == patchSize) // cjw
 	{
-		sysxIO->setFileSource(replyMsg);		// Set the source to the data received.
-		sysxIO->setFileName(tr("Patch from ") + deviceType);	// Set the file name to GT-6B patch for the display.
+	 QByteArray data;
+   QFile file(":default.syx");   // Read the default GT-6B sysx file so we don't start empty handed.
+    if (file.open(QIODevice::ReadOnly))
+	  {	data = file.readAll(); };
+	  QByteArray temp;                      
+    temp = data.mid(patchSize, 228);           // copy patch description from default.syx  address 00 16 00 00   
+	
+	QString sysxBuffer; 
+	for(int i=0;i<temp.size();i++)
+	{
+		unsigned char byte = (char)temp[i];
+		unsigned int n = (int)byte;
+		QString hex = QString::number(n, 16).toUpper();     // convert QByteArray to QString
+		if (hex.length() < 2) hex.prepend("0");
+		sysxBuffer.append(hex);
+  };
+	replyMsg.append(sysxBuffer);
+	
+		QString area = "Structure";
+		sysxIO->setFileSource(area, replyMsg);		// Set the source to the data received.
+		sysxIO->setFileName(tr("Patch from ") + deviceType);	// Set the file name to GT-3 patch for the display.
 		sysxIO->setDevice(true);				// Patch received from the device so this is set to true.
 		sysxIO->setSyncStatus(true);			// We can't be more in sync than right now! :)
 
@@ -517,50 +539,11 @@ void bankTreeList::updatePatch(QString replyMsg)
 
 		emit updateSignal();
 		emit setStatusProgress(0);
-/*
-		QList<QString> nameArray = sysxIO->getFileSource(nameAddress, "00");
-
-	MidiTable *midiTable = MidiTable::Instance();
-	QString name;
-	for(int i=sysxDataOffset;i<nameArray.size() - 2;i++ )
-		{
-		name.append( midiTable->getMidiMap("Structure", nameAddress, "00", "00", nameArray.at(i)).name );
-
-		QString hexStr = nameArray.at(i);
-		if(hexStr == "7E")
-		{
-			name.append((QChar)(0x2192));
-		}
-		if (hexStr == "7F")
-		{
-			name.append((QChar)(0x2190));  
-		}
-*/
-		//this->listIndex = 0;
-		//this->itemIndex = 0;
-		//this->currentPatchTreeItems.at(listIndex)->child(itemIndex)->setText(0,name); // Set the patch name of the item in the tree list.
-		/* if(itemIndex >= patchPerBank - 1) // If we reach the last patch in this bank we need to increment the bank and restart at patch 1.
-			{
-				this->listIndex++;
-				this->itemIndex = 0;
-			}
-			else 
-			{ 
-				this->itemIndex++;  
-			};*/
-		//};
-	//};	
-
-
-
-
 	}
-	if(replyMsg != "" && replyMsg.size()/2 != patchSize) // cjw
-	//else
+	else if(!replyMsg.isEmpty() && replyMsg.size()/2 != patchSize) // cjw
 	{
 		emit notConnectedSignal();				// No message returned so connection must be lost.
-			/* NO-REPLY WARNING */
-	QMessageBox *msgBox = new QMessageBox();
+		QMessageBox *msgBox = new QMessageBox();
 	msgBox->setWindowTitle(QObject::tr("Warning - Patch data received is incorrect!"));
 	msgBox->setIcon(QMessageBox::Warning);
 	msgBox->setTextFormat(Qt::RichText);
@@ -573,8 +556,8 @@ void bankTreeList::updatePatch(QString replyMsg)
 	msgBox->setStandardButtons(QMessageBox::Ok);
 	msgBox->exec();
 	/* END WARNING */
-	};
-	if(replyMsg == "") // cjw
+	}
+	else if(replyMsg.isEmpty()) // cjw
 	{
 		emit notConnectedSignal();				// No message returned so connection must be lost.
 		/* NO-REPLY WARNING */
@@ -591,6 +574,7 @@ void bankTreeList::updatePatch(QString replyMsg)
 	/* END WARNING */
 	};
 };
+
 
 /********************************** connectedSignal() ****************************
 * This slot reloads all patch names of expanded items, if any, on (re)connection to a

@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT-x Fx FloorBoard".
+** This file is part of "GT-8 Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -19,14 +19,15 @@
 ** 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 **
 ****************************************************************************/
-
+  
 #include "editPage.h"
 #include <QLabel>
 #include "customSwitch.h"
 #include "customControlKnob.h"
-#include "customControlTarget.h"
 #include "customControlLabel.h"
+#include "customControlRange.h"
 #include "customControlSwitch.h"
+#include "customControlTarget.h"
 #include "customControlListMenu.h"
 
 editPage::editPage(QWidget *parent)
@@ -86,10 +87,10 @@ void editPage::addKnob(int row, int column, int rowSpan, int columnSpan,
 
 void editPage::addTarget(int row, int column, int rowSpan, int columnSpan,
 					   QString hex1, QString hex2, QString hex3, 
-					   QString background, QString direction, int lenght, 
+					   QString background, QString hexMin, QString hexMax, 
 					   Qt::Alignment alignment)
-{
-	customControlTarget *target = new customControlTarget(this, hex1, hex2, hex3, background, direction, lenght);
+{ 
+	customControlTarget *target = new customControlTarget(this, hex1, hex2, hex3, background, hexMin, hexMax);
 	if(this->groupBoxMode)
 	{
 		this->groupBoxLayout->addWidget(target, row, column, rowSpan, columnSpan, alignment);
@@ -101,6 +102,26 @@ void editPage::addTarget(int row, int column, int rowSpan, int columnSpan,
 	else
 	{
 		this->layout->addWidget(target, row, column, rowSpan, columnSpan, alignment);
+	};
+};
+
+void editPage::addRange(int row, int column, int rowSpan, int columnSpan,
+					   QString hex1, QString hex2, QString hex3, 
+					   QString area, 
+					   Qt::Alignment alignment)
+{
+	customControlRange *range = new customControlRange(this, hex1, hex2, hex3, area);
+	if(this->groupBoxMode)
+	{
+		this->groupBoxLayout->addWidget(range, row, column, rowSpan, columnSpan, alignment);
+	}
+	else if(this->stackFieldMode)
+	{
+		this->stackField->addWidget(range, row, column, rowSpan, columnSpan, alignment);
+	}
+	else
+	{
+		this->layout->addWidget(range, row, column, rowSpan, columnSpan, alignment);
 	};
 };
 
@@ -176,10 +197,10 @@ void editPage::addLabel(int row, int column, int rowSpan, int columnSpan, QStrin
 
 void editPage::valueChanged(bool value, QString hex1, QString hex2, QString hex3)
 {
-	//value;
-	//hex1;
-	//hex2;
-	//hex3;
+       value = value;
+        hex1 = hex1;
+        hex2 = hex2;
+        hex3 = hex3;
 }; 
 
 void editPage::newGroupBox(QString title, Qt::Alignment alignment)
@@ -332,6 +353,6 @@ void editPage::addStackField()
 
 void editPage::updateDialog(int index)
 {
-	//index;
+        //index;
 	emit dialogUpdateSignal();
 };

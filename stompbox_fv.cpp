@@ -28,13 +28,13 @@ stompbox_fv::stompbox_fv(QWidget *parent)
 	/* VOLUME */
 	setImage(":/images/fv.png");
 	setLSB("0F", "00");
-//	setButton("0C", "00", "00", QPoint::QPoint(0, 109), ":/images/pedal.png");
+	setButton("0C", "00", "00", QPoint::QPoint(0, 109), ":/images/pedal.png");
 	setEditPages();
 };
 
 void stompbox_fv::updateSignal()
 {
-//	updateButton("0C", "00", "00");
+	updateButton("0C", "00", "00");
 };
 
 void stompbox_fv::setEditPages()
@@ -48,7 +48,7 @@ void stompbox_fv::setEditPages()
 	editDetails()->page()->newGroupBox("Expression Pedal Switch");
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "0D", "00", "00", "middle", Qt::AlignCenter); //on/off 
 	//editDetails()->page()->addComboBox(0, 1, 1, 1, "0D", "00", "02"); //QUICK SETTING
-	editDetails()->page()->addTarget(0, 2, 1, 1, "0D", "00", "02", "target", "target", 120);//target
+  editDetails()->page()->addTarget(0, 2, 1, 1, "0D", "00", "02", "target", "04", "06");//target
 	editDetails()->page()->addComboBox(0, 5, 1, 1, "0D", "00", "08");         // source mode
 	editDetails()->page()->addGroupBox(2, 0, 1, 4);
 
@@ -59,7 +59,7 @@ void stompbox_fv::setEditPages()
 	editDetails()->page()->newGroupBox("CTRL Pedal");
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "0E", "00", "00", "middle", Qt::AlignCenter); //on/off 
 	//editDetails()->page()->addComboBox(0, 1, 1, 1, "0E", "00", "01"); //QUICK SETTING
-	editDetails()->page()->addTarget(0, 2, 1, 1, "0E", "00", "02", "target", "target", 120);//target
+  editDetails()->page()->addTarget(0, 2, 1, 1, "0E", "00", "02", "target", "04", "06");//target
 	editDetails()->page()->addComboBox(0, 5, 1, 1, "0E", "00", "08");         // source mode
 	editDetails()->page()->addGroupBox(3, 0, 1, 4);
 	/*

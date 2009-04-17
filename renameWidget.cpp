@@ -74,7 +74,7 @@ void renameWidget::updateName(QString name)
 			hexData.append("20");
 		};
 	};
-	sysxIO->setFileSource(nameAddress, "00", hexData); //patch name address from globalVariables.
+	sysxIO->setFileSource("Structure", nameAddress, "00", "00", hexData); //patch name address from globalVariables.
 	sysxIO->setCurrentPatchName(name);
 
 	emit nameChanged(name);

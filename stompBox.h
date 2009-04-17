@@ -48,6 +48,7 @@ public:
 	void setImage(QString imagePath);
 	void setSize(QSize newSize);
 	void setId(unsigned int id);
+
 	void setComboBox(QString hex1, QString hex2, QString hex3, 
 	QRect geometry = QRect::QRect(7, 79, 80, 13));
 	void setKnob1(QString hex1, QString hex2, QString hex3);
@@ -86,19 +87,32 @@ public slots:
 	void valueChanged(int index);
 	virtual void updateSignal() {};
 	void setDisplayToFxName();
+	void preamp1_ButtonSignal(bool value);
+	void distortion_ButtonSignal(bool value);
+	void ns1_ButtonSignal(bool value);
+	void fx1_ButtonSignal(bool value);
+	void fx2_ButtonSignal(bool value);
+	void reverb_ButtonSignal(bool value);
+	void delay_ButtonSignal(bool value);
+	void chorus_ButtonSignal(bool value);
+	void eq_ButtonSignal(bool value);
+	void pedal_ButtonSignal(bool value);
+	void fv_ButtonSignal(bool value);
+	void compressor_ButtonSignal(bool value);
 	
 signals:
 	void valueChanged(QString fxName, QString valueName, QString valueStr);
 	void currentIndexChanged(int index);
 	void dialogUpdateSignal();
 	void setEditDialog(editWindow* editDialog);
+	void notConnectedSignal();
+	void switchSignal();
 
 protected:
 	void paintEvent(QPaintEvent *event);
 	void mousePressEvent(QMouseEvent *event);
 	void mouseMoveEvent(QMouseEvent *event);
 	void mouseDoubleClickEvent(QMouseEvent *event);
-	//void stompBox::assignSignal(bool value);
 
 private:
 	void emitValueChanged(QString hex1, QString hex2, QString hex3, QString valueHex);
@@ -129,7 +143,7 @@ private:
 	QString hex3;
 
 	QString fxName;
-	  //bool assignButtonActive;
 };
 
 #endif // STOMPBOX_H
+

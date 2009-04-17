@@ -1,6 +1,8 @@
 /****************************************************************************
 **
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
+** Copyright (C) 2007, 2008, 2009 Colin Willcocks.
+** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
+** All rights reserved.
 **
 ** This file is part of "GT-10 Fx FloorBoard".
 **
@@ -20,31 +22,35 @@
 **
 ****************************************************************************/
 
-#ifndef CUSTOMSLIDER_H
-#define CUSTOMSLIDER_H
+#ifndef CUSTOMRANGEDIAL_H
+#define CUSTOMRANGEDIAL_H
 
 #include <QWidget>
 
-class customSlider : public QWidget
+class customRangeDial : public QWidget
 {
     Q_OBJECT
 
 public:
-    customSlider(
-		double value = 50,
+    customRangeDial(
+		double value = 50, 
 		double min = 0, 
 		double max = 100, 
 		double single = 1, 
 		double page = 10,
-		QPoint sliderPos = QPoint::QPoint(0, 0), 
+		QPoint dialPos = QPoint::QPoint(0, 0), 
 		QWidget *parent = 0,
+		QString area = "Structure",
 		QString hex1 = "void",
 		QString hex2 = "void",
 		QString hex3 = "void",
-		QString slideImagePath = ":/images/slide.png",
-		QString sliderButtonImagePath = ":/images/sliderbutton.png");
+		QString type = "Min",
+		QString imagePath = ":/images/stompknob.png",
+		unsigned int imageRange = 62);
 	void setValue(int value);
 	
+public slots:
+	void knobSignal(QString, QString, QString);
 
 signals:
 	void valueChanged(int newValue, QString hex1, QString hex2, QString hex3);
@@ -59,29 +65,29 @@ protected:
 private:
 	void setOffset(double value);
 	void emitValue(double value);
-	void mouseTrigger(QPoint mousePos);
 
+  QString area;
 	QString hex1;
 	QString hex2;
 	QString hex3;
-	QString valueId;
+	QString type;
 	double value; 
 	double min; 
 	double max; 
 	double single; 
 	double page;
-	QString slideImagePath;
-	QString sliderButtonImagePath;
-	QSize slideSize;
-	QSize sliderButtonSize;
-	QPoint sliderPos;
+	QString imagePath;
+	QSize dialSize;
+	unsigned int imageRange;
+	QPoint dialPos; 
 
-	double yOffset;
+	signed int xOffset;
 	double _lastValue;
 	QPoint _startpos;
 	QPoint _lastpos;
 
+	
 	double m_value;
 };
 
-#endif // CUSTOMSLIDER_H
+#endif // CUSTOMDIAL_H

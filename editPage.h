@@ -46,8 +46,14 @@ public:
 		QString hex2 = "void",
 		QString hex3 = "void",
 		QString background = "normal", 
-		QString direction = "bottom", 
-		int lenght = 45,
+		QString hexMin = "04", 
+		QString hexMax = "06",
+		Qt::Alignment alignment = 0);
+	void addRange(int row, int column, int rowSpan, int columnSpan,
+		QString hex1 = "void",
+		QString hex2 = "void",
+		QString hex3 = "void",
+		QString area = "Structure", 
 		Qt::Alignment alignment = 0);
 	void addSwitch(int row, int column, int rowSpan, int columnSpan,
 		QString hex1 = "void",

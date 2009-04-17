@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT6B Fx FloorBoard".
+** This file is part of "GT-10 Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -55,7 +55,7 @@ customButton::customButton(QString text, bool active, QPoint buttonPos, QWidget 
 	this->buttonSize =  QSize(imageSize.width(), imageSize.height()/4);
 	this->buttonPos = buttonPos;
 	setOffset(0);
-  setGeometry(buttonPos.x(), buttonPos.y(), buttonSize.width(), buttonSize.height());
+    setGeometry(buttonPos.x(), buttonPos.y(), buttonSize.width(), buttonSize.height());
 
 	QLabel *textLabel = new QLabel(this);
 	textLabel->setObjectName("button");

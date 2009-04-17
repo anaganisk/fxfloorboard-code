@@ -38,8 +38,8 @@ public:
 		QString hex2 = "void",
 		QString hex3 = "void",
 		QString background = "normal", 
-		QString direction = "min", 
-		int lenght = 40);
+		QString hexMin = "04", 
+		QString hexMin = "06");
 
 protected:
 	void paintEvent(QPaintEvent *event);

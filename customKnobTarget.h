@@ -66,6 +66,7 @@ private:
 	QString hexLsb;
 	QString background;
 	int range;
+	int rangeMin;
 	};
 
 #endif // CUSTOMKNOBTARGET_H

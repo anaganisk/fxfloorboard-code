@@ -101,9 +101,4 @@ void stompbox_fx1::setEditPages()
 	editDetails()->page()->addGroupBox(1, 0, 1, 1);
 	editDetails()->addPage("01", "00", "02", "04");// PAGE 5 ABOVE
 
-	
-
-
-
-	
 };

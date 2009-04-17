@@ -1,8 +1,10 @@
 /****************************************************************************
 **
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
+** Copyright (C) 2007, 2008, 2009 Colin Willcocks.
+** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
+** All rights reserved.
 **
-** This file is part of "GT-8 Fx FloorBoard".
+** This file is part of "GT-6 Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -43,18 +45,19 @@ class SysxIO: public QObject
 public:
 	static SysxIO* Instance(); //Singleton patern design
 
-	void setFileSource(SysxData fileSource);
-	void setFileSource(QByteArray data);
-	void setFileSource(QString data);
-	void setFileSource(QString hex1, QString hex2, QString hex3, QString hex4);
-	void setFileSource(QString hex1, QString hex2, QString hex3, QString hex4, QString hex5);
-	void setFileSource(QString hex1, QString hex2, QList<QString> hexData);
+	void setFileSource(QString area, SysxData fileSource);
+	void setFileSource(QString area, QByteArray data);
+	void setFileSource(QString area, QString data);
+	void setFileSource(QString area, QString hex1, QString hex2, QString hex3, QString hex4);
+	void setFileSource(QString area, QString hex1, QString hex2, QString hex3, QString hex4, QString hex5);
+	void setFileSource(QString area, QString hex1, QString hex2, QString hex3, QList<QString> hexData);
 	void setFileName(QString fileName);
-	QList<QString> getSourceItems(QString hex1, QString hex2);
-	int getSourceValue(QString hex1, QString hex2, QString hex3);
+	QList<QString> getSourceItems(QString area, QString hex1, QString hex2);
+	int getSourceValue(QString area, QString hex1, QString hex2, QString hex3);
 	QString getFileName();
 	SysxData getFileSource();
-	QList<QString> getFileSource(QString hex1, QString hex2);
+	SysxData getSystemSource();
+	QList<QString> getFileSource(QString area, QString hex1, QString hex2);
 	QString getCheckSum(int dataSize);
 	QList<QString> correctSysxMsg(QList<QString> sysxMsg);
 	void setConnected(bool connected);
@@ -78,7 +81,7 @@ public:
 	QString getPatchChangeMsg(int bank, int patch);
 	void setCurrentPatchName(QString patchName);
 	QString getCurrentPatchName();
-	QString dBug;
+	
 
 	void sendMidi(QString midiMsg);
 	void sendSysx(QString sysxMsg);
@@ -91,12 +94,16 @@ public:
 
 	void emitStatusSymbol(int value);
 	void emitStatusProgress(int value);
-    void emitStatusMessage(QString message);
+  void emitStatusMessage(QString message);
 	void emitStatusdBugMessage(QString dBug);
-	void errorReturn();
+	void errorReturn(QString errorType, QString errorMsg);
+	QString dBug;
+	void systemWrite();
+	void systemDataRequest();
 
 public slots:
 	void errorSignal(QString windowTitle, QString errorMsg);
+	void writeToBuffer();
 
 private slots:
 	void returnPatchName(QString sysxMsg);
@@ -105,6 +112,7 @@ private slots:
 	void namePatchChange();
 	void resetDevice(QString sysxMsg);
 	void checkPatchChange(QString name);
+	void systemReply(QString replyMsg);
 
 signals:
 	void sysxReply(QString sysxMsg);
@@ -114,7 +122,7 @@ signals:
 
 	void setStatusSymbol(int value);
 	void setStatusProgress(int value);
-    void setStatusMessage(QString message);
+  void setStatusMessage(QString message);
 	void setStatusdBugMessage(QString dBug);
 
 	void patchChangeFailed();
@@ -133,6 +141,7 @@ private:
 	void processSpooler();
 
 	SysxData fileSource;
+	SysxData systemSource;
 	QString fileName;
 
 	bool connected;
@@ -152,6 +161,10 @@ private:
 	QString requestName;
 	QString currentName;
 	QList<QString> sendSpooler;
+	QString xml_area;
+	QString errorType;
+	QString errorMsg;
 };
 
 #endif // SYSXIO_H
+

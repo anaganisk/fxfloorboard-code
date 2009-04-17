@@ -23,17 +23,19 @@
 ****************************************************************************/
 
 #include <QtGui>
+#include "customRangeDial.h"
+#include "SysxIO.h"
 
-#include "customDial.h"
-
-customDial::customDial(double value, double min, double max, double single, double page, 
-					   QPoint dialPos, QWidget *parent, QString hex1, QString hex2, QString hex3, 
-					   QString imagePath, unsigned int imageRange)
+customRangeDial::customRangeDial(double value, double min, double max, double single, double page, 
+					   QPoint dialPos, QWidget *parent, QString area, QString hex1, QString hex2, QString hex3, 
+					   QString type, QString imagePath, unsigned int imageRange)
     : QWidget(parent)
 {
+  this->area = area;
 	this->hex1 = hex1;
 	this->hex2 = hex2;
 	this->hex3 = hex3;
+	this->type = type;
 	this->value = value;
 	this->min = min;
 	this->max = max;
@@ -50,9 +52,10 @@ customDial::customDial(double value, double min, double max, double single, doub
 
 	QObject::connect(this, SIGNAL( valueChanged(int, QString, QString, QString) ),
                 this->parent(), SLOT( valueChanged(int, QString, QString, QString) ));
+ 
 };
 
-void customDial::paintEvent(QPaintEvent *)
+void customRangeDial::paintEvent(QPaintEvent *)
 {
 	QRectF target(0.0 , 0.0, dialSize.width(), dialSize.height());
 	QRectF source(xOffset, 0.0, dialSize.width(), dialSize.height());
@@ -64,11 +67,10 @@ void customDial::paintEvent(QPaintEvent *)
 	painter.drawPixmap(target, image, source);
 };
 
-void customDial::setOffset(double _newValue)
-{
-	double dataRange = max - min;
-	double range = imageRange - 0;
-	double result = (_newValue - min) * (range / dataRange);
+void customRangeDial::setOffset(double _newValue)
+{  
+
+	double result = _newValue/2 - 1;
 	
 	int imageNr = (int)(result + 0.5);
 	if(imageNr < 0)
@@ -85,7 +87,7 @@ void customDial::setOffset(double _newValue)
 	this->update();
 };
 
-void customDial::mousePressEvent(QMouseEvent *event)
+void customRangeDial::mousePressEvent(QMouseEvent *event)
 {
 	if ( event->button() == Qt::LeftButton )
 	{	
@@ -97,7 +99,7 @@ void customDial::mousePressEvent(QMouseEvent *event)
 	};
 };
 
-void customDial::mouseMoveEvent(QMouseEvent *event)
+void customRangeDial::mouseMoveEvent(QMouseEvent *event)
 {
 	double dataRange = max - min;
 	//double range = imageRange - 0;
@@ -130,7 +132,7 @@ void customDial::mouseMoveEvent(QMouseEvent *event)
 	emitValue(_newValue);
 };
 
-void customDial::wheelEvent(QWheelEvent *event)
+void customRangeDial::wheelEvent(QWheelEvent *event)
 {
     double numDegrees = (double)(event->delta() / 8);
     double numSteps = numDegrees / 15;
@@ -154,7 +156,7 @@ void customDial::wheelEvent(QWheelEvent *event)
     };
 };
 
-void customDial::keyPressEvent(QKeyEvent *event)
+void customRangeDial::keyPressEvent(QKeyEvent *event)
 {
 	double numSteps = 0;
 	this->_lastValue = value;
@@ -191,15 +193,43 @@ void customDial::keyPressEvent(QKeyEvent *event)
 	};
 };
 
-void customDial::emitValue(double value)
+void customRangeDial::emitValue(double value)
 {
     if (value != m_value) {
         this->m_value = value;
     };
 	emit valueChanged((int)value, this->hex1, this->hex2, this->hex3);
+	knobSignal(hex1, hex2, hex3);
 };
 
-void customDial::setValue(int value)
+void customRangeDial::setValue(int value)
 {
 	setOffset((double)value);
+};
+
+void customRangeDial::knobSignal(QString hex1, QString hex2, QString hex3)
+{
+    SysxIO *sysxIO = SysxIO::Instance();
+    QString valueStr;
+	  QString valueHex;
+	  int value;
+	  bool ok;
+    if (this->type == "Min")
+  {
+    valueHex = QString::number((hex3.toInt(&ok, 16) + 1), 16).toUpper();
+    if(valueHex.length() < 2) valueHex.prepend("0");
+    value = sysxIO->getSourceValue(this->area, this->hex1, this->hex2, valueHex);
+    valueHex = QString::number(value, 16).toUpper();
+    if(valueHex.length() < 2) valueHex.prepend("0");  
+    this->max = QString(valueHex).toInt(&ok, 16) - 1;
+  }
+   else 
+  {
+    valueHex = QString::number((hex3.toInt(&ok, 16) - 1), 16).toUpper();
+    if(valueHex.length() < 2) valueHex.prepend("0");
+    value = sysxIO->getSourceValue(this->area, this->hex1, this->hex2, valueHex);
+    valueHex = QString::number(value, 16).toUpper();
+    if(valueHex.length() < 2) valueHex.prepend("0");  
+    this->min = QString(valueHex).toInt(&ok, 16) + 1;
+  };
 };

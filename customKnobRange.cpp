@@ -22,52 +22,61 @@
 **
 ****************************************************************************/
 
-#include "customKnob.h"
+#include "customKnobRange.h"
 #include "MidiTable.h"
 #include "SysxIO.h"
 
-customKnob::customKnob(QWidget *parent, QString hex1, QString hex2, QString hex3, QString background, QString direction) : QWidget(parent)
+customKnobRange::customKnobRange(QWidget *parent, QString area, QString hex1, QString hex2, QString hexMin, QString hexMax, QString type) : QWidget(parent)
 {
+  this->area = area;
 	this->hex1 = hex1;
 	this->hex2 = hex2;
-	this->hex3 = hex3;
-  this->area = direction;
+	this->hexMin = hexMin;
+	this->hexMax = hexMax;
+	this->type = type;
+	bool ok;
+	int range;
+	int rangeMin;
 	MidiTable *midiTable = MidiTable::Instance();
 	if (area == "normal" || area == "turbo" || area.isEmpty()){this->area = "Structure";};
-	int range = midiTable->getRange(this->area, hex1, hex2, hex3);
-	int rangeMin = midiTable->getRangeMinimum(this->area, hex1, hex2, hex3);
+	if (this->type == "Min")
+  {
+    hex3 = hexMin;
+    range = QString(this->hexMax).toInt(&ok, 16) - 1;
+    rangeMin = midiTable->getRangeMinimum(this->area, hex1, hex2, hex3);
+  }
+   else 
+  {
+    hex3 = hexMax;
+    range = midiTable->getRange(this->area, hex1, hex2, hex3);
+    rangeMin = QString(this->hexMin).toInt(&ok, 16) + 1;
+  };
+	
+	
 	
 	QPoint bgPos = QPoint(0, -3); // Correction needed y-3.
 	QPoint knobPos = QPoint(5, 4); // Correction needed y+1 x-1.
 
-	QLabel *newBackGround = new QLabel(this);
-	if (background == "normal" || background != "Structure")
-	{
-		newBackGround->setPixmap(QPixmap(":/images/knobbgn.png"));
-	}
-	else if (background == "turbo")
-	{
-		newBackGround->setPixmap(QPixmap(":/images/knobbgt.png"));
-	}
-	else
-	{
-		newBackGround->setPixmap(QPixmap(":/images/knobbg.png"));
-	};
+	QLabel *newBackGround = new QLabel(this);	
+	newBackGround->setPixmap(QPixmap(":/images/knobbgn.png"));
 	newBackGround->move(bgPos);
 
 	QString imagePath(":/images/knob.png");
 	unsigned int imageRange = 63;
-	this->knob = new customDial(0, rangeMin, range, 1, 10, knobPos, this, hex1, hex2, hex3, imagePath, imageRange);
+	this->knob = new customRangeDial(0, rangeMin, range, 1, 10, knobPos, this, this->area, hex1, hex2, hex3, this->type, imagePath, imageRange);
 	this->setFixedSize(newBackGround->pixmap()->size() - QSize::QSize(0, 4)); // Correction needed h-4.
 
 	QObject::connect(this, SIGNAL( updateSignal() ),
                 this->parent(), SIGNAL( updateSignal() ));
 
-	QObject::connect(this, SIGNAL( updateDisplay(QString) ),
-                this->parent(), SIGNAL( updateDisplay(QString) ));
+	QObject::connect(this, SIGNAL( updateDisplayMin(QString) ),
+                this->parent(), SIGNAL( updateDisplayMin(QString) ));
+                
+  QObject::connect(this, SIGNAL( updateDisplayMax(QString) ),
+                this->parent(), SIGNAL( updateDisplayMax(QString) ));
 };
 
-void customKnob::paintEvent(QPaintEvent *)
+void customKnobRange::paintEvent(QPaintEvent *)
 {
 	/*DRAWS RED BACKGROUND FOR DEBUGGING PURPOSE */
 	/*QPixmap image(":images/dragbar.png");
@@ -79,12 +88,12 @@ void customKnob::paintEvent(QPaintEvent *)
 	painter.drawPixmap(target, image, source);*/
 };
 
-void customKnob::setValue(int value)
+void customKnobRange::setValue(int value)
 {
 	this->knob->setValue(value);
 };
 
-void customKnob::valueChanged(int value, QString hex1, QString hex2, QString hex3)
+void customKnobRange::valueChanged(int value, QString hex1, QString hex2, QString hex3)
 {
 	MidiTable *midiTable = MidiTable::Instance();
 	
@@ -111,7 +120,6 @@ void customKnob::valueChanged(int value, QString hex1, QString hex2, QString hex
 	};
 
 	QString valueStr = midiTable->getValue(this->area, hex1, hex2, hex3, valueHex);
-
-	emit updateDisplay(valueStr);
+  if (this->type == "Min"){	emit updateDisplayMin(valueStr);} else { emit updateDisplayMax(valueStr); };
 	emit updateSignal();
 };

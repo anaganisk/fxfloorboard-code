@@ -71,6 +71,7 @@ private:
 	static bool dataReceive;
 	static int bytesTotal;
 	static bool multiple;
+	static bool system;
 	int midiOutPort;
 	int midiInPort;
 	QString sysxOutMsg;

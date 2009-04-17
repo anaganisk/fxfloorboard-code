@@ -20,45 +20,46 @@
 **
 ****************************************************************************/
 
-#ifndef CUSTOMCONTROLKNOB_H
-#define CUSTOMCONTROLKNOB_H
+#ifndef CUSTOMRENAMEWIDGET_H
+#define CUSTOMRENAMEWIDGET_H
 
-#include <QWidget>
 #include <QtGui>
-#include "customKnob.h"
+#include <QWidget>
+#include "customDisplay.h"
 #include "customControlLabel.h"
 
-class customControlKnob : public QWidget
+class customRenameWidget : public QWidget
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    customControlKnob(QWidget *parent = 0, 
-		QString hex1 = "void",
-		QString hex2 = "void",
-		QString hex3 = "void",
-		QString background = "normal", 
-		QString direction = "bottom", 
-		int lenght = 34);
-
-protected:
-	void paintEvent(QPaintEvent *event);
+	customRenameWidget(
+  QWidget *parent = 0,
+  QString hex1 = "void",
+  QString hex2 = "void",
+  QString hex3 = "void",
+  QString area = "System",
+  QString length = "8");
 
 public slots:
+	void updateName(QString name);
 	void dialogUpdateSignal();
 
 signals:
-	void updateSignal();
-	void updateDisplay(QString text);
+	void nameChanged(QString name);
+
+protected:
+	void mouseReleaseEvent(QMouseEvent *event);
 
 private:
-	customControlLabel* label;
-	QLineEdit* display;
-	customKnob* knob;
-	QString hex1;
-	QString hex2;
-	QString hex3;
-	QString area;
+  QString hex1;
+  QString hex2;
+  QString hex3;
+  QString area;
+  QString length;
+  QLineEdit* catagoryDisplay;
+  customControlLabel* label;
+  //customRenameDialog* dialog;
 };
 
-#endif // CUSTOMCONTROLKNOB_H
+#endif // RENAMEWIDGET_H

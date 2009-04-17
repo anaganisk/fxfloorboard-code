@@ -20,26 +20,25 @@
 **
 ****************************************************************************/
 
-#ifndef CUSTOMCONTROLKNOB_H
-#define CUSTOMCONTROLKNOB_H
+#ifndef CUSTOMCONTROLRANGE_H
+#define CUSTOMCONTROLRANGE_H
 
 #include <QWidget>
 #include <QtGui>
-#include "customKnob.h"
+#include "customKnobRange.h"
 #include "customControlLabel.h"
 
-class customControlKnob : public QWidget
+class customControlRange : public QWidget
 {
     Q_OBJECT
 
 public:
-    customControlKnob(QWidget *parent = 0, 
+    customControlRange(QWidget *parent = 0, 
 		QString hex1 = "void",
 		QString hex2 = "void",
 		QString hex3 = "void",
-		QString background = "normal", 
-		QString direction = "bottom", 
-		int lenght = 34);
+		QString area = "Structure"
+	);
 
 protected:
 	void paintEvent(QPaintEvent *event);
@@ -49,16 +48,22 @@ public slots:
 
 signals:
 	void updateSignal();
-	void updateDisplay(QString text);
+	void updateDisplayMin(QString text);
+	void updateDisplayMax(QString text);
 
 private:
-	customControlLabel* label;
-	QLineEdit* display;
-	customKnob* knob;
+	customControlLabel* labelMin;
+	QLineEdit* displayMin;
+	customKnobRange* knobMin;
+	customControlLabel* labelMax;
+	QLineEdit* displayMax;
+	customKnobRange* knobMax;
 	QString hex1;
 	QString hex2;
 	QString hex3;
 	QString area;
+	QString hexMin;
+	QString hexMax;
 };
 
 #endif // CUSTOMCONTROLKNOB_H

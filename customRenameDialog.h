@@ -20,45 +20,41 @@
 **
 ****************************************************************************/
 
-#ifndef CUSTOMCONTROLKNOB_H
-#define CUSTOMCONTROLKNOB_H
+#ifndef CUSTOMRENAMEDIALOG_H
+#define CUSTOMRENAMEDIALOG_H
 
-#include <QWidget>
 #include <QtGui>
-#include "customKnob.h"
-#include "customControlLabel.h"
 
-class customControlKnob : public QWidget
+class customRenameDialog : public QDialog
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    customControlKnob(QWidget *parent = 0, 
-		QString hex1 = "void",
-		QString hex2 = "void",
-		QString hex3 = "void",
-		QString background = "normal", 
-		QString direction = "bottom", 
-		int lenght = 34);
-
-protected:
-	void paintEvent(QPaintEvent *event);
+	customRenameDialog(
+  QWidget *parent = 0,
+  QString hex1 = "void",
+  QString hex2 = "void",
+  QString hex3 = "void",
+  QString area = "System",
+  QString length = "10");
 
 public slots:
-	void dialogUpdateSignal();
+	void emitValue();
 
 signals:
-	void updateSignal();
-	void updateDisplay(QString text);
+	void nameChanged(QString name);
+
+protected:
 
 private:
-	customControlLabel* label;
-	QLineEdit* display;
-	customKnob* knob;
+	QLabel *nameLabel;
+	QLabel *charLabel;
+	QLineEdit *nameEdit;
 	QString hex1;
-	QString hex2;
-	QString hex3;
-	QString area;
+  QString hex2;
+  QString hex3;
+  QString area;
+  QString length;
 };
 
-#endif // CUSTOMCONTROLKNOB_H
+#endif // RENAMEDIALOG_H

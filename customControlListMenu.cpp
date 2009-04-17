@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT-8 Fx FloorBoard".
+** This file is part of "GT-10 Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -36,9 +36,18 @@ customControlListMenu::customControlListMenu(QWidget *parent,
 	this->hex1 = hex1;
 	this->hex2 = hex2;
 	this->hex3 = hex3;
+	if (!direction.contains("System")) {this->area = "Structure"; }
+	else {this->area = direction; };
 
 	MidiTable *midiTable = MidiTable::Instance();
-	Midi items = midiTable->getMidiMap("Structure", hex1, hex2, hex3);
+	Midi items;
+	QString hex0 = area;
+	  if (!area.contains("System")){
+	items = midiTable->getMidiMap(this->area, hex1, hex2, hex3);
+	} else {
+	hex0.remove("System");
+  items = midiTable->getMidiMap("System", hex0, hex1, hex2, hex3);
+  };
 	QString labeltxt = items.customdesc;
 	
 	this->label->setUpperCase(true);
@@ -72,20 +81,34 @@ customControlListMenu::customControlListMenu(QWidget *parent,
 
 		this->setLayout(mainLayout);
 		this->setFixedHeight(12 + 15);
+		
+	}
+  else
+	{
+		this->label->setAlignment(Qt::AlignLeft);
+
+		QVBoxLayout *mainLayout = new QVBoxLayout;
+		mainLayout->setMargin(0);
+		mainLayout->setSpacing(0);
+		mainLayout->addStretch(0);
+		mainLayout->addWidget(this->label, 0, Qt::AlignLeft);
+		mainLayout->addWidget(this->controlListComboBox, 0, Qt::AlignLeft);
+
+		this->setLayout(mainLayout);
+		this->setFixedHeight(12 + 15);
+		
 	};
 
-	QObject::connect(this->parent(), SIGNAL( dialogUpdateSignal() ),
-                this, SLOT( dialogUpdateSignal() ));
+	QObject::connect(this->parent(), SIGNAL( dialogUpdateSignal() ), this, SLOT( dialogUpdateSignal() ));
 
-	QObject::connect(this, SIGNAL( updateSignal() ),
-                this->parent(), SIGNAL( updateSignal() ));
+	QObject::connect(this, SIGNAL( updateSignal() ), this->parent(), SIGNAL( updateSignal() ));
 
-	QObject::connect(this->controlListComboBox, SIGNAL(currentIndexChanged(int)),
-                this, SLOT(valueChanged(int)));
+	QObject::connect(this->controlListComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(valueChanged(int)));
 
-	QObject::connect(this->controlListComboBox, SIGNAL(currentIndexChanged(int)),
-                this, SIGNAL(currentIndexChanged(int)));
-};
+	QObject::connect(this->controlListComboBox, SIGNAL(currentIndexChanged(int)), this, SIGNAL(currentIndexChanged(int)));
+
+  //QObject::connect(this->parent()->parent(), SIGNAL(updateSignal()), this, SLOT(dialogUpdateSignal()));
+}
 
 void customControlListMenu::paintEvent(QPaintEvent *)
 {
@@ -97,7 +120,7 @@ void customControlListMenu::paintEvent(QPaintEvent *)
 
 	QPainter painter(this);
 	painter.drawPixmap(target, image, source);*/
-};
+}
 
 void customControlListMenu::setComboBox()
 {
@@ -106,8 +129,16 @@ void customControlListMenu::setComboBox()
 	this->hex3 = hex3;
 
 	MidiTable *midiTable = MidiTable::Instance();
-	Midi items = midiTable->getMidiMap("Structure", hex1, hex2, hex3);
-
+	Midi items;
+	QString hex0 = area;
+	  if (!area.contains("System")){
+	items = midiTable->getMidiMap(this->area, hex1, hex2, hex3);
+	} else {
+	hex0.remove("System");
+  items = midiTable->getMidiMap("System", hex0, hex1, hex2, hex3);
+  };
+   
+    QString longestItem = "";
 	int itemcount;
 	for(itemcount=0;itemcount<items.level.size();itemcount++ )
 	{
@@ -121,32 +152,60 @@ void customControlListMenu::setComboBox()
 		else
 		{
 			item = desc;
-		};
+		};		
+		if(longestItem.size() < item.size()) longestItem = item; 
 		this->controlListComboBox->addItem(item);
 	};
-
+	int maxWidth = QFontMetrics( this->font() ).width( longestItem );
+#ifdef Q_WS_MAC
+ 	this->controlListComboBox->setFixedWidth(maxWidth + 10);
+#endif 	
+#ifdef Q_WS_X11
+  this->controlListComboBox->setFixedWidth(maxWidth - 10);
+#endif
+#ifdef Q_OS_WIN
+  this->controlListComboBox->setFixedWidth(maxWidth + 30);
+#endif
   this->controlListComboBox->setFixedHeight(15);
 	this->controlListComboBox->setEditable(false);
 	this->controlListComboBox->setFrame(false);
 	this->controlListComboBox->setMaxVisibleItems(itemcount);
-};
+}
 
 void customControlListMenu::valueChanged(int index)
 {
 	QString valueHex = QString::number(index, 16).toUpper();
 	if(valueHex.length() < 2) valueHex.prepend("0");
-
+	
 	SysxIO *sysxIO = SysxIO::Instance();
-	sysxIO->setFileSource(hex1, hex2, hex3, valueHex);
-
+	MidiTable *midiTable = MidiTable::Instance();
+	bool ok;
+		if(midiTable->isData(this->area, hex1, hex2, hex3))
+	{	
+		int maxRange = QString("7F").toInt(&ok, 16) + 1;
+		int value = valueHex.toInt(&ok, 16);
+		int dif = value/maxRange;
+		QString valueHex1 = QString::number(dif, 16).toUpper();
+		if(valueHex1.length() < 2) valueHex1.prepend("0");
+		QString valueHex2 = QString::number(value - (dif * maxRange), 16).toUpper();
+		if(valueHex2.length() < 2) valueHex2.prepend("0");
+	
+		sysxIO->setFileSource(this->area, hex1, hex2, hex3, valueHex1, valueHex2);		
+	}
+	else
+	{	 
+		sysxIO->setFileSource(this->area, hex1, hex2, hex3, valueHex);
+	};
+	
 	//emit updateDisplay(valueStr);
 	emit updateSignal();
-};
+}
 
 void customControlListMenu::dialogUpdateSignal()
 {
 	SysxIO *sysxIO = SysxIO::Instance();
-	int index = sysxIO->getSourceValue(this->hex1, this->hex2, this->hex3);
+	
+	int index = sysxIO->getSourceValue(this->area, this->hex1, this->hex2, this->hex3);
 	this->controlListComboBox->setCurrentIndex(index);
-	//this->valueChanged(index);
-};
+	//this->valueChanged(index); 
+}

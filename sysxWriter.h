@@ -36,13 +36,16 @@ public:
 	void setFile(QString fileName);
 	bool readFile();
 	SysxData getFileSource();
+	SysxData getSystemSource();
 	void writeFile(QString fileName);
+	void writeSystemFile(QString fileName);
 	QString getFileName();
 
 	
 private:
 	QString fileName;
 	SysxData fileSource;
+	SysxData systemSource;
 };
 
 #endif // SYSXWRITTER_H

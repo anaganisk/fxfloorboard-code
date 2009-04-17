@@ -39,7 +39,7 @@ border-color: rgb(150,150,150);
 }
 QTreeWidget#banklist QHeaderView::section:only-one {
 font-family: Arial;
-font-size: 11px;
+font-size: 12px;
 font-weight: bold;
 /*padding-top: 15px;*/
 border-style: solid;
@@ -70,7 +70,7 @@ QComboBox#smallcombo {
 font-family: Arial;
 font-size: 10px;
 font-weight: bold;
-font-stretch: 110;
+/*font-stretch: 110;*/
 color: rgb(0,255,204);
 background-color: rgb(0,1,62);
 border-style: solid;
@@ -178,13 +178,13 @@ color: rgb(0,255,204);
 }
 QLabel#nameSub {
 font-family: Arial;
-font-size: 10px;
+font-size: 9px;
 font-weight: bold;
 color: rgb(0,255,204);
 }
 QLabel#valueMain {
 font-family: Arial;
-font-size: 9px;
+font-size: 13px;
 font-weight: bold;
 color: rgb(0,255,204);
 }
@@ -263,7 +263,40 @@ color: rgb(255,255,255);
 
 QLineEdit#editdisplay {
 font-family: Arial;
-font-size: 9px;
+font-size: 10px;
+font-weight: normal;
+color: rgb(0,255,204);
+background-color: rgb(0,1,62);
+border-style: solid;
+border-width: 1px;
+border-radius: 3px;
+border-color: rgb(150,150,150);
+padding: 0px;
+padding-left: 1px;
+padding-right: 1px;
+}
+/* CUSTOM TARGETKNOB STYLE  */
+
+QLineEdit#targetdisplay {
+font-family: Arial;
+font-size:11px;
+font-weight: normal;
+color: rgb(0,255,204);
+background-color: rgb(0,1,62);
+border-style: solid;
+border-width: 1px;
+border-radius: 3px;
+border-color: rgb(150,150,150);
+padding: 0px;
+padding-left: 1px;
+padding-right: 1px;
+}
+
+/* CUSTOM CONTROLRENAME STYLE  */
+
+QLineEdit#catalogdisplay {
+font-family: Arial;
+font-size: 12px;
 font-weight: normal;
 color: rgb(0,255,204);
 background-color: rgb(0,1,62);
