@@ -49,7 +49,9 @@ void customComboBox::showPopup()
  		this->setMaxVisibleItems(this->maxVisibleItems() - 1);
  		popupWidth = popupWidth + 10;
  	};
-
+    if ( popupWidth < 40) {
+	popupWidth = 40;
+	}
  	this->view()->setMinimumWidth(popupWidth);
  	QComboBox::showPopup();
 };
