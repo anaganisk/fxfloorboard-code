@@ -46,8 +46,15 @@ public:
 	QComboBox* midiInCombo;
 	QComboBox* midiOutCombo;
 	QCheckBox* dBugCheckBox;
-	QSpinBox* midiTimeSpinBox;
+	QSpinBox* sysByteSpinBox1;
+	QSpinBox* sysByteSpinBox2;
+	QSpinBox* sysByteSpinBox3;
+	QSpinBox* sysByteSpinBox4;
 	QSpinBox* midiDelaySpinBox;
+	int byte1;
+	int byte2;
+	int byte3;
+	int byte4;
 };
 
 class WindowPage : public QWidget

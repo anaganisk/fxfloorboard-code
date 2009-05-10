@@ -180,8 +180,10 @@ void midiIO::sendSyxMsg(QString sysxOutMsg, int midiOutPort)
 			*ptr = (char)n;
 			message.push_back(*ptr);		// insert the char* string into a std::vector	
 			if(hex.contains ("F7")){		
+#ifdef Q_OS_WIN
 			          message.push_back(32);
 			          message.push_back(32);
+#endif
                 midiMsgOut->sendMessage(&message);  // send the midi data as a std::vector
                 SLEEP(20);
                 message.clear();    
@@ -270,13 +272,13 @@ void midiIO::receiveMsg(QString sysxInMsg, int midiInPort)
   int count;
 	emit setStatusSymbol(3);
 	emit setStatusProgress(75);
-	Preferences *preferences = Preferences::Instance(); bool ok;// Load the preferences.
-	const int maxWait = preferences->getPreferences("Midi", "Time", "set").toInt(&ok, 10);
+	//Preferences *preferences = Preferences::Instance(); bool ok;// Load the preferences.
+	const int maxWait = 50;//preferences->getPreferences("Midi", "Time", "set").toInt(&ok, 10);
 	if(multiple){
-               loopCount = maxWait*40;
+               loopCount = maxWait*50;
                count = patchSize;
                  } else if(system) {
-                  loopCount = maxWait*80;
+                  loopCount = maxWait*140;
                   count = 4206;
               } 
   else 
@@ -453,13 +455,13 @@ void midiIO::sendSysxMsg(QString sysxOutMsg, int midiOutPort, int midiInPort)
 		i=i+2;
     }; 
   }; 
-    if (sysxOutMsg == idRequestString){reBuild = sysxOutMsg;  multiple = false;}/* else {multiple = true; }*/;  // identity request not require checksum
+    if (sysxOutMsg == idRequestString){reBuild = sysxOutMsg;  multiple = false;};  // identity request not require checksum
   	this->sysxOutMsg = reBuild.simplified().toUpper().remove("0X").remove(" ");
 	  if((sysxOutMsg.size() == (sysxDataOffset*2 + 12)) && (sysxOutMsg.mid(sysxOutMsg.size()-12, 8) == patchRequestSize)
     && (sysxOutMsg.mid((sysxAddressOffset*2-2), 2) == "11") && (sysxOutMsg.mid((sysxAddressOffset*2), 2) != "00")) 
     {multiple = true; };
     system = false;
-    if (sysxOutMsg == systemRequest) {system = true; multiple = false; };
+    if (sysxOutMsg != idRequestString && sysxOutMsg.contains("F04100004611000000000")) {system = true; multiple = false; };
 
 	this->midiOutPort = midiOutPort;
 	this->midiInPort = midiInPort;

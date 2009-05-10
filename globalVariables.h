@@ -57,7 +57,7 @@ const int patchPackets = 22;		// number of sysx packets "F0....F7" which make up
 const int patchSize = 670;          // size of bytes in a patch.
 const QString patchRequestSize = "00000001";
 const int maxRetry = 2;				// Maximum times we retry to load a patch in case of a transfer error .
-const QString systemRequest = "F0410000461100000000030000017CF7";
+const QString systemRequest = "F0410000461100000000030000007DF7";
 
 
 /* Patch Sellection (Used when copying patches) */

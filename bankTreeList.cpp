@@ -552,7 +552,7 @@ void bankTreeList::updatePatch(QString replyMsg)
 	msgBox->setTextFormat(Qt::RichText);
 	QString msgText;
 	msgText.append("<font size='+1'><b>");
-	msgText.append(QObject::tr("Please make sure the ") + deviceType + (" is connected correctly and re-try."));
+	msgText.append(QObject::tr("Please make sure the editor and ") + deviceType + ("\n are set to 'Bulk Mode' and re-try."));
 	msgBox->setText(msgText);
 	msgBox->setStandardButtons(QMessageBox::Ok);
 	msgBox->exec();

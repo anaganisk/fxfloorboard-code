@@ -23,6 +23,7 @@
 #include "menuPage.h"
 #include "MidiTable.h"
 #include "SysxIO.h"
+#include "Preferences.h"
 #include "globalVariables.h"
 #include "floorBoardDisplay.h"
 #include "sysxWriter.h"
@@ -114,14 +115,30 @@ void menuPage::menuButtonSignal(bool value)
 	  if((this->id == 19 || this->id == 18) && sysxIO->deviceReady())
 	  {
     QString replyMsg;
+    QString sysRequest = "F0410000461100000000";   // header and Address.
+    Preferences *preferences = Preferences::Instance();// Load the preferences.
+	  int sys_byte1 = preferences->getPreferences("Midi", "System", "byte1").toInt();
+	  QString byte1 = QString::number(sys_byte1, 16).toUpper();
+	  if (byte1.size()<2) {byte1.prepend("0");};
+	  int sys_byte2 = preferences->getPreferences("Midi", "System", "byte2").toInt();
+	  QString byte2 = QString::number(sys_byte2, 16).toUpper();
+	  if (byte2.size()<2) {byte2.prepend("0");};
+	  int sys_byte3 = preferences->getPreferences("Midi", "System", "byte3").toInt();
+	  QString byte3 = QString::number(sys_byte3, 16).toUpper();
+	  if (byte3.size()<2) {byte3.prepend("0");};
+	  int sys_byte4 = preferences->getPreferences("Midi", "System", "byte4").toInt();
+	  QString byte4 = QString::number(sys_byte4, 16).toUpper();
+	  if (byte4.size()<2) {byte4.prepend("0");};
+	  sysRequest.append(byte1).append(byte2).append(byte3).append(byte4);
+	  sysRequest.append("7FF7");
 	   if (sysxIO->isConnected())
 	       {
 	        emit setStatusSymbol(2);
-		      emit setStatusMessage(tr("Request System data"));
+		      emit setStatusMessage(tr("Requesting System data"));
 	       	sysxIO->setDeviceReady(false); // Reserve the device for interaction.
 		      QObject::disconnect(sysxIO, SIGNAL(sysxReply(QString)));
 		      QObject::connect(sysxIO, SIGNAL(sysxReply(QString)), this, SLOT(systemReply(QString)));
-		      sysxIO->sendSysx(systemRequest); // GT-6 System area data Request.    
+		      sysxIO->sendSysx(sysRequest); // GT-6 System area data Request.    
           
           emitValueChanged(this->hex1, this->hex2, "00", "void");
 	        this->editDialog->setWindow(this->fxName);
@@ -155,8 +172,10 @@ void menuPage::systemReply(QString replyMsg)
   
 	if(sysxIO->noError())
 	{ 
-	if(replyMsg.size()/2 == 4206)
+	if(replyMsg.size()/2 >= 4206)
 		{
+		QString temp = replyMsg.mid(0, 4206);
+		replyMsg = temp;
 		QString area = "System";
 		sysxIO->setFileSource(area, replyMsg);		// Set the source to the data received.
 		sysxIO->setFileName(tr("System Data from ") + deviceType);	// Set the file name to GT-6 system for the display.

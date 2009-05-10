@@ -72,8 +72,11 @@ MidiPage::MidiPage(QWidget *parent)
 	QString midiInDevice = preferences->getPreferences("Midi", "MidiIn", "device");
 	QString midiOutDevice = preferences->getPreferences("Midi", "MidiOut", "device");
 	QString dBugScreen = preferences->getPreferences("Midi", "DBug", "bool");
-	QString midiTimeSet = preferences->getPreferences("Midi", "Time", "set");
 	QString midiDelaySet = preferences->getPreferences("Midi", "Delay", "set");
+	QString sys_Byte1 = preferences->getPreferences("Midi", "System", "byte1");
+	QString sys_Byte2 = preferences->getPreferences("Midi", "System", "byte2");
+	QString sys_Byte3 = preferences->getPreferences("Midi", "System", "byte3");
+	QString sys_Byte4 = preferences->getPreferences("Midi", "System", "byte4");
 
 	int midiInDeviceID = midiInDevice.toInt(&ok, 10);
 	int midiOutDeviceID = midiOutDevice.toInt(&ok, 10);
@@ -142,44 +145,63 @@ MidiPage::MidiPage(QWidget *parent)
 	QGroupBox *dBugScreenGroup = new QGroupBox(tr("dBug and timing"));
 
 	QLabel *dBugDescriptionLabel = new QLabel(tr("Debug mode & midi settings."));
-	QLabel *midiTimeDescriptionLabel = new QLabel(tr("Patch & data receive time."));
+	QLabel *midiTimeDescriptionLabel = new QLabel(tr("System data request size."));
 	QLabel *midiDelayDescriptionLabel = new QLabel(tr("Realtime edit send rate."));
 
 	QCheckBox *dBugCheckBox = new QCheckBox(tr("deBug Mode"));
-	QSpinBox *midiTimeSpinBox = new QSpinBox;
-	QSpinBox *midiDelaySpinBox = new QSpinBox;
-
+	
 	this->dBugCheckBox = dBugCheckBox;
 	if(dBugScreen=="true")
 	{
 		dBugCheckBox->setChecked(true);
 	};
 	
-	this->midiTimeSpinBox = midiTimeSpinBox;
-	const int maxWait = preferences->getPreferences("Midi", "Time", "set").toInt(&ok, 10);
-	midiTimeSpinBox->setValue(maxWait);
-	midiTimeSpinBox->setRange(45, 99);
-	midiTimeSpinBox->setSingleStep(1);
-	midiTimeSpinBox->setPrefix("= ");
-	midiTimeSpinBox->setSuffix("0 ms wait");
-
+	QSpinBox *sysByteSpinBox1 = new QSpinBox;
+	QSpinBox *sysByteSpinBox2 = new QSpinBox;
+	QSpinBox *sysByteSpinBox3 = new QSpinBox;
+	QSpinBox *sysByteSpinBox4 = new QSpinBox;
+	
+	const int byte1 = preferences->getPreferences("Midi", "System", "byte1").toInt(&ok, 10);
+	const int byte2 = preferences->getPreferences("Midi", "System", "byte2").toInt(&ok, 10);
+	const int byte3 = preferences->getPreferences("Midi", "System", "byte3").toInt(&ok, 10);
+	const int byte4 = preferences->getPreferences("Midi", "System", "byte4").toInt(&ok, 10);
+	
+	this->sysByteSpinBox1 = sysByteSpinBox1;
+	sysByteSpinBox1->setValue(byte1);
+	sysByteSpinBox1->setRange(0, 3);
+	this->sysByteSpinBox2 = sysByteSpinBox2;
+	sysByteSpinBox2->setValue(byte2);
+	sysByteSpinBox2->setRange(0, 127);
+	this->sysByteSpinBox3 = sysByteSpinBox3;
+	sysByteSpinBox3->setValue(byte3);
+	sysByteSpinBox3->setRange(0, 127);
+	this->sysByteSpinBox4 = sysByteSpinBox4;
+	sysByteSpinBox4->setValue(byte4);
+	sysByteSpinBox4->setRange(0, 127);
+	
+	QSpinBox *midiDelaySpinBox = new QSpinBox;
 	this->midiDelaySpinBox = midiDelaySpinBox;
 	const int minWait = preferences->getPreferences("Midi", "Delay", "set").toInt(&ok, 10);
 	midiDelaySpinBox->setValue(minWait);
 	midiDelaySpinBox->setRange(1, 30);
-	//midiTimeSpinBox->setSingleStep(5);
 	midiDelaySpinBox->setPrefix("= ");
 	midiDelaySpinBox->setSuffix(" times/second");
 
 
 	QVBoxLayout *dBugLabelLayout = new QVBoxLayout;
 	dBugLabelLayout->addWidget(dBugDescriptionLabel);
-	dBugLabelLayout->addWidget(midiTimeDescriptionLabel);
+	//dBugLabelLayout->addWidget(midiTimeDescriptionLabel);
 	dBugLabelLayout->addWidget(midiDelayDescriptionLabel);
+	
+	QHBoxLayout *dataSizeSelect = new QHBoxLayout;
+	dataSizeSelect->addWidget(sysByteSpinBox1);
+	dataSizeSelect->addWidget(sysByteSpinBox2);
+	dataSizeSelect->addWidget(sysByteSpinBox3);
+	dataSizeSelect->addWidget(sysByteSpinBox4);
 
 	QVBoxLayout *dBugTimeBoxLayout = new QVBoxLayout;
 	dBugTimeBoxLayout->addWidget(dBugCheckBox);
-	dBugTimeBoxLayout->addWidget(midiTimeSpinBox);
+	//dBugTimeBoxLayout->addLayout(dataSizeSelect);
 	dBugTimeBoxLayout->addWidget(midiDelaySpinBox);
 
 	QHBoxLayout *dBugSelectLayout = new QHBoxLayout;
