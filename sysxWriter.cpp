@@ -54,12 +54,13 @@ bool sysxWriter::readFile()
 
 		if(data.size() == patchSize){
 		SysxIO *sysxIO = SysxIO::Instance();
-		sysxIO->setFileSource(data);
+		QString area = "Structure";
+		sysxIO->setFileSource(area, data);
 		sysxIO->setFileName(this->fileName);
 
 		this->fileSource = sysxIO->getFileSource();
 		return true;
-		}
+        }
      else if (data.size() == 1010) { // if a GT-8 patch file.
 		QByteArray gt8_data = data;
 		QByteArray temp;   
@@ -79,8 +80,8 @@ bool sysxWriter::readFile()
         
       
     SysxIO *sysxIO = SysxIO::Instance();
-    //QString area = "Structure";
-		sysxIO->setFileSource(temp);
+    QString area = "Structure";
+		sysxIO->setFileSource(area, temp);
 		sysxIO->setFileName(this->fileName);
 		this->fileSource = sysxIO->getFileSource();
 		return true;	
@@ -101,7 +102,7 @@ bool sysxWriter::readFile()
 			return false;
 	
 	};
- };
+ } else {return false;};
 }
 
 void sysxWriter::writeFile(QString fileName)
@@ -131,9 +132,41 @@ void sysxWriter::writeFile(QString fileName)
 
 };
 
+void sysxWriter::writeSystemFile(QString fileName)
+{	
+	QFile file(fileName);
+    if (file.open(QIODevice::WriteOnly))
+	{
+		SysxIO *sysxIO = SysxIO::Instance();
+		this->systemSource = sysxIO->getSystemSource();
+		
+		QByteArray out;
+		unsigned int count=0;
+		for (QList< QList<QString> >::iterator dev = systemSource.hex.begin(); dev != systemSource.hex.end(); ++dev)
+		{
+			QList<QString> data(*dev);
+			for (QList<QString>::iterator code = data.begin(); code != data.end(); ++code)
+			{
+				QString str(*code);
+				bool ok;
+				unsigned int n = str.toInt(&ok, 16);
+				out[count] = (char)n;
+				count++;
+			};
+		};
+		file.write(out);
+	};
+
+};
+
 SysxData sysxWriter::getFileSource()
 {
 	return fileSource;	
+};
+
+SysxData sysxWriter::getSystemSource()
+{
+	return systemSource;	
 };
 
 QString sysxWriter::getFileName()

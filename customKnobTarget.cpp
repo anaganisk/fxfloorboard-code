@@ -44,25 +44,24 @@ customKnobTarget::customKnobTarget(QWidget *parent,
 	QPoint knobPos = QPoint(5, 4); // Correction needed y+1 x-1.
 	QLabel *newBackGround = new QLabel(this);
 	this->range = range;
-	this->range = midiTable->getRange("Structure", hex1, hex2, hex3);
+	this->rangeMin = rangeMin;
+	//this->range = midiTable->getRange("Structure", hex1, hex2, hex3);
 	if (background == "target")
 	{
 		this->range = midiTable->getRange("Structure", hex1, hex2, hex3); 
+		this->rangeMin = midiTable->getRangeMinimum("Structure", hex1, hex2, hex3); 
 	}
-	else if (background == "min")
+	else 
 	{
 		this->range = midiTable->getRange("Structure", hexMsb, hex2, hexLsb); 
-	}
-	else if (background == "max")
-	{
-		this->range = midiTable->getRange("Structure", hexMsb, hex2, hexLsb); 
+		this->rangeMin = midiTable->getRangeMinimum("Structure", hexMsb, hex2, hexLsb); 
 	};
 	newBackGround->setPixmap(QPixmap(":/images/knobbgn.png"));
 	newBackGround->move(bgPos);
 
 	QString imagePath(":/images/knob.png");
 	unsigned int imageRange = 63;
-	this->knob = new customTargetDial(0, 0, range, 1, 10, knobPos, this, hex1, hex2, hex3, imagePath, imageRange, background);
+	this->knob = new customTargetDial(0, rangeMin, range, 1, 10, knobPos, this, hex1, hex2, hex3, imagePath, imageRange, background);
 	this->setFixedSize(newBackGround->pixmap()->size() - QSize::QSize(0, 4)); // Correction needed h-4.
 
 
@@ -139,12 +138,13 @@ void customKnobTarget::valueChanged(int value, QString hex1, QString hex2, QStri
 		if(valueHex1.length() < 2) valueHex1.prepend("0");
 		QString valueHex2 = QString::number(value - (dif * maxRange), 16).toUpper();
 		if(valueHex2.length() < 2) valueHex2.prepend("0");
- 
-		sysxIO->setFileSource(hex1, hex2, hex3, valueHex1, valueHex2);		
+    QString area;
+		sysxIO->setFileSource(area, hex1, hex2, hex3, valueHex1, valueHex2);		
 	}
 	else
 	{
-		sysxIO->setFileSource(hex1, hex2, hex3, valueHex);
+	  QString area;
+		sysxIO->setFileSource(area, hex1, hex2, hex3, valueHex);
 	};
 	QString valueStr;
 	if (this->background == "target") {valueStr = midiTable->getValue("Structure", hex1, hex2, hex3, valueHex); 
@@ -160,7 +160,8 @@ void customKnobTarget::valueChanged(int value, QString hex1, QString hex2, QStri
 	
   if (this->background == "target")   // get the currently selected target value & set min/max address
   { 
-	value = sysxIO->getSourceValue(this->hex1, this->hex2, this->hex3);        // read target value as integer.
+  QString area;
+	value = sysxIO->getSourceValue(area, this->hex1, this->hex2, this->hex3);        // read target value as integer.
 	valueHex = QString::number(value, 16).toUpper();                        // convert to hex qstring.
 	if(valueHex.length() < 2) valueHex.prepend("0");  
 	valueStr = midiTable->getValue("Structure", hex1, hex2, hex3, valueHex);  // lookup the target values

@@ -81,30 +81,33 @@ signals:
 	void sendreturn_buttonSignal(bool value);
 	void eq_buttonSignal(bool value);
 	void pedal_buttonSignal(bool value);
+	void fv_buttonSignal(bool value);
 	
 protected:
 	void paintEvent(QPaintEvent *event);
 	void dragEnterEvent(QDragEnterEvent *event);
-    void dragMoveEvent(QDragMoveEvent *event);
-    void dropEvent(QDropEvent *event);
+  void dragMoveEvent(QDragMoveEvent *event);
+  void dropEvent(QDropEvent *event);
 
 private:
 	void initSize(QSize floorSize);
 	void setSize(QSize newSize);
 	void setFloorBoard();
 	void initStomps();
-        //void initMenuPages();
+  void initMenuPages();
 	void setStomps(QList<QString> stompOrder);
 	void setStompPos(QString name, int order);
 	void setStompPos(int index, int order);
 	void centerEditDialog();
 
+  QString imageFloor;
 	QString imagePathFloor;
 	QString imagePathStompBG;
 	QString imagePathInfoBar;
 
 	unsigned int offset;
 	unsigned int infoBarWidth;
+	unsigned int infoBarHeight;
 	unsigned int panelBarOffset;
 	unsigned int borderWidth;
 	unsigned int floorHeight;
@@ -130,7 +133,7 @@ private:
 	QList<int> fx;
 	bool colapseState;
 
-        //QList<menuPage*> menuPages;
+  QList<menuPage*> menuPages;
 	QList<stompBox*> stompBoxes;
 	QList<QString> stompNames;
 	editWindow* editDialog;

@@ -65,10 +65,11 @@ int main(int argc, char *argv[])
 	has started running, it is necessary to periodically call. */
 	app.processEvents(); 
 
-	splash->showStatusMessage(QObject::tr("Initializing..."));
-	mainWindow window;// = new mainWindow;
 
-	QObject::connect( &window, SIGNAL(closed()), &app, SLOT(quit()) );
+	splash->showStatusMessage(QObject::tr("Initializing..."));
+        mainWindow window;// = new mainWindow;
+
+        QObject::connect( &window, SIGNAL(closed()), &app, SLOT(quit()) );
 
 	app.processEvents();
 
@@ -169,21 +170,22 @@ int main(int argc, char *argv[])
 	window.show();
 	splash->finish(&window);
 
-/*	 PREVIEW WARNING  
-	QMessageBox *msgBox = new QMessageBox();
-	msgBox->setWindowTitle(QObject::tr("Warning this is beta version software"));
-	msgBox->setIcon(QMessageBox::Warning);
-	msgBox->setTextFormat(Qt::RichText);
-	QString msgText;
-	msgText.append("<font size='+1'><b>");
-	msgText.append(QObject::tr("This software is currently under development!<br>"));
+        /* PREVIEW WARNING
+
+        msgTexQMessageBox *msgBox = new QMessageBox();
+        msgBox->setWindowTitle(QObject::tr("Warning this is beta version software"));
+        msgBox->setIcon(QMessageBox::Warning);
+        msgBox->setTextFormat(Qt::RichText);
+        QString msgText;
+        msgText.apt.append(QObject::tr("This software is currently under development!<br>"));
 	msgText.append("<b></font><br>");
 	msgText.append(QObject::tr("Please email to http//:gumtownbassman@yahoo.com to confirm correct function.<br>"));
 	msgText.append(QObject::tr(" This will help with development and future versions & removal of this nag screen."));
 	msgBox->setText(msgText);
 	msgBox->setStandardButtons(QMessageBox::Ok);
 	msgBox->exec();
-	 END WARNING */
+
+         END WARNING*/
 
 	return app.exec();
 };

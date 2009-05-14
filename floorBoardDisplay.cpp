@@ -28,7 +28,8 @@
 #include "midiIO.h"
 #include "renameWidget.h"
 #include "globalVariables.h"
-
+#include "customRenameWidget.h"
+#include "customControlListMenu.h"
 
 
 // Platform-dependent sleep routines.
@@ -45,7 +46,7 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
     : QWidget(parent)
 {
 	this->pos = pos;
-  this->timer = new QTimer(this);
+        this->timer = new QTimer(this);
 	this->patchLoadError = false;
 	this->blinkCount = 0;
 	
@@ -67,43 +68,47 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
 
 	initPatch = new initPatchListMenu(QRect(405, 24, 168, 15), this);
   renameWidget *nameEdit = new renameWidget(this); 
-  nameEdit->setGeometry(85, 5, 150, 34); 
+  nameEdit->setGeometry(85, 5, 150, 34);
+  customRenameWidget *userDialog = new customRenameWidget(this, "2F", "00", "00", "Structure", "20");
+  userDialog->setGeometry(500, 462, 262, 25); 
+  customRenameWidget *patchDialog = new customRenameWidget(this, "2E", "00", "00", "Structure", "80");
+  patchDialog->setGeometry(10, 502, 750, 25);  
 
  	this->connectButton = new customButton(tr("Connect"), false, QPoint(405, 5), this, ":/images/greenledbutton.png");
 	this->writeButton = new customButton(tr("Write/Sync"), false, QPoint(494, 5), this, ":/images/ledbutton.png");
-/*	//this->ch_mode_Button = new customButton(tr("Channel Mode"), false, QPoint(10, 467), this, ":/images/pushbutton.png");
-        this->preamp1_Button = new customButton(tr("PreAmp/Spkr"), false, QPoint(100, 467), this, ":/images/pushbutton.png");
-	//this->preamp2_Button = new customButton(tr("PreAmp B"), false, QPoint(100, 485), this, ":/images/pushbutton.png");
-	this->distortion_Button = new customButton(tr("Distortion"), false, QPoint(190,467), this, ":/images/pushbutton.png");
-	this->compressor_Button = new customButton(tr("Compressor"), false, QPoint(190,485), this, ":/images/pushbutton.png");
-	this->ns1_Button = new customButton(tr("NS"), false, QPoint(280, 467), this, ":/images/pushbutton.png");
-	this->ns2_Button = new customButton(tr("Foot Volume"), false, QPoint(280, 485), this, ":/images/pushbutton.png");
-	this->fx1_Button = new customButton(tr("FX 1"), false, QPoint(370, 467), this, ":/images/pushbutton.png");
-	this->fx2_Button = new customButton(tr("FX 2"), false, QPoint(370, 485), this, ":/images/pushbutton.png");
-	this->reverb_Button = new customButton(tr("Reverb"), false, QPoint(460, 467), this, ":/images/pushbutton.png");
-	this->delay_Button = new customButton(tr("Delay"), false, QPoint(460, 485), this, ":/images/pushbutton.png");
-	this->chorus_Button = new customButton(tr("Chorus"), false, QPoint(550, 467), this, ":/images/pushbutton.png");
-	this->sendreturn_Button = new customButton(tr("Loop"), false, QPoint(550, 485), this, ":/images/pushbutton.png");
-	this->eq_Button = new customButton(tr("Equaliser"), false, QPoint(640, 467), this, ":/images/pushbutton.png");
-	this->pedal_Button = new customButton(tr("Wah"), false, QPoint(640, 485), this, ":/images/pushbutton.png");
-        */
+	this->assign_Button = new customButton(tr("Assigns"), false, QPoint(584, 5), this, ":/images/pushbutton.png");
+	this->system_midi_Button = new customButton(tr("Custom Settings"), false, QPoint(673, 5), this, ":/images/pushbutton.png");
+	this->system_Button = new customButton(tr("System Settings"), false, QPoint(673, 24), this, ":/images/pushbutton.png");
+        //this->fv_Button = new customButton(tr("Foot Volume"), false, QPoint(584, 24), this, ":/images/pushbutton.png");
+        this->ns2_Button = new customButton(tr("Foot Volume"), false, QPoint(584, 24), this, ":/images/pushbutton.png");
+
+        this->preamp1_Button = new customButton(tr("PreAmp/Spkr"), false, QPoint(10, 457), this, ":/images/pushbutton.png");
+        this->compressor_Button = new customButton(tr("Compressor"), false, QPoint(10,475), this, ":/images/pushbutton.png");
+        this->distortion_Button = new customButton(tr("Distortion"), false, QPoint(90,457), this, ":/images/pushbutton.png");
+        this->ns1_Button = new customButton(tr("NS"), false, QPoint(90, 475), this, ":/images/pushbutton.png");
+        this->fx1_Button = new customButton(tr("FX 1"), false, QPoint(170, 457), this, ":/images/pushbutton.png");
+        this->fx2_Button = new customButton(tr("FX 2"), false, QPoint(170, 475), this, ":/images/pushbutton.png");
+        this->reverb_Button = new customButton(tr("Reverb"), false, QPoint(250, 457), this, ":/images/pushbutton.png");
+        this->delay_Button = new customButton(tr("Delay"), false, QPoint(250, 475), this, ":/images/pushbutton.png");
+        this->chorus_Button = new customButton(tr("Chorus"), false, QPoint(330, 457), this, ":/images/pushbutton.png");
+        this->sendreturn_Button = new customButton(tr("Loop"), false, QPoint(330, 475), this, ":/images/pushbutton.png");
+        this->eq_Button = new customButton(tr("Equaliser"), false, QPoint(410, 457), this, ":/images/pushbutton.png");
+        this->pedal_Button = new customButton(tr("Wah"), false, QPoint(410, 475), this, ":/images/pushbutton.png");
+        
 
 	SysxIO *sysxIO = SysxIO::Instance();
 	QObject::connect(this, SIGNAL(setStatusSymbol(int)), sysxIO, SIGNAL(setStatusSymbol(int)));
 	QObject::connect(this, SIGNAL(setStatusProgress(int)), sysxIO, SIGNAL(setStatusProgress(int)));
 	QObject::connect(this, SIGNAL(setStatusMessage(QString)), sysxIO, SIGNAL(setStatusMessage(QString)));
 
-    QObject::connect(sysxIO, SIGNAL(notConnectedSignal()), this, SLOT(notConnected()));
+        QObject::connect(sysxIO, SIGNAL(notConnectedSignal()), this, SLOT(notConnected()));
 	QObject::connect(this, SIGNAL(notConnectedSignal()), this, SLOT(notConnected()));
-
 	QObject::connect(this->parent(), SIGNAL(updateSignal()), this, SLOT(updateDisplay()));
 
 	QObject::connect(this->connectButton, SIGNAL(valueChanged(bool)), this, SLOT(connectSignal(bool)));
 	QObject::connect(this->writeButton, SIGNAL(valueChanged(bool)), this, SLOT(writeSignal(bool)));
-/*	//QObject::connect(this->ch_mode_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(ch_mode_buttonSignal(bool)));
-	QObject::connect(this->preamp1_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(preamp1_buttonSignal(bool)));	
-	//QObject::connect(this->preamp2_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(preamp2_buttonSignal(bool)));
-	QObject::connect(this->distortion_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(distortion_buttonSignal(bool)));
+        QObject::connect(this->preamp1_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(preamp1_buttonSignal(bool)));
+        QObject::connect(this->distortion_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(distortion_buttonSignal(bool)));
 	QObject::connect(this->compressor_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(compressor_buttonSignal(bool)));
 	QObject::connect(this->ns1_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(ns1_buttonSignal(bool)));
 	QObject::connect(this->ns2_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(ns2_buttonSignal(bool)));
@@ -115,7 +120,7 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
 	QObject::connect(this->sendreturn_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(sendreturn_buttonSignal(bool)));
 	QObject::connect(this->eq_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(eq_buttonSignal(bool)));
 	QObject::connect(this->pedal_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(pedal_buttonSignal(bool)));
-        */
+        
   };
 
 QPoint floorBoardDisplay::getPos()
@@ -215,7 +220,7 @@ void floorBoardDisplay::setPatchNumDisplay(int bank, int patch)
 void floorBoardDisplay::updateDisplay()
 {
 	SysxIO *sysxIO = SysxIO::Instance();
-	QList<QString> nameArray = sysxIO->getFileSource(nameAddress, "00");
+	QList<QString> nameArray = sysxIO->getFileSource("Structure", nameAddress, "00");
 
 	//MidiTable *midiTable = MidiTable::Instance();
 	QString name;
@@ -243,7 +248,7 @@ void floorBoardDisplay::updateDisplay()
 	sysxIO->setCurrentPatchName(patchName);
 	if(sysxIO->getRequestName().trimmed() != patchName.trimmed())
 	{
-		this->patchLoadError = false;//cjw true;
+		this->patchLoadError = true;
 	}
 	else
 	{
@@ -314,10 +319,9 @@ void floorBoardDisplay::connectSignal(bool value)
 		sysxIO->setDeviceReady(false); // Reserve the device for interaction.
 
 		QObject::disconnect(sysxIO, SIGNAL(sysxReply(QString)));
-		QObject::connect(sysxIO, SIGNAL(sysxReply(QString)), 
-			this, SLOT(connectionResult(QString)));
+		QObject::connect(sysxIO, SIGNAL(sysxReply(QString)), this, SLOT(connectionResult(QString)));
 
-		sysxIO->sendSysx(idRequestString); // GT6B Identity Request.
+		sysxIO->sendSysx(idRequestString); // GT Identity Request.
 	}
 	else
 	{
@@ -800,10 +804,10 @@ void floorBoardDisplay::notConnected()
 
 };
 
-/*void floorBoardDisplay::valueChanged(bool value, QString hex1, QString hex2, QString hex3)
+void floorBoardDisplay::valueChanged(bool value, QString hex1, QString hex2, QString hex3)
 {
-	value;
-	hex1;
-	hex2;
-	hex3;
-}; */
+        value = value;
+        hex1 = hex1;
+        hex2 = hex2;
+        hex3 = hex3;
+};

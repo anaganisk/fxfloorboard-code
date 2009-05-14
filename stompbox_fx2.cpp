@@ -463,7 +463,7 @@ void stompbox_fx2::setEditPages()
 
 	/* FX 2 ONLY */
 
-	/* HR */
+	// HR 
 	editDetails()->page()->newGroupBox("Effect");
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "09", "00", "00");	
 	editDetails()->page()->newStackControl(0);
@@ -534,7 +534,7 @@ void stompbox_fx2::setEditPages()
 	editDetails()->page()->addStackField();
 	editDetails()->addPage("09", "00", "02", "16");
 
-	/* PS */
+	// PS 
 	editDetails()->page()->newGroupBox("Effect");
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "09", "00", "00");	
 	editDetails()->page()->newStackControl(0);
@@ -613,7 +613,7 @@ void stompbox_fx2::setEditPages()
 	editDetails()->page()->addStackField();
 	editDetails()->addPage("09", "00", "02", "17");
 
-	/* PB */
+	// PB 
 	editDetails()->page()->newGroupBox("Effect", Qt::AlignTop | Qt::AlignHCenter);
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "09", "00", "00");	
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
@@ -630,7 +630,7 @@ void stompbox_fx2::setEditPages()
 	editDetails()->page()->addGroupBox(0, 2, 1, 1);
 	editDetails()->addPage("09", "00", "02", "18");
 
-	/* OC */
+	// OC 
 	editDetails()->page()->newGroupBox("Effect", Qt::AlignTop | Qt::AlignHCenter);
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "09", "00", "00");	
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
@@ -645,7 +645,7 @@ void stompbox_fx2::setEditPages()
 	editDetails()->page()->addGroupBox(0, 2, 1, 1);
 	editDetails()->addPage("09", "00", "02", "19");
 
-	/* RT */
+	// RT 
 	editDetails()->page()->newGroupBox("Effect");
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "09", "00", "00");	
 	editDetails()->page()->addComboBox(1, 0, 1, 3, "0A", "00", "25");
@@ -660,7 +660,7 @@ void stompbox_fx2::setEditPages()
 	editDetails()->page()->addGroupBox(0, 1, 1, 1);
 	editDetails()->addPage("09", "00", "02", "1A");
 
-	/* 2CE */
+	// 2CE 
 	editDetails()->page()->newGroupBox("Effect", Qt::AlignTop | Qt::AlignHCenter);
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "09", "00", "00");	
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
@@ -687,7 +687,7 @@ void stompbox_fx2::setEditPages()
 
 	editDetails()->addPage("09", "00", "02", "1B");
 
-	/* AR */
+	// AR 
 	editDetails()->page()->newGroupBox("Effect", Qt::AlignTop | Qt::AlignHCenter);
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "09", "00", "00");	
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
@@ -709,7 +709,7 @@ void stompbox_fx2::setEditPages()
 	editDetails()->page()->addGroupBox(0, 2, 1, 1);
 	editDetails()->addPage("09", "00", "02", "1C");
 
-	/* SYN */
+	// SYN 
 	editDetails()->page()->newGroupBox("Effect");
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "09", "00", "00");	
 	editDetails()->page()->newStackControl(0);
@@ -819,7 +819,7 @@ void stompbox_fx2::setEditPages()
 	editDetails()->page()->addStackField();
 	editDetails()->addPage("09", "00", "02", "1D");
 	
-	/* AC */
+	// AC 
 	editDetails()->page()->newGroupBox("Effect");
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "09", "00", "00");	
 	editDetails()->page()->addComboBox(1, 0, 1, 1, "0A", "00", "4E");
@@ -838,7 +838,7 @@ void stompbox_fx2::setEditPages()
 	editDetails()->page()->addGroupBox(0, 2, 1, 1);
 	editDetails()->addPage("09", "00", "02", "1E");
 
-	/* SH */
+	// SH 
 	editDetails()->page()->newGroupBox("Effect", Qt::AlignTop | Qt::AlignHCenter);
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "09", "00", "00");	
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
@@ -853,7 +853,7 @@ void stompbox_fx2::setEditPages()
 	editDetails()->page()->addGroupBox(0, 2, 1, 1);
 	editDetails()->addPage("09", "00", "02", "1F");
 
-	/* SDD */
+	// SDD 
 	editDetails()->page()->newGroupBox("Effect", Qt::AlignTop | Qt::AlignHCenter);
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "09", "00", "00");	
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
@@ -866,5 +866,5 @@ void stompbox_fx2::setEditPages()
 	editDetails()->page()->newGroupBox("Level");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "0A", "00", "5B");
 	editDetails()->page()->addGroupBox(0, 2, 1, 1);
-	editDetails()->addPage("09", "00", "02", "20");
+	editDetails()->addPage("09", "00", "02", "20");         
 };

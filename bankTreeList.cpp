@@ -22,6 +22,9 @@
 
 #include <QLayout>
 #include <QMessageBox>
+#include <QFile>
+#include <QDataStream>
+#include <QByteArray>
 #include "bankTreeList.h"
 #include "Preferences.h"
 #include "MidiTable.h"
@@ -493,13 +496,31 @@ void bankTreeList::updatePatch(QString replyMsg)
 	sysxIO->setDeviceReady(true); // Free the device after finishing interaction.
 	
 	QObject::disconnect(sysxIO, SIGNAL(sysxReply(QString)),
-		this, SLOT(updatePatch(QString)));		
-	
+		this, SLOT(updatePatch(QString)));			
 	replyMsg = replyMsg.remove(" ").toUpper();
-	if(replyMsg.size()/2 == patchSize) // cjw
+	if(replyMsg.size()/2 == 1153)   // basic patch size received from GT-Pro
 	{
-		sysxIO->setFileSource(replyMsg);		// Set the source to the data received.
-		sysxIO->setFileName(tr("Patch from ") + deviceType);	// Set the file name to GT-Pro patch for the display.
+	 QByteArray data;
+   QFile file(":default.syx");   // Read the default GT-Pro sysx file so we don't start empty handed.
+    if (file.open(QIODevice::ReadOnly))
+	  {	data = file.readAll(); };
+	  QByteArray temp;                      
+    temp = data.mid(1153, 231);           // copy patch description from default.syx  address 00 0D 00 00   
+	
+	QString sysxBuffer; 
+	for(int i=0;i<temp.size();i++)
+	{
+		unsigned char byte = (char)temp[i];
+		unsigned int n = (int)byte;
+		QString hex = QString::number(n, 16).toUpper();     // convert QByteArray to QString
+		if (hex.length() < 2) hex.prepend("0");
+		sysxBuffer.append(hex);
+  };
+	replyMsg.append(sysxBuffer);
+	
+		QString area = "Structure";
+		sysxIO->setFileSource(area, replyMsg);		// Set the source to the data received.
+		sysxIO->setFileName(tr("Patch from ") + deviceType);
 		sysxIO->setDevice(true);				// Patch received from the device so this is set to true.
 		sysxIO->setSyncStatus(true);			// We can't be more in sync than right now! :)
 
@@ -510,8 +531,7 @@ void bankTreeList::updatePatch(QString replyMsg)
 		emit setStatusProgress(0);
 
 	}
-	if(replyMsg != "" && replyMsg.size()/2 != patchSize) // cjw
-	//else
+	else if(!replyMsg.isEmpty() && replyMsg.size()/2 != 1153) // if patch reply is not empty and not patch size. 
 	{
 		emit notConnectedSignal();				// No message returned so connection must be lost.
 		/* NO-REPLY WARNING */
@@ -528,8 +548,8 @@ void bankTreeList::updatePatch(QString replyMsg)
 	msgBox->setStandardButtons(QMessageBox::Ok);
 	msgBox->exec();
 	/* END WARNING */
-	};
-	if(replyMsg.isEmpty()) // cjw
+	}
+	else if(replyMsg.isEmpty()) // cjw
 	{
 		emit notConnectedSignal();				// No message returned so connection must be lost.
 		/* NO-REPLY WARNING */

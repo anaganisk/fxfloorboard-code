@@ -1,4 +1,6 @@
-GT6BFxFloorBoard Copyright (C) 2005-2006 Uco Mesdag (mesdag.uco@gmail.com). All rights reserved.
+GT-ProFxFloorBoard Copyright (C) 2007, 2008, 2009 Colin Willcocks (colin.willcocks@gmail.com). 
+based on the GT8 FxFloorBoard Copyright (C)2006 2007 Uco Mesdag <ucomesdag@gmail.com>.
+All rights reserved.
 
 This program is free software; you can redistribute it and/or modify it under 
 the terms of the GNU General Public License as published by the Free Software 
@@ -22,11 +24,11 @@ To install:
 BINARY:
 ------
 
-WIN:
+WIN: Run GT-ProFxFloorBoard-Setup.exe installer
 
-OS/X:
+OS/X: Open DMG package and copy to Applications folder.
 
-LINUX:
+LINUX: Unpackage and copy to Desktop.
 
 
 SOURCE:
@@ -44,7 +46,7 @@ LINUX:
 CONTACT:
 ------
 
-Uco Mesdag <ucomesdag@gmail.com>
+Colin Willcocks <colin.willcocks@gmail.com>
 
 
 DISCLAIMER:
@@ -56,9 +58,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 LEGAL:
 ------
 
-GT6B FxFloorBoard Copyright (C)2006 2007 Uco Mesdag <ucomesdag@gmail.com>.
-GT6B FxFloorBoard Copyright (C)2006 2007 Colin Willcocks <gumtownbassman@yahoo.com>.
+GT-ProFxFloorBoard Copyright (C)2007 2008 2009 Colin Willcocks <gumtownbassman@yahoo.com>.
+based on the GT8 FxFloorBoard Copyright (C)2006 2007 Uco Mesdag <ucomesdag@gmail.com>.
 
 Windows(TM), Windows 95(TM), Windows 98(TM), Windows ME(TM), Windows NT(TM), 
-Windows 2000(TM) and Windows XP(TM) and Windows Vista(TM) are Copyright (C)Microsoft Corporation. 
+Windows 2000(TM), Windows XP(TM), Windows Vista(TM) and Windows 7(TM) are Copyright (C)Microsoft Corporation. 
 All rights reserved.

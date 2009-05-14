@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT-Pro Fx FloorBoard".
+** This file is part of "GT-10 Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -66,8 +66,8 @@ customButton::customButton(QString text, bool active, QPoint buttonPos, QWidget 
 	timer = new QTimer(this);
     QObject::connect(timer, SIGNAL(timeout()), this, SLOT(blink()) );
 
-        //QObject::connect(this, SIGNAL( valueChanged(bool, QString, QString, QString) ),
-                //this->parent(), SLOT( valueChanged(bool, QString, QString, QString) ));
+	QObject::connect(this, SIGNAL( valueChanged(bool, QString, QString, QString) ),
+                this->parent(), SLOT( valueChanged(bool, QString, QString, QString) ));
 };
 
 void customButton::paintEvent(QPaintEvent *)

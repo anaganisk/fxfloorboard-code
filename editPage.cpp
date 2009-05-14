@@ -24,10 +24,12 @@
 #include <QLabel>
 #include "customSwitch.h"
 #include "customControlKnob.h"
-#include "customControlTarget.h"
 #include "customControlLabel.h"
-#include "customControlSwitch.h"
 #include "customControlListMenu.h"
+#include "customControlRange.h"
+#include "customControlSwitch.h"
+#include "customControlTarget.h"
+
 
 editPage::editPage(QWidget *parent)
     : QWidget(parent)
@@ -86,10 +88,10 @@ void editPage::addKnob(int row, int column, int rowSpan, int columnSpan,
 
 void editPage::addTarget(int row, int column, int rowSpan, int columnSpan,
 					   QString hex1, QString hex2, QString hex3, 
-					   QString background, QString direction, int lenght, 
+					   QString background, QString hexMin, QString hexMax,  
 					   Qt::Alignment alignment)
 {
-	customControlTarget *target = new customControlTarget(this, hex1, hex2, hex3, background, direction, lenght);
+	customControlTarget *target = new customControlTarget(this, hex1, hex2, hex3, background, hexMin, hexMax);
 	if(this->groupBoxMode)
 	{
 		this->groupBoxLayout->addWidget(target, row, column, rowSpan, columnSpan, alignment);
@@ -101,6 +103,26 @@ void editPage::addTarget(int row, int column, int rowSpan, int columnSpan,
 	else
 	{
 		this->layout->addWidget(target, row, column, rowSpan, columnSpan, alignment);
+	};
+};
+
+void editPage::addRange(int row, int column, int rowSpan, int columnSpan,
+					   QString hex1, QString hex2, QString hex3, 
+					   QString area, 
+					   Qt::Alignment alignment)
+{
+	customControlRange *range = new customControlRange(this, hex1, hex2, hex3, area);
+	if(this->groupBoxMode)
+	{
+		this->groupBoxLayout->addWidget(range, row, column, rowSpan, columnSpan, alignment);
+	}
+	else if(this->stackFieldMode)
+	{
+		this->stackField->addWidget(range, row, column, rowSpan, columnSpan, alignment);
+	}
+	else
+	{
+		this->layout->addWidget(range, row, column, rowSpan, columnSpan, alignment);
 	};
 };
 

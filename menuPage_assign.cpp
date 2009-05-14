@@ -26,7 +26,7 @@
 menuPage_assign::menuPage_assign(QWidget *parent)
     : menuPage(parent)
 {
-  setImage(":/images/assigns_pushbutton.png");
+  setImage(":/images/system_pushbutton.png");
   setLSB("16", "00");
 	setEditPages();
 };
@@ -90,7 +90,7 @@ void menuPage_assign::setEditPages()
  
   editDetails()->page()->newStackField(0);
   editDetails()->page()->newGroupBox("Assign 1 Target");
-	editDetails()->page()->addTarget(0, 0, 1, 3, "20", "00", "02", "target","target", 120); // Target
+	editDetails()->page()->addTarget(0, 0, 1, 3, "20", "00", "02", "target", "04", "06"); // Target
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->page()->newGroupBox("Assign 1 Source");
 	editDetails()->page()->newStackControl(1);
@@ -132,7 +132,7 @@ void menuPage_assign::setEditPages()
 	
 	editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Assign 2 Target");
-	editDetails()->page()->addTarget(0, 0, 1, 3, "21", "00", "02", "target","target", 120); // Target
+	editDetails()->page()->addTarget(0, 0, 1, 3, "21", "00", "02", "target", "04", "06"); // Target
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->page()->newGroupBox("Assign 2 Source");
 	editDetails()->page()->newStackControl(2);
@@ -174,7 +174,7 @@ void menuPage_assign::setEditPages()
 	
 	editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Assign 3 Target");
-	editDetails()->page()->addTarget(0, 0, 1, 3, "22", "00", "02", "target","target", 120); // Target
+	editDetails()->page()->addTarget(0, 0, 1, 3, "22", "00", "02", "target", "04", "06"); // Target
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->page()->newGroupBox("Assign 3 Source");
 	editDetails()->page()->newStackControl(3);
@@ -216,7 +216,7 @@ void menuPage_assign::setEditPages()
 	
 	editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Assign 4 Target");
-	editDetails()->page()->addTarget(0, 0, 1, 3, "23", "00", "02", "target","target", 120); // Target
+	editDetails()->page()->addTarget(0, 0, 1, 3, "23", "00", "02", "target", "04", "06"); // Target
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->page()->newGroupBox("Assign 4 Source");
 	editDetails()->page()->newStackControl(4);
@@ -257,7 +257,7 @@ void menuPage_assign::setEditPages()
 	
 	editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Assign 5 Target");
-	editDetails()->page()->addTarget(0, 0, 1, 3, "24", "00", "02", "target","target", 120); // Target
+	editDetails()->page()->addTarget(0, 0, 1, 3, "24", "00", "02", "target", "04", "06"); // Target
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->page()->newGroupBox("Assign 5 Source");
 	editDetails()->page()->newStackControl(5);
@@ -299,7 +299,7 @@ void menuPage_assign::setEditPages()
 	
 	editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Assign 6 Target");
-	editDetails()->page()->addTarget(0, 0, 1, 3, "25", "00", "02", "target","target", 120); // Target
+	editDetails()->page()->addTarget(0, 0, 1, 3, "25", "00", "02", "target", "04", "06"); // Target
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->page()->newGroupBox("Assign 6 Source");
 	editDetails()->page()->newStackControl(6);
@@ -341,7 +341,7 @@ void menuPage_assign::setEditPages()
 
 	editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Assign 7 Target");
-	editDetails()->page()->addTarget(0, 0, 1, 3, "26", "00", "02", "target","target", 120); // Target
+	editDetails()->page()->addTarget(0, 0, 1, 3, "26", "00", "02", "target", "04", "06"); // Target
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->page()->newGroupBox("Assign 7 Source");
 	editDetails()->page()->newStackControl(7);
@@ -384,7 +384,7 @@ void menuPage_assign::setEditPages()
 	
 	editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Assign 8 Target");
-	editDetails()->page()->addTarget(0, 0, 1, 3, "27", "00", "02", "target","target", 120); // Target
+	editDetails()->page()->addTarget(0, 0, 1, 3, "27", "00", "02", "target", "04", "06"); // Target
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->page()->newGroupBox("Assign 8 Source");
 	editDetails()->page()->newStackControl(8);
@@ -427,7 +427,7 @@ void menuPage_assign::setEditPages()
 	
 	editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Assign 9 Target");
-	editDetails()->page()->addTarget(0, 0, 1, 3, "28", "00", "02", "target","target", 120); // Target
+	editDetails()->page()->addTarget(0, 0, 1, 3, "28", "00", "02", "target", "04", "06"); // Target
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->page()->newGroupBox("Assign 9 Source");
 	editDetails()->page()->newStackControl(8);
@@ -470,7 +470,7 @@ void menuPage_assign::setEditPages()
 	
 	editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Assign 10 Target");
-	editDetails()->page()->addTarget(0, 0, 1, 3, "29", "00", "02", "target","target", 120); // Target
+	editDetails()->page()->addTarget(0, 0, 1, 3, "29", "00", "02", "target", "04", "06"); // Target
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->page()->newGroupBox("Assign 10 Source");
 	editDetails()->page()->newStackControl(8);
@@ -513,7 +513,7 @@ void menuPage_assign::setEditPages()
 	
 	editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Assign 11 Target");
-	editDetails()->page()->addTarget(0, 0, 1, 3, "2A", "00", "02", "target","target", 120); // Target
+	editDetails()->page()->addTarget(0, 0, 1, 3, "2A", "00", "02", "target", "04", "06"); // Target
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->page()->newGroupBox("Assign 11 Source");
 	editDetails()->page()->newStackControl(8);
@@ -556,7 +556,7 @@ void menuPage_assign::setEditPages()
 	
 	editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Assign 12 Target");
-	editDetails()->page()->addTarget(0, 0, 1, 3, "2B", "00", "02", "target","target", 120); // Target
+	editDetails()->page()->addTarget(0, 0, 1, 3, "2B", "00", "02", "target", "04", "06"); // Target
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->page()->newGroupBox("Assign 12 Source");
 	editDetails()->page()->newStackControl(8);
@@ -594,4 +594,5 @@ void menuPage_assign::setEditPages()
 	editDetails()->page()->addKnob(0, 0, 1, 1, "1E", "00", "00", "normal","right", 85);
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);	
   editDetails()->page()->addStackField();
+
 };

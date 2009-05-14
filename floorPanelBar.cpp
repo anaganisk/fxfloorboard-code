@@ -29,8 +29,8 @@ floorPanelBar::floorPanelBar(QWidget *parent, QString imagePathPanelBar, QSize p
 	this->imagePathPanelBar = imagePathPanelBar;
 	this->image = QPixmap::QPixmap(imagePathPanelBar);
 
-	floorPanelBarButton *button = new floorPanelBarButton(false, QPoint::QPoint(0, 230), this);
-	button;
+	floorPanelBarButton *button = new floorPanelBarButton(false, QPoint::QPoint(0, 245), this);
+        button = button;
 
 	this->setFixedSize(panelBarSize);
 	this->setCursor(Qt::SplitHCursor);

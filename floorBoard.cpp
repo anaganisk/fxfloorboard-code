@@ -81,8 +81,8 @@ floorBoard::floorBoard(QWidget *parent,
 	
 	setFloorBoard();
 
-	floorBoardDisplay *display = new floorBoardDisplay(this);
-	display->setPos(displayPos);
+        floorBoardDisplay *display = new floorBoardDisplay(this);
+        display->setPos(displayPos);
 
 	floorPanelBar *panelBar = new floorPanelBar(this);
 	panelBar->setPos(panelBarPos);	
@@ -93,8 +93,8 @@ floorBoard::floorBoard(QWidget *parent,
 	bar->setDragBarMaxOffset(offset - panelBarOffset + 5);
   
   initStomps();
-  //initMenuPages();
-     
+  initMenuPages();
+
 	this->editDialog = new editWindow(this);
 	this->editDialog->hide();
 	this->oldDialog = this->editDialog;
@@ -151,6 +151,7 @@ floorBoard::floorBoard(QWidget *parent,
 	};
 
         emit updateSignal();
+
 };
 
 floorBoard::~floorBoard()
@@ -188,6 +189,7 @@ void floorBoard::setFloorBoard() {
 	this->offset = imageFloor.width() - imageInfoBar.width();
 	this->infoBarWidth = imageInfoBar.width();
 	this->stompSize = imagestompBG.size();
+	this->infoBarHeight = imageInfoBar.height();
 
 	initSize(imageFloor.size());
 	this->maxSize = floorSize;
@@ -201,7 +203,9 @@ void floorBoard::setFloorBoard() {
 	// Draw LiberianBar
 	QRectF sourceLiberianBar(0.0, 0.0, imageInfoBar.width(), imageInfoBar.height());
 	QRectF targetLiberianBar(offset, (imageFloor.height() - imageInfoBar.height()) - 2, imageInfoBar.width(), imageInfoBar.height());
+        QRectF targetLiberianBar2(offset, (imageFloor.height() - (imageInfoBar.height()*2)+2), imageInfoBar.width(), imageInfoBar.height());
 	painter.drawPixmap(targetLiberianBar, imageInfoBar, sourceLiberianBar);
+	painter.drawPixmap(targetLiberianBar2, imageInfoBar, sourceLiberianBar);
 
 	// Draw stomp boxes background
 	QRectF source(0.0, 0.0, imagestompBG.width(), imagestompBG.height());
@@ -337,7 +341,7 @@ void floorBoard::dropEvent(QDropEvent *event)
 
 					hexData.append(fxHexValue);
 				};
-				sysxIO->setFileSource(chainAddress, "00", hexData);
+                                sysxIO->setFileSource("Structure", chainAddress, "00", "00", hexData);
 			};
 		}
 		else
@@ -406,7 +410,7 @@ void floorBoard::initSize(QSize floorSize)
 			y = y + stompSize.height() + spacingV;
 			x = x - (( stompSize.width() + spacingH ) * 7);
 		};
-		fxPos.append(QPoint::QPoint(offset + x, y));
+		fxPos.append(QPoint::QPoint(offset + x, y - (this->infoBarHeight/2)));
 	};
 
 	this->fxPos = fxPos;
@@ -655,7 +659,7 @@ void floorBoard::setStompPos(int index, int order)
 void floorBoard::updateStompBoxes()
 {
 	SysxIO *sysxIO = SysxIO::Instance();
-	QList<QString> fxChain = sysxIO->getFileSource(chainAddress, "00");
+	QList<QString> fxChain = sysxIO->getFileSource("Structure", chainAddress, "00");
 
 	MidiTable *midiTable = MidiTable::Instance();
 	QList<QString> stompOrder;
@@ -679,13 +683,13 @@ void floorBoard::setEditDialog(editWindow* editDialog)
 void floorBoard::centerEditDialog()
 {
 	int x = this->displayPos.x() + (((this->floorSize.width() - this->displayPos.x()) - this->editDialog->width()) / 2);
-	int y = this->pos.y() + ((this->floorSize.height() - this->editDialog->height()) / 2);
+        int y = this->pos.y() + ((this->floorSize.height() - this->infoBarHeight - this->editDialog->height()) / 2);
 	this->editDialog->move(x, y);
 };
 
-/*void floorBoard::initMenuPages()
+void floorBoard::initMenuPages()
 {
-        QVector<menuPage *> initMenuPages(1);
+        QVector<menuPage *> initMenuPages(3);
 	this->menuPages = initMenuPages.toList();;
 	
         // EDITPAGES
@@ -699,7 +703,7 @@ void floorBoard::centerEditDialog()
 	system->setId(18);
         system->setPos(QPoint(1045, 24));
 	
-        };*/
+        };
 
 void floorBoard::menuButtonSignal()
 {

@@ -1,6 +1,6 @@
 /****************************************************************************
 **
-** Copyright (C) 2008 Colin Willcocks.
+** Copyright (C) 2007, 2008, 2009 Colin Willcocks.
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
 ** This file is part of "GT-Pro Fx FloorBoard".
@@ -55,9 +55,9 @@ const int bankSize = 100;       // Number of patches in a midi bank before bank 
 
 /* Midi Send & Receive */
 const int patchPackets = 27;	 // number of sysx packets "F0....F7" which make up a patch.
-const int patchSize = 1153;    // size of bytes in a patch.
+const int patchSize = 1384;//1153;    // size of bytes in a patch.
 const int nameReplySize = 29;    // size of bytes in a name reply.
-const QString patchRequestSize = "00002E00";  // size of data required for patch request
+const QString patchRequestSize = "00002E01";  // size of data required for patch request
 const QString systemRequest = "F0410000000611000000000002090075F7";
 //const int maxWait = 40;			 // Maximum times we loop through the receive handle before we give up waiting.(for whole patch) tempory used by midi prefs
 //const int minWait = 5;			 // Minimum times we loop through the receive handle before we give up waiting.(for small data)   "      "       "       "

@@ -29,7 +29,7 @@
 #include "Preferences.h"
 #include "MidiTable.h"
 
-int midiIO::bytesTotal = 0;
+int midiIO::bytesTotal = 1;
 int midiIO::bytesReceived = 0;
 int loopCount;
 bool midiIO::dataReceive = false;
@@ -184,12 +184,12 @@ void midiIO::sendSyxMsg(QString sysxOutMsg, int midiOutPort)
 			message.push_back(*ptr);		// insert the char* string into a std::vector	
 			if(hex.contains ("F7"))
            {	
-           
-           message.push_back(32);
-           message.push_back(32);
-                        
+#ifdef Q_OS_WIN
+			          message.push_back(32);
+			          message.push_back(32);
+#endif         
             midiMsgOut->sendMessage(&message);  // send the midi data as a std::vector
-            SLEEP(10);
+            SLEEP(20);
             message.clear();    
             hex = "0x"; 
             };
@@ -205,7 +205,7 @@ void midiIO::sendSyxMsg(QString sysxOutMsg, int midiOutPort)
     };   
    /* Clean up */
  cleanup:
-	SLEEP(20);						// wait as long as the message is sending.
+	SLEEP(40);						// wait as long as the message is sending.
 	midiMsgOut->closePort();
   delete midiMsgOut;	
 };
@@ -278,8 +278,8 @@ void midiIO::receiveMsg(QString sysxInMsg, int midiInPort)
   int count = 0;
 	emit setStatusSymbol(3);
 	emit setStatusProgress(75);
-	Preferences *preferences = Preferences::Instance(); bool ok;// Load the preferences.
-	const int maxWait = preferences->getPreferences("Midi", "Time", "set").toInt(&ok, 10);
+	//Preferences *preferences = Preferences::Instance(); bool ok;// Load the preferences.
+	const int maxWait = 15;//preferences->getPreferences("Midi", "Time", "set").toInt(&ok, 10);
 	if(multiple == true){
   loopCount = maxWait*40;
   count = 1153;
@@ -450,7 +450,7 @@ void midiIO::sendSysxMsg(QString sysxOutMsg, int midiOutPort, int midiInPort)
 	   if(checksum.length()<2) {checksum.prepend("0");};
       	hex.append(checksum);
         hex.append("F7");   
-        if (!hex.contains("F0410000001B12")) 
+        if (!hex.contains("F0000000001B12")) 
          {reBuild.append(hex); };   
 		hex.clear();
 		sysxEOF.clear();
@@ -460,10 +460,11 @@ void midiIO::sendSysxMsg(QString sysxOutMsg, int midiOutPort, int midiInPort)
   if (sysxOutMsg == idRequestString){reBuild = sysxOutMsg;  multiple = false;};  // identity request not require checksum
 	this->sysxOutMsg = reBuild.simplified().toUpper().remove("0X").remove(" ");
 
-    if((sysxOutMsg.size() == 30) && (sysxOutMsg.contains(patchRequestSize))
+    if((sysxOutMsg.size() == 34) && (sysxOutMsg.contains(patchRequestSize))
      && (sysxOutMsg.mid((sysxAddressOffset*2-2), 2) == "11") /*&& (sysxOutMsg.mid((sysxAddressOffset*2), 2) != "00")*/) {multiple = true;};
      system = false;
-  if (sysxOutMsg == systemRequest) {system = true; multiple = false; };
+     
+  if (sysxOutMsg != idRequestString && sysxOutMsg.contains("F0410000000B11000000000")) {system = true; multiple = false; };
   
 
 	this->midiOutPort = midiOutPort;
@@ -502,8 +503,8 @@ void midiIO::emitProgress(int bytesReceived)
 {
 	if(bytesReceived != 0) // This is to prevent flickering of the progress bar.
 	{
-		int percentage;
-		percentage = (100 / bytesTotal) * bytesReceived;
+		//int percentage;
+		//percentage = (100 / bytesTotal) * bytesReceived;
 		SysxIO *sysxIO = SysxIO::Instance();
 		sysxIO->emitStatusProgress(bytesReceived);
 	};

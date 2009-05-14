@@ -214,6 +214,5 @@ if (this->background != "target")
   {
     MidiTable *midiTable = MidiTable::Instance();
     this->max = midiTable->getRange("Structure", hex1, hex2, hex3); 
-    this->min = midiTable->getRangeMinimum("Structure", hex1, hex2, hex3); 
   };
 };

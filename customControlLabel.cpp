@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT-Pro Fx FloorBoard".
+** This file is part of "GT-10 Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -132,7 +132,7 @@ void customControlLabel::setImage(QString imagePath)
 
 void customControlLabel::mousePressEvent(QMouseEvent *event)
 {
-        event = event;
+	//event;
 	if(isImage && button)
 	{
 		setOffset(3);
@@ -142,7 +142,7 @@ void customControlLabel::mousePressEvent(QMouseEvent *event)
 
 void customControlLabel::mouseReleaseEvent(QMouseEvent *event)
 {
-        event = event;
+	//event;
 	if(isImage && button)
 	{
 		setOffset(2);
@@ -152,7 +152,7 @@ void customControlLabel::mouseReleaseEvent(QMouseEvent *event)
 
 void customControlLabel::enterEvent(QEvent *event)
 {
-        event = event;
+	//event;
 	if(button)
 	{
 		if(isImage)
@@ -171,7 +171,7 @@ void customControlLabel::enterEvent(QEvent *event)
 
 void customControlLabel::leaveEvent( QEvent *event)
 {
-        event = event;
+	//event;
 	if(button)
 	{
 		if(isImage)
