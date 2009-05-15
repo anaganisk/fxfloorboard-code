@@ -193,8 +193,7 @@ MidiPage::MidiPage(QWidget *parent)
 
 	QVBoxLayout *dBugLabelLayout = new QVBoxLayout;
 	dBugLabelLayout->addWidget(dBugDescriptionLabel);
-	dBugLabelLayout->addWidget(midiTimeDescriptionLabel);
-
+	//dBugLabelLayout->addWidget(midiTimeDescriptionLabel);
 	dBugLabelLayout->addWidget(midiDelayDescriptionLabel);
 	
 	QHBoxLayout *dataSizeSelect = new QHBoxLayout;
@@ -205,7 +204,7 @@ MidiPage::MidiPage(QWidget *parent)
 
 	QVBoxLayout *dBugTimeBoxLayout = new QVBoxLayout;
 	dBugTimeBoxLayout->addWidget(dBugCheckBox);
-	dBugTimeBoxLayout->addLayout(dataSizeSelect);
+	//dBugTimeBoxLayout->addLayout(dataSizeSelect);
 	dBugTimeBoxLayout->addWidget(midiDelaySpinBox);
 
 	QHBoxLayout *dBugSelectLayout = new QHBoxLayout;

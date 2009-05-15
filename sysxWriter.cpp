@@ -67,7 +67,6 @@ bool sysxWriter::readFile()
 		QFile file(":default.syx");   // Read the default GT-Pro sysx file so we don't start empty handed.
     if (file.open(QIODevice::ReadOnly))
 	  {	data = file.readAll(); };
-	  
 	                   
     temp = gt8_data.mid(0, 199);     // copy patch description from gt8_data.syx  to 00 04 00 byte 5, all same as gtpro
     temp.append(data.mid(199, 24));  // loop insert from gtpro. 04 & 05
@@ -85,7 +84,13 @@ bool sysxWriter::readFile()
 		sysxIO->setFileName(this->fileName);
 		this->fileSource = sysxIO->getFileSource();
 		return true;	
-		}
+		}   else if (data.size() == 4326)  {         //if GT-Pro system file size is correct- load file. 
+    SysxIO *sysxIO = SysxIO::Instance();
+		QString area = "System";
+		sysxIO->setFileSource(area, data);
+		sysxIO->setFileName(this->fileName);
+		this->systemSource = sysxIO->getSystemSource();	
+		return true;   }
 		else {
 	QMessageBox *msgBox = new QMessageBox();
 	msgBox->setWindowTitle(QObject::tr("Patch size Error!"));
@@ -95,6 +100,10 @@ bool sysxWriter::readFile()
 	msgText.append("<font size='+1'><b>");
 	msgText.append(QObject::tr("This is not a known ") + deviceType + (" patch!"));
 	msgText.append("<b></font><br>");
+	if (data.size() == 670){
+  msgText.append("but appears to be a GT-6 patch<br>");};
+  if (data.size() == 650){
+  msgText.append("but appears to be a GT-3 patch<br>");};
 	msgText.append(QObject::tr("Patch size not ") + (QString::number(patchSize, 10)) + (" bytes, please try another file."));
 	msgBox->setText(msgText);
 	msgBox->setStandardButtons(QMessageBox::Ok);

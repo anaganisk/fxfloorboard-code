@@ -285,7 +285,7 @@ void midiIO::receiveMsg(QString sysxInMsg, int midiInPort)
   count = 1153;
   } else if(system == true) {
   loopCount = maxWait*80;
-  count = 5258;
+  count = 4326;
   }
   else {
   loopCount = maxWait*10;

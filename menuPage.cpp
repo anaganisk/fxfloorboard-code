@@ -122,8 +122,8 @@ void menuPage::menuButtonSignal(bool value)
 	  if((this->id == 19 || this->id == 18) && sysxIO->deviceReady())
 	  {
     QString replyMsg;
-    QString sysRequest = "F0410000461100000000";   // header and Address.
-    Preferences *preferences = Preferences::Instance();// Load the preferences.
+    QString sysRequest = systemRequest;//"F0410000461100000000";   // header and Address.
+    /*Preferences *preferences = Preferences::Instance();// Load the preferences.
 	  int sys_byte1 = preferences->getPreferences("Midi", "System", "byte1").toInt();
 	  QString byte1 = QString::number(sys_byte1, 16).toUpper();
 	  if (byte1.size()<2) {byte1.prepend("0");};
@@ -137,7 +137,7 @@ void menuPage::menuButtonSignal(bool value)
 	  QString byte4 = QString::number(sys_byte4, 16).toUpper();
 	  if (byte4.size()<2) {byte4.prepend("0");};
 	  sysRequest.append(byte1).append(byte2).append(byte3).append(byte4);
-	  sysRequest.append("7FF7");
+	  sysRequest.append("7FF7");     */
 	   if (sysxIO->isConnected())
 	       {
 	        emit setStatusSymbol(2);
@@ -145,7 +145,7 @@ void menuPage::menuButtonSignal(bool value)
 	       	sysxIO->setDeviceReady(false); // Reserve the device for interaction.
 		      QObject::disconnect(sysxIO, SIGNAL(sysxReply(QString)));
 		      QObject::connect(sysxIO, SIGNAL(sysxReply(QString)), this, SLOT(systemReply(QString)));
-		      sysxIO->sendSysx(sysRequest); // GT-6 System area data Request.    
+		      sysxIO->sendSysx(sysRequest); // GT System area data Request.    
           
           emitValueChanged(this->hex1, this->hex2, "00", "void");
 	        this->editDialog->setWindow(this->fxName);
@@ -153,17 +153,7 @@ void menuPage::menuButtonSignal(bool value)
          }
          else
             {
-              QString snork = "Ensure Bulk Mode is set and retry";
-
-
-
-
-
-
-
-
-
-
+              QString snork = "Ensure connection is set and retry";
               QMessageBox *msgBox = new QMessageBox();
 			        msgBox->setWindowTitle(deviceType + " not connected !!");
 		        	msgBox->setIcon(QMessageBox::Information);
@@ -189,34 +179,30 @@ void menuPage::systemReply(QString replyMsg)
 	   {	
 			sysxIO->setFileSource("System", file.getSystemSource());
 		 };
-
-
-
   
 	if(sysxIO->noError())
 	{ 
-	if(replyMsg.size()/2 >= 4206)
+	if(replyMsg.size()/2 >= 4326)
 		{
-		QString temp = replyMsg.mid(0, 4206);
+		QString temp = replyMsg.mid(0, 4326);
 		replyMsg = temp;
 		QString area = "System";
 		sysxIO->setFileSource(area, replyMsg);		// Set the source to the data received.
-		sysxIO->setFileName(tr("System Data from ") + deviceType);	// Set the file name to GT-6 system for the display.
+		sysxIO->setFileName(tr("System Data from ") + deviceType);	// Set the file name to GT system for the display.
 		sysxIO->setDevice(true);				// Patch received from the device so this is set to true.
 		sysxIO->setSyncStatus(true);			// We can't be more in sync than right now! :)
 		emit systemUpdateSignal();
 		}
 		else
 		{
-
-
-			QMessageBox *msgBox = new QMessageBox();
-			msgBox->setWindowTitle(deviceType + tr(" Fx FloorBoard connection Error !!"));
+      QMessageBox *msgBox = new QMessageBox();
+			msgBox->setWindowTitle(tr(" SYSTEM DATA WAS NOT CORRECTLY RECEIVED from the GT-Pro!!"));
 			msgBox->setIcon(QMessageBox::Warning);
 			msgBox->setTextFormat(Qt::RichText);
 			QString msgText;
 			msgText.append("<font size='+1'><b>");
-			msgText.append(tr("The Boss ") + deviceType + (" Effects Processor was not found."));
+			msgText.append(tr("The ") + deviceType + (" Editor settings may not be syncronized with the GT-Pro.\n"));
+			msgText.append(tr("To retrieve System Data, ensure the GT-Pro and Editor are 'connected'."));
 			msgText.append("<b></font><br>");
 			msgBox->setText(msgText);
 			msgBox->setStandardButtons(QMessageBox::Ok);
@@ -224,9 +210,6 @@ void menuPage::systemReply(QString replyMsg)
 		}; 
    };
 		emit setStatusMessage(tr("Ready"));   
-
-
-
 
 };
 

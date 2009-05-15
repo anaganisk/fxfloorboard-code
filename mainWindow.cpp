@@ -42,7 +42,7 @@ mainWindow::mainWindow(QWidget *parent)
 #ifdef Q_OS_WIN
 		/* This set the floorboard default style to the "plastique" style, 
 	   as it comes the nearest what the stylesheet uses. */
-	//fxsBoard->setStyle(QStyleFactory::create("plastique"));
+	fxsBoard->setStyle(QStyleFactory::create("windowsvista"));
 		if(QFile(":qss/windows.qss").exists())
 		{
                         QFile file(":qss/windows.qss");

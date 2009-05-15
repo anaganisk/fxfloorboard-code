@@ -1300,7 +1300,7 @@ void SysxIO::writeToBuffer()
 		emit setStatusSymbol(2);
 		emit setStatusMessage(tr("Sync to ")+deviceType);
 
-	QString addr1 = "0C"; //QString::number(96, 16).toUpper();  // temp address
+	QString addr1 = tempDataWrite; //QString::number(96, 16).toUpper();  // temp address
 	QString addr2 = "00"; //QString::number(0, 16).toUpper();
 
 	for(int i=0;i<patchData.size();++i)
