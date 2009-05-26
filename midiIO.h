@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT-8 Fx FloorBoard".
+** This file is part of "GT-Pro Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -48,12 +48,10 @@ signals:
 	void replyMsg(QString sysxInMsg);
 	void midiFinished();
 	void started();
-	void finished();
-	void terminated();
 	void setStatusSymbol(int value);
 	void setStatusProgress(int value);
-    void setStatusMessage(QString message);
-    void setStatusdBugMessage(QString dBug);
+  void setStatusMessage(QString message);
+  void setStatusdBugMessage(QString dBug);
 		
 private:
 	void queryMidiInDevices();
@@ -61,8 +59,6 @@ private:
 	void sendSyxMsg(QString sysxOutMsg, int midiOutport);
 	void sendMidiMsg(QString sysxOutMsg, int midiOutport);
 	void receiveMsg(QString sysxMsg, int midiInPort);
-	QString getMidiOutErrorMsg(unsigned long err);
-	QString getMidiInErrorMsg(unsigned long err);	
 	QList<QString> midiOutDevices;
 	QList<QString> midiInDevices;
 	
@@ -70,7 +66,9 @@ private:
 	static QString sysxBuffer;
 	static bool dataReceive;
 	static int bytesTotal;
+	static int bytesReceived;
 	static bool multiple;
+	static bool system;
 	int midiOutPort;
 	int midiInPort;
 	QString sysxOutMsg;

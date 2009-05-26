@@ -55,8 +55,11 @@ const int bankSize = 100;       // Number of patches in a midi bank before bank 
 
 /* Midi Send & Receive */
 const int patchPackets = 27;	 // number of sysx packets "F0....F7" which make up a patch.
-const int patchSize = 1010;    // size of bytes in a patch.
+const int patchSize = 1241;    // size of bytes in a patch.
+const int systemDataSize = 4389; //4402;  // size of bytes in system data file.
+const int nameReplySize = 29;    // size of bytes in a name reply.
 const QString patchRequestSize = "00001F00";  // size of data required for patch request
+const QString systemRequest = "F0410000000611000000000305020472F7";
 //const int maxWait = 40;			 // Maximum times we loop through the receive handle before we give up waiting.(for whole patch) tempory used by midi prefs
 //const int minWait = 5;			 // Minimum times we loop through the receive handle before we give up waiting.(for small data)   "      "       "       "
 const int maxRetry = 4;			   // Maximum times we retry to load a patch in case of a transfer error .
@@ -68,7 +71,7 @@ const int sellectionBlinkInterval = 500;	// Interval (ms) the item blinks.
 /* Patch addresses */
 const QString chainAddress = "11";
 const QString nameAddress = "12";
-const QString tempBulkWrite = "0C";
+const QString tempBulkWrite = "0D";
 const QString tempDataWrite = "0D";
 
 #endif // GLOBALVARIABLES_H

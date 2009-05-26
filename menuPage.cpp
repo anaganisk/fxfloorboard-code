@@ -1,6 +1,8 @@
 /****************************************************************************
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
+
+
 **
 ** This file is part of "GT-10B Fx FloorBoard".
 **
@@ -23,8 +25,10 @@
 #include "menuPage.h"
 #include "MidiTable.h"
 #include "SysxIO.h"
+#include "Preferences.h"
 #include "globalVariables.h"
 #include "floorBoardDisplay.h"
+#include "sysxWriter.h"
 
 menuPage::menuPage(QWidget *parent, unsigned int id, QString imagePath, QPoint stompPos)
     : QWidget(parent)
@@ -37,34 +41,46 @@ menuPage::menuPage(QWidget *parent, unsigned int id, QString imagePath, QPoint s
 	this->setFixedSize(stompSize);
 
 	this->editDialog = new editWindow();
-
-	QObject::connect(this, SIGNAL( valueChanged(QString, QString, QString) ),
-                this->parent(), SIGNAL( valueChanged(QString, QString, QString) ));
 	
-	QObject::connect(this->parent(), SIGNAL( updateStompOffset(signed int) ),
-                this, SLOT( updatePos(signed int) ));
+  this->menuButton = new customButton(tr(""), false, QPoint(0, 0), this, ":/images/menu_pushbutton.png");
 
-	QObject::connect(this->parent(), SIGNAL( updateSignal() ),
-                this, SLOT( updateSignal() ));
+	QObject::connect(this, SIGNAL( valueChanged(QString, QString, QString) ), this->parent(), SIGNAL( valueChanged(QString, QString, QString) ));
+	
+	QObject::connect(this->parent(), SIGNAL( updateStompOffset(signed int) ), this, SLOT( updatePos(signed int) ));
 
-	QObject::connect(this->editDialog, SIGNAL( updateSignal() ),
-                this, SLOT( updateSignal() ));
+	QObject::connect(this->parent(), SIGNAL( updateSignal() ), this, SLOT( updateSignal() ));
+	
+	QObject::connect(this, SIGNAL( systemUpdateSignal() ), this->parent()->parent(), SIGNAL( updateSignal() ));
 
-	QObject::connect(this, SIGNAL( dialogUpdateSignal() ),
-                this->editDialog, SIGNAL( dialogUpdateSignal() ));	
+	QObject::connect(this->editDialog, SIGNAL( updateSignal() ), this, SLOT( updateSignal() ));
 
-	QObject::connect(this->parent(), SIGNAL( updateSignal() ),
-                this->editDialog, SIGNAL( dialogUpdateSignal() ));
+	QObject::connect(this, SIGNAL( dialogUpdateSignal() ), this->editDialog, SIGNAL( dialogUpdateSignal() ));	
 
-	QObject::connect(this->editDialog, SIGNAL( updateSignal() ),
-                this, SLOT( setDisplayToFxName() ));
 
-	QObject::connect(this, SIGNAL( setEditDialog(editWindow*) ),
-                this->parent(), SLOT( setEditDialog(editWindow*) ));
+	QObject::connect(this->parent(), SIGNAL( updateSignal() ), this->editDialog, SIGNAL( dialogUpdateSignal() ));
+
+
+	QObject::connect(this->editDialog, SIGNAL( updateSignal() ), this, SLOT( setDisplayToFxName() ));
+
+	QObject::connect(this, SIGNAL( setEditDialog(editWindow*) ), this->parent(), SLOT( setEditDialog(editWindow*) ));
+	
+	QObject::connect(this->menuButton, SIGNAL(valueChanged(bool)), this, SLOT(menuButtonSignal(bool))); 
+  
+  QObject::connect(this->menuButton, SIGNAL(valueChanged(bool)), this->parent(), SLOT(menuButtonSignal()));
+
+  
+  //QObject::connect(this->parent(), SIGNAL(master_buttonSignal(bool)), this, SLOT(master_ButtonSignal(bool) )); 
+  //QObject::connect(this->parent(), SIGNAL(master_buttonSignal(bool)), this->parent(), SLOT(menuButtonSignal()));
                 
-  QObject::connect(this->parent(), SIGNAL(assignSignal(bool)), this, SLOT(assignSignal(bool)));  //cw             
- 
+  //QObject::connect(this->parent(), SIGNAL(assignSignal(bool)), this, SLOT(assignSignal(bool)));  //cw  
+  
+  SysxIO *sysxIO = SysxIO::Instance();
+	QObject::connect(this, SIGNAL(setStatusSymbol(int)), sysxIO, SIGNAL(setStatusSymbol(int)));
+	QObject::connect(this, SIGNAL(setStatusProgress(int)), sysxIO, SIGNAL(setStatusProgress(int)));
+	QObject::connect(this, SIGNAL(setStatusMessage(QString)), sysxIO, SIGNAL(setStatusMessage(QString))); 
+
 };
+
 
 void menuPage::paintEvent(QPaintEvent *)
 {
@@ -83,28 +99,119 @@ editWindow* menuPage::editDetails()
 	return this->editDialog;
 };
 
-void menuPage::mousePressEvent(QMouseEvent *event) 
-{ 
-	emitValueChanged(this->hex1, this->hex2, "00", "void");
+/*void menuPage::master_ButtonSignal(bool value)	
+{  
+    if (this->id == 23)
+    { 
+      emitValueChanged(this->hex1, this->hex2, "00", "void");
+	    this->editDialog->setWindow("Master");
+      emit setEditDialog(this->editDialog);
+    };
+};
+*/
+void menuPage::menuButtonSignal(bool value)	
+{
+	  if(this->id > 19)
+    {
+      emitValueChanged(this->hex1, this->hex2, "00", "void");
+	    this->editDialog->setWindow(this->fxName);
 
-	if (event->button() == Qt::LeftButton) 
-	{
-		this->editDialog->setWindow(this->fxName);
-		emit setEditDialog(this->editDialog);
-	}
-	else if (event->button() == Qt::RightButton)
-	{
-		this->editDialog->setWindow(this->fxName);
-		emit setEditDialog(this->editDialog);
-	};
+      emit setEditDialog(this->editDialog);
+    };
+    SysxIO *sysxIO = SysxIO::Instance();
+	  if((this->id == 19 || this->id == 18) && sysxIO->deviceReady())
+	  {
+    QString replyMsg;
+    QString sysRequest = systemRequest;//"F0410000461100000000";   // header and Address.
+    /*Preferences *preferences = Preferences::Instance();// Load the preferences.
+	  int sys_byte1 = preferences->getPreferences("Midi", "System", "byte1").toInt();
+	  QString byte1 = QString::number(sys_byte1, 16).toUpper();
+	  if (byte1.size()<2) {byte1.prepend("0");};
+	  int sys_byte2 = preferences->getPreferences("Midi", "System", "byte2").toInt();
+	  QString byte2 = QString::number(sys_byte2, 16).toUpper();
+	  if (byte2.size()<2) {byte2.prepend("0");};
+	  int sys_byte3 = preferences->getPreferences("Midi", "System", "byte3").toInt();
+	  QString byte3 = QString::number(sys_byte3, 16).toUpper();
+	  if (byte3.size()<2) {byte3.prepend("0");};
+	  int sys_byte4 = preferences->getPreferences("Midi", "System", "byte4").toInt();
+	  QString byte4 = QString::number(sys_byte4, 16).toUpper();
+	  if (byte4.size()<2) {byte4.prepend("0");};
+	  sysRequest.append(byte1).append(byte2).append(byte3).append(byte4);
+	  sysRequest.append("7FF7");     */
+	   if (sysxIO->isConnected())
+	       {
+	        emit setStatusSymbol(2);
+		      emit setStatusMessage(tr("Requesting System data"));
+	       	sysxIO->setDeviceReady(false); // Reserve the device for interaction.
+		      QObject::disconnect(sysxIO, SIGNAL(sysxReply(QString)));
+		      QObject::connect(sysxIO, SIGNAL(sysxReply(QString)), this, SLOT(systemReply(QString)));
+		      sysxIO->sendSysx(sysRequest); // GT System area data Request.    
+          
+          emitValueChanged(this->hex1, this->hex2, "00", "void");
+	        this->editDialog->setWindow(this->fxName);
+		      emit setEditDialog(this->editDialog);  	        
+         }
+         else
+            {
+              QString snork = "Ensure connection is set and retry";
+              QMessageBox *msgBox = new QMessageBox();
+			        msgBox->setWindowTitle(deviceType + " not connected !!");
+		        	msgBox->setIcon(QMessageBox::Information);
+		        	msgBox->setText(snork);
+		        	msgBox->setStandardButtons(QMessageBox::Ok);
+		        	msgBox->exec(); 
+             };  
+    };
 };
 
-void menuPage::assignSignal(bool value)	
-	{
-	 QApplication::beep();
-	  this->editDialog->setWindow("System Settings");
-		emit setEditDialog(this->editDialog);
-  };
+
+void menuPage::systemReply(QString replyMsg)
+
+
+{
+	SysxIO *sysxIO = SysxIO::Instance();
+	QObject::disconnect(sysxIO, SIGNAL(sysxReply(QString)), this, SLOT(systemReply(QString)));
+	sysxIO->setDeviceReady(true); // Free the device after finishing interaction.
+	
+	   sysxWriter file;
+		 file.setFile(":system.syx");  // Read the default sysex file so whe don't start empty handed.
+		 if(file.readFile())
+	   {	
+			sysxIO->setFileSource("System", file.getSystemSource());
+		 };
+  
+	if(sysxIO->noError())
+	{ 
+	if(replyMsg.size()/2 >= 4326)
+		{
+		QString temp = replyMsg.mid(0, 4326);
+		replyMsg = temp;
+		QString area = "System";
+		sysxIO->setFileSource(area, replyMsg);		// Set the source to the data received.
+		sysxIO->setFileName(tr("System Data from ") + deviceType);	// Set the file name to GT system for the display.
+		sysxIO->setDevice(true);				// Patch received from the device so this is set to true.
+		sysxIO->setSyncStatus(true);			// We can't be more in sync than right now! :)
+		emit systemUpdateSignal();
+		}
+		else
+		{
+      QMessageBox *msgBox = new QMessageBox();
+			msgBox->setWindowTitle(tr(" SYSTEM DATA WAS NOT CORRECTLY RECEIVED from the GT-Pro!!"));
+			msgBox->setIcon(QMessageBox::Warning);
+			msgBox->setTextFormat(Qt::RichText);
+			QString msgText;
+			msgText.append("<font size='+1'><b>");
+			msgText.append(tr("The ") + deviceType + (" Editor settings may not be syncronized with the GT-Pro.\n"));
+			msgText.append(tr("To retrieve System Data, ensure the GT-Pro and Editor are 'connected'."));
+			msgText.append("<b></font><br>");
+			msgBox->setText(msgText);
+			msgBox->setStandardButtons(QMessageBox::Ok);
+			msgBox->exec();
+		}; 
+   };
+		emit setStatusMessage(tr("Ready"));   
+
+};
 
 void menuPage::setPos(QPoint newPos)
 {
@@ -152,12 +259,13 @@ void menuPage::setLSB(QString hex1, QString hex2)
 void menuPage::valueChanged(int value, QString hex1, QString hex2, QString hex3)
 {
 	MidiTable *midiTable = MidiTable::Instance();
-	
+	QString area; 
+	if(this->id == 18 || this->id == 19) {area = "System";} else {area = "Structure";};
 	QString valueHex = QString::number(value, 16).toUpper();
 	if(valueHex.length() < 2) valueHex.prepend("0");
 
 	SysxIO *sysxIO = SysxIO::Instance(); bool ok;
-	if(midiTable->isData("Structure", hex1, hex2, hex3))
+	if(midiTable->isData(area, hex1, hex2, hex3))
 	{	
 		int maxRange = QString("7F").toInt(&ok, 16) + 1;
 		int value = valueHex.toInt(&ok, 16);
@@ -167,11 +275,11 @@ void menuPage::valueChanged(int value, QString hex1, QString hex2, QString hex3)
 		QString valueHex2 = QString::number(value - (dif * maxRange), 16).toUpper();
 		if(valueHex2.length() < 2) valueHex2.prepend("0");
 		
-		sysxIO->setFileSource(hex1, hex2, hex3, valueHex1, valueHex2);
+		sysxIO->setFileSource(area, hex1, hex2, hex3, valueHex1, valueHex2);
 	}
 	else
 	{
-		sysxIO->setFileSource(hex1, hex2, hex3, valueHex);
+		sysxIO->setFileSource(area, hex1, hex2, hex3, valueHex);
 	};
 
 	emitValueChanged(hex1, hex2, hex3, valueHex);
@@ -185,13 +293,19 @@ void menuPage::valueChanged(bool value, QString hex1, QString hex2, QString hex3
 	if(valueHex.length() < 2) valueHex.prepend("0");
 	
 	SysxIO *sysxIO = SysxIO::Instance();
-	sysxIO->setFileSource(hex1, hex2, hex3, valueHex);
+	QString area; 
+	if(this->id == 18 || this->id == 19) {area = "System";} else {area = "Structure";};
+	sysxIO->setFileSource(area, hex1, hex2, hex3, valueHex);
+
 
 	emitValueChanged(hex1, hex2, hex3, valueHex);
 };
 
+
 void menuPage::emitValueChanged(QString hex1, QString hex2, QString hex3, QString valueHex)
 {
+  QString area; 
+	if(this->id == 18 || this->id == 19) {area = "System";} else {area = "Structure";};
 	QString valueName, valueStr;
 	if(hex1 != "void" && hex2 != "void")
 	{
@@ -206,27 +320,11 @@ void menuPage::emitValueChanged(QString hex1, QString hex2, QString hex3, QStrin
 		}
 		else
 		{
-		  if (this->id == 0)this->fxName = "Compressor";
-		  if (this->id == 1)this->fxName = "Distortion";
-		  if (this->id == 2)this->fxName = "PreAmp/Spkr";
-		  if (this->id == 3)this->fxName = "GT-10 preamp";
-		  if (this->id == 4)this->fxName = "Equalizer";
-		  if (this->id == 5)this->fxName = "FX-1";
-		  if (this->id == 6)this->fxName = "FX-2";
-		  if (this->id == 7)this->fxName = "Delay";
-		  if (this->id == 8)this->fxName = "Chorus";
-		  if (this->id == 9)this->fxName = "Reverb";
-		  if (this->id == 10)this->fxName = "Pedal";
-		  if (this->id == 11)this->fxName = "Volume";
-		  if (this->id == 12)this->fxName = "Noise Suppressor 1";
-		  if (this->id == 13)this->fxName = "Noise Suppressor 2";
-		  if (this->id == 14)this->fxName = "Send/Return";
-		  if (this->id == 15)this->fxName = "Digital Out";
-		  if (this->id == 16)this->fxName = "Chain Split";
-		  if (this->id == 17)this->fxName = "Chain Merge";
+		 
 		  if (this->id == 18)this->fxName = "System settings";
-		  if (this->id == 19)this->fxName = "System Midi";
+		  if (this->id == 19)this->fxName = "Custom Settings";
 		  if (this->id == 20)this->fxName = "Assigns";
+		  //if (this->id == 23)this->fxName = "Pedal"; 
 				 //midiTable->getMidiMap("Structure", hex1, hex2, hex3).name;//hex1).customdesc;
 		};
 	};
@@ -238,3 +336,5 @@ void menuPage::setDisplayToFxName()
 {
 	emit valueChanged(this->fxName, "", "");
 };
+
+

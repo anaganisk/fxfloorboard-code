@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT-8 Fx FloorBoard".
+** This file is part of "GT-10 Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -35,9 +35,9 @@ public:
 		bool active = false,
 		QPoint buttonPos = QPoint::QPoint(0, 0),
 		QWidget *parent = 0,
-		QString hex1 = 0,
-		QString hex2 = 0,
-		QString hex3 = 0,
+		QString hex1 = "00",
+		QString hex2 = "00",
+		QString hex3 = "00",
 		QString imagePath = ":/images/button.png");
 	customButton(
 		QString text,

@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT-8 Fx FloorBoard".
+** This file is part of "GT-Pro Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -46,8 +46,14 @@ public:
 		QString hex2 = "void",
 		QString hex3 = "void",
 		QString background = "normal", 
-		QString direction = "bottom", 
-		int lenght = 45,
+		QString hexMin = "04", 
+		QString hexMax = "06",
+		Qt::Alignment alignment = 0);
+	void addRange(int row, int column, int rowSpan, int columnSpan,
+		QString hex1 = "void",
+		QString hex2 = "void",
+		QString hex3 = "void",
+		QString area = "Structure", 
 		Qt::Alignment alignment = 0);
 	void addSwitch(int row, int column, int rowSpan, int columnSpan,
 		QString hex1 = "void",

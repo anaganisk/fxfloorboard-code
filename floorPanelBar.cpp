@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT-8 Fx FloorBoard".
+** This file is part of "GT-Pro Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -29,8 +29,8 @@ floorPanelBar::floorPanelBar(QWidget *parent, QString imagePathPanelBar, QSize p
 	this->imagePathPanelBar = imagePathPanelBar;
 	this->image = QPixmap::QPixmap(imagePathPanelBar);
 
-	floorPanelBarButton *button = new floorPanelBarButton(false, QPoint::QPoint(0, 230), this);
-	button;
+	floorPanelBarButton *button = new floorPanelBarButton(false, QPoint::QPoint(0, 245), this);
+        button = button;
 
 	this->setFixedSize(panelBarSize);
 	this->setCursor(Qt::SplitHCursor);

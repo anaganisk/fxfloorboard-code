@@ -1,6 +1,8 @@
 /****************************************************************************
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
+
+
 ** 
 ** This file is part of "GT-10B Fx FloorBoard".
 **
@@ -27,6 +29,8 @@
 #include "MidiTable.h"
 #include "editWindow.h"
 #include "editPage.h"
+#include "customButton.h"
+#include "customComboBox.h"
 
 class menuPage : public QWidget
 {
@@ -53,20 +57,28 @@ public slots:
 	void updatePos(signed int offsetDif);
 	void valueChanged(int value, QString hex1, QString hex2, QString hex3);
 	void valueChanged(bool value, QString hex1, QString hex2, QString hex3);
+
 	virtual void updateSignal() {};
 	void setDisplayToFxName();
-	void assignSignal(bool value);   //cjw
+	//void master_ButtonSignal(bool value);	
+	void menuButtonSignal(bool value);  
+  void systemReply(QString);
+		
 		
 signals:
 	void valueChanged(QString fxName, QString valueName, QString valueStr);
 	void currentIndexChanged(int index);
 	void dialogUpdateSignal();
 	void setEditDialog(editWindow* editDialog);
-	void notConnectedSignal();
+	//void notConnectedSignal();
+	void setStatusSymbol(int value);
+	void setStatusProgress(int value);
+  void setStatusMessage(QString message);
+  void systemUpdateSignal();
 
 protected:
 	void paintEvent(QPaintEvent *event);
-	void mousePressEvent(QMouseEvent *event);
+	//void mousePressEvent(QMouseEvent *event);
 
 private:
 
@@ -83,6 +95,10 @@ private:
 	QString hex2;
 	QString hex3;
 	QString fxName;
+
+	customButton *menuButton;
 };
 
 #endif // MENUPAGE_H
+
+

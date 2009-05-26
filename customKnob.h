@@ -1,8 +1,10 @@
 /****************************************************************************
 **
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
+** Copyright (C) 2008 Colin Willcocks.
+** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
+** All rights reserved.
 **
-** This file is part of "GT-8 Fx FloorBoard".
+** This file is part of "GT-10B Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -36,7 +38,8 @@ public:
 		QString hex1 = "void",
 		QString hex2 = "void",
 		QString hex3 = "void",
-		QString background = "normal");
+		QString background = "normal",
+    QString direction = "Structure");
 	void setValue(int value);
 
 public slots:
@@ -54,6 +57,7 @@ private:
 	QString hex1;
 	QString hex2;
 	QString hex3;
+	QString area;
 };
 
 #endif // CUSTOMKNOB_H

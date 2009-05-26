@@ -1,6 +1,6 @@
 /****************************************************************************
 **
-** Copyright (C) 2008 Colin Willcocks
+** Copyright (C) 2008, 2009 Colin Willcocks
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
 ** This file is part of "GT-X Fx FloorBoard".
@@ -9,7 +9,7 @@
 ** it under the terms of the GNU General Public License as published by
 ** the Free Software Foundation; either version 2 of the License, or
 ** (at your option) any later version.
-**
+** 
 ** This program is distributed in the hope that it will be useful,
 ** but WITHOUT ANY WARRANTY; without even the implied warranty of
 ** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -36,26 +36,26 @@ mainWindow::mainWindow(QWidget *parent)
 mainWindow::mainWindow(QWidget *parent)
 	: QMainWindow(parent) */
 {
-	fxsBoard = new floorBoard(this);
+        fxsBoard = new floorBoard(this);
 	
-	/* Loads the stylesheet for the current platform if present */
-	#ifdef Q_OS_WIN
+        /* Loads the stylesheet for the current platform if present */
+#ifdef Q_OS_WIN
 		/* This set the floorboard default style to the "plastique" style, 
 	   as it comes the nearest what the stylesheet uses. */
-	fxsBoard->setStyle(QStyleFactory::create("plastique"));
+	//fxsBoard->setStyle(QStyleFactory::create("windowsvista"));
 		if(QFile(":qss/windows.qss").exists())
 		{
-			QFile file(":qss/windows.qss");
+                        QFile file(":qss/windows.qss");
 			file.open(QFile::ReadOnly);
 			QString styleSheet = QLatin1String(file.readAll());
-			fxsBoard->setStyleSheet(styleSheet);
+                        fxsBoard->setStyleSheet(styleSheet);
 		}; 
-	#endif 
+#endif
 
-	#ifdef Q_WS_X11
+#ifdef Q_WS_X11
 		/* This set the floorboard default style to the "plastique" style, 
 	   as it comes the nearest what the stylesheet uses. */
-	fxsBoard->setStyle(QStyleFactory::create("plastique"));
+	//fxsBoard->setStyle(QStyleFactory::create("plastique"));
 		if(QFile(":qss/linux.qss").exists())
 		{
 			QFile file(":qss/linux.qss");
@@ -65,7 +65,7 @@ mainWindow::mainWindow(QWidget *parent)
 		}; 
 	#endif
 
-	#ifdef Q_WS_MAC
+#ifdef Q_WS_MAC
 		/* This set the floorboard default style to the "macintosh" style, 
 	   as it comes the nearest what the stylesheet uses. */
 	fxsBoard->setStyle(QStyleFactory::create("plastique"));
@@ -88,14 +88,14 @@ mainWindow::mainWindow(QWidget *parent)
 
 	QVBoxLayout *mainLayout = new QVBoxLayout;
 	mainLayout->setMenuBar(menuBar);
-	mainLayout->addWidget(fxsBoard);
+        mainLayout->addWidget(fxsBoard);
 	mainLayout->addWidget(statusBar);
 	mainLayout->setMargin(0);
 	mainLayout->setSpacing(0);
 	mainLayout->setSizeConstraint(QLayout::SetFixedSize);
 	setLayout(mainLayout);
 
-	//this->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+  this->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 
 	QObject::connect(fxsBoard, SIGNAL( sizeChanged(QSize, QSize) ),
                 this, SLOT( updateSize(QSize, QSize) ) );
@@ -144,52 +144,66 @@ void mainWindow::updateSize(QSize floorSize, QSize oldFloorSize)
 
 void mainWindow::createActions()
 {
-	openAct = new QAction(/*QIcon(":/images/open.png"),*/ tr("&Open File..."), this);
+	openAct = new QAction(QIcon(":/images/fileopen.png"), tr("&Open File..."), this);
 	openAct->setShortcut(tr("Ctrl+O"));
 	openAct->setStatusTip(tr("Open an existing file"));
 	connect(openAct, SIGNAL(triggered()), this, SLOT(open()));
 
-	saveAct = new QAction(/*QIcon(":/images/save.png"),*/ tr("&Save"), this);
+	saveAct = new QAction(QIcon(":/images/filesave.png"), tr("&Save"), this);
 	saveAct->setShortcut(tr("Ctrl+S"));
 	saveAct->setStatusTip(tr("Save the document to disk"));
 	connect(saveAct, SIGNAL(triggered()), this, SLOT(save()));
 
-	saveAsAct = new QAction(/*QIcon(":/images/saveas.png"),*/ tr("Save &As..."), this);
+	saveAsAct = new QAction(QIcon(":/images/filesave.png"), tr("Save &As..."), this);
 	saveAsAct->setShortcut(tr("Ctrl+Shift+S"));
 	saveAsAct->setStatusTip(tr("Save the document under a new name"));
 	connect(saveAsAct, SIGNAL(triggered()), this, SLOT(saveAs()));
+	
+	systemLoadAct = new QAction(QIcon(":/images/fileopen.png"), tr("&Load GT System Data..."), this);
+	systemLoadAct->setShortcut(tr("Ctrl+L"));
+	systemLoadAct->setStatusTip(tr("Load System Data to GT-8"));
+	connect(systemLoadAct, SIGNAL(triggered()), this, SLOT(systemLoad()));
 
-	exitAct = new QAction(tr("E&xit"), this);
+	systemSaveAct = new QAction(QIcon(":/images/filesave.png"), tr("Save GT System Data..."), this);
+	systemSaveAct->setShortcut(tr("Ctrl+D"));
+	systemSaveAct->setStatusTip(tr("Save System Data to File"));
+	connect(systemSaveAct, SIGNAL(triggered()), this, SLOT(systemSave()));
+
+	exitAct = new QAction(QIcon(":/images/exit.png"),tr("E&xit"), this);
 	exitAct->setShortcut(tr("Ctrl+Q"));
 	exitAct->setStatusTip(tr("Exit the application"));
 	connect(exitAct, SIGNAL(triggered()), this, SLOT(close()));
 
-	settingsAct = new QAction(/*QIcon(":/images/preferences.png"),*/ tr("&Preferences"), this);
+	settingsAct = new QAction(QIcon(":/images/preferences.png"), tr("&Preferences"), this);
 	settingsAct->setShortcut(tr("Ctrl+P"));
 	settingsAct->setStatusTip(tr("...."));
 	connect(settingsAct, SIGNAL(triggered()), this, SLOT(settings()));
+		                                
+	uploadAct = new QAction(QIcon(":/images/upload.png"), tr("Upload patch to GT-Central"), this);
+	uploadAct->setStatusTip(tr("........"));
+	connect(uploadAct, SIGNAL(triggered()), this, SLOT(upload()));
 
-	helpAct = new QAction(/*QIcon(":/images/help.png"),*/ deviceType + tr(" Fx FloorBoard &Help"), this);
+	helpAct = new QAction(QIcon(":/images/help.png"), deviceType + tr(" Fx FloorBoard &Help"), this);
 	helpAct->setShortcut(tr("Ctrl+F1"));
 	helpAct->setStatusTip(tr("....."));
 	connect(helpAct, SIGNAL(triggered()), this, SLOT(help()));
 
-	homepageAct = new QAction(/*QIcon(":/images/home.png"),*/deviceType + tr(" Fx FloorBoard &Webpage"), this);
+	homepageAct = new QAction(QIcon(":/images/upload.png"),deviceType + tr(" Fx FloorBoard &Webpage"), this);
 	homepageAct->setStatusTip(tr("........"));
 	connect(homepageAct, SIGNAL(triggered()), this, SLOT(homepage()));
 
-	donationAct = new QAction(/*QIcon(":/images/donate.png"),*/ tr("Make a &Donation"), this);
+	donationAct = new QAction(QIcon(":/images/donate.png"), tr("Make a &Donation"), this);
 	connect(donationAct, SIGNAL(triggered()), this, SLOT(donate()));
 
-	licenseAct = new QAction(/*QIcon(":/images/license.png"),*/ tr("&License"), this);
+	licenseAct = new QAction(QIcon(":/images/licence.png"), tr("&License"), this);
 	licenseAct->setStatusTip(tr("........"));
 	connect(licenseAct, SIGNAL(triggered()), this, SLOT(license()));
 
-	aboutAct = new QAction(tr("&About"), this);
+	aboutAct = new QAction(QIcon(":/images/GT-8FxFloorBoard.png"),tr("&About FxFloorBoard"), this);
 	aboutAct->setStatusTip(tr("Show the application's About box"));
 	connect(aboutAct, SIGNAL(triggered()), this, SLOT(about()));
 
-	aboutQtAct = new QAction(tr("About &Qt"), this);
+	aboutQtAct = new QAction(QIcon(":/images/qt-logo.png"),tr("About &Qt"), this);
 	aboutQtAct->setStatusTip(tr("Show the Qt library's About box"));
 	connect(aboutQtAct, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
 };
@@ -203,16 +217,20 @@ void mainWindow::createMenus()
 	fileMenu->addAction(saveAct);
 	fileMenu->addAction(saveAsAct);
 	fileMenu->addSeparator();
-    fileMenu->addAction(exitAct);
+	fileMenu->addAction(systemLoadAct);
+	fileMenu->addAction(systemSaveAct);
+	fileMenu->addSeparator();
+  fileMenu->addAction(exitAct);
 	menuBar->addMenu(fileMenu);
-    //menuBar()->addMenu(fileMenu);
 
+     
 
 	QMenu *toolsMenu = new QMenu(tr("&Tools"), this);
 	toolsMenu->addAction(settingsAct);
+	toolsMenu->addAction(uploadAct);
 	menuBar->addMenu(toolsMenu);
-    //menuBar()->addMenu(toolsMenu);
 
+  
 	QMenu *helpMenu = new QMenu(tr("&Help"), this);
 	helpMenu->addAction(helpAct);
 	helpMenu->addAction(homepageAct);
@@ -221,9 +239,9 @@ void mainWindow::createMenus()
 	helpMenu->addAction(licenseAct);
 	helpMenu->addSeparator(); 
 	helpMenu->addAction(aboutAct);
-	//helpMenu->addAction(aboutQtAct);
+	helpMenu->addAction(aboutQtAct);
 	menuBar->addMenu(helpMenu);
-    //menuBar()->addMenu(helpMenu);
+
 };
 
 void mainWindow::createStatusBar()
@@ -234,14 +252,14 @@ void mainWindow::createStatusBar()
 	statusInfo->setStatusSymbol(0);
 	statusInfo->setStatusMessage(tr("Not Connected"));
 
-	QObject::connect(sysxIO, SIGNAL(setStatusSymbol(int)),
-                statusInfo, SLOT(setStatusSymbol(int)));
-	QObject::connect(sysxIO, SIGNAL(setStatusProgress(int)),
-                statusInfo, SLOT(setStatusProgress(int)));;
-	QObject::connect(sysxIO, SIGNAL(setStatusMessage(QString)),
-                statusInfo, SLOT(setStatusMessage(QString)));
-	QObject::connect(sysxIO, SIGNAL(setStatusdBugMessage(QString)),
-                statusInfo, SLOT(setStatusdBugMessage(QString)));
+	QObject::connect(sysxIO, SIGNAL(setStatusSymbol(int)), statusInfo, SLOT(setStatusSymbol(int)));
+	QObject::connect(sysxIO, SIGNAL(setStatusProgress(int)), statusInfo, SLOT(setStatusProgress(int)));;
+	QObject::connect(sysxIO, SIGNAL(setStatusMessage(QString)), statusInfo, SLOT(setStatusMessage(QString)));
+	QObject::connect(sysxIO, SIGNAL(setStatusdBugMessage(QString)), statusInfo, SLOT(setStatusdBugMessage(QString)));
+
+
+
+
 
 	statusBar = new QStatusBar;
 	statusBar->addWidget(statusInfo);
@@ -266,12 +284,13 @@ void mainWindow::open()
 		{	
 			// DO SOMETHING AFTER READING THE FILE (UPDATE THE GUI)
 			SysxIO *sysxIO = SysxIO::Instance();
-			sysxIO->setFileSource(file.getFileSource());
+			QString area = "Structure";
+			sysxIO->setFileSource(area, file.getFileSource());
 			sysxIO->setFileName(fileName);
 			sysxIO->setSyncStatus(false);
 			sysxIO->setDevice(false);
-
 			emit updateSignal();
+			sysxIO->writeToBuffer();
 		};
 	};
 };
@@ -303,10 +322,10 @@ void mainWindow::save()
 			if(file.readFile())
 			{	
 				// DO SOMETHING AFTER READING THE FILE (UPDATE THE GUI)
-				SysxIO *sysxIO = SysxIO::Instance();
-				sysxIO->setFileSource(file.getFileSource());
-
-				emit updateSignal();
+			SysxIO *sysxIO = SysxIO::Instance();
+			QString area = "Structure";
+			sysxIO->setFileSource(area, file.getFileSource());
+			emit updateSignal();
 			};
 		};
 	}
@@ -339,11 +358,120 @@ void mainWindow::saveAs()
 		{	
 			// DO SOMETHING AFTER READING THE FILE (UPDATE THE GUI)
 			SysxIO *sysxIO = SysxIO::Instance();
-			sysxIO->setFileSource(file.getFileSource());
-
+	  	QString area = "Structure";
+			sysxIO->setFileSource(area, file.getFileSource());
 			emit updateSignal();
 		};
 	};
+};
+
+void mainWindow::systemLoad()
+{
+   SysxIO *sysxIO = SysxIO::Instance();
+     
+	Preferences *preferences = Preferences::Instance();
+	QString dir = preferences->getPreferences("General", "Files", "dir");
+
+	QString fileName = QFileDialog::getOpenFileName(
+                this,
+                "Choose a file",
+                dir,
+                "GT-8 System Data File (*.GT8_system_syx)");
+	if (!fileName.isEmpty())	
+	{
+		file.setFile(fileName);  
+		if(file.readFile())
+		{	
+			// DO SOMETHING AFTER READING THE FILE (UPDATE THE GUI)
+	
+		  SysxIO *sysxIO = SysxIO::Instance();
+			QString area = "System";
+			sysxIO->setFileSource(area, file.getSystemSource());
+			sysxIO->setFileName(fileName);
+			emit updateSignal();
+			
+					QMessageBox *msgBox = new QMessageBox();
+					msgBox->setWindowTitle(deviceType + tr(" Fx FloorBoard"));
+					msgBox->setIcon(QMessageBox::Warning);
+					msgBox->setTextFormat(Qt::RichText);
+					QString msgText;
+					msgText.append("<font size='+1'><b>");
+					msgText.append(tr("You have chosen to load a SYSTEM DATA file."));
+					msgText.append("<b></font><br>");
+					msgText.append(tr("This will overwrite the SYSTEM DATA currently stored in the GT-8<br>"));
+					msgText.append(tr (" and can't be undone.<br>"));
+					msgText.append(tr("Select 'NO' to only update the Editor - Select 'YES' to update the GT-Pro memory<br>"));
+          
+
+					msgBox->setInformativeText(tr("Are you sure you want to write to the GT-8?"));
+					msgBox->setText(msgText);
+					msgBox->setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+
+					if(msgBox->exec() == QMessageBox::Yes)
+					{	// Accepted to overwrite system data.						
+					sysxIO->systemWrite();
+					};			
+		};
+	};
+           if (!sysxIO->isConnected())
+             {
+              QString snork = "DATA TRANSFER REQUIRED<br>"; 
+              snork.append("Ensure connection is active, and<br>");
+              QMessageBox *msgBox = new QMessageBox();
+			        msgBox->setWindowTitle(deviceType + " Connection required!!");
+		        	msgBox->setIcon(QMessageBox::Information);
+		        	msgBox->setText(snork);
+		        	msgBox->setStandardButtons(QMessageBox::Ok);
+		        	msgBox->exec(); 
+              };  
+};
+
+void mainWindow::systemSave()
+{ 
+SysxIO *sysxIO = SysxIO::Instance();
+     if (sysxIO->isConnected())
+	       {
+  sysxIO->systemDataRequest();
+  //SLEEP(3000);
+
+	Preferences *preferences = Preferences::Instance();
+	QString dir = preferences->getPreferences("General", "Files", "dir");
+
+	QString fileName = QFileDialog::getSaveFileName(
+                    this,
+                    "Save System Data",
+                    dir,
+                    "System Exclusive File (*.GT8_system_syx)");
+	if (!fileName.isEmpty())	
+	{
+	  if(!fileName.contains(".GT8_system_syx"))
+		{
+			fileName.append(".GT8_system_syx");
+		};
+    	
+		file.writeSystemFile(fileName);
+
+		file.setFile(fileName);  
+		if(file.readFile())
+		{	
+		  SysxIO *sysxIO = SysxIO::Instance();
+			QString area = "System";
+			sysxIO->setFileSource(area, file.getSystemSource());
+			emit updateSignal();
+		};
+	};
+	 }
+         else
+             { 
+              QString snork = "DATA TRANSFER REQUIRED<br>"; 
+              snork.append("Ensure connection is active");
+              QMessageBox *msgBox = new QMessageBox();
+			        msgBox->setWindowTitle(deviceType + " Connection required!!");
+		        	msgBox->setIcon(QMessageBox::Information);
+		        	msgBox->setText(snork);
+		        	msgBox->setStandardButtons(QMessageBox::Ok);
+		        	msgBox->exec(); 
+              };  
 };
 
 /* TOOLS MENU */
@@ -361,8 +489,13 @@ void mainWindow::settings()
 		QString dBug = (dialog->midiSettings->dBugCheckBox->checkState())?QString("true"):QString("false");
 		QString midiIn = QString::number(dialog->midiSettings->midiInCombo->currentIndex() - 1, 10); // -1 because there is a default entry at index 0
 		QString midiOut = QString::number(dialog->midiSettings->midiOutCombo->currentIndex() - 1, 10);
-		QString midiTimeSet =QString::number(dialog->midiSettings->midiTimeSpinBox->value());
+		//QString midiTimeSet =QString::number(dialog->midiSettings->midiTimeSpinBox->value());
 		QString receiveTimeout =QString::number(dialog->midiSettings->midiDelaySpinBox->value());
+                QString sys_Byte1 = QString::number(dialog->midiSettings->sysByteSpinBox1->value());
+		QString sys_Byte2 = QString::number(dialog->midiSettings->sysByteSpinBox2->value());
+		QString sys_Byte3 = QString::number(dialog->midiSettings->sysByteSpinBox3->value());
+		QString sys_Byte4 = QString::number(dialog->midiSettings->sysByteSpinBox4->value());
+
 
 
 		if(midiIn=="-1") { midiIn = ""; };
@@ -372,8 +505,13 @@ void mainWindow::settings()
 		preferences->setPreferences("Midi", "MidiIn", "device", midiIn);
 		preferences->setPreferences("Midi", "MidiOut", "device", midiOut);
 		preferences->setPreferences("Midi", "DBug", "bool", dBug);
-		preferences->setPreferences("Midi", "Time", "set", midiTimeSet);
-		preferences->setPreferences("Midi", "Delay", "set", receiveTimeout);
+                //preferences->setPreferences("Midi", "Time", "set", midiTimeSet);
+                preferences->setPreferences("Midi", "Delay", "set", receiveTimeout);
+                preferences->setPreferences("Midi", "System", "byte1", sys_Byte1);
+		preferences->setPreferences("Midi", "System", "byte2", sys_Byte2);
+		preferences->setPreferences("Midi", "System", "byte3", sys_Byte3);
+		preferences->setPreferences("Midi", "System", "byte4", sys_Byte4);
+
 		preferences->setPreferences("Window", "Restore", "sidepanel", sidepanel);
 		preferences->setPreferences("Window", "Restore", "window", window);
 		preferences->setPreferences("Window", "Splash", "bool", splash);
@@ -386,6 +524,12 @@ void mainWindow::help()
 {
 	Preferences *preferences = Preferences::Instance();
 	QDesktopServices::openUrl(QUrl( preferences->getPreferences("General", "Help", "url") ));
+};
+
+void mainWindow::upload()
+{
+	Preferences *preferences = Preferences::Instance();
+	QDesktopServices::openUrl(QUrl( preferences->getPreferences("General", "Upload", "url") ));
 };
 
 void mainWindow::homepage()
@@ -425,3 +569,4 @@ void mainWindow::closeEvent(QCloseEvent* ce)
 	ce->accept();
 	emit closed();
 };
+

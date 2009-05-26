@@ -30,13 +30,18 @@ HEADERS += ./editPage.h \
     ./customControlKnob.h \
     ./customControlLabel.h \
     ./customControlListMenu.h \
+    ./customControlRange.h \
     ./customControlSwitch.h \
     ./customControlTarget.h \
     ./customDial.h \
     ./customDisplay.h \
     ./customKnob.h \
+    ./customKnobRange.h \
     ./customKnobTarget.h \
     ./customLed.h \
+    ./customRangeDial.h \
+    ./customRenameDialog.h \
+    ./customRenameWidget.h \
     ./customSlider.h \
     ./customSplashScreen.h \
     ./customSwitch.h \
@@ -96,13 +101,18 @@ SOURCES += ./editPage.cpp \
     ./customControlKnob.cpp \
     ./customControlLabel.cpp \
     ./customControlListMenu.cpp \
+    ./customControlRange.cpp \
     ./customControlSwitch.cpp \
     ./customControlTarget.cpp \
     ./customDial.cpp \
     ./customDisplay.cpp \
     ./customKnob.cpp \
+    ./customKnobRange.cpp \
     ./customKnobTarget.cpp \
     ./customLed.cpp \
+    ./customRangeDial.cpp \
+    ./customRenameDialog.cpp \
+    ./customRenameWidget.cpp \
     ./customSlider.cpp \
     ./customSplashScreen.cpp \
     ./customSwitch.cpp \

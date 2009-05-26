@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT-8 Fx FloorBoard".
+** This file is part of "GT-Pro Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -47,7 +47,10 @@ public slots:
 	void open();
 	void save();
 	void saveAs();
+	void systemSave();
+	void systemLoad();
 	void settings();
+	void upload();
 	void help();
 	void homepage();
 	void donate();
@@ -67,8 +70,11 @@ private:
 	QAction *openAct;
 	QAction *saveAct;
 	QAction *saveAsAct;
+	QAction *systemLoadAct;
+	QAction *systemSaveAct;
 	QAction *exitAct;
 	QAction *settingsAct;
+	QAction *uploadAct;
 	QAction *helpAct;
 	QAction *homepageAct;
 	QAction *donationAct;
@@ -81,3 +87,4 @@ private:
 };
 
 #endif // MAINWINDOW_H
+

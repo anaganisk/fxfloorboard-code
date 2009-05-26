@@ -2,7 +2,7 @@
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT-8 Fx FloorBoard".
+** This file is part of "GT-Pro Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -36,11 +36,11 @@ statusBarWidget::statusBarWidget(QWidget *parent)
 	this->symbol->setValue(0);
 
 	this->label = new QLabel(this);
-	this->label->setFixedWidth(100);
+	this->label->setFixedWidth(150);
 	this->label->setText("");
 
 	this->dBuglabel = new QLabel(this);
-	this->dBuglabel->setFixedWidth(500);
+	this->dBuglabel->setFixedWidth(650);
 	this->dBuglabel->setText("");
 
 	QHBoxLayout *widgetLayout = new QHBoxLayout;

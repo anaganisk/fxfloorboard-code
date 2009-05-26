@@ -1,8 +1,9 @@
 /**************************************************************************** 
-** 
+** Copyright (C) 2008 Colin Willcocks.
+
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved. 
 ** 
-** This file is part of "GT-8 Fx FloorBoard". 
+** This file is part of "GT-6 Fx FloorBoard". 
 ** 
 ** This program is free software; you can redistribute it and/or modify 
 ** it under the terms of the GNU General Public License as published by 
@@ -29,7 +30,7 @@
 MidiTable::MidiTable()  
 { 
     loadMidiMap(); 
-}; 
+}
  
 MidiTable* MidiTable::_instance = 0;// initialize pointer 
 MidiTableDestroyer MidiTable::_destroyer; 
@@ -43,13 +44,7 @@ MidiTable* MidiTable::Instance()
         _destroyer.SetMidiTable(_instance); 
     }; 
     return _instance; // address of sole instance 
- 
-    /* Single-threading */ 
-    /* 
-    static Preferences inst; 
-    return &inst; 
-    */ 
-};
+ }
 
 void MidiTable::loadMidiMap() 
 { 
@@ -155,29 +150,30 @@ void MidiTable::loadMidiMap()
 		this->midiMap.id.append(test); 
 		this->midiMap.level.append(section); 
         node = node.nextSibling(); 
+
     }; 
-}; 
+    }
 
 Midi MidiTable::getMidiMap(QString root)
 {
 	Midi section = midiMap.level.at( midiMap.id.indexOf(root) );
 	return section;
-};
+}
 
 Midi MidiTable::getMidiMap(QString root, QString hex1)
 { 
 	Midi section = midiMap.level.at( midiMap.id.indexOf(root) );
 	Midi level1 = section.level.at( section.id.indexOf(hex1) );;
 	return level1; 
-};
+}
 
-/*Midi MidiTable::getMidiMap(QString root, QString hex1, QString hex2)
+Midi MidiTable::getMidiMap(QString root, QString hex1, QString hex2)
 { 
 	Midi section = midiMap.level.at( midiMap.id.indexOf(root) );
 	Midi level1 = section.level.at( section.id.indexOf(hex1) );
 	Midi level2 = level1.level.at( level1.id.indexOf(hex2) );
 	return level2; 
-};*/
+}
 
 Midi MidiTable::getMidiMap(QString root, QString hex1, QString hex2, QString hex3)
 { 
@@ -194,7 +190,7 @@ Midi MidiTable::getMidiMap(QString root, QString hex1, QString hex2, QString hex
 		level3 = level2.level.at( level2.id.indexOf(hex3) );
 	};
 	return level3; 
-};
+}
 
 Midi MidiTable::getMidiMap(QString root, QString hex1, QString hex2, QString hex3, QString hex4)
 { 
@@ -213,7 +209,7 @@ Midi MidiTable::getMidiMap(QString root, QString hex1, QString hex2, QString hex
 
 	Midi level4 = level3.level.at( level3.id.indexOf(hex4) );
 	return level4; 
-};
+}
 
 Midi MidiTable::getMidiMap(QString root, QString hex1, QString hex2, QString hex3,  QString hex4, QString hex5)
 { 
@@ -224,7 +220,7 @@ Midi MidiTable::getMidiMap(QString root, QString hex1, QString hex2, QString hex
 	Midi level4 = level3.level.at( level3.id.indexOf(hex4) );
 	Midi level5 = level4.level.at( level4.id.indexOf(hex5) );
 	return level5; 
-};
+}
 
 int MidiTable::getRange(QString root, QString hex1, QString hex2, QString hex3)
 {
@@ -234,18 +230,38 @@ int MidiTable::getRange(QString root, QString hex1, QString hex2, QString hex3)
 	midi.xml, so when out of range we jump to the next entry and start from 00. */
 	bool ok;
 	int maxRange = QString("7F").toInt(&ok, 16);
+	QString hex0 = root;
+	
 	if(hex3.toInt(&ok, 16) > maxRange)
 	{
-		
-		hex1 = QString::number(hex1.toInt(&ok, 16) + 1, 16).toUpper();
-		if(hex1.length() < 2) hex1.prepend("0");
-		hex3 = QString::number(hex3.toInt(&ok, 16) - (maxRange + 1), 16).toUpper();
-		if(hex3.length() < 2) hex3.prepend("0");
-		range = getMidiMap(root, hex1, hex2, hex3);
+		if (!root.contains("System"))
+      {
+		  hex1 = QString::number(hex1.toInt(&ok, 16) + 1, 16).toUpper();           // if structure, use hex1 and hex3
+
+		  if(hex1.length() < 2) hex1.prepend("0");
+		  hex3 = QString::number(hex3.toInt(&ok, 16) - (maxRange + 1), 16).toUpper();
+		  if(hex3.length() < 2) hex3.prepend("0");
+		  range = getMidiMap(root, hex1, hex2, hex3);
+		  }
+       else 
+      {
+      hex2 = QString::number(hex2.toInt(&ok, 16) + 1, 16).toUpper();          // if system, use hex2 and hex3
+		  if(hex2.length() < 2) hex2.prepend("0");
+		  hex3 = QString::number(hex3.toInt(&ok, 16) - (maxRange + 1), 16).toUpper();
+		  if(hex3.length() < 2) hex3.prepend("0");
+		  hex0.remove("System");
+      range = getMidiMap("System", hex0, hex1, hex2, hex3);	
+      };
 	}
 	else
-	{
+	{ 	
+
+		if (!root.contains("System")){
 		range = getMidiMap(root, hex1, hex2, hex3);	
+		} else {
+		hex0.remove("System");
+    range = getMidiMap("System", hex0, hex1, hex2, hex3);	
+    };
 	};
 
 	int lastIndex;
@@ -265,28 +281,90 @@ int MidiTable::getRange(QString root, QString hex1, QString hex2, QString hex3)
 		lastIndex = range.level.last().value.toInt(&ok, 16);
 	};
 	return lastIndex;
-};
+}
 
-bool MidiTable::isData(QString root, QString hex1, QString hex2, QString hex3)
+int MidiTable::getRangeMinimum(QString root, QString hex1, QString hex2, QString hex3)
 {
-	Midi range;
-	
+	Midi range;	
 	/* When FX has alot off settings (more than ) it's spanned over more then one entry in the 
-	midi.xml, so when out of range we jump to the next entry and start from 00. */
-	bool ok;
-	int maxRange = QString("7F").toInt(&ok, 16);
+	midi.xml, so when out of range we jump to the next entry and start from 00.       */
+	bool ok;      
+  int maxRange = QString("7F").toInt(&ok, 16);
 	if(hex3.toInt(&ok, 16) > maxRange)
 	{
-		hex1 = QString::number(hex1.toInt(&ok, 16) + 1, 16).toUpper();
-		if(hex1.length() < 2) hex1.prepend("0");
-		hex3 = QString::number(hex3.toInt(&ok, 16) - (maxRange + 1), 16).toUpper();
-		if(hex3.length() < 2) hex3.prepend("0");
-		range = getMidiMap(root, hex1, hex2, hex3);
+	if (!root.contains("System"))
+		     {hex1 = QString::number(hex1.toInt(&ok, 16) + 1, 16).toUpper();
+	       	if(hex1.length() < 2) hex1.prepend("0");
+		      hex3 = QString::number(hex3.toInt(&ok, 16) - (maxRange + 1), 16).toUpper();
+		      if(hex3.length() < 2) hex3.prepend("0");
+		      range = getMidiMap(root, hex1, hex2, hex3);
+		      } else {
+          hex2 = QString::number(hex2.toInt(&ok, 16) + 1, 16).toUpper();
+	       	if(hex2.length() < 2) hex2.prepend("0");
+		      hex3 = QString::number(hex3.toInt(&ok, 16) - (maxRange + 1), 16).toUpper();
+		      if(hex3.length() < 2) hex3.prepend("0");
+		      range = getMidiMap(root, hex1, hex2, hex3);
+          };
+	}
+	else
+        {         
+	  QString hex0 = root;
+	  if (!root.contains("System")){
+		range = getMidiMap(root, hex1, hex2, hex3);	
+		} else {
+		hex0.remove("System");
+    range = getMidiMap("System", hex0, hex1, hex2, hex3);	
+    };
+        };
+
+	int firstIndex;
+	if(range.level.first().value == "range")
+	{
+		firstIndex = range.level.last().name.split("/").at(0).toInt(&ok, 16);
+	}
+	else if(range.level.last().type.contains("DATA"))
+	{
+	  firstIndex = range.level.last().customdesc.toInt(&ok, 16);  //get manually entered value from level 4 bottom customdesc.
 	}
 	else
 	{
-		range = getMidiMap(root, hex1, hex2, hex3);	
+		firstIndex = range.level.first().value.toInt(&ok, 16);
 	};
+	return firstIndex;
+}
+
+bool MidiTable::isData(QString root, QString hex1, QString hex2, QString hex3)
+{
+	Midi range;	
+	/* When FX has alot off settings (more than ) it's spanned over more then one entry in the 
+	midi.xml, so when out of range we jump to the next entry and start from 00. */
+  bool ok;
+  int maxRange = QString("7F").toInt(&ok, 16);
+	if(hex3.toInt(&ok, 16) > maxRange)
+	{
+	  if (!root.contains("System"))
+		     {hex1 = QString::number(hex1.toInt(&ok, 16) + 1, 16).toUpper();
+	       	if(hex1.length() < 2) hex1.prepend("0");
+		      hex3 = QString::number(hex3.toInt(&ok, 16) - (maxRange + 1), 16).toUpper();
+		      if(hex3.length() < 2) hex3.prepend("0");
+		      range = getMidiMap(root, hex1, hex2, hex3);
+		      } else {
+          hex2 = QString::number(hex2.toInt(&ok, 16) + 1, 16).toUpper();
+	       	if(hex2.length() < 2) hex2.prepend("0");
+		      hex3 = QString::number(hex3.toInt(&ok, 16) - (maxRange + 1), 16).toUpper();
+		      if(hex3.length() < 2) hex3.prepend("0");
+		      range = getMidiMap(root, hex1, hex2, hex3);
+          };
+	}
+	else
+  {
+	  QString hex0 = root;
+	  if (!root.contains("System")){range = getMidiMap(root, hex1, hex2, hex3);	} 
+    else { 
+          hex0.remove("System");
+          range = getMidiMap("System", hex0, hex1, hex2, hex3);
+         };
+  };
 
 	if(range.level.last().type.contains("DATA"))
 	{
@@ -296,11 +374,18 @@ bool MidiTable::isData(QString root, QString hex1, QString hex2, QString hex3)
 	{
 		return false;
 	};
-};
+}
 
 QString MidiTable::getValue(QString root, QString hex1, QString hex2, QString hex3, QString hex4)
 {
-	Midi range = getMidiMap(root, hex1, hex2, hex3);
+  Midi range;
+  QString hex0 = root;
+  if (!root.contains("System")){
+	range = getMidiMap(root, hex1, hex2, hex3);
+	} else {
+	hex0.remove("System");
+  range = getMidiMap("System",hex0, hex1, hex2, hex3);
+  };
 	QString valueStr; bool ok;
 	if(range.level.last().type.contains("DATA"))
 	{
@@ -320,12 +405,12 @@ QString MidiTable::getValue(QString root, QString hex1, QString hex2, QString he
 		valueStr = rangeToValue(range, hex4);
 	};
 	return valueStr;
-};
+}
 
 QString MidiTable::rangeToValue(Midi range, QString hex)
 {
 	QString valueStr;
-	if(!range.id.contains(hex) && range.id.contains("range"))
+	if(!range.id.contains(hex) /*&& range.id.contains("range")*/)
 	{
 		int i = 0; bool ok;
 		while(range.id.indexOf("range", i) != -1)
@@ -365,7 +450,7 @@ QString MidiTable::rangeToValue(Midi range, QString hex)
 		valueStr = range.level.at(range.id.indexOf(hex)).name;
 	};
 	return valueStr;
-};
+}
 
 QString MidiTable::getHeader(bool receive)
 {
@@ -385,7 +470,7 @@ QString MidiTable::getHeader(bool receive)
 	};
 
 	return header;
-};
+}
 
 QString MidiTable::getFooter()
 {
@@ -397,7 +482,7 @@ QString MidiTable::getFooter()
 	footer.append(level2.value);
 
 	return footer;
-};
+}
 
 QString MidiTable::getSize(QString hex1, QString hex2, QString hex3)
 {
@@ -518,52 +603,73 @@ QString MidiTable::dataRequest(QString hex1, QString hex2, QString hex3)
 	return sysxMsg;
 };
 
-QString MidiTable::dataChange(QString hex1, QString hex2, QString hex3, QString hex4)
+QString MidiTable::dataChange(QString area, QString hex1, QString hex2, QString hex3, QString hex4)
 {
 	QString sysxMsg;
+	QString temp;
 	sysxMsg.append(getHeader(false));
-	
-	sysxMsg.append("0D");
-	sysxMsg.append("00");
-
-	sysxMsg.append(hex1);
-	//sysxMsg.append(hex2);
-	sysxMsg.append(hex3);
+		if (!area.contains("System") || area.isEmpty() )
+    {
+      sysxMsg.append(tempDataWrite);
+      sysxMsg.append("00");
+	    sysxMsg.append(hex1);
+	    sysxMsg.append(hex3);
+    } 
+    else
+    {
+      temp = area;
+      sysxMsg.append(temp.remove("System"));
+      sysxMsg.append(hex1);
+	    sysxMsg.append(hex2);
+	    sysxMsg.append(hex3);
+    };
 
 	sysxMsg.append(hex4);
 
 	int dataSize = 0; bool ok;
 	for(int i=checksumOffset;i<sysxMsg.size()-1;++i)
 	{ dataSize += sysxMsg.mid(i*2, 2).toInt(&ok, 16); };	
+
 	sysxMsg.append(getCheckSum(dataSize));
 
 	sysxMsg.append(getFooter());
 	return sysxMsg;
-};
+}
 
-QString MidiTable::dataChange(QString hex1, QString hex2, QString hex3, QString hex4, QString hex5)
+QString MidiTable::dataChange(QString area, QString hex1, QString hex2, QString hex3, QString hex4, QString hex5)
 {
 	QString sysxMsg;
+	QString temp;
 	sysxMsg.append(getHeader(false));
 	
-	sysxMsg.append("0D");
-	sysxMsg.append("00");
-
-	sysxMsg.append(hex1);
-	//sysxMsg.append(hex2);
-	sysxMsg.append(hex3);
-
+	if (!area.contains("System") || area.isEmpty() )
+    {
+      sysxMsg.append(tempDataWrite);
+      sysxMsg.append("00");
+	    sysxMsg.append(hex1);
+	    sysxMsg.append(hex3);
+    } 
+    else
+    {
+      temp = area;
+      sysxMsg.append(temp.remove("System"));
+      sysxMsg.append(hex1);
+	    sysxMsg.append(hex2);
+	    sysxMsg.append(hex3);
+    };
+	
 	sysxMsg.append(hex4);
 	sysxMsg.append(hex5);
 
 	int dataSize = 0; bool ok;
 	for(int i=checksumOffset;i<sysxMsg.size()-1;++i)
 	{ dataSize += sysxMsg.mid(i*2, 2).toInt(&ok, 16); };	
+
 	sysxMsg.append(getCheckSum(dataSize));
 
 	sysxMsg.append(getFooter());
 	return sysxMsg;
-};
+}
 
 QString MidiTable::nameRequest(int bank, int patch)
 {
@@ -642,7 +748,8 @@ QString MidiTable::patchRequest(int bank, int patch)
 	sysxMsg.append(addr2);
 	sysxMsg.append(hex1);
 	sysxMsg.append(hex2);
-	sysxMsg.append(getSize());
+	sysxMsg.append(patchRequestSize);
+	//sysxMsg.append(getSize());
 
 	int dataSize = 0;
 	for(int i=checksumOffset;i<sysxMsg.size()-1;++i)
