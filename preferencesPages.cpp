@@ -142,7 +142,7 @@ MidiPage::MidiPage(QWidget *parent)
 	QGroupBox *dBugScreenGroup = new QGroupBox(tr("dBug and timing"));
 
 	QLabel *dBugDescriptionLabel = new QLabel(tr("Debug mode & midi settings."));
-	QLabel *midiTimeDescriptionLabel = new QLabel(tr("Patch & data receive time."));
+	//QLabel *midiTimeDescriptionLabel = new QLabel(tr("Patch & data receive time."));
 	QLabel *midiDelayDescriptionLabel = new QLabel(tr("Realtime edit send rate."));
 
 	QCheckBox *dBugCheckBox = new QCheckBox(tr("deBug Mode"));
@@ -158,28 +158,26 @@ MidiPage::MidiPage(QWidget *parent)
 	this->midiTimeSpinBox = midiTimeSpinBox;
 	const int maxWait = preferences->getPreferences("Midi", "Time", "set").toInt(&ok, 10);
 	midiTimeSpinBox->setValue(maxWait);
-	midiTimeSpinBox->setRange(40, 160);
-	midiTimeSpinBox->setSingleStep(5);
-	midiTimeSpinBox->setPrefix("= 20 x ");
-	midiTimeSpinBox->setSuffix(" ms wait");
+	midiTimeSpinBox->setRange(40, 99);
+	midiTimeSpinBox->setPrefix("= ");
+	midiTimeSpinBox->setSuffix("0 ms wait");
 
 	this->midiDelaySpinBox = midiDelaySpinBox;
 	const int minWait = preferences->getPreferences("Midi", "Delay", "set").toInt(&ok, 10);
 	midiDelaySpinBox->setValue(minWait);
-	midiDelaySpinBox->setRange(1, 20);
-	//midiTimeSpinBox->setSingleStep(5);
-	midiDelaySpinBox->setPrefix("= ");
+	midiDelaySpinBox->setRange(1, 30);
+  midiDelaySpinBox->setPrefix("= ");
 	midiDelaySpinBox->setSuffix(" times/second");
 
 
 	QVBoxLayout *dBugLabelLayout = new QVBoxLayout;
 	dBugLabelLayout->addWidget(dBugDescriptionLabel);
-	dBugLabelLayout->addWidget(midiTimeDescriptionLabel);
+	//dBugLabelLayout->addWidget(midiTimeDescriptionLabel);
 	dBugLabelLayout->addWidget(midiDelayDescriptionLabel);
 
 	QVBoxLayout *dBugTimeBoxLayout = new QVBoxLayout;
 	dBugTimeBoxLayout->addWidget(dBugCheckBox);
-	dBugTimeBoxLayout->addWidget(midiTimeSpinBox);
+	//dBugTimeBoxLayout->addWidget(midiTimeSpinBox);
 	dBugTimeBoxLayout->addWidget(midiDelaySpinBox);
 
 	QHBoxLayout *dBugSelectLayout = new QHBoxLayout;

@@ -114,29 +114,30 @@ void menuPage::menuButtonSignal(bool value)
 	  if((this->id == 19 || this->id == 18) && sysxIO->deviceReady())
 	  {
     QString replyMsg;
-	   if (sysxIO->isConnected())
-	       {
 	        emit setStatusSymbol(2);
-		      emit setStatusMessage(tr("Request System data"));
+		      emit setStatusMessage(tr("Requesting System data"));
 	       	sysxIO->setDeviceReady(false); // Reserve the device for interaction.
 		      QObject::disconnect(sysxIO, SIGNAL(sysxReply(QString)));
 		      QObject::connect(sysxIO, SIGNAL(sysxReply(QString)), this, SLOT(systemReply(QString)));
-		      sysxIO->sendSysx(systemRequest); // GT-6 System area data Request.    
+		      sysxIO->sendSysx(systemRequest); // GT-6B System area data Request.    
           
           emitValueChanged(this->hex1, this->hex2, "00", "void");
 	        this->editDialog->setWindow(this->fxName);
 		      emit setEditDialog(this->editDialog);  	        
-         }
-         else
+         
+        // if(sysxIO->systemSource.address.indexOf(address) == -1)
+        /* if (!sysxIO->isConnected())
             {
-              QString snork = "Ensure Bulk Mode is set and retry";
+              QString snork = "Ensure Bulk Mode is set on GT-6B and Editor \n";
+              snork.append("then try again.\n");
+              snork.append("if up to date settings are required.");
               QMessageBox *msgBox = new QMessageBox();
-			        msgBox->setWindowTitle(deviceType + " not connected !!");
+			        msgBox->setWindowTitle("Warning !! " + deviceType + " Bulk Mode is not selected !!");
 		        	msgBox->setIcon(QMessageBox::Information);
 		        	msgBox->setText(snork);
 		        	msgBox->setStandardButtons(QMessageBox::Ok);
 		        	msgBox->exec(); 
-             };  
+             };   */
     };
 }
 
@@ -155,7 +156,7 @@ void menuPage::systemReply(QString replyMsg)
   
 	if(sysxIO->noError())
 	{ 
-	if(replyMsg.size()/2 == 5258)
+	if(replyMsg.size()/2 == 2237)
 		{
 		QString area = "System";
 		sysxIO->setFileSource(area, replyMsg);		// Set the source to the data received.
@@ -167,12 +168,13 @@ void menuPage::systemReply(QString replyMsg)
 		else
 		{
 			QMessageBox *msgBox = new QMessageBox();
-			msgBox->setWindowTitle(deviceType + tr(" Fx FloorBoard connection Error !!"));
+			msgBox->setWindowTitle(tr(" SYSTEM DATA WAS NOT RECEIVED from the GT-6B!!"));
 			msgBox->setIcon(QMessageBox::Warning);
 			msgBox->setTextFormat(Qt::RichText);
 			QString msgText;
 			msgText.append("<font size='+1'><b>");
-			msgText.append(tr("The Boss ") + deviceType + (" Effects Processor was not found."));
+			msgText.append(tr("The ") + deviceType + (" Editor settings may not be syncronized with the GT-6B.\n"));
+			msgText.append(tr("To retrieve System Data, set GT-6B and Editor to Bulk Mode"));
 			msgText.append("<b></font><br>");
 			msgBox->setText(msgText);
 			msgBox->setStandardButtons(QMessageBox::Ok);
@@ -292,7 +294,7 @@ void menuPage::emitValueChanged(QString hex1, QString hex2, QString hex3, QStrin
 		  if (this->id == 18)this->fxName = "System settings";
 		  if (this->id == 19)this->fxName = "Custom Settings";
 		  if (this->id == 20)this->fxName = "Assigns";
-		  //if (this->id == 23)this->fxName = "Pedal"; 
+		  if (this->id == 21)this->fxName = "Master"; 
 				 //midiTable->getMidiMap("Structure", hex1, hex2, hex3).name;//hex1).customdesc;
 		};
 	};

@@ -55,9 +55,9 @@ const int bankSize = 120;       // Number of patches in a midi bank before bank 
 /* Midi Send & Receive */
 const int patchPackets = 23;		// number of sysx packets "F0....F7" which make up a patch.
 const int patchSize = 684;          // size of bytes in a patch.
-const QString patchRequestSize = "00001701";
+const QString patchRequestSize = "00000001";
 const int maxRetry = 2;				// Maximum times we retry to load a patch in case of a transfer error .
-const QString systemRequest = "F0410000501100000000020000017DF7";
+const QString systemRequest = "F0410000501100000000020802047DF7";
 
 /* Patch Sellection (Used when copying patches) */
 const int sellectionBlinks = 5;				// Times we blink to indicate we have sellected a patch before returning.

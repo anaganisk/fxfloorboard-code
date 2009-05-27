@@ -271,18 +271,18 @@ void midiIO::receiveMsg(QString sysxInMsg, int midiInPort)
   int count;
 	emit setStatusSymbol(3);
 	emit setStatusProgress(75);
-	Preferences *preferences = Preferences::Instance(); bool ok;// Load the preferences.
-	const int maxWait = preferences->getPreferences("Midi", "Time", "set").toInt(&ok, 10);
+	//Preferences *preferences = Preferences::Instance(); bool ok;// Load the preferences.
+	//const int maxWait = preferences->getPreferences("Midi", "Time", "set").toInt(&ok, 10);
 	if(multiple){
-  loopCount = maxWait*40;
-  count = patchSize;
+              loopCount = 800;
+              count = patchSize;
   } else if(system) {
-  loopCount = maxWait*80;
-  count = 5258;
+              loopCount = 1600;
+              count = 5258;
   }
   else {
-  loopCount = maxWait*6;
-  count = idRequestString.size()/2; };
+              loopCount = 250;
+              count = idRequestString.size()/2; };
 			int bytesReceived = 0;	
       RtMidiIn *midiin = 0;	
 	  midiin = new RtMidiIn();		   //RtMidi constructor

@@ -84,19 +84,20 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
 	this->writeButton = new customButton(tr("Write/Sync"), false, QPoint(494, 5), this, ":/images/ledbutton.png");
 	this->assign_Button = new customButton(tr("Assigns"), false, QPoint(584, 5), this, ":/images/pushbutton.png");	
 	this->system_Button = new customButton(tr("System Settings"), false, QPoint(673, 5), this, ":/images/pushbutton.png");
-	this->compressor_Button = new customButton(tr("Compressor"), false, QPoint(673, 24), this, ":/images/pushbutton.png");
-	this->fv_Button = new customButton(tr("Foot Volume"), false, QPoint(584, 24), this, ":/images/pushbutton.png");
+	this->master_Button = new customButton(tr("Master"), false, QPoint(584, 24), this, ":/images/pushbutton.png");
 	
 	this->preamp1_Button = new customButton(tr("PreAmp"), false, QPoint(10, 457), this, ":/images/pushbutton.png");
 	this->pedal_Button = new customButton(tr("Wah"), false, QPoint(10, 475), this, ":/images/pushbutton.png");
-	this->eq_Button = new customButton(tr("Equalizer"), false, QPoint(100, 457), this, ":/images/pushbutton.png");
-	this->chorus_Button = new customButton(tr("Chorus"), false, QPoint(100, 475), this, ":/images/pushbutton.png");
-	this->distortion_Button = new customButton(tr("Distortion"), false, QPoint(190,457), this, ":/images/pushbutton.png");
-	this->ns1_Button = new customButton(tr("NoiseSupp"), false, QPoint(190, 475), this, ":/images/pushbutton.png");
-	this->fx1_Button = new customButton(tr("FX-1"), false, QPoint(280, 457), this, ":/images/pushbutton.png");
-	this->fx2_Button = new customButton(tr("FX-2"), false, QPoint(280, 475), this, ":/images/pushbutton.png");
-	this->reverb_Button = new customButton(tr("Rev/DD/SoS"), false, QPoint(370, 457), this, ":/images/pushbutton.png");
-	this->delay_Button = new customButton(tr("Speaker"), false, QPoint(370, 475), this, ":/images/pushbutton.png");
+	this->eq_Button = new customButton(tr("Equalizer"), false, QPoint(90, 457), this, ":/images/pushbutton.png");
+	this->chorus_Button = new customButton(tr("Chorus"), false, QPoint(90, 475), this, ":/images/pushbutton.png");
+	this->distortion_Button = new customButton(tr("Distortion"), false, QPoint(170,457), this, ":/images/pushbutton.png");
+	this->ns1_Button = new customButton(tr("NoiseSupp"), false, QPoint(170, 475), this, ":/images/pushbutton.png");
+	this->fx1_Button = new customButton(tr("FX-1"), false, QPoint(250, 457), this, ":/images/pushbutton.png");
+	this->fx2_Button = new customButton(tr("FX-2"), false, QPoint(250, 475), this, ":/images/pushbutton.png");
+	this->reverb_Button = new customButton(tr("Rev/DD/SoS"), false, QPoint(330, 457), this, ":/images/pushbutton.png");
+	this->delay_Button = new customButton(tr("Speaker"), false, QPoint(330, 475), this, ":/images/pushbutton.png");
+	this->compressor_Button = new customButton(tr("Compressor"), false, QPoint(410, 457), this, ":/images/pushbutton.png");
+	this->fv_Button = new customButton(tr("Foot Volume"), false, QPoint(410, 475), this, ":/images/pushbutton.png");
 	
 	SysxIO *sysxIO = SysxIO::Instance();
 	QObject::connect(this, SIGNAL(setStatusSymbol(int)), sysxIO, SIGNAL(setStatusSymbol(int)));

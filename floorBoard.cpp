@@ -676,7 +676,7 @@ void floorBoard::centerEditDialog()
 
 void floorBoard::initMenuPages()
 {
-		QVector<menuPage *> initMenuPages(2);
+		QVector<menuPage *> initMenuPages(3);
 	this->menuPages = initMenuPages.toList();
 	
 	/* EDITPAGES */
@@ -684,8 +684,8 @@ void floorBoard::initMenuPages()
 	assign->setId(20);
 	assign->setPos(QPoint(943, 5));
 	menuPage *midi = new menuPage_midi(this);
-	midi->setId(19);
-	midi->setPos(QPoint(1034, 5)); 
+	midi->setId(21);
+	midi->setPos(QPoint(943, 24)); 
 	menuPage *system = new menuPage_system(this);
 	system->setId(18);
 	system->setPos(QPoint(1034, 5));

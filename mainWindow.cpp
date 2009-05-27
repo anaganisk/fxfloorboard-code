@@ -1,9 +1,10 @@
 /****************************************************************************
 **
-** Copyright (C) 2008 Colin Willcocks
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
+** Copyright (C) 2006, 2007, 2008, 2009 Colin Willcocks.
+** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
+** All rights reserved.
 **
-** This file is part of "GT-X Fx FloorBoard".
+** This file is part of "GT-6B Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -42,7 +43,7 @@ mainWindow::mainWindow(QWidget *parent)
 	#ifdef Q_OS_WIN
 		/* This set the floorboard default style to the "plastique" style, 
 	   as it comes the nearest what the stylesheet uses. */
-	fxsBoard->setStyle(QStyleFactory::create("plastique"));
+	//fxsBoard->setStyle(QStyleFactory::create("plastique"));
 		if(QFile(":qss/windows.qss").exists())
 		{
 			QFile file(":qss/windows.qss");
@@ -144,67 +145,67 @@ void mainWindow::updateSize(QSize floorSize, QSize oldFloorSize)
 
 void mainWindow::createActions()
 {
-	openAct = new QAction(/*QIcon(":/images/open.png"),*/ tr("&Open File..."), this);
+	openAct = new QAction(QIcon(":/images/fileopen.png"), tr("&Open File..."), this);
 	openAct->setShortcut(tr("Ctrl+O"));
 	openAct->setStatusTip(tr("Open an existing file"));
 	connect(openAct, SIGNAL(triggered()), this, SLOT(open()));
 
-	saveAct = new QAction(/*QIcon(":/images/save.png"),*/ tr("&Save"), this);
+	saveAct = new QAction(QIcon(":/images/filesave.png"), tr("&Save"), this);
 	saveAct->setShortcut(tr("Ctrl+S"));
 	saveAct->setStatusTip(tr("Save the document to disk"));
 	connect(saveAct, SIGNAL(triggered()), this, SLOT(save()));
 
-	saveAsAct = new QAction(/*QIcon(":/images/saveas.png"),*/ tr("Save &As..."), this);
+	saveAsAct = new QAction(QIcon(":/images/filesave.png"), tr("Save &As..."), this);
 	saveAsAct->setShortcut(tr("Ctrl+Shift+S"));
 	saveAsAct->setStatusTip(tr("Save the document under a new name"));
 	connect(saveAsAct, SIGNAL(triggered()), this, SLOT(saveAs()));
 	
-	systemLoadAct = new QAction(/*QIcon(":/images/fileopen.png"),*/ tr("&Load GT System Data..."), this);
+	systemLoadAct = new QAction(QIcon(":/images/fileopen.png"), tr("&Load GT System Data..."), this);
 	systemLoadAct->setShortcut(tr("Ctrl+L"));
 	systemLoadAct->setStatusTip(tr("Load System Data to GT-10"));
 	connect(systemLoadAct, SIGNAL(triggered()), this, SLOT(systemLoad()));
 
-	systemSaveAct = new QAction(/*QIcon(":/images/filesave.png"),*/ tr("Save GT System Data..."), this);
+	systemSaveAct = new QAction(QIcon(":/images/filesave.png"), tr("Save GT System Data..."), this);
 	systemSaveAct->setShortcut(tr("Ctrl+D"));
 	systemSaveAct->setStatusTip(tr("Save System Data to File"));
 	connect(systemSaveAct, SIGNAL(triggered()), this, SLOT(systemSave()));
  	
-	uploadAct = new QAction(/*QIcon(":/images/donate.png"),*/ tr("Upload patch to GT-Central"), this);
+	uploadAct = new QAction(QIcon(":/images/upload.png"), tr("Upload patch to GT-Central"), this);
 	uploadAct->setStatusTip(tr("........"));
 	connect(uploadAct, SIGNAL(triggered()), this, SLOT(upload()));
 
 
-	exitAct = new QAction(tr("E&xit"), this);
+	exitAct = new QAction(QIcon(":/images/exit.png"),tr("E&xit"), this);
 	exitAct->setShortcut(tr("Ctrl+Q"));
 	exitAct->setStatusTip(tr("Exit the application"));
 	connect(exitAct, SIGNAL(triggered()), this, SLOT(close()));
 
-	settingsAct = new QAction(/*QIcon(":/images/preferences.png"),*/ tr("&Preferences"), this);
+	settingsAct = new QAction(QIcon(":/images/preferences.png"), tr("&Preferences"), this);
 	settingsAct->setShortcut(tr("Ctrl+P"));
 	settingsAct->setStatusTip(tr("...."));
 	connect(settingsAct, SIGNAL(triggered()), this, SLOT(settings()));
 
-	helpAct = new QAction(/*QIcon(":/images/help.png"),*/ deviceType + tr(" Fx FloorBoard &Help"), this);
+	helpAct = new QAction(QIcon(":/images/help.png"), deviceType + tr(" Fx FloorBoard &Help"), this);
 	helpAct->setShortcut(tr("Ctrl+F1"));
 	helpAct->setStatusTip(tr("....."));
 	connect(helpAct, SIGNAL(triggered()), this, SLOT(help()));
 
-	homepageAct = new QAction(/*QIcon(":/images/home.png"),*/deviceType + tr(" Fx FloorBoard &Webpage"), this);
+	homepageAct = new QAction(QIcon(":/images/GT6BFxFloorBoard.png"),deviceType + tr(" Fx FloorBoard &Webpage"), this);
 	homepageAct->setStatusTip(tr("........"));
 	connect(homepageAct, SIGNAL(triggered()), this, SLOT(homepage()));
 
-	donationAct = new QAction(/*QIcon(":/images/donate.png"),*/ tr("Make a &Donation"), this);
+	donationAct = new QAction(QIcon(":/images/donate.png"), tr("Make a &Donation"), this);
 	connect(donationAct, SIGNAL(triggered()), this, SLOT(donate()));
 
-	licenseAct = new QAction(/*QIcon(":/images/license.png"),*/ tr("&License"), this);
+	licenseAct = new QAction(QIcon(":/images/licence.png"), tr("&License"), this);
 	licenseAct->setStatusTip(tr("........"));
 	connect(licenseAct, SIGNAL(triggered()), this, SLOT(license()));
 
-	aboutAct = new QAction(tr("&About FxFloorBoard"), this);
+	aboutAct = new QAction(QIcon(":/images/GT6BFxFloorBoard.png"),tr("&About FxFloorBoard"), this);
 	aboutAct->setStatusTip(tr("Show the application's About box"));
 	connect(aboutAct, SIGNAL(triggered()), this, SLOT(about()));
 
-	aboutQtAct = new QAction(tr("About &Qt"), this);
+	aboutQtAct = new QAction(QIcon(":/images/qt-logo.png"),tr("About &Qt"), this);
 	aboutQtAct->setStatusTip(tr("Show the Qt library's About box"));
 	connect(aboutQtAct, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
 };
@@ -250,14 +251,10 @@ void mainWindow::createStatusBar()
 	statusInfo->setStatusSymbol(0);
 	statusInfo->setStatusMessage(tr("Idle"));
 
-	QObject::connect(sysxIO, SIGNAL(setStatusSymbol(int)),
-                statusInfo, SLOT(setStatusSymbol(int)));
-	QObject::connect(sysxIO, SIGNAL(setStatusProgress(int)),
-                statusInfo, SLOT(setStatusProgress(int)));;
-	QObject::connect(sysxIO, SIGNAL(setStatusMessage(QString)),
-                statusInfo, SLOT(setStatusMessage(QString)));
-	QObject::connect(sysxIO, SIGNAL(setStatusdBugMessage(QString)),
-                statusInfo, SLOT(setStatusdBugMessage(QString)));
+	QObject::connect(sysxIO, SIGNAL(setStatusSymbol(int)), statusInfo, SLOT(setStatusSymbol(int)));
+	QObject::connect(sysxIO, SIGNAL(setStatusProgress(int)), statusInfo, SLOT(setStatusProgress(int)));;
+	QObject::connect(sysxIO, SIGNAL(setStatusMessage(QString)), statusInfo, SLOT(setStatusMessage(QString)));
+	QObject::connect(sysxIO, SIGNAL(setStatusdBugMessage(QString)), statusInfo, SLOT(setStatusdBugMessage(QString)));
 
 	statusBar = new QStatusBar;
 	statusBar->addWidget(statusInfo);
@@ -367,8 +364,6 @@ void mainWindow::saveAs()
 void mainWindow::systemLoad()
 {
    SysxIO *sysxIO = SysxIO::Instance();
-     if (sysxIO->isConnected())
-	       {
 	Preferences *preferences = Preferences::Instance();
 	QString dir = preferences->getPreferences("General", "Files", "dir");
 
@@ -389,11 +384,29 @@ void mainWindow::systemLoad()
 			sysxIO->setFileSource(area, file.getSystemSource());
 			sysxIO->setFileName(fileName);
 			emit updateSignal();
-			sysxIO->systemWrite();
-		};
-	};
-	}
-         else
+				QMessageBox *msgBox = new QMessageBox();
+					msgBox->setWindowTitle(deviceType + tr(" Fx FloorBoard"));
+					msgBox->setIcon(QMessageBox::Warning);
+					msgBox->setTextFormat(Qt::RichText);
+					QString msgText;
+					msgText.append("<font size='+1'><b>");
+					msgText.append(tr("You have chosen to load a SYSTEM DATA file."));
+					msgText.append("<b></font><br>");
+					msgText.append(tr("This will overwrite the SYSTEM DATA currently stored in the GT-6B<br>"));
+					msgText.append(tr (" and can't be undone.<br>"));
+					msgText.append(tr("Select 'NO' to only update the Editor - Select 'YES' to update the GT-6B memory<br>"));
+          
+
+					msgBox->setInformativeText(tr("Are you sure you want to write to the GT-6B?"));
+					msgBox->setText(msgText);
+					msgBox->setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+
+					if(msgBox->exec() == QMessageBox::Yes)
+					{	// Accepted to overwrite system data.						
+					sysxIO->systemWrite();
+		      };
+	   };
+       if (!sysxIO->isConnected())
              {
               QString snork = "DATA TRANSFER REQUIRED<br>"; 
               snork.append("Ensure connection is active, and<br>");
@@ -406,6 +419,7 @@ void mainWindow::systemLoad()
 		        	msgBox->setStandardButtons(QMessageBox::Ok);
 		        	msgBox->exec(); 
               };  
+        };      
 };
 
 void mainWindow::systemSave()
@@ -423,7 +437,7 @@ SysxIO *sysxIO = SysxIO::Instance();
                     this,
                     "Save System Data",
                     dir,
-                    "System Exclusive File (*.GT3_system_syx)");
+                    "System Exclusive File (*.GT6B_system_syx)");
 	if (!fileName.isEmpty())	
 	{
 	  if(!fileName.contains(".GT6B_system_syx"))

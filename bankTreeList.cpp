@@ -298,7 +298,7 @@ QTreeWidget* bankTreeList::newTreeList()
 	newTreeList->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff); // Qt::ScrollBarAsNeeded
 	
 	QStringList headers;
-	headers << "        Boss " + deviceType;
+	headers << "Double-click item to load GT-6B patch";
     newTreeList->setHeaderLabels(headers);
 
 	QTreeWidgetItem *user = new QTreeWidgetItem(newTreeList);

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<!-- edited with XMLSpy v2005 sp1 U (http://www.xmlspy.com) by Ru-Board (Ru-Board) -->
-<SysX desc="GT6B Midi implementation" version="0.2c" customdesc="">
+<!-- edited with XMLSpy v2009 sp1 (http://www.altova.com) by col (x) -->
+<SysX desc="GT6B Midi implementation" version="0.3" customdesc="">
 	<Header>
 		<DATA value="00" abbr="" desc="" customdesc="">
 			<PARAM value="F0" name="SOX" desc="Exclusive Status" customdesc=""/>
@@ -39,73 +39,94 @@
 						<PARAM value="09" name="444 Hz" desc="444 Hz" customdesc="444 Hz"/>
 						<PARAM value="0A" name="445 Hz" desc="445 Hz" customdesc="445 Hz"/>
 					</Msb>
-					<Msb value="01" name="Tuner" abbr="" desc="" customdesc="Tuner Out">
-						<PARAM value="00" name="Mute" desc="Mute" customdesc="Mute"/>
-						<PARAM value="01" name="ByPass" desc="ByPass" customdesc="ByPass"/>
-					</Msb>
 				</Msb>
 			</LSB>
 		</LSB>
-		<LSB value="01" name="Global" abbr="Global" desc="Global" customdesc="  ">
+		<LSB value="01" name="" abbr="" desc="" customdesc="  "/>
+		<LSB value="02" name="Global" abbr="Global" desc="Global" customdesc="  ">
 			<LSB value="00" name="Global" abbr="" desc="" customdesc="">
 				<Msb value="00" name="Global" abbr="" desc="" customdesc="Global">
-					<Msb value="00" name="Global" abbr="" desc="Output" customdesc="Output">
-						<PARAM value="00" name="GT Combo Amp" desc="GT Combo Amp" customdesc="GT Combo Amp"/>
-						<PARAM value="01" name="GT Stack Amp" desc="GT Stack Amp" customdesc="GT Stack Amp"/>
-						<PARAM value="02" name="Power Combo Amp" desc="Power Combo Amp" customdesc="Power Combo Amp"/>
-						<PARAM value="03" name="Power Stack Amp" desc="Power Stack Amp" customdesc="Power Stack Amp"/>
-						<PARAM value="04" name="Line/Phones" desc="Line/Phones" customdesc="Line/Phones"/>
-					</Msb>
-					<Msb value="01" name="Global" abbr="" desc="Low EQ" customdesc="Low EQ">
+					<Msb value="00" name="Global" abbr="" desc="NS Threshold" customdesc="NS Threshold">
 						<PARAM value="range" name="00/28/-20/+20" desc=" dB" customdesc=""/>
 					</Msb>
-					<Msb value="02" name="Global" abbr="" desc="High EQ" customdesc="High EQ">
-						<PARAM value="range" name="00/28/-20/+20" desc=" dB" customdesc=""/>
-					</Msb>
-					<Msb value="03" name="Global" abbr="" desc="NS Threshold" customdesc="NS Threshold">
-						<PARAM value="range" name="00/28/-20/+20" desc=" dB" customdesc=""/>
-					</Msb>
-					<Msb value="04" name="Global" abbr="" desc="Reverb Level" customdesc="Reverb Level">
+					<Msb value="01" name="Global" abbr="" desc="Reverb Level" customdesc="Reverb Level">
 						<PARAM value="range" name="00/64/00/200" desc="" customdesc=""/>
 					</Msb>
 				</Msb>
 			</LSB>
-			<LSB value="01" name="meter" abbr="" desc="" customdesc="">
-				<Msb value="00" name="meter" abbr="" desc="" customdesc="meter"/>
-			</LSB>
-			<LSB value="02" name="System" abbr="" desc="" customdesc="">
+			<LSB value="01" name="system" abbr="" desc="" customdesc="">
 				<Msb value="00" name="system" abbr="" desc="" customdesc="system">
 					<Msb value="00" name="system" abbr="" desc="LCD contrast" customdesc="LCD contrast">
 						<PARAM value="range" name="00/0F/1/16" desc="" customdesc=""/>
 					</Msb>
-					<Msb value="01" name="system" abbr="" desc="Dial Function" customdesc="Dial Function">
-						<PARAM value="00" name="Patch &amp; Value" desc="Patch &amp; Value" customdesc="Patch &amp; Value"/>
-						<PARAM value="01" name="Value only" desc="Value only" customdesc="Value only"/>
+					<Msb value="01" name="system" abbr="" desc="Bank extent" customdesc="Bank extent">
+						<PARAM value="00" name="U1" desc="U1" customdesc="U1"/>
+						<PARAM value="01" name="U2" desc="U2" customdesc="U2"/>
+						<PARAM value="02" name="U3" desc="U3" customdesc="U3"/>
+						<PARAM value="03" name="U4" desc="U4" customdesc="U4"/>
+						<PARAM value="04" name="U5" desc="U5" customdesc="U5"/>
+						<PARAM value="05" name="U6" desc="U6" customdesc="U6"/>
+						<PARAM value="06" name="U7" desc="U7" customdesc="U7"/>
+						<PARAM value="07" name="U8" desc="U8" customdesc="U8"/>
+						<PARAM value="08" name="U9" desc="U9" customdesc="U9"/>
+						<PARAM value="09" name="U0" desc="U0" customdesc="U0"/>
+						<PARAM value="0A" name="u1" desc="u1" customdesc="u1"/>
+						<PARAM value="0B" name="u2" desc="u2" customdesc="u2"/>
+						<PARAM value="0C" name="u3" desc="u3" customdesc="u3"/>
+						<PARAM value="0D" name="u4" desc="u4" customdesc="u4"/>
+						<PARAM value="0E" name="u5" desc="u5" customdesc="u5"/>
+						<PARAM value="0F" name="u6" desc="u6" customdesc="u6"/>
+						<PARAM value="10" name="u7" desc="u7" customdesc="u7"/>
+						<PARAM value="11" name="u8" desc="u8" customdesc="u8"/>
+						<PARAM value="12" name="u9" desc="u9" customdesc="u9"/>
+						<PARAM value="13" name="u0" desc="u0" customdesc="u0"/>
+						<PARAM value="14" name="P1" desc="P1" customdesc="P1"/>
+						<PARAM value="15" name="P2" desc="P2" customdesc="P2"/>
+						<PARAM value="16" name="P3" desc="P3" customdesc="P3"/>
+						<PARAM value="17" name="P4" desc="P4" customdesc="P4"/>
+						<PARAM value="18" name="P5" desc="P5" customdesc="P5"/>
+						<PARAM value="19" name="P6" desc="P6" customdesc="P6"/>
+						<PARAM value="1A" name="P7" desc="P7" customdesc="P7"/>
+						<PARAM value="1B" name="P8" desc="P8" customdesc="P8"/>
+						<PARAM value="1C" name="P9" desc="P9" customdesc="P9"/>
+						<PARAM value="1D" name="P0" desc="P0" customdesc="P0"/>
 					</Msb>
-					<Msb value="02" name="system" abbr="" desc="Sub CTL1 Function" customdesc="Sub CTL1 Function">
-						<PARAM value="00" name="Assignable" desc="Assignable" customdesc="Assignable"/>
-						<PARAM value="01" name="MANUAL on/off" desc="MANUAL on/off" customdesc="MANUAL on/off"/>
-						<PARAM value="02" name="TUNER on/off" desc="TUNER on/off" customdesc="TUNER on/off"/>
+					<Msb value="02" name="system" abbr="" desc="Patch Select Mode" customdesc="Patch Select Mode">
+						<PARAM value="00" name="Bank/Number" desc="Bank/Number" customdesc="Bank/Number"/>
+						<PARAM value="01" name="UP/DOWN" desc="UP/DOWN" customdesc="UP/DOWN"/>
 					</Msb>
-					<Msb value="03" name="system" abbr="" desc="Sub CTL2 Function" customdesc="Sub CTL2 Function">
-						<PARAM value="00" name="Assignable" desc="Assignable" customdesc="Assignable"/>
-						<PARAM value="01" name="MANUAL on/off" desc="MANUAL on/off" customdesc="MANUAL on/off"/>
-						<PARAM value="02" name="TUNER on/off" desc="TUNER on/off" customdesc="TUNER on/off"/>
-					</Msb>
-					<Msb value="04" name="system" abbr="" desc="Patch change Mode" customdesc="Patch change Mode">
+					<Msb value="03" name="system" abbr="" desc="Patch change Mode" customdesc="Patch change Mode">
 						<PARAM value="00" name="immediate" desc="immediate" customdesc="immediate"/>
 						<PARAM value="01" name="wait" desc="wait" customdesc="wait"/>
 					</Msb>
-					<Msb value="05" name="system" abbr="" desc="Bank extent" customdesc="Bank extent">
-						<PARAM value="range" name="00/54/1/85" desc="" customdesc=""/>
+					<Msb value="04" name="system" abbr="" desc="EXP Pedal Hold" customdesc="EXP Pedal Hold">
+						<PARAM value="00" name="Off" desc="Off" customdesc=""/>
+						<PARAM value="01" name="On" desc="On" customdesc=""/>
 					</Msb>
-					<Msb value="06" name="system" abbr="" desc="Assign Hold" customdesc="Assign Hold">
-						<PARAM value="00" name="Off" desc="Off" customdesc="Off"/>
-						<PARAM value="01" name="On" desc="On" customdesc="On"/>
+					<Msb value="05" name="system" abbr="" desc="Dial Function" customdesc="Dial Function">
+						<PARAM value="00" name="Patch &amp; Value" desc="Patch &amp; Value" customdesc="Patch &amp; Value"/>
+						<PARAM value="01" name="Value only" desc="Value only" customdesc="Value only"/>
+					</Msb>
+					<Msb value="06" name="system" abbr="" desc="Knob Mode" customdesc="Knob Mode">
+						<PARAM value="00" name="immediate" desc="immediate" customdesc="immediate"/>
+						<PARAM value="01" name="current setting" desc="current setting" customdesc="current setting"/>
+					</Msb>
+					<Msb value="07" name="system" abbr="" desc="Sub CTL1 Function" customdesc="Sub CTL1 Function">
+						<PARAM value="00" name="Assignable" desc="Assignable" customdesc="Assignable"/>
+						<PARAM value="01" name="MANUAL on/off" desc="MANUAL on/off" customdesc="MANUAL on/off"/>
+						<PARAM value="02" name="TUNER on/off" desc="TUNER on/off" customdesc="TUNER on/off"/>
+					</Msb>
+					<Msb value="08" name="system" abbr="" desc="Sub CTL2 Function" customdesc="Sub CTL2 Function">
+						<PARAM value="00" name="Assignable" desc="Assignable" customdesc="Assignable"/>
+						<PARAM value="01" name="MANUAL on/off" desc="MANUAL on/off" customdesc="MANUAL on/off"/>
+						<PARAM value="02" name="TUNER on/off" desc="TUNER on/off" customdesc="TUNER on/off"/>
+					</Msb>
+					<Msb value="09" name="system" abbr="" desc="DGT Out Level" customdesc="DGT Out Level">
+						<PARAM value="range" name="00/64/00/200" desc="" customdesc=""/>
 					</Msb>
 				</Msb>
 			</LSB>
-			<LSB value="03" name="Midi" abbr="" desc="" customdesc="">
+			<LSB value="02" name="Midi" abbr="" desc="" customdesc="">
 				<Msb value="00" name="Midi" abbr="" desc="" customdesc="Midi">
 					<Msb value="00" name="Midi" abbr="" desc="MIDI SETTING" customdesc="RX Channel">
 						<PARAM value="00" name="" desc="1" customdesc=""/>
@@ -148,11 +169,15 @@
 						<PARAM value="0F" name="" desc="16" customdesc=""/>
 						<PARAM value="10" name="" desc="Rx  " customdesc=""/>
 					</Msb>
-					<Msb value="03" name="Midi" abbr="" desc="MIDI SETTING" customdesc="P-Change Out">
+					<Msb value="03" name="Midi" abbr="" desc="MIDI SETTING" customdesc="Midi Sync clock">
+						<PARAM value="00" name="Auto" desc="Auto" customdesc="Auto"/>
+						<PARAM value="01" name="Internal" desc="Internal" customdesc="Internal"/>
+					</Msb>
+					<Msb value="04" name="Midi" abbr="" desc="MIDI SETTING" customdesc="P-Change Out">
 						<PARAM value="00" name="Off" desc="Off" customdesc=""/>
 						<PARAM value="01" name="On" desc="On" customdesc=""/>
 					</Msb>
-					<Msb value="04" name="Midi" abbr="" desc="MIDI SETTING" customdesc="EXP Pedal Out">
+					<Msb value="05" name="Midi" abbr="" desc="MIDI SETTING" customdesc="EXP Pedal Out">
 						<PARAM value="00" name="" desc="Off" customdesc=""/>
 						<PARAM value="01" name="" desc=" CC#01 Midi Controller" customdesc=""/>
 						<PARAM value="02" name="" desc=" CC#02 Midi Controller" customdesc=""/>
@@ -249,7 +274,7 @@
 						<PARAM value="5D" name="" desc=" CC#94 Midi Controller" customdesc=""/>
 						<PARAM value="5E" name="" desc=" CC#95 Midi Controller      " customdesc=""/>
 					</Msb>
-					<Msb value="05" name="Midi" abbr="" desc="MIDI SETTING" customdesc="CTL Pedal Out">
+					<Msb value="06" name="Midi" abbr="" desc="MIDI SETTING" customdesc="EXP SW Out">
 						<PARAM value="00" name="" desc="Off" customdesc=""/>
 						<PARAM value="01" name="" desc=" CC#01 Midi Controller" customdesc=""/>
 						<PARAM value="02" name="" desc=" CC#02 Midi Controller" customdesc=""/>
@@ -346,7 +371,7 @@
 						<PARAM value="5D" name="" desc=" CC#94 Midi Controller" customdesc=""/>
 						<PARAM value="5E" name="" desc=" CC#95 Midi Controller      " customdesc=""/>
 					</Msb>
-					<Msb value="06" name="Midi" abbr="" desc="MIDI SETTING" customdesc="Sub CTL1 Out">
+					<Msb value="07" name="Midi" abbr="" desc="MIDI SETTING" customdesc="CTL Pedal Out">
 						<PARAM value="00" name="" desc="Off" customdesc=""/>
 						<PARAM value="01" name="" desc=" CC#01 Midi Controller" customdesc=""/>
 						<PARAM value="02" name="" desc=" CC#02 Midi Controller" customdesc=""/>
@@ -443,7 +468,7 @@
 						<PARAM value="5D" name="" desc=" CC#94 Midi Controller" customdesc=""/>
 						<PARAM value="5E" name="" desc=" CC#95 Midi Controller      " customdesc=""/>
 					</Msb>
-					<Msb value="07" name="Midi" abbr="" desc="MIDI SETTING" customdesc="Sub CTL2 Out">
+					<Msb value="08" name="Midi" abbr="" desc="MIDI SETTING" customdesc="Sub CTL1 Out">
 						<PARAM value="00" name="" desc="Off" customdesc=""/>
 						<PARAM value="01" name="" desc=" CC#01 Midi Controller" customdesc=""/>
 						<PARAM value="02" name="" desc=" CC#02 Midi Controller" customdesc=""/>
@@ -540,99 +565,196 @@
 						<PARAM value="5D" name="" desc=" CC#94 Midi Controller" customdesc=""/>
 						<PARAM value="5E" name="" desc=" CC#95 Midi Controller      " customdesc=""/>
 					</Msb>
-					<Msb value="08" name="Midi" abbr="" desc="MIDI SETTING" customdesc="Midi Map">
+					<Msb value="09" name="Midi" abbr="" desc="MIDI SETTING" customdesc="Sub CTL2 Out">
+						<PARAM value="00" name="" desc="Off" customdesc=""/>
+						<PARAM value="01" name="" desc=" CC#01 Midi Controller" customdesc=""/>
+						<PARAM value="02" name="" desc=" CC#02 Midi Controller" customdesc=""/>
+						<PARAM value="03" name="" desc=" CC#03 Midi Controller" customdesc=""/>
+						<PARAM value="04" name="" desc=" CC#04 Midi Controller" customdesc=""/>
+						<PARAM value="05" name="" desc=" CC#05 Midi Controller" customdesc=""/>
+						<PARAM value="06" name="" desc=" CC#06 Midi Controller" customdesc=""/>
+						<PARAM value="07" name="" desc=" CC#07 Midi Controller" customdesc=""/>
+						<PARAM value="08" name="" desc=" CC#08 Midi Controller" customdesc=""/>
+						<PARAM value="09" name="" desc=" CC#09 Midi Controller" customdesc=""/>
+						<PARAM value="0A" name="" desc=" CC#10 Midi Controller" customdesc=""/>
+						<PARAM value="0B" name="" desc=" CC#11 Midi Controller" customdesc=""/>
+						<PARAM value="0C" name="" desc=" CC#12 Midi Controller" customdesc=""/>
+						<PARAM value="0D" name="" desc=" CC#13 Midi Controller" customdesc=""/>
+						<PARAM value="0E" name="" desc=" CC#14 Midi Controller" customdesc=""/>
+						<PARAM value="0F" name="" desc=" CC#15 Midi Controller" customdesc=""/>
+						<PARAM value="10" name="" desc=" CC#16 Midi Controller" customdesc=""/>
+						<PARAM value="11" name="" desc=" CC#17 Midi Controller" customdesc=""/>
+						<PARAM value="12" name="" desc=" CC#18 Midi Controller" customdesc=""/>
+						<PARAM value="13" name="" desc=" CC#19 Midi Controller" customdesc=""/>
+						<PARAM value="14" name="" desc=" CC#20 Midi Controller" customdesc=""/>
+						<PARAM value="15" name="" desc=" CC#21 Midi Controller" customdesc=""/>
+						<PARAM value="16" name="" desc=" CC#22 Midi Controller" customdesc=""/>
+						<PARAM value="17" name="" desc=" CC#23 Midi Controller" customdesc=""/>
+						<PARAM value="18" name="" desc=" CC#24 Midi Controller" customdesc=""/>
+						<PARAM value="19" name="" desc=" CC#25 Midi Controller" customdesc=""/>
+						<PARAM value="1A" name="" desc=" CC#26 Midi Controller" customdesc=""/>
+						<PARAM value="1B" name="" desc=" CC#27 Midi Controller" customdesc=""/>
+						<PARAM value="1C" name="" desc=" CC#28 Midi Controller" customdesc=""/>
+						<PARAM value="1D" name="" desc=" CC#29 Midi Controller" customdesc=""/>
+						<PARAM value="1E" name="" desc=" CC#30 Midi Controller" customdesc=""/>
+						<PARAM value="1F" name="" desc=" CC#31 Midi Controller" customdesc=""/>
+						<PARAM value="20" name="" desc=" CC#33 Midi Controller" customdesc=""/>
+						<PARAM value="21" name="" desc=" CC#34 Midi Controller" customdesc=""/>
+						<PARAM value="22" name="" desc=" CC#35 Midi Controller" customdesc=""/>
+						<PARAM value="23" name="" desc=" CC#36 Midi Controller" customdesc=""/>
+						<PARAM value="24" name="" desc=" CC#37 Midi Controller" customdesc=""/>
+						<PARAM value="25" name="" desc=" CC#38 Midi Controller" customdesc=""/>
+						<PARAM value="26" name="" desc=" CC#39 Midi Controller" customdesc=""/>
+						<PARAM value="27" name="" desc=" CC#40 Midi Controller" customdesc=""/>
+						<PARAM value="28" name="" desc=" CC#41 Midi Controller" customdesc=""/>
+						<PARAM value="29" name="" desc=" CC#42 Midi Controller" customdesc=""/>
+						<PARAM value="2A" name="" desc=" CC#43 Midi Controller" customdesc=""/>
+						<PARAM value="2B" name="" desc=" CC#44 Midi Controller" customdesc=""/>
+						<PARAM value="2C" name="" desc=" CC#45 Midi Controller" customdesc=""/>
+						<PARAM value="2D" name="" desc=" CC#46 Midi Controller" customdesc=""/>
+						<PARAM value="2E" name="" desc=" CC#47 Midi Controller" customdesc=""/>
+						<PARAM value="2F" name="" desc=" CC#48 Midi Controller" customdesc=""/>
+						<PARAM value="30" name="" desc=" CC#49 Midi Controller" customdesc=""/>
+						<PARAM value="31" name="" desc=" CC#50 Midi Controller" customdesc=""/>
+						<PARAM value="32" name="" desc=" CC#51 Midi Controller" customdesc=""/>
+						<PARAM value="33" name="" desc=" CC#52 Midi Controller" customdesc=""/>
+						<PARAM value="34" name="" desc=" CC#53 Midi Controller" customdesc=""/>
+						<PARAM value="35" name="" desc=" CC#54 Midi Controller" customdesc=""/>
+						<PARAM value="36" name="" desc=" CC#55 Midi Controller" customdesc=""/>
+						<PARAM value="37" name="" desc=" CC#56 Midi Controller" customdesc=""/>
+						<PARAM value="38" name="" desc=" CC#57 Midi Controller" customdesc=""/>
+						<PARAM value="39" name="" desc=" CC#58 Midi Controller" customdesc=""/>
+						<PARAM value="3A" name="" desc=" CC#59 Midi Controller" customdesc=""/>
+						<PARAM value="3B" name="" desc=" CC#60 Midi Controller" customdesc=""/>
+						<PARAM value="3C" name="" desc=" CC#61 Midi Controller" customdesc=""/>
+						<PARAM value="3D" name="" desc=" CC#62 Midi Controller" customdesc=""/>
+						<PARAM value="3E" name="" desc=" CC#63 Midi Controller" customdesc=""/>
+						<PARAM value="3F" name="" desc=" CC#64 Midi Controller" customdesc=""/>
+						<PARAM value="40" name="" desc=" CC#65 Midi Controller" customdesc=""/>
+						<PARAM value="41" name="" desc=" CC#66 Midi Controller" customdesc=""/>
+						<PARAM value="42" name="" desc=" CC#67 Midi Controller" customdesc=""/>
+						<PARAM value="43" name="" desc=" CC#68 Midi Controller" customdesc=""/>
+						<PARAM value="44" name="" desc=" CC#69 Midi Controller" customdesc=""/>
+						<PARAM value="45" name="" desc=" CC#70 Midi Controller" customdesc=""/>
+						<PARAM value="46" name="" desc=" CC#71 Midi Controller" customdesc=""/>
+						<PARAM value="47" name="" desc=" CC#72 Midi Controller" customdesc=""/>
+						<PARAM value="48" name="" desc=" CC#73 Midi Controller" customdesc=""/>
+						<PARAM value="49" name="" desc=" CC#74 Midi Controller" customdesc=""/>
+						<PARAM value="4A" name="" desc=" CC#75 Midi Controller" customdesc=""/>
+						<PARAM value="4B" name="" desc=" CC#76 Midi Controller" customdesc=""/>
+						<PARAM value="4C" name="" desc=" CC#77 Midi Controller" customdesc=""/>
+						<PARAM value="4D" name="" desc=" CC#78 Midi Controller" customdesc=""/>
+						<PARAM value="4E" name="" desc=" CC#79 Midi Controller" customdesc=""/>
+						<PARAM value="4F" name="" desc=" CC#80 Midi Controller" customdesc=""/>
+						<PARAM value="50" name="" desc=" CC#81 Midi Controller" customdesc=""/>
+						<PARAM value="51" name="" desc=" CC#82 Midi Controller" customdesc=""/>
+						<PARAM value="52" name="" desc=" CC#83 Midi Controller" customdesc=""/>
+						<PARAM value="53" name="" desc=" CC#84 Midi Controller" customdesc=""/>
+						<PARAM value="54" name="" desc=" CC#85 Midi Controller" customdesc=""/>
+						<PARAM value="55" name="" desc=" CC#86 Midi Controller" customdesc=""/>
+						<PARAM value="56" name="" desc=" CC#87 Midi Controller" customdesc=""/>
+						<PARAM value="57" name="" desc=" CC#88 Midi Controller" customdesc=""/>
+						<PARAM value="58" name="" desc=" CC#89 Midi Controller" customdesc=""/>
+						<PARAM value="59" name="" desc=" CC#90 Midi Controller" customdesc=""/>
+						<PARAM value="5A" name="" desc=" CC#91 Midi Controller" customdesc=""/>
+						<PARAM value="5B" name="" desc=" CC#92 Midi Controller" customdesc=""/>
+						<PARAM value="5C" name="" desc=" CC#93 Midi Controller" customdesc=""/>
+						<PARAM value="5D" name="" desc=" CC#94 Midi Controller" customdesc=""/>
+						<PARAM value="5E" name="" desc=" CC#95 Midi Controller      " customdesc=""/>
+					</Msb>
+					<Msb value="0A" name="Midi" abbr="" desc="MIDI SETTING" customdesc="Midi Map">
 						<PARAM value="00" name="Fixed" desc="Fixed" customdesc="Fixed"/>
 						<PARAM value="01" name="Programable" desc="Programable" customdesc="Programable"/>
 					</Msb>
 				</Msb>
 			</LSB>
-		</LSB>
-		<LSB value="02" name="Manual" abbr="Manual" desc="Manual" customdesc="">
-			<LSB value="00" name="Manual" abbr="" desc="" customdesc="">
-				<Msb value="00" name="Manual" abbr="" desc="" customdesc="Manual">
-					<Msb value="00" name="Pedal 1" abbr="" desc="" customdesc="Pedal 1">
-						<PARAM value="00" name="SFX" desc="SFX" customdesc="SFX"/>
-						<PARAM value="01" name="CS/LM" desc="CS/LM" customdesc="CS/LM"/>
-						<PARAM value="02" name="WAH/AW" desc="WAH/AW" customdesc="WAH/AW"/>
-						<PARAM value="03" name="Distortion" desc="Distortion" customdesc="Distortion"/>
-						<PARAM value="04" name="Preamp" desc="Preamp" customdesc="Preamp"/>
-						<PARAM value="05" name="Equalizer" desc="Equalizer" customdesc="Equalizer"/>
-						<PARAM value="06" name="MOD" desc="MOD" customdesc="MOD"/>
-						<PARAM value="07" name="Delay" desc="Delay" customdesc="Delay"/>
-						<PARAM value="08" name="Chorus" desc="Chorus" customdesc="Chorus"/>
-						<PARAM value="09" name="Reverb" desc="Reverb" customdesc="Reverb"/>
-						<PARAM value="0A" name="Noise Suppressor" desc="Noise Suppressor" customdesc="Noise Suppressor"/>
-						<PARAM value="0B" name="Tuner" desc="Tuner" customdesc="Tuner"/>
+			<LSB value="03" name="" abbr="" desc="" customdesc=""/>
+			<LSB value="04" name="" abbr="" desc="" customdesc=""/>
+			<LSB value="05" name="" abbr="" desc="" customdesc=""/>
+			<LSB value="06" name="" abbr="" desc="" customdesc=""/>
+			<LSB value="07" name="" abbr="" desc="" customdesc="">
+				<Msb value="00" name="custom dist 1" abbr="" desc="" customdesc="custom dist 1">
+					<Msb value="00" name="CUSTOM ODDS" abbr="" desc="DISTORTION" customdesc="Type">
+						<PARAM value="00" name="OD-2" desc="OD-2" customdesc="OD-2"/>
+						<PARAM value="01" name="BD-2" desc="BD-2" customdesc="BD-2"/>
+						<PARAM value="02" name="ODB-3" desc="ODB-3" customdesc="ODB-3"/>
+						<PARAM value="03" name="DS-1" desc="DS-1" customdesc="DS-1"/>
+						<PARAM value="04" name="MT-2" desc="MT-2" customdesc="MT-2"/>
+						<PARAM value="05" name="FUZZ" desc="FUZZ" customdesc="FUZZ"/>
 					</Msb>
-					<Msb value="01" name="Pedal 2" abbr="" desc="" customdesc="Pedal 2">
-						<PARAM value="00" name="SFX" desc="SFX" customdesc="SFX"/>
-						<PARAM value="01" name="CS/LM" desc="CS/LM" customdesc="CS/LM"/>
-						<PARAM value="02" name="WAH/AW" desc="WAH/AW" customdesc="WAH/AW"/>
-						<PARAM value="03" name="Distortion" desc="Distortion" customdesc="Distortion"/>
-						<PARAM value="04" name="Preamp" desc="Preamp" customdesc="Preamp"/>
-						<PARAM value="05" name="Equalizer" desc="Equalizer" customdesc="Equalizer"/>
-						<PARAM value="06" name="MOD" desc="MOD" customdesc="MOD"/>
-						<PARAM value="07" name="Delay" desc="Delay" customdesc="Delay"/>
-						<PARAM value="08" name="Chorus" desc="Chorus" customdesc="Chorus"/>
-						<PARAM value="09" name="Reverb" desc="Reverb" customdesc="Reverb"/>
-						<PARAM value="0A" name="Noise Suppressor" desc="Noise Suppressor" customdesc="Noise Suppressor"/>
-						<PARAM value="0B" name="Tuner" desc="Tuner" customdesc="Tuner"/>
+					<Msb value="01" name="CUSTOM ODDS" abbr="" desc="DISTORTION" customdesc="Bottom">
+						<PARAM value="range" name="00/0A/-50/+50" desc="" customdesc=""/>
 					</Msb>
-					<Msb value="02" name="Pedal 3" abbr="" desc="" customdesc="Pedal 3">
-						<PARAM value="00" name="SFX" desc="SFX" customdesc="SFX"/>
-						<PARAM value="01" name="CS/LM" desc="CS/LM" customdesc="CS/LM"/>
-						<PARAM value="02" name="WAH/AW" desc="WAH/AW" customdesc="WAH/AW"/>
-						<PARAM value="03" name="Distortion" desc="Distortion" customdesc="Distortion"/>
-						<PARAM value="04" name="Preamp" desc="Preamp" customdesc="Preamp"/>
-						<PARAM value="05" name="Equalizer" desc="Equalizer" customdesc="Equalizer"/>
-						<PARAM value="06" name="MOD" desc="MOD" customdesc="MOD"/>
-						<PARAM value="07" name="Delay" desc="Delay" customdesc="Delay"/>
-						<PARAM value="08" name="Chorus" desc="Chorus" customdesc="Chorus"/>
-						<PARAM value="09" name="Reverb" desc="Reverb" customdesc="Reverb"/>
-						<PARAM value="0A" name="Noise Suppressor" desc="Noise Suppressor" customdesc="Noise Suppressor"/>
-						<PARAM value="0B" name="Tuner" desc="Tuner" customdesc="Tuner"/>
+					<Msb value="02" name="CUSTOM ODDS" abbr="" desc="DISTORTION" customdesc="Top">
+						<PARAM value="range" name="00/0A/-50/+50" desc="" customdesc=""/>
 					</Msb>
-					<Msb value="03" name="Pedal 4" abbr="" desc="" customdesc="Pedal 4">
-						<PARAM value="00" name="SFX" desc="SFX" customdesc="SFX"/>
-						<PARAM value="01" name="CS/LM" desc="CS/LM" customdesc="CS/LM"/>
-						<PARAM value="02" name="WAH/AW" desc="WAH/AW" customdesc="WAH/AW"/>
-						<PARAM value="03" name="Distortion" desc="Distortion" customdesc="Distortion"/>
-						<PARAM value="04" name="Preamp" desc="Preamp" customdesc="Preamp"/>
-						<PARAM value="05" name="Equalizer" desc="Equalizer" customdesc="Equalizer"/>
-						<PARAM value="06" name="MOD" desc="MOD" customdesc="MOD"/>
-						<PARAM value="07" name="Delay" desc="Delay" customdesc="Delay"/>
-						<PARAM value="08" name="Chorus" desc="Chorus" customdesc="Chorus"/>
-						<PARAM value="09" name="Reverb" desc="Reverb" customdesc="Reverb"/>
-						<PARAM value="0A" name="Noise Suppressor" desc="Noise Suppressor" customdesc="Noise Suppressor"/>
-						<PARAM value="0B" name="Tuner" desc="Tuner" customdesc="Tuner"/>
+					<Msb value="03" name="CUSTOM ODDS" abbr="" desc="DISTORTION" customdesc="Low">
+						<PARAM value="range" name="00/0A/-50/+50" desc="" customdesc=""/>
 					</Msb>
-					<Msb value="04" name="Bank Up" abbr="" desc="" customdesc="Bank Up">
-						<PARAM value="00" name="SFX" desc="SFX" customdesc="SFX"/>
-						<PARAM value="01" name="CS/LM" desc="CS/LM" customdesc="CS/LM"/>
-						<PARAM value="02" name="WAH/AW" desc="WAH/AW" customdesc="WAH/AW"/>
-						<PARAM value="03" name="Distortion" desc="Distortion" customdesc="Distortion"/>
-						<PARAM value="04" name="Preamp" desc="Preamp" customdesc="Preamp"/>
-						<PARAM value="05" name="Equalizer" desc="Equalizer" customdesc="Equalizer"/>
-						<PARAM value="06" name="MOD" desc="MOD" customdesc="MOD"/>
-						<PARAM value="07" name="Delay" desc="Delay" customdesc="Delay"/>
-						<PARAM value="08" name="Chorus" desc="Chorus" customdesc="Chorus"/>
-						<PARAM value="09" name="Reverb" desc="Reverb" customdesc="Reverb"/>
-						<PARAM value="0A" name="Noise Suppressor" desc="Noise Suppressor" customdesc="Noise Suppressor"/>
-						<PARAM value="0B" name="Tuner" desc="Tuner" customdesc="Tuner"/>
+					<Msb value="04" name="CUSTOM ODDS" abbr="" desc="DISTORTION" customdesc="High">
+						<PARAM value="range" name="00/0A/-50/+50" desc="" customdesc=""/>
 					</Msb>
-					<Msb value="05" name="Bank Down" abbr="" desc="" customdesc="Bank Down">
-						<PARAM value="00" name="SFX" desc="SFX" customdesc="SFX"/>
-						<PARAM value="01" name="CS/LM" desc="CS/LM" customdesc="CS/LM"/>
-						<PARAM value="02" name="WAH/AW" desc="WAH/AW" customdesc="WAH/AW"/>
-						<PARAM value="03" name="Distortion" desc="Distortion" customdesc="Distortion"/>
-						<PARAM value="04" name="Preamp" desc="Preamp" customdesc="Preamp"/>
-						<PARAM value="05" name="Equalizer" desc="Equalizer" customdesc="Equalizer"/>
-						<PARAM value="06" name="MOD" desc="MOD" customdesc="MOD"/>
-						<PARAM value="07" name="Delay" desc="Delay" customdesc="Delay"/>
-						<PARAM value="08" name="Chorus" desc="Chorus" customdesc="Chorus"/>
-						<PARAM value="09" name="Reverb" desc="Reverb" customdesc="Reverb"/>
-						<PARAM value="0A" name="Noise Suppressor" desc="Noise Suppressor" customdesc="Noise Suppressor"/>
-						<PARAM value="0B" name="Tuner" desc="Tuner" customdesc="Tuner"/>
+				</Msb>
+				<Msb value="01" name="custom dist 2" abbr="" desc="" customdesc="custom dist 2">
+					<Msb value="00" name="CUSTOM ODDS" abbr="" desc="DISTORTION" customdesc="Type">
+						<PARAM value="00" name="OD-2" desc="OD-2" customdesc="OD-2"/>
+						<PARAM value="01" name="BD-2" desc="BD-2" customdesc="BD-2"/>
+						<PARAM value="02" name="ODB-3" desc="ODB-3" customdesc="ODB-3"/>
+						<PARAM value="03" name="DS-1" desc="DS-1" customdesc="DS-1"/>
+						<PARAM value="04" name="MT-2" desc="MT-2" customdesc="MT-2"/>
+						<PARAM value="05" name="FUZZ" desc="FUZZ" customdesc="FUZZ"/>
+					</Msb>
+					<Msb value="01" name="CUSTOM ODDS" abbr="" desc="DISTORTION" customdesc="Bottom">
+						<PARAM value="range" name="00/0A/-50/+50" desc="" customdesc=""/>
+					</Msb>
+					<Msb value="02" name="CUSTOM ODDS" abbr="" desc="DISTORTION" customdesc="Top">
+						<PARAM value="range" name="00/0A/-50/+50" desc="" customdesc=""/>
+					</Msb>
+					<Msb value="03" name="CUSTOM ODDS" abbr="" desc="DISTORTION" customdesc="Low">
+						<PARAM value="range" name="00/0A/-50/+50" desc="" customdesc=""/>
+					</Msb>
+					<Msb value="04" name="CUSTOM ODDS" abbr="" desc="DISTORTION" customdesc="High">
+						<PARAM value="range" name="00/0A/-50/+50" desc="" customdesc=""/>
+					</Msb>
+				</Msb>
+			</LSB>
+			<LSB value="08" name="custom" abbr="" desc="" customdesc="">
+				<Msb value="00" name="custom wah 1" abbr="" desc="" customdesc="custom wah 1">
+					<Msb value="00" name="CUSTOM WAH" abbr="" desc="WAH" customdesc="Type">
+						<PARAM value="00" name="CRY Wah" desc="CRY Wah" customdesc="CRY Wah"/>
+						<PARAM value="01" name="VO Wah" desc="VO Wah" customdesc="VO Wah"/>
+						<PARAM value="02" name="Bass Wah" desc="Bass Wah" customdesc="Bass Wah"/>
+					</Msb>
+					<Msb value="01" name="CUSTOM WAH" abbr="" desc="WAH" customdesc="Q">
+						<PARAM value="range" name="00/0A/-50/+50" desc="" customdesc=""/>
+					</Msb>
+					<Msb value="02" name="CUSTOM WAH" abbr="" desc="WAH" customdesc="Range Low">
+						<PARAM value="range" name="00/0A/-50/+50" desc="" customdesc=""/>
+					</Msb>
+					<Msb value="03" name="CUSTOM WAH" abbr="" desc="WAH" customdesc="ange High">
+						<PARAM value="range" name="00/0A/-50/+50" desc="" customdesc=""/>
+					</Msb>
+					<Msb value="04" name="CUSTOM WAH" abbr="" desc="WAH" customdesc="Presence">
+						<PARAM value="range" name="00/0A/-50/+50" desc="" customdesc=""/>
+					</Msb>
+				</Msb>
+				<Msb value="01" name="custom wah 2" abbr="" desc="" customdesc="custom wah 2">
+					<Msb value="00" name="CUSTOM WAH" abbr="" desc="WAH" customdesc="Type">
+						<PARAM value="00" name="CRY Wah" desc="CRY Wah" customdesc="CRY Wah"/>
+						<PARAM value="01" name="VO Wah" desc="VO Wah" customdesc="VO Wah"/>
+						<PARAM value="02" name="Bass Wah" desc="Bass Wah" customdesc="Bass Wah"/>
+					</Msb>
+					<Msb value="01" name="CUSTOM WAH" abbr="" desc="WAH" customdesc="Q">
+						<PARAM value="range" name="00/0A/-50/+50" desc="" customdesc=""/>
+					</Msb>
+					<Msb value="02" name="CUSTOM WAH" abbr="" desc="WAH" customdesc="Range Low">
+						<PARAM value="range" name="00/0A/-50/+50" desc="" customdesc=""/>
+					</Msb>
+					<Msb value="03" name="CUSTOM WAH" abbr="" desc="WAH" customdesc="ange High">
+						<PARAM value="range" name="00/0A/-50/+50" desc="" customdesc=""/>
+					</Msb>
+					<Msb value="04" name="CUSTOM WAH" abbr="" desc="WAH" customdesc="Presence">
+						<PARAM value="range" name="00/0A/-50/+50" desc="" customdesc=""/>
 					</Msb>
 				</Msb>
 			</LSB>
@@ -3082,29 +3204,19 @@
 		<LSB value="0F" name="EXP Pedal" abbr="MAN" desc="MAN" customdesc="">
 			<LSB value="00" name="" abbr="" desc="Address MSB" customdesc="">
 				<DATA value="00" name="" abbr="" desc="Pedal 1" customdesc="Pedal 1">
-					<PARAM value="00" name="Comp    " desc="Comp    "/>
-					<PARAM value="01" name="Wah" desc="Wah"/>
+					<PARAM value="00" name="Comp" desc="Comp" customdesc="Comp"/>
+					<PARAM value="01" name="Wah" desc="Wah" customdesc="Wah"/>
 				</DATA>
 				<DATA value="01" name="" abbr="" desc="Pedal 2" customdesc="Pedal 2">
-					<PARAM value="02" name="" desc="OD/DST" customdesc=""/>
-					<PARAM value="03" name="" desc="FX-1" customdesc=""/>
+					<PARAM value="02" name="OD/DST" desc="OD/DST" customdesc="OD/DST"/>
+					<PARAM value="03" name="FX-1" desc="FX-1" customdesc="FX-1"/>
 				</DATA>
 				<DATA value="02" name="" abbr="" desc="Pedal 3" customdesc="Pedal 3">
-					<PARAM value="00" name="don't select" desc="don't select"/>
-					<PARAM value="01" name="don't select" desc="don't select"/>
-					<PARAM value="02" name="don't select" desc="don't select"/>
-					<PARAM value="03" name="don't select" desc="don't select"/>
-					<PARAM value="04" name="Chorus    " desc="Chorus    "/>
-					<PARAM value="05" name="FX2" desc="FX2"/>
+					<PARAM value="04" name="Chorus" desc="Chorus" customdesc="Chorus"/>
+					<PARAM value="05" name="FX2" desc="FX2" customdesc="FX2"/>
 				</DATA>
 				<DATA value="03" name="" abbr="" desc="Pedal 4" customdesc="Pedal 4">
-					<PARAM value="00" name="don't select" desc="don't select"/>
-					<PARAM value="01" name="don't select" desc="don't select"/>
-					<PARAM value="02" name="don't select" desc="don't select"/>
-					<PARAM value="03" name="don't select" desc="don't select"/>
-					<PARAM value="04" name="don't select" desc="don't select"/>
-					<PARAM value="05" name="don't select" desc="don't select"/>
-					<PARAM value="06" name="Rev/Dly/SoS    " desc="Rev/Dly/SoS    "/>
+					<PARAM value="06" name="RV/DD/SoS" desc="RV/DD/SoS" customdesc="RV/DD/SoS"/>
 				</DATA>
 			</LSB>
 		</LSB>
@@ -22587,22 +22699,21 @@
 				<DATA value="01" name="System" abbr="" desc="" customdesc="System">
 					<PARAM value="00" name="System" desc="System" customdesc="System"/>
 					<PARAM value="01" name="Midi" desc="Midi" customdesc="Midi"/>
-					<PARAM value="02" name="Manual Mode____" desc="Manual Mode____" customdesc="Manual Mode____"/>
-					<PARAM value="03" name="System 4" desc="System 4" customdesc="System 4"/>
+					<PARAM value="02" name="Custom Distortion" desc="Custom Distortion" customdesc="Custom Distortion"/>
+					<PARAM value="03" name="Custom Wah" desc="Custom Wah" customdesc="Custom Wah"/>
 					<PARAM value="04" name="System 5" desc="System 5" customdesc="System 5"/>
 					<PARAM value="05" name="System 6" desc="System 6" customdesc="System 6"/>
 					<PARAM value="06" name="System 7" desc="System 7" customdesc="System 7"/>
 					<PARAM value="07" name="System 8" desc="System 8" customdesc="System 8"/>
 				</DATA>
 				<DATA value="02" name="Custom" abbr="" desc="" customdesc="Custom">
-					<PARAM value="00" name="Preamp____" desc="Preamp____" customdesc="Preamp____"/>
-					<PARAM value="01" name="Distortion" desc="Distortion" customdesc="Distortion"/>
-					<PARAM value="02" name="Wah" desc="Wah" customdesc="Wah"/>
-					<PARAM value="03" name="Harmonist" desc="Harmonist" customdesc="Harmonist"/>
-					<PARAM value="04" name="Auto Riff" desc="Auto Riff" customdesc="Auto Riff"/>
-					<PARAM value="05" name="System 6" desc="System 6" customdesc="System 6"/>
-					<PARAM value="06" name="System 7" desc="System 7" customdesc="System 7"/>
-					<PARAM value="07" name="System 8" desc="System 8" customdesc="System 8"/>
+					<PARAM value="00" name="Distortion" desc="Distortion" customdesc="Distortion"/>
+					<PARAM value="01" name="Wah" desc="Wah" customdesc="Wah"/>
+					<PARAM value="02" name="Harmonist" desc="Harmonist" customdesc="Harmonist"/>
+					<PARAM value="03" name="Auto Riff" desc="Auto Riff" customdesc="Auto Riff"/>
+					<PARAM value="04" name="System 6" desc="System 6" customdesc="System 6"/>
+					<PARAM value="05" name="System 7" desc="System 7" customdesc="System 7"/>
+					<PARAM value="06" name="System 8" desc="System 8" customdesc="System 8"/>
 				</DATA>
 				<DATA value="03" name="Name4" abbr="" desc="" customdesc="">
 					<PARAM value="range" name="00/64/00/100" desc="" customdesc=""/>

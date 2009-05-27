@@ -45,8 +45,8 @@ QT += xml
 
 #Platform dependent file(s)
 win32 {
-	exists("C:/Progra~1/SDK/Lib/WinMM.Lib") {		# <-- Change the path to WinMM.Lib here!
-		LIBS +=  C:/Progra~1/SDK/Lib/WinMM.Lib		# <-- Change the path here also!
+	exists("C:/Progra~1/Micros~4/Windows/v6.1/Lib/WinMM.Lib") {		# <-- Change the path to WinMM.Lib here!
+		LIBS +=  C:/Progra~1/Micros~4/Windows/v6.1/Lib/WinMM.Lib		# <-- Change the path here also!
 	} else {
 		LIBS +=  WinMM.Lib
 		message("WINMM.LIB IS REQUIRED. IF NOT INSTALLED")

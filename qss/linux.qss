@@ -1,8 +1,9 @@
 /****************************************************************************
 **
+** Copyright (C) 2006, 2007, 2008, 2009 Colin Willcocks.
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT-8 Fx FloorBoard".
+** This file is part of "GT-6B Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -25,7 +26,7 @@ bankTreeList#banklist{
 background-color rgb(0,1,62);
 }
 QTreeWidget#banklist {
-font-family: FreeSans;
+font-family: Arial;
 font-size: 10px;
 font-weight: bold;
 color: rgb(0,255,204);
@@ -38,12 +39,12 @@ border-width: 1px;
 border-color: rgb(150,150,150);
 }
 QTreeWidget#banklist QHeaderView::section:only-one {
-font-family: FreeSans;
-font-size: 11px;
+font-family: Arial;
+font-size: 9px;
 font-weight: bold;
 /*padding-top: 15px;*/
 border-style: solid;
-border-radius: 10px;
+border-radius: 5px;
 border-width: 1px;
 border-color: rgba(150,150,150,255);
 background-color: rgb(0,1,62);
@@ -67,10 +68,10 @@ image: url(":/images/collapse.png") 1;
 /* CUSTOM QCOMBOBOX STYLE */
 
 QComboBox#smallcombo {
-font-family: FreeSans;
+font-family: Arial;
 font-size: 10px;
 font-weight: bold;
-font-stretch: 110;
+/*font-stretch: 110;*/
 color: rgb(0,255,204);
 background-color: rgb(0,1,62);
 border-style: solid;
@@ -89,7 +90,7 @@ image: url(":/images/dropdown.png") 1;
 image-position: center right;
 }
 QComboBox#smallcombo QFrame {
-font-family: FreeSans;
+font-family: Arial;
 font-size: 10px;
 font-weight: bold;
 color: rgb(0,255,204);
@@ -159,37 +160,37 @@ border-radius: 3px;
 border-color: rgb(150,150,150);
 }
 QLabel#bankMain {
-font-family: FreeSans;
+font-family: Arial;
 font-size: 16px;
 font-weight: bold;
 color: rgb(0,255,204);
 }
 QLabel#bankSub {
-font-family: FreeSans;
+font-family: Arial;
 font-size: 9px;
 font-weight: bold;
 color: rgb(0,255,204);
 }
 QLabel#nameMain {
-font-family: FreeSans;
+font-family: Arial;
 font-size: 12px;
 font-weight: bold;
 color: rgb(0,255,204);
 }
 QLabel#nameSub {
-font-family: FreeSans;
-font-size: 10px;
-font-weight: bold;
-color: rgb(0,255,204);
-}
-QLabel#valueMain {
-font-family: FreeSans;
+font-family: Arial;
 font-size: 9px;
 font-weight: bold;
 color: rgb(0,255,204);
 }
+QLabel#valueMain {
+font-family: Arial;
+font-size: 13px;
+font-weight: bold;
+color: rgb(0,255,204);
+}
 QLabel#valueSub {
-font-family: FreeSans;
+font-family: Arial;
 font-size: 9px;
 font-weight: bold;
 color: rgb(0,255,204);
@@ -198,19 +199,19 @@ color: rgb(0,255,204);
 /* CUSTOM LABEL STYLE */
 
 QLabel#display {
-font-family: FreeSans;
+font-family: Arial;
 font-size: 12px;
 font-weight: bold;
 color: rgb(255,255,255);
 }
 QLabel#title {
-font-family: FreeSans;
+font-family: Arial;
 font-size: 20px;
 font-weight: bold;
 color: rgb(255,255,255);
 }
 QLabel#selectlabel {
-font-family: FreeSans;
+font-family: Arial;
 font-size: 11px;
 font-weight: bold;
 color: rgb(255,255,255);
@@ -219,7 +220,7 @@ color: rgb(255,255,255);
 /* CUSTOM BUTTON STYLE */
 
 QLabel#button {
-font-family: FreeSans;
+font-family: Arial;
 font-size: 9px;
 font-weight: bold;
 color: rgb(0,0,0);
@@ -237,7 +238,7 @@ top: -7px;
 left: 5px;
 }
 QGroupBox#groupbox {
-font-family: FreeSans;
+font-family: Arial;
 font-size: 12px;
 font-weight: bold;
 color: rgb(255,255,255);
@@ -253,7 +254,7 @@ background-color: rgb(225,10,10);
 /* CUSTOM CONTROLLABEL STYLE */
 
 QLabel#customlabel {
-font-family: FreeSans;
+font-family: Arial;
 font-size: 9px;
 font-weight: bold;
 color: rgb(255,255,255);
@@ -262,8 +263,41 @@ color: rgb(255,255,255);
 /* CUSTOM CONTROLKNOB STYLE  */
 
 QLineEdit#editdisplay {
-font-family: FreeSans;
-font-size: 9px;
+font-family: Arial;
+font-size: 10px;
+font-weight: normal;
+color: rgb(0,255,204);
+background-color: rgb(0,1,62);
+border-style: solid;
+border-width: 1px;
+border-radius: 3px;
+border-color: rgb(150,150,150);
+padding: 0px;
+padding-left: 1px;
+padding-right: 1px;
+}
+/* CUSTOM TARGETKNOB STYLE  */
+
+QLineEdit#targetdisplay {
+font-family: Arial;
+font-size:11px;
+font-weight: normal;
+color: rgb(0,255,204);
+background-color: rgb(0,1,62);
+border-style: solid;
+border-width: 1px;
+border-radius: 3px;
+border-color: rgb(150,150,150);
+padding: 0px;
+padding-left: 1px;
+padding-right: 1px;
+}
+
+/* CUSTOM CONTROLRENAME STYLE  */
+
+QLineEdit#catalogdisplay {
+font-family: Arial;
+font-size: 12px;
 font-weight: normal;
 color: rgb(0,255,204);
 background-color: rgb(0,1,62);

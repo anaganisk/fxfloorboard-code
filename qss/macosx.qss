@@ -1,8 +1,9 @@
 /****************************************************************************
 **
+** Copyright (C) 2006, 2007, 2008, 2009 Colin Willcocks.
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT-8 Fx FloorBoard".
+** This file is part of "GT-6B Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -21,24 +22,34 @@
 ****************************************************************************/
 
 /* CUSTOM QTREEWIDGET STYLE */
-
+bankTreeList#banklist{
+background-color rgb(0,1,62);
+}
 QTreeWidget#banklist {
 font-family: Arial;
 font-size: 10px;
 font-weight: bold;
 color: rgb(0,255,204);
-background-color: rgb(0,1,62);
+background-color: rgba(0,1,62,255);
 selection-color: rgb(0,255,204);
 selection-background-color: rgb(0,1,62);
 border-style: solid;
+border-radius: 10px;
 border-width: 1px;
 border-color: rgb(150,150,150);
 }
 QTreeWidget#banklist QHeaderView::section:only-one {
 font-family: Arial;
-font-size: 11px;
+font-size: 9px;
 font-weight: bold;
-color: rgb(0,0,0);
+/*padding-top: 15px;*/
+border-style: solid;
+border-radius: 5px;
+border-width: 1px;
+border-color: rgba(150,150,150,255);
+background-color: rgb(0,1,62);
+
+color: rgb(0,255,204);
 }
 QTreeWidget#banklist::branch {
 margin: 0px;
@@ -52,14 +63,6 @@ image: url(":/images/expand.png") 1;
 }
 QTreeWidget#banklist::branch:has-children:open {
 image: url(":/images/collapse.png") 1;
-}
-
-/* CUSTOM STANDARD OS QCOMBOBOX STYLE */
-
-QComboBox#standardcombo {
-font-family: Arial;
-font-size: 10px;
-font-weight: bold;
 }
 
 /* CUSTOM QCOMBOBOX STYLE */
@@ -77,7 +80,7 @@ border-radius: 3px;
 border-color: rgb(150,150,150);
 padding: -1px;
 padding-left: 1px;
-padding-right: 12px;
+padding-right: 1px;
 }
 QComboBox#smallcombo::drop-down {
 border-style: none;
@@ -97,8 +100,8 @@ border-width: 1px;
 border-radius: 3px;
 border-color: rgb(150,150,150);
 padding: -1px;
-padding-left: 1px;
-padding-right: 1px;
+padding-left: 0px;
+padding-right: 0px;
 }
 
 /* CUSTOM SCROLLBAR STYLE */
@@ -170,7 +173,7 @@ color: rgb(0,255,204);
 }
 QLabel#nameMain {
 font-family: Arial;
-font-size: 14px;
+font-size: 12px;
 font-weight: bold;
 color: rgb(0,255,204);
 }
@@ -182,7 +185,7 @@ color: rgb(0,255,204);
 }
 QLabel#valueMain {
 font-family: Arial;
-font-size: 12px;
+font-size: 13px;
 font-weight: bold;
 color: rgb(0,255,204);
 }
@@ -203,13 +206,13 @@ color: rgb(255,255,255);
 }
 QLabel#title {
 font-family: Arial;
-font-size: 16px;
+font-size: 20px;
 font-weight: bold;
 color: rgb(255,255,255);
 }
 QLabel#selectlabel {
 font-family: Arial;
-font-size: 10px;
+font-size: 11px;
 font-weight: bold;
 color: rgb(255,255,255);
 }
@@ -245,9 +248,9 @@ border-color:  rgb(255,255,255);
 border-radius: 5px;
 margin-top: 8px;
 padding: 2px;
-background-color: rgb(200,0,0);
+background-color: rgb(225,10,10);
 }
-
+ 
 /* CUSTOM CONTROLLABEL STYLE */
 
 QLabel#customlabel {
@@ -257,11 +260,44 @@ font-weight: bold;
 color: rgb(255,255,255);
 }
 
-/* CUSTOM CONTROLKNOB STYLE */
+/* CUSTOM CONTROLKNOB STYLE  */
 
 QLineEdit#editdisplay {
 font-family: Arial;
 font-size: 10px;
+font-weight: normal;
+color: rgb(0,255,204);
+background-color: rgb(0,1,62);
+border-style: solid;
+border-width: 1px;
+border-radius: 3px;
+border-color: rgb(150,150,150);
+padding: 0px;
+padding-left: 1px;
+padding-right: 1px;
+}
+/* CUSTOM TARGETKNOB STYLE  */
+
+QLineEdit#targetdisplay {
+font-family: Arial;
+font-size:11px;
+font-weight: normal;
+color: rgb(0,255,204);
+background-color: rgb(0,1,62);
+border-style: solid;
+border-width: 1px;
+border-radius: 3px;
+border-color: rgb(150,150,150);
+padding: 0px;
+padding-left: 1px;
+padding-right: 1px;
+}
+
+/* CUSTOM CONTROLRENAME STYLE  */
+
+QLineEdit#catalogdisplay {
+font-family: Arial;
+font-size: 12px;
 font-weight: normal;
 color: rgb(0,255,204);
 background-color: rgb(0,1,62);
