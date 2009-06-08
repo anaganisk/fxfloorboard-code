@@ -145,10 +145,8 @@ void editWindow::addPage(QString hex1, QString hex2, QString hex3, QString hex4,
 
 	QObject::connect(this, SIGNAL( dialogUpdateSignal() ), editPages.last(), SIGNAL( dialogUpdateSignal() ));
 
-
 	QObject::connect(editPages.last(), SIGNAL( updateSignal() ), this, SIGNAL( updateSignal() ));
-
-   
+  
 	if(hex1 != "void" && hex2 != "void" && hex3 != "void")
 	{
 		MidiTable *midiTable = MidiTable::Instance();

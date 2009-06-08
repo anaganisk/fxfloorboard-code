@@ -205,7 +205,7 @@ void midiIO::sendSyxMsg(QString sysxOutMsg, int midiOutPort)
     };   
    /* Clean up */
  cleanup:
-	SLEEP(40);						// wait as long as the message is sending.
+	SLEEP(60);						// wait as long as the message is sending.
 	midiMsgOut->closePort();
   delete midiMsgOut;	
 };
@@ -278,17 +278,16 @@ void midiIO::receiveMsg(QString sysxInMsg, int midiInPort)
   int count = 0;
 	emit setStatusSymbol(3);
 	emit setStatusProgress(75);
-	//Preferences *preferences = Preferences::Instance(); bool ok;// Load the preferences.
-	const int maxWait = 15;//preferences->getPreferences("Midi", "Time", "set").toInt(&ok, 10);
+	
 	if(multiple == true){
-  loopCount = maxWait*40;
+  loopCount = 700;
   count = 1153;
   } else if(system == true) {
-  loopCount = maxWait*80;
-  count = 4326;
+  loopCount = 1400;
+  count = 4326; // native gt-pro system size- then trimmed to 4313
   }
   else {
-  loopCount = maxWait*10;
+  loopCount = 200;
   count = 29; };
 			int bytesReceived = 0;	
 		RtMidiIn *midiin = 0;	

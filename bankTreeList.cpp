@@ -1,7 +1,7 @@
 /****************************************************************************
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
-** Copyright (C) 2008 Colin Willcocks.
+** Copyright (C) 2008, 2009 Colin Willcocks.
 ** This file is part of "GT6B Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
@@ -156,10 +156,10 @@ void bankTreeList::setOpenItems(QTreeWidgetItem *item)
 			};
 			switch(c)
 			{
-				case 0: maxExpandedItems = 3; break;
-				case 1: maxExpandedItems = 2; break;
-				case 2: maxExpandedItems = 1; break;
-				case 3: maxExpandedItems = 1; break;
+				case 0: maxExpandedItems = 30; break;
+				case 1: maxExpandedItems = 30; break;
+				case 2: maxExpandedItems = 30; break;
+				case 3: maxExpandedItems = 30; break;
 			};
 			
 			while(b > maxExpandedItems)
@@ -176,10 +176,10 @@ void bankTreeList::setOpenItems(QTreeWidgetItem *item)
 		{	
 			switch(c)
 			{
-				case 0: maxExpandedItems = 3; break;
-				case 1: maxExpandedItems = 2; break;
-				case 2: maxExpandedItems = 1; break;
-				case 3: maxExpandedItems = 1; break;
+				case 0: maxExpandedItems = 30; break;
+				case 1: maxExpandedItems = 30; break;
+				case 2: maxExpandedItems = 30; break;
+				case 3: maxExpandedItems = 30; break;
 			};
 		}
 		else
@@ -188,24 +188,24 @@ void bankTreeList::setOpenItems(QTreeWidgetItem *item)
 			{
 				switch(c)
 				{
-					case 0: maxExpandedItems = 5; break;	
-					case 1: maxExpandedItems = 4; break;
-					case 2: maxExpandedItems = 3; break;
-					case 3: maxExpandedItems = 3; break;
-					case 4: maxExpandedItems = 2; break;
-					case 5: maxExpandedItems = 1; break;
+					case 0: maxExpandedItems = 50; break;	
+					case 1: maxExpandedItems = 40; break;
+					case 2: maxExpandedItems = 30; break;
+					case 3: maxExpandedItems = 30; break;
+					case 4: maxExpandedItems = 30; break;
+					case 5: maxExpandedItems = 30; break;
 				};
 			}
 			else
 			{
 				switch(c)
 				{
-					case 0: maxExpandedItems = 4; break;	
-					case 1: maxExpandedItems = 4; break;
-					case 2: maxExpandedItems = 3; break;
-					case 3: maxExpandedItems = 3; break;
-					case 4: maxExpandedItems = 1; break;
-					case 5: maxExpandedItems = 1; break;
+					case 0: maxExpandedItems = 40; break;	
+					case 1: maxExpandedItems = 40; break;
+					case 2: maxExpandedItems = 30; break;
+					case 3: maxExpandedItems = 30; break;
+					case 4: maxExpandedItems = 30; break;
+					case 5: maxExpandedItems = 30; break;
 				};
 			};
 		};
@@ -249,9 +249,9 @@ void bankTreeList::setOpenItems(QTreeWidgetItem *item)
 		{	
 			switch(b)
 			{
-				case 1: maxExpandedItems = 3; break;
-				case 2: maxExpandedItems = 1; break;
-				case 3: maxExpandedItems = 0; break;
+				case 1: maxExpandedItems = 30; break;
+				case 2: maxExpandedItems = 30; break;       // was 1
+				case 3: maxExpandedItems = 30; break;      // was 0
 			};
 		}
 		else
@@ -260,20 +260,20 @@ void bankTreeList::setOpenItems(QTreeWidgetItem *item)
 			{
 				switch(b)
 				{
-					case 1: maxExpandedItems = 5; break;
-					case 2: maxExpandedItems = 4; break;
-					case 3: maxExpandedItems = 3; break;
-					case 4: maxExpandedItems = 1; break;
+					case 1: maxExpandedItems = 50; break;
+					case 2: maxExpandedItems = 40; break;
+					case 3: maxExpandedItems = 30; break;
+					case 4: maxExpandedItems = 30; break;
 				};
 			}
 			else
 			{
 				switch(b)
 				{
-					case 1: maxExpandedItems = 4; break;
-					case 2: maxExpandedItems = 3; break;
-					case 3: maxExpandedItems = 3; break;
-					case 4: maxExpandedItems = 1; break;
+					case 1: maxExpandedItems = 40; break;
+					case 2: maxExpandedItems = 30; break;
+					case 3: maxExpandedItems = 30; break;
+					case 4: maxExpandedItems = 30; break;
 				};
 			};
 		};
@@ -285,7 +285,7 @@ void bankTreeList::setOpenItems(QTreeWidgetItem *item)
 		};
 		if(c > maxExpandedItems)
 		{
-			openPatchTreeItems.first()->setExpanded(false);
+			//openPatchTreeItems.first()->setExpanded(false);
 		};
 	};
 };
@@ -295,7 +295,7 @@ QTreeWidget* bankTreeList::newTreeList()
 	QTreeWidget *newTreeList = new QTreeWidget();
 	newTreeList->setColumnCount(1);
 	newTreeList->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-	newTreeList->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff); // Qt::ScrollBarAsNeeded
+	newTreeList->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded); //  Qt::ScrollBarAlwaysOff
 	
 	QStringList headers;
 	headers << "Double-click tree item to load patch";
@@ -345,14 +345,14 @@ QTreeWidget* bankTreeList::newTreeList()
     for (int a=(bankTotalUser+1); a<=bankTotalAll; a++)
 	{
 		QTreeWidgetItem* bankRange = new QTreeWidgetItem; // don't pass a parent here!
-		bankRange->setText(0, QString::QString("Bank P").append(QString::number(a-20, 10)).append("-P").append(QString::number(a-16, 10)) );
+		bankRange->setText(0, QString::QString("Bank P").append(QString::number(a, 10)).append("-P").append(QString::number(a+4, 10)) );
 		bankRange->setWhatsThis(0, "");
 		//bankRange->setIcon(...);
 
 		for (int b=a; b<=(a+4); b++)
 		{
 			QTreeWidgetItem* bank = new QTreeWidgetItem(bankRange);
-			bank->setText(0, QString::QString("Bank ").append(QString::number(b-20, 10)));
+			bank->setText(0, QString::QString("Bank ").append(QString::number(b, 10)));
 			bank->setWhatsThis(0, "");
 			//bank->setIcon(...);
 
@@ -400,7 +400,7 @@ void bankTreeList::setItemClicked(QTreeWidgetItem *item, int column)
 			int bank = item->parent()->text(0).section(" ", 1, 1).trimmed().toInt(&ok, 10);
 			int patch = item->parent()->indexOfChild(item) + 1;
 			QString preset = item->parent()->parent()->text(0);
-			if (preset.contains("P")) { bank = bank + 20; };
+			//if (preset.contains("P")) { bank = bank + 20; };
 			emit patchSelectSignal(bank, patch);
 			 sysxIO->requestPatchChange(bank, patch); // extra to try patch change
 			sysxIO->setRequestName(item->text(0));	// Set the name of the patch we have sellected in case we load it.
@@ -430,7 +430,7 @@ void bankTreeList::setItemDoubleClicked(QTreeWidgetItem *item, int column)
 		int bank = item->parent()->text(0).section(" ", 1, 1).trimmed().toInt(&ok, 10); // Get the bank
 		int patch = item->parent()->indexOfChild(item) + 1;								// and the patch number.
 			QString preset = item->parent()->parent()->text(0);
-			if (preset.contains("P")) { bank = bank + 20; };
+			//if (preset.contains("P")) { bank = bank + 20; };
 		//if(bank == sysxIO->getLoadedBank() && patch == sysxIO->getLoadedPatch())
 		//{ 
 			requestPatch(bank, patch);
@@ -653,7 +653,7 @@ void bankTreeList::updatePatchNames(QString name)
 			int bank = this->currentPatchTreeItems.at(listIndex)->text(0).section(" ", 1, 1).trimmed().toInt(&ok, 10);
 			int patch = itemIndex + 1 ;
 			QString preset = this->currentPatchTreeItems.at(listIndex)->parent()->text(0);
-			if (preset.contains("P")) { bank = bank + 20; };
+			//if (preset.contains("P")) { bank = bank + 20; };
 		  sysxIO->requestPatchName(bank, patch); // The patch name request.
 	
 	     if(sysxIO->isConnected())

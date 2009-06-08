@@ -1,8 +1,8 @@
 /****************************************************************************
-** Copyright (C) 2007, 2008 Colin Willcocks.
+** Copyright (C) 2007, 2008, 2009 Colin Willcocks.
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT-6 Fx FloorBoard".
+** This file is part of "GT-Pro Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -77,10 +77,6 @@ void SysxIO::setFileSource(QString area, SysxData fileSource)
 	{
   this->fileSource = fileSource;
   };
-
-
-
-
 };
 
 void SysxIO::setFileSource(QString area, QByteArray data)
@@ -121,7 +117,7 @@ void SysxIO::setFileSource(QString area, QByteArray data)
 
 			if(getCheckSum(dataSize) != checksum)
 			{
-				QString errorString;
+			/*	QString errorString;
 				errorString.append(tr("Address") + ": ");
 				errorString.append(sysxBuffer.at(sysxAddressOffset) + " ");
 				errorString.append(sysxBuffer.at(sysxAddressOffset + 1) + " ");
@@ -130,7 +126,8 @@ void SysxIO::setFileSource(QString area, QByteArray data)
 				errorString.append(tr("checksum") + " (" + checksum + ") ");
 				errorString.append(tr("should have been") + " (" + getCheckSum(dataSize) + ")");
 				errorString.append("\n");
-				errorList.append(errorString);			
+				errorList.append(errorString);			         */
+				sysxBuffer = correctSysxMsg(sysxBuffer);         
 			};
 			//sysxBuffer = correctSysxMsg(sysxBuffer);
 		};
@@ -192,7 +189,6 @@ void SysxIO::setFileSource(QString area, QString data)
       this->fileSource.address.clear();
 	    this->fileSource.hex.clear();   
     };
-	
 	QList<QString> sysxBuffer;
 	for(int i=0;i<data.size();i++)
 	{
@@ -213,7 +209,6 @@ void SysxIO::setFileSource(QString area, QString data)
 			this->fileSource.hex.append(sysxBuffer);
       };
 			sysxBuffer.clear();
-
 		};
 	};
 };
@@ -224,9 +219,8 @@ void SysxIO::setFileSource(QString area, QString hex1, QString hex2, QString hex
 	MidiTable *midiTable = MidiTable::Instance();
 	bool ok;
 	QString sourceHex1 = hex1;
-
 	QString sourceHex3 = hex3;
-	if(hex1 != "00")
+	if(hex1 != "00" && area == "Structure")     // if patch data address overflows to the next
 	{
 		QString prevHex = QString::number((hex1.toInt(&ok, 16) - 1), 16).toUpper();
 		if(prevHex.length() < 2) prevHex.prepend("0");
@@ -236,7 +230,6 @@ void SysxIO::setFileSource(QString area, QString hex1, QString hex2, QString hex
 			{
 				sourceHex1 = prevHex;
 				sourceHex3 = QString::number(hex3.toInt(&ok, 16) + QString("7F").toInt(&ok, 16) + 1, 16);
-
 			};
 		};
 	};	
@@ -249,7 +242,6 @@ void SysxIO::setFileSource(QString area, QString hex1, QString hex2, QString hex
 	  address.remove("System");
 	  address.append(hex1);
     address.append(hex2);
-    //address.append(hex3);
     sysxList = this->systemSource.hex.at(this->systemSource.address.indexOf(address));
 	}
      else 
@@ -259,23 +251,19 @@ void SysxIO::setFileSource(QString area, QString hex1, QString hex2, QString hex
 	  sysxList = this->fileSource.hex.at(this->fileSource.address.indexOf(address));
 	};
 	
-	sysxList.replace(index, hex4);
-	
+	sysxList.replace(index, hex4);	
 	/*QString temp;
 	for(int i=0;i<sysxList.size();i++)
 	{
 		QString hex = sysxList[i];
 		temp.append(hex);
 		temp.append(" ");
-	};
-	
+	};	
 	QMessageBox *msgBox = new QMessageBox();
 	msgBox->setWindowTitle(QObject::tr("deBug"));
 	msgBox->setText(temp);
 	msgBox->setStandardButtons(QMessageBox::Ok);
 	msgBox->exec(); */
-	
-
 	int dataSize = 0;
 	for(int i=sysxList.size() - 3; i>=checksumOffset;i--)
 	{
@@ -323,7 +311,7 @@ void SysxIO::setFileSource(QString area, QString hex1, QString hex2, QString hex
 	if (!area.contains("System")){area = "Structure"; };
 	QString sourceHex1 = hex1;
 	QString sourceHex3 = hex3;
-	if(hex1 != "00")
+	if(hex1 != "00" && area == "Structure")
 	{
 		QString prevHex = QString::number((hex1.toInt(&ok, 16) - 1), 16).toUpper();
 		if(prevHex.length() < 2) prevHex.prepend("0");
@@ -333,7 +321,6 @@ void SysxIO::setFileSource(QString area, QString hex1, QString hex2, QString hex
 			{
 				sourceHex1 = prevHex;
 				sourceHex3 = QString::number(hex3.toInt(&ok, 16) + QString("7F").toInt(&ok, 16) + 1, 16);
-
 			};
 		};
 	}; 
@@ -346,8 +333,7 @@ void SysxIO::setFileSource(QString area, QString hex1, QString hex2, QString hex
 	  address.remove("System");
 	  address.append(hex1);
     address.append(hex2);
-    //address.append(hex3);
-  sysxList = this->systemSource.hex.at(this->systemSource.address.indexOf(address));
+    sysxList = this->systemSource.hex.at(this->systemSource.address.indexOf(address));
   }
   else
   {
@@ -381,7 +367,6 @@ if (area.contains("System"))
 		this->setDeviceReady(false);
 
 		emit setStatusSymbol(2);
-		//emit setStatusProgress(0);
 		emit setStatusMessage("Sending");
 
 		QObject::connect(this, SIGNAL(sysxReply(QString)),	
@@ -442,7 +427,6 @@ void SysxIO::setFileSource(QString area, QString hex1, QString hex2, QString hex
 		this->systemSource.hex.replace(this->systemSource.address.indexOf(address), sysxList);  
        };
     };
-		//QString sysxMsg;
 		for(int i=0;i<sysxList.size();++i)
 		{
 			sysxMsg.append(sysxList.at(i));
@@ -479,7 +463,7 @@ int SysxIO::getSourceValue(QString area, QString hex1, QString hex2, QString hex
 
 	bool ok;
   if (!area.contains("System"))  {area = "Structure"; };
-	if(hex1 != "01")
+	if(hex1 != "00" && area == "Structure")
 	{
 		QString prevHex = QString::number((hex1.toInt(&ok, 16) - 1), 16).toUpper();
 		if(prevHex.length() < 2) prevHex.prepend("0");
@@ -618,13 +602,6 @@ QList<QString> SysxIO::getFileSource(QString area, QString hex1, QString hex2)
 
 QString SysxIO::getCheckSum(int dataSize)
 {
-	/*bool ok;
-	QString base = "80";
-	int sum = dataSize % base.toInt(&ok, 16);
-	if(sum!=0) sum = base.toInt(&ok, 16) - sum;
-	QString checksum = QString::number(sum, 16).toUpper();
-	if(checksum.length()<2) checksum.prepend("0");
-	return checksum;*/
 	MidiTable *midiTable = MidiTable::Instance();
 	return midiTable->getCheckSum(dataSize);
 };
@@ -640,8 +617,6 @@ QList<QString> SysxIO::correctSysxMsg(QList<QString> sysxMsg)
 	MidiTable *midiTable = MidiTable::Instance();
 	for(int i=sysxDataOffset;i<sysxMsg.size() - 3;i++)
 	{
-
-
 		QString address3 = QString::number(i - sysxDataOffset, 16).toUpper();
 		if(address3.length()<2) address3.prepend("0");
 		
@@ -658,7 +633,8 @@ QList<QString> SysxIO::correctSysxMsg(QList<QString> sysxMsg)
 			if(value > range || value < rangeMin)
 			{
 			  isWrong = true;
-				value = (range / 2);
+			  if(value > range) { value = (range); }
+				else { value = (rangeMin); };
 				int dif = (int)(value/maxRange);
 				QString valueHex1 = QString::number(dif, 16).toUpper();
 				if(valueHex1.length() < 2) valueHex1.prepend("0");
@@ -676,7 +652,6 @@ QList<QString> SysxIO::correctSysxMsg(QList<QString> sysxMsg)
 				sysxMsg.replace(i, valueHex1);
 				sysxMsg.replace(i + 1, valueHex2);
 			};
-
 			i++;
 		}
 		else
@@ -690,17 +665,15 @@ QList<QString> SysxIO::correctSysxMsg(QList<QString> sysxMsg)
 				
 				badHex.append(" <br>");
 				badHex.append("Location = ");
-				badHex.append(QString::number(i-sysxDataOffset, 16).toUpper());
+				badHex.append(QString::number(i-sysxDataOffset, 10).toUpper());
 				badHex.append(": bad data = ");
 				badHex.append(sysxMsg.at(i));
 				badHex.append(": new data = ");
-				badHex.append(valueHex);
-								
+				badHex.append(valueHex);						
 				sysxMsg.replace(i, valueHex);
 			};
 		};
-	};
-	
+	};	
 	int dataSize = 0;
 	for(int i=checksumOffset; i<sysxMsg.size() - 1;i++)
 	{
@@ -724,7 +697,7 @@ QList<QString> SysxIO::correctSysxMsg(QList<QString> sysxMsg)
 			msgBox->setIcon(QMessageBox::Information);
 			msgBox->setText(snork);
 			msgBox->setStandardButtons(QMessageBox::Ok);
-			msgBox->exec();
+		//	msgBox->exec();
 		};
 
 	return sysxMsg;
@@ -892,7 +865,6 @@ void SysxIO::finishedSending()
 	emit setStatusSymbol(1);
 	emit setStatusProgress(0);
 	emit setStatusMessage(tr("Ready"));
-
 	//this->namePatchChange();
 };
 
@@ -901,10 +873,6 @@ void SysxIO::finishedSending()
 ****************************************************************************/
 void SysxIO::requestPatchChange(int bank, int patch)
 {
-	/*emit setStatusSymbol(2);
-	emit setStatusProgress(0);
-	emit setStatusMessage(tr("Sending"));*/
-	
 	this->bankChange = bank;
 	this->patchChange = patch;
 
@@ -1025,7 +993,6 @@ void SysxIO::receiveSysx(QString sysxMsg)
 			snork.replace("F7", "F7 }");
 			snork.replace("F0", "{ F0");
 			
-
 			QMessageBox *msgBox = new QMessageBox();
 			msgBox->setWindowTitle("dBug Result for formatted syx message");
 			msgBox->setIcon(QMessageBox::Information);
@@ -1123,9 +1090,7 @@ void SysxIO::errorSignal(QString windowTitle, QString errorMsg)
 		msgBox->setText(errorMsg);
 		msgBox->setStandardButtons(QMessageBox::Ok);
 		msgBox->exec(); */
-	};
-
-	  
+	};	  
 		this->errorType = "";
 		this->errorMsg = "";
 };
@@ -1194,10 +1159,6 @@ void SysxIO::systemWrite()
 	
 	QString sysxMsg;
 	QList< QList<QString> > systemData = getSystemSource().hex; // Get the loaded system data.
-	//QList<QString> systemAddress = getSystemSource().address;
-
-	//QString addr1 = QString::number(0, 16).toUpper();
-	//QString addr2 = addr1;
 
 	for(int i=0;i<systemData.size();++i)
 	{
@@ -1205,23 +1166,11 @@ void SysxIO::systemWrite()
 		for(int x=0;x<data.size();++x)
 		{
 			QString hex;
-			/*if(x == sysxAddressOffset)
-			{ 
-				hex = addr1;
-			}
-			else if(x == sysxAddressOffset + 1)
-			{
-				hex = addr2;
-			}
-			else
-			{ */
-				hex = data.at(x);
-			//};
-			if (hex.length() < 2) hex.prepend("0");
+			hex = data.at(x);
+      if (hex.length() < 2) hex.prepend("0");
 			sysxMsg.append(hex);
 		}; 
 	}; 
-	//setSyncStatus(true);		// In advance of the actual data transfer we set it already to sync.
 	sendSysx(sysxMsg);	// Send the data.
 	setDeviceReady(true);
 };
@@ -1237,8 +1186,7 @@ void SysxIO::systemDataRequest()
 	       	setDeviceReady(false); // Reserve the device for interaction.
 		      QObject::disconnect(this, SIGNAL(sysxReply(QString)));
 		      QObject::connect(this, SIGNAL(sysxReply(QString)), this, SLOT(systemReply(QString)));
-		      sendSysx(systemRequest); // GT-6 System area data Request.    
-          
+		      sendSysx(systemRequest); // GT System area data Request.             
           emit setStatusProgress(0);
          }
          else
@@ -1260,14 +1208,52 @@ void SysxIO::systemReply(QString replyMsg)
   
 	if(noError())
 	{
-		if(replyMsg.size()/2 == 4206)
+		if(replyMsg.size()/2 == 4326)
 		{
+	replyMsg.remove(27, 26);
+  			
+  QString reBuild = "";       // Add correct checksum to patch strings 
+  QString sysxEOF = "";	
+  QString hex = "";
+  int msgLength = replyMsg.length()/2;
+  for(int i=0;i<msgLength*2;++i) 
+  {
+	hex.append(replyMsg.mid(i*2, 2));
+	sysxEOF = (replyMsg.mid((i*2)+4, 2));
+  if (sysxEOF == "F7")
+    {   
+  	int dataSize = 0; bool ok;
+	  for(int h=checksumOffset;h<hex.size()-1;++h)
+	  { dataSize += hex.mid(h*2, 2).toInt(&ok, 16); };
+	 	QString base = "80";                       // checksum calculate.
+	  unsigned int sum = dataSize % base.toInt(&ok, 16);
+  	if(sum!=0) { sum = base.toInt(&ok, 16) - sum; };
+	  QString checksum = QString::number(sum, 16).toUpper();
+	   if(checksum.length()<2) {checksum.prepend("0");};
+      	hex.append(checksum);
+        hex.append("F7");   
+        reBuild.append(hex);   
+    
+		hex = "";
+		sysxEOF = "";
+		i=i+2;
+    }; 
+  };    
+	replyMsg = reBuild.simplified().toUpper().remove("0X").remove(" ");
+				    
 		QString area = "System";
 		setFileSource(area, replyMsg);		// Set the source to the data received.
 		setFileName(tr("System Data from ") + deviceType);	// Set the file name to GT-10B system for the display.
 		setDevice(true);				// Patch received from the device so this is set to true.
 		setSyncStatus(true);			// We can't be more in sync than right now! :)
 		
+	/*QString text = "data size after resizing = ";
+  text.append(QString::number(replyMsg.size()/2, 10));	
+  QMessageBox *msgBox = new QMessageBox();
+	msgBox->setWindowTitle(QObject::tr("deBug"));
+	msgBox->setText(text);
+	msgBox->setStandardButtons(QMessageBox::Ok);
+	msgBox->exec();     */
 		}
 		else
 		{
@@ -1300,8 +1286,8 @@ void SysxIO::writeToBuffer()
 		emit setStatusSymbol(2);
 		emit setStatusMessage(tr("Sync to ")+deviceType);
 
-	QString addr1 = tempDataWrite; //QString::number(96, 16).toUpper();  // temp address
-	QString addr2 = "00"; //QString::number(0, 16).toUpper();
+	QString addr1 = tempDataWrite;  // temp address
+	QString addr2 = "00"; 
 
 	for(int i=0;i<patchData.size();++i)
 	{

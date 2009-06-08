@@ -69,6 +69,7 @@
         <file>images/wah.png</file>
         <file>images/window.png</file>
         <file>images/windowicon.png</file>
+        <file>HexLookupTable.hex</file>
         <file>license.txt</file>
         <file>midi.xml</file>
         <file>preferences.xml.dist</file>

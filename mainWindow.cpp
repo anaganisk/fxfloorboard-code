@@ -42,13 +42,13 @@ mainWindow::mainWindow(QWidget *parent)
 #ifdef Q_OS_WIN
 		/* This set the floorboard default style to the "plastique" style, 
 	   as it comes the nearest what the stylesheet uses. */
-	fxsBoard->setStyle(QStyleFactory::create("windowsvista"));
+	//fxsBoard->setStyle(QStyleFactory::create("plastique"));
 		if(QFile(":qss/windows.qss").exists())
 		{
-                        QFile file(":qss/windows.qss");
+      QFile file(":qss/windows.qss");
 			file.open(QFile::ReadOnly);
 			QString styleSheet = QLatin1String(file.readAll());
-                        fxsBoard->setStyleSheet(styleSheet);
+      fxsBoard->setStyleSheet(styleSheet);
 		}; 
 #endif
 
@@ -92,10 +92,10 @@ mainWindow::mainWindow(QWidget *parent)
 	mainLayout->addWidget(statusBar);
 	mainLayout->setMargin(0);
 	mainLayout->setSpacing(0);
-	mainLayout->setSizeConstraint(QLayout::SetFixedSize);
+	//mainLayout->setSizeConstraint(QLayout::SetFixedSize);
 	setLayout(mainLayout);
 
-	//this->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+  //this->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 
 	QObject::connect(fxsBoard, SIGNAL( sizeChanged(QSize, QSize) ),
                 this, SLOT( updateSize(QSize, QSize) ) );
@@ -199,7 +199,7 @@ void mainWindow::createActions()
 	licenseAct->setStatusTip(tr("........"));
 	connect(licenseAct, SIGNAL(triggered()), this, SLOT(license()));
 
-	aboutAct = new QAction(QIcon(":/images/GT-ProFxFloorBoard.png"),tr("&About"), this);
+	aboutAct = new QAction(QIcon(":/images/GT-ProFxFloorBoard.png"),tr("&About FxFloorBoard"), this);
 	aboutAct->setStatusTip(tr("Show the application's About box"));
 	connect(aboutAct, SIGNAL(triggered()), this, SLOT(about()));
 
@@ -268,7 +268,7 @@ void mainWindow::open()
                 this,
                 "Choose a file",
                 dir,
-                "System Exclusive (*.syx)");
+                "GT-Pro,8,10 System Exclusive (*.syx)");
 	if (!fileName.isEmpty())	
 	{
 		file.setFile(fileName);  
@@ -282,7 +282,8 @@ void mainWindow::open()
 			sysxIO->setSyncStatus(false);
 			sysxIO->setDevice(false);
 			emit updateSignal();
-			sysxIO->writeToBuffer();
+			if(sysxIO->isConnected())
+			{sysxIO->writeToBuffer();};
 		};
 	};
 };
@@ -381,7 +382,28 @@ void mainWindow::systemLoad()
 			sysxIO->setFileSource(area, file.getSystemSource());
 			sysxIO->setFileName(fileName);
 			emit updateSignal();
-			sysxIO->systemWrite();
+			
+					QMessageBox *msgBox = new QMessageBox();
+					msgBox->setWindowTitle(deviceType + tr(" Fx FloorBoard"));
+					msgBox->setIcon(QMessageBox::Warning);
+					msgBox->setTextFormat(Qt::RichText);
+					QString msgText;
+					msgText.append("<font size='+1'><b>");
+					msgText.append(tr("You have chosen to load a SYSTEM DATA file."));
+					msgText.append("<b></font><br>");
+					msgText.append(tr("This will overwrite the SYSTEM DATA currently stored in the GT-Pro<br>"));
+					msgText.append(tr (" and can't be undone.<br>"));
+					msgText.append(tr("Select 'NO' to only update the Editor - Select 'YES' to update the GT-Pro memory<br>"));
+          
+
+					msgBox->setInformativeText(tr("Are you sure you want to write to the GT-Pro?"));
+					msgBox->setText(msgText);
+					msgBox->setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+
+					if(msgBox->exec() == QMessageBox::Yes)
+					{	// Accepted to overwrite system data.						
+					sysxIO->systemWrite();
+					};			
 		};
 	};
            if (!sysxIO->isConnected())

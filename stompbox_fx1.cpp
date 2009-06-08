@@ -452,12 +452,12 @@ void stompbox_fx1::setEditPages()
 
 	editDetails()->page()->newGroupBox("High");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "00", "00", "7F");
-	//editDetails()->page()->addKnob(0, 1, 1, 1, "01", "00", "00");
+	editDetails()->page()->addKnob(0, 1, 1, 1, "01", "00", "00");
 	editDetails()->page()->addGroupBox(0, 2, 1, 1);
 	editDetails()->page()->addGroupBox(0, 1, 2, 1);
 
 	editDetails()->page()->newGroupBox("Level");
-	//editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "01");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "01");
 	editDetails()->page()->addGroupBox(0, 2, 1, 1);
 	editDetails()->addPage("00", "00", "02", "15");               
 };

@@ -709,9 +709,6 @@ void stompBox::emitValueChanged(QString hex1, QString hex2, QString hex3, QStrin
 	if (this->id == 13){this->namedata = "DGT"; this->fxName = "Digital Out";};
 	if (this->id == 14){this->namedata = "LP";   this->fxName = "Send/Return";};
 	if (this->id == 15){this->namedata = "DGT";  this->fxName = "Digital Out";};
-	if (this->id == 16){this->namedata = "CN_S"; this->fxName = "Chain Split";};
-	if (this->id == 17){this->namedata = "CN_M"; this->fxName = "Chain Merge";};
-	
 
 	emit valueChanged(this->fxName, valueName, valueStr);
 };

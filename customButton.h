@@ -35,9 +35,9 @@ public:
 		bool active = false,
 		QPoint buttonPos = QPoint::QPoint(0, 0),
 		QWidget *parent = 0,
-		QString hex1 = 0,
-		QString hex2 = 0,
-		QString hex3 = 0,
+		QString hex1 = "00",
+		QString hex2 = "00",
+		QString hex3 = "00",
 		QString imagePath = ":/images/button.png");
 	customButton(
 		QString text,

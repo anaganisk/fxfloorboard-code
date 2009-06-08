@@ -41,7 +41,7 @@ void menuPage_assign::setEditPages()
 	editDetails()->page()->newGroupBox("Assigns");
 	editDetails()->page()->newGroupBox("Assign 1-12");
 	editDetails()->page()->newStackControl(0);
-	editDetails()->page()->addComboBox(0, 0, 1, 1, "2B", "00", "0C");	
+	editDetails()->page()->addComboBox(0, 0, 1, 1, "30", "00", "00");	
 	editDetails()->page()->addStackControl();
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->page()->newGroupBox("1");
@@ -69,16 +69,16 @@ void menuPage_assign::setEditPages()
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "27", "00", "00");
 	editDetails()->page()->addGroupBox(0, 8, 1, 1);
 	editDetails()->page()->newGroupBox("9");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "27", "00", "00");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "28", "00", "00");
 	editDetails()->page()->addGroupBox(0, 9, 1, 1);
 	editDetails()->page()->newGroupBox("10");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "27", "00", "00");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "29", "00", "00");
 	editDetails()->page()->addGroupBox(0, 10, 1, 1);
 	editDetails()->page()->newGroupBox("11");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "27", "00", "00");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "2A", "00", "00");
 	editDetails()->page()->addGroupBox(0, 11, 1, 1);
 	editDetails()->page()->newGroupBox("12");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "27", "00", "00");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "2B", "00", "00");
 	editDetails()->page()->addGroupBox(0, 12, 1, 1);
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	

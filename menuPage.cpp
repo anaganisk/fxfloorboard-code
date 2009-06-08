@@ -1,10 +1,11 @@
 /****************************************************************************
 **
+** Copyright (C) 2007, 2008, 2009 Colin Willcocks.
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 
 
 **
-** This file is part of "GT-10B Fx FloorBoard".
+** This file is part of "GT-Pro Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -56,9 +57,7 @@ menuPage::menuPage(QWidget *parent, unsigned int id, QString imagePath, QPoint s
 
 	QObject::connect(this, SIGNAL( dialogUpdateSignal() ), this->editDialog, SIGNAL( dialogUpdateSignal() ));	
 
-
 	QObject::connect(this->parent(), SIGNAL( updateSignal() ), this->editDialog, SIGNAL( dialogUpdateSignal() ));
-
 
 	QObject::connect(this->editDialog, SIGNAL( updateSignal() ), this, SLOT( setDisplayToFxName() ));
 
@@ -67,20 +66,12 @@ menuPage::menuPage(QWidget *parent, unsigned int id, QString imagePath, QPoint s
 	QObject::connect(this->menuButton, SIGNAL(valueChanged(bool)), this, SLOT(menuButtonSignal(bool))); 
   
   QObject::connect(this->menuButton, SIGNAL(valueChanged(bool)), this->parent(), SLOT(menuButtonSignal()));
-
-  
-  //QObject::connect(this->parent(), SIGNAL(master_buttonSignal(bool)), this, SLOT(master_ButtonSignal(bool) )); 
-  //QObject::connect(this->parent(), SIGNAL(master_buttonSignal(bool)), this->parent(), SLOT(menuButtonSignal()));
-                
-  //QObject::connect(this->parent(), SIGNAL(assignSignal(bool)), this, SLOT(assignSignal(bool)));  //cw  
   
   SysxIO *sysxIO = SysxIO::Instance();
 	QObject::connect(this, SIGNAL(setStatusSymbol(int)), sysxIO, SIGNAL(setStatusSymbol(int)));
 	QObject::connect(this, SIGNAL(setStatusProgress(int)), sysxIO, SIGNAL(setStatusProgress(int)));
 	QObject::connect(this, SIGNAL(setStatusMessage(QString)), sysxIO, SIGNAL(setStatusMessage(QString))); 
-
 };
-
 
 void menuPage::paintEvent(QPaintEvent *)
 {
@@ -99,16 +90,6 @@ editWindow* menuPage::editDetails()
 	return this->editDialog;
 };
 
-/*void menuPage::master_ButtonSignal(bool value)	
-{  
-    if (this->id == 23)
-    { 
-      emitValueChanged(this->hex1, this->hex2, "00", "void");
-	    this->editDialog->setWindow("Master");
-      emit setEditDialog(this->editDialog);
-    };
-};
-*/
 void menuPage::menuButtonSignal(bool value)	
 {
 	  if(this->id > 19)
@@ -164,34 +145,62 @@ void menuPage::menuButtonSignal(bool value)
     };
 };
 
-
 void menuPage::systemReply(QString replyMsg)
-
-
 {
 	SysxIO *sysxIO = SysxIO::Instance();
 	QObject::disconnect(sysxIO, SIGNAL(sysxReply(QString)), this, SLOT(systemReply(QString)));
 	sysxIO->setDeviceReady(true); // Free the device after finishing interaction.
 	
-	   sysxWriter file;
-		 file.setFile(":system.syx");  // Read the default sysex file so whe don't start empty handed.
-		 if(file.readFile())
-	   {	
-			sysxIO->setFileSource("System", file.getSystemSource());
-		 };
-  
 	if(sysxIO->noError())
 	{ 
-	if(replyMsg.size()/2 >= 4326)
+	if(replyMsg.size()/2 == 4326)
 		{
-		QString temp = replyMsg.mid(0, 4326);
-		replyMsg = temp;
+		replyMsg.remove(27, 26);
+   
+				
+  QString reBuild = "";       // Add correct checksum to patch strings 
+  QString sysxEOF = "";	
+  QString hex = "";
+  int msgLength = replyMsg.length()/2;
+  for(int i=0;i<msgLength*2;++i) 
+  {
+	hex.append(replyMsg.mid(i*2, 2));
+	sysxEOF = (replyMsg.mid((i*2)+4, 2));
+  if (sysxEOF == "F7")
+    {   
+  	int dataSize = 0; bool ok;
+	  for(int h=checksumOffset;h<hex.size()-1;++h)
+	  { dataSize += hex.mid(h*2, 2).toInt(&ok, 16); };
+	 	QString base = "80";                       // checksum calculate.
+	  unsigned int sum = dataSize % base.toInt(&ok, 16);
+  	if(sum!=0) { sum = base.toInt(&ok, 16) - sum; };
+	  QString checksum = QString::number(sum, 16).toUpper();
+	   if(checksum.length()<2) {checksum.prepend("0");};
+      	hex.append(checksum);
+        hex.append("F7");   
+        reBuild.append(hex);   
+    
+		hex = "";
+		sysxEOF = "";
+		i=i+2;
+    }; 
+  };    
+	replyMsg = reBuild.simplified().toUpper().remove("0X").remove(" ");
+				    
 		QString area = "System";
 		sysxIO->setFileSource(area, replyMsg);		// Set the source to the data received.
-		sysxIO->setFileName(tr("System Data from ") + deviceType);	// Set the file name to GT system for the display.
+		sysxIO->setFileName(tr("System Data from ") + deviceType);	// Set the file name to GT-10B system for the display.
 		sysxIO->setDevice(true);				// Patch received from the device so this is set to true.
 		sysxIO->setSyncStatus(true);			// We can't be more in sync than right now! :)
 		emit systemUpdateSignal();
+		
+	/*QString text = "data size after resizing = ";
+  text.append(QString::number(replyMsg.size()/2, 10));	
+  QMessageBox *msgBox = new QMessageBox();
+	msgBox->setWindowTitle(QObject::tr("deBug"));
+	msgBox->setText(text);
+	msgBox->setStandardButtons(QMessageBox::Ok);
+	msgBox->exec();     */
 		}
 		else
 		{
@@ -210,13 +219,11 @@ void menuPage::systemReply(QString replyMsg)
 		}; 
    };
 		emit setStatusMessage(tr("Ready"));   
-
 };
 
 void menuPage::setPos(QPoint newPos)
 {
 	this->move(newPos);
-	//this->stompPos = newPos;
 };
 
 void menuPage::updatePos(signed int offsetDif)
@@ -224,7 +231,6 @@ void menuPage::updatePos(signed int offsetDif)
 	this->stompPos = this->pos();
 	QPoint newPos = stompPos + QPoint::QPoint(offsetDif, 0);
 	this->move(newPos);
-	//this->stompPos = newPos;
 };
 	
 void menuPage::setImage(QString imagePath)
@@ -273,15 +279,13 @@ void menuPage::valueChanged(int value, QString hex1, QString hex2, QString hex3)
 		QString valueHex1 = QString::number(dif, 16).toUpper();
 		if(valueHex1.length() < 2) valueHex1.prepend("0");
 		QString valueHex2 = QString::number(value - (dif * maxRange), 16).toUpper();
-		if(valueHex2.length() < 2) valueHex2.prepend("0");
-		
+		if(valueHex2.length() < 2) valueHex2.prepend("0");		
 		sysxIO->setFileSource(area, hex1, hex2, hex3, valueHex1, valueHex2);
 	}
 	else
 	{
 		sysxIO->setFileSource(area, hex1, hex2, hex3, valueHex);
 	};
-
 	emitValueChanged(hex1, hex2, hex3, valueHex);
 };
 
@@ -296,8 +300,6 @@ void menuPage::valueChanged(bool value, QString hex1, QString hex2, QString hex3
 	QString area; 
 	if(this->id == 18 || this->id == 19) {area = "System";} else {area = "Structure";};
 	sysxIO->setFileSource(area, hex1, hex2, hex3, valueHex);
-
-
 	emitValueChanged(hex1, hex2, hex3, valueHex);
 };
 
@@ -319,13 +321,10 @@ void menuPage::emitValueChanged(QString hex1, QString hex2, QString hex3, QStrin
 			emit dialogUpdateSignal();
 		}
 		else
-		{
-		 
+		{	 
 		  if (this->id == 18)this->fxName = "System settings";
 		  if (this->id == 19)this->fxName = "Custom Settings";
 		  if (this->id == 20)this->fxName = "Assigns";
-		  //if (this->id == 23)this->fxName = "Pedal"; 
-				 //midiTable->getMidiMap("Structure", hex1, hex2, hex3).name;//hex1).customdesc;
 		};
 	};
 
