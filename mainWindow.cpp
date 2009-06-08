@@ -276,7 +276,7 @@ void mainWindow::open()
                 this,
                 "Choose a file",
                 dir,
-                "System Exclusive (*.syx)");
+                "GT8, GT10 System Exclusive (*.syx)");
 	if (!fileName.isEmpty())	
 	{
 		file.setFile(fileName);  
@@ -400,7 +400,7 @@ void mainWindow::systemLoad()
 					msgText.append("<b></font><br>");
 					msgText.append(tr("This will overwrite the SYSTEM DATA currently stored in the GT-8<br>"));
 					msgText.append(tr (" and can't be undone.<br>"));
-					msgText.append(tr("Select 'NO' to only update the Editor - Select 'YES' to update the GT-Pro memory<br>"));
+					msgText.append(tr("Select 'NO' to only update the Editor - Select 'YES' to update the GT-8 memory<br>"));
           
 
 					msgBox->setInformativeText(tr("Are you sure you want to write to the GT-8?"));

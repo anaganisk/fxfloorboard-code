@@ -2,24 +2,25 @@
 <!-- Preferences of the GT-8 Fx FloorBoard application. -->
 <Preferences>
 	<General>
-		<Application version="beta 20090423"/>
+		<Application version="beta 20090607"/>
 		<Donate url="http://gtx.tinfoilmusic.net/donate.html"/>
 		<Files dir=""/>
 		<Help url="GT-8EditorManual_E.htm"/>
 		<Language code="en"/>
+		<Upload url="http://www.bossgtcentral.com/dm"/>
 		<Webpage url="http://gtx.tinfoilmusic.net/"/>
 	</General>
 	<Midi>
 		<MidiIn device=""/>
 		<MidiOut device=""/>
 		<DBug bool="false"/>
-		<Time set="70"/>
-		<Delay set="15"/>
+		<System byte1="3" byte2="0" byte3="0" byte4="0"/>
+		<Delay set="20"/>
 	</Midi>
 	<Window>
-    <Collapsed bool="true" defaultwidth="975" width=""/>
+    <Collapsed bool="true" defaultwidth="975" width="975"/>
     <Position x="" y=""/>
-    <Restore sidepanel="false" window="false"/>
+    <Restore sidepanel="true" window="false"/>
     <Size height="" minheight="548" minwidth="788" width=""/>
     <Splash bool="true"/>
   </Window> 

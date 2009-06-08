@@ -41,7 +41,7 @@ void menuPage_assign::setEditPages()
 	editDetails()->page()->newGroupBox("Assigns");
 	editDetails()->page()->newGroupBox("Assign 1-8");
 	editDetails()->page()->newStackControl(0);
-	editDetails()->page()->addComboBox(0, 0, 1, 1, "1D", "00", "01");	
+	editDetails()->page()->addComboBox(0, 0, 1, 1, "21", "00", "00");	
 	editDetails()->page()->addStackControl();
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->page()->newGroupBox("Assign 1");

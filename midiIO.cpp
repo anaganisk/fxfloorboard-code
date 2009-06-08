@@ -205,7 +205,7 @@ void midiIO::sendSyxMsg(QString sysxOutMsg, int midiOutPort)
     };   
    /* Clean up */
  cleanup:
-        SLEEP(40);						// wait as long as the message is sending.
+        SLEEP(60);						// wait as long as the message is sending.
         //midiMsgOut->closePort();
   delete midiMsgOut;	
 };
@@ -279,13 +279,13 @@ void midiIO::receiveMsg(QString sysxInMsg, int midiInPort)
 	emit setStatusSymbol(3);
 	emit setStatusProgress(75);
         if(multiple == true){
-                                loopCount = 600;
+                                loopCount = 700;
                                 count = 1010;
         } else if(system == true) {
-                                loopCount = 1200;
-                                count = systemDataSize;
+                                loopCount = 1400;
+                                count = 4402;
         } else {
-                                 loopCount = 150;
+                                 loopCount = 200;
                                  count = 29; };
         int bytesReceived = 0;
         RtMidiIn *midiin = 0;

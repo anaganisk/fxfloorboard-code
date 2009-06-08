@@ -9,7 +9,6 @@
         <file>images/4.png</file>
         <file>images/GT-8FxFloorBoard.png</file>
         <file>images/ampswitch.png</file>
-
         <file>images/button.png</file>
         <file>images/ce.png</file>
         <file>images/closebutton.png</file>
@@ -45,7 +44,6 @@
         <file>images/lp.png</file>
         <file>images/menu_pushbutton.png</file>
         <file>images/midi.png</file>
-        <file>images/midi_pushbutton.png</file>
         <file>images/ns.png</file>
         <file>images/od.png</file>
         <file>images/panelbar.png</file>
@@ -70,6 +68,7 @@
         <file>images/wah.png</file>
         <file>images/window.png</file>
         <file>images/windowicon.png</file>
+        <file>HexLookupTable.hex</file>
         <file>license.txt</file>
         <file>midi.xml</file>
         <file>preferences.xml.dist</file>

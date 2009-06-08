@@ -644,7 +644,8 @@ QList<QString> SysxIO::correctSysxMsg(QList<QString> sysxMsg)
 			if(value > range || value < rangeMin)
 			{
 			  isWrong = true;
-				value = (range / 2);
+			  if(value > range) { value = range;} 
+				else {value = rangeMin; };
 				int dif = (int)(value/maxRange);
 				QString valueHex1 = QString::number(dif, 16).toUpper();
 				if(valueHex1.length() < 2) valueHex1.prepend("0");
@@ -669,7 +670,7 @@ QList<QString> SysxIO::correctSysxMsg(QList<QString> sysxMsg)
 			if(sysxMsg.at(i).toInt(&ok, 16) > range || sysxMsg.at(i).toInt(&ok, 16) < rangeMin)
 			{
 			  isWrong = true;
-				int value = (range / 2);
+				int value = (range/2); 
 				QString valueHex = QString::number(value, 16).toUpper();
 				if(valueHex.length() < 2) valueHex.prepend("0");
 				
@@ -1169,34 +1170,17 @@ void SysxIO::systemWrite()
 	
 	QString sysxMsg;
 	QList< QList<QString> > systemData = getSystemSource().hex; // Get the loaded system data.
-	//QList<QString> systemAddress = getSystemSource().address;
-
-	//QString addr1 = QString::number(0, 16).toUpper();
-	//QString addr2 = addr1;
-
 	for(int i=0;i<systemData.size();++i)
 	{
 		QList<QString> data = systemData.at(i);
 		for(int x=0;x<data.size();++x)
 		{
 			QString hex;
-			/*if(x == sysxAddressOffset)
-			{ 
-				hex = addr1;
-			}
-			else if(x == sysxAddressOffset + 1)
-			{
-				hex = addr2;
-			}
-			else
-			{ */
-				hex = data.at(x);
-			//};
+			hex = data.at(x);
 			if (hex.length() < 2) hex.prepend("0");
 			sysxMsg.append(hex);
 		}; 
 	}; 
-	//setSyncStatus(true);		// In advance of the actual data transfer we set it already to sync.
 	sendSysx(sysxMsg);	// Send the data.
 	setDeviceReady(true);
 };
@@ -1234,14 +1218,53 @@ void SysxIO::systemReply(QString replyMsg)
   
 	if(noError())
 	{
-		if(replyMsg.size()/2 == systemDataSize)
+		if(replyMsg.size()/2 == 4402)
 		{
+				replyMsg.remove(27, 26);
+   
+				
+  QString reBuild = "";       // Add correct checksum to patch strings 
+  QString sysxEOF = "";	
+  QString hex = "";
+  int msgLength = replyMsg.length()/2;
+  for(int i=0;i<msgLength*2;++i) 
+  {
+	hex.append(replyMsg.mid(i*2, 2));
+	sysxEOF = (replyMsg.mid((i*2)+4, 2));
+  if (sysxEOF == "F7")
+    {   
+  	int dataSize = 0; bool ok;
+	  for(int h=checksumOffset;h<hex.size()-1;++h)
+	  { dataSize += hex.mid(h*2, 2).toInt(&ok, 16); };
+	 	QString base = "80";                       // checksum calculate.
+	  unsigned int sum = dataSize % base.toInt(&ok, 16);
+  	if(sum!=0) { sum = base.toInt(&ok, 16) - sum; };
+	  QString checksum = QString::number(sum, 16).toUpper();
+	   if(checksum.length()<2) {checksum.prepend("0");};
+      	hex.append(checksum);
+        hex.append("F7");   
+        reBuild.append(hex);   
+    
+		hex = "";
+		sysxEOF = "";
+		i=i+2;
+    }; 
+  };    
+	replyMsg = reBuild.simplified().toUpper().remove("0X").remove(" ");
+				    
 		QString area = "System";
 		setFileSource(area, replyMsg);		// Set the source to the data received.
-		setFileName(tr("System Data from ") + deviceType);	// Set the file name to GT system for the display.
+		setFileName(tr("System Data from ") + deviceType);	// Set the file name to GT-10B system for the display.
 		setDevice(true);				// Patch received from the device so this is set to true.
 		setSyncStatus(true);			// We can't be more in sync than right now! :)
 		
+	/*QString text = "data size after resizing = ";
+  text.append(QString::number(replyMsg.size()/2, 10));	
+  QMessageBox *msgBox = new QMessageBox();
+	msgBox->setWindowTitle(QObject::tr("deBug"));
+	msgBox->setText(text);
+	msgBox->setStandardButtons(QMessageBox::Ok);
+	msgBox->exec();     */
 		}
 		else
 		{
