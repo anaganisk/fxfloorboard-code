@@ -1191,7 +1191,8 @@ void SysxIO::systemDataRequest()
          }
          else
              {
-              QString snork = "Ensure connection is active and retry";
+              QString snork = "Ensure connection is active<br>";
+              snork.append(" and retry");
               QMessageBox *msgBox = new QMessageBox();
 			        msgBox->setWindowTitle(deviceType + " not connected !!");
 		        	msgBox->setIcon(QMessageBox::Information);

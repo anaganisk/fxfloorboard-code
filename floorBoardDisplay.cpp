@@ -1,7 +1,8 @@
 /****************************************************************************
 **
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
-** Copyright (C) 2007, 2008, Colin Willcocks. All rights reserved.
+** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
+** Copyright (C) 2007, 2008, 2009 Colin Willcocks. 
+** All rights reserved.
 ** This file is part of "GT-Pro Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
@@ -120,7 +121,10 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
 	QObject::connect(this->sendreturn_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(sendreturn_buttonSignal(bool)));
 	QObject::connect(this->eq_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(eq_buttonSignal(bool)));
 	QObject::connect(this->pedal_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(pedal_buttonSignal(bool)));
-        
+       
+  QString midiIn = preferences->getPreferences("Midi", "MidiIn", "device");
+	QString midiOut = preferences->getPreferences("Midi", "MidiOut", "device");
+	if(midiIn!="" && midiOut!="") {autoconnect(); }; 
   };
 
 QPoint floorBoardDisplay::getPos()
@@ -304,6 +308,69 @@ void floorBoardDisplay::updateDisplay()
 	};  */// to here
     };
 
+ void floorBoardDisplay::autoconnect()
+{
+	QString replyMsg;
+	SysxIO *sysxIO = SysxIO::Instance();
+	//this->connectButtonActive = value;
+	if(!sysxIO->isConnected() && sysxIO->deviceReady())
+	{
+		emit setStatusSymbol(2);
+		emit setStatusMessage(tr("Connecting"));
+
+		this->connectButton->setBlink(true);
+		sysxIO->setDeviceReady(false); // Reserve the device for interaction.
+
+		QObject::disconnect(sysxIO, SIGNAL(sysxReply(QString)));
+		QObject::connect(sysxIO, SIGNAL(sysxReply(QString)), 
+			this, SLOT(autoConnectionResult(QString)));
+
+		sysxIO->sendSysx(idRequestString); // GT-Pro Identity Request.
+	}
+	else
+	{
+		emit notConnected();
+		sysxIO->setNoError(true);		// Reset the error status (else we could never retry :) ).
+	};
+}
+
+void floorBoardDisplay::autoConnectionResult(QString sysxMsg)
+{
+	SysxIO *sysxIO = SysxIO::Instance();
+	QObject::disconnect(sysxIO, SIGNAL(sysxReply(QString)), 
+			this, SLOT(autoConnectionResult(QString)));
+
+  Preferences *preferences = Preferences::Instance(); // Load the preferences.
+	
+	sysxIO->setDeviceReady(true); // Free the device after finishing interaction.
+ if(sysxIO->noError())
+	{
+		if(sysxMsg.contains(idReplyPatern) || preferences->getPreferences("Midi", "DBug", "bool")=="true")
+		{
+			this->connectButton->setBlink(false);
+			this->connectButton->setValue(true);
+			sysxIO->setConnected(true);
+			emit connectedSignal();
+
+			if(sysxIO->getBank() != 0)
+			{
+				this->writeButton->setBlink(true);
+				this->writeButton->setValue(false);
+			};
+		}else
+    {
+     this->connectButton->setBlink(false);
+		 this->connectButton->setValue(false);
+		 notConnected();
+    };
+  }
+  else
+  {
+   notConnected();
+   sysxIO->setNoError(true);		// Reset the error status (else we could never retry :) ).
+  };
+}
+
 
 void floorBoardDisplay::connectSignal(bool value)
 {
@@ -383,6 +450,8 @@ void floorBoardDisplay::connectionResult(QString sysxMsg)
 			QString msgText;
 			msgText.append("<font size='+1'><b>");
 			msgText.append(tr("The device connected is not a Boss ") + deviceType + (" Effects Processor."));
+			if (sysxMsg.contains(idRequestString))
+			{msgText.append(tr("<br>Midi loopback detected, ensure midi device 'thru' is switched off.")); };
 			msgText.append("<b></font>");
 			msgBox->setText(msgText);
 			msgBox->setStandardButtons(QMessageBox::Ok);
@@ -407,6 +476,9 @@ void floorBoardDisplay::connectionResult(QString sysxMsg)
 			QString msgText;
 			msgText.append("<font size='+1'><b>");
 			msgText.append(tr("The Boss ") + deviceType + (" Effects Processor was not found."));
+				msgText.append(tr("<br><br>Ensure correct midi device is selected in Menu, "));
+			msgText.append(tr("<br>Boss drivers are installed and the GT-Pro is switched on,"));
+			msgText.append(tr("<br>and GT-Pro USB driver mode is set to advanced"));
 			msgText.append("<b></font><br>");
 		  msgBox->setText(msgText);
 			msgBox->setStandardButtons(QMessageBox::Ok);
@@ -550,7 +622,7 @@ void floorBoardDisplay::writeSignal(bool)
 	{
 		writeToBuffer();                           // update patch to temp buffer only if not in bulk mode
 	}; 
-		sysxIO->getCurrentPatchName();
+	//	sysxIO->getCurrentPatchName();
 };
 
 void floorBoardDisplay::writeToBuffer() 

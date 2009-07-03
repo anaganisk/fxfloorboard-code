@@ -2,7 +2,7 @@
 <!-- Preferences of the GT-Pro Fx FloorBoard application. -->
 <Preferences>
 	<General>
-		<Application version="beta 20090606"/>
+		<Application version="beta 20090702"/>
 		<Donate url="http://gtx.tinfoilmusic.net/donate.html"/>
 		<Files dir=""/>
 		<Help url="GT-ProEditorManual_E.htm"/>

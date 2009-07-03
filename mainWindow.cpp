@@ -384,7 +384,7 @@ void mainWindow::systemLoad()
 			emit updateSignal();
 			
 					QMessageBox *msgBox = new QMessageBox();
-					msgBox->setWindowTitle(deviceType + tr(" Fx FloorBoard"));
+					msgBox->setWindowTitle(deviceType + tr(" Fx FloorBoard     "));
 					msgBox->setIcon(QMessageBox::Warning);
 					msgBox->setTextFormat(Qt::RichText);
 					QString msgText;
@@ -409,9 +409,9 @@ void mainWindow::systemLoad()
            if (!sysxIO->isConnected())
              {
               QString snork = "DATA TRANSFER REQUIRED<br>"; 
-              snork.append("Ensure connection is active, and<br>");
+              snork.append("Ensure connection is active <br> and retry");
               QMessageBox *msgBox = new QMessageBox();
-			        msgBox->setWindowTitle(deviceType + " Connection required!!");
+			        msgBox->setWindowTitle(deviceType + " Connection required!!.............");
 		        	msgBox->setIcon(QMessageBox::Information);
 		        	msgBox->setText(snork);
 		        	msgBox->setStandardButtons(QMessageBox::Ok);
@@ -459,7 +459,7 @@ SysxIO *sysxIO = SysxIO::Instance();
               QString snork = "DATA TRANSFER REQUIRED<br>"; 
               snork.append("Ensure connection is active");
               QMessageBox *msgBox = new QMessageBox();
-			        msgBox->setWindowTitle(deviceType + " Connection required!!");
+			        msgBox->setWindowTitle(deviceType + " Connection required!!.............");
 		        	msgBox->setIcon(QMessageBox::Information);
 		        	msgBox->setText(snork);
 		        	msgBox->setStandardButtons(QMessageBox::Ok);
