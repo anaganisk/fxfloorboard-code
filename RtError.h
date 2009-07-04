@@ -58,7 +58,7 @@ public:
 	 
     }
  
-  
+   
   //! Returns the thrown error message type.
   virtual const Type& getType(void) { return type_; }
 
@@ -68,7 +68,7 @@ public:
   //! Returns the thrown error message as a C string.
   virtual const char *getMessageString(void) { return message_.c_str(); }
   
- 
+  
 };
 
 #endif

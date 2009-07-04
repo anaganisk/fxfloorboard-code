@@ -108,7 +108,7 @@ customControlListMenu::customControlListMenu(QWidget *parent,
 	QObject::connect(this->controlListComboBox, SIGNAL(currentIndexChanged(int)), this, SIGNAL(currentIndexChanged(int)));
 
   //QObject::connect(this->parent()->parent(), SIGNAL(updateSignal()), this, SLOT(dialogUpdateSignal()));
-};
+}
 
 void customControlListMenu::paintEvent(QPaintEvent *)
 {
@@ -120,7 +120,7 @@ void customControlListMenu::paintEvent(QPaintEvent *)
 
 	QPainter painter(this);
 	painter.drawPixmap(target, image, source);*/
-};
+}
 
 void customControlListMenu::setComboBox()
 {
@@ -157,20 +157,13 @@ void customControlListMenu::setComboBox()
 		this->controlListComboBox->addItem(item);
 	};
 	int maxWidth = QFontMetrics( this->font() ).width( longestItem );
-#ifdef Q_WS_MAC
+	if(maxWidth < 40) { maxWidth = 40; };
  	this->controlListComboBox->setFixedWidth(maxWidth + 10);
-#endif 	
-#ifdef Q_WS_X11
-  this->controlListComboBox->setFixedWidth(maxWidth - 10);
-#endif
-#ifdef Q_OS_WIN
-  this->controlListComboBox->setFixedWidth(maxWidth + 30);
-#endif
   this->controlListComboBox->setFixedHeight(15);
 	this->controlListComboBox->setEditable(false);
 	this->controlListComboBox->setFrame(false);
 	this->controlListComboBox->setMaxVisibleItems(itemcount);
-};
+}
 
 void customControlListMenu::valueChanged(int index)
 {
@@ -199,7 +192,7 @@ void customControlListMenu::valueChanged(int index)
 	
 	//emit updateDisplay(valueStr);
 	emit updateSignal();
-};
+}
 
 void customControlListMenu::dialogUpdateSignal()
 {
@@ -208,4 +201,4 @@ void customControlListMenu::dialogUpdateSignal()
 	int index = sysxIO->getSourceValue(this->area, this->hex1, this->hex2, this->hex3);
 	this->controlListComboBox->setCurrentIndex(index);
 	//this->valueChanged(index); 
-};
+}
