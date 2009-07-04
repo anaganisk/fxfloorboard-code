@@ -52,15 +52,13 @@ public:
 	  //std::cerr << '\n' << message_ << "\n\n"; 
 	  SysxIO *sysxIO = SysxIO::Instance();
 	  QString errorType = "Midi Error";
-
-
 	  QString errorMsg;
 	  errorMsg.append(QString::fromStdString(message_));
 	  sysxIO->errorReturn(errorType, errorMsg);
 	 
     }
  
-  
+   
   //! Returns the thrown error message type.
   virtual const Type& getType(void) { return type_; }
 
@@ -70,8 +68,7 @@ public:
   //! Returns the thrown error message as a C string.
   virtual const char *getMessageString(void) { return message_.c_str(); }
   
- 
+  
 };
 
 #endif
-

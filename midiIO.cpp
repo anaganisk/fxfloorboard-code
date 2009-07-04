@@ -181,7 +181,8 @@ void midiIO::sendSyxMsg(QString sysxOutMsg, int midiOutPort)
 			*ptr = (char)n;
 			message.push_back(*ptr);		// insert the char* string into a std::vector	
 			if(hex.contains ("F7")){		
-			  
+			          message.push_back(32);
+			          message.push_back(32);
                 midiMsgOut->sendMessage(&message);  // send the midi data as a std::vector
                 SLEEP(20);
                 message.clear();    
