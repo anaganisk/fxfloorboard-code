@@ -39,8 +39,8 @@ void menuPage_midi::updateSignal()
 
 void menuPage_midi::setEditPages()
 {
-
-	editDetails()->page()->newGroupBox("System Midi area still under Construction.");
+               
+	editDetails()->page()->newGroupBox("SYSTEM MIDI.  Caution: Changes are automatically written to the GT-10.");
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "02", "00", "00", "System"); // omni mode
 	editDetails()->page()->addComboBox(0, 1, 1, 1, "02", "00", "01", "System"); // rx channel
 	editDetails()->page()->addComboBox(0, 2, 1, 1, "02", "00", "02", "System"); // tx channel
@@ -59,6 +59,6 @@ void menuPage_midi::setEditPages()
 	
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->addPage();
-
+                          
  
 };

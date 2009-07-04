@@ -31,14 +31,14 @@
 
 class  menuPage_autoriff : public menuPage
 {
-    Q_OBJECT
+Q_OBJECT
 
 public:
-	menuPage_autoriff(QWidget *parent);
-	void setEditPages();
+menuPage_autoriff(QWidget *parent);
+void setEditPages();
 
 public slots:
-	void updateSignal();
+void updateSignal();
 };
 
 #endif // MENUPAGE_AUTORIFF_H

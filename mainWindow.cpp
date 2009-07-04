@@ -69,7 +69,7 @@ mainWindow::mainWindow(QWidget *parent)
 	#endif
 
 	#ifdef Q_WS_MAC
-	//fxsBoard->setStyle(QStyleFactory::create("plastique"));
+	fxsBoard->setStyle(QStyleFactory::create("plastique"));
 		if(QFile(":qss/macosx.qss").exists())
 		{
 			QFile file(":qss/macosx.qss");

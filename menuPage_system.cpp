@@ -38,7 +38,7 @@ void menuPage_system::updateSignal()
 };
 
 void menuPage_system::setEditPages()
-{
+{          
 	editDetails()->page()->addLabel(0, 0, 1, 1, "***CAUTION*** Settings changes are automatically written to GT-10");
   editDetails()->page()->newGroupBox("settings");
   editDetails()->page()->addKnob(0, 0, 1, 1, "00", "00", "00", "System"); // lcd contrast
@@ -51,9 +51,9 @@ void menuPage_system::setEditPages()
 	editDetails()->page()->addLabel(0, 7, 1, 1, "     ");
 	editDetails()->page()->addComboBox(0, 8, 1, 1, "00", "00", "70", "System"); // sys num pdl ctrl
 	editDetails()->page()->addLabel(0, 9, 1, 1, "     ");
-	editDetails()->page()->addComboBox(0, 10, 1, 1, "00", "00", "71", "System"); // dial function
+	editDetails()->page()->addComboBox(0, 10, 1, 1, "00", "00", "71", "System"); // dial function         
 	editDetails()->page()->addGroupBox(1, 0, 1, 2);
-	
+	  
 	editDetails()->page()->newGroupBox("USB settings");
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "00", "00", "20", "System"); //usb driver mode
 	editDetails()->page()->addLabel(0, 1, 1, 1, "     ");
@@ -1860,6 +1860,6 @@ void menuPage_system::setEditPages()
   editDetails()->addPage("00", "00", "01", "0C", "System"); 
   
   
-	editDetails()->addPage();
-
+	//editDetails()->addPage();
+              
 };

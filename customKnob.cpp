@@ -49,15 +49,22 @@ customKnob::customKnob(QWidget *parent, QString hex1, QString hex2, QString hex3
 	{
 		newBackGround->setPixmap(QPixmap(":/images/knobbgt.png"));
 	}
+	else if (background == "slider")
+	{
+		newBackGround->setPixmap(QPixmap(":/images/slider_knobbg.png"));
+	}
 	else
 	{
 		newBackGround->setPixmap(QPixmap(":/images/knobbg.png"));
 	};
 	newBackGround->move(bgPos);
-
-	QString imagePath(":/images/knob.png");
+  QString imagePath_slider(":/images/slider_knob.png"); 
+  QString imagePath_knob(":/images/knob.png"); 
+ 
 	unsigned int imageRange = 63;
-	this->knob = new customDial(0, rangeMin, range, 1, 10, knobPos, this, hex1, hex2, hex3, imagePath, imageRange);
+	 if (background == "slider") {
+   this->knob = new customDial(0, rangeMin, range, 1, 10, knobPos, this, hex1, hex2, hex3, imagePath_slider, imageRange);
+   } else {this->knob = new customDial(0, rangeMin, range, 1, 10, knobPos, this, hex1, hex2, hex3, imagePath_knob, imageRange);};
 	this->setFixedSize(newBackGround->pixmap()->size() - QSize::QSize(0, 4)); // Correction needed h-4.
 
 	QObject::connect(this, SIGNAL( updateSignal() ),

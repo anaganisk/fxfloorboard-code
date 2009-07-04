@@ -31,6 +31,7 @@ stompbox_cn_s::stompbox_cn_s(QWidget *parent)
 	this->setImage(":/images/cn_s.png");
 	setLSB("01", "00");
 	setComboBox("01", "00", "01", QRect(8, 78, 79, 13));
+	//setComboBox2("01", "00", "02", QRect(8, 98, 79, 13));
 	setSwitch("01", "00", "00");
 	setEditPages();
 };
@@ -38,6 +39,7 @@ stompbox_cn_s::stompbox_cn_s(QWidget *parent)
 void stompbox_cn_s::updateSignal()
 {
 	updateComboBox("01", "00", "01");
+	//updateComboBox2("01", "00", "02");
 	updateSwitch("01", "00", "00");
 };
 

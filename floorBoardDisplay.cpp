@@ -89,8 +89,8 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
 	this->system_midi_Button = new customButton(tr("System Midi"), false, QPoint(673, 5), this, ":/images/pushbutton.png");
 	this->system_Button = new customButton(tr("System Settings"), false, QPoint(762, 5), this, ":/images/pushbutton.png");
 	this->master_Button = new customButton(tr("Master"), false, QPoint(584, 24), this, ":/images/pushbutton.png");
-	this->fx1_autoriff_Button = new customButton(tr("FX1 User AutoRiff"), false, QPoint(673, 24), this, ":/images/pushbutton.png");
-	this->fx2_autoriff_Button = new customButton(tr("FX2 User AutoRiff"), false, QPoint(762, 24), this, ":/images/pushbutton.png");
+	this->fx1_autoriff_Button = new customButton(tr("FX1 AutoRiff"), false, QPoint(673, 24), this, ":/images/pushbutton.png");
+	this->fx2_autoriff_Button = new customButton(tr("FX2 AutoRiff"), false, QPoint(762, 24), this, ":/images/pushbutton.png");
 	
   this->ch_mode_Button = new customButton(tr("Channel Mode"), false, QPoint(10, 457), this, ":/images/pushbutton.png");
   this->preamp1_Button = new customButton(tr("PreAmp A"), false, QPoint(100, 457), this, ":/images/pushbutton.png");

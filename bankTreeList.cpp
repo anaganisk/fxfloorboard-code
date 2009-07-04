@@ -303,6 +303,9 @@ QTreeWidget* bankTreeList::newTreeList()
 	headers << " Double-click tree item to load GT-10 patch";
     newTreeList->setHeaderLabels(headers);
 
+  QTreeWidgetItem *temp = new QTreeWidgetItem(newTreeList);
+	temp->setText(0, "Temp");
+
 	QTreeWidgetItem *user = new QTreeWidgetItem(newTreeList);
 	user->setText(0, "User");
 	user->setWhatsThis(0, "User Banks");
@@ -381,7 +384,7 @@ QTreeWidget* bankTreeList::newTreeList()
 void bankTreeList::setItemClicked(QTreeWidgetItem *item, int column)
 {
 	//column; // not used
-	if(item->childCount() != 0)
+	if(item->childCount() != 0 && item->text(0) != "Temp")
 	{
 		if(item->isExpanded())
 		{
@@ -392,7 +395,7 @@ void bankTreeList::setItemClicked(QTreeWidgetItem *item, int column)
 			item->setExpanded(true);
 		};
 	} 
-	else if (item->childCount() == 0)
+	else if (item->childCount() == 0 && item->text(0) != "Temp")
 	{
 		SysxIO *sysxIO = SysxIO::Instance();
 		if(sysxIO->isConnected() && sysxIO->deviceReady())
@@ -418,7 +421,7 @@ void bankTreeList::setItemDoubleClicked(QTreeWidgetItem *item, int column)
 {	
 	//column; // not used
 	SysxIO *sysxIO = SysxIO::Instance();
-	if(item->childCount() == 0 && sysxIO->deviceReady() && sysxIO->isConnected()) 
+	if(item->childCount() == 0 && item->text(0) != "Temp" && sysxIO->deviceReady() && sysxIO->isConnected()) 
 		// Make sure it's a patch (Patches are the last in line so no children).
 	{
 		emit setStatusSymbol(2);
@@ -448,6 +451,8 @@ void bankTreeList::setItemDoubleClicked(QTreeWidgetItem *item, int column)
 			sysxIO->requestPatchChange(bank, patch);
 		};*/
 	}
+	if(item->text(0) == "Temp")
+	{  requestPatch(); };
 };
 /*********************** requestPatch() *******************************
  * Does the actual requesting of the patch data and hands the 

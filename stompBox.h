@@ -54,6 +54,8 @@ public:
 
 	void setComboBox(QString hex1, QString hex2, QString hex3, 
 		QRect geometry = QRect::QRect(7, 79, 80, 13));
+  void setComboBox2(QString hex1, QString hex2, QString hex3, 
+		QRect geometry = QRect::QRect(7, 99, 80, 13));
 	void setKnob1(QString hex1, QString hex2, QString hex3);
 	void setKnob2(QString hex1, QString hex2, QString hex3);
 	void setSlider1(QString hex1, QString hex2, QString hex3);
@@ -74,10 +76,13 @@ public:
 	void updateSlider4(QString hex1, QString hex2, QString hex3);
 	void updateSlider5(QString hex1, QString hex2, QString hex3);
 	void updateComboBox(QString hex1, QString hex2, QString hex3);
+	//void updateComboBox2(QString hex1, QString hex2, QString hex3);
 	void updateButton(QString hex1, QString hex2, QString hex3);
 	void updateSwitch(QString hex1, QString hex2, QString hex3);
 
 	void setComboBoxCurrentIndex(int index);
+	//void setComboBoxCurrentIndex2(int index);
+
 	unsigned int getId();
 
 	virtual void setEditPages() {};
@@ -90,6 +95,7 @@ public slots:
 	void valueChanged(int value, QString hex1, QString hex2, QString hex3);
 	void valueChanged(bool value, QString hex1, QString hex2, QString hex3);
 	void valueChanged(int index);
+	//void valueChanged2(int index);
 	virtual void updateSignal() {};
 	void setDisplayToFxName();
 	void pathSwitchSignal(bool value); 
@@ -113,6 +119,7 @@ public slots:
 signals:
 	void valueChanged(QString fxName, QString valueName, QString valueStr);
 	void currentIndexChanged(int index);
+	//void currentIndexChanged2(int index);
 	void dialogUpdateSignal();
 	void setEditDialog(editWindow* editDialog);
 	void notConnectedSignal();
@@ -151,6 +158,7 @@ private:
 	customLed *led;
 	customSwitch *switchbutton;
 	customComboBox *stompComboBox;
+	//customComboBox *stompComboBox2;
 
 	QString hex1;
 	QString hex2;

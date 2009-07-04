@@ -71,9 +71,9 @@ void menuPage_assign::setEditPages()
 	editDetails()->page()->addGroupBox(0, 8, 1, 1);
 	
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
-	editDetails()->page()->newGroupBox("");
-	editDetails()->page()->insertStackField(0, 0, 1, 1, 1);
-	editDetails()->page()->addGroupBox(1, 0, 1, 1);	
+	//editDetails()->page()->newGroupBox("");
+	editDetails()->page()->insertStackField(0, 1, 0, 1, 1);
+	//editDetails()->page()->addGroupBox(1, 0, 1, 1);	
 	editDetails()->addPage();
 
  

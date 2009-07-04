@@ -36,9 +36,16 @@ border-color: rgb(150,150,150);
 }
 QTreeWidget#banklist QHeaderView::section:only-one {
 font-family: Arial;
-font-size: 11px;
+font-size: 9px;
 font-weight: bold;
-color: rgb(0,0,0);
+/*padding-top: 15px;*/
+border-style: solid;
+border-radius: 3px;
+border-width: 1px;
+border-color: rgba(150,150,150,255);
+background-color: rgb(0,1,62);
+
+color: rgb(0,255,204);
 }
 QTreeWidget#banklist::branch {
 margin: 0px;
@@ -203,13 +210,13 @@ color: rgb(255,255,255);
 }
 QLabel#title {
 font-family: Arial;
-font-size: 16px;
+font-size: 20px;
 font-weight: bold;
 color: rgb(255,255,255);
 }
 QLabel#selectlabel {
 font-family: Arial;
-font-size: 10px;
+font-size: 11px;
 font-weight: bold;
 color: rgb(255,255,255);
 }

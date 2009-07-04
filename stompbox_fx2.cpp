@@ -162,16 +162,16 @@ void stompbox_fx2::setEditPages()
 
 	editDetails()->page()->newGroupBox("Equalizer");
 	editDetails()->page()->newGroupBox("Band");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "09", "00", "37");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "09", "00", "38");
-	editDetails()->page()->addKnob(0, 2, 1, 1, "09", "00", "39");
-	editDetails()->page()->addKnob(0, 3, 1, 1, "09", "00", "3A");
-	editDetails()->page()->addKnob(0, 4, 1, 1, "09", "00", "3B");
-	editDetails()->page()->addKnob(0, 5, 1, 1, "09", "00", "3C");
-	editDetails()->page()->addKnob(0, 6, 1, 1, "09", "00", "3D");
-	editDetails()->page()->addKnob(0, 7, 1, 1, "09", "00", "3E");
-	editDetails()->page()->addKnob(0, 8, 1, 1, "09", "00", "3F");
-	editDetails()->page()->addKnob(0, 9, 1, 1, "09", "00", "40");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "09", "00", "37", "slider");
+	editDetails()->page()->addKnob(0, 1, 1, 1, "09", "00", "38", "slider");
+	editDetails()->page()->addKnob(0, 2, 1, 1, "09", "00", "39", "slider");
+	editDetails()->page()->addKnob(0, 3, 1, 1, "09", "00", "3A", "slider");
+	editDetails()->page()->addKnob(0, 4, 1, 1, "09", "00", "3B", "slider");
+	editDetails()->page()->addKnob(0, 5, 1, 1, "09", "00", "3C", "slider");
+	editDetails()->page()->addKnob(0, 6, 1, 1, "09", "00", "3D", "slider");
+	editDetails()->page()->addKnob(0, 7, 1, 1, "09", "00", "3E", "slider");
+	editDetails()->page()->addKnob(0, 8, 1, 1, "09", "00", "3F", "slider");
+	editDetails()->page()->addKnob(0, 9, 1, 1, "09", "00", "40", "slider");
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->page()->addGroupBox(0, 1, 2, 1);
     

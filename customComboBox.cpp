@@ -4,7 +4,7 @@
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
 ** All rights reserved.
 **
-** This file is part of "GT-10 Fx FloorBoard".
+** This file is part of "GT Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -28,7 +28,7 @@
 customComboBox::customComboBox(QWidget *parent)	: QComboBox(parent)
  {
 
- }
+ };
 
 void customComboBox::showPopup()
 {
@@ -52,8 +52,8 @@ void customComboBox::showPopup()
  		this->setMaxVisibleItems(this->maxVisibleItems() - 1);
  		popupWidth = popupWidth + 10;
  	};
-
+                                                                        
+   if(popupWidth < 40) { popupWidth = 40; };
  	this->view()->setMinimumWidth(popupWidth);
-        //QComboBox::AdjustToContents;
- 	QComboBox::showPopup();
-}
+  QComboBox::showPopup();
+};

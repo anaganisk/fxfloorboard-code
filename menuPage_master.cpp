@@ -39,7 +39,7 @@ void menuPage_master::updateSignal()
 
 void menuPage_master::setEditPages()
 {
-
+  
 	editDetails()->page()->newGroupBox("Master");
   editDetails()->page()->addKnob(0, 0, 1, 1, "0A", "00", "61");                        // master low
   editDetails()->page()->addKnob(0, 1, 1, 1, "0A", "00", "62");                        // master mid gain
@@ -58,5 +58,5 @@ void menuPage_master::setEditPages()
   editDetails()->page()->addComboBox(0, 0, 1, 1, "0A", "00", "69");                     // amp control
 	editDetails()->page()->addGroupBox(0, 2, 1, 1);
 
-	editDetails()->addPage();
+	editDetails()->addPage();          
 };

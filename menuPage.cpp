@@ -115,7 +115,7 @@ void menuPage::fx1_autoriff_ButtonSignal(bool value)
     if (this->id == 21)
     { 
       emitValueChanged(this->hex1, this->hex2, "00", "void");
-	    this->editDialog->setWindow("FX1 AutoRiff User");
+	    this->editDialog->setWindow("FX1 AutoRiff");
       emit setEditDialog(this->editDialog);
     };
 };
@@ -125,7 +125,7 @@ void menuPage::fx2_autoriff_ButtonSignal(bool value)
     if (this->id == 22)
     { 
       emitValueChanged(this->hex1, this->hex2, "00", "void");
-	    this->editDialog->setWindow("FX2 AutoRiff User");
+	    this->editDialog->setWindow("FX2 AutoRiff");
       emit setEditDialog(this->editDialog);
     };
 };

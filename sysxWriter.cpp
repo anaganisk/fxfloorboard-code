@@ -551,6 +551,7 @@ void sysxWriter::writeSMF(QString fileName)
 	{	Qhex = hexfile.readAll(); };
 	 
 		temp = Qhex.mid((288), 30);
+		out.remove(1763, 282);       //remove user text from end
 		out.prepend(temp);          // insert midi timing header
 		out.remove(30, 11);         // remove address "00 00" header
 		temp = Qhex.mid((320), 13);

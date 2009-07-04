@@ -68,7 +68,8 @@ void midiIO::queryMidiOutDevices()
 	 RtMidiOut *midiout = 0;
 	 std::string portName;
 	 unsigned int outPorts; 
-  try { midiout = new RtMidiOut(); }   /* RtMidiOut constructor */
+	 const std::string clientName = "FxFloorBoard";
+  try { midiout = new RtMidiOut(clientName); }   /* RtMidiOut constructor */
   catch (RtError &error) {
     error.printMessage();
     emit errorSignal("Midi Output Error", "port error");
@@ -117,7 +118,8 @@ void midiIO::queryMidiInDevices()
 	 RtMidiIn *midiin = 0;
 	 std::string portName;
 	 unsigned int inPorts;
-  try { midiin = new RtMidiIn(); }    /* RtMidiIn constructor */
+	 const std::string clientName = "FxFloorBoard";
+  try { midiin = new RtMidiIn(clientName); }    /* RtMidiIn constructor */
   catch (RtError &error) {
     error.printMessage();
     emit errorSignal("Midi Input Error", "port error");
@@ -163,7 +165,8 @@ QList<QString> midiIO::getMidiInDevices()
 void midiIO::sendSyxMsg(QString sysxOutMsg, int midiOutPort)
 {
     RtMidiOut *midiMsgOut = 0;
-	midiMsgOut = new RtMidiOut(); 
+    const std::string clientName = "FxFloorBoard";
+	midiMsgOut = new RtMidiOut(clientName); 
      int nPorts = midiMsgOut->getPortCount();   // Check available ports.
     if ( nPorts < 1 ) { goto cleanup; }
     try {    
@@ -200,7 +203,7 @@ void midiIO::sendSyxMsg(QString sysxOutMsg, int midiOutPort)
     };   
    /* Clean up */
  cleanup:
-	SLEEP(20);						// wait as long as the message is sending.
+	SLEEP(40);						// wait as long as the message is sending.
 	midiMsgOut->closePort();
     delete midiMsgOut;	
 };
@@ -208,7 +211,8 @@ void midiIO::sendSyxMsg(QString sysxOutMsg, int midiOutPort)
 void midiIO::sendMidiMsg(QString sysxOutMsg, int midiOutPort)
 {
     RtMidiOut *midiMsgOut = 0;
-		midiMsgOut = new RtMidiOut(); 
+    const std::string clientName = "FxFloorBoard";
+		midiMsgOut = new RtMidiOut(clientName); 
     unsigned int nPorts = midiMsgOut->getPortCount();   // Check available ports.
     if ( nPorts < 1 ){ goto cleanup; }
     try {    
@@ -274,12 +278,13 @@ void midiIO::receiveMsg(QString sysxInMsg, int midiInPort)
 	int count = 0;
 	emit setStatusSymbol(3);
 	emit setStatusProgress(100);
-	const int maxWait = preferences->getPreferences("Midi", "Time", "set").toInt(&ok, 10);
-	if(multiple){loopCount = maxWait*20; count = patchReplySize; } //patch reply size
-	else if (system){loopCount = maxWait*30; count = systemSize;}  // system reply size
-	  else {loopCount = maxWait*6; count = nameReplySize;};   // name reply size
+//	const int maxWait = preferences->getPreferences("Midi", "Time", "set").toInt(&ok, 10);
+	if(multiple){loopCount = 2000; count = patchReplySize; } //patch reply size
+	else if (system){loopCount = 3000; count = systemSize;}  // system reply size
+	  else {loopCount = 480; count = nameReplySize;};   // name reply size
     RtMidiIn *midiin = 0;	
-	  midiin = new RtMidiIn();		   //RtMidi constructor
+    const std::string clientName = "FxFloorBoard";
+	  midiin = new RtMidiIn(clientName);		   //RtMidi constructor
 	  unsigned int nPorts = midiin->getPortCount();	   // check we have a midiIn port
     if ( nPorts < 1 ) { goto cleanup; };
     try {
