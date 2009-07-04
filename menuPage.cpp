@@ -26,7 +26,7 @@
 #include "SysxIO.h"
 #include "globalVariables.h"
 #include "floorBoard.h"
-#include "preferences.h"
+#include "Preferences.h"
 
 // Platform-dependent sleep routines.
 #ifdef Q_OS_WIN

@@ -30,10 +30,10 @@ preferencesDialog::preferencesDialog()
 {
 	contentsWidget = new QListWidget;
 	contentsWidget->setViewMode(QListView::IconMode);
-	contentsWidget->setIconSize(QSize(55, 50));
+	contentsWidget->setIconSize(QSize(45, 40));
 	contentsWidget->setMovement(QListView::Static);
 	contentsWidget->setSpacing(4);
-	contentsWidget->setFixedWidth(75); // 70 to 75 for OS X.
+	contentsWidget->setFixedWidth(90); // 70 to 75 for OS X.
 
 	GeneralPage *generalSettings = new GeneralPage;
 	MidiPage *midiSettings = new MidiPage;

@@ -31,16 +31,15 @@ statusBarWidget::statusBarWidget(QWidget *parent)
 	this->progressBar->setFixedSize(80, 13);
 	this->progressBar->setRange(0, 100);
 	this->progressBar->setValue(0);
-
 	this->symbol = new statusBarSymbol(this);
 	this->symbol->setValue(0);
 
 	this->label = new QLabel(this);
-	this->label->setFixedWidth(120);
+        this->label->setFixedWidth(130);
 	this->label->setText("");
 
 	this->dBuglabel = new QLabel(this);
-	this->dBuglabel->setFixedWidth(500);
+        this->dBuglabel->setFixedWidth(750);
 	this->dBuglabel->setText("");
 
 	QHBoxLayout *widgetLayout = new QHBoxLayout;

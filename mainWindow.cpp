@@ -1,6 +1,6 @@
 /****************************************************************************
 **
-** Copyright (C) 2008 Colin Willcocks.
+** Copyright (C) 2007, 2008, 2009 Colin Willcocks.
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
 ** All rights reserved.
 **
@@ -93,10 +93,10 @@
 	mainLayout->addWidget(statusBar);
 	mainLayout->setMargin(0);
 	mainLayout->setSpacing(0);
-	mainLayout->setSizeConstraint(QLayout::SetFixedSize);
+        //mainLayout->setSizeConstraint(QLayout::SetFixedSize);
 	setLayout(mainLayout);
 
-	this->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+        //this->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
 
 	QObject::connect(fxsBoard, SIGNAL( sizeChanged(QSize, QSize) ),
                 this, SLOT( updateSize(QSize, QSize) ) );
@@ -467,11 +467,29 @@ void mainWindow::systemLoad()
 			QString area = "System";
 			sysxIO->setFileSource(area, file.getSystemSource());
 			sysxIO->setFileName(fileName);
-			//sysxIO->setSyncStatus(false);
-			//sysxIO->setDevice(false);
 
 			emit updateSignal();
-			sysxIO->systemWrite();
+                        QMessageBox *msgBox = new QMessageBox();
+                                        msgBox->setWindowTitle(deviceType + tr(" Fx FloorBoard"));
+                                        msgBox->setIcon(QMessageBox::Warning);
+                                        msgBox->setTextFormat(Qt::RichText);
+                                        QString msgText;
+                                        msgText.append("<font size='+1'><b>");
+                                        msgText.append(tr("You have chosen to load a SYSTEM DATA file."));
+                                        msgText.append("<b></font><br>");
+                                        msgText.append(tr("This will overwrite the SYSTEM DATA currently stored in the GT-10B<br>"));
+                                        msgText.append(tr (" and can't be undone.<br>"));
+                                        msgText.append(tr("Select 'NO' to only update the Editor - Select 'YES' to update the GT-10B memory<br>"));
+
+
+                                        msgBox->setInformativeText(tr("Are you sure you want to write to the GT-10B?"));
+                                        msgBox->setText(msgText);
+                                        msgBox->setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+
+                                        if(msgBox->exec() == QMessageBox::Yes)
+                                        {	// Accepted to overwrite system data.
+                                        sysxIO->systemWrite();
+                                        };
 		};
 	};
 	}

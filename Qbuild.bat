@@ -22,13 +22,13 @@ if errorlevel 2 goto B-OPTION
 if errorlevel 1 goto A-OPTION
 
 :A-OPTION
-C:\Qt\4.4.2\bin\qmake
+C:\Qt\4.5.1\bin\qmake
 c:\MinGW\bin\mingw32-make 
 pause
 goto CHECK
 
 :B-OPTION
-c:\qt\4.4.2\bin\qmake
+c:\qt\4.5.1\bin\qmake
 c:\MinGW\bin\mingw32-make 
 cd packager
 GT-10BFxFloorBoard.exe

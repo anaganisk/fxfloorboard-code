@@ -58,7 +58,7 @@ public:
 	 
     }
  
-  
+   
   //! Returns the thrown error message type.
   virtual const Type& getType(void) { return type_; }
 

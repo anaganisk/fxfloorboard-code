@@ -8,7 +8,7 @@
     RtMidi WWW site: http://music.mcgill.ca/~gary/rtmidi/
 
     RtMidi: realtime MIDI i/o C++ classes
-    Copyright (c) 2003-2006 Gary P. Scavone
+    Copyright (c) 2003-2009 Gary P. Scavone
 
     Permission is hereby granted, free of charge, to any person
     obtaining a copy of this software and associated documentation files
@@ -35,7 +35,7 @@
 */
 /**********************************************************************/
 
-// RtMidi: Version 1.0.6
+// RtMidi: Version 1.0.9
 
 #include "RtMidi.h"
 #include <sstream>
@@ -64,21 +64,21 @@ void RtMidi :: error( RtError::Type type )
 //  Common RtMidiIn Definitions
 //*********************************************************************//
 
-RtMidiIn :: RtMidiIn() : RtMidi()
+RtMidiIn :: RtMidiIn( const std::string clientName ) : RtMidi()
 {
-  this->initialize();
+  this->initialize( clientName );
 }
 
 void RtMidiIn :: setCallback( RtMidiCallback callback, void *userData )
 {
   if ( inputData_.usingCallback ) {
-    errorString_ = "FxFloorBoard MidiIn::setCallback: a callback function is already set!";
+    errorString_ = "RtMidiIn::setCallback: a callback function is already set!";
     error( RtError::WARNING );
     return;
   }
 
   if ( !callback ) {
-    errorString_ = "FxFloorBoard MidiIn::setCallback: callback function value is invalid!";
+    errorString_ = "RtMidiIn::setCallback: callback function value is invalid!";
     error( RtError::WARNING );
     return;
   }
@@ -91,7 +91,7 @@ void RtMidiIn :: setCallback( RtMidiCallback callback, void *userData )
 void RtMidiIn :: cancelCallback()
 {
   if ( !inputData_.usingCallback ) {
-    errorString_ = "FxFloorBoard MidiIn::cancelCallback: no callback function was set!";
+    errorString_ = "RtMidiIn::cancelCallback: no callback function was set!";
     error( RtError::WARNING );
     return;
   }
@@ -119,7 +119,7 @@ double RtMidiIn :: getMessage( std::vector<unsigned char> *message )
   message->clear();
 
   if ( inputData_.usingCallback ) {
-    errorString_ = "FxFloorBoard MidiIn::getNextMessage: a user callback is currently set for this port.";
+    errorString_ = "RtMidiIn::getNextMessage: a user callback is currently set for this port.";
     error( RtError::WARNING );
     return 0.0;
   }
@@ -139,10 +139,11 @@ double RtMidiIn :: getMessage( std::vector<unsigned char> *message )
 //  Common RtMidiOut Definitions
 //*********************************************************************//
 
-RtMidiOut :: RtMidiOut() : RtMidi()
+RtMidiOut :: RtMidiOut( const std::string clientName ) : RtMidi()
 {
-  this->initialize();
+  this->initialize( clientName );
 }
+
 
 
 //*********************************************************************//
@@ -159,6 +160,10 @@ RtMidiOut :: RtMidiOut() : RtMidi()
 //
 // Thanks to Pedro Lopez-Cabanillas for help with the ALSA sequencer
 // time stamps and other assorted fixes!!!
+
+// If you don't need timestamping for incoming MIDI events, define the
+// preprocessor definition AVOID_TIMESTAMPING to save resources
+// associated with the ALSA sequencer queues.
 
 #include <pthread.h>
 #include <sys/time.h>
@@ -203,13 +208,13 @@ extern "C" void *alsaMidiHandler( void *ptr )
   result = snd_midi_event_new( 0, &apiData->coder );
   if ( result < 0 ) {
     data->doInput = false;
-    std::cerr << "\nFxFloorBoard MidiIn::alsaMidiHandler: error initializing MIDI event parser!\n\n";
+    std::cerr << "\nRtMidiIn::alsaMidiHandler: error initializing MIDI event parser!\n\n";
     return 0;
   }
   unsigned char *buffer = (unsigned char *) malloc( apiData->bufferSize );
   if ( buffer == NULL ) {
     data->doInput = false;
-    std::cerr << "\nFxFloorBoard MidiIn::alsaMidiHandler: error initializing buffer memory!\n\n";
+    std::cerr << "\nRtMidiIn::alsaMidiHandler: error initializing buffer memory!\n\n";
     return 0;
   }
   snd_midi_event_init( apiData->coder );
@@ -226,28 +231,36 @@ extern "C" void *alsaMidiHandler( void *ptr )
     // If here, there should be data.
     result = snd_seq_event_input( apiData->seq, &ev );
     if ( result == -ENOSPC ) {
-      std::cerr << "\nFxFloorBoard MidiIn::alsaMidiHandler: MIDI input buffer overrun!\n\n";
+      std::cerr << "\nRtMidiIn::alsaMidiHandler: MIDI input buffer overrun!\n\n";
       continue;
     }
     else if ( result <= 0 ) {
-      std::cerr << "FxFloorBoard MidiIn::alsaMidiHandler: unknown MIDI input error!\n";
+      std::cerr << "RtMidiIn::alsaMidiHandler: unknown MIDI input error!\n";
       continue;
     }
 
     // This is a bit weird, but we now have to decode an ALSA MIDI
     // event (back) into MIDI bytes.  We'll ignore non-MIDI types.
-    message.bytes.clear();
+    if ( !continueSysex )
+      message.bytes.clear();
+
     switch ( ev->type ) {
 
 		case SND_SEQ_EVENT_PORT_SUBSCRIBED:
 #if defined(__RTMIDI_DEBUG__)
-      std::cout << "FxFloorBoard MidiIn::alsaMidiHandler: port connection made!\n";
+      std::cout << "RtMidiIn::alsaMidiHandler: port connection made!\n";
 #endif
       break;
 
 		case SND_SEQ_EVENT_PORT_UNSUBSCRIBED:
-      std::cerr << "FxFloorBoard MidiIn::alsaMidiHandler: port connection has closed!\n";
-      data->doInput = false;
+#if defined(__RTMIDI_DEBUG__)
+      std::cerr << "RtMidiIn::alsaMidiHandler: port connection has closed!\n";
+      std::cout << "sender = " << (int) ev->data.connect.sender.client << ":"
+                               << (int) ev->data.connect.sender.port
+                << ", dest = " << (int) ev->data.connect.dest.client << ":"
+                               << (int) ev->data.connect.dest.port
+                << std::endl;
+#endif
       break;
 
     case SND_SEQ_EVENT_QFRAME: // MIDI time code
@@ -267,7 +280,7 @@ extern "C" void *alsaMidiHandler( void *ptr )
         buffer = (unsigned char *) malloc( apiData->bufferSize );
         if ( buffer == NULL ) {
           data->doInput = false;
-          std::cerr << "\nFxFloorBoard MidiIn::alsaMidiHandler: error resizing buffer memory!\n\n";
+          std::cerr << "\nRtMidiIn::alsaMidiHandler: error resizing buffer memory!\n\n";
           break;
         }
       }
@@ -276,7 +289,7 @@ extern "C" void *alsaMidiHandler( void *ptr )
       nBytes = snd_midi_event_decode( apiData->coder, buffer, apiData->bufferSize, ev );
       if ( nBytes <= 0 ) {
 #if defined(__RTMIDI_DEBUG__)
-        std::cerr << "\nFxFloorBoard MidiIn::alsaMidiHandler: event parsing error or not a MIDI event!\n\n";
+        std::cerr << "\nRtMidiIn::alsaMidiHandler: event parsing error or not a MIDI event!\n\n";
 #endif
         break;
       }
@@ -291,7 +304,7 @@ extern "C" void *alsaMidiHandler( void *ptr )
       else
         message.bytes.insert( message.bytes.end(), buffer, &buffer[nBytes] );
 
-      continueSysex = ( ev->type == SND_SEQ_EVENT_SYSEX && message.bytes.back() != 0xF7 );
+      continueSysex = ( ( ev->type == SND_SEQ_EVENT_SYSEX ) && ( message.bytes.back() != 0xF7 ) );
       if ( continueSysex )
         break;
 
@@ -317,7 +330,7 @@ extern "C" void *alsaMidiHandler( void *ptr )
     snd_seq_free_event(ev);
     if ( message.bytes.size() == 0 ) continue;
 
-    if ( data->usingCallback ) {
+    if ( data->usingCallback && !continueSysex ) {
       RtMidiIn::RtMidiCallback callback = (RtMidiIn::RtMidiCallback) data->userCallback;
       callback( message.timeStamp, &message.bytes, data->userData );
     }
@@ -326,7 +339,7 @@ extern "C" void *alsaMidiHandler( void *ptr )
       if ( data->queueLimit > data->queue.size() )
         data->queue.push( message );
       else
-        std::cerr << "\nFxFloorBoard MidiIn: message queue limit reached!!\n\n";
+        std::cerr << "\nRtMidiIn: message queue limit reached!!\n\n";
     }
   }
 
@@ -336,18 +349,18 @@ extern "C" void *alsaMidiHandler( void *ptr )
   return 0;
 }
 
-void RtMidiIn :: initialize( void )
+void RtMidiIn :: initialize( const std::string& clientName )
 {
   // Set up the ALSA sequencer client.
-	snd_seq_t *seq;
+  snd_seq_t *seq;
   int result = snd_seq_open(&seq, "default", SND_SEQ_OPEN_DUPLEX, SND_SEQ_NONBLOCK);
   if ( result < 0 ) {
-    errorString_ = "FxFloorBoard MidiIn::initialize: error creating ALSA sequencer input client object.";
+    errorString_ = "RtMidiIn::initialize: error creating ALSA sequencer input client object.";
     error( RtError::DRIVER_ERROR );
 	}
 
   // Set client name.
-  snd_seq_set_client_name(seq, "FxFloorBoard Midi Input Client");
+  snd_seq_set_client_name( seq, clientName.c_str() );
 
   // Save our api-specific connection information.
   AlsaMidiData *data = (AlsaMidiData *) new AlsaMidiData;
@@ -357,7 +370,8 @@ void RtMidiIn :: initialize( void )
   inputData_.apiData = (void *) data;
 
   // Create the input queue
-  data->queue_id = snd_seq_alloc_named_queue(seq, "FxFloorBoard Midi Queue");
+#ifndef AVOID_TIMESTAMPING
+  data->queue_id = snd_seq_alloc_named_queue(seq, "RtMidi Queue");
   // Set arbitrary tempo (mm=100) and resolution (240)
   snd_seq_queue_tempo_t *qtempo;
   snd_seq_queue_tempo_alloca(&qtempo);
@@ -365,6 +379,7 @@ void RtMidiIn :: initialize( void )
   snd_seq_queue_tempo_set_ppq(qtempo, 240);
   snd_seq_set_queue_tempo(data->seq, data->queue_id, qtempo);
   snd_seq_drain_output(data->seq);
+#endif
 }
 
 // This function is used to count or get the pinfo structure for a given port number.
@@ -383,7 +398,10 @@ unsigned int portInfo( snd_seq_t *seq, snd_seq_port_info_t *pinfo, unsigned int 
 		snd_seq_port_info_set_client( pinfo, client );
 		snd_seq_port_info_set_port( pinfo, -1 );
 		while ( snd_seq_query_next_port( seq, pinfo ) >= 0 ) {
-      if ( !PORT_TYPE( pinfo, type ) )  continue;
+      unsigned int atyp = snd_seq_port_info_get_type( pinfo );
+      if ( ( atyp & SND_SEQ_PORT_TYPE_MIDI_GENERIC ) == 0 ) continue;
+      unsigned int caps = snd_seq_port_info_get_capability( pinfo );
+      if ( ( caps & type ) != type ) continue;
       if ( count == portNumber ) return 1;
       count++;
 		}
@@ -394,17 +412,17 @@ unsigned int portInfo( snd_seq_t *seq, snd_seq_port_info_t *pinfo, unsigned int 
   return 0;
 }
 
-void RtMidiIn :: openPort( unsigned int portNumber )
+void RtMidiIn :: openPort( unsigned int portNumber, const std::string portName )
 {
   if ( connected_ ) {
-    errorString_ = "FxFloorBoard MidiIn::openPort: a valid connection already exists!";
+    errorString_ = "RtMidiIn::openPort: a valid connection already exists!";
     error( RtError::WARNING );
     return;
   }
 
   unsigned int nSrc = this->getPortCount();
   if (nSrc < 1) {
-    errorString_ = "FxFloorBoard MidiIn::openPort: no MIDI input sources found!";
+    errorString_ = "RtMidiIn::openPort: no MIDI input sources found!";
     error( RtError::NO_DEVICES_FOUND );
   }
 
@@ -413,7 +431,7 @@ void RtMidiIn :: openPort( unsigned int portNumber )
   std::ostringstream ost;
   AlsaMidiData *data = static_cast<AlsaMidiData *> (apiData_);
   if ( portInfo( data->seq, pinfo, SND_SEQ_PORT_CAP_READ|SND_SEQ_PORT_CAP_SUBS_READ, (int) portNumber ) == 0 ) {
-    ost << "FxFloorBoard MidiIn::openPort: the listed device 'portNumber'(" << portNumber << ") is invalid.";
+    ost << "RtMidiIn::openPort: the 'portNumber' argument (" << portNumber << ") is invalid.";
     errorString_ = ost.str();
     error( RtError::INVALID_PARAMETER );
   }
@@ -433,14 +451,16 @@ void RtMidiIn :: openPort( unsigned int portNumber )
                                 SND_SEQ_PORT_TYPE_MIDI_GENERIC |
                                 SND_SEQ_PORT_TYPE_APPLICATION );
     snd_seq_port_info_set_midi_channels(pinfo, 16);
+#ifndef AVOID_TIMESTAMPING
     snd_seq_port_info_set_timestamping(pinfo, 1);
     snd_seq_port_info_set_timestamp_real(pinfo, 1);    
     snd_seq_port_info_set_timestamp_queue(pinfo, data->queue_id);
-    snd_seq_port_info_set_name(pinfo, "FxFloorBoard Midi Input");
+#endif
+    snd_seq_port_info_set_name(pinfo,  portName.c_str() );
     data->vport = snd_seq_create_port(data->seq, pinfo);
   
     if ( data->vport < 0 ) {
-      errorString_ = "FxFloorBoard MidiIn::openPort: ALSA error creating input port.";
+      errorString_ = "RtMidiIn::openPort: ALSA error creating input port.";
       error( RtError::DRIVER_ERROR );
     }
   }
@@ -452,14 +472,16 @@ void RtMidiIn :: openPort( unsigned int portNumber )
   snd_seq_port_subscribe_set_sender(data->subscription, &sender);
   snd_seq_port_subscribe_set_dest(data->subscription, &receiver);
   if ( snd_seq_subscribe_port(data->seq, data->subscription) ) {
-    errorString_ = "FxFloorBoard MidiIn::openPort: ALSA error making port connection.";
+    errorString_ = "RtMidiIn::openPort: ALSA error making port connection.";
     error( RtError::DRIVER_ERROR );
   }
 
   if ( inputData_.doInput == false ) {
     // Start the input queue
+#ifndef AVOID_TIMESTAMPING
     snd_seq_start_queue( data->seq, data->queue_id, NULL );
     snd_seq_drain_output( data->seq );
+#endif
     // Start our MIDI input thread.
     pthread_attr_t attr;
     pthread_attr_init(&attr);
@@ -473,7 +495,7 @@ void RtMidiIn :: openPort( unsigned int portNumber )
       snd_seq_unsubscribe_port( data->seq, data->subscription );
       snd_seq_port_subscribe_free( data->subscription );
       inputData_.doInput = false;
-      errorString_ = "FxFloorBoard MidiIn::openPort: error starting MIDI input thread!";
+      errorString_ = "RtMidiIn::openPort: error starting MIDI input thread!";
       error( RtError::THREAD_ERROR );
     }
   }
@@ -494,22 +516,26 @@ void RtMidiIn :: openVirtualPort( std::string portName )
 				SND_SEQ_PORT_TYPE_MIDI_GENERIC |
 				SND_SEQ_PORT_TYPE_APPLICATION );
     snd_seq_port_info_set_midi_channels(pinfo, 16);
+#ifndef AVOID_TIMESTAMPING
     snd_seq_port_info_set_timestamping(pinfo, 1);
     snd_seq_port_info_set_timestamp_real(pinfo, 1);    
     snd_seq_port_info_set_timestamp_queue(pinfo, data->queue_id);
+#endif
     snd_seq_port_info_set_name(pinfo, portName.c_str());
     data->vport = snd_seq_create_port(data->seq, pinfo);
 
     if ( data->vport < 0 ) {
-      errorString_ = "FxFloorBoard MidiIn::openVirtualPort: ALSA error creating virtual port.";
+      errorString_ = "RtMidiIn::openVirtualPort: ALSA error creating virtual port.";
       error( RtError::DRIVER_ERROR );
     }
   }
 
   if ( inputData_.doInput == false ) {
     // Start the input queue
+#ifndef AVOID_TIMESTAMPING
     snd_seq_start_queue( data->seq, data->queue_id, NULL );
     snd_seq_drain_output( data->seq );
+#endif
     // Start our MIDI input thread.
     pthread_attr_t attr;
     pthread_attr_init(&attr);
@@ -523,7 +549,7 @@ void RtMidiIn :: openVirtualPort( std::string portName )
       snd_seq_unsubscribe_port( data->seq, data->subscription );
       snd_seq_port_subscribe_free( data->subscription );
       inputData_.doInput = false;
-      errorString_ = "FxFloorBoard MidiIn::openPort: error starting MIDI input thread!";
+      errorString_ = "RtMidiIn::openPort: error starting MIDI input thread!";
       error( RtError::THREAD_ERROR );
     }
   }
@@ -536,8 +562,10 @@ void RtMidiIn :: closePort( void )
     snd_seq_unsubscribe_port( data->seq, data->subscription );
     snd_seq_port_subscribe_free( data->subscription );
     // Stop the input queue
+#ifndef AVOID_TIMESTAMPING
     snd_seq_stop_queue( data->seq, data->queue_id, NULL );
     snd_seq_drain_output( data->seq );
+#endif
     connected_ = false;
   }
 }
@@ -556,8 +584,10 @@ RtMidiIn :: ~RtMidiIn()
 
   // Cleanup.
   if ( data->vport >= 0 ) snd_seq_delete_port( data->seq, data->vport );
+#ifndef AVOID_TIMESTAMPING
   snd_seq_free_queue( data->seq, data->queue_id );
   snd_seq_close( data->seq );
+#endif
   delete data;
 }
 
@@ -572,17 +602,25 @@ unsigned int RtMidiIn :: getPortCount()
 
 std::string RtMidiIn :: getPortName( unsigned int portNumber )
 {
-	snd_seq_port_info_t *pinfo;
-	snd_seq_port_info_alloca( &pinfo );
+  snd_seq_client_info_t *cinfo;
+  snd_seq_port_info_t *pinfo;
+  snd_seq_client_info_alloca( &cinfo );
+  snd_seq_port_info_alloca( &pinfo );
 
   AlsaMidiData *data = static_cast<AlsaMidiData *> (apiData_);
   if ( portInfo( data->seq, pinfo, SND_SEQ_PORT_CAP_READ|SND_SEQ_PORT_CAP_SUBS_READ, (int) portNumber ) ) {
-    std::string stringName = std::string( snd_seq_port_info_get_name( pinfo ) );
+    int cnum = snd_seq_port_info_get_client( pinfo );
+    snd_seq_get_any_client_info( data->seq, cnum, cinfo );
+    std::ostringstream os;
+    os << snd_seq_client_info_get_name( cinfo );
+    os << ":";
+    os << snd_seq_port_info_get_port( pinfo );
+    std::string stringName = os.str();
     return stringName;
   }
 
   // If we get here, we didn't find a match.
-  errorString_ = "FxFloorBoard MidiIn::getPortName: error looking for port name!";
+  errorString_ = "RtMidiIn::getPortName: error looking for port name!";
   error( RtError::INVALID_PARAMETER );
   return 0;
 }
@@ -603,33 +641,41 @@ unsigned int RtMidiOut :: getPortCount()
 
 std::string RtMidiOut :: getPortName( unsigned int portNumber )
 {
-	snd_seq_port_info_t *pinfo;
-	snd_seq_port_info_alloca( &pinfo );
+  snd_seq_client_info_t *cinfo;
+  snd_seq_port_info_t *pinfo;
+  snd_seq_client_info_alloca( &cinfo );
+  snd_seq_port_info_alloca( &pinfo );
 
   AlsaMidiData *data = static_cast<AlsaMidiData *> (apiData_);
   if ( portInfo( data->seq, pinfo, SND_SEQ_PORT_CAP_WRITE|SND_SEQ_PORT_CAP_SUBS_WRITE, (int) portNumber ) ) {
-    std::string stringName = std::string( snd_seq_port_info_get_name( pinfo ) );
+    int cnum = snd_seq_port_info_get_client(pinfo);
+    snd_seq_get_any_client_info( data->seq, cnum, cinfo );
+    std::ostringstream os;
+    os << snd_seq_client_info_get_name(cinfo);
+    os << ":";
+    os << snd_seq_port_info_get_port(pinfo);
+    std::string stringName = os.str();
     return stringName;
   }
 
   // If we get here, we didn't find a match.
-  errorString_ = "FxFloorBoard MidiOut::getPortName: error looking for port name!";
+  errorString_ = "RtMidiOut::getPortName: error looking for port name!";
   error( RtError::INVALID_PARAMETER );
   return 0;
 }
 
-void RtMidiOut :: initialize( void )
+void RtMidiOut :: initialize( const std::string& clientName )
 {
   // Set up the ALSA sequencer client.
-	snd_seq_t *seq;
-  int result = snd_seq_open(&seq, "default", SND_SEQ_OPEN_OUTPUT, 0);
+  snd_seq_t *seq;
+  int result = snd_seq_open( &seq, "default", SND_SEQ_OPEN_OUTPUT, SND_SEQ_NONBLOCK );
   if ( result < 0 ) {
-    errorString_ = "FxFloorBoard MidiOut::initialize: error creating ALSA sequencer client object.";
+    errorString_ = "RtMidiOut::initialize: error creating ALSA sequencer client object.";
     error( RtError::DRIVER_ERROR );
 	}
 
   // Set client name.
-  snd_seq_set_client_name(seq, "FxFloorBoard Midi Output Client");
+  snd_seq_set_client_name( seq, clientName.c_str() );
 
   // Save our api-specific connection information.
   AlsaMidiData *data = (AlsaMidiData *) new AlsaMidiData;
@@ -641,30 +687,30 @@ void RtMidiOut :: initialize( void )
   result = snd_midi_event_new( data->bufferSize, &data->coder );
   if ( result < 0 ) {
     delete data;
-    errorString_ = "FxFloorBoard MidiOut::initialize: error initializing MIDI event parser!\n\n";
+    errorString_ = "RtMidiOut::initialize: error initializing MIDI event parser!\n\n";
     error( RtError::DRIVER_ERROR );
   }
   data->buffer = (unsigned char *) malloc( data->bufferSize );
   if ( data->buffer == NULL ) {
     delete data;
-    errorString_ = "FxFloorBoard MidiOut::initialize: error allocating buffer memory!\n\n";
+    errorString_ = "RtMidiOut::initialize: error allocating buffer memory!\n\n";
     error( RtError::MEMORY_ERROR );
   }
   snd_midi_event_init( data->coder );
   apiData_ = (void *) data;
 }
 
-void RtMidiOut :: openPort( unsigned int portNumber )
+void RtMidiOut :: openPort( unsigned int portNumber, const std::string portName )
 {
   if ( connected_ ) {
-    errorString_ = "FxFloorBoard MidiOut::openPort: a valid connection already exists!";
+    errorString_ = "RtMidiOut::openPort: a valid connection already exists!";
     error( RtError::WARNING );
     return;
   }
 
   unsigned int nSrc = this->getPortCount();
   if (nSrc < 1) {
-    errorString_ = "FxFloorBoard MidiOut::openPort: no MIDI output sources found!";
+    errorString_ = "RtMidiOut::openPort: no MIDI output sources found!";
     error( RtError::NO_DEVICES_FOUND );
   }
 
@@ -673,7 +719,7 @@ void RtMidiOut :: openPort( unsigned int portNumber )
   std::ostringstream ost;
   AlsaMidiData *data = static_cast<AlsaMidiData *> (apiData_);
   if ( portInfo( data->seq, pinfo, SND_SEQ_PORT_CAP_WRITE|SND_SEQ_PORT_CAP_SUBS_WRITE, (int) portNumber ) == 0 ) {
-    ost << "FxFloorBoard MidiOut::openPort: the listed device at 'portNumber'(" << portNumber << ") is invalid.";
+    ost << "RtMidiOut::openPort: the 'portNumber' argument (" << portNumber << ") is invalid.";
     errorString_ = ost.str();
     error( RtError::INVALID_PARAMETER );
   }
@@ -684,11 +730,11 @@ void RtMidiOut :: openPort( unsigned int portNumber )
   sender.client = snd_seq_client_id( data->seq );
 
   if ( data->vport < 0 ) {
-    data->vport = snd_seq_create_simple_port( data->seq, "FxFloorBoard Midi Output",
+    data->vport = snd_seq_create_simple_port( data->seq, portName.c_str(),
                                               SND_SEQ_PORT_CAP_READ|SND_SEQ_PORT_CAP_SUBS_READ,
                                               SND_SEQ_PORT_TYPE_MIDI_GENERIC );
     if ( data->vport < 0 ) {
-      errorString_ = "FxFloorBoard MidiOut::openPort: ALSA error creating output port.";
+      errorString_ = "RtMidiOut::openPort: ALSA error creating output port.";
       error( RtError::DRIVER_ERROR );
     }
   }
@@ -702,7 +748,7 @@ void RtMidiOut :: openPort( unsigned int portNumber )
   snd_seq_port_subscribe_set_time_update(data->subscription, 1);
   snd_seq_port_subscribe_set_time_real(data->subscription, 1);
   if ( snd_seq_subscribe_port(data->seq, data->subscription) ) {
-    errorString_ = "FxFloorBoard MidiOut::openPort: ALSA error making port connection.";
+    errorString_ = "RtMidiOut::openPort: ALSA error making port connection.";
     error( RtError::DRIVER_ERROR );
   }
 
@@ -728,7 +774,7 @@ void RtMidiOut :: openVirtualPort( std::string portName )
                                               SND_SEQ_PORT_TYPE_MIDI_GENERIC );
 
     if ( data->vport < 0 ) {
-      errorString_ = "FxFloorBoard MidiOut::openVirtualPort: ALSA error creating virtual port.";
+      errorString_ = "RtMidiOut::openVirtualPort: ALSA error creating virtual port.";
       error( RtError::DRIVER_ERROR );
     }
   }
@@ -757,13 +803,13 @@ void RtMidiOut :: sendMessage( std::vector<unsigned char> *message )
     data->bufferSize = nBytes;
     result = snd_midi_event_resize_buffer ( data->coder, nBytes);
     if ( result != 0 ) {
-      errorString_ = "FxFloorBoard MidiOut::sendMessage: ALSA error resizing MIDI event buffer.";
+      errorString_ = "RtMidiOut::sendMessage: ALSA error resizing MIDI event buffer.";
       error( RtError::DRIVER_ERROR );
     }
     free (data->buffer);
     data->buffer = (unsigned char *) malloc( data->bufferSize );
     if ( data->buffer == NULL ) {
-    errorString_ = "FxFloorBoard MidiOut::initialize: error allocating buffer memory!\n\n";
+    errorString_ = "RtMidiOut::initialize: error allocating buffer memory!\n\n";
     error( RtError::MEMORY_ERROR );
     }
   }
@@ -776,7 +822,7 @@ void RtMidiOut :: sendMessage( std::vector<unsigned char> *message )
   for ( unsigned int i=0; i<nBytes; i++ ) data->buffer[i] = message->at(i);
   result = snd_midi_event_encode( data->coder, data->buffer, (long)nBytes, &ev );
   if ( result < (int)nBytes ) {
-    errorString_ = "FxFloorBoard MidiOut::sendMessage: event parsing error!";
+    errorString_ = "RtMidiOut::sendMessage: event parsing error!";
     error( RtError::WARNING );
     return;
   }
@@ -784,12 +830,11 @@ void RtMidiOut :: sendMessage( std::vector<unsigned char> *message )
   // Send the event.
   result = snd_seq_event_output(data->seq, &ev);
   if ( result < 0 ) {
-    errorString_ = "FxFloorBoard MidiOut::sendMessage: error sending MIDI message to port.";
+    errorString_ = "RtMidiOut::sendMessage: error sending MIDI message to port.";
     error( RtError::WARNING );
   }
   snd_seq_drain_output(data->seq);
 }
 
 //#endif // __LINUX_ALSA__
-
 

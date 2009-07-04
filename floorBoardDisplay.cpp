@@ -103,6 +103,8 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
 	this->eq_Button = new customButton(tr("Equalizer"), false, QPoint(640, 457), this, ":/images/pushbutton.png");
 	this->pedal_Button = new customButton(tr("Pedal"), false, QPoint(640, 475), this, ":/images/pushbutton.png");
 	
+	//this->tempButton = new customButton(tr("Get Temp"), false, QPoint(300, 250), this, ":/images/ledbutton.png");
+	
 	SysxIO *sysxIO = SysxIO::Instance();
 	QObject::connect(this, SIGNAL(setStatusSymbol(int)), sysxIO, SIGNAL(setStatusSymbol(int)));
 	QObject::connect(this, SIGNAL(setStatusProgress(int)), sysxIO, SIGNAL(setStatusProgress(int)));

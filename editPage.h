@@ -72,7 +72,7 @@ public:
 		QString hex2 = "void",
 		QString hex3 = "void",
 		QString area = "System",
-		QString length = 10,
+		QString length = "10",
     Qt::Alignment alignment = 0);
 	void addLabel(int row, int column, int rowSpan, int columnSpan, QString text, Qt::Alignment alignment = 0);
 	void newGroupBox(QString title, Qt::Alignment alignment = Qt::AlignCenter);
