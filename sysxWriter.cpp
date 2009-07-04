@@ -79,7 +79,7 @@ bool sysxWriter::readFile()
 		else if (data.size() == 684 && isHeader && !isSystem)
     {
     QByteArray standard_data = data;
-	  QFile file(":default.syx");   // Read the default GT-3 sysx file so we don't start empty handed.
+	  QFile file(":default.syx");   // Read the default GT-6B sysx file so we don't start empty handed.
     if (file.open(QIODevice::ReadOnly))
 	  {	data = file.readAll(); };
 	  
@@ -100,7 +100,7 @@ bool sysxWriter::readFile()
 		else if (data.size() > 684 && isHeader && !isSystem)   // most likely a GT_Manager file
     {
     QByteArray patch_data = data;
-	  QFile file(":default.syx");   // Read the default GT-6 sysx file so we don't start empty handed.
+	  QFile file(":default.syx");   // Read the default GT-6B sysx file so we don't start empty handed.
     if (file.open(QIODevice::ReadOnly))
 	  {	data = file.readAll(); };
 	  

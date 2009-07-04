@@ -1,10 +1,10 @@
 
-GT-6BFxFloorBoard Copyright (C) 2007-2008-2009 Colin Willcocks (gumtownbassman@yahoo.com).
+GT-6BFxFloorBoard Copyright (C) 2006-2007-2008-2009 Colin Willcocks (gumtownbassman@yahoo.com).
  All rights reserved.
 =======
 
 
-GT-6BFxFloorBoard version 20090527: 27 May 2009
+GT-6BFxFloorBoard version 20090530: 30 May 2009
 
 PLEASE FEEL FREE TO DONATE, YOU MAY FREELY USE THIS SOFTWARE, 
  JUST KEEP IN MIND THE 6000 HOURS SPENT OVER 4 YEARS GETTING IT HERE,

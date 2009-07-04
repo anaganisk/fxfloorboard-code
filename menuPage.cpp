@@ -1,8 +1,9 @@
 /****************************************************************************
 **
+** Copyright (C) 2006, 2007, 2008, 2009 Colin Willcocks. 
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
-** This file is part of "GT-10B Fx FloorBoard".
+** This file is part of "GT-6B Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -62,12 +63,7 @@ menuPage::menuPage(QWidget *parent, unsigned int id, QString imagePath, QPoint s
 	QObject::connect(this->menuButton, SIGNAL(valueChanged(bool)), this, SLOT(menuButtonSignal(bool))); 
   
   QObject::connect(this->menuButton, SIGNAL(valueChanged(bool)), this->parent(), SLOT(menuButtonSignal()));
-  
- // QObject::connect(this->parent(), SIGNAL(master_buttonSignal(bool)), this, SLOT(master_ButtonSignal(bool) ));
-  //QObject::connect(this->parent(), SIGNAL(master_buttonSignal(bool)), this->parent(), SLOT(menuButtonSignal()));
-                
-  //QObject::connect(this->parent(), SIGNAL(assignSignal(bool)), this, SLOT(assignSignal(bool)));  //cw
-  
+ 
   SysxIO *sysxIO = SysxIO::Instance();
 	QObject::connect(this, SIGNAL(setStatusSymbol(int)), sysxIO, SIGNAL(setStatusSymbol(int)));
 	QObject::connect(this, SIGNAL(setStatusProgress(int)), sysxIO, SIGNAL(setStatusProgress(int)));
@@ -91,16 +87,6 @@ editWindow* menuPage::editDetails()
 	return this->editDialog;
 }
 
-/*void menuPage::master_ButtonSignal(bool value)	
-{  
-    if (this->id == 23)
-    { 
-      emitValueChanged(this->hex1, this->hex2, "00", "void");
-	    this->editDialog->setWindow("Master");
-      emit setEditDialog(this->editDialog);
-    };
-};
-*/
 void menuPage::menuButtonSignal(bool value)	
 {
 	  if(this->id > 19)
@@ -114,19 +100,7 @@ void menuPage::menuButtonSignal(bool value)
 	  if((this->id == 19 || this->id == 18) && sysxIO->deviceReady())
 	  {
     QString replyMsg;
-	        emit setStatusSymbol(2);
-		      emit setStatusMessage(tr("Requesting System data"));
-	       	sysxIO->setDeviceReady(false); // Reserve the device for interaction.
-		      QObject::disconnect(sysxIO, SIGNAL(sysxReply(QString)));
-		      QObject::connect(sysxIO, SIGNAL(sysxReply(QString)), this, SLOT(systemReply(QString)));
-		      sysxIO->sendSysx(systemRequest); // GT-6B System area data Request.    
-          
-          emitValueChanged(this->hex1, this->hex2, "00", "void");
-	        this->editDialog->setWindow(this->fxName);
-		      emit setEditDialog(this->editDialog);  	        
-         
-        // if(sysxIO->systemSource.address.indexOf(address) == -1)
-        /* if (!sysxIO->isConnected())
+    /*if (!sysxIO->isConnected())
             {
               QString snork = "Ensure Bulk Mode is set on GT-6B and Editor \n";
               snork.append("then try again.\n");
@@ -137,8 +111,20 @@ void menuPage::menuButtonSignal(bool value)
 		        	msgBox->setText(snork);
 		        	msgBox->setStandardButtons(QMessageBox::Ok);
 		        	msgBox->exec(); 
-             };   */
-    };
+             } else
+         {       */
+	        emit setStatusSymbol(2);
+		      emit setStatusMessage(tr("Requesting System data"));
+	       	sysxIO->setDeviceReady(false); // Reserve the device for interaction.
+		      QObject::disconnect(sysxIO, SIGNAL(sysxReply(QString)));
+		      QObject::connect(sysxIO, SIGNAL(sysxReply(QString)), this, SLOT(systemReply(QString)));
+		      sysxIO->sendSysx(systemRequest); // GT-6B System area data Request.    
+          
+          emitValueChanged(this->hex1, this->hex2, "00", "void");
+	        this->editDialog->setWindow(this->fxName);
+		      emit setEditDialog(this->editDialog);  	        
+          };
+      // };
 }
 
 void menuPage::systemReply(QString replyMsg)
@@ -187,7 +173,6 @@ void menuPage::systemReply(QString replyMsg)
 void menuPage::setPos(QPoint newPos)
 {
 	this->move(newPos);
-	//this->stompPos = newPos;
 }
 
 void menuPage::updatePos(signed int offsetDif)
@@ -195,7 +180,6 @@ void menuPage::updatePos(signed int offsetDif)
 	this->stompPos = this->pos();
 	QPoint newPos = stompPos + QPoint::QPoint(offsetDif, 0);
 	this->move(newPos);
-	//this->stompPos = newPos;
 }
 	
 void menuPage::setImage(QString imagePath)
@@ -267,8 +251,6 @@ void menuPage::valueChanged(bool value, QString hex1, QString hex2, QString hex3
 	QString area; 
 	if(this->id == 18 || this->id == 19) {area = "System";} else {area = "Structure";};
 	sysxIO->setFileSource(area, hex1, hex2, hex3, valueHex);
-
-
 	emitValueChanged(hex1, hex2, hex3, valueHex);
 }
 
@@ -289,16 +271,13 @@ void menuPage::emitValueChanged(QString hex1, QString hex2, QString hex3, QStrin
 			emit dialogUpdateSignal();
 		}
 		else
-		{
-		 
+		{		 
 		  if (this->id == 18)this->fxName = "System settings";
 		  if (this->id == 19)this->fxName = "Custom Settings";
 		  if (this->id == 20)this->fxName = "Assigns";
 		  if (this->id == 21)this->fxName = "Master"; 
-				 //midiTable->getMidiMap("Structure", hex1, hex2, hex3).name;//hex1).customdesc;
 		};
 	};
-
 	emit valueChanged(this->fxName, valueName, valueStr);
 }
 
@@ -306,3 +285,4 @@ void menuPage::setDisplayToFxName()
 {
 	emit valueChanged(this->fxName, "", "");
 }
+

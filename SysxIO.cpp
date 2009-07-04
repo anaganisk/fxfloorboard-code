@@ -1248,7 +1248,7 @@ void SysxIO::systemDataRequest()
 	       	setDeviceReady(false); // Reserve the device for interaction.
 		      QObject::disconnect(this, SIGNAL(sysxReply(QString)));
 		      QObject::connect(this, SIGNAL(sysxReply(QString)), this, SLOT(systemReply(QString)));
-		      sendSysx(systemRequest); // GT-3 System area data Request.    
+		      sendSysx(systemRequest); // GT-6B System area data Request.    
           
           emit setStatusProgress(0);
          }
@@ -1271,9 +1271,11 @@ void SysxIO::systemReply(QString replyMsg)
   
 	if(noError())
 	{
-		if(replyMsg.size()/2 == 5258)
+		if(replyMsg.size()/2 >= 2237)
 		{
 		QString area = "System";
+		QString temp = replyMsg.mid(0, 2237);
+		replyMsg = temp;
 		setFileSource(area, replyMsg);		// Set the source to the data received.
 		setFileName(tr("System Data from ") + deviceType);	// Set the file name to GT-10B system for the display.
 		setDevice(true);				// Patch received from the device so this is set to true.
@@ -1311,8 +1313,8 @@ void SysxIO::writeToBuffer()
 		emit setStatusSymbol(2);
 		emit setStatusMessage(tr("Sync to ")+deviceType);
 
-	QString addr1 = "0C"; //QString::number(96, 16).toUpper();  // temp address
-	QString addr2 = "00"; //QString::number(0, 16).toUpper();
+	QString addr1 = "0C"; // temp address
+	QString addr2 = "00"; 
 
 	for(int i=0;i<patchData.size();++i)
 	{

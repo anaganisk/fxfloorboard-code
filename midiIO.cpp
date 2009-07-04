@@ -278,7 +278,7 @@ void midiIO::receiveMsg(QString sysxInMsg, int midiInPort)
               count = patchSize;
   } else if(system) {
               loopCount = 1600;
-              count = 5258;
+              count = 2237;
   }
   else {
               loopCount = 250;
