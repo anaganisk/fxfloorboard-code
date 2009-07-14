@@ -1,7 +1,8 @@
 /****************************************************************************
 **
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
-** Copyright (C) 2007, 2008, Colin Willcocks. All rights reserved.
+** Copyright (C) 2007, 2008, 2009 Colin Willcocks.
+** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
+** All rights reserved.
 ** This file is part of "GT-10B Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
@@ -103,7 +104,6 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
 	this->eq_Button = new customButton(tr("Equalizer"), false, QPoint(640, 457), this, ":/images/pushbutton.png");
 	this->pedal_Button = new customButton(tr("Pedal"), false, QPoint(640, 475), this, ":/images/pushbutton.png");
 	
-	//this->tempButton = new customButton(tr("Get Temp"), false, QPoint(300, 250), this, ":/images/ledbutton.png");
 	
 	SysxIO *sysxIO = SysxIO::Instance();
 	QObject::connect(this, SIGNAL(setStatusSymbol(int)), sysxIO, SIGNAL(setStatusSymbol(int)));
@@ -205,11 +205,21 @@ void floorBoardDisplay::setPatchNumDisplay(int bank, int patch)
 		 this->patchNumDisplay->resetAllColor();
      this->patchNumDisplay->setSubText("User");
 		}
-		else
+		else if (bank > bankTotalUser && bank <= bankTotalAll)
 		{
 			this->patchNumDisplay->setAllColor(QColor(255,0,0));
       this->patchNumDisplay->setSubText("Preset");
-		};
+		}
+    	else if (bank == 101)
+		{
+     this->patchNumDisplay->resetAllColor();
+     this->patchNumDisplay->setSubText("Quick");
+    }
+    else
+    {
+     this->patchNumDisplay->setAllColor(QColor(255,0,0));
+     this->patchNumDisplay->setSubText("Quick");
+    };
 		QString str;
 		if(bank < 51) 
     { 
@@ -217,11 +227,19 @@ void floorBoardDisplay::setPatchNumDisplay(int bank, int patch)
       if(bank < 10) {	str.append("0"); };
 		  str.append(QString::number(bank, 10));  
     } 
-      else 
+      else if (bank > 50 && bank < 101)
 		{ str.append("P"); 
 		if(bank < 60) {	str.append("0"); };  
 		str.append(QString::number(bank-50, 10));		
-	  };
+	  }
+    else if (bank ==101) 
+    {
+     str.append("U");
+    }
+    else
+    {
+     str.append("P");
+    };
 		str.append(":");
 		str.append(QString::number(patch, 10));
 	  this->patchNumDisplay->setMainText(str, Qt::AlignCenter);
@@ -495,9 +513,9 @@ void floorBoardDisplay::writeSignal(bool)
 	{
 	 this->writeButton->setBlink(true);
 	 
-		if(sysxIO->getBank() == 0) /* Check if a bank is sellected. */
+		if(sysxIO->getBank() == 0) // Check if a bank is sellected. 
 		{
-			QMessageBox *msgBox = new QMessageBox();
+		/*	QMessageBox *msgBox = new QMessageBox();
 			msgBox->setWindowTitle(deviceType + tr(" Fx FloorBoard"));
 			msgBox->setIcon(QMessageBox::Warning);
 			msgBox->setTextFormat(Qt::RichText);
@@ -508,17 +526,19 @@ void floorBoardDisplay::writeSignal(bool)
 			msgText.append(tr("Please select a user bank to write this patch to and try again."));
 			msgBox->setText(msgText);
 			msgBox->setStandardButtons(QMessageBox::Ok);
-			msgBox->exec();
+			//msgBox->exec();
 			this->writeButton->setBlink(false);
-			this->writeButton->setValue(false);
+			this->writeButton->setValue(false);     */
+			sysxIO->setDeviceReady(false);			// Reserve the device for interaction.
+			writeToBuffer();
 		}
-		else /* Bank is sellected. */
-		{
+		else // Bank is sellected. 
+		{  
 			sysxIO->setDeviceReady(false);			// Reserve the device for interaction.
 
-			if(!sysxIO->getSyncStatus())			// Check if the data is already in sync. with the device.
-			{	/* If not we send the data to the (temp) buffer. So we don't change the patch default address "60 00". */		
-				if(sysxIO->getBank() != sysxIO->getLoadedBank() || sysxIO->getPatch() != sysxIO->getLoadedPatch())// Check if a different patch is sellected
+		//	if(!sysxIO->getSyncStatus())			// Check if the data is already in sync. with the device.
+		//	{	/* If not we send the data to the (temp) buffer. So we don't change the patch default address "60 00". */		
+			/*	if(sysxIO->getBank() != sysxIO->getLoadedBank() || sysxIO->getPatch() != sysxIO->getLoadedPatch())// Check if a different patch is sellected
 				{															// else load the selected one.
 					emit setStatusSymbol(2);
 					emit setStatusMessage("Sending");
@@ -534,16 +554,16 @@ void floorBoardDisplay::writeSignal(bool)
 						this, SLOT(writeToBuffer()));				// to writeToBuffer.
 
 					sysxIO->requestPatchChange(bank, patch);
-				}
-				else
-				{
-					writeToBuffer();
-				};		
+			//	}
+			//	else
+			//	{
+			//		writeToBuffer();
+			//	};		 
 				sysxIO->setDeviceReady(true);
 			}
-			else /* If sync we will write (save) the patch directly to selected bank. So we will have to change the patch address */
+			else*/ /* If sync we will write (save) the patch directly to selected bank. So we will have to change the patch address */
 			{
-				if(sysxIO->getBank() > bankTotalUser) // Preset banks are NOT writable so we check.
+				if((sysxIO->getBank() > bankTotalUser && sysxIO->getBank() <= bankTotalAll) || (sysxIO->getBank() == 105)) // Preset banks are NOT writable so we check.
 				{
 					QMessageBox *msgBox = new QMessageBox();
 					msgBox->setWindowTitle(deviceType + tr(" Fx FloorBoard"));
@@ -580,9 +600,10 @@ void floorBoardDisplay::writeSignal(bool)
 					msgText.append("<font size='+1'><b>");
 					msgText.append(tr("You have chosen to write the patch permanently into ") + deviceType + (" memory."));
 					msgText.append("<b></font><br>");
-					msgText.append(tr("This will overwrite the patch currently stored at patch location\n"));
+					msgText.append(tr("This will overwrite the patch currently stored at patch location<br>"));
 					msgText.append("<font size='+2'><b>");
-					msgText.append(bankNum +(":") +patchNum	);
+					if (bank == 101){ msgText.append(("Quick Effects ") + patchNum); } 
+					else { msgText.append(bankNum +(":") +patchNum	); };
 					msgText.append("<b></font><br>");
           msgText.append(tr (" and can't be undone. "));
 					msgBox->setInformativeText(tr("Are you sure you want to continue?"));
@@ -629,16 +650,27 @@ void floorBoardDisplay::writeToMemory()
 
 	int bank = sysxIO->getBank();
 	int patch = sysxIO->getPatch();
-	int patchOffset = (((bank - 1 ) * patchPerBank) + patch) - 1;
-	int memmorySize = QString("7F").toInt(&ok, 16) + 1;
-	int emptyAddresses = (memmorySize) - ((bankTotalUser * patchPerBank) - (memmorySize));
-	if(bank > bankTotalUser) patchOffset += emptyAddresses; //System patches start at a new memmory range.
-	int addrMaxSize = QString("80").toInt(&ok, 16);
-	int n = (int)(patchOffset / addrMaxSize);
+	QString addr1;
+	QString addr2;
+	if (bank < 101)
+	{
+  	 int patchOffset = (((bank - 1 ) * patchPerBank) + patch) - 1;
+  	 int memmorySize = QString("7F").toInt(&ok, 16) + 1;
+  	 int emptyAddresses = (memmorySize) - ((bankTotalUser * patchPerBank) - (memmorySize));
+  	 if(bank > bankTotalUser) patchOffset += emptyAddresses; //System patches start at a new memmory range.
+     int addrMaxSize = QString("80").toInt(&ok, 16);
+     int n = (int)(patchOffset / addrMaxSize);
 	
-	QString addr1 = QString::number(16 + n, 16).toUpper();
-	QString addr2 = QString::number(patchOffset - (addrMaxSize * n), 16).toUpper();
-	
+  	addr1 = QString::number(16 + n, 16).toUpper();
+  	addr2 = QString::number(patchOffset - (addrMaxSize * n), 16).toUpper();
+	 } 
+	 else
+	 {
+    addr1 = "30";
+    addr2 = QString::number(patch - 1, 16).toUpper();
+   };
+   if (addr1.length() < 2) addr1.prepend("0");
+	 if (addr2.length() < 2) addr2.prepend("0");
 	for(int i=0;i<patchData.size();++i)
 	{
 		QList<QString> data = patchData.at(i);

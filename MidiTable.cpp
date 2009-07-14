@@ -724,6 +724,18 @@ QString MidiTable::nameRequest(int bank, int patch)
 		if (addr1.length() < 2) addr1.prepend("0");
 		if (addr2.length() < 2) addr2.prepend("0");
 	}
+		else if ( bank == 101 )
+	{
+	addr1 = "30";
+	addr2 = QString::number(patch - 1 , 16).toUpper();
+  if (addr2.length() < 2) addr2.prepend("0");
+  }
+  else if ( bank == 105 )
+	{
+	addr1 = "40";
+	addr2 = QString::number(patch - 1, 16).toUpper();
+  if (addr2.length() < 2) addr2.prepend("0");
+  }
 	else
 	{
 	//Preferences *preferences = Preferences::Instance(); bool ok;// Load the preferences.
@@ -758,7 +770,7 @@ QString MidiTable::patchRequest(int bank, int patch)
 	//const int tempDataWrite = preferences->getPreferences("Midi", "Time", "set").toInt(&ok, 10);
 	//bool ok;
 	QString addr1, addr2;
-	if(bank != 0 && patch != 0 && bank <= bankTotalAll && patch <= patchPerBank)
+	if(bank != 0 && patch != 0 && bank <= bankTotalAll/* && patch <= patchPerBank*/)
 	{
 		int patchOffset = (((bank - 1 ) * patchPerBank) + patch) - 1;
 		int memmorySize = QString("BF").toInt(&ok, 16) + 1;
@@ -777,6 +789,18 @@ QString MidiTable::patchRequest(int bank, int patch)
 		if (addr1.length() < 2) addr1.prepend("0");
 		if (addr2.length() < 2) addr2.prepend("0");
 	}
+	else if ( bank == 101 )
+	{
+	addr1 = "30";
+	addr2 = QString::number(patch - 1, 16).toUpper();
+  if (addr2.length() < 2) addr2.prepend("0");
+  }
+  else if ( bank == 105 )
+	{
+	addr1 = "40";
+	addr2 = QString::number(patch - 1, 16).toUpper();
+  if (addr2.length() < 2) addr2.prepend("0");
+  }
 	else
 	{
 		addr1 = "60";//tempDataWrite;

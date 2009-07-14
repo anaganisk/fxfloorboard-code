@@ -1,6 +1,6 @@
 /****************************************************************************
 **
-** Copyright (C) 2008 Colin Willcocks.
+** Copyright (C) 2007, 2008, 2009 Colin Willcocks.
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
 ** All rights reserved.
 ** This file is part of "GT-10B Fx FloorBoard".
@@ -306,7 +306,7 @@ QTreeWidget* bankTreeList::newTreeList()
 	QTreeWidget *newTreeList = new QTreeWidget();
 	newTreeList->setColumnCount(1);
 	newTreeList->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-	newTreeList->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff); // Qt::ScrollBarAsNeeded
+	newTreeList->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded); //        Qt::ScrollBarAlwaysOff
 	
 	QStringList headers;
 	headers << "Double-click tree item to load patch";
@@ -381,9 +381,73 @@ QTreeWidget* bankTreeList::newTreeList()
 		a += 4;
 	};
 	preset->addChildren(presetBankRanges);
+	
+	
+	
+	QTreeWidgetItem *quickFX = new QTreeWidgetItem(newTreeList);
+	quickFX->setText(0, "Quick FX");
+	user->setWhatsThis(0, "Quick FX");
+	//user->setIcon(...);
 
-	newTreeList->setExpanded(newTreeList->model()->index(0, 0), true);
+    QList<QTreeWidgetItem *> userQFXBankRanges;
+    for (int a=1; a<=2; a++)
+	{
+		QTreeWidgetItem* QFXbankRange = new QTreeWidgetItem; // don't pass a parent here!
+    QFXbankRange->setText(0, QString::QString("User ").append(QString::number(a, 10)).append("- ").append(QString::number(a+9, 10)) );
+		QFXbankRange->setWhatsThis(0, "what the ?");
+		//bankRange->setIcon(QIcon(":/images/gt6b_icon_1.png"));
+       /*
+		for (int b=a; b<=(a+1); b++)
+				{
+			QTreeWidgetItem* bank = new QTreeWidgetItem(QFXbankRange);
+			bank->setText(0, QString::QString("Bank ").append(QString::number(b, 10)));
+			bank->setWhatsThis(0, "");
+			//bank->setIcon(...);
+              */
+			for (int c=1; c<=10; c++)
+			{
+				QTreeWidgetItem* patch = new QTreeWidgetItem(QFXbankRange);//bank);
+				patch->setText(0, QString::QString("QFX User ").append(QString::number(c, 10)));
+				patch->setWhatsThis(0, "");
+				//patch->setIcon(...);
+			};
+		//}; 
+		userQFXBankRanges << QFXbankRange;
+		a += 10;
+		};
+		
+		QList<QTreeWidgetItem *> presetQFXBankRanges;
+    for (int a=1; a<=2; a++)
+	{
+		QTreeWidgetItem* QFXbankRange = new QTreeWidgetItem; // don't pass a parent here!
+    QFXbankRange->setText(0, QString::QString("Preset ").append(QString::number(a, 10)).append(" - ").append(QString::number(a+19, 10)) );
+		QFXbankRange->setWhatsThis(0, "what the ?");
+		//bankRange->setIcon(QIcon(":/images/gt6b_icon_1.png"));
+       /*
+		for (int b=a; b<=(a+1); b++)
+				{
+			QTreeWidgetItem* bank = new QTreeWidgetItem(QFXbankRange);
+			bank->setText(0, QString::QString("Bank ").append(QString::number(b, 10)));
+			bank->setWhatsThis(0, "");
+			//bank->setIcon(...);
+              */
+			for (int c=1; c<=10; c++)
+			{
+				QTreeWidgetItem* patch = new QTreeWidgetItem(QFXbankRange);//bank);
+				patch->setText(0, QString::QString("QFX Preset ").append(QString::number(c, 10)));
+				patch->setWhatsThis(0, "");
+				//patch->setIcon(...);
+			};
+		//}; 
+		userQFXBankRanges << QFXbankRange;
+		a += 10;
+		};
+	quickFX->addChildren(userQFXBankRanges);
+  quickFX->addChildren(presetQFXBankRanges);
+
 	newTreeList->setExpanded(newTreeList->model()->index(1, 0), true);
+	newTreeList->setExpanded(newTreeList->model()->index(2, 0), true);
+	newTreeList->setExpanded(newTreeList->model()->index(3, 0), true);
 	return newTreeList;
 };
 
@@ -404,33 +468,56 @@ void bankTreeList::setItemClicked(QTreeWidgetItem *item, int column)
 			item->setExpanded(true);
 		};
 	} 
-	else if (item->childCount() == 0 && item->text(0) != "Temp")
+	else if (item->childCount() == 0/* && item->text(0) != "Temp" && !item->text(0).contains("QFX Preset")*/)
 	{
 		SysxIO *sysxIO = SysxIO::Instance();
 		if(sysxIO->isConnected() && sysxIO->deviceReady())
 		{
+		int bank;
+		int patch;
+		if (!item->text(0).contains("QFX") && !item->text(0).contains("Temp"))
+		{
 			bool ok;
-			int bank = item->parent()->text(0).section(" ", 1, 1).trimmed().toInt(&ok, 10);
-			int patch = item->parent()->indexOfChild(item) + 1;
+			bank = item->parent()->text(0).section(" ", 1, 1).trimmed().toInt(&ok, 10);
+			patch = item->parent()->indexOfChild(item) + 1;
 			QString preset = item->parent()->parent()->text(0);
 			if (preset.contains("P")) { bank = bank + 50; };
-			emit patchSelectSignal(bank, patch);
-			sysxIO->requestPatchChange(bank, patch); // extra to try patch change
+		}
+		else if (item->text(0).contains("QFX"))
+		{
+		 if (item->text(0).contains("QFX User"))
+		 {bank = 101;} else {bank = 105;}
+      patch = item->parent()->indexOfChild(item) + 1;
+    }
+    else 
+    {
+      bank = 0;
+      patch = 0;
+      //emit patchSelectSignal(bank, patch);
+    };
+			
+			if (item->text(0) != "Temp" && !item->text(0).contains("QFX"))
+			{ sysxIO->requestPatchChange(bank, patch); }; // extra to try patch change
 			sysxIO->setRequestName(item->text(0));	// Set the name of the patch we have sellected in case we load it.
+			sysxIO->setBank(bank);
+			sysxIO->setPatch(patch);
+			emit patchSelectSignal(bank, patch);
 		};
 		
 	};
 };
 
 /*********************** setItemDoubleClicked() *****************************
- * Handels when a patch is double clicked in the tree list. Patch will be 
+ * Handles when a patch is double clicked in the tree list. Patch will be 
  * loaded into the temp buffer and will tell to request the data afterwards.
  ****************************************************************************/
 void bankTreeList::setItemDoubleClicked(QTreeWidgetItem *item, int column)
 {	
 	//column; // not used
+	int bank = 0;
+	int patch = 0;
 	SysxIO *sysxIO = SysxIO::Instance();
-	if(item->childCount() == 0 && item->text(0) != "Temp" && sysxIO->deviceReady() && sysxIO->isConnected()) 
+	if(item->childCount() == 0 && sysxIO->deviceReady() && sysxIO->isConnected()) 
 		// Make sure it's a patch (Patches are the last in line so no children).
 	{
 		emit setStatusSymbol(2);
@@ -438,10 +525,11 @@ void bankTreeList::setItemDoubleClicked(QTreeWidgetItem *item, int column)
 
 		sysxIO->setDeviceReady(false);
 		sysxIO->setRequestName(item->text(0));	// Set the name of the patch we are going to load, so we can check if we have loaded the correct patch at the end.
-
+     if (item->text(0) != "Temp" && !item->text(0).contains("QFX"))
+     {
 		bool ok;
-		int bank = item->parent()->text(0).section(" ", 1, 1).trimmed().toInt(&ok, 10); // Get the bank
-		int patch = item->parent()->indexOfChild(item) + 1;								// and the patch number.
+		bank = item->parent()->text(0).section(" ", 1, 1).trimmed().toInt(&ok, 10); // Get the bank
+		patch = item->parent()->indexOfChild(item) + 1;								// and the patch number.
 		QString preset = item->parent()->parent()->text(0);
 		if (preset.contains("P")) { bank = bank + 50; };
 	//	if(bank == sysxIO->getLoadedBank() && patch == sysxIO->getLoadedPatch())
@@ -459,9 +547,22 @@ void bankTreeList::setItemDoubleClicked(QTreeWidgetItem *item, int column)
 
 			sysxIO->requestPatchChange(bank, patch);
 		}; */
+		
+		}
+		else if(item->text(0) == "Temp")
+	{  
+  requestPatch(); 
+  }
+	else
+	{	
+	patch = item->parent()->indexOfChild(item) + 1;								// and the patch number.
+	if(item->text(0).contains("QFX User"))
+	{  requestPatch(101, patch); };
+	if(item->text(0).contains("QFX Preset"))
+	{  requestPatch(105, patch); };
 	};
-	if(item->text(0) == "Temp")
-	{  requestPatch(); };
+	 emit patchSelectSignal(bank, patch);
+	};
 };
 /*********************** requestPatch() *******************************
  * Does the actual requesting of the patch data and hands the 
@@ -501,7 +602,7 @@ void bankTreeList::requestPatch(int bank, int patch)
 };
 
 /*********************** updatePatch() *******************************
- * Updates the source of the currently handeled patch and set the 
+ * Updates the source of the currently handled patch and set the 
  * attributes accordingly.
  *********************************************************************/
 void bankTreeList::updatePatch(QString replyMsg)

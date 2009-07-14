@@ -779,7 +779,7 @@ QString SysxIO::getPatchChangeMsg(int bank, int patch)
 
 	QString midiMsg ="";                     // universal bank change method
 	midiMsg.append("B000"+bankMsb);
-	midiMsg.append("B01000");
+	midiMsg.append("B02000");
 	midiMsg.append("C0"+programChange);
 	return midiMsg;
 };
