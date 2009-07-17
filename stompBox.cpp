@@ -1,6 +1,8 @@
 /****************************************************************************
 **
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
+** Copyright (C) 2007, 2008, 2009 Colin Willcocks.
+** Copyright (C) 2005, 2006, 2007 Uco Mesdag. 
+** All rights reserved.
 **
 ** This file is part of "GT-Pro Fx FloorBoard".
 **
@@ -704,8 +706,8 @@ void stompBox::emitValueChanged(QString hex1, QString hex2, QString hex3, QStrin
 	if (this->id == 8) {this->namedata = "DD";   this->fxName = "Delay";};
 	if (this->id == 9) {this->namedata = "CE";   this->fxName = "Chorus";};
 	if (this->id == 10){this->namedata = "RV";  this->fxName = "Reverb";};
-	if (this->id == 11){this->namedata = "NS";   this->fxName = "Noise Suppessor";};
-	if (this->id == 12){this->namedata = "FV"; this->fxName = "Foot Volume";};
+	if (this->id == 11){this->namedata = "NS";   this->fxName = "Master & Noise Gate";};
+	if (this->id == 12){this->namedata = "FV"; this->fxName = "Foot Volume & Pedal";};
 	if (this->id == 13){this->namedata = "DGT"; this->fxName = "Digital Out";};
 	if (this->id == 14){this->namedata = "LP";   this->fxName = "Send/Return";};
 	if (this->id == 15){this->namedata = "DGT";  this->fxName = "Digital Out";};

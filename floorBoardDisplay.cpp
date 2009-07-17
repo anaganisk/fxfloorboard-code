@@ -1,8 +1,9 @@
 /****************************************************************************
 **
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
-** Copyright (C) 2007, 2008, 2009 Colin Willcocks. 
+** Copyright (C) 2007, 2008, 2009 Colin Willcocks.
+** Copyright (C) 2005, 2006, 2007 Uco Mesdag. 
 ** All rights reserved.
+**
 ** This file is part of "GT-Pro Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
@@ -81,12 +82,12 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
 	this->system_midi_Button = new customButton(tr("Custom Settings"), false, QPoint(673, 5), this, ":/images/pushbutton.png");
 	this->system_Button = new customButton(tr("System Settings"), false, QPoint(673, 24), this, ":/images/pushbutton.png");
         //this->fv_Button = new customButton(tr("Foot Volume"), false, QPoint(584, 24), this, ":/images/pushbutton.png");
-        this->ns2_Button = new customButton(tr("Foot Volume"), false, QPoint(584, 24), this, ":/images/pushbutton.png");
+        this->ns2_Button = new customButton(tr("FV/Pedal"), false, QPoint(584, 24), this, ":/images/pushbutton.png");
 
         this->preamp1_Button = new customButton(tr("PreAmp/Spkr"), false, QPoint(10, 457), this, ":/images/pushbutton.png");
         this->compressor_Button = new customButton(tr("Compressor"), false, QPoint(10,475), this, ":/images/pushbutton.png");
         this->distortion_Button = new customButton(tr("Distortion"), false, QPoint(90,457), this, ":/images/pushbutton.png");
-        this->ns1_Button = new customButton(tr("NS"), false, QPoint(90, 475), this, ":/images/pushbutton.png");
+        this->ns1_Button = new customButton(tr("Master/N.S."), false, QPoint(90, 475), this, ":/images/pushbutton.png");
         this->fx1_Button = new customButton(tr("FX 1"), false, QPoint(170, 457), this, ":/images/pushbutton.png");
         this->fx2_Button = new customButton(tr("FX 2"), false, QPoint(170, 475), this, ":/images/pushbutton.png");
         this->reverb_Button = new customButton(tr("Reverb"), false, QPoint(250, 457), this, ":/images/pushbutton.png");
@@ -273,7 +274,7 @@ void floorBoardDisplay::updateDisplay()
 	};
 	this->valueDisplay->clearAll();
 
-	/*if(sysxIO->isDevice() )  // comment out from here
+	if(sysxIO->isDevice() )  // comment out from here
 	{
 		if(sysxIO->getBank() > 20)
 		{
@@ -303,9 +304,9 @@ void floorBoardDisplay::updateDisplay()
 	else
 	{
 		patchNumDisplay->clearAll();
-		this->writeButton->setBlink(false);   //cjw
+		this->writeButton->setBlink(false);  
 		this->writeButton->setValue(false);
-	};  */// to here
+	}; 
     };
 
  void floorBoardDisplay::autoconnect()
@@ -361,7 +362,7 @@ void floorBoardDisplay::autoConnectionResult(QString sysxMsg)
     {
      this->connectButton->setBlink(false);
 		 this->connectButton->setValue(false);
-		 notConnected();
+		 sysxIO->setConnected(false);	
     };
   }
   else
@@ -501,60 +502,19 @@ void floorBoardDisplay::connectionResult(QString sysxMsg)
 void floorBoardDisplay::writeSignal(bool)
 {
 	SysxIO *sysxIO = SysxIO::Instance();	
-	if(sysxIO->isConnected() )//&& sysxIO->deviceReady()) /* Check if we are connected and if the device is free. */
+	if(sysxIO->isConnected() && sysxIO->deviceReady()) /* Check if we are connected and if the device is free. */
 	{
 	 this->writeButton->setBlink(true);
 	 
 		if(sysxIO->getBank() == 0) /* Check if a bank is sellected. */
 		{
-			QMessageBox *msgBox = new QMessageBox();
-			msgBox->setWindowTitle(deviceType + tr(" Fx FloorBoard"));
-			msgBox->setIcon(QMessageBox::Warning);
-			msgBox->setTextFormat(Qt::RichText);
-			QString msgText;
-			msgText.append("<font size='+1'><b>");
-			msgText.append(tr("You didn't select a bank to write to."));
-			msgText.append("<b></font><br>");
-			msgText.append(tr("Please select a user bank to write this patch to and try again."));
-			msgBox->setText(msgText);
-			msgBox->setStandardButtons(QMessageBox::Ok);
-			msgBox->exec();
-			this->writeButton->setBlink(false);
-			this->writeButton->setValue(false);
+			sysxIO->setDeviceReady(false);			// Reserve the device for interaction.
+			writeToBuffer();
 		}
-		else /* Bank is sellected. */
+		else // Bank is sellected. 
 		{
 			sysxIO->setDeviceReady(false);			// Reserve the device for interaction.
 
-			if(!sysxIO->getSyncStatus())			// Check if the data is allready in sync. with the device.
-			{	/* If not we send the data to the (temp) buffer. So we don't change the patch default address "0B 00". */
-
-				
-				if(sysxIO->getBank() != sysxIO->getLoadedBank() || sysxIO->getPatch() != sysxIO->getLoadedPatch())// Check if a different patch is sellected
-				{															// else load the selected one.
-					emit setStatusSymbol(2);
-					emit setStatusMessage("Sending");
-					
-					int bank = sysxIO->getBank();
-					int patch = sysxIO->getPatch();
-					patchLoadSignal(bank, patch);	// Tell to stop blinking a sellected patch and prepare to load this one instead.
-					setPatchNumDisplay(bank, patch);
-
-					QObject::disconnect(sysxIO, SIGNAL(isChanged()),	
-						this, SLOT(writeToBuffer()));
-					QObject::connect(sysxIO, SIGNAL(isChanged()),	// Connect the isChanged message
-						this, SLOT(writeToBuffer()));				// to writeToBuffer.
-
-					sysxIO->requestPatchChange(bank, patch);
-				}
-				else
-				{
-					writeToBuffer();
-				};	
-         sysxIO->setDeviceReady(true);		
-			}
-			else /* If sync we will write (save) the patch directly to sellected bank. So we will have to change the patch adsress */
-			{
 				if(sysxIO->getBank() > bankTotalUser) // Preset banks are NOT writable so we check.
 				{
 					QMessageBox *msgBox = new QMessageBox();
@@ -593,7 +553,7 @@ void floorBoardDisplay::writeSignal(bool)
 					msgText.append(tr("You have chosen to write the patch permanently into ") + deviceType + (" memory."));
 					msgText.append("<b></font><br>");
 					msgText.append(tr("This will overwrite the patch currently stored at patch location\n"));
-					msgText.append("<font size='+2'><b>");
+					msgText.append("<font size='+3'><b>");
 					msgText.append(bankNum +(":") +patchNum	);
 					msgText.append("<b></font><br>");
           msgText.append(tr (" and can't be undone. "));
@@ -614,8 +574,7 @@ void floorBoardDisplay::writeSignal(bool)
 						this->writeButton->setValue(true);
 					};					
 				};
-			};
-		}; 
+			}; 
 	}
 	
  if((sysxIO->isConnected() == !true) && sysxIO->deviceReady())
@@ -627,69 +586,8 @@ void floorBoardDisplay::writeSignal(bool)
 
 void floorBoardDisplay::writeToBuffer() 
 {
-	SysxIO *sysxIO = SysxIO::Instance();
-	sysxIO->setDeviceReady(false);			// Reserve the device for interaction.
-	QObject::disconnect(sysxIO, SIGNAL(isChanged()),	
-					this, SLOT(writeToBuffer()));
-
-	QString sysxMsg;
-	QList< QList<QString> > patchData = sysxIO->getFileSource().hex; // Get the loaded patch data.
-	QList<QString> patchAddress = sysxIO->getFileSource().address;
-
-		emit setStatusSymbol(2);
-		emit setStatusMessage(tr("Sync to ")+deviceType);
-		
-  bool ok;
-	//int bank = sysxIO->getBank();
-	//int patch = sysxIO->getPatch();
-	//int patchOffset = (((bank - 1 ) * patchPerBank) + patch) - 1;
-	int k = QString(tempDataWrite).toInt(&ok, 16);                  // data write address at temp buffer.
-	QString addr1 = QString::number(k, 16).toUpper();
-	QString addr2 = QString::number(0, 16).toUpper();
-
-	for(int i=0;i<patchData.size();++i)
-	{
-		QList<QString> data = patchData.at(i);
-		for(int x=0;x<data.size();++x)
-		{
-			QString hex;
-			if(x == sysxAddressOffset)
-			{ 
-				hex = addr1;
-			}
-			else if(x == sysxAddressOffset + 1)
-			{
-				hex = addr2;
-			}
-			else
-			{
-				hex = data.at(x);
-			};
-			if (hex.length() < 2) hex.prepend("0");
-			sysxMsg.append(hex);
-		}; 
-	}; 
-	sysxIO->setSyncStatus(true);		// In advance of the actual data transfer we set it already to sync.
-	this->writeButton->setBlink(false);	// Sync so we stop blinking the button
-	this->writeButton->setValue(false);	// and activate the write button.
-
-	QObject::connect(sysxIO, SIGNAL(sysxReply(QString)),	// Connect the result signal 
-		this, SLOT(resetDevice(QString)));					// to a slot that will reset the device after sending.
-	sysxIO->sendSysx(sysxMsg);	// Send the data.
-		
-		emit setStatusProgress(33); // time wasting sinusidal statusbar progress
-		SLEEP(150);
-		emit setStatusProgress(66);
-		SLEEP(150);		
-		emit setStatusProgress(100);
-		SLEEP(150);		
-		emit setStatusProgress(75);
-		SLEEP(150);		
-		emit setStatusProgress(42);
-		SLEEP(150);
-		emit setStatusMessage(tr("Ready"));
-	
-	sysxIO->setDeviceReady(true);
+ SysxIO *sysxIO = SysxIO::Instance();	
+ sysxIO->writeToBuffer();
 };
 
 void floorBoardDisplay::writeToMemory() 
@@ -714,7 +612,8 @@ void floorBoardDisplay::writeToMemory()
 	
 	QString addr1 = QString::number(8 + n, 16).toUpper();
 	QString addr2 = QString::number(patchOffset - (addrMaxSize * n), 16).toUpper();
-	
+	if (addr1.length() < 2) addr1.prepend("0");
+	if (addr2.length() < 2) addr2.prepend("0");
 	for(int i=0;i<patchData.size();++i)
 	{
 		QList<QString> data = patchData.at(i);

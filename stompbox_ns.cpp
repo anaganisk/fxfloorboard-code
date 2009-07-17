@@ -1,6 +1,8 @@
 /****************************************************************************
 **
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
+** Copyright (C) 2007, 2008, 2009 Colin Willcocks.
+** Copyright (C) 2005, 2006, 2007 Uco Mesdag. 
+** All rights reserved.
 **
 ** This file is part of "GT-Pro Fx FloorBoard".
 **
@@ -43,14 +45,25 @@ void stompbox_ns::updateSignal()
 
 void stompbox_ns::setEditPages()
 {
-   editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "0E", "00", "00");
-	editDetails()->page()->addComboBox(1, 0, 1, 1, "0E", "00", "03");
+  editDetails()->page()->newGroupBox("Noise Suppressor");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "0E", "00", "00");    // on/off
+	editDetails()->page()->addComboBox(0, 1, 1, 1, "0E", "00", "03");  // input select	
+	editDetails()->page()->addKnob(0, 2, 1, 1, "0E", "00", "01");       // threshold
+	editDetails()->page()->addKnob(0, 3, 1, 1, "0E", "00", "02");       // release
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
+	
+	editDetails()->page()->newGroupBox("Master");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "0E", "00", "04");    //master level
+	editDetails()->page()->addKnob(0, 1, 1, 1, "0E", "00", "05");      // master BPM
+	editDetails()->page()->addGroupBox(1, 0, 1, 1);
+	
+	editDetails()->page()->newGroupBox("Amp CTL Jack");
+	editDetails()->page()->addComboBox(0, 0, 1, 1, "0F", "00", "00", "bottom", Qt::AlignTop);   // Amp ctl 1
+	editDetails()->page()->addComboBox(0, 1, 1, 1, "10", "00", "00", "bottom", Qt::AlignTop);   // Amp Ctl 2
+	editDetails()->page()->addGroupBox(2, 0, 1, 1);
 
-	editDetails()->page()->newGroupBox("Noise Suppressor");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "0E", "00", "01");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "0E", "00", "02");
-	editDetails()->page()->addGroupBox(0, 1, 1, 1);
+	
+	
+	
 	editDetails()->addPage();	
 };

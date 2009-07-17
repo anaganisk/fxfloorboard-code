@@ -1,16 +1,17 @@
 /****************************************************************************
 **
 ** Copyright (C) 2007, 2008, 2009 Colin Willcocks.
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
+** Copyright (C) 2005, 2006, 2007 Uco Mesdag. 
+** All rights reserved.
 **
-** This file is part of "GT-x Fx FloorBoard".
+** This file is part of "GT-Pro Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
 ** the Free Software Foundation; either version 2 of the License, or
 ** (at your option) any later version.
 **
-** This program is distributed data the hope that it will be useful,
+** This program is distributed in the hope that it will be useful,
 ** but WITHOUT ANY WARRANTY; without even the implied warranty of
 ** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 ** GNU General Public License for more details.
@@ -238,7 +239,7 @@ bool sysxWriter::readFile()
     temp = gt10_data.mid(1524, 1);        // copy gt10 patch assign1 sw
     data.replace(772, 1, temp);      // replace  gtpro assign1 sw    address 00 20 00 
     temp = gt10_data.mid(1525, 2);        // copy gt10 patch assign1 target
-    data.replace(774, 2, temp);      // replace  gtpro assign1 target    address 00 20 00 
+    //data.replace(774, 2, temp);      // replace  gtpro assign1 target    address 00 20 00 
     temp = gt10_data.mid(1527, 13);        // copy gt10 patch assign1 data
     data.replace(776, 13, temp);      // replace  gtpro assign1 data    address 00 20 00 
     r = gt10_data.at(1531);            // copy gt10 patch source type
@@ -247,7 +248,7 @@ bool sysxWriter::readFile()
     
     temp = gt10_data.mid(1540, 1);        // copy gt10 patch assign2 sw
     data.replace(802, 1, temp);      // replace  gtpro assign2 sw    address 00 21 00 
-    temp = gt10_data.mid(1541, 2);        // copy gt10 patch assign2 target
+    //temp = gt10_data.mid(1541, 2);        // copy gt10 patch assign2 target
     data.replace(804, 2, temp);      // replace  gtpro assign2 target    address 00 21 00 
     temp = gt10_data.mid(1543, 13);        // copy gt10 patch assign2 data
     data.replace(806, 13, temp);      // replace  gtpro assign2 data    address 00 21 00 
@@ -255,42 +256,42 @@ bool sysxWriter::readFile()
     temp = gt10_data.mid(1556, 1);        // copy gt10 patch assign3 sw
     data.replace(832, 1, temp);      // replace  gtpro assign1 sw    address 00 22 00 
     temp = gt10_data.mid(1557, 2);        // copy gt10 patch assign3 target
-    data.replace(834, 2, temp);      // replace  gtpro assign3 target    address 00 22 00 
+    //data.replace(834, 2, temp);      // replace  gtpro assign3 target    address 00 22 00 
     temp = gt10_data.mid(1559, 13);        // copy gt10 patch assign3 data
     data.replace(836, 13, temp);      // replace  gtpro assign3 data    address 00 22 00 
  
     temp = gt10_data.mid(1572, 1);        // copy gt10 patch assign4 sw
     data.replace(862, 1, temp);      // replace  gtpro assign4 sw    address 00 23 00 
     temp = gt10_data.mid(1573, 2);        // copy gt10 patch assign4 target
-    data.replace(864, 2, temp);      // replace  gtpro assign1 target    address 00 23 00 
+    //data.replace(864, 2, temp);      // replace  gtpro assign4 target    address 00 23 00 
     temp = gt10_data.mid(1575, 13);        // copy gt10 patch assign4 data
     data.replace(866, 13, temp);      // replace  gtpro assign1 data    address 00 23 00 
  
     temp = gt10_data.mid(1588, 1);        // copy gt10 patch assign1 sw
     data.replace(892, 1, temp);      // replace  gtpro assign5 sw    address 00 24 00 
     temp = gt10_data.mid(1589, 2);        // copy gt10 patch assign5 target
-    data.replace(894, 2, temp);      // replace  gtpro assign5 target    address 00 24 00 
+    //data.replace(894, 2, temp);      // replace  gtpro assign5 target    address 00 24 00 
     temp = gt10_data.mid(1591, 13);        // copy gt10 patch assign5 data
     data.replace(896, 13, temp);      // replace  gtpro assign1 data    address 00 24 00 
     
     temp = gt10_data.mid(1604, 1);        // copy gt10 patch assign1 sw
     data.replace(922, 1, temp);      // replace  gtpro assign6 sw    address 00 25 00 
     temp = gt10_data.mid(1605, 2);        // copy gt10 patch assign6 target
-    data.replace(924, 2, temp);      // replace  gtpro assign6 target    address 00 25 00 
+    //data.replace(924, 2, temp);      // replace  gtpro assign6 target    address 00 25 00 
     temp = gt10_data.mid(1607, 13);        // copy gt10 patch assign6 data
     data.replace(926, 13, temp);      // replace  gtpro assign1 data    address 00 25 00 
     
      temp = gt10_data.mid(1633, 1);        // copy gt10 patch assign1 sw
     data.replace(952, 1, temp);      // replace  gtpro assign7 sw    address 00 26 00 
     temp = gt10_data.mid(1634, 2);        // copy gt10 patch assign7 target
-    data.replace(954, 2, temp);      // replace  gtpro assign7 target    address 00 26 00 
+    //data.replace(954, 2, temp);      // replace  gtpro assign7 target    address 00 26 00 
     temp = gt10_data.mid(1636, 13);        // copy gt10 patch assign7 data
     data.replace(956, 13, temp);      // replace  gtpro assign7 data    address 00 26 00 
     
     temp = gt10_data.mid(1649, 1);        // copy gt10 patch assign8 sw
     data.replace(982, 1, temp);      // replace  gtpro assign8 sw    address 00 27 00 
     temp = gt10_data.mid(1650, 2);        // copy gt10 patch assign8 target
-    data.replace(984, 2, temp);      // replace  gtpro assign8 target    address 00 27 00 
+    //data.replace(984, 2, temp);      // replace  gtpro assign8 target    address 00 27 00 
     temp = gt10_data.mid(1652, 13);        // copy gt10 patch assign8 data
     data.replace(986, 13, temp);      // replace  gtpro assign1 data    address 00 27 00 
     

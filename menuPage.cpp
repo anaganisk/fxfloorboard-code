@@ -1,9 +1,8 @@
 /****************************************************************************
 **
 ** Copyright (C) 2007, 2008, 2009 Colin Willcocks.
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
-
-
+** Copyright (C) 2005, 2006, 2007 Uco Mesdag. 
+** All rights reserved.
 **
 ** This file is part of "GT-Pro Fx FloorBoard".
 **
@@ -103,22 +102,7 @@ void menuPage::menuButtonSignal(bool value)
 	  if((this->id == 19 || this->id == 18) && sysxIO->deviceReady())
 	  {
     QString replyMsg;
-    QString sysRequest = systemRequest;//"F0410000461100000000";   // header and Address.
-    /*Preferences *preferences = Preferences::Instance();// Load the preferences.
-	  int sys_byte1 = preferences->getPreferences("Midi", "System", "byte1").toInt();
-	  QString byte1 = QString::number(sys_byte1, 16).toUpper();
-	  if (byte1.size()<2) {byte1.prepend("0");};
-	  int sys_byte2 = preferences->getPreferences("Midi", "System", "byte2").toInt();
-	  QString byte2 = QString::number(sys_byte2, 16).toUpper();
-	  if (byte2.size()<2) {byte2.prepend("0");};
-	  int sys_byte3 = preferences->getPreferences("Midi", "System", "byte3").toInt();
-	  QString byte3 = QString::number(sys_byte3, 16).toUpper();
-	  if (byte3.size()<2) {byte3.prepend("0");};
-	  int sys_byte4 = preferences->getPreferences("Midi", "System", "byte4").toInt();
-	  QString byte4 = QString::number(sys_byte4, 16).toUpper();
-	  if (byte4.size()<2) {byte4.prepend("0");};
-	  sysRequest.append(byte1).append(byte2).append(byte3).append(byte4);
-	  sysRequest.append("7FF7");     */
+    QString sysRequest = systemRequest;
 	   if (sysxIO->isConnected())
 	       {
 	        emit setStatusSymbol(2);
@@ -155,7 +139,7 @@ void menuPage::systemReply(QString replyMsg)
 	{ 
 	if(replyMsg.size()/2 == 4326)
 		{
-		replyMsg.remove(27, 26);
+		replyMsg.remove(54, 26);
    
 				
   QString reBuild = "";       // Add correct checksum to patch strings 
@@ -193,14 +177,6 @@ void menuPage::systemReply(QString replyMsg)
 		sysxIO->setDevice(true);				// Patch received from the device so this is set to true.
 		sysxIO->setSyncStatus(true);			// We can't be more in sync than right now! :)
 		emit systemUpdateSignal();
-		
-	/*QString text = "data size after resizing = ";
-  text.append(QString::number(replyMsg.size()/2, 10));	
-  QMessageBox *msgBox = new QMessageBox();
-	msgBox->setWindowTitle(QObject::tr("deBug"));
-	msgBox->setText(text);
-	msgBox->setStandardButtons(QMessageBox::Ok);
-	msgBox->exec();     */
 		}
 		else
 		{
@@ -210,14 +186,29 @@ void menuPage::systemReply(QString replyMsg)
 			msgBox->setTextFormat(Qt::RichText);
 			QString msgText;
 			msgText.append("<font size='+1'><b>");
-			msgText.append(tr("The ") + deviceType + (" Editor settings may not be syncronized with the GT-Pro.\n"));
+			msgText.append(tr("The ") + deviceType + (" Editor settings may not be synchronized with the GT-Pro.\n"));
 			msgText.append(tr("To retrieve System Data, ensure the GT-Pro and Editor are 'connected'."));
 			msgText.append("<b></font><br>");
 			msgBox->setText(msgText);
 			msgBox->setStandardButtons(QMessageBox::Ok);
 			msgBox->exec();
 		}; 
-   };
+   }
+   else
+		{
+			QMessageBox *msgBox = new QMessageBox();
+			msgBox->setWindowTitle(deviceType + tr(" Fx FloorBoard Data Error !!"));
+			msgBox->setIcon(QMessageBox::Warning);
+			msgBox->setTextFormat(Qt::RichText);
+			QString msgText;
+			msgText.append("<font size='+1'><b>");
+			msgText.append(tr("The Boss ") + deviceType + (" reports a Data Error occured during transfer.<br>"));
+			msgText.append("<b></font><br>");
+				msgText.append(tr(" please try again."));
+			msgBox->setText(msgText);
+			msgBox->setStandardButtons(QMessageBox::Ok);
+			msgBox->exec();
+		};
 		emit setStatusMessage(tr("Ready"));   
 };
 

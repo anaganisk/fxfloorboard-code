@@ -1,7 +1,9 @@
 /****************************************************************************
 **
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 ** Copyright (C) 2007, 2008, 2009 Colin Willcocks.
+** Copyright (C) 2005, 2006, 2007 Uco Mesdag. 
+** All rights reserved.
+**
 ** This file is part of "GT-Pro Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
@@ -372,8 +374,8 @@ QTreeWidget* bankTreeList::newTreeList()
 	};
 	preset->addChildren(presetBankRanges);
 
-	newTreeList->setExpanded(newTreeList->model()->index(0, 0), true);
 	newTreeList->setExpanded(newTreeList->model()->index(1, 0), true);
+	newTreeList->setExpanded(newTreeList->model()->index(2, 0), true);
 	return newTreeList;
 };
 

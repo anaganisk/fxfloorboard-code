@@ -1,8 +1,10 @@
 /****************************************************************************
 **
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
+** Copyright (C) 2007, 2008, 2009 Colin Willcocks.
+** Copyright (C) 2005, 2006, 2007 Uco Mesdag. 
+** All rights reserved.
 **
-** This file is part of "GT-10 Fx FloorBoard".
+** This file is part of "GT-Pro Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -157,8 +159,8 @@ void customControlListMenu::setComboBox()
 		this->controlListComboBox->addItem(item);
 	};
 	int maxWidth = QFontMetrics( this->font() ).width( longestItem );
-	if(maxWidth < 40) { maxWidth = 40; };
- 	this->controlListComboBox->setFixedWidth(maxWidth + 30);
+	if(maxWidth < 20) { maxWidth = 20; };
+ 	this->controlListComboBox->setFixedWidth(maxWidth + 10);
   this->controlListComboBox->setFixedHeight(15);
 	this->controlListComboBox->setEditable(false);
 	this->controlListComboBox->setFrame(false);

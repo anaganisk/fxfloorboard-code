@@ -1,7 +1,8 @@
 /****************************************************************************
-** 
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
-** Copyright (C) 2007, 2008, 2009 Colin Willcocks. All rights reserved.
+**
+** Copyright (C) 2007, 2008, 2009 Colin Willcocks.
+** Copyright (C) 2005, 2006, 2007 Uco Mesdag. 
+** All rights reserved.
 **
 ** This file is part of "GT-Pro Fx FloorBoard".
 **
@@ -68,7 +69,8 @@ void midiIO::queryMidiOutDevices()
 	 RtMidiOut *midiout = 0;
 	 std::string portName;
 	 unsigned int outPorts; 
-  try { midiout = new RtMidiOut(); }   /* RtMidiOut constructor */
+  const std::string clientName = "FxFloorBoard";
+   try { midiout = new RtMidiOut(clientName); }   /* RtMidiOut constructor */
   catch (RtError &error) {
     error.printMessage();
     emit errorSignal("Midi Output Error", "port error");
@@ -80,7 +82,7 @@ void midiIO::queryMidiOutDevices()
         }
     catch (RtError &error) {
       error.printMessage();
-      emit errorSignal("Midi Output Error", "port error");
+      emit errorSignal("Midi Output Error", "data error");
       goto cleanup; };
 #ifdef Q_OS_WIN
 	/* if we are running msdos based windows, use device numbers instead, UNICODE not supported*/
@@ -117,7 +119,8 @@ void midiIO::queryMidiInDevices()
 	 RtMidiIn *midiin = 0;
 	 std::string portName;
 	 unsigned int inPorts;
-  try { midiin = new RtMidiIn(); }    /* RtMidiIn constructor */
+  const std::string clientName = "FxFloorBoard";
+  try { midiin = new RtMidiIn(clientName); }    /* RtMidiIn constructor */
   catch (RtError &error) {
     error.printMessage();
     emit errorSignal("Midi Input Error", "port error");
@@ -127,7 +130,7 @@ void midiIO::queryMidiInDevices()
      try { portName = midiin->getPortName(i); }
      catch (RtError &error) {
         error.printMessage();
-        emit errorSignal("Midi Input Error", "port error");
+        emit errorSignal("Midi Input Error", "data error");
         goto cleanup; };
 #ifdef Q_OS_WIN
   if(QSysInfo::WindowsVersion <= QSysInfo::WV_Me) 
@@ -164,13 +167,14 @@ QList<QString> midiIO::getMidiInDevices()
 void midiIO::sendSyxMsg(QString sysxOutMsg, int midiOutPort)
 {
   RtMidiOut *midiMsgOut = 0;
-	midiMsgOut = new RtMidiOut(); 
+	const std::string clientName = "FxFloorBoard";
+    midiMsgOut = new RtMidiOut(clientName);
      int nPorts = midiMsgOut->getPortCount();   // Check available ports.
     if ( nPorts < 1 ) { goto cleanup; }
     try {    
         midiMsgOut->openPort(midiOutPort);	// Open selected port.         
 		    std::vector<unsigned char> message;	
-        //message.reserve(256);
+        message.reserve(256);
 		int msgLength = sysxOutMsg.length()/2;
 		char *ptr  = new char[msgLength];		// Convert QString to char* (hex value) 
 		for(int i=0;i<msgLength*2;++i)
@@ -200,7 +204,7 @@ void midiIO::sendSyxMsg(QString sysxOutMsg, int midiOutPort)
  catch (RtError &error)
    {
 	  error.printMessage();
-	  emit errorSignal("Midi Output Error", "data error");
+	  emit errorSignal("Syx Output Error", "data error");
 	  goto cleanup;
     };   
    /* Clean up */
@@ -213,7 +217,8 @@ void midiIO::sendSyxMsg(QString sysxOutMsg, int midiOutPort)
 void midiIO::sendMidiMsg(QString sysxOutMsg, int midiOutPort)
 {
     RtMidiOut *midiMsgOut = 0;
-		midiMsgOut = new RtMidiOut(); 
+		const std::string clientName = "FxFloorBoard";
+    midiMsgOut = new RtMidiOut(clientName);
     unsigned int nPorts = midiMsgOut->getPortCount();   // Check available ports.
     if ( nPorts < 1 ){ goto cleanup; };
     try {    
@@ -265,7 +270,7 @@ void midicallback(double deltatime, std::vector<unsigned char> *message, void *u
 					 rxData.append(hex);
            midi->emitProgress(nBytes);				
         };	
-		//if (rxData.contains("F0410000000B12") || rxData.contains(idReplyPatern))
+		if (rxData.contains("F0") || rxData.contains("F7"))
 		{ midi->callbackMsg(rxData); };
 };
 void midiIO::callbackMsg(QString rxData)
@@ -278,16 +283,20 @@ void midiIO::receiveMsg(QString sysxInMsg, int midiInPort)
   int count = 0;
 	emit setStatusSymbol(3);
 	emit setStatusProgress(75);
-	
+	#ifdef Q_OS_WIN
+        int x = 1;
+#else
+        int x = 8;
+#endif
 	if(multiple == true){
-  loopCount = 700;
+  loopCount = x*800;
   count = 1153;
   } else if(system == true) {
-  loopCount = 1400;
+  loopCount = x*1500;
   count = 4326; // native gt-pro system size- then trimmed to 4313
   }
   else {
-  loopCount = 200;
+  loopCount = x*200;
   count = 29; };
 			int bytesReceived = 0;	
 		RtMidiIn *midiin = 0;	
@@ -404,6 +413,7 @@ void midiIO::run()
 		else 
 		{
 			emit setStatusSymbol(2);
+			emit setStatusMessage("Sending");
 			sendSyxMsg(sysxOutMsg, midiOutPort);
 			Preferences *preferences = Preferences::Instance(); bool ok;// Load the preferences.
 			const int minWait = preferences->getPreferences("Midi", "Delay", "set").toInt(&ok, 10);
