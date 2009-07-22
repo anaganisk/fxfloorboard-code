@@ -218,7 +218,10 @@ void floorBoardDisplay::setPatchNumDisplay(int bank, int patch)
 	}
 	else
 	{
-		this->patchNumDisplay->clearAll();
+		//this->patchNumDisplay->clearAll();
+		this->patchNumDisplay->setSubText("Temp");
+		QString str = "Buffer";
+		this->patchNumDisplay->setMainText(str, Qt::AlignCenter);
 	};
 };
 
@@ -687,12 +690,12 @@ void floorBoardDisplay::patchSelectSignal(int bank, int patch)
 	if(blinkCount == 0)
 	{
 		currentSyncStatus = sysxIO->getSyncStatus();
-		sysxIO->setSyncStatus(false);//was false
+		sysxIO->setSyncStatus(false);
 		writeButton->setBlink(true);
 	};
 
-	if( sysxIO->getLoadedBank() != bank ||  sysxIO->getLoadedPatch() != patch)
-	{
+	//if( sysxIO->getLoadedBank() != bank ||  sysxIO->getLoadedPatch() != patch)
+	//{
 		sysxIO->setBank(bank);
 		sysxIO->setPatch(patch);
 		
@@ -705,11 +708,11 @@ void floorBoardDisplay::patchSelectSignal(int bank, int patch)
 		{
 			blinkCount = 0;
 		};
-	}
-	else
-	{
-		blinkSellectedPatch(false);
-	};
+	//}
+	//else
+	//{
+	//	blinkSellectedPatch(false);
+	//};
 };
 
 void floorBoardDisplay::blinkSellectedPatch(bool active)
@@ -735,8 +738,8 @@ void floorBoardDisplay::blinkSellectedPatch(bool active)
 		QObject::disconnect(timer, SIGNAL(timeout()), this, SLOT(blinkSellectedPatch()));
 		timer->stop();
 		blinkCount = 0;
-		sysxIO->setBank(sysxIO->getLoadedBank());
-		sysxIO->setPatch(sysxIO->getLoadedPatch());
+		//sysxIO->setBank(sysxIO->getLoadedBank());
+		//sysxIO->setPatch(sysxIO->getLoadedPatch());
 		sysxIO->setSyncStatus(currentSyncStatus);
 		if(currentSyncStatus || sysxIO->getLoadedBank() == 0)
 		{

@@ -41,17 +41,15 @@ bankTreeList::bankTreeList(QWidget *parent)
 
 	this->treeList = newTreeList();
 	this->treeList->setObjectName("banklist");
-  	QObject::connect(treeList, SIGNAL(itemExpanded(QTreeWidgetItem*)), 
-			this, SLOT(setOpenItems(QTreeWidgetItem*)));
-	QObject::connect(treeList, SIGNAL(itemCollapsed(QTreeWidgetItem*)), 
-			this, SLOT(setClosedItems(QTreeWidgetItem*)));
-	QObject::connect(treeList, SIGNAL(itemClicked(QTreeWidgetItem*, int)), 
-			this, SLOT(setItemClicked(QTreeWidgetItem*, int)));
-	QObject::connect(treeList, SIGNAL(itemDoubleClicked(QTreeWidgetItem*, int)), 
-			this, SLOT(setItemDoubleClicked(QTreeWidgetItem*, int)));
+  QObject::connect(treeList, SIGNAL(itemExpanded(QTreeWidgetItem*)), this, SLOT(setOpenItems(QTreeWidgetItem*)));
+  	
+	QObject::connect(treeList, SIGNAL(itemCollapsed(QTreeWidgetItem*)), this, SLOT(setClosedItems(QTreeWidgetItem*)));
+	
+	QObject::connect(treeList, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(setItemClicked(QTreeWidgetItem*, int)));
+	
+	QObject::connect(treeList, SIGNAL(itemDoubleClicked(QTreeWidgetItem*, int)), this, SLOT(setItemDoubleClicked(QTreeWidgetItem*, int)));
 
-	QObject::connect(this, SIGNAL(updateSignal()), 
-			this->parent(), SIGNAL(updateSignal()));
+	QObject::connect(this, SIGNAL(updateSignal()), this->parent(), SIGNAL(updateSignal()));
 	
 	QVBoxLayout *treeListLayout = new QVBoxLayout;
 	treeListLayout->addWidget(treeList);
@@ -60,15 +58,13 @@ bankTreeList::bankTreeList(QWidget *parent)
 	setLayout(treeListLayout);
 
 	SysxIO *sysxIO = SysxIO::Instance();
-	QObject::connect(this, SIGNAL(setStatusSymbol(int)),
-                sysxIO, SIGNAL(setStatusSymbol(int)));
-	QObject::connect(this, SIGNAL(setStatusProgress(int)),
-                sysxIO, SIGNAL(setStatusProgress(int)));
-	QObject::connect(this, SIGNAL(setStatusMessage(QString)),
-                sysxIO, SIGNAL(setStatusMessage(QString)));
+	QObject::connect(this, SIGNAL(setStatusSymbol(int)), sysxIO, SIGNAL(setStatusSymbol(int)));
+	
+	QObject::connect(this, SIGNAL(setStatusProgress(int)), sysxIO, SIGNAL(setStatusProgress(int)));
+	
+	QObject::connect(this, SIGNAL(setStatusMessage(QString)), sysxIO, SIGNAL(setStatusMessage(QString)));
 
-	QObject::connect(this, SIGNAL(notConnectedSignal()),
-                sysxIO, SIGNAL(notConnectedSignal()));
+	QObject::connect(this, SIGNAL(notConnectedSignal()), sysxIO, SIGNAL(notConnectedSignal()));
 };
 
 void bankTreeList::updateSize(QRect newrect)
@@ -83,7 +79,7 @@ void bankTreeList::setClosedItems(QTreeWidgetItem *item)
 		int index = openPatchTreeItems.indexOf(item);
 		openPatchTreeItems.removeAt(index);
 	}
-	else if(item->childCount() == 10)
+	else if(item->childCount() == 5)
 	{
 		int index = openBankTreeItems.indexOf(item);
 		openBankTreeItems.removeAt(index);
@@ -116,7 +112,7 @@ void bankTreeList::setOpenItems(QTreeWidgetItem *item)
 		updateTree(item);
 		type = "patch";
 	}
-	else if(item->childCount() == 10)
+	else if(item->childCount() == 5)
 	{
 		openBankTreeItems.append(item);
 		type = "bank";
@@ -158,10 +154,10 @@ void bankTreeList::setOpenItems(QTreeWidgetItem *item)
 			};
 			switch(c)
 			{
-				case 0: maxExpandedItems = 30; break;
-				case 1: maxExpandedItems = 30; break;
-				case 2: maxExpandedItems = 30; break;
-				case 3: maxExpandedItems = 30; break;
+				case 0: maxExpandedItems = 3; break;
+				case 1: maxExpandedItems = 2; break;
+				case 2: maxExpandedItems = 1; break;
+				case 3: maxExpandedItems = 1; break;
 			};
 			
 			while(b > maxExpandedItems)
@@ -178,10 +174,10 @@ void bankTreeList::setOpenItems(QTreeWidgetItem *item)
 		{	
 			switch(c)
 			{
-				case 0: maxExpandedItems = 30; break;
-				case 1: maxExpandedItems = 30; break;
-				case 2: maxExpandedItems = 30; break;
-				case 3: maxExpandedItems = 30; break;
+				case 0: maxExpandedItems = 3; break;
+				case 1: maxExpandedItems = 2; break;
+				case 2: maxExpandedItems = 1; break;
+				case 3: maxExpandedItems = 1; break;
 			};
 		}
 		else
@@ -190,24 +186,24 @@ void bankTreeList::setOpenItems(QTreeWidgetItem *item)
 			{
 				switch(c)
 				{
-					case 0: maxExpandedItems = 50; break;	
-					case 1: maxExpandedItems = 40; break;
-					case 2: maxExpandedItems = 30; break;
-					case 3: maxExpandedItems = 30; break;
-					case 4: maxExpandedItems = 30; break;
-					case 5: maxExpandedItems = 30; break;
+					case 0: maxExpandedItems = 5; break;	
+					case 1: maxExpandedItems = 4; break;
+					case 2: maxExpandedItems = 3; break;
+					case 3: maxExpandedItems = 3; break;
+					case 4: maxExpandedItems = 2; break;
+					case 5: maxExpandedItems = 1; break;
 				};
 			}
 			else
 			{
 				switch(c)
 				{
-					case 0: maxExpandedItems = 40; break;	
-					case 1: maxExpandedItems = 40; break;
-					case 2: maxExpandedItems = 30; break;
-					case 3: maxExpandedItems = 30; break;
-					case 4: maxExpandedItems = 30; break;
-					case 5: maxExpandedItems = 30; break;
+					case 0: maxExpandedItems = 4; break;	
+					case 1: maxExpandedItems = 4; break;
+					case 2: maxExpandedItems = 3; break;
+					case 3: maxExpandedItems = 3; break;
+					case 4: maxExpandedItems = 1; break;
+					case 5: maxExpandedItems = 1; break;
 				};
 			};
 		};
@@ -251,9 +247,9 @@ void bankTreeList::setOpenItems(QTreeWidgetItem *item)
 		{	
 			switch(b)
 			{
-				case 1: maxExpandedItems = 30; break;
-				case 2: maxExpandedItems = 30; break;       // was 1
-				case 3: maxExpandedItems = 30; break;      // was 0
+				case 1: maxExpandedItems = 3; break;
+				case 2: maxExpandedItems = 1; break;
+				case 3: maxExpandedItems = 0; break;
 			};
 		}
 		else
@@ -262,20 +258,20 @@ void bankTreeList::setOpenItems(QTreeWidgetItem *item)
 			{
 				switch(b)
 				{
-					case 1: maxExpandedItems = 50; break;
-					case 2: maxExpandedItems = 40; break;
-					case 3: maxExpandedItems = 30; break;
-					case 4: maxExpandedItems = 30; break;
+					case 1: maxExpandedItems = 5; break;
+					case 2: maxExpandedItems = 4; break;
+					case 3: maxExpandedItems = 3; break;
+					case 4: maxExpandedItems = 1; break;
 				};
 			}
 			else
 			{
 				switch(b)
 				{
-					case 1: maxExpandedItems = 40; break;
-					case 2: maxExpandedItems = 30; break;
-					case 3: maxExpandedItems = 30; break;
-					case 4: maxExpandedItems = 30; break;
+					case 1: maxExpandedItems = 4; break;
+					case 2: maxExpandedItems = 3; break;
+					case 3: maxExpandedItems = 3; break;
+					case 4: maxExpandedItems = 1; break;
 				};
 			};
 		};
@@ -287,7 +283,7 @@ void bankTreeList::setOpenItems(QTreeWidgetItem *item)
 		};
 		if(c > maxExpandedItems)
 		{
-			//openPatchTreeItems.first()->setExpanded(false);
+			openPatchTreeItems.first()->setExpanded(false);
 		};
 	};
 };
@@ -315,11 +311,9 @@ QTreeWidget* bankTreeList::newTreeList()
     for (int a=1; a<=bankTotalUser; a++)
 	{
 		QTreeWidgetItem* bankRange = new QTreeWidgetItem; // don't pass a parent here!
-    bankRange->setText(0, QString::QString("Bank U").append(QString::number(a, 10)).append("-U").append(QString::number(a+4, 10)) );
-  
+    bankRange->setText(0, QString::QString("Bank U").append(QString::number(a, 10)).append("-U").append(QString::number(a+4, 10)) ); 
 		bankRange->setWhatsThis(0, "what the ?");
-		//bankRange->setIcon(QIcon(":/images/gt6b_icon_1.png"));
-
+	
 		for (int b=a; b<=(a+4); b++)
 				{
 			QTreeWidgetItem* bank = new QTreeWidgetItem(bankRange);
@@ -380,11 +374,10 @@ QTreeWidget* bankTreeList::newTreeList()
 };
 
 /*********************** setItemClicked() ***********************************
- * Expands and colapses on a single click and sets patch sellection.
+ * Expands and collapses on a single click and sets patch selection.
  ****************************************************************************/
 void bankTreeList::setItemClicked(QTreeWidgetItem *item, int column)
 {
-	//column; // not used
 	if(item->childCount() != 0 && item->text(0) != "Temp")
 	{
 		if(item->isExpanded())
@@ -405,22 +398,24 @@ void bankTreeList::setItemClicked(QTreeWidgetItem *item, int column)
 			int bank = item->parent()->text(0).section(" ", 1, 1).trimmed().toInt(&ok, 10);
 			int patch = item->parent()->indexOfChild(item) + 1;
 			QString preset = item->parent()->parent()->text(0);
-			//if (preset.contains("P")) { bank = bank + 20; };
+			
 			emit patchSelectSignal(bank, patch);
-			 sysxIO->requestPatchChange(bank, patch); // extra to try patch change
+			sysxIO->requestPatchChange(bank, patch); // sends patch change midi message
 			sysxIO->setRequestName(item->text(0));	// Set the name of the patch we have sellected in case we load it.
-		};
-		
-	};
+		};		
+	}
+	else
+	{
+    emit patchSelectSignal(0, 0);
+  };
 };
 
 /*********************** setItemDoubleClicked() *****************************
- * Handels when a patch is double clicked in the tree list. Patch will be 
+ * Handles when a patch is double clicked in the tree list. Patch will be 
  * loaded into the temp buffer and will tell to request the data afterwards.
  ****************************************************************************/
 void bankTreeList::setItemDoubleClicked(QTreeWidgetItem *item, int column)
 {	
-	//column; // not used
 	SysxIO *sysxIO = SysxIO::Instance();
 	if(item->childCount() == 0  && item->text(0) != "Temp" && sysxIO->deviceReady() && sysxIO->isConnected()) 
 		// Make sure it's a patch (Patches are the last in line so no children).
@@ -434,23 +429,8 @@ void bankTreeList::setItemDoubleClicked(QTreeWidgetItem *item, int column)
 		bool ok;
 		int bank = item->parent()->text(0).section(" ", 1, 1).trimmed().toInt(&ok, 10); // Get the bank
 		int patch = item->parent()->indexOfChild(item) + 1;								// and the patch number.
-			QString preset = item->parent()->parent()->text(0);
-			//if (preset.contains("P")) { bank = bank + 20; };
-		//if(bank == sysxIO->getLoadedBank() && patch == sysxIO->getLoadedPatch())
-		//{ 
-			requestPatch(bank, patch);
-		/*}
-		else
-		{
-			emit patchLoadSignal(bank, patch); // Tell to stop blinking a sellected patch and prepare to load this one instead.
-			
-			QObject::disconnect(sysxIO, SIGNAL(isChanged()),	
-				this, SLOT(requestPatch()));
-			QObject::connect(sysxIO, SIGNAL(isChanged()),	// Connect the isChanged message
-				this, SLOT(requestPatch()));				// to requestPatch.
-
-			sysxIO->requestPatchChange(bank, patch);
-		};*/
+		QString preset = item->parent()->parent()->text(0);
+		requestPatch(bank, patch);
 	}
 	if(item->text(0) == "Temp")
 	{  requestPatch(); };
@@ -597,7 +577,7 @@ void bankTreeList::connectedSignal()
 
 		this->currentPatchTreeItems.clear();
 		this->currentPatchTreeItems = this->openPatchTreeItems;
-		qSort(this->currentPatchTreeItems);
+		//qSort(this->currentPatchTreeItems);
 
 		this->updatePatchNames("");
 	};  
