@@ -1,7 +1,8 @@
 /****************************************************************************
-** Copyright (C) 2007, 2008, 2009 Colin Willcocks.
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
-**
+**  
+** Copyright (C) 2007, 2008, 2009 Colin Willcocks. 
+** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
+** All rights reserved.
 ** This file is part of "GT-8 Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
@@ -838,7 +839,7 @@ QString SysxIO::getPatchChangeMsg(int bank, int patch)
 
 	QString midiMsg ="";
 	midiMsg.append("B000"+bankMsb);
-	midiMsg.append("B01000");
+	midiMsg.append("B02000");
 	midiMsg.append("C0"+programChange);
 	midiMsg = midiMsg.toUpper();
 	return midiMsg;
@@ -1201,7 +1202,8 @@ void SysxIO::systemDataRequest()
          }
          else
              {
-              QString snork = "Ensure connection is active and retry";
+              QString snork = "Ensure connection is active<br>";
+              snork.append(" and retry");
               QMessageBox *msgBox = new QMessageBox();
 			        msgBox->setWindowTitle(deviceType + " not connected !!");
 		        	msgBox->setIcon(QMessageBox::Information);
@@ -1220,7 +1222,7 @@ void SysxIO::systemReply(QString replyMsg)
 	{
 		if(replyMsg.size()/2 == 4402)
 		{
-				replyMsg.remove(27, 26);
+				replyMsg.remove(54, 26);
    
 				
   QString reBuild = "";       // Add correct checksum to patch strings 
@@ -1257,14 +1259,6 @@ void SysxIO::systemReply(QString replyMsg)
 		setFileName(tr("System Data from ") + deviceType);	// Set the file name to GT-10B system for the display.
 		setDevice(true);				// Patch received from the device so this is set to true.
 		setSyncStatus(true);			// We can't be more in sync than right now! :)
-		
-	/*QString text = "data size after resizing = ";
-  text.append(QString::number(replyMsg.size()/2, 10));	
-  QMessageBox *msgBox = new QMessageBox();
-	msgBox->setWindowTitle(QObject::tr("deBug"));
-	msgBox->setText(text);
-	msgBox->setStandardButtons(QMessageBox::Ok);
-	msgBox->exec();     */
 		}
 		else
 		{
@@ -1280,9 +1274,26 @@ void SysxIO::systemReply(QString replyMsg)
 			msgBox->setStandardButtons(QMessageBox::Ok);
 			msgBox->exec();
 		};
-   };
+   }
+   else
+		{
+			QMessageBox *msgBox = new QMessageBox();
+			msgBox->setWindowTitle(deviceType + tr(" Fx FloorBoard Data Error !!"));
+			msgBox->setIcon(QMessageBox::Warning);
+			msgBox->setTextFormat(Qt::RichText);
+			QString msgText;
+			msgText.append("<font size='+1'><b>");
+			msgText.append(tr("The Boss ") + deviceType + (" reports a Data Error occured during transfer.<br>"));
+			msgText.append("<b></font><br>");
+				msgText.append(tr(" please try again."));
+			msgBox->setText(msgText);
+			msgBox->setStandardButtons(QMessageBox::Ok);
+			msgBox->exec();
+
+		};
 		emit setStatusMessage(tr("Ready"));   
 };
+
 
 void SysxIO::writeToBuffer() 
 {
@@ -1297,8 +1308,8 @@ void SysxIO::writeToBuffer()
 		emit setStatusSymbol(2);
 		emit setStatusMessage(tr("Sync to ")+deviceType);
 
-	QString addr1 = tempDataWrite; //QString::number(96, 16).toUpper();  // temp address
-	QString addr2 = "00"; //QString::number(0, 16).toUpper();
+	QString addr1 = tempDataWrite;  // temp address
+	QString addr2 = "00"; 
 
 	for(int i=0;i<patchData.size();++i)
 	{

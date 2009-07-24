@@ -1,8 +1,9 @@
 /****************************************************************************
-**
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
-**
-** This file is part of "GT-Pro Fx FloorBoard".
+**  
+** Copyright (C) 2007, 2008, 2009 Colin Willcocks. 
+** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
+** All rights reserved.
+** This file is part of "GT-8 Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -40,9 +41,7 @@ public:
 	void callbackMsg(QString rxData);
 	QList<QString> getMidiOutDevices();
 	QList<QString> getMidiInDevices();
-	static void emitProgress(int bytesReceived);	
-	
-		
+			
 signals:
 	void errorSignal(QString windowTitle, QString errorMsg);
 	void replyMsg(QString sysxInMsg);
@@ -62,13 +61,11 @@ private:
 	QList<QString> midiOutDevices;
 	QList<QString> midiInDevices;
 	
-	
+	static QString msgType;
 	static QString sysxBuffer;
 	static bool dataReceive;
 	static int bytesTotal;
 	static int bytesReceived;
-	static bool multiple;
-	static bool system;
 	int midiOutPort;
 	int midiInPort;
 	QString sysxOutMsg;

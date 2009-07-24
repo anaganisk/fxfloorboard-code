@@ -1,8 +1,9 @@
 /****************************************************************************
-**
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
-** Copyright (C) 2008 Colin Willcocks.
-** This file is part of "GT6B Fx FloorBoard".
+**  
+** Copyright (C) 2007, 2008, 2009 Colin Willcocks. 
+** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
+** All rights reserved.
+** This file is part of "GT-8 Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -39,17 +40,15 @@ bankTreeList::bankTreeList(QWidget *parent)
 
 	this->treeList = newTreeList();
 	this->treeList->setObjectName("banklist");
-  	QObject::connect(treeList, SIGNAL(itemExpanded(QTreeWidgetItem*)), 
-			this, SLOT(setOpenItems(QTreeWidgetItem*)));
-	QObject::connect(treeList, SIGNAL(itemCollapsed(QTreeWidgetItem*)), 
-			this, SLOT(setClosedItems(QTreeWidgetItem*)));
-	QObject::connect(treeList, SIGNAL(itemClicked(QTreeWidgetItem*, int)), 
-			this, SLOT(setItemClicked(QTreeWidgetItem*, int)));
-	QObject::connect(treeList, SIGNAL(itemDoubleClicked(QTreeWidgetItem*, int)), 
-			this, SLOT(setItemDoubleClicked(QTreeWidgetItem*, int)));
+  	QObject::connect(treeList, SIGNAL(itemExpanded(QTreeWidgetItem*)), this, SLOT(setOpenItems(QTreeWidgetItem*)));
+  	
+	QObject::connect(treeList, SIGNAL(itemCollapsed(QTreeWidgetItem*)),	this, SLOT(setClosedItems(QTreeWidgetItem*)));
+	
+	QObject::connect(treeList, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(setItemClicked(QTreeWidgetItem*, int)));
+	
+	QObject::connect(treeList, SIGNAL(itemDoubleClicked(QTreeWidgetItem*, int)), this, SLOT(setItemDoubleClicked(QTreeWidgetItem*, int)));
 
-	QObject::connect(this, SIGNAL(updateSignal()), 
-			this->parent(), SIGNAL(updateSignal()));
+	QObject::connect(this, SIGNAL(updateSignal()), this->parent(), SIGNAL(updateSignal()));
 	
 	QVBoxLayout *treeListLayout = new QVBoxLayout;
 	treeListLayout->addWidget(treeList);
@@ -58,15 +57,13 @@ bankTreeList::bankTreeList(QWidget *parent)
 	setLayout(treeListLayout);
 
 	SysxIO *sysxIO = SysxIO::Instance();
-	QObject::connect(this, SIGNAL(setStatusSymbol(int)),
-                sysxIO, SIGNAL(setStatusSymbol(int)));
-	QObject::connect(this, SIGNAL(setStatusProgress(int)),
-                sysxIO, SIGNAL(setStatusProgress(int)));
-	QObject::connect(this, SIGNAL(setStatusMessage(QString)),
-                sysxIO, SIGNAL(setStatusMessage(QString)));
+	QObject::connect(this, SIGNAL(setStatusSymbol(int)), sysxIO, SIGNAL(setStatusSymbol(int)));
+	
+	QObject::connect(this, SIGNAL(setStatusProgress(int)), sysxIO, SIGNAL(setStatusProgress(int)));
+	
+	QObject::connect(this, SIGNAL(setStatusMessage(QString)), sysxIO, SIGNAL(setStatusMessage(QString)));
 
-	QObject::connect(this, SIGNAL(notConnectedSignal()),
-                sysxIO, SIGNAL(notConnectedSignal()));
+	QObject::connect(this, SIGNAL(notConnectedSignal()), sysxIO, SIGNAL(notConnectedSignal()));
 };
 
 void bankTreeList::updateSize(QRect newrect)
@@ -295,11 +292,14 @@ QTreeWidget* bankTreeList::newTreeList()
 	QTreeWidget *newTreeList = new QTreeWidget();
 	newTreeList->setColumnCount(1);
 	newTreeList->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-	newTreeList->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff); // Qt::ScrollBarAsNeeded
+	newTreeList->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded); 
 	
 	QStringList headers;
 	headers << "Double-click tree item to load patch";
     newTreeList->setHeaderLabels(headers);
+    
+  QTreeWidgetItem *temp = new QTreeWidgetItem(newTreeList);
+	temp->setText(0, "Temp");
 
 	QTreeWidgetItem *user = new QTreeWidgetItem(newTreeList);
 	user->setText(0, "User");
@@ -369,18 +369,17 @@ QTreeWidget* bankTreeList::newTreeList()
 	};
 	preset->addChildren(presetBankRanges);
 
-	newTreeList->setExpanded(newTreeList->model()->index(0, 0), true);
 	newTreeList->setExpanded(newTreeList->model()->index(1, 0), true);
+	newTreeList->setExpanded(newTreeList->model()->index(2, 0), true);
 	return newTreeList;
 };
 
 /*********************** setItemClicked() ***********************************
- * Expands and colapses on a single click and sets patch sellection.
+ * Expands and collapses on a single click and sets patch selection.
  ****************************************************************************/
 void bankTreeList::setItemClicked(QTreeWidgetItem *item, int column)
 {
-	//column; // not used
-	if(item->childCount() != 0)
+	if(item->childCount() != 0 && item->text(0) != "Temp")
 	{
 		if(item->isExpanded())
 		{
@@ -391,7 +390,7 @@ void bankTreeList::setItemClicked(QTreeWidgetItem *item, int column)
 			item->setExpanded(true);
 		};
 	} 
-	else if (item->childCount() == 0)
+	else if (item->childCount() == 0 && item->text(0) != "Temp")
 	{
 		SysxIO *sysxIO = SysxIO::Instance();
 		if(sysxIO->isConnected() && sysxIO->deviceReady())
@@ -405,19 +404,21 @@ void bankTreeList::setItemClicked(QTreeWidgetItem *item, int column)
 			 sysxIO->requestPatchChange(bank, patch); // extra to try patch change
 			sysxIO->setRequestName(item->text(0));	// Set the name of the patch we have sellected in case we load it.
 		};
-		
+		}
+	else
+	{
+    emit patchSelectSignal(0, 0);
 	};
 };
 
 /*********************** setItemDoubleClicked() *****************************
- * Handels when a patch is double clicked in the tree list. Patch will be 
+ * Handles when a patch is double clicked in the tree list. Patch will be 
  * loaded into the temp buffer and will tell to request the data afterwards.
  ****************************************************************************/
 void bankTreeList::setItemDoubleClicked(QTreeWidgetItem *item, int column)
 {	
-	//column; // not used
 	SysxIO *sysxIO = SysxIO::Instance();
-	if(item->childCount() == 0 && sysxIO->deviceReady() && sysxIO->isConnected()) 
+	if(item->childCount() == 0  && item->text(0) != "Temp" && sysxIO->deviceReady() && sysxIO->isConnected()) 
 		// Make sure it's a patch (Patches are the last in line so no children).
 	{
 		emit setStatusSymbol(2);
@@ -431,22 +432,11 @@ void bankTreeList::setItemDoubleClicked(QTreeWidgetItem *item, int column)
 		int patch = item->parent()->indexOfChild(item) + 1;								// and the patch number.
 			QString preset = item->parent()->parent()->text(0);
 			if (preset.contains("P")) { bank = bank + 35; };
-		//if(bank == sysxIO->getLoadedBank() && patch == sysxIO->getLoadedPatch())
-		//{ 
+		
 			requestPatch(bank, patch);
-		/*}
-		else
-		{
-			emit patchLoadSignal(bank, patch); // Tell to stop blinking a sellected patch and prepare to load this one instead.
-			
-			QObject::disconnect(sysxIO, SIGNAL(isChanged()),	
-				this, SLOT(requestPatch()));
-			QObject::connect(sysxIO, SIGNAL(isChanged()),	// Connect the isChanged message
-				this, SLOT(requestPatch()));				// to requestPatch.
-
-			sysxIO->requestPatchChange(bank, patch);
-		};*/
 	}
+	if(item->text(0) == "Temp")
+	{  requestPatch(); };
 };
 /*********************** requestPatch() *******************************
  * Does the actual requesting of the patch data and hands the 
@@ -550,7 +540,7 @@ void bankTreeList::updatePatch(QString replyMsg)
 	msgBox->exec();
 	/* END WARNING */
 	}
-		else if(replyMsg.isEmpty()) // cjw
+		else if(replyMsg.isEmpty())
 	{
 		emit notConnectedSignal();				// No message returned so connection must be lost.
 		/* NO-REPLY WARNING */
@@ -591,7 +581,7 @@ void bankTreeList::connectedSignal()
 
 		this->currentPatchTreeItems.clear();
 		this->currentPatchTreeItems = this->openPatchTreeItems;
-		qSort(this->currentPatchTreeItems);
+		//qSort(this->currentPatchTreeItems);
 
 		this->updatePatchNames("");
 	};  
@@ -624,7 +614,7 @@ void bankTreeList::updateTree(QTreeWidgetItem *item)
 	}
 	else
 	{
-		this->currentPatchTreeItems.append(item);
+		//this->currentPatchTreeItems.append(item);
 	};
 };
 

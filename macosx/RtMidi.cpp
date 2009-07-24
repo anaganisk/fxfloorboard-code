@@ -54,7 +54,11 @@ void RtMidi :: error( RtError::Type type )
   if (type == RtError::WARNING) {
     std::cerr << '\n' << errorString_ << "\n\n";
   }
- 
+  else if (type == RtError::DEBUG_WARNING) {
+#if defined(__RTMIDI_DEBUG__)
+    std::cerr << '\n' << errorString_ << "\n\n";
+#endif
+  }
   else {
     std::cerr << '\n' << errorString_ << "\n\n";
     throw RtError( errorString_, type );
@@ -648,3 +652,5 @@ void RtMidiOut :: sendMessage( std::vector<unsigned char> *message )
     }
   }
 }
+
+
