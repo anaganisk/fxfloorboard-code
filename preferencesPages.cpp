@@ -174,13 +174,13 @@ midiTimeSpinBox->setRange(10, 99);
 
 	QVBoxLayout *dBugLabelLayout = new QVBoxLayout;
 	dBugLabelLayout->addWidget(dBugDescriptionLabel);
-	dBugLabelLayout->addWidget(midiTimeDescriptionLabel);
+	//dBugLabelLayout->addWidget(midiTimeDescriptionLabel);
 	//dBugLabelLayout->addSpacing(12);
 	dBugLabelLayout->addWidget(midiDelayDescriptionLabel);
 
 	QVBoxLayout *dBugTimeBoxLayout = new QVBoxLayout;
 	dBugTimeBoxLayout->addWidget(dBugCheckBox);
-	dBugTimeBoxLayout->addWidget(midiTimeSpinBox);
+	//dBugTimeBoxLayout->addWidget(midiTimeSpinBox);
 	dBugTimeBoxLayout->addWidget(midiDelaySpinBox);
 
 	QHBoxLayout *dBugSelectLayout = new QHBoxLayout;

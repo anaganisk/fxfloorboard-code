@@ -2,7 +2,7 @@
 
 ; HM NIS Edit Wizard helper defines
 !define PRODUCT_NAME "GT-3FxFloorBoard"
-!define PRODUCT_VERSION "version 20090311"
+!define PRODUCT_VERSION "version 20090731"
 !define PRODUCT_PUBLISHER "Gumtownbassman"
 !define PRODUCT_WEB_SITE "http://gtx.tinfoilmusic.net/"
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\GT-3FxFloorBoard.exe"

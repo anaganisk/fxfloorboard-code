@@ -661,7 +661,8 @@ QList<QString> SysxIO::correctSysxMsg(QList<QString> sysxMsg)
 			if(value > range || value < rangeMin)
 			{
 			  isWrong = true;
-				value = (range / 2);
+				if(value > range) { value = range;} 
+				else {value = rangeMin; };
 				int dif = (int)(value/maxRange);
 				QString valueHex1 = QString::number(dif, 16).toUpper();
 				if(valueHex1.length() < 2) valueHex1.prepend("0");
@@ -857,7 +858,7 @@ QString SysxIO::getPatchChangeMsg(int bank, int patch)
 	QString midiMsg = "";
 
 	midiMsg.append("B000"+bankMsb);
-	midiMsg.append("B01000");
+	midiMsg.append("B02000");
 	midiMsg.append("C0"+programChange);
 	midiMsg = midiMsg.toUpper();
 	return midiMsg;
@@ -894,7 +895,10 @@ void SysxIO::sendMidi(QString midiMsg)
 void SysxIO::finishedSending()
 {
 	emit isFinished();
-	this->namePatchChange(); 
+	emit setStatusSymbol(1);
+	emit setStatusProgress(0);
+	emit setStatusMessage(tr("Ready"));
+	//this->namePatchChange(); 
 };
 
 /***************************** requestPatchChange() *************************
@@ -939,11 +943,11 @@ void SysxIO::checkPatchChange(QString name)
 		this, SLOT(checkPatchChange(QString)));
 
 	//if(this->requestName  == name)  //cjw
-	{
+	//{
 		emit isChanged();
 		this->changeCount = 0;
-		    this->setDeviceReady(true); //  extra added  line
-	}
+		    //this->setDeviceReady(true); //  extra added  line
+	//}
 	/*else
 	{
 		if(changeCount < maxRetry)
@@ -1015,37 +1019,40 @@ void SysxIO::sendSysx(QString sysxMsg)
 ****************************************************************************/
 void SysxIO::receiveSysx(QString sysxMsg)
 {
-	emit sysxReply(sysxMsg);
-		 /*DeBugGING OUTPUT */
+			 /*DeBugGING OUTPUT */
 	Preferences *preferences = Preferences::Instance(); // Load the preferences.
 	if(preferences->getPreferences("Midi", "DBug", "bool")=="true")
 	{
-	if (sysxMsg.size() > 0){
+	if (sysxMsg.size() > 0 && isConnected() ){
 			QString snork;
+			snork.append("{ size=");
+			snork.append(QString::number(sysxMsg.size()/2, 10));
+			snork.append("}");	
+			snork.append("\n midi data received\n");
+		  if (sysxMsg == dBug){
+				  snork.append("\n WARNING: midi data received = data sent");
+				  snork.append("\n caused by a midi loopback, port change is required\n");
+			 };
+			snork.append("<font size='-2'><b>");
 			for(int i=0;i<sysxMsg.size();++i)
 			{
 				snork.append(sysxMsg.mid(i, 2));
 				snork.append(" ");
 				i++;
 			};
-			snork.replace("F7", "F7 }\n");
+			snork.replace("F7", "F7 }");
 			snork.replace("F0", "{ F0");
-			snork.append("\n{ size=");
-			snork.append(QString::number(sysxMsg.size()/2, 10));
-			snork.append("}");	
-			snork.append("\n midi data received");
-			if (sysxMsg == dBug){
-				snork.append("\n WARNING: midi data received = data sent");
-				snork.append("\n caused by a midi loopback, port change is required");
-			};
+			snork.append("<b></font><br>");
 			QMessageBox *msgBox = new QMessageBox();
-			msgBox->setWindowTitle("dBug Result from formatted syx message");
+			msgBox->setTextFormat(Qt::RichText);
+			msgBox->setWindowTitle("dBug Result for formatted syx message");
 			msgBox->setIcon(QMessageBox::Information);
 			msgBox->setText(snork);
 			msgBox->setStandardButtons(QMessageBox::Ok);
 			msgBox->exec();
 		};
-	};			
+	};	
+  emit sysxReply(sysxMsg);		
 };
 
 /***************************** requestPatchName() ***************************
@@ -1118,25 +1125,14 @@ void SysxIO::requestPatch(int bank, int patch)
 /***************************** errorSignal() ******************************
 * Displays all midi related error messages.
 ****************************************************************************/
-void SysxIO::errorSignal(QString windowTitle, QString errorMsg)
+void SysxIO::errorSignal(QString errorType, QString errorMsg)
 {
-		windowTitle = this->errorType;
-		errorMsg = this->errorMsg;
-		errorMsg.append("\n please press the [Connect] button to resume");
-
-
-
-		QMessageBox *msgBox = new QMessageBox();
-		msgBox->setWindowTitle(windowTitle);
-		msgBox->setIcon(QMessageBox::Warning);
-		msgBox->setTextFormat(Qt::RichText);
-		msgBox->setText(errorMsg);
-		msgBox->setStandardButtons(QMessageBox::Ok);
-		msgBox->exec();
-		
-		emit notConnectedSignal();
+    setNoError(false);
+		emit setStatusdBugMessage(this->errorType + "  " + this->errorMsg);
+    //SLEEP(2000);
+    //emit setStatusdBugMessage("");
 		this->errorType = "";
-		this->errorMsg = "";	
+		this->errorMsg = "";
 };
 
 /***************************** noError() ******************************

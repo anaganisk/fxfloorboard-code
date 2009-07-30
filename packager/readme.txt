@@ -1,10 +1,10 @@
 
-GT-3FxFloorBoard Copyright (C) 2007-2008-2009 Colin Willcocks (gumtownbassman@yahoo.com).
+GT-3FxFloorBoard Copyright (C) 2000, 2008, 2009 Colin Willcocks (gumtownbassman@yahoo.com).
  All rights reserved.
 =======
 
 
-GT-10BFxFloorBoard version 20090311: 11 Mar 2009
+GT-3FxFloorBoard version 20090729: 29 July 2009
 
 PLEASE FEEL FREE TO DONATE, YOU MAY FREELY USE THIS SOFTWARE, JUST KEEP IN MIND THE 6000 HOURS SPENT OVER 3 YEARS GETTING IT HERE, SO FAR WITH NO REWARD. I WOULD LOVE A BEER!!!.
 
@@ -13,7 +13,7 @@ PLEASE FEEL FREE TO DONATE, YOU MAY FREELY USE THIS SOFTWARE, JUST KEEP IN MIND 
 GT-3FxFloorBoard: 
 NOTE: THIS IS AN UNPAID PROJECT, SO FAR INVESTING OVER 6000 HOURS OF MY TIME OVER 3 YEARS, I WILL NOT ACCEPT LIABILITY FOR ANY DATA LOSS, TO THE BEST OF MY KNOWLEDGE EVERYTHING SHOULD WORK CORRECTLY, BUT SOME FUNCTIONS MAY BE INCORRECT. 
 
-SYSTEM EDITING added, assigns added, now uses Qt library version 4.5.0
+SYSTEM EDITING added, assigns added, now uses Qt library version 4.5.1
 
 This project is a continuing session of evolution.
 
@@ -86,7 +86,7 @@ GT-3FxFloorBoard Copyright (C)2007 2008 2009 Colin Willcocks <gumtownbassman@yah
 based on the GT8 FxFloorBoard Copyright (C)2006 2007 Uco Mesdag <ucomesdag@gmail.com>.
 
 Windows(TM), Windows 95(TM), Windows 98(TM), Windows ME(TM), Windows NT(TM), 
-Windows 2000(TM) and Windows XP(TM) and Windows Vista(TM) are Copyright (C)Microsoft Corporation. 
+Windows 2000(TM), Windows XP(TM), Windows Vista(TM) and Windows 7(TM) are Copyright (C)Microsoft Corporation. 
 All rights reserved.
 
 based on the GT8 FxFloorBoard Copyright (C)2006 2007 Uco Mesdag <ucomesdag@gmail.com>.

@@ -39,17 +39,15 @@ bankTreeList::bankTreeList(QWidget *parent)
 
 	this->treeList = newTreeList();
 	this->treeList->setObjectName("banklist");
-  	QObject::connect(treeList, SIGNAL(itemExpanded(QTreeWidgetItem*)), 
-			this, SLOT(setOpenItems(QTreeWidgetItem*)));
-	QObject::connect(treeList, SIGNAL(itemCollapsed(QTreeWidgetItem*)), 
-			this, SLOT(setClosedItems(QTreeWidgetItem*)));
-	QObject::connect(treeList, SIGNAL(itemClicked(QTreeWidgetItem*, int)), 
-			this, SLOT(setItemClicked(QTreeWidgetItem*, int)));
-	QObject::connect(treeList, SIGNAL(itemDoubleClicked(QTreeWidgetItem*, int)), 
-			this, SLOT(setItemDoubleClicked(QTreeWidgetItem*, int)));
+  QObject::connect(treeList, SIGNAL(itemExpanded(QTreeWidgetItem*)), this, SLOT(setOpenItems(QTreeWidgetItem*)));
+  	
+	QObject::connect(treeList, SIGNAL(itemCollapsed(QTreeWidgetItem*)),	this, SLOT(setClosedItems(QTreeWidgetItem*)));
+	
+	QObject::connect(treeList, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(setItemClicked(QTreeWidgetItem*, int)));
+	
+	QObject::connect(treeList, SIGNAL(itemDoubleClicked(QTreeWidgetItem*, int)), this, SLOT(setItemDoubleClicked(QTreeWidgetItem*, int)));
 
-	QObject::connect(this, SIGNAL(updateSignal()), 
-			this->parent(), SIGNAL(updateSignal()));
+	QObject::connect(this, SIGNAL(updateSignal()), this->parent(), SIGNAL(updateSignal()));
 	
 	QVBoxLayout *treeListLayout = new QVBoxLayout;
 	treeListLayout->addWidget(treeList);
@@ -58,15 +56,13 @@ bankTreeList::bankTreeList(QWidget *parent)
 	setLayout(treeListLayout);
 
 	SysxIO *sysxIO = SysxIO::Instance();
-	QObject::connect(this, SIGNAL(setStatusSymbol(int)),
-                sysxIO, SIGNAL(setStatusSymbol(int)));
-	QObject::connect(this, SIGNAL(setStatusProgress(int)),
-                sysxIO, SIGNAL(setStatusProgress(int)));
-	QObject::connect(this, SIGNAL(setStatusMessage(QString)),
-                sysxIO, SIGNAL(setStatusMessage(QString)));
+	QObject::connect(this, SIGNAL(setStatusSymbol(int)), sysxIO, SIGNAL(setStatusSymbol(int)));
+	
+	QObject::connect(this, SIGNAL(setStatusProgress(int)), sysxIO, SIGNAL(setStatusProgress(int)));
+	
+	QObject::connect(this, SIGNAL(setStatusMessage(QString)), sysxIO, SIGNAL(setStatusMessage(QString)));
 
-	QObject::connect(this, SIGNAL(notConnectedSignal()),
-                sysxIO, SIGNAL(notConnectedSignal()));
+	QObject::connect(this, SIGNAL(notConnectedSignal()), sysxIO, SIGNAL(notConnectedSignal()));
 };
 
 void bankTreeList::updateSize(QRect newrect)
@@ -295,11 +291,15 @@ QTreeWidget* bankTreeList::newTreeList()
 	QTreeWidget *newTreeList = new QTreeWidget();
 	newTreeList->setColumnCount(1);
 	newTreeList->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-	newTreeList->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff); // Qt::ScrollBarAsNeeded
+	newTreeList->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded); 
 	
 	QStringList headers;
-	headers << "        Boss " + deviceType;
+	headers << "Double-click tree item to load patch";
     newTreeList->setHeaderLabels(headers);
+    
+  QTreeWidgetItem *temp = new QTreeWidgetItem(newTreeList);
+	temp->setText(0, "Temp");
+
 
 	QTreeWidgetItem *user = new QTreeWidgetItem(newTreeList);
 	user->setText(0, "User");
@@ -355,7 +355,7 @@ QTreeWidget* bankTreeList::newTreeList()
     for (int a=(bankTotalUser+1); a<=bankTotalAll; a++)
 	{
 		QTreeWidgetItem* bankRange = new QTreeWidgetItem; // don't pass a parent here!
-		bankRange->setText(0, QString::QString("Bank P").append(QString::number(a-35, 10)).append("-P").append(QString::number(a-31, 10)) );
+		bankRange->setText(0, QString::QString("Bank P").append(QString::number(a, 10)).append("-P").append(QString::number(a+4, 10)) );
 		bankRange->setWhatsThis(0, "");
 		//bankRange->setIcon(...);
 
@@ -379,8 +379,8 @@ QTreeWidget* bankTreeList::newTreeList()
 	};
 	preset->addChildren(presetBankRanges);
 
-	newTreeList->setExpanded(newTreeList->model()->index(0, 0), true);
 	newTreeList->setExpanded(newTreeList->model()->index(1, 0), true);
+	newTreeList->setExpanded(newTreeList->model()->index(2, 0), true);
 	return newTreeList;
 };
 
@@ -389,8 +389,7 @@ QTreeWidget* bankTreeList::newTreeList()
  ****************************************************************************/
 void bankTreeList::setItemClicked(QTreeWidgetItem *item, int column)
 {
-	//column; // not used
-	if(item->childCount() != 0)
+	if(item->childCount() != 0 && item->text(0) != "Temp")
 	{
 		if(item->isExpanded())
 		{
@@ -401,7 +400,7 @@ void bankTreeList::setItemClicked(QTreeWidgetItem *item, int column)
 			item->setExpanded(true);
 		};
 	} 
-	else if (item->childCount() == 0)
+	else if (item->childCount() == 0 && item->text(0) != "Temp")
 	{
 		SysxIO *sysxIO = SysxIO::Instance();
 		if(/*sysxIO->isConnected() && */sysxIO->deviceReady())
@@ -413,7 +412,10 @@ void bankTreeList::setItemClicked(QTreeWidgetItem *item, int column)
 			 sysxIO->requestPatchChange(bank, patch); // extra to try patch change
 			sysxIO->setRequestName(item->text(0));	// Set the name of the patch we have sellected in case we load it.
 		};
-		
+	 	}
+	else
+	{
+    emit patchSelectSignal(0, 0);	
 	};
 };
 
@@ -423,9 +425,8 @@ void bankTreeList::setItemClicked(QTreeWidgetItem *item, int column)
  ****************************************************************************/
 void bankTreeList::setItemDoubleClicked(QTreeWidgetItem *item, int column)
 {	
-	//column; // not used
 	SysxIO *sysxIO = SysxIO::Instance();
-	if(item->childCount() == 0 && sysxIO->deviceReady() && sysxIO->isConnected()) 
+	if(item->childCount() == 0  && item->text(0) != "Temp" && sysxIO->deviceReady() && sysxIO->isConnected()) 
 		// Make sure it's a patch (Patches are the last in line so no children).
 	{
 		emit setStatusSymbol(2);
@@ -437,22 +438,11 @@ void bankTreeList::setItemDoubleClicked(QTreeWidgetItem *item, int column)
 		bool ok;
 		int bank = item->parent()->text(0).section(" ", 1, 1).trimmed().toInt(&ok, 10); // Get the bank
 		int patch = item->parent()->indexOfChild(item) + 1;								// and the patch number.
-		//if(bank == sysxIO->getLoadedBank() && patch == sysxIO->getLoadedPatch())
-		//{ 
+		
 			requestPatch(bank, patch);
-		/*}
-		else
-		{
-			emit patchLoadSignal(bank, patch); // Tell to stop blinking a sellected patch and prepare to load this one instead.
-			
-			QObject::disconnect(sysxIO, SIGNAL(isChanged()),	
-				this, SLOT(requestPatch()));
-			QObject::connect(sysxIO, SIGNAL(isChanged()),	// Connect the isChanged message
-				this, SLOT(requestPatch()));				// to requestPatch.
-
-			sysxIO->requestPatchChange(bank, patch);
-		};*/
 	}
+	if(item->text(0) == "Temp")
+	{  requestPatch(); };
 };
 /*********************** requestPatch() *******************************
  * Does the actual requesting of the patch data and hands the 
@@ -567,6 +557,9 @@ void bankTreeList::updatePatch(QString replyMsg)
 	msgBox->setTextFormat(Qt::RichText);
 	QString msgText;
 	msgText.append("<font size='+1'><b>");
+		msgText.append(QObject::tr("Patch data transfer failed, are the correct midi ports selected?"));
+	msgText.append("<b></font><br>");
+
 	msgText.append(QObject::tr("Please make sure the ") + deviceType + (" is connected correctly and re-try."));
 	msgBox->setText(msgText);
 	msgBox->setStandardButtons(QMessageBox::Ok);
@@ -629,7 +622,7 @@ void bankTreeList::updateTree(QTreeWidgetItem *item)
 	}
 	else
 	{
-		this->currentPatchTreeItems.append(item);
+		//this->currentPatchTreeItems.append(item);
 	};
 };
 
@@ -639,7 +632,7 @@ void bankTreeList::updateTree(QTreeWidgetItem *item)
 *********************************************************************************/
 void bankTreeList::updatePatchNames(QString name)
 {		SysxIO *sysxIO = SysxIO::Instance();
-		if(name != "" && sysxIO->isConnected()) //  If not empty we can assume that we did receive a patch name.
+		if(!name.isEmpty() && sysxIO->isConnected()) //  If not empty we can assume that we did receive a patch name.
 		{
 			this->currentPatchTreeItems.at(listIndex)->child(itemIndex)->setText(0, name); // Set the patch name of the item in the tree list.
 			if(itemIndex >= patchPerBank - 1) // If we reach the last patch in this bank we need to increment the bank and restart at patch 1.
