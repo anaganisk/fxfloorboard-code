@@ -856,8 +856,8 @@ QString SysxIO::getPatchChangeMsg(int bank, int patch)
 
 	QString midiMsg = "";
 
-	midiMsg.append("B000"+bankMsb);
-	midiMsg.append("B01000");
+	//midiMsg.append("B000"+bankMsb);
+	//midiMsg.append("B01000");
 	midiMsg.append("C0"+programChange);
 	midiMsg = midiMsg.toUpper();
 	return midiMsg;
@@ -1118,23 +1118,14 @@ void SysxIO::requestPatch(int bank, int patch)
 /***************************** errorSignal() ******************************
 * Displays all midi related error messages.
 ****************************************************************************/
-void SysxIO::errorSignal(QString windowTitle, QString errorMsg)
+void SysxIO::errorSignal(QString errorType, QString errorMsg)
 {
-		windowTitle = this->errorType;
-		errorMsg = this->errorMsg;
-		/*errorMsg.append("\n please press the [Connect] button to resume");
-		QMessageBox *msgBox = new QMessageBox();
-		msgBox->setWindowTitle(windowTitle);
-		msgBox->setIcon(QMessageBox::Warning);
-		msgBox->setTextFormat(Qt::RichText);
-		msgBox->setText(errorMsg);
-		msgBox->setStandardButtons(QMessageBox::Ok);
-		msgBox->exec();
-		
-		emit notConnectedSignal(); */
-		emit setStatusMessage(errorMsg);
+    setNoError(false);
+		emit setStatusdBugMessage(this->errorType + "  " + this->errorMsg);
+    //SLEEP(2000);
+    //emit setStatusdBugMessage("");
 		this->errorType = "";
-		this->errorMsg = "";	
+		this->errorMsg = "";
 };
 
 /***************************** noError() ******************************
@@ -1313,7 +1304,7 @@ void SysxIO::writeToBuffer()
 		emit setStatusSymbol(2);
 		emit setStatusMessage(tr("Sync to ")+deviceType);
 
-	QString addr1 = "0C"; // temp address
+	QString addr1 = tempDataWrite; // temp address
 	QString addr2 = "00"; 
 
 	for(int i=0;i<patchData.size();++i)

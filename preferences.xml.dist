@@ -2,7 +2,7 @@
 <!-- Preferences of the GT6B Fx FloorBoard application. -->
 <Preferences>
 	<General>
-		<Application version="20090530"/>
+		<Application version="20090731"/>
 		<Donate url="http://gtx.tinfoilmusic.net/donate.html"/>
 		<Files dir=""/>
 		<Help url="GT-6BEditorManual_E.htm"/>

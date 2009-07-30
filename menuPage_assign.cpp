@@ -72,7 +72,7 @@ void menuPage_assign::setEditPages()
 	editDetails()->page()->addGroupBox(1, 0, 1, 1);
 	editDetails()->page()->newGroupBox("");
 	editDetails()->page()->insertStackField(0, 0, 1, 1, 1);
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
+	editDetails()->page()->addGroupBox(0, 0, 1, 1);    
 	editDetails()->addPage();
 
   editDetails()->page()->newStackField(0);
@@ -83,9 +83,7 @@ void menuPage_assign::setEditPages()
 	editDetails()->page()->addComboBox(1, 0, 1, 1, "10", "00", "08");                    // Source
   editDetails()->page()->addComboBox(1, 1, 1, 1, "10", "00", "09");                    // Source Mode
   editDetails()->page()->addRange(1, 2, 1, 2, "10", "00", "0A", "Structure");         // min/max range widget
-	//editDetails()->page()->addKnob(1, 2, 1, 1, "10", "00", "0A");                        // Active Range High
-	//editDetails()->page()->addKnob(1, 3, 1, 1, "10", "00", "0B");                        // Active Range Low
-  editDetails()->page()->addGroupBox(1, 0, 1, 1); 
+	editDetails()->page()->addGroupBox(1, 0, 1, 1); 
 	editDetails()->page()->addStackField();
 
 	editDetails()->page()->newStackField(0);
@@ -111,7 +109,7 @@ void menuPage_assign::setEditPages()
 	editDetails()->page()->addStackField();
 
 	editDetails()->page()->newStackField(0);
-editDetails()->page()->newGroupBox("Assign 4 Target");
+  editDetails()->page()->newGroupBox("Assign 4 Target");
 	editDetails()->page()->addTarget(0, 0, 1, 3, "13", "00", "02", "target", "04", "06"); // Target
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->page()->newGroupBox("Assign 4 Source");
