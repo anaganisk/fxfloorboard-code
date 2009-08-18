@@ -46,7 +46,6 @@ customKnobTarget::customKnobTarget(QWidget *parent,
 	QLabel *newBackGround = new QLabel(this);
 	this->range = range;
 	this->rangeMin = rangeMin;
-	//this->range = midiTable->getRange("Structure", hex1, hex2, hex3);
 	if (background == "target")
 	{
 		this->range = midiTable->getRange("Structure", hex1, hex2, hex3); 

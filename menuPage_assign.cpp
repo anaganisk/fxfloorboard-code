@@ -91,7 +91,7 @@ void menuPage_assign::setEditPages()
  
   editDetails()->page()->newStackField(0);
   editDetails()->page()->newGroupBox("Assign 1 Target");
-	editDetails()->page()->addTarget(0, 0, 1, 3, "20", "00", "02", "target", "04", "06"); // Target
+	editDetails()->page()->addTarget(0, 0, 1, 3, "20", "00", "02", "target", "04", "06"); // Target   
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->page()->newGroupBox("Assign 1 Source");
 	editDetails()->page()->newStackControl(1);

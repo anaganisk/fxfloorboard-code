@@ -102,7 +102,7 @@ public:
 	void systemDataRequest();
 
 public slots:
-	void errorSignal(QString windowTitle, QString errorMsg);
+	void errorSignal(QString errorType, QString errorMsg);
 	void writeToBuffer();
 
 private slots:

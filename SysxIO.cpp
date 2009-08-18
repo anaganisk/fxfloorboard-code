@@ -1077,22 +1077,13 @@ void SysxIO::requestPatch(int bank, int patch)
 /***************************** errorSignal() ******************************
 * Displays all midi related error messages.
 ****************************************************************************/
-void SysxIO::errorSignal(QString windowTitle, QString errorMsg)
+void SysxIO::errorSignal(QString errorType, QString errorMsg)
 {
- 	if(noError())
-	{
-		setNoError(false);
-		//emit notConnectedSignal();
+    QApplication::beep();
+    setNoError(false);
 		emit setStatusdBugMessage(this->errorType + "  " + this->errorMsg);
-
-		/*QMessageBox *msgBox = new QMessageBox();
-		msgBox->setWindowTitle(windowTitle);
-		msgBox->setIcon(QMessageBox::Warning);
-		msgBox->setTextFormat(Qt::RichText);
-		msgBox->setText(errorMsg);
-		msgBox->setStandardButtons(QMessageBox::Ok);
-		msgBox->exec(); */
-	};	  
+    SLEEP(2000);
+    emit setStatusdBugMessage("");
 		this->errorType = "";
 		this->errorMsg = "";
 };

@@ -285,19 +285,11 @@ void midiIO::receiveMsg(QString sysxInMsg, int midiInPort)
 #else
         int x = 3;
 #endif
-	if (msgType == "patch"){
-  loopCount = x*600;
-  count = 1153;
-  } else if(msgType == "system"){
-  loopCount = x*900;
-  count = 4326; // native gt-pro system size, then trimmed to 4313 later.
-  }
-  else if (msgType == "name"){
-  loopCount = x*80;
-  count = 29; }
-  else {
-  loopCount = x*120;
-  count = 15; };
+	if (msgType == "patch"){ loopCount = x*600; count = 1153; }
+   else if(msgType == "system"){ loopCount = x*900; count = 4326; } // native gt-pro system size, then trimmed to 4313 later.
+   else if (msgType == "name") { loopCount = x*80; count = 29; }
+   else if (msgType == "id_request") { loopCount = x*120; count = 15; }
+                         else  { loopCount = x*1; count = 1; };
 		RtMidiIn *midiin = 0;
     const std::string clientName = "FxFloorBoard";	
 	  midiin = new RtMidiIn(clientName);		   //RtMidi constructor
@@ -314,7 +306,7 @@ void midiIO::receiveMsg(QString sysxInMsg, int midiInPort)
       while (x<loopCount && sysxBuffer.size()/2 < count)  // wait until exact bytes received or timeout
       {
       SLEEP(5);
-      t = (x*100)/loopCount;
+      t = (x*200)/loopCount;
       emit setStatusProgress(t);    
        x++;
       };                   // time it takes to get all sysx messages in.			
@@ -468,8 +460,9 @@ void midiIO::sendSysxMsg(QString sysxOutMsg, int midiOutPort, int midiInPort)
 		sysxEOF.clear();
 		i=i+2;
     }; 
-  };    
-  if (sysxOutMsg == idRequestString){reBuild = sysxOutMsg;  msgType = "";};  // identity request not require checksum
+  }; 
+  msgType = "";   
+  if (sysxOutMsg == idRequestString){reBuild = sysxOutMsg;  msgType = "id_request";};  // identity request not require checksum
 	this->sysxOutMsg = reBuild.simplified().toUpper().remove("0X").remove(" ");
 
   if((sysxOutMsg.size() == 34) && (sysxOutMsg.contains(patchRequestSize)) && (sysxOutMsg.mid((sysxAddressOffset*2-2), 2) == "11")) { msgType = "patch"; };
