@@ -52,7 +52,7 @@ void stompbox_fx2::setEditPages()
 // T-Wah 
     editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00", "middle", Qt::AlignCenter);
 	editDetails()->page()->addComboBox(0, 1, 1, 1, "06", "00", "0D", "bottom", Qt::AlignRight);
 	editDetails()->page()->addComboBox(1, 0, 1, 2, "06", "00", "0E");
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
@@ -73,7 +73,7 @@ void stompbox_fx2::setEditPages()
 		// Auto Wah 
 		  editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00", "middle", Qt::AlignCenter);
 	editDetails()->page()->addComboBox(1, 0, 1, 1, "06", "00", "14");
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 
@@ -94,7 +94,7 @@ void stompbox_fx2::setEditPages()
 	// Sub-Wah 
 	  editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00", "middle", Qt::AlignCenter);
 	editDetails()->page()->addComboBox(1, 0, 1, 1, "09", "00", "30", "bottom", Qt::AlignRight);
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 
@@ -114,7 +114,7 @@ void stompbox_fx2::setEditPages()
    // Advanced Compressor 
      editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00", "middle", Qt::AlignCenter);
 	editDetails()->page()->addComboBox(1, 0, 1, 1, "06", "00", "02");   //#
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 
@@ -133,7 +133,7 @@ void stompbox_fx2::setEditPages()
 	// Limiter 
 	  editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00", "middle", Qt::AlignCenter);
 	editDetails()->page()->addComboBox(1, 0, 1, 1, "06", "00", "07");
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 
@@ -153,7 +153,7 @@ void stompbox_fx2::setEditPages()
 	// Graphic EQ 
 	  editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Effect", Qt::AlignTop | Qt::AlignHCenter);
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00", "middle", Qt::AlignCenter);
 	editDetails()->page()->addGroupBox(0, 0, 2, 1);
 
 	editDetails()->page()->newGroupBox("Equalizer");
@@ -180,13 +180,13 @@ void stompbox_fx2::setEditPages()
     // Parametric EQ
       editDetails()->page()->newStackField(0);
   editDetails()->page()->newGroupBox("Effect", Qt::AlignTop | Qt::AlignHCenter);
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00", "middle", Qt::AlignCenter);
 	editDetails()->page()->addGroupBox(0, 0, 2, 1);
 
 	editDetails()->page()->newGroupBox("Equalizer");
 	editDetails()->page()->newGroupBox("Low");
-	editDetails()->page()->addKnob(1, 0, 1, 1, "06", "00", "58");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "06", "00", "59");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "06", "00", "58");
+	editDetails()->page()->addKnob(0, 1, 1, 1, "06", "00", "59");
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 
 	editDetails()->page()->newGroupBox("Low-Middle");
@@ -203,7 +203,7 @@ void stompbox_fx2::setEditPages()
 
 	editDetails()->page()->newGroupBox("High");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "06", "00", "60");
-	editDetails()->page()->addKnob(1, 0, 1, 1, "06", "00", "61");
+	editDetails()->page()->addKnob(0, 1, 1, 1, "06", "00", "61");
 	editDetails()->page()->addGroupBox(0, 3, 1, 1);
 	editDetails()->page()->addGroupBox(0, 1, 2, 1);
 
@@ -216,7 +216,7 @@ void stompbox_fx2::setEditPages()
   // Enhancer
     editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Effect", Qt::AlignTop | Qt::AlignHCenter);
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00");	
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00", "middle", Qt::AlignCenter);	
 	editDetails()->page()->addKnob(0, 1, 1, 1, "09", "00", "41");
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 
@@ -235,7 +235,7 @@ void stompbox_fx2::setEditPages()
   	// Tone Modify 
   	  editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00", "middle", Qt::AlignCenter);
 	editDetails()->page()->addComboBox(1, 0, 1, 1, "09", "00", "1F");  //19F from 20 00 00 00
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 
@@ -254,7 +254,7 @@ void stompbox_fx2::setEditPages()
 	// Bass Sim 
 	  editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00", "middle", Qt::AlignCenter);
 	editDetails()->page()->addComboBox(1, 0, 1, 1, "09", "00", "46");
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 
@@ -273,7 +273,7 @@ void stompbox_fx2::setEditPages()
 	// Slow Gear 
 	  editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Effect", Qt::AlignTop | Qt::AlignHCenter);
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00");	
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00", "middle", Qt::AlignCenter);	
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 
 	editDetails()->page()->newGroupBox("Slow Gear");
@@ -287,7 +287,7 @@ void stompbox_fx2::setEditPages()
 	// DeFretter 
 	  editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Effect", Qt::AlignTop | Qt::AlignHCenter);
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00");	
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00", "middle", Qt::AlignCenter);	
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 
 	editDetails()->page()->newGroupBox("Defretter");
@@ -309,7 +309,7 @@ void stompbox_fx2::setEditPages()
   // Bass Synth 
     editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00");	
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00", "middle", Qt::AlignCenter);	
 	editDetails()->page()->addComboBox(1, 0, 1, 1, "09", "00", "4B");
 	editDetails()->page()->addGroupBox(0, 0, 2, 1);
 
@@ -335,7 +335,7 @@ void stompbox_fx2::setEditPages()
 	// Octaver
 	  editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Effect", Qt::AlignTop | Qt::AlignHCenter);
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00");	
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00", "middle", Qt::AlignCenter);	
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 
 	editDetails()->page()->newGroupBox("Octave", Qt::AlignTop | Qt::AlignHCenter);
@@ -353,7 +353,7 @@ void stompbox_fx2::setEditPages()
   // Pitch Shifter 
     editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00");	
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00", "middle", Qt::AlignCenter);	
 	editDetails()->page()->newStackControl(1);
 	editDetails()->page()->addComboBox(1, 0, 1, 1, "07", "00", "06");	
 	editDetails()->page()->addStackControl();
@@ -434,7 +434,7 @@ void stompbox_fx2::setEditPages()
 // Harmonizer 
   editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00");	
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00", "middle", Qt::AlignCenter);	
 	editDetails()->page()->newStackControl(1);
 	editDetails()->page()->addComboBox(1, 0, 1, 1, "06", "00", "63");	
 	editDetails()->page()->addStackControl();
@@ -609,7 +609,7 @@ void stompbox_fx2::setEditPages()
   // Sound Hold 
     editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Effect", Qt::AlignTop | Qt::AlignHCenter);
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00");	
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00", "middle", Qt::AlignCenter);	
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 
 	editDetails()->page()->newGroupBox("Sound Hold");
@@ -627,7 +627,7 @@ void stompbox_fx2::setEditPages()
 	// Phaser 
 	  editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00");	
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00", "middle", Qt::AlignCenter);	
 	editDetails()->page()->addComboBox(1, 0, 1, 1, "06", "00", "1E");
 	editDetails()->page()->addGroupBox(0, 0, 2, 1);
 
@@ -649,7 +649,7 @@ void stompbox_fx2::setEditPages()
 	// Flanger
 	  editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Effect", Qt::AlignTop | Qt::AlignHCenter);
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00");	
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00", "middle", Qt::AlignCenter);	
 	editDetails()->page()->addGroupBox(0, 0, 2, 1);
 
 	editDetails()->page()->newGroupBox("Flanger");
@@ -675,7 +675,7 @@ void stompbox_fx2::setEditPages()
 	// Tremolo
 	  editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Effect", Qt::AlignTop | Qt::AlignHCenter);
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00", "middle", Qt::AlignCenter);
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 
 	editDetails()->page()->newGroupBox("Tremelo");
@@ -692,7 +692,7 @@ void stompbox_fx2::setEditPages()
 	// Rotary 
 	  editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00");	
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00", "middle", Qt::AlignCenter);	
 	editDetails()->page()->addComboBox(1, 0, 1, 3, "07", "00", "18");
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 
@@ -709,7 +709,7 @@ void stompbox_fx2::setEditPages()
 	// Uni-V 
 	  editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Effect", Qt::AlignTop | Qt::AlignHCenter);
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00");	
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00", "middle", Qt::AlignCenter);	
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 
 	editDetails()->page()->newGroupBox("Uni-V");
@@ -726,7 +726,7 @@ void stompbox_fx2::setEditPages()
 	// Panner
 	  editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Effect", Qt::AlignTop | Qt::AlignHCenter);
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00");	
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00", "middle", Qt::AlignCenter);	
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 
 	editDetails()->page()->newGroupBox("Pan");
@@ -744,7 +744,7 @@ void stompbox_fx2::setEditPages()
 	// Slicer 
 	  editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Effect", Qt::AlignTop | Qt::AlignHCenter);
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00");	
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00", "middle", Qt::AlignCenter);	
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 
 	editDetails()->page()->newGroupBox("Slicer");
@@ -758,7 +758,7 @@ void stompbox_fx2::setEditPages()
 	// Vibrato
 	  editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Effect", Qt::AlignTop | Qt::AlignHCenter);
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00");	
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00", "middle", Qt::AlignCenter);	
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 
 	editDetails()->page()->newGroupBox("Vibrato");
@@ -778,7 +778,7 @@ void stompbox_fx2::setEditPages()
 	// Ring Modulator
 	  editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00");	
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00", "middle", Qt::AlignCenter);	
 	editDetails()->page()->addComboBox(1, 0, 1, 1, "06", "00", "3A");
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 
@@ -797,7 +797,7 @@ void stompbox_fx2::setEditPages()
 	// Humanizer
 	  editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00");	
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00", "middle", Qt::AlignCenter);	
 	editDetails()->page()->addComboBox(1, 0, 1, 1, "06", "00", "4D");
 	editDetails()->page()->addGroupBox(0, 0, 2, 1);
 
@@ -820,7 +820,7 @@ void stompbox_fx2::setEditPages()
 		// 2CE 
 		  editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Effect", Qt::AlignTop | Qt::AlignHCenter);
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00");	
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00", "middle", Qt::AlignCenter);	
 	editDetails()->page()->addGroupBox(0, 0, 2, 1);
 
 	editDetails()->page()->newGroupBox("2x2 Chorus");
@@ -849,7 +849,7 @@ void stompbox_fx2::setEditPages()
 	// Sub Delay 
 	  editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Effect", Qt::AlignTop | Qt::AlignHCenter);
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00");	
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00", "middle", Qt::AlignCenter);	
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 
 	editDetails()->page()->newGroupBox("Sub Delay");

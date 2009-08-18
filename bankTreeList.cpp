@@ -50,17 +50,15 @@ bankTreeList::bankTreeList(QWidget *parent)
 
 	this->treeList = newTreeList();
 	this->treeList->setObjectName("banklist");
-  	QObject::connect(treeList, SIGNAL(itemExpanded(QTreeWidgetItem*)), 
-			this, SLOT(setOpenItems(QTreeWidgetItem*)));
-	QObject::connect(treeList, SIGNAL(itemCollapsed(QTreeWidgetItem*)), 
-			this, SLOT(setClosedItems(QTreeWidgetItem*)));
-	QObject::connect(treeList, SIGNAL(itemClicked(QTreeWidgetItem*, int)), 
-			this, SLOT(setItemClicked(QTreeWidgetItem*, int)));
-	QObject::connect(treeList, SIGNAL(itemDoubleClicked(QTreeWidgetItem*, int)), 
-			this, SLOT(setItemDoubleClicked(QTreeWidgetItem*, int)));
+  	QObject::connect(treeList, SIGNAL(itemExpanded(QTreeWidgetItem*)), this, SLOT(setOpenItems(QTreeWidgetItem*)));
+  	
+	QObject::connect(treeList, SIGNAL(itemCollapsed(QTreeWidgetItem*)), this, SLOT(setClosedItems(QTreeWidgetItem*)));
+	
+	QObject::connect(treeList, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(setItemClicked(QTreeWidgetItem*, int)));
+	
+	QObject::connect(treeList, SIGNAL(itemDoubleClicked(QTreeWidgetItem*, int)), this, SLOT(setItemDoubleClicked(QTreeWidgetItem*, int)));
 
-	QObject::connect(this, SIGNAL(updateSignal()), 
-			this->parent(), SIGNAL(updateSignal()));
+	QObject::connect(this, SIGNAL(updateSignal()), this->parent(), SIGNAL(updateSignal()));
 	
 	QVBoxLayout *treeListLayout = new QVBoxLayout;
 	treeListLayout->addWidget(treeList);
@@ -69,15 +67,13 @@ bankTreeList::bankTreeList(QWidget *parent)
 	setLayout(treeListLayout);
 
 	SysxIO *sysxIO = SysxIO::Instance();
-	QObject::connect(this, SIGNAL(setStatusSymbol(int)),
-                sysxIO, SIGNAL(setStatusSymbol(int)));
-	QObject::connect(this, SIGNAL(setStatusProgress(int)),
-                sysxIO, SIGNAL(setStatusProgress(int)));
-	QObject::connect(this, SIGNAL(setStatusMessage(QString)),
-                sysxIO, SIGNAL(setStatusMessage(QString)));
+	QObject::connect(this, SIGNAL(setStatusSymbol(int)), sysxIO, SIGNAL(setStatusSymbol(int)));
+	
+	QObject::connect(this, SIGNAL(setStatusProgress(int)), sysxIO, SIGNAL(setStatusProgress(int)));
+	
+	QObject::connect(this, SIGNAL(setStatusMessage(QString)), sysxIO, SIGNAL(setStatusMessage(QString)));
 
-	QObject::connect(this, SIGNAL(notConnectedSignal()),
-                sysxIO, SIGNAL(notConnectedSignal()));
+	QObject::connect(this, SIGNAL(notConnectedSignal()), sysxIO, SIGNAL(notConnectedSignal()));
 };
 
 void bankTreeList::updateSize(QRect newrect)
@@ -396,14 +392,7 @@ QTreeWidget* bankTreeList::newTreeList()
     QFXbankRange->setText(0, QString::QString("User ").append(QString::number(a, 10)).append("- ").append(QString::number(a+9, 10)) );
 		QFXbankRange->setWhatsThis(0, "what the ?");
 		//bankRange->setIcon(QIcon(":/images/gt6b_icon_1.png"));
-       /*
-		for (int b=a; b<=(a+1); b++)
-				{
-			QTreeWidgetItem* bank = new QTreeWidgetItem(QFXbankRange);
-			bank->setText(0, QString::QString("Bank ").append(QString::number(b, 10)));
-			bank->setWhatsThis(0, "");
-			//bank->setIcon(...);
-              */
+    
 			for (int c=1; c<=10; c++)
 			{
 				QTreeWidgetItem* patch = new QTreeWidgetItem(QFXbankRange);//bank);
@@ -411,7 +400,6 @@ QTreeWidget* bankTreeList::newTreeList()
 				patch->setWhatsThis(0, "");
 				//patch->setIcon(...);
 			};
-		//}; 
 		userQFXBankRanges << QFXbankRange;
 		a += 10;
 		};
@@ -423,22 +411,13 @@ QTreeWidget* bankTreeList::newTreeList()
     QFXbankRange->setText(0, QString::QString("Preset ").append(QString::number(a, 10)).append(" - ").append(QString::number(a+19, 10)) );
 		QFXbankRange->setWhatsThis(0, "what the ?");
 		//bankRange->setIcon(QIcon(":/images/gt6b_icon_1.png"));
-       /*
-		for (int b=a; b<=(a+1); b++)
-				{
-			QTreeWidgetItem* bank = new QTreeWidgetItem(QFXbankRange);
-			bank->setText(0, QString::QString("Bank ").append(QString::number(b, 10)));
-			bank->setWhatsThis(0, "");
-			//bank->setIcon(...);
-              */
-			for (int c=1; c<=10; c++)
+      for (int c=1; c<=10; c++)
 			{
 				QTreeWidgetItem* patch = new QTreeWidgetItem(QFXbankRange);//bank);
 				patch->setText(0, QString::QString("QFX Preset ").append(QString::number(c, 10)));
 				patch->setWhatsThis(0, "");
 				//patch->setIcon(...);
 			};
-		//}; 
 		userQFXBankRanges << QFXbankRange;
 		a += 10;
 		};
@@ -456,7 +435,6 @@ QTreeWidget* bankTreeList::newTreeList()
  ****************************************************************************/
 void bankTreeList::setItemClicked(QTreeWidgetItem *item, int column)
 {
-	//column; // not used
 	if(item->childCount() != 0 && item->text(0) != "Temp")
 	{
 		if(item->isExpanded())
@@ -513,7 +491,6 @@ void bankTreeList::setItemClicked(QTreeWidgetItem *item, int column)
  ****************************************************************************/
 void bankTreeList::setItemDoubleClicked(QTreeWidgetItem *item, int column)
 {	
-	//column; // not used
 	int bank = 0;
 	int patch = 0;
 	SysxIO *sysxIO = SysxIO::Instance();
@@ -532,22 +509,8 @@ void bankTreeList::setItemDoubleClicked(QTreeWidgetItem *item, int column)
 		patch = item->parent()->indexOfChild(item) + 1;								// and the patch number.
 		QString preset = item->parent()->parent()->text(0);
 		if (preset.contains("P")) { bank = bank + 50; };
-	//	if(bank == sysxIO->getLoadedBank() && patch == sysxIO->getLoadedPatch())
-	//	{ 
-			requestPatch(bank, patch); // use
-	/*	}
-		else
-		{
-			emit patchLoadSignal(bank, patch); // Tell to stop blinking a sellected patch and prepare to load this one instead.
-			
-			QObject::disconnect(sysxIO, SIGNAL(isChanged()),	
-				this, SLOT(requestPatch()));
-			QObject::connect(sysxIO, SIGNAL(isChanged()),	// Connect the isChanged message
-				this, SLOT(requestPatch()));				// to requestPatch.
 
-			sysxIO->requestPatchChange(bank, patch);
-		}; */
-		
+			requestPatch(bank, patch); // use
 		}
 		else if(item->text(0) == "Temp")
 	{  
@@ -555,7 +518,7 @@ void bankTreeList::setItemDoubleClicked(QTreeWidgetItem *item, int column)
   }
 	else
 	{	
-	patch = item->parent()->indexOfChild(item) + 1;								// and the patch number.
+	patch = item->parent()->indexOfChild(item) + 1;								
 	if(item->text(0).contains("QFX User"))
 	{  requestPatch(101, patch); };
 	if(item->text(0).contains("QFX Preset"))
@@ -648,6 +611,10 @@ void bankTreeList::updatePatch(QString replyMsg)
 	QString part13 = replyMsg.mid(2800, 256);
 	part13.prepend("0C00").prepend(addressMsb).prepend(header).append(footer);
 	
+	QString QFX = "false";
+	if (replyMsg.contains("F041000000301230") || replyMsg.contains("F041000000301240")) // if a QFX patch
+	  {QFX = "true"; };                                                     // update the temp buffer
+	
 	replyMsg = "";
 	replyMsg.append(part1).append(part2).append(part3).append(part4).append(part6)
   .append(part7).append(part8).append(part10).append(part11).append(part12).append(part13);
@@ -710,9 +677,9 @@ void bankTreeList::updatePatch(QString replyMsg)
 
 		emit updateSignal();
 		emit setStatusProgress(0);
-
+    if (QFX == "true") { sysxIO->writeToBuffer(); };
 	};
-	if(replyMsg != "" && replyMsg.size()/2 != 1777)
+	if(!replyMsg.isEmpty() && replyMsg.size()/2 != 1777)
 	{
 		emit notConnectedSignal();				// No message returned so connection must be lost.
 		/* NO-REPLY WARNING */
@@ -730,7 +697,7 @@ void bankTreeList::updatePatch(QString replyMsg)
 	msgBox->exec();
 	/* END WARNING */
 	};
-		if(replyMsg == "") 
+		if(replyMsg.isEmpty()) 
 	{
 		emit notConnectedSignal();				// No message returned so connection must be lost.
 		/* NO-REPLY WARNING */
@@ -832,7 +799,7 @@ void bankTreeList::updateTree(QTreeWidgetItem *item)
 	}
 	else
 	{
-		this->currentPatchTreeItems.append(item);
+		//this->currentPatchTreeItems.append(item);
 	};
 };
 

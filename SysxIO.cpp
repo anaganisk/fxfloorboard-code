@@ -1073,10 +1073,12 @@ void SysxIO::errorSignal(QString windowTitle, QString errorMsg)
 
 void SysxIO::errorReturn(QString errorType, QString errorMsg)
 {
-
-    this->errorType = errorType;
-    this->errorMsg = errorMsg;
-   
+		setNoError(false);
+		emit setStatusdBugMessage(this->errorType + "  " + this->errorMsg);
+    SLEEP(2000);
+    emit setStatusdBugMessage("");
+		this->errorType = "";
+		this->errorMsg = "";
 };
 
 /***************************** noError() ******************************

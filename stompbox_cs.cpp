@@ -49,7 +49,7 @@ void stompbox_cs::updateSignal()
 void stompbox_cs::setEditPages()
 {
 	editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "00", "00", "50");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "00", "00", "50", "middle", Qt::AlignCenter);
 	editDetails()->page()->newStackControl(0);
 	editDetails()->page()->addComboBox(1, 0, 1, 1, "00", "00", "51");
 	editDetails()->page()->addStackControl();

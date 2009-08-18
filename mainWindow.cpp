@@ -47,7 +47,7 @@
 #ifdef Q_OS_WIN
 	/* This set the floorboard default style to the "plastique" style, 
 	   as it comes the nearest what the stylesheet uses. */
-	//fxsBoard->setStyle(QStyleFactory::create("plastique"));
+	fxsBoard->setStyle(QStyleFactory::create("plastique"));
 		if(QFile(":qss/windows.qss").exists())
 		{
 			QFile file(":qss/windows.qss");
@@ -58,7 +58,7 @@
 #endif
 
 #ifdef Q_WS_X11
-	//fxsBoard->setStyle(QStyleFactory::create("plastique"));
+	fxsBoard->setStyle(QStyleFactory::create("plastique"));
 		if(QFile(":qss/linux.qss").exists())
 		{
 			QFile file(":qss/linux.qss");
@@ -210,7 +210,7 @@ void mainWindow::createActions()
 	licenseAct->setStatusTip(tr("........"));
 	connect(licenseAct, SIGNAL(triggered()), this, SLOT(license()));
 
-	aboutAct = new QAction(tr("&About FxFloorBoard"), this);
+	aboutAct = new QAction(QIcon(":/images/GT-10BFxFloorBoard.png"),tr("&About FxFloorBoard"), this);
 	aboutAct->setStatusTip(tr("Show the application's About box"));
 	connect(aboutAct, SIGNAL(triggered()), this, SLOT(about()));
 

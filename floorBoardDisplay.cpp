@@ -134,7 +134,10 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
 	QObject::connect(this->eq_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(eq_buttonSignal(bool)));
 	QObject::connect(this->pedal_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(pedal_buttonSignal(bool)));
 	
-	autoconnect();
+	QString midiIn = preferences->getPreferences("Midi", "MidiIn", "device");
+	QString midiOut = preferences->getPreferences("Midi", "MidiOut", "device");
+	if(midiIn!="" && midiOut!="") 
+  {autoconnect(); };
   	
   };
 
@@ -246,7 +249,11 @@ void floorBoardDisplay::setPatchNumDisplay(int bank, int patch)
   }
 	else
 	{
-		this->patchNumDisplay->clearAll();
+		//this->patchNumDisplay->clearAll();
+		this->patchNumDisplay->setSubText("Temp");
+		QString str = "Buffer";
+		this->patchNumDisplay->setMainText(str, Qt::AlignCenter);
+
 	};
 };
 
@@ -463,6 +470,8 @@ void floorBoardDisplay::connectionResult(QString sysxMsg)
 			QString msgText;
 			msgText.append("<font size='+1'><b>");
 			msgText.append(tr("The device connected is not a Boss ") + deviceType + (" Effects Processor."));
+			if (sysxMsg.contains(idRequestString))
+			{msgText.append(tr("<br>Midi loopback detected, ensure midi device 'thru' is switched off.")); };
 			msgText.append("<b></font>");
 			msgBox->setText(msgText);
 			msgBox->setStandardButtons(QMessageBox::Ok);
@@ -487,6 +496,9 @@ void floorBoardDisplay::connectionResult(QString sysxMsg)
 			QString msgText;
 			msgText.append("<font size='+1'><b>");
 			msgText.append(tr("The Boss ") + deviceType + (" Effects Processor was not found."));
+			msgText.append(tr("<br><br>Ensure correct midi device is selected in Menu, "));
+			msgText.append(tr("<br>Boss drivers are installed and the GT-10B is switched on,"));
+			msgText.append(tr("<br>and GT-10 USB driver mode is set to advanced"));
 			msgText.append("<b></font><br>");
 			msgBox->setText(msgText);
 			msgBox->setStandardButtons(QMessageBox::Ok);
@@ -746,8 +758,8 @@ void floorBoardDisplay::patchSelectSignal(int bank, int patch)
 		writeButton->setBlink(true);
 	};
 
-	if( sysxIO->getLoadedBank() != bank ||  sysxIO->getLoadedPatch() != patch)
-	{
+	//if( sysxIO->getLoadedBank() != bank ||  sysxIO->getLoadedPatch() != patch)
+	//{
 		sysxIO->setBank(bank);
 		sysxIO->setPatch(patch);
 		
@@ -760,11 +772,11 @@ void floorBoardDisplay::patchSelectSignal(int bank, int patch)
 		{
 			blinkCount = 0;
 		};
-	}
-	else
-	{
-		blinkSellectedPatch(false);
-	};
+	//}
+	//else
+	//{
+	//	blinkSellectedPatch(false);
+	//};
 };
 
 void floorBoardDisplay::blinkSellectedPatch(bool active)
@@ -790,8 +802,8 @@ void floorBoardDisplay::blinkSellectedPatch(bool active)
 		QObject::disconnect(timer, SIGNAL(timeout()), this, SLOT(blinkSellectedPatch()));
 		timer->stop();
 		blinkCount = 0;
-		sysxIO->setBank(sysxIO->getLoadedBank());
-		sysxIO->setPatch(sysxIO->getLoadedPatch());
+		//sysxIO->setBank(sysxIO->getLoadedBank());
+		//sysxIO->setPatch(sysxIO->getLoadedPatch());
 		sysxIO->setSyncStatus(currentSyncStatus);
 		if(currentSyncStatus || sysxIO->getLoadedBank() == 0)
 		{

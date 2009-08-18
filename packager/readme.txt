@@ -1,10 +1,10 @@
 
-GT-10BFxFloorBoard Copyright (C) 2007-2008-2009 Colin Willcocks (gumtownbassman@yahoo.com).
+GT-10BFxFloorBoard Copyright (C) 2007, 2008, 2009 Colin Willcocks (gumtownbassman@yahoo.com).
  All rights reserved.
 =======
 
 
-GT-10BFxFloorBoard version 20090507: 7 May 2009
+GT-10BFxFloorBoard version 20090507: 19 August 2009
 
 PLEASE FEEL FREE TO DONATE, YOU MAY FREELY USE THIS SOFTWARE, 
  JUST KEEP IN MIND THE 6000 HOURS SPENT OVER 3 YEARS GETTING IT HERE,
@@ -28,12 +28,12 @@ f.) A double click on the patch name will load the patch information from the Gt
 
 g.) Any knob turning will change the sound of the effect being adjusted, when the desired sound is achieved, you can either save the patch to the GT10B or save the patch to file on disk.
 
-h.) To save the patch to the GT10B press the "write/sync" button. there is a bit of a trick here, sometimes the editor is not syncronised to the GT10B so toggle the 'Connect' button, then try the 'Write' button again.
+h.) To save the patch to the GT10B press the "write/sync" button.
 
 GT10B-FxFloorBoard: 
-NOTE: THIS IS AN UNPAID PROJECT, SO FAR INVESTING OVER 6000 HOURS OF MY TIME OVER 3 YEARS, I WILL NOT ACCEPT LIABILITY FOR ANY DATA LOSS, TO THE BEST OF MY KNOWLEDGE EVERYTHING SHOULD WORK CORRECTLY, BUT SOME FUNCTIONS MAY BE INCORRECT. 
+NOTE: THIS IS AN UNPAID PROJECT, SO FAR INVESTING OVER 6000 HOURS OF MY TIME OVER 3 YEARS, I WILL NOT ACCEPT LIABILITY FOR ANY DATA LOSS, TO THE BEST OF MY KNOWLEDGE EVERYTHING SHOULD WORK CORRECTLY, BUT SOME FUNCTIONS MAY BE INCORRECT, IF ANYTHING IS FOUND TO NOT FUNCTION CORRECTLY, PLEASE ADVISE ME. 
 
-saved files will now produce %100 GT10B accurate files. files can be saved/loaded as syx or mid
+saved files can be saved/loaded as syx or mid
 the GT10BFxFloorBoard will also open (guitar version) GT10 SMF (.mid) files, but with unpredicable reasults.
 
 layout increased to fit 17 chain events, may be a problem for low screen resolutions. (i use 1280 X 800)
@@ -105,11 +105,12 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 LEGAL:
 ------
 
-GT10B FxFloorBoard Copyright (C)2007 2008 Colin Willcocks <gumtownbassman@yahoo.com>.
-based on the GT8 FxFloorBoard Copyright (C)2006 2007 Uco Mesdag <ucomesdag@gmail.com>.
+GT-10B FxFloorBoard Copyright (C)2007, 2008, 2009 Colin Willcocks <gumtownbassman@yahoo.com>.
+based on the GT-8 FxFloorBoard Copyright (C)2006, 2007 Uco Mesdag <ucomesdag@gmail.com>.
 
 Windows(TM), Windows 95(TM), Windows 98(TM), Windows ME(TM), Windows NT(TM), 
-Windows 2000(TM) and Windows XP(TM) and Windows Vista(TM) are Copyright (C)Microsoft Corporation. 
+Windows 2000(TM), Windows XP(TM), Windows Vista(TM) and Windows 7(TM) are Copyright (C)Microsoft Corporation. 
 All rights reserved.
 
-based on the GT8 FxFloorBoard Copyright (C)2006 2007 Uco Mesdag <ucomesdag@gmail.com>.
+based on the GT8 FxFloorBoard Copyright (C)2006, 2007 Uco Mesdag <ucomesdag@gmail.com>.
+All rights reserved.

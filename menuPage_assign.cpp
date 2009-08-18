@@ -4,7 +4,7 @@
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
 ** All rights reserved.
 **
-** This file is part of "GT-10 Fx FloorBoard".
+** This file is part of "GT-10B Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -46,28 +46,28 @@ void menuPage_assign::setEditPages()
 	editDetails()->page()->addStackControl();
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->page()->newGroupBox("Assign 1");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "0B", "00", "20");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "0B", "00", "20", "middle", Qt::AlignCenter);
 	editDetails()->page()->addGroupBox(0, 1, 1, 1);
 	editDetails()->page()->newGroupBox("Assign 2");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "0B", "00", "30");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "0B", "00", "30", "middle", Qt::AlignCenter);
 	editDetails()->page()->addGroupBox(0, 2, 1, 1);
 	editDetails()->page()->newGroupBox("Assign 3");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "0B", "00", "40");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "0B", "00", "40", "middle", Qt::AlignCenter);
 	editDetails()->page()->addGroupBox(0, 3, 1, 1);
 	editDetails()->page()->newGroupBox("Assign 4");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "0B", "00", "50");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "0B", "00", "50", "middle", Qt::AlignCenter);
 	editDetails()->page()->addGroupBox(0, 4, 1, 1);
 	editDetails()->page()->newGroupBox("Assign 5");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "0B", "00", "60");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "0B", "00", "60", "middle", Qt::AlignCenter);
 	editDetails()->page()->addGroupBox(0, 5, 1, 1);
 	editDetails()->page()->newGroupBox("Assign 6");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "0B", "00", "70");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "0B", "00", "70", "middle", Qt::AlignCenter);
 	editDetails()->page()->addGroupBox(0, 6, 1, 1);
 	editDetails()->page()->newGroupBox("Assign 7");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "0C", "00", "00");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "0C", "00", "00", "middle", Qt::AlignCenter);
 	editDetails()->page()->addGroupBox(0, 7, 1, 1);
 	editDetails()->page()->newGroupBox("Assign 8");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "0C", "00", "10");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "0C", "00", "10", "middle", Qt::AlignCenter);
 	editDetails()->page()->addGroupBox(0, 8, 1, 1);
 	
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
@@ -87,8 +87,6 @@ void menuPage_assign::setEditPages()
 	editDetails()->page()->addStackControl();
   editDetails()->page()->addComboBox(1, 1, 1, 1, "0B", "00", "28");                    // Source Mode
   editDetails()->page()->addRange(1, 2, 1, 2, "0B", "00", "29", "Structure");         // min/max range widget
-	//editDetails()->page()->addKnob(1, 2, 1, 1, "0B", "00", "29");                        // Active Range High
-	//editDetails()->page()->addKnob(1, 3, 1, 1, "0B", "00", "2A");                        // Active Range Low
   editDetails()->page()->addGroupBox(0, 1, 1, 1);
   editDetails()->page()->insertStackField(1, 1, 0, 1, 2);
 	editDetails()->page()->addStackField();
@@ -131,8 +129,6 @@ void menuPage_assign::setEditPages()
 	editDetails()->page()->addStackControl();
   editDetails()->page()->addComboBox(1, 1, 1, 1, "0B", "00", "38");                    // Source Mode
   editDetails()->page()->addRange(1, 2, 1, 2, "0B", "00", "39", "Structure");         // min/max range widget
-	//editDetails()->page()->addKnob(1, 2, 1, 1, "0B", "00", "39");                        // Active Range High
-	//editDetails()->page()->addKnob(1, 3, 1, 1, "0B", "00", "3A");                        // Active Range Low
   editDetails()->page()->addGroupBox(0, 1, 1, 1);
   editDetails()->page()->insertStackField(2, 1, 0, 1, 2);
 	editDetails()->page()->addStackField();
@@ -174,8 +170,6 @@ void menuPage_assign::setEditPages()
 	editDetails()->page()->addStackControl();
   editDetails()->page()->addComboBox(1, 1, 1, 1, "0B", "00", "48");                    // Source Mode
   editDetails()->page()->addRange(1, 2, 1, 2, "0B", "00", "49", "Structure");         // min/max range widget
-	//editDetails()->page()->addKnob(1, 2, 1, 1, "0B", "00", "49");                        // Active Range High
-	//editDetails()->page()->addKnob(1, 3, 1, 1, "0B", "00", "4A");                        // Active Range Low
   editDetails()->page()->addGroupBox(0, 1, 1, 1);
   editDetails()->page()->insertStackField(3, 1, 0, 1, 2);
 	editDetails()->page()->addStackField();
@@ -217,8 +211,6 @@ void menuPage_assign::setEditPages()
 	editDetails()->page()->addStackControl();
   editDetails()->page()->addComboBox(1, 1, 1, 1, "0B", "00", "58");                    // Source Mode
   editDetails()->page()->addRange(1, 2, 1, 2, "0B", "00", "59", "Structure");         // min/max range widget
-	//editDetails()->page()->addKnob(1, 2, 1, 1, "0B", "00", "59");                        // Active Range High
-	//editDetails()->page()->addKnob(1, 3, 1, 1, "0B", "00", "5A");                        // Active Range Low
   editDetails()->page()->addGroupBox(0, 1, 1, 1);
   editDetails()->page()->insertStackField(4, 1, 0, 1, 2);
 	editDetails()->page()->addStackField();
@@ -259,8 +251,6 @@ void menuPage_assign::setEditPages()
 	editDetails()->page()->addStackControl();
   editDetails()->page()->addComboBox(1, 1, 1, 1, "0B", "00", "68");                    // Source Mode
   editDetails()->page()->addRange(1, 2, 1, 2, "0B", "00", "69", "Structure");         // min/max range widget
-	//editDetails()->page()->addKnob(1, 2, 1, 1, "0B", "00", "69");                        // Active Range High
-	//editDetails()->page()->addKnob(1, 3, 1, 1, "0B", "00", "6A");                        // Active Range Low
   editDetails()->page()->addGroupBox(0, 1, 1, 1);
   editDetails()->page()->insertStackField(5, 1, 0, 1, 2);
 	editDetails()->page()->addStackField();
@@ -302,8 +292,6 @@ void menuPage_assign::setEditPages()
 	editDetails()->page()->addStackControl();
   editDetails()->page()->addComboBox(1, 1, 1, 1, "0B", "00", "78");                    // Source Mode
   editDetails()->page()->addRange(1, 2, 1, 2, "0B", "00", "79", "Structure");         // min/max range widget
-	//editDetails()->page()->addKnob(1, 2, 1, 1, "0B", "00", "79");                        // Active Range High
-	//editDetails()->page()->addKnob(1, 3, 1, 1, "0B", "00", "7A");                        // Active Range Low
   editDetails()->page()->addGroupBox(0, 1, 1, 1);
   editDetails()->page()->insertStackField(6, 1, 0, 1, 2);
 	editDetails()->page()->addStackField();
@@ -345,8 +333,6 @@ void menuPage_assign::setEditPages()
 	editDetails()->page()->addStackControl();
   editDetails()->page()->addComboBox(1, 1, 1, 1, "0C", "00", "08");                    // Source Mode
   editDetails()->page()->addRange(1, 2, 1, 2, "0C", "00", "09", "Structure");         // min/max range widget
-	//editDetails()->page()->addKnob(1, 2, 1, 1, "0C", "00", "09");                        // Active Range High
-	//editDetails()->page()->addKnob(1, 3, 1, 1, "0C", "00", "0A");                        // Active Range Low
   editDetails()->page()->addGroupBox(0, 1, 1, 1);
   editDetails()->page()->insertStackField(7, 1, 0, 1, 2);
 	editDetails()->page()->addStackField();
@@ -389,8 +375,6 @@ void menuPage_assign::setEditPages()
 	editDetails()->page()->addStackControl();
   editDetails()->page()->addComboBox(1, 1, 1, 1, "0C", "00", "18");                    // Source Mode
   editDetails()->page()->addRange(1, 2, 1, 2, "0C", "00", "19", "Structure");         // min/max range widget
-	//editDetails()->page()->addKnob(1, 2, 1, 1, "0C", "00", "19");                        // Active Range High
-	//editDetails()->page()->addKnob(1, 3, 1, 1, "0C", "00", "1A");                        // Active Range Low
   editDetails()->page()->addGroupBox(0, 1, 1, 1);
   editDetails()->page()->insertStackField(8, 1, 0, 1, 2);
   editDetails()->page()->addStackField();
@@ -420,6 +404,4 @@ void menuPage_assign::setEditPages()
 	editDetails()->page()->addKnob(0, 0, 1, 1, "0C", "00", "20", "normal","right", 85);
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);	
   editDetails()->page()->addStackField();
-  
-
 };

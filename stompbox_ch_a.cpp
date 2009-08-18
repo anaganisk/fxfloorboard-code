@@ -48,7 +48,7 @@ void stompbox_ch_a::updateSignal()
 void stompbox_ch_a::setEditPages()
 {
 	editDetails()->page()->newGroupBox("Effect");
-  editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "50");   // off/on effect
+  editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "50", "middle", Qt::AlignCenter);   // off/on effect
   editDetails()->page()->newStackControl(0);
   editDetails()->page()->addComboBox(1, 0, 1, 1, "01", "00", "51");       // Type select
   editDetails()->page()->addStackControl();
@@ -85,7 +85,7 @@ void stompbox_ch_a::setEditPages()
 	editDetails()->page()->addComboBox(0, 3, 1, 1, "01", "00", "58");       // Mid freq
 	editDetails()->page()->addKnob(0, 4, 1, 1, "01", "00", "55");           // treble
 	editDetails()->page()->addComboBox(1, 1, 1, 1, "01", "00", "5B");       // Response sw
-	editDetails()->page()->addSwitch(1, 4, 1, 1, "01", "00", "57");         // Bright sw
+	editDetails()->page()->addSwitch(1, 4, 1, 1, "01", "00", "57", "middle", Qt::AlignCenter);         // Bright sw
 	editDetails()->page()->addGroupBox(0, 0, 1, 2);
 	editDetails()->page()->newGroupBox("Level");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "56");           // effect level
@@ -107,7 +107,7 @@ void stompbox_ch_a::setEditPages()
 	editDetails()->page()->addKnob(0, 3, 1, 1, "01", "00", "54");           // mid
 	editDetails()->page()->addKnob(0, 5, 1, 1, "01", "00", "55");           // treble
 	editDetails()->page()->addComboBox(0, 4, 1, 1, "01", "00", "58");       // Mid freq
-  editDetails()->page()->addSwitch(0, 1, 1, 1, "01", "00", "5C");         // Deep
+  editDetails()->page()->addSwitch(0, 1, 1, 1, "01", "00", "5C", "middle", Qt::AlignCenter);         // Deep
 	editDetails()->page()->addGroupBox(0, 0, 1, 2);
 	editDetails()->page()->newGroupBox("Level");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "56");     // effect level
@@ -129,9 +129,9 @@ void stompbox_ch_a::setEditPages()
 	editDetails()->page()->addKnob(0, 2, 1, 1, "01", "00", "54");           // mid
 	editDetails()->page()->addKnob(0, 3, 1, 1, "01", "00", "55");           // treble
 	editDetails()->page()->addComboBox(1, 2, 1, 1, "01", "00", "58");       // Mid freq
-	editDetails()->page()->addSwitch(1, 0, 1, 1, "01", "00", "57");         // Bright sw
+	editDetails()->page()->addSwitch(1, 0, 1, 1, "01", "00", "57", "middle", Qt::AlignCenter);         // Bright sw
 	editDetails()->page()->addComboBox(1, 1, 1, 1, "01", "00", "59");       // Ultra Low
-	editDetails()->page()->addSwitch(1, 3, 1, 1, "01", "00", "5A");         // Ultra Hi
+	editDetails()->page()->addSwitch(1, 3, 1, 1, "01", "00", "5A", "middle", Qt::AlignCenter);         // Ultra Hi
 	editDetails()->page()->addGroupBox(0, 0, 1, 2);
 	editDetails()->page()->newGroupBox("Level");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "56");     // effect level
@@ -152,7 +152,7 @@ void stompbox_ch_a::setEditPages()
 	editDetails()->page()->addKnob(0, 1, 1, 1, "01", "00", "53");           //bass
 	editDetails()->page()->addKnob(0, 2, 1, 1, "01", "00", "54");           // mid
 	editDetails()->page()->addKnob(0, 3, 1, 1, "01", "00", "55");           // treble
-	editDetails()->page()->addSwitch(0, 4, 1, 1, "01", "00", "57");         // Bright sw
+	editDetails()->page()->addSwitch(0, 4, 1, 1, "01", "00", "57", "middle", Qt::AlignCenter);         // Bright sw
 	editDetails()->page()->addGroupBox(0, 0, 1, 2);
 	editDetails()->page()->newGroupBox("Level");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "56");     // effect level
@@ -242,10 +242,10 @@ void stompbox_ch_a::setEditPages()
 	editDetails()->page()->addKnob(0, 3, 1, 1, "01", "00", "55");           // treble
 	editDetails()->page()->addKnob(0, 4, 1, 1, "01", "00", "63");           // GTR presence
 	editDetails()->page()->addComboBox(1, 0, 1, 1, "01", "00", "64");       // gain sw
-	editDetails()->page()->addSwitch(1, 4, 1, 1, "01", "00", "57");       // Bright sw
+	editDetails()->page()->addSwitch(1, 4, 1, 1, "01", "00", "57", "middle", Qt::AlignCenter);       // Bright sw
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->page()->newGroupBox("SOLO");
-	editDetails()->page()->addSwitch(1, 0, 1, 1, "01", "00", "65");         // solo sw
+	editDetails()->page()->addSwitch(1, 0, 1, 1, "01", "00", "65", "middle", Qt::AlignCenter);         // solo sw
 	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "66");           // solo level
   editDetails()->page()->addGroupBox(0, 1, 1, 1);
 	editDetails()->page()->newGroupBox("Level");
@@ -271,10 +271,10 @@ void stompbox_ch_a::setEditPages()
 	editDetails()->page()->addKnob(0, 3, 1, 1, "01", "00", "55");           // treble
 	editDetails()->page()->addKnob(0, 4, 1, 1, "01", "00", "63");           // GTR presence
 	editDetails()->page()->addComboBox(1, 0, 1, 1, "01", "00", "64");       // gain sw
-	editDetails()->page()->addSwitch(1, 4, 1, 1, "01", "00", "57");       // Bright sw
+	editDetails()->page()->addSwitch(1, 4, 1, 1, "01", "00", "57", "middle", Qt::AlignCenter);       // Bright sw
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->page()->newGroupBox("SOLO");
-	editDetails()->page()->addSwitch(1, 0, 1, 1, "01", "00", "65");         // solo sw
+	editDetails()->page()->addSwitch(1, 0, 1, 1, "01", "00", "65", "middle", Qt::AlignCenter);         // solo sw
 	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "66");           // solo level
   editDetails()->page()->addGroupBox(0, 1, 1, 1);
 	editDetails()->page()->newGroupBox("Level");
@@ -303,7 +303,7 @@ void stompbox_ch_a::setEditPages()
 	editDetails()->page()->addComboBox(1, 0, 1, 1, "01", "00", "64");       // gain sw
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->page()->newGroupBox("SOLO");
-	editDetails()->page()->addSwitch(1, 0, 1, 1, "01", "00", "65");         // solo sw
+	editDetails()->page()->addSwitch(1, 0, 1, 1, "01", "00", "65", "middle", Qt::AlignCenter);         // solo sw
 	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "66");           // solo level
   editDetails()->page()->addGroupBox(0, 1, 1, 1);
 	editDetails()->page()->newGroupBox("Level");
@@ -331,7 +331,7 @@ void stompbox_ch_a::setEditPages()
 	editDetails()->page()->addComboBox(1, 0, 1, 1, "01", "00", "64");       // gain sw
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->page()->newGroupBox("SOLO");
-	editDetails()->page()->addSwitch(1, 0, 1, 1, "01", "00", "65");         // solo sw
+	editDetails()->page()->addSwitch(1, 0, 1, 1, "01", "00", "65", "middle", Qt::AlignCenter);         // solo sw
 	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "66");           // solo level
   editDetails()->page()->addGroupBox(0, 1, 1, 1);
 	editDetails()->page()->newGroupBox("Level");

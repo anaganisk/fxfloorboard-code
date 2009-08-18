@@ -44,7 +44,7 @@ void stompbox_pdl::updateSignal()
 void stompbox_pdl::setEditPages()
 {
   editDetails()->page()->newGroupBox("Pedal FX");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "0A", "00", "40");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "0A", "00", "40", "middle", Qt::AlignCenter);
 	editDetails()->page()->newStackControl(0);
 	editDetails()->page()->addComboBox(1, 0, 1, 1, "0A", "00", "45");
 	editDetails()->page()->addStackControl();

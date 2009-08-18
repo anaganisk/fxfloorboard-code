@@ -65,14 +65,14 @@ void stompbox_eq::updateSignal()
 
 void stompbox_eq::setEditPages()
 {
-    editDetails()->page()->newGroupBox("Effect", Qt::AlignTop | Qt::AlignHCenter);
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "70");
+  editDetails()->page()->newGroupBox("Effect", Qt::AlignTop | Qt::AlignHCenter);
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "70", "middle", Qt::AlignCenter);
 	editDetails()->page()->addGroupBox(0, 0, 2, 1);
 
 	editDetails()->page()->newGroupBox("Equalizer");
 	editDetails()->page()->newGroupBox("Low");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "72");
-	editDetails()->page()->addKnob(1, 0, 1, 1, "01", "00", "71");
+	editDetails()->page()->addKnob(0, 1, 1, 1, "01", "00", "72");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "71");
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 
 	editDetails()->page()->newGroupBox("Low-Middle");
@@ -89,7 +89,7 @@ void stompbox_eq::setEditPages()
 
 	editDetails()->page()->newGroupBox("High");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "79");
-	editDetails()->page()->addKnob(1, 0, 1, 1, "01", "00", "7A");
+	editDetails()->page()->addKnob(0, 1, 1, 1, "01", "00", "7A");
 	editDetails()->page()->addGroupBox(0, 3, 1, 1);
 	editDetails()->page()->addGroupBox(0, 1, 2, 1);
 

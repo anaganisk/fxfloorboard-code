@@ -39,7 +39,7 @@ statusBarWidget::statusBarWidget(QWidget *parent)
 	this->label->setText("");
 
 	this->dBuglabel = new QLabel(this);
-        this->dBuglabel->setFixedWidth(750);
+  this->dBuglabel->setFixedWidth(750);
 	this->dBuglabel->setText("");
 
 	QHBoxLayout *widgetLayout = new QHBoxLayout;
