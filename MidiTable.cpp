@@ -736,7 +736,7 @@ QString MidiTable::patchRequest(int bank, int patch)
 	}
 	else
 	{
-		addr1 = "0C";    // temp bulk address
+		addr1 = "0D";    // temp address
 		addr2 = "00";
 	};
 

@@ -1237,7 +1237,7 @@ void SysxIO::systemReply(QString replyMsg)
 				    
 		QString area = "System";
 		setFileSource(area, replyMsg);		// Set the source to the data received.
-		setFileName(tr("System Data from ") + deviceType);	// Set the file name to GT-10B system for the display.
+		setFileName(tr("System Data from ") + deviceType);	// Set the file name to GT-Pro system for the display.
 		setDevice(true);				// Patch received from the device so this is set to true.
 		setSyncStatus(true);			// We can't be more in sync than right now! :)
 	

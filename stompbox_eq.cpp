@@ -68,7 +68,7 @@ void stompbox_eq::updateSignal()
 void stompbox_eq::setEditPages()
 {
     editDetails()->page()->newGroupBox("Effect", Qt::AlignTop | Qt::AlignHCenter);
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "08", "00", "00");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "08", "00", "00", "middle", Qt::AlignCenter);
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 
 	editDetails()->page()->newGroupBox("Equalizer");
@@ -78,22 +78,22 @@ void stompbox_eq::setEditPages()
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 
 	editDetails()->page()->newGroupBox("Low-Middle");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "08", "00", "04");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "08", "00", "05");
-	editDetails()->page()->addKnob(0, 2, 1, 1, "08", "00", "06");
+	editDetails()->page()->addKnob(0, 0, 1, 1, "08", "00", "06");
+	editDetails()->page()->addKnob(1, 0, 1, 1, "08", "00", "04");
+	editDetails()->page()->addKnob(2, 0, 1, 1, "08", "00", "05");
 	editDetails()->page()->addGroupBox(0, 1, 1, 1);
 
 	editDetails()->page()->newGroupBox("High-Middle");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "08", "00", "07");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "08", "00", "08");
-	editDetails()->page()->addKnob(0, 2, 1, 1, "08", "00", "09");
-	editDetails()->page()->addGroupBox(1, 1, 1, 1);
+	editDetails()->page()->addKnob(0, 0, 1, 1, "08", "00", "09");
+	editDetails()->page()->addKnob(1, 0, 1, 1, "08", "00", "07");
+	editDetails()->page()->addKnob(2, 0, 1, 1, "08", "00", "08");
+	editDetails()->page()->addGroupBox(0, 2, 1, 1);
 
 	editDetails()->page()->newGroupBox("High");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "08", "00", "0A");
 	editDetails()->page()->addKnob(0, 1, 1, 1, "08", "00", "0B");
-	editDetails()->page()->addGroupBox(0, 2, 1, 1);
-	editDetails()->page()->addGroupBox(0, 1, 2, 1);
+	editDetails()->page()->addGroupBox(0, 3, 1, 1);
+	editDetails()->page()->addGroupBox(0, 1, 1, 1);
 
 	editDetails()->page()->newGroupBox("Level");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "08", "00", "0C");

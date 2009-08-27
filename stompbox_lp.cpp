@@ -48,7 +48,7 @@ void stompbox_lp::updateSignal()
 void stompbox_lp::setEditPages()
 {
   editDetails()->page()->newGroupBox("Loop Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "04", "00", "00");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "04", "00", "00", "middle", Qt::AlignCenter);
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 
 	editDetails()->page()->newGroupBox("S/R Loop 1");
@@ -64,7 +64,7 @@ void stompbox_lp::setEditPages()
 	editDetails()->page()->addGroupBox(0, 2, 1, 1);
 	
 	editDetails()->page()->newGroupBox("Pre Fx Loop");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "05", "00", "00");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "05", "00", "00", "middle", Qt::AlignCenter);
 	editDetails()->page()->addGroupBox(1, 0, 1, 1);
 
   editDetails()->page()->newGroupBox("Stereo Loop");

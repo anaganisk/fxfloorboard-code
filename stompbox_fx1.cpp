@@ -44,7 +44,7 @@ void stompbox_fx1::updateSignal()
 void stompbox_fx1::setEditPages()
 {
   editDetails()->page()->newGroupBox("FX-1");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "00", "00", "00");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "00", "00", "00", "middle", Qt::AlignCenter);
 	editDetails()->page()->newStackControl(0);
 	editDetails()->page()->addComboBox(0, 1, 1, 1, "00", "00", "02");   // FX1 select
 	editDetails()->page()->addStackControl();

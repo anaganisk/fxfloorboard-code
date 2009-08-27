@@ -133,7 +133,7 @@ customControlTarget::customControlTarget(QWidget *parent,
 		
 		QHBoxLayout *mainLayout = new QHBoxLayout;
 		mainLayout->setMargin(0);
-		mainLayout->setSpacing(10);
+		mainLayout->setSpacing(0);
 		mainLayout->addLayout(targetLayout);
 		mainLayout->addLayout(minLayout);
 		mainLayout->addLayout(maxLayout);

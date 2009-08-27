@@ -54,6 +54,7 @@ midiIO::midiIO()
 	QObject::connect(this, SIGNAL(setStatusSymbol(int)), sysxIO, SIGNAL(setStatusSymbol(int)));
 	QObject::connect(this, SIGNAL(setStatusProgress(int)), sysxIO, SIGNAL(setStatusProgress(int)));
 	QObject::connect(this, SIGNAL(setStatusMessage(QString)), sysxIO, SIGNAL(setStatusMessage(QString)));
+	QObject::connect(this, SIGNAL(setStatusdBugMessage(QString)), sysxIO, SIGNAL(setStatusdBugMessage(QString)));
 	QObject::connect(this, SIGNAL(errorSignal(QString, QString)), sysxIO, SLOT(errorSignal(QString, QString)));
 
 	QObject::connect(this, SIGNAL(replyMsg(QString)), sysxIO, SLOT(receiveSysx(QString)));
@@ -283,7 +284,7 @@ void midiIO::receiveMsg(QString sysxInMsg, int midiInPort)
 #ifdef Q_OS_WIN
         int x = 1;
 #else
-        int x = 3;
+        int x = 2;
 #endif
 	if (msgType == "patch"){ loopCount = x*600; count = 1153; }
    else if(msgType == "system"){ loopCount = x*900; count = 4326; } // native gt-pro system size, then trimmed to 4313 later.
@@ -326,7 +327,8 @@ cleanup:
 		this->sysxInMsg = this->sysxBuffer;		   //get the returning data string
 		dataReceive = true;
 		midiin->closePort();             // close the midi in port	
-		delete midiin;		
+		delete midiin;	
+    emit setStatusdBugMessage("");	
 };
 
 /**************************** run() **************************************
@@ -461,15 +463,16 @@ void midiIO::sendSysxMsg(QString sysxOutMsg, int midiOutPort, int midiInPort)
 		i=i+2;
     }; 
   }; 
-  msgType = "";   
-  if (sysxOutMsg == idRequestString){reBuild = sysxOutMsg;  msgType = "id_request";};  // identity request not require checksum
+  msgType = ""; 
+  emit setStatusdBugMessage("");  
+  if (sysxOutMsg == idRequestString){reBuild = sysxOutMsg;  msgType = "id_request";  emit setStatusdBugMessage("identity request"); };  // identity request not require checksum
 	this->sysxOutMsg = reBuild.simplified().toUpper().remove("0X").remove(" ");
 
-  if((sysxOutMsg.size() == 34) && (sysxOutMsg.contains(patchRequestSize)) && (sysxOutMsg.mid((sysxAddressOffset*2-2), 2) == "11")) { msgType = "patch"; };
+  if((sysxOutMsg.size() == 34) && (sysxOutMsg.contains(patchRequestSize)) && (sysxOutMsg.mid((sysxAddressOffset*2-2), 2) == "11")) { msgType = "patch"; emit setStatusdBugMessage("patch request"); };
     
-  if((sysxOutMsg.size() == 34) && (sysxOutMsg.contains("00000010")) && (sysxOutMsg.mid((sysxAddressOffset*2-2), 2) == "11")) { msgType = "name"; };
+  if((sysxOutMsg.size() == 34) && (sysxOutMsg.contains("00000010")) && (sysxOutMsg.mid((sysxAddressOffset*2-2), 2) == "11")) { msgType = "name";  emit setStatusdBugMessage("name request"); };
  
-  if (sysxOutMsg != idRequestString && sysxOutMsg.contains("F0410000000B11000000000")) { msgType = "system"; };
+  if (sysxOutMsg != idRequestString && sysxOutMsg.contains("F0410000000B11000000000")) { msgType = "system"; emit setStatusdBugMessage("system request"); };
   
 
 	this->midiOutPort = midiOutPort;

@@ -46,7 +46,7 @@ void stompbox_ns::updateSignal()
 void stompbox_ns::setEditPages()
 {
   editDetails()->page()->newGroupBox("Noise Suppressor");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "0E", "00", "00");    // on/off
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "0E", "00", "00", "middle", Qt::AlignCenter);    // on/off
 	editDetails()->page()->addComboBox(0, 1, 1, 1, "0E", "00", "03");  // input select	
 	editDetails()->page()->addKnob(0, 2, 1, 1, "0E", "00", "01");       // threshold
 	editDetails()->page()->addKnob(0, 3, 1, 1, "0E", "00", "02");       // release
