@@ -21,13 +21,13 @@ if errorlevel 2 goto B-OPTION
 if errorlevel 1 goto A-OPTION
 
 :A-OPTION
-c:\qt\qt-win-opensource-src-4.5.0\bin\qmake
+c:\qt\4.5.1\bin\qmake
 c:\MinGW\bin\mingw32-make 
 pause
 goto CHECK
 
 :B-OPTION
-c:\qt\qt-win-opensource-src-4.5.0\bin\qmake
+c:\qt\4.5.1\bin\qmake
 c:\MinGW\bin\mingw32-make 
 cd packager
 GT6FxFloorBoard.exe

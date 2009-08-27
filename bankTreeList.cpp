@@ -1,7 +1,7 @@
 /****************************************************************************
 **
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
-** Copyright (C) 2008 Colin Willcocks.
+** Copyright (C) 2007, 2008, 2009 Colin Willcocks.
 ** This file is part of "GT-6 Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
@@ -295,11 +295,14 @@ QTreeWidget* bankTreeList::newTreeList()
 	QTreeWidget *newTreeList = new QTreeWidget();
 	newTreeList->setColumnCount(1);
 	newTreeList->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-	newTreeList->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff); // Qt::ScrollBarAsNeeded
+	newTreeList->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);  
 	
 	QStringList headers;
-	headers << "        Boss " + deviceType;
+		headers << "Double-click tree item to load patch";
     newTreeList->setHeaderLabels(headers);
+    
+  QTreeWidgetItem *temp = new QTreeWidgetItem(newTreeList);
+	temp->setText(0, "Temp");
 
 	QTreeWidgetItem *user = new QTreeWidgetItem(newTreeList);
 	user->setText(0, "User");
@@ -379,8 +382,8 @@ QTreeWidget* bankTreeList::newTreeList()
 	};
 	preset->addChildren(presetBankRanges);
 
-	newTreeList->setExpanded(newTreeList->model()->index(0, 0), true);
 	newTreeList->setExpanded(newTreeList->model()->index(1, 0), true);
+	newTreeList->setExpanded(newTreeList->model()->index(2, 0), true);
 	return newTreeList;
 };
 
@@ -390,7 +393,7 @@ QTreeWidget* bankTreeList::newTreeList()
 void bankTreeList::setItemClicked(QTreeWidgetItem *item, int column)
 {
 	//column; // not used
-	if(item->childCount() != 0)
+	if(item->childCount() != 0 && item->text(0) != "Temp")
 	{
 		if(item->isExpanded())
 		{
@@ -401,7 +404,7 @@ void bankTreeList::setItemClicked(QTreeWidgetItem *item, int column)
 			item->setExpanded(true);
 		};
 	} 
-	else if (item->childCount() == 0)
+	else if (item->childCount() == 0 && item->text(0) != "Temp")
 	{
 		SysxIO *sysxIO = SysxIO::Instance();
 		if(/*sysxIO->isConnected() && */sysxIO->deviceReady())
@@ -413,7 +416,10 @@ void bankTreeList::setItemClicked(QTreeWidgetItem *item, int column)
 			 sysxIO->requestPatchChange(bank, patch); // extra to try patch change
 			sysxIO->setRequestName(item->text(0));	// Set the name of the patch we have sellected in case we load it.
 		};
-		
+			}
+	else
+	{
+    emit patchSelectSignal(0, 0);	
 	};
 };
 
@@ -425,7 +431,7 @@ void bankTreeList::setItemDoubleClicked(QTreeWidgetItem *item, int column)
 {	
 	//column; // not used
 	SysxIO *sysxIO = SysxIO::Instance();
-	if(item->childCount() == 0 && sysxIO->deviceReady() && sysxIO->isConnected()) 
+	if(item->childCount() == 0  && item->text(0) != "Temp" && sysxIO->deviceReady() && sysxIO->isConnected()) 
 		// Make sure it's a patch (Patches are the last in line so no children).
 	{
 		emit setStatusSymbol(2);
@@ -439,6 +445,8 @@ void bankTreeList::setItemDoubleClicked(QTreeWidgetItem *item, int column)
 		int patch = item->parent()->indexOfChild(item) + 1;								// and the patch number.
 		requestPatch(bank, patch);
 	};
+	if(item->text(0) == "Temp")
+	{  requestPatch(); };
 };
 /*********************** requestPatch() *******************************
  * Does the actual requesting of the patch data and hands the 
@@ -614,7 +622,7 @@ void bankTreeList::updateTree(QTreeWidgetItem *item)
 	}
 	else
 	{
-		this->currentPatchTreeItems.append(item);
+		//this->currentPatchTreeItems.append(item);
 	};
 };
 
@@ -624,7 +632,7 @@ void bankTreeList::updateTree(QTreeWidgetItem *item)
 *********************************************************************************/
 void bankTreeList::updatePatchNames(QString name)
 {		SysxIO *sysxIO = SysxIO::Instance();
-		if(name != "" && sysxIO->isConnected()) //  If not empty we can assume that we did receive a patch name.
+		if(!name.isEmpty() && sysxIO->isConnected()) //  If not empty we can assume that we did receive a patch name.
 		{
 			this->currentPatchTreeItems.at(listIndex)->child(itemIndex)->setText(0, name); // Set the patch name of the item in the tree list.
 			if(itemIndex >= patchPerBank - 1) // If we reach the last patch in this bank we need to increment the bank and restart at patch 1.

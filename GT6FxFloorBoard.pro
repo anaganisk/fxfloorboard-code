@@ -45,14 +45,14 @@ QT += xml
 
 #Platform dependent file(s)
 win32 {
-	exists("C:/Progra~1/SDK/Lib/WinMM.Lib") {		# <-- Change the path to WinMM.Lib here!
-		LIBS +=  C:/Progra~1/SDK/Lib/WinMM.Lib		# <-- Change the path here also!
+		exists("C:/Progra~1/Micros~4/Windows/v6.1/Lib/WinMM.Lib") {		# <-- Change the path to WinMM.Lib here!
+		LIBS +=  C:/Progra~1/Micros~4/Windows/v6.1/Lib/WinMM.Lib		# <-- Change the path here also!
 	} else {
 		LIBS +=  WinMM.Lib
 		message("WINMM.LIB IS REQUIRED. IF NOT INSTALLED")
 		message("PLEASE DOWNLOAD AND INSTALL PLATFORM SDK FROM:")
 		message("http://www.microsoft.com/downloads/details.aspx?familyid=0BAF2B35-C656-4969-ACE8-E4C0C0716ADB&displaylang=en")
-		message("AFTER INSTALLATION CHANGE THE CORRECT (DOS) PATH IN THE "GT-8FxFloorBoard.pro" FILE")
+		message("AFTER INSTALLATION CHANGE THE CORRECT (DOS) PATH IN THE "GT-6FxFloorBoard.pro" FILE")
 	}
 	 HEADERS += 
 	 SOURCES += ./windows/RtMidi.cpp 

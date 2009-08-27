@@ -1,9 +1,10 @@
 /****************************************************************************
 **
-** Copyright (C) 2008 Colin Willcocks
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
+** Copyright (C) 2007, 2008, 2009 Colin Willcocks
+** Copyright (C) 2005, 2006, 2007 Uco Mesdag. 
+** All rights reserved.
 **
-** This file is part of "GT-X Fx FloorBoard".
+** This file is part of "GT-6 Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -42,7 +43,7 @@ mainWindow::mainWindow(QWidget *parent)
 	#ifdef Q_OS_WIN
 		/* This set the floorboard default style to the "plastique" style, 
 	   as it comes the nearest what the stylesheet uses. */
-	//fxsBoard->setStyle(QStyleFactory::create("plastique"));
+	fxsBoard->setStyle(QStyleFactory::create("plastique"));
 		if(QFile(":qss/windows.qss").exists())
 		{
 			QFile file(":qss/windows.qss");
@@ -55,7 +56,7 @@ mainWindow::mainWindow(QWidget *parent)
 	#ifdef Q_WS_X11
 		/* This set the floorboard default style to the "plastique" style, 
 	   as it comes the nearest what the stylesheet uses. */
-	//fxsBoard->setStyle(QStyleFactory::create("plastique"));
+	fxsBoard->setStyle(QStyleFactory::create("plastique"));
 		if(QFile(":qss/linux.qss").exists())
 		{
 			QFile file(":qss/linux.qss");
@@ -68,7 +69,7 @@ mainWindow::mainWindow(QWidget *parent)
 	#ifdef Q_WS_MAC
 		/* This set the floorboard default style to the "macintosh" style, 
 	   as it comes the nearest what the stylesheet uses. */
-	//fxsBoard->setStyle(QStyleFactory::create("plastique"));
+	fxsBoard->setStyle(QStyleFactory::create("plastique"));
 		if(QFile(":qss/macosx.qss").exists())
 		{
 			QFile file(":qss/macosx.qss");
@@ -95,7 +96,7 @@ mainWindow::mainWindow(QWidget *parent)
 	mainLayout->setSizeConstraint(QLayout::SetFixedSize);
 	setLayout(mainLayout);
 
-	//this->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+	this->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 
 	QObject::connect(fxsBoard, SIGNAL( sizeChanged(QSize, QSize) ),
                 this, SLOT( updateSize(QSize, QSize) ) );
@@ -188,7 +189,7 @@ void mainWindow::createActions()
 	helpAct->setStatusTip(tr("....."));
 	connect(helpAct, SIGNAL(triggered()), this, SLOT(help()));
 
-	homepageAct = new QAction(QIcon(":/images/upload.png"),deviceType + tr(" Fx FloorBoard &Webpage"), this);
+	homepageAct = new QAction(QIcon(":/images/GT6FxFloorBoard.png"),deviceType + tr(" Fx FloorBoard &Webpage"), this);
 	homepageAct->setStatusTip(tr("........"));
 	connect(homepageAct, SIGNAL(triggered()), this, SLOT(homepage()));
 
@@ -269,7 +270,7 @@ void mainWindow::open()
                 this,
                 "Choose a file",
                 dir,
-                "System Exclusive (*.syx)");
+                "GT-6 System Exclusive (*.syx)");
 	if (!fileName.isEmpty())	
 	{
 		file.setFile(fileName);  
@@ -360,8 +361,9 @@ void mainWindow::saveAs()
 
 void mainWindow::systemLoad()
 {
-   SysxIO *sysxIO = SysxIO::Instance();
-     
+    SysxIO *sysxIO = SysxIO::Instance();
+     if (sysxIO->isConnected())
+	       {
 	Preferences *preferences = Preferences::Instance();
 	QString dir = preferences->getPreferences("General", "Files", "dir");
 
@@ -376,16 +378,37 @@ void mainWindow::systemLoad()
 		if(file.readFile())
 		{	
 			// DO SOMETHING AFTER READING THE FILE (UPDATE THE GUI)
-	
+
 		  SysxIO *sysxIO = SysxIO::Instance();
 			QString area = "System";
 			sysxIO->setFileSource(area, file.getSystemSource());
 			sysxIO->setFileName(fileName);
 			emit updateSignal();
-			sysxIO->systemWrite();
-		};
-	};
-           if (!sysxIO->isConnected())
+				QMessageBox *msgBox = new QMessageBox();
+					msgBox->setWindowTitle(deviceType + tr(" Fx FloorBoard"));
+					msgBox->setIcon(QMessageBox::Warning);
+					msgBox->setTextFormat(Qt::RichText);
+					QString msgText;
+					msgText.append("<font size='+1'><b>");
+					msgText.append(tr("You have chosen to load a SYSTEM DATA file."));
+					msgText.append("<b></font><br>");
+					msgText.append(tr("This will overwrite the SYSTEM DATA currently stored in the GT-6<br>"));
+					msgText.append(tr (" and can't be undone.<br>"));
+					msgText.append(tr("Select 'NO' to only update the Editor settings-<br> Select 'YES' to update the GT-6 memory<br>"));
+          
+
+					msgBox->setInformativeText(tr("Are you sure you want to write to the GT-6?"));
+					msgBox->setText(msgText);
+					msgBox->setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+
+					if(msgBox->exec() == QMessageBox::Yes)
+					{	// Accepted to overwrite system data.			
+			       sysxIO->systemWrite();
+		      };
+	   };
+	     };
+	}
+         else
              {
               QString snork = "DATA TRANSFER REQUIRED<br>"; 
               snork.append("Ensure connection is active, and<br>");
