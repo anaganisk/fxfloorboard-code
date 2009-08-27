@@ -121,9 +121,6 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
 	QObject::connect(this->connectButton, SIGNAL(valueChanged(bool)), this, SLOT(connectSignal(bool)));
 	QObject::connect(this->writeButton, SIGNAL(valueChanged(bool)), this, SLOT(writeSignal(bool)));
 	
-	//QObject::connect(this->master_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(master_buttonSignal(bool)));
-	//QObject::connect(this->fx1_autoriff_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(fx1_autoriff_buttonSignal(bool)));
-	//QObject::connect(this->fx2_autoriff_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(fx2_autoriff_buttonSignal(bool)));
 	QObject::connect(this->ch_mode_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(ch_mode_buttonSignal(bool)));
 	QObject::connect(this->preamp1_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(preamp1_buttonSignal(bool)));	
 	QObject::connect(this->preamp2_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(preamp2_buttonSignal(bool)));
@@ -213,11 +210,21 @@ void floorBoardDisplay::setPatchNumDisplay(int bank, int patch)
 		 this->patchNumDisplay->resetAllColor();
      this->patchNumDisplay->setSubText("User");
 		}
-		else
+		else if (bank > bankTotalUser && bank <= bankTotalAll)
 		{
 			this->patchNumDisplay->setAllColor(QColor(255,0,0));
       this->patchNumDisplay->setSubText("Preset");
-		};
+		}
+    	else if (bank == 101)
+		{
+     this->patchNumDisplay->resetAllColor();
+     this->patchNumDisplay->setSubText("Quick");
+    }
+    else
+    {
+     this->patchNumDisplay->setAllColor(QColor(255,0,0));
+     this->patchNumDisplay->setSubText("Quick");
+    };
 		QString str;
 		if(bank < 51) 
     { 
@@ -225,11 +232,19 @@ void floorBoardDisplay::setPatchNumDisplay(int bank, int patch)
       if(bank < 10) {	str.append("0"); };
 		  str.append(QString::number(bank, 10));  
     } 
-      else 
+      else if (bank > 50 && bank < 101)
 		{ str.append("P"); 
 		if(bank < 60) {	str.append("0"); };  
 		str.append(QString::number(bank-50, 10));		
-	  };
+	  }
+    else if (bank ==101) 
+    {
+     str.append("U");
+    }
+    else
+    {
+     str.append("P");
+    };
 		str.append(":");
 		str.append(QString::number(patch, 10));
 	  this->patchNumDisplay->setMainText(str, Qt::AlignCenter);
@@ -238,28 +253,27 @@ void floorBoardDisplay::setPatchNumDisplay(int bank, int patch)
 	{
 		this->patchNumDisplay->clearAll();
 	};
-}
+};
 
 void floorBoardDisplay::updateDisplay()
 {
 	SysxIO *sysxIO = SysxIO::Instance();
 	QString area = "Structure";
 	QList<QString> nameArray = sysxIO->getFileSource(area, nameAddress, "00");
-	//MidiTable *midiTable = MidiTable::Instance();
 	QString name;
 	for(int i=sysxDataOffset;i<(sysxDataOffset+nameLength);i++ )
 		{
-		//name.append( midiTable->getMidiMap("Structure", "0B", "00", "00", nameArray.at(i)).name );
-		QString hexStr = nameArray.at(i);
+
+		QString hexStr = nameArray.at(i);	
 		bool ok;
 		name.append( (char)(hexStr.toInt(&ok, 16)) );
-  };	
+    };	
 
 	QString patchName = name.trimmed();
 	sysxIO->setCurrentPatchName(patchName);
 	if(sysxIO->getRequestName().trimmed() != patchName.trimmed())
 	{
-		this->patchLoadError = true;//cjw true;
+		this->patchLoadError = true;
 	}
 	else
 	{
@@ -280,9 +294,9 @@ void floorBoardDisplay::updateDisplay()
 	};
 	this->valueDisplay->clearAll();
 
-	/*if(sysxIO->isDevice() )  // comment out from here
+	if(sysxIO->isDevice() )  // comment out from here
 	{
-		if(sysxIO->getBank() > 20)
+		if(sysxIO->getBank() > 50)
 		{
 			this->writeButton->setBlink(false);
 			this->writeButton->setValue(true);
@@ -312,8 +326,8 @@ void floorBoardDisplay::updateDisplay()
 		patchNumDisplay->clearAll();
 		this->writeButton->setBlink(false);   //cjw
 		this->writeButton->setValue(false);
-	};  */// to here
-}
+	};  // to here
+    };
 
 void floorBoardDisplay::autoconnect()
 {
@@ -366,7 +380,7 @@ void floorBoardDisplay::autoConnectionResult(QString sysxMsg)
     {
      this->connectButton->setBlink(false);
 		 this->connectButton->setValue(false);
-		 notConnected();
+		 sysxIO->setConnected(false);
     };
   }
   else
@@ -507,61 +521,20 @@ void floorBoardDisplay::connectionResult(QString sysxMsg)
 void floorBoardDisplay::writeSignal(bool)
 {
 	SysxIO *sysxIO = SysxIO::Instance();	
-	if(sysxIO->isConnected() )//&& sysxIO->deviceReady()) /* Check if we are connected and if the device is free. */
+	if(sysxIO->isConnected() && sysxIO->deviceReady()) /* Check if we are connected and if the device is free. */
 	{
 	 this->writeButton->setBlink(true);
 	 
-		if(sysxIO->getBank() == 0) /* Check if a bank is sellected. */
-		{
-			QMessageBox *msgBox = new QMessageBox();
-			msgBox->setWindowTitle(deviceType + tr(" Fx FloorBoard"));
-			msgBox->setIcon(QMessageBox::Warning);
-			msgBox->setTextFormat(Qt::RichText);
-			QString msgText;
-			msgText.append("<font size='+1'><b>");
-			msgText.append(tr("You didn't select a bank to write to."));
-			msgText.append("<b></font><br>");
-			msgText.append(tr("Please select a user bank to write this patch to and try again."));
-			msgBox->setText(msgText);
-			msgBox->setStandardButtons(QMessageBox::Ok);
-			msgBox->exec();
-			this->writeButton->setBlink(false);
-			this->writeButton->setValue(false);
-		}
-		else /* Bank is sellected. */
+		if(sysxIO->getBank() == 0) // Check if a bank is sellected. 
 		{
 			sysxIO->setDeviceReady(false);			// Reserve the device for interaction.
-
-			if(!sysxIO->getSyncStatus())			// Check if the data is allready in sync. with the device.
-			{	/* If not we send the data to the (temp) buffer. So we don't change the patch default address "0B 00". */
-
-				
-				if(sysxIO->getBank() != sysxIO->getLoadedBank() || sysxIO->getPatch() != sysxIO->getLoadedPatch())// Check if a different patch is sellected
-				{															// else load the selected one.
-					emit setStatusSymbol(2);
-					emit setStatusMessage("Sending");
-					
-					int bank = sysxIO->getBank();
-					int patch = sysxIO->getPatch();
-					patchLoadSignal(bank, patch);	// Tell to stop blinking a sellected patch and prepare to load this one instead.
-					setPatchNumDisplay(bank, patch);
-
-					QObject::disconnect(sysxIO, SIGNAL(isChanged()),	
-						this, SLOT(writeToBuffer()));
-					QObject::connect(sysxIO, SIGNAL(isChanged()),	// Connect the isChanged message
-						this, SLOT(writeToBuffer()));				// to writeToBuffer.
-
-					sysxIO->requestPatchChange(bank, patch);
-				}
-				else
-				{
-					writeToBuffer();
-				};	
-        sysxIO->setDeviceReady(true);	
-			}
-			else /* If sync we will write (save) the patch directly to sellected bank. So we will have to change the patch adsress */
+			writeToBuffer();
+		}
+		else // Bank is sellected. 
+		{  
+			sysxIO->setDeviceReady(false);			// Reserve the device for interaction.
 			{
-				if(sysxIO->getBank() > bankTotalUser) // Preset banks are NOT writable so we check.
+				if((sysxIO->getBank() > bankTotalUser && sysxIO->getBank() <= bankTotalAll) || (sysxIO->getBank() == 105)) // Preset banks are NOT writable so we check.
 				{
 					QMessageBox *msgBox = new QMessageBox();
 					msgBox->setWindowTitle(deviceType + tr(" Fx FloorBoard"));
@@ -600,7 +573,8 @@ void floorBoardDisplay::writeSignal(bool)
 					msgText.append("<b></font><br>");
 					msgText.append(tr("This will overwrite the patch currently stored at patch location<br>"));
 					msgText.append("<font size='+2'><b>");
-					msgText.append(bankNum +(":") +patchNum	);
+					if (bank == 101){ msgText.append(("Quick Effects ") + patchNum); } 
+					else { msgText.append(bankNum +(":") +patchNum	); };
 					msgText.append("<b></font><br>");
           msgText.append(tr (" and can't be undone. "));
 					msgBox->setInformativeText(tr("Are you sure you want to continue?"));
@@ -608,9 +582,10 @@ void floorBoardDisplay::writeSignal(bool)
 					msgBox->setStandardButtons(QMessageBox::Yes | QMessageBox::No);
 
 					if(msgBox->exec() == QMessageBox::Yes)
-					{	/* Accepted to overwrite data. So now we have to set destination address by replacing the default (buffer). */
-						
+					{	/* Accepted to overwrite data. So now we have to set destination address by replacing the default (buffer). */			
+
 						writeToMemory();
+						sysxIO->setSyncStatus(true);
 					}
 					else if(sysxIO->isConnected())
 					{
@@ -618,78 +593,20 @@ void floorBoardDisplay::writeSignal(bool)
 						this->writeButton->setBlink(false);
 						this->writeButton->setValue(true);
 					};					
-				};
+				}; 
 			};
-		};
-  }
-	
- /*if((sysxIO->isConnected() == !true) && sysxIO->deviceReady())
-	{
-		writeToBuffer();                           // update patch to temp buffer only if not in bulk mode
-	}; */
-		//sysxIO->getCurrentPatchName();
-}
+		}; 
+	}
+}; 
 
 void floorBoardDisplay::writeToBuffer() 
 {
 	SysxIO *sysxIO = SysxIO::Instance();
-	sysxIO->setDeviceReady(false);			// Reserve the device for interaction.
-	QObject::disconnect(sysxIO, SIGNAL(isChanged()),	
-					this, SLOT(writeToBuffer()));
+	sysxIO->writeToBuffer();
 
-	QString sysxMsg;
-	QList< QList<QString> > patchData = sysxIO->getFileSource().hex; // Get the loaded patch data.
-	QList<QString> patchAddress = sysxIO->getFileSource().address;
-
-		emit setStatusSymbol(2);
-		emit setStatusMessage(tr("Sync to ")+deviceType);
-		
-	QString addr1 = QString::number(96, 16).toUpper();
-	QString addr2 = QString::number(0, 16).toUpper();
-
-	for(int i=0;i<patchData.size();++i)
-	{
-		QList<QString> data = patchData.at(i);
-		for(int x=0;x<data.size();++x)
-		{
-			QString hex;
-			if(x == sysxAddressOffset)
-			{ 
-				hex = addr1;
-			}
-			else if(x == sysxAddressOffset + 1)
-			{
-				hex = addr2;
-			}
-			else
-			{
-				hex = data.at(x);
-			};
-			if (hex.length() < 2) hex.prepend("0");
-			sysxMsg.append(hex);
-		}; 
-	}; 
-	sysxIO->setSyncStatus(true);		// In advance of the actual data transfer we set it already to sync.
 	this->writeButton->setBlink(false);	// Sync so we stop blinking the button
 	this->writeButton->setValue(false);	// and activate the write button.
-
-	QObject::connect(sysxIO, SIGNAL(sysxReply(QString)),	// Connect the result signal 
-		this, SLOT(resetDevice(QString)));					// to a slot that will reset the device after sending.
-	sysxIO->sendSysx(sysxMsg);	// Send the data.
-		
-		emit setStatusProgress(33); // time wasting sinusidal statusbar progress
-		SLEEP(150);
-		emit setStatusProgress(66);
-		SLEEP(150);		
-		emit setStatusProgress(100);
-		SLEEP(150);		
-		emit setStatusProgress(75);
-		SLEEP(150);		
-		emit setStatusProgress(42);
-		SLEEP(150);
-	  emit setStatusMessage(tr("Ready"));
-	sysxIO->setDeviceReady(true);
-}
+};
 
 void floorBoardDisplay::writeToMemory() 
 {
@@ -704,16 +621,27 @@ void floorBoardDisplay::writeToMemory()
 
 	int bank = sysxIO->getBank();
 	int patch = sysxIO->getPatch();
-	int patchOffset = (((bank - 1 ) * patchPerBank) + patch) - 1;
-	int memmorySize = QString("7F").toInt(&ok, 16) + 1;
-	int emptyAddresses = (memmorySize) - ((bankTotalUser * patchPerBank) - (memmorySize));
-	if(bank > bankTotalUser) patchOffset += emptyAddresses; //System patches start at a new memmory range.
-	int addrMaxSize = QString("80").toInt(&ok, 16);
-	int n = (int)(patchOffset / addrMaxSize);
+	QString addr1;
+	QString addr2;
+	if (bank < 101)
+	{
+  	 int patchOffset = (((bank - 1 ) * patchPerBank) + patch) - 1;
+  	 int memmorySize = QString("7F").toInt(&ok, 16) + 1;
+  	 int emptyAddresses = (memmorySize) - ((bankTotalUser * patchPerBank) - (memmorySize));
+  	 if(bank > bankTotalUser) patchOffset += emptyAddresses; //System patches start at a new memmory range.
+     int addrMaxSize = QString("80").toInt(&ok, 16);
+     int n = (int)(patchOffset / addrMaxSize);
 	
-	QString addr1 = QString::number(16 + n, 16).toUpper();
-	QString addr2 = QString::number(patchOffset - (addrMaxSize * n), 16).toUpper();
-	
+  	addr1 = QString::number(16 + n, 16).toUpper();
+  	addr2 = QString::number(patchOffset - (addrMaxSize * n), 16).toUpper();
+	 } 
+	 else
+	 {
+    addr1 = "30";
+    addr2 = QString::number(patch - 1, 16).toUpper();
+   };
+   if (addr1.length() < 2) addr1.prepend("0");
+	 if (addr2.length() < 2) addr2.prepend("0");
 	for(int i=0;i<patchData.size();++i)
 	{
 		QList<QString> data = patchData.at(i);
@@ -740,23 +668,9 @@ void floorBoardDisplay::writeToMemory()
 	this->writeButton->setBlink(false); // so no blinking here either...
 	this->writeButton->setValue(true);	// ... and still the button will be active also ...
 
-	QObject::connect(sysxIO, SIGNAL(sysxReply(QString)),	// Connect the result signal 
-		this, SLOT(resetDevice(QString)));					// to a slot that will reset the device after sending.
-
+	QObject::connect(sysxIO, SIGNAL(sysxReply(QString)), this, SLOT(resetDevice(QString))); // Connect the result signal to a slot that will reset the device after sending.
 	sysxIO->sendSysx(sysxMsg);								// Send the data.
-		emit setStatusProgress(33); // time wasting sinusidal statusbar progress
-		SLEEP(100);
-		emit setStatusProgress(66);
-		SLEEP(150);		
-		emit setStatusProgress(100);
-		SLEEP(250);		
-		emit setStatusProgress(75);
-		SLEEP(200);		
-		emit setStatusProgress(42);
-		SLEEP(150);
-		emit setStatusProgress(25);
-		SLEEP(100);		
-}
+	};
 
 void floorBoardDisplay::patchChangeFailed()
 {
@@ -769,17 +683,29 @@ void floorBoardDisplay::patchChangeFailed()
 void floorBoardDisplay::resetDevice(QString replyMsg) 
 {
 	SysxIO *sysxIO = SysxIO::Instance();
-	QObject::disconnect(sysxIO, SIGNAL(sysxReply(QString)),	
-				this, SLOT(resetDevice(QString)));
+	QObject::disconnect(sysxIO, SIGNAL(sysxReply(QString)),	this, SLOT(resetDevice(QString)));
 				
-				          if(sysxIO->getBank() != sysxIO->getLoadedBank() || sysxIO->getPatch() != sysxIO->getLoadedPatch()) 
-                             { 
+			if(sysxIO->getBank() != sysxIO->getLoadedBank() || sysxIO->getPatch() != sysxIO->getLoadedPatch()) 
+          { 
                    sysxIO->setLoadedBank(sysxIO->getBank()); 
                    sysxIO->setLoadedPatch(sysxIO->getPatch()); 
-           }; 
-	sysxIO->setDeviceReady(true);	// Free the device after finishing interaction.
+          }; 
+        
+   emit setStatusProgress(33); // time wasting sinusidal statusbar progress
+		SLEEP(100);
+		emit setStatusProgress(66);
+		SLEEP(100);		
+		emit setStatusProgress(100);
+		SLEEP(100);		
+		emit setStatusProgress(75);
+		SLEEP(100);		
+		emit setStatusProgress(42);
+		SLEEP(100);
+		emit setStatusProgress(25);
+		SLEEP(100);  
+	sysxIO->setDeviceReady(true);	// Free the device after finishing interaction.   
 	emit connectedSignal();			// Emit this signal to tell we are still connected and to update the patch names in case they have changed.
-}
+};
 
 void floorBoardDisplay::patchSelectSignal(int bank, int patch)
 {
@@ -787,7 +713,7 @@ void floorBoardDisplay::patchSelectSignal(int bank, int patch)
 	if(blinkCount == 0)
 	{
 		currentSyncStatus = sysxIO->getSyncStatus();
-		sysxIO->setSyncStatus(false);//was false
+		sysxIO->setSyncStatus(false);
 		writeButton->setBlink(true);
 	};
 

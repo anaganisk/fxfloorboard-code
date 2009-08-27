@@ -45,7 +45,7 @@ void stompbox_ns_2::updateSignal()
 
 void stompbox_ns_2::setEditPages()
 { editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "0A", "00", "75");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "0A", "00", "75", "middle", Qt::AlignCenter);
 	editDetails()->page()->addComboBox(1, 0, 1, 1, "0A", "00", "78");
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 

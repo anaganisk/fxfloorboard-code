@@ -48,7 +48,7 @@ void stompbox_dd::updateSignal()
 void stompbox_dd::setEditPages()
 {
     editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "0A", "00", "00");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "0A", "00", "00", "middle", Qt::AlignCenter);
 	editDetails()->page()->newStackControl(0);
 	editDetails()->page()->addComboBox(1, 0, 1, 1, "0A", "00", "01");
 	editDetails()->page()->addStackControl();
@@ -266,7 +266,7 @@ void stompbox_dd::setEditPages()
 	editDetails()->page()->addGroupBox(0, 0, 1, 3);
 
 	editDetails()->page()->newGroupBox("Warp", Qt::AlignTop | Qt::AlignHCenter);
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "0A", "00", "11");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "0A", "00", "11", "middle", Qt::AlignCenter);
 	editDetails()->page()->addKnob(0, 1, 1, 1, "0A", "00", "12");
 	editDetails()->page()->addGroupBox(1, 0, 1, 1);
 

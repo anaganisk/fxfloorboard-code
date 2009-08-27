@@ -42,8 +42,6 @@ public:
 	void callbackMsg(QString rxData);
 	QList<QString> getMidiOutDevices();
 	QList<QString> getMidiInDevices();
-	static void emitProgress(int bytesReceived);	
-	
 		
 signals:
 	void errorSignal(QString windowTitle, QString errorMsg);
@@ -52,8 +50,8 @@ signals:
 	void started();
 	void setStatusSymbol(int value);
 	void setStatusProgress(int value);
-    void setStatusMessage(QString message);
-    void setStatusdBugMessage(QString dBug);
+  void setStatusMessage(QString message);
+  void setStatusdBugMessage(QString dBug);
 		
 private:
 	void queryMidiInDevices();
@@ -64,13 +62,11 @@ private:
 	QList<QString> midiOutDevices;
 	QList<QString> midiInDevices;
 	
-	
+	static QString msgType;
 	static QString sysxBuffer;
 	static bool dataReceive;
 	static int bytesTotal;
 	static int bytesReceived;
-	static bool multiple;
-	static bool system;
 	int midiOutPort;
 	int midiInPort;
 	QString sysxOutMsg;

@@ -46,7 +46,7 @@ void stompbox_cn_s::updateSignal()
 void stompbox_cn_s::setEditPages()
 {
   editDetails()->page()->newGroupBox("PreAmp Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "00");   // off/on effect
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "00", "middle", Qt::AlignCenter);   // off/on effect
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	
   editDetails()->page()->newGroupBox("Channel");

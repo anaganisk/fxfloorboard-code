@@ -776,7 +776,7 @@ QString SysxIO::getPatchChangeMsg(int bank, int patch)
 
 	QString midiMsg ="";                     // universal bank change method
 	midiMsg.append("B000"+bankMsb);
-	midiMsg.append("B01000");
+	midiMsg.append("B02000");
 	midiMsg.append("C0"+programChange);
 	return midiMsg;
 };
@@ -1046,26 +1046,14 @@ void SysxIO::requestPatch(int bank, int patch)
 /***************************** errorSignal() ******************************
 * Displays all midi related error messages.
 ****************************************************************************/
-void SysxIO::errorSignal(QString windowTitle, QString errorMsg)
+void SysxIO::errorSignal(QString errorType, QString errorMsg)
 {
-   /*
-		windowTitle = this->errorType;
-		errorMsg = this->errorMsg;
-		errorMsg.append("\n please press the [Connect] button to resume");
-
-		QMessageBox *msgBox = new QMessageBox();
-		msgBox->setWindowTitle(windowTitle);
-		msgBox->setIcon(QMessageBox::Warning);
-		msgBox->setTextFormat(Qt::RichText);
-		msgBox->setText(errorMsg);
-		msgBox->setStandardButtons(QMessageBox::Ok);
-		msgBox->exec();  
-		
-		emit notConnectedSignal();  
-    */
+    setNoError(false);
 		emit setStatusdBugMessage(this->errorType + "  " + this->errorMsg);
+    SLEEP(2000);
+    emit setStatusdBugMessage("");
 		this->errorType = "";
-		this->errorMsg = "";	
+		this->errorMsg = "";
 };
 
 /***************************** noError() ******************************

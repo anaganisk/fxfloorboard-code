@@ -35,28 +35,28 @@ menuPage_autoriff::menuPage_autoriff(QWidget *parent)
 void menuPage_autoriff::updateSignal()
 {
 
-};
+};                                 
 
 void menuPage_autoriff::setEditPages()
 {
-        //editDetails()->page()->newGroupBox("FX1 AutoRiff User Scales");
-        //editDetails()->page()->addComboBox(0, 0, 1, 1, "03", "00", "5C");
-        //editDetails()->page()->addComboBox(0, 1, 1, 1, "03", "00", "5D");
-        //editDetails()->page()->addComboBox(0, 2, 1, 1, "03", "00", "5E");
-        //editDetails()->page()->addComboBox(0, 3, 1, 1, "03", "00", "5F");
-        //editDetails()->page()->addComboBox(0, 4, 1, 1, "03", "00", "60");
-        //editDetails()->page()->addComboBox(0, 5, 1, 1, "03", "00", "61");
-        //editDetails()->page()->addComboBox(0, 6, 1, 1, "03", "00", "62");
-        //editDetails()->page()->addComboBox(0, 7, 1, 1, "03", "00", "63");
-        //editDetails()->page()->addComboBox(0, 8, 1, 1, "03", "00", "64");
-        //editDetails()->page()->addComboBox(0, 9, 1, 1, "03", "00", "65");
-        //editDetails()->page()->addComboBox(0, 10, 1, 1, "03", "00", "66");
-        //editDetails()->page()->addComboBox(0, 11, 1, 1, "03", "00", "67");
-        //editDetails()->page()->addComboBox(0, 12, 1, 1, "03", "00", "68");
-        //editDetails()->page()->addComboBox(0, 13, 1, 1, "03", "00", "69");
-        //editDetails()->page()->addComboBox(0, 14, 1, 1, "03", "00", "6A");
-        //editDetails()->page()->addComboBox(0, 15, 1, 1, "03", "00", "6B");
-        /*editDetails()->page()->addComboBox(1, 0, 1, 1, "03", "00", "6C");
+       // editDetails()->page()->newGroupBox("FX1 AutoRiff User Scales");
+        editDetails()->page()->addComboBox(0, 0, 1, 1, "03", "00", "5C");
+        editDetails()->page()->addComboBox(0, 1, 1, 1, "03", "00", "5D");
+        editDetails()->page()->addComboBox(0, 2, 1, 1, "03", "00", "5E");
+        editDetails()->page()->addComboBox(0, 3, 1, 1, "03", "00", "5F");
+        editDetails()->page()->addComboBox(0, 4, 1, 1, "03", "00", "60");
+        editDetails()->page()->addComboBox(0, 5, 1, 1, "03", "00", "61");
+        editDetails()->page()->addComboBox(0, 6, 1, 1, "03", "00", "62");
+        editDetails()->page()->addComboBox(0, 7, 1, 1, "03", "00", "63");
+        editDetails()->page()->addComboBox(0, 8, 1, 1, "03", "00", "64");
+        editDetails()->page()->addComboBox(0, 9, 1, 1, "03", "00", "65");
+        editDetails()->page()->addComboBox(0, 10, 1, 1, "03", "00", "66");
+        editDetails()->page()->addComboBox(0, 11, 1, 1, "03", "00", "67");
+        editDetails()->page()->addComboBox(0, 12, 1, 1, "03", "00", "68");
+        editDetails()->page()->addComboBox(0, 13, 1, 1, "03", "00", "69");
+        editDetails()->page()->addComboBox(0, 14, 1, 1, "03", "00", "6A");
+        editDetails()->page()->addComboBox(0, 15, 1, 1, "03", "00", "6B");
+        editDetails()->page()->addComboBox(1, 0, 1, 1, "03", "00", "6C");
 	editDetails()->page()->addComboBox(1, 1, 1, 1, "03", "00", "6D");	
 	editDetails()->page()->addComboBox(1, 2, 1, 1, "03", "00", "6E");	
 	editDetails()->page()->addComboBox(1, 3, 1, 1, "03", "00", "6F");	
@@ -231,8 +231,8 @@ void menuPage_autoriff::setEditPages()
 	editDetails()->page()->addComboBox(11, 12, 1, 1, "05", "00", "18");	
 	editDetails()->page()->addComboBox(11, 13, 1, 1, "05", "00", "19");	
 	editDetails()->page()->addComboBox(11, 14, 1, 1, "05", "00", "1A");	
-        editDetails()->page()->addComboBox(11, 15, 1, 1, "05", "00", "1B");	*/
-       // editDetails()->page()->addGroupBox(0, 0, 1, 1);
+  editDetails()->page()->addComboBox(11, 15, 1, 1, "05", "00", "1B");	
+  //editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->addPage();
 
 };

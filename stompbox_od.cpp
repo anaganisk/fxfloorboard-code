@@ -48,7 +48,7 @@ void stompbox_od::updateSignal()
 void stompbox_od::setEditPages()
 {
     editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "00", "00", "70");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "00", "00", "70", "middle", Qt::AlignCenter);
 	editDetails()->page()->newStackControl(0);
 	editDetails()->page()->addComboBox(1, 0, 1, 1, "00", "00", "71");
 	editDetails()->page()->addStackControl();
@@ -66,7 +66,7 @@ void stompbox_od::setEditPages()
 	editDetails()->page()->addGroupBox(0, 2, 1, 1);
 	
 	editDetails()->page()->newGroupBox("Solo");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "00", "00", "77");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "00", "00", "77", "middle", Qt::AlignCenter);
 	editDetails()->page()->addKnob(0, 1, 1, 1, "00", "00", "78");
 	editDetails()->page()->addGroupBox(0, 3, 1, 1);
 	

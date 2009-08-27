@@ -408,8 +408,8 @@ void menuPage::emitValueChanged(QString hex1, QString hex2, QString hex3, QStrin
 		  if (this->id == 18)this->fxName = "System settings";
 		  if (this->id == 19)this->fxName = "System Midi";
 		  if (this->id == 20)this->fxName = "Assigns";
-		  if (this->id == 21)this->fxName = "FX1 AutoRiff User Scales";  
-      if (this->id == 22)this->fxName = "FX2 AutoRiff User Scales";  
+		  if (this->id == 21)this->fxName = "FX1 AutoRiff User";  
+      if (this->id == 22)this->fxName = "FX2 AutoRiff User";  
       if (this->id == 23)this->fxName = "Master";  
 		};
 	};

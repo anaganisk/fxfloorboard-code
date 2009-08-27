@@ -1,10 +1,10 @@
 /****************************************************************************
 **
 ** Copyright (C) 2007, 2008, 2009 Colin Willcocks.
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
+** Copyright (C) 2005, 2006, 2007 Uco Mesdag. 
 ** All rights reserved.
 **
-** This file is part of "GT-10 Fx FloorBoard".
+** This file is part of "GT-Pro Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -22,23 +22,51 @@
 **
 ****************************************************************************/
 
-#ifndef STOMPBOX_PRE_H
-#define STOMPBOX_PRE_H
+#ifndef CUSTOMTARGETLISTMENU_H
+#define CUSTOMTARGETLISTMENU_H
 
-#include <QtGui>
 #include <QWidget>
-#include "stompBox.h"
+#include <QtGui>
+#include "customControlLabel.h"
+#include "customComboBox.h"
 
-class stompbox_pre : public stompBox
+class customTargetListMenu : public QWidget
 {
     Q_OBJECT
 
 public:
-	stompbox_pre(QWidget *parent);
-	void setEditPages();
+    customTargetListMenu(QWidget *parent = 0, 
+		QString hex1 = "void",
+		QString hex2 = "void",
+		QString hex3 = "void",
+		QString hexMsb = "void",
+		QString hexLsb = "void",
+		QString direction = "bottom");
+
+protected:
+	void paintEvent(QPaintEvent *event);
 
 public slots:
+	void valueChanged(int index);
+	void dialogUpdateSignal();
+
+signals:
 	void updateSignal();
+	void updateDisplay(QString text);
+	void currentIndexChanged(int index);
+	void updateTarget(QString hex1, QString hex2, QString hex3);
+
+private:
+	void setComboBox();
+	customControlLabel* label;
+	customComboBox* controlListComboBox;
+	QString hex1;
+	QString hex2;
+	QString hex3;
+	QString hexMsb;
+	QString hexLsb;
+	QString area;
+	int comboWidth;
 };
 
-#endif // STOMPBOX_PRE_H
+#endif // CUSTOMTARGETLISTMENU_H

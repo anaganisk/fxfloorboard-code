@@ -4,7 +4,7 @@ GT-10FxFloorBoard Copyright (C) 2007, 2008, 2009 Colin Willcocks (gumtownbassman
 =======
 
 
-GT-10FxFloorBoard version 20090701: 01 July 2009
+GT-10FxFloorBoard version 20090820: 20 August 2009
 
 PLEASE FEEL FREE TO DONATE, YOU MAY FREELY USE THIS SOFTWARE, 
  JUST KEEP IN MIND THE 6000 HOURS SPENT OVER 3 YEARS GETTING IT HERE,
@@ -33,24 +33,24 @@ all the patch settings will update the editor GUI.
 g.) Any knob turning will change the sound of the effect being adjusted, 
 when the desired sound is achieved, you can either save the patch to the GT10 or save the patch to file on disk.
 
-h.) To save the patch to the GT10 press the "write/sync" button. there is a bit of a trick here, 
-sometimes the editor is not syncronised to the GT10 so toggle the 'Connect' button, then try the 'Write' button again.
+h.) To save the patch to the GT10, select a location with a 'single-click' on the Patch-Tree,
+then press the "write/sync" button. 
 
 GT10-FxFloorBoard: 
 NOTE: THIS IS AN UNPAID PROJECT, SO FAR INVESTING OVER 6000 HOURS OF MY TIME OVER 3 YEARS, 
 I WILL NOT ACCEPT LIABILITY FOR ANY DATA LOSS, TO THE BEST OF MY KNOWLEDGE EVERYTHING SHOULD WORK CORRECTLY, 
 BUT SOME FUNCTIONS MAY BE INCORRECT. 
 
-saved files will now produce %100 GT10 accurate files. files can be saved/loaded as syx or mid
-the GT10FxFloorBoard will also open GT10 SMF (.mid) files, and translate GT-8 patch files.
+files can be saved/loaded as syx or mid (SMF).
+the GT-10FxFloorBoard will also open GT10 SMF (.mid) files, and translate GT-8 patch files (*.syx single patch type).
 
 layout increased to fit 18 chain events, may be a problem for low screen resolutions. (i use 1280 X 800)
 
-This project is a continuing session of evolution.
+This project is a continuing session of evolution.........
 
 patch tree to the left side should give patch change on single click and (when 'connected' button active),
  double click should request patch transfer.
-opening each bank node should request patch names (while 'connected'). preset patches may not be accessable.
+opening each bank node should request patch names (while 'connected').
 
 patch rename by doubleclicking name display panel.
 

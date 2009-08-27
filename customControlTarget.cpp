@@ -32,6 +32,7 @@ customControlTarget::customControlTarget(QWidget *parent,
 	: QWidget(parent)
 {
 	this->display = new QLineEdit(this);
+	this->displayCombo = new customTargetListMenu(this, hex1, hex2, hex3, hexMsb, hexLsb);
 	this->displayMin = new QLineEdit(this);
 	this->displayMax = new QLineEdit(this);
 	this->label = new customControlLabel(this);
@@ -85,16 +86,17 @@ customControlTarget::customControlTarget(QWidget *parent,
 	this->knobTarget = new customKnobTarget(this, hex1, hex2, hex3, hexMsb, hexLsb, "target");                // create knob with target address
 	this->display->setObjectName("editdisplay");
 	this->display->setFixedWidth(lenght);
-	this->display->setFixedHeight(14);
+	this->display->setFixedHeight(15);
 	this->display->setAlignment(Qt::AlignLeft);
 	this->display->setDisabled(true);	
+	this->display->hide();  // hide the display dialog
 	this->label->setText("TARGET");
 	this->label->setAlignment(Qt::AlignCenter);
 	
 	this->knobMin = new customKnobTarget(this, hex1, hex2, hexMin, hexMsb, hexLsb, "min");                // create knob with target address
 	this->displayMin->setObjectName("editdisplay");
 	this->displayMin->setFixedWidth(lenght);
-	this->displayMin->setFixedHeight(14);
+	this->displayMin->setFixedHeight(15);
 	this->displayMin->setAlignment(Qt::AlignCenter);
 	this->displayMin->setDisabled(true);	
 	this->labelMin->setText("MINIMUM");
@@ -103,7 +105,7 @@ customControlTarget::customControlTarget(QWidget *parent,
 	this->knobMax = new customKnobTarget(this, hex1, hex2, hexMax, hexMsb, hexLsb, "max");                // create knob with target address
 	this->displayMax->setObjectName("editdisplay");
 	this->displayMax->setFixedWidth(lenght);
-	this->displayMax->setFixedHeight(14);
+	this->displayMax->setFixedHeight(15);
 	this->displayMax->setAlignment(Qt::AlignCenter);
 	this->displayMax->setDisabled(true);	
 	this->labelMax->setText("MAXIMUM");
@@ -115,6 +117,7 @@ customControlTarget::customControlTarget(QWidget *parent,
 		targetLayout->addWidget(this->label, 0, Qt::AlignCenter);
 		targetLayout->addWidget(this->knobTarget, 0, Qt::AlignCenter);
 		targetLayout->addWidget(this->display, 0, Qt::AlignCenter);
+		targetLayout->addWidget(this->displayCombo, 0, Qt::AlignCenter);
 		targetLayout->addStretch(0);
 		
 		QVBoxLayout *minLayout = new QVBoxLayout;
@@ -122,7 +125,7 @@ customControlTarget::customControlTarget(QWidget *parent,
 		minLayout->setSpacing(0);
 		minLayout->addWidget(this->labelMin, 0, Qt::AlignCenter);
 		minLayout->addWidget(this->knobMin, 0, Qt::AlignCenter);
-		minLayout->addWidget(this->displayMin, 0, Qt::AlignCenter);
+		minLayout->addWidget(this->displayMin, 0, Qt::AlignCenter);  
 		minLayout->addStretch(0);
 		
 		QVBoxLayout *maxLayout = new QVBoxLayout;
@@ -154,6 +157,9 @@ customControlTarget::customControlTarget(QWidget *parent,
 
 	QObject::connect(this, SIGNAL( updateDisplayTarget(QString) ),
                 this->display, SLOT( setText(QString) ));
+                
+  QObject::connect(this, SIGNAL( updateDisplayTarget(QString) ),
+                this, SIGNAL( updateSignal() ));
                 
   QObject::connect(this, SIGNAL( updateDisplayMin(QString) ),
                 this->displayMin, SLOT( setText(QString) ));
