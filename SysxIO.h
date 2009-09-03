@@ -49,7 +49,7 @@ public:
 	void setFileSource(QString area, QString hex1, QString hex2, QString hex3, QString hex4);
 	void setFileSource(QString area, QString hex1, QString hex2, QString hex3, QString hex4, QString hex5);
 	void setFileSource(QString area, QString hex1, QString hex2, QString hex3, QList<QString> hexData);
-	void setFileName(QString fileName);
+	void setFileName(QString fileName); 
 	QList<QString> getSourceItems(QString area, QString hex1, QString hex2);
 	int getSourceValue(QString area, QString hex1, QString hex2, QString hex3);
 	QString getFileName();
@@ -140,6 +140,7 @@ private:
 	void processSpooler();
 
 	SysxData fileSource;
+	SysxData temp1_Source;
 	SysxData systemSource;
 	QString fileName;
 

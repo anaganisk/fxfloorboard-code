@@ -1,6 +1,6 @@
 /****************************************************************************
 **
-** Copyright (C) 2008 Colin Willcocks.
+** Copyright (C) 2007, 2008, 2009 Colin Willcocks.
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
 ** All rights reserved.
 **
@@ -483,10 +483,6 @@ void SysxIO::resetDevice(QString replyMsg)
 			this, SLOT(resetDevice(QString)));
 
 		this->setDeviceReady(true);	// Free the device after finishing interaction.
-
-		//emit setStatusSymbol(1);
-		//emit setStatusMessage("Ready");
-		//emit setStatusProgress(0);
 	}
 	else
 	{
@@ -582,13 +578,6 @@ QList<QString> SysxIO::getFileSource(QString area, QString hex1, QString hex2)
 
 QString SysxIO::getCheckSum(int dataSize)
 {
-	/*bool ok;
-	QString base = "80";
-	int sum = dataSize % base.toInt(&ok, 16);
-	if(sum!=0) sum = base.toInt(&ok, 16) - sum;
-	QString checksum = QString::number(sum, 16).toUpper();
-	if(checksum.length()<2) checksum.prepend("0");
-	return checksum;*/
 	MidiTable *midiTable = MidiTable::Instance();
 	return midiTable->getCheckSum(dataSize);
 };
@@ -830,10 +819,6 @@ void SysxIO::finishedSending()
 ****************************************************************************/
 void SysxIO::requestPatchChange(int bank, int patch)
 {
-	/*emit setStatusSymbol(2);
-	emit setStatusProgress(0);
-	emit setStatusMessage(tr("Sending"));*/
-	
 	this->bankChange = bank;
 	this->patchChange = patch;
 
@@ -1051,21 +1036,6 @@ void SysxIO::requestPatch(int bank, int patch)
 ****************************************************************************/
 void SysxIO::errorSignal(QString windowTitle, QString errorMsg)
 {
-	/*
-		windowTitle = this->errorType;
-		errorMsg = this->errorMsg;
-		errorMsg.append("\n please press the [Connect] button to resume");
-
-		QMessageBox *msgBox = new QMessageBox();
-		msgBox->setWindowTitle(windowTitle);
-		msgBox->setIcon(QMessageBox::Warning);
-		msgBox->setTextFormat(Qt::RichText);
-		msgBox->setText(errorMsg);
-		msgBox->setStandardButtons(QMessageBox::Ok);
-		msgBox->exec();
-		
-		emit notConnectedSignal();
-		*/
 		emit setStatusdBugMessage(this->errorType + "  " + this->errorMsg);
 		this->errorType = "";
 		this->errorMsg = "";	

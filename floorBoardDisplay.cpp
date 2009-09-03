@@ -63,19 +63,40 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
 	this->valueDisplay->setMainObjectName("valueMain");
 	this->valueDisplay->setSubObjectName("valueSub");
 	
+	this->temp1Display = new customLabelDisplay(QRect(10, 62, 170, 18), this);
+	this->temp1Display->setLabelPosition(true);
+	this->temp1Display->setMainObjectName("nameMain");
+	this->temp1Display->setMainText("Empty", Qt::AlignCenter);
+	this->temp2Display = new customLabelDisplay(QRect(190, 62, 170, 18), this);
+	this->temp2Display->setLabelPosition(true);
+	this->temp2Display->setMainObjectName("nameMain");
+	this->temp2Display->setMainText("Empty", Qt::AlignCenter);
+	this->temp3Display = new customLabelDisplay(QRect(370, 62, 170, 18), this);
+	this->temp3Display->setLabelPosition(true);
+	this->temp3Display->setMainObjectName("nameMain");
+	this->temp3Display->setMainText("Empty", Qt::AlignCenter);
+	this->temp4Display = new customLabelDisplay(QRect(550, 62, 170, 18), this);
+	this->temp4Display->setLabelPosition(true);
+	this->temp4Display->setMainObjectName("nameMain");
+	this->temp4Display->setMainText("Empty", Qt::AlignCenter);
+	this->temp5Display = new customLabelDisplay(QRect(730, 62, 170, 18), this);
+	this->temp5Display->setLabelPosition(true);
+	this->temp5Display->setMainObjectName("nameMain");
+	this->temp5Display->setMainText("Empty", Qt::AlignCenter);
+	
 	Preferences *preferences = Preferences::Instance();
 	QString version = preferences->getPreferences("General", "Application", "version");
 	this->patchDisplay->setMainText(deviceType + (" Fx FloorBoard"));
 	this->patchDisplay->setSubText("version", version);
 
-
+  int bottomOffset = 499;
 	initPatch = new initPatchListMenu(QRect(405, 24, 168, 15), this);
   renameWidget *nameEdit = new renameWidget(this); 
   nameEdit->setGeometry(85, 5, 150, 34); 
   customRenameWidget *userDialog = new customRenameWidget(this, "0E", "00", "00", "Structure", "20"); 
-  userDialog->setGeometry(728, 462, 262, 25); 
+  userDialog->setGeometry(728, bottomOffset+5, 262, 25); 
   customRenameWidget *patchDialog = new customRenameWidget(this, "0D", "00", "00", "Structure", "80"); 
-  patchDialog->setGeometry(10, 502, 980, 25); 
+  patchDialog->setGeometry(10, bottomOffset+45, 980, 25); 
   customControlListMenu *output = new customControlListMenu(this, "00", "00", "11", "top");
   output->setGeometry(860, 5, 150, 30); 
   customControlListMenu *catagory = new customControlListMenu(this, "00", "00", "10", "right");
@@ -88,21 +109,36 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
 	this->system_Button = new customButton(tr("System Settings"), false, QPoint(762, 5), this, ":/images/pushbutton.png");
 	this->master_Button = new customButton(tr("Master"), false, QPoint(584, 24), this, ":/images/pushbutton.png");
 
-  this->ch_mode_Button = new customButton(tr("Channel Mode"), false, QPoint(10, 457), this, ":/images/pushbutton.png");
-  this->preamp1_Button = new customButton(tr("PreAmp"), false, QPoint(100, 457), this, ":/images/pushbutton.png");
+  this->ch_mode_Button = new customButton(tr("Channel Mode"), false, QPoint(10, bottomOffset), this, ":/images/pushbutton.png");
+  this->preamp1_Button = new customButton(tr("PreAmp"), false, QPoint(100, bottomOffset), this, ":/images/pushbutton.png");
 	//this->preamp2_Button = new customButton(tr("PreAmp B"), false, QPoint(100, 485), this, ":/images/pushbutton.png");
-	this->distortion_Button = new customButton(tr("Distortion"), false, QPoint(190,457), this, ":/images/pushbutton.png");
-	this->compressor_Button = new customButton(tr("Compressor"), false, QPoint(190,475), this, ":/images/pushbutton.png");
-	this->ns1_Button = new customButton(tr("NS 1"), false, QPoint(280, 457), this, ":/images/pushbutton.png");
-	this->ns2_Button = new customButton(tr("NS 2"), false, QPoint(280, 475), this, ":/images/pushbutton.png");
-	this->fx1_Button = new customButton(tr("FX 1"), false, QPoint(370, 457), this, ":/images/pushbutton.png");
-	this->fx2_Button = new customButton(tr("FX 2"), false, QPoint(370, 475), this, ":/images/pushbutton.png");
-	this->reverb_Button = new customButton(tr("Reverb"), false, QPoint(460, 457), this, ":/images/pushbutton.png");
-	this->delay_Button = new customButton(tr("Delay"), false, QPoint(460, 475), this, ":/images/pushbutton.png");
-	this->chorus_Button = new customButton(tr("Chorus"), false, QPoint(550, 457), this, ":/images/pushbutton.png");
-	this->sendreturn_Button = new customButton(tr("Send/Return"), false, QPoint(550, 475), this, ":/images/pushbutton.png");
-	this->eq_Button = new customButton(tr("Equalizer"), false, QPoint(640, 457), this, ":/images/pushbutton.png");
-	this->pedal_Button = new customButton(tr("Pedal"), false, QPoint(640, 475), this, ":/images/pushbutton.png");
+	this->distortion_Button = new customButton(tr("Distortion"), false, QPoint(190,bottomOffset), this, ":/images/pushbutton.png");
+	this->compressor_Button = new customButton(tr("Compressor"), false, QPoint(190, bottomOffset+18), this, ":/images/pushbutton.png");
+	this->ns1_Button = new customButton(tr("NS 1"), false, QPoint(280, bottomOffset), this, ":/images/pushbutton.png");
+	this->ns2_Button = new customButton(tr("NS 2"), false, QPoint(280, bottomOffset+18), this, ":/images/pushbutton.png");
+	this->fx1_Button = new customButton(tr("FX 1"), false, QPoint(370, bottomOffset), this, ":/images/pushbutton.png");
+	this->fx2_Button = new customButton(tr("FX 2"), false, QPoint(370, bottomOffset+18), this, ":/images/pushbutton.png");
+	this->reverb_Button = new customButton(tr("Reverb"), false, QPoint(460, bottomOffset), this, ":/images/pushbutton.png");
+	this->delay_Button = new customButton(tr("Delay"), false, QPoint(460, bottomOffset+18), this, ":/images/pushbutton.png");
+	this->chorus_Button = new customButton(tr("Chorus"), false, QPoint(550, bottomOffset), this, ":/images/pushbutton.png");
+	this->sendreturn_Button = new customButton(tr("Send/Return"), false, QPoint(550, bottomOffset+18), this, ":/images/pushbutton.png");
+	this->eq_Button = new customButton(tr("Equalizer"), false, QPoint(640, bottomOffset), this, ":/images/pushbutton.png");
+	this->pedal_Button = new customButton(tr("Pedal"), false, QPoint(640, bottomOffset+18), this, ":/images/pushbutton.png");
+	
+	
+	this->temp1_copy_Button = new customButton(tr("Temp-1 Copy"), false, QPoint(10, 45), this, ":/images/pushbutton.png");
+	this->temp1_paste_Button = new customButton(tr("Temp-1 Paste"), false, QPoint(100, 45), this, ":/images/pushbutton.png");
+	this->temp2_copy_Button = new customButton(tr("Temp-2 Copy"), false, QPoint(190, 45), this, ":/images/pushbutton.png");
+	this->temp2_paste_Button = new customButton(tr("Temp-2 Paste"), false, QPoint(280, 45), this, ":/images/pushbutton.png");
+	this->temp3_copy_Button = new customButton(tr("Temp-3 Copy"), false, QPoint(370, 45), this, ":/images/pushbutton.png");
+	this->temp3_paste_Button = new customButton(tr("Temp-3 Paste"), false, QPoint(460, 45), this, ":/images/pushbutton.png");
+	this->temp4_copy_Button = new customButton(tr("Temp-4 Copy"), false, QPoint(550, 45), this, ":/images/pushbutton.png");
+	this->temp4_paste_Button = new customButton(tr("Temp-4 Paste"), false, QPoint(640, 45), this, ":/images/pushbutton.png");
+	this->temp5_copy_Button = new customButton(tr("Temp-5 Copy"), false, QPoint(730, 45), this, ":/images/pushbutton.png");
+	this->temp5_paste_Button = new customButton(tr("Temp-5 Paste"), false, QPoint(820, 45), this, ":/images/pushbutton.png");
+	this->temp6_copy_Button = new customButton(tr("Temp-6 Copy"), false, QPoint(910, 45), this, ":/images/pushbutton.png");
+	this->temp6_paste_Button = new customButton(tr("Temp-6 Paste"), false, QPoint(910, 64), this, ":/images/pushbutton.png");
+  
 	
 	
 	SysxIO *sysxIO = SysxIO::Instance();
@@ -114,6 +150,7 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
 	QObject::connect(this, SIGNAL(notConnectedSignal()), this, SLOT(notConnected()));
 
 	QObject::connect(this->parent(), SIGNAL(updateSignal()), this, SLOT(updateDisplay()));
+	QObject::connect(this, SIGNAL(updateSignal()), this->parent(), SIGNAL(updateSignal()));
 
 	QObject::connect(this->connectButton, SIGNAL(valueChanged(bool)), this, SLOT(connectSignal(bool)));
 	QObject::connect(this->writeButton, SIGNAL(valueChanged(bool)), this, SLOT(writeSignal(bool)));
@@ -133,6 +170,17 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
 	QObject::connect(this->sendreturn_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(sendreturn_buttonSignal(bool)));
 	QObject::connect(this->eq_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(eq_buttonSignal(bool)));
 	QObject::connect(this->pedal_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(pedal_buttonSignal(bool)));
+	
+	QObject::connect(this->temp1_copy_Button, SIGNAL(valueChanged(bool)),  this, SLOT(temp1_copy(bool)));
+	QObject::connect(this->temp1_paste_Button, SIGNAL(valueChanged(bool)), this, SLOT(temp1_paste(bool)));
+	QObject::connect(this->temp2_copy_Button, SIGNAL(valueChanged(bool)),  this, SLOT(temp2_copy(bool)));
+	QObject::connect(this->temp2_paste_Button, SIGNAL(valueChanged(bool)), this, SLOT(temp2_paste(bool)));
+	QObject::connect(this->temp3_copy_Button, SIGNAL(valueChanged(bool)),  this, SLOT(temp3_copy(bool)));
+	QObject::connect(this->temp3_paste_Button, SIGNAL(valueChanged(bool)), this, SLOT(temp3_paste(bool)));
+	QObject::connect(this->temp4_copy_Button, SIGNAL(valueChanged(bool)),  this, SLOT(temp4_copy(bool)));
+	QObject::connect(this->temp4_paste_Button, SIGNAL(valueChanged(bool)), this, SLOT(temp4_paste(bool)));
+	QObject::connect(this->temp5_copy_Button, SIGNAL(valueChanged(bool)),  this, SLOT(temp5_copy(bool)));
+	QObject::connect(this->temp5_paste_Button, SIGNAL(valueChanged(bool)), this, SLOT(temp5_paste(bool)));
 	
 	QString midiIn = preferences->getPreferences("Midi", "MidiIn", "device");
 	QString midiOut = preferences->getPreferences("Midi", "MidiOut", "device");
@@ -166,10 +214,12 @@ void floorBoardDisplay::setPatchDisplay(QString patchName)
 		QString fileName = sysxIO->getFileName();
 		this->patchDisplay->setMainText(patchName);
 		this->patchDisplay->setSubText(fileName.section('/', -1, -1));
+		this->patchName = patchName;
 	};
 	if(sysxIO->getFileName() == tr("init patch") || sysxIO->getFileName() == ":default.syx")
 	{
 		sysxIO->setFileName("");
+		this->patchName = "Empty";
 	}
 	else
 	{
@@ -391,6 +441,217 @@ void floorBoardDisplay::autoConnectionResult(QString sysxMsg)
   };
 };  
 
+void floorBoardDisplay::temp1_copy(bool value)
+{
+  SysxIO *sysxIO = SysxIO::Instance();
+  this->patchName = sysxIO->getCurrentPatchName();
+  this->temp1Display->setMainText(patchName, Qt::AlignCenter);  
+  
+  QString sysxMsg;
+	QList< QList<QString> > patchData = sysxIO->getFileSource().hex; // Get the loaded patch data.
+	QList<QString> patchAddress = sysxIO->getFileSource().address;
+	QString addr1 = QString::number(96, 16).toUpper();  // temp address
+	QString addr2 = QString::number(0, 16).toUpper();
+
+	for(int i=0;i<patchData.size();++i)
+	{
+		QList<QString> data = patchData.at(i);
+		for(int x=0;x<data.size();++x)
+		{
+			QString hex;
+			if(x == sysxAddressOffset)
+			{ hex = addr1; }
+			else if(x == sysxAddressOffset + 1)
+			{	hex = addr2; }
+			else
+			{	hex = data.at(x);	};
+			if (hex.length() < 2) hex.prepend("0");
+			sysxMsg.append(hex);
+		}; 
+	}; 
+  this->temp1_sysxMsg = sysxMsg;   
+};
+
+void floorBoardDisplay::temp1_paste(bool value)
+{
+  if (!temp1_sysxMsg.isEmpty() )
+  {
+  SysxIO *sysxIO = SysxIO::Instance();
+  sysxIO->setFileSource("patch", temp1_sysxMsg);
+  emit updateSignal();  
+	sysxIO->writeToBuffer();
+	};
+};
+
+void floorBoardDisplay::temp2_copy(bool value)
+{
+  SysxIO *sysxIO = SysxIO::Instance();
+  this->patchName = sysxIO->getCurrentPatchName();
+  this->temp2Display->setMainText(patchName, Qt::AlignCenter);  
+  
+  QString sysxMsg;
+	QList< QList<QString> > patchData = sysxIO->getFileSource().hex; // Get the loaded patch data.
+	QList<QString> patchAddress = sysxIO->getFileSource().address;
+	QString addr1 = QString::number(96, 16).toUpper();  // temp address
+	QString addr2 = QString::number(0, 16).toUpper();
+
+	for(int i=0;i<patchData.size();++i)
+	{
+		QList<QString> data = patchData.at(i);
+		for(int x=0;x<data.size();++x)
+		{
+			QString hex;
+			if(x == sysxAddressOffset)
+			{ hex = addr1; }
+			else if(x == sysxAddressOffset + 1)
+			{	hex = addr2; }
+			else
+			{	hex = data.at(x);	};
+			if (hex.length() < 2) hex.prepend("0");
+			sysxMsg.append(hex);
+		}; 
+	}; 
+  this->temp2_sysxMsg = sysxMsg;   
+};
+
+void floorBoardDisplay::temp2_paste(bool value)
+{
+  if (!temp2_sysxMsg.isEmpty() )
+  {
+  SysxIO *sysxIO = SysxIO::Instance();
+  sysxIO->setFileSource("patch", temp2_sysxMsg);
+  emit updateSignal();  
+	sysxIO->writeToBuffer();
+	};
+};
+
+void floorBoardDisplay::temp3_copy(bool value)
+{
+  SysxIO *sysxIO = SysxIO::Instance();
+  this->patchName = sysxIO->getCurrentPatchName();
+  this->temp3Display->setMainText(patchName, Qt::AlignCenter);  
+  
+  QString sysxMsg;
+	QList< QList<QString> > patchData = sysxIO->getFileSource().hex; // Get the loaded patch data.
+	QList<QString> patchAddress = sysxIO->getFileSource().address;
+	QString addr1 = QString::number(96, 16).toUpper();  // temp address
+	QString addr2 = QString::number(0, 16).toUpper();
+
+	for(int i=0;i<patchData.size();++i)
+	{
+		QList<QString> data = patchData.at(i);
+		for(int x=0;x<data.size();++x)
+		{
+			QString hex;
+			if(x == sysxAddressOffset)
+			{ hex = addr1; }
+			else if(x == sysxAddressOffset + 1)
+			{	hex = addr2; }
+			else
+			{	hex = data.at(x);	};
+			if (hex.length() < 2) hex.prepend("0");
+			sysxMsg.append(hex);
+		}; 
+	}; 
+  this->temp3_sysxMsg = sysxMsg;   
+};
+
+void floorBoardDisplay::temp3_paste(bool value)
+{
+  if (!temp3_sysxMsg.isEmpty() )
+  {
+  SysxIO *sysxIO = SysxIO::Instance();
+  sysxIO->setFileSource("patch", temp3_sysxMsg);
+  emit updateSignal();  
+	sysxIO->writeToBuffer();
+	};
+};
+
+void floorBoardDisplay::temp4_copy(bool value)
+{
+  SysxIO *sysxIO = SysxIO::Instance();
+  this->patchName = sysxIO->getCurrentPatchName();
+  this->temp4Display->setMainText(patchName, Qt::AlignCenter);  
+  
+  QString sysxMsg;
+	QList< QList<QString> > patchData = sysxIO->getFileSource().hex; // Get the loaded patch data.
+	QList<QString> patchAddress = sysxIO->getFileSource().address;
+	QString addr1 = QString::number(96, 16).toUpper();  // temp address
+	QString addr2 = QString::number(0, 16).toUpper();
+
+	for(int i=0;i<patchData.size();++i)
+	{
+		QList<QString> data = patchData.at(i);
+		for(int x=0;x<data.size();++x)
+		{
+			QString hex;
+			if(x == sysxAddressOffset)
+			{ hex = addr1; }
+			else if(x == sysxAddressOffset + 1)
+			{	hex = addr2; }
+			else
+			{	hex = data.at(x);	};
+			if (hex.length() < 2) hex.prepend("0");
+			sysxMsg.append(hex);
+		}; 
+	}; 
+  this->temp4_sysxMsg = sysxMsg;   
+};
+
+void floorBoardDisplay::temp4_paste(bool value)
+{
+  if (!temp4_sysxMsg.isEmpty() )
+  {
+  SysxIO *sysxIO = SysxIO::Instance();
+  sysxIO->setFileSource("patch", temp4_sysxMsg);
+  emit updateSignal();  
+	sysxIO->writeToBuffer();
+	};
+};
+
+void floorBoardDisplay::temp5_copy(bool value)
+{
+  SysxIO *sysxIO = SysxIO::Instance();
+  this->patchName = sysxIO->getCurrentPatchName();
+  this->temp5Display->setMainText(patchName, Qt::AlignCenter);  
+  
+  QString sysxMsg;
+	QList< QList<QString> > patchData = sysxIO->getFileSource().hex; // Get the loaded patch data.
+	QList<QString> patchAddress = sysxIO->getFileSource().address;
+	QString addr1 = QString::number(96, 16).toUpper();  // temp address
+	QString addr2 = QString::number(0, 16).toUpper();
+
+	for(int i=0;i<patchData.size();++i)
+	{
+		QList<QString> data = patchData.at(i);
+		for(int x=0;x<data.size();++x)
+		{
+			QString hex;
+			if(x == sysxAddressOffset)
+			{ hex = addr1; }
+			else if(x == sysxAddressOffset + 1)
+			{	hex = addr2; }
+			else
+			{	hex = data.at(x);	};
+			if (hex.length() < 2) hex.prepend("0");
+			sysxMsg.append(hex);
+		}; 
+	}; 
+  this->temp5_sysxMsg = sysxMsg;   
+};
+
+void floorBoardDisplay::temp5_paste(bool value)
+{
+  if (!temp5_sysxMsg.isEmpty() )
+  {
+  SysxIO *sysxIO = SysxIO::Instance();
+  sysxIO->setFileSource("patch", temp5_sysxMsg);
+  emit updateSignal();  
+	sysxIO->writeToBuffer();
+	};
+};
+
+
 void floorBoardDisplay::connectSignal(bool value)
 {
 	QString replyMsg;
@@ -527,53 +788,12 @@ void floorBoardDisplay::writeSignal(bool)
 	 
 		if(sysxIO->getBank() == 0) // Check if a bank is sellected. 
 		{
-		/*	QMessageBox *msgBox = new QMessageBox();
-			msgBox->setWindowTitle(deviceType + tr(" Fx FloorBoard"));
-			msgBox->setIcon(QMessageBox::Warning);
-			msgBox->setTextFormat(Qt::RichText);
-			QString msgText;
-			msgText.append("<font size='+1'><b>");
-			msgText.append(tr("You didn't select a bank to write to."));
-			msgText.append("<b></font><br>");
-			msgText.append(tr("Please select a user bank to write this patch to and try again."));
-			msgBox->setText(msgText);
-			msgBox->setStandardButtons(QMessageBox::Ok);
-			//msgBox->exec();
-			this->writeButton->setBlink(false);
-			this->writeButton->setValue(false);     */
 			sysxIO->setDeviceReady(false);			// Reserve the device for interaction.
 			writeToBuffer();
 		}
 		else // Bank is sellected. 
 		{  
 			sysxIO->setDeviceReady(false);			// Reserve the device for interaction.
-
-		//	if(!sysxIO->getSyncStatus())			// Check if the data is already in sync. with the device.
-		//	{	/* If not we send the data to the (temp) buffer. So we don't change the patch default address "60 00". */		
-			/*	if(sysxIO->getBank() != sysxIO->getLoadedBank() || sysxIO->getPatch() != sysxIO->getLoadedPatch())// Check if a different patch is sellected
-				{															// else load the selected one.
-					emit setStatusSymbol(2);
-					emit setStatusMessage("Sending");
-					
-					int bank = sysxIO->getBank();
-					int patch = sysxIO->getPatch();
-					patchLoadSignal(bank, patch);	// Tell to stop blinking a sellected patch and prepare to load this one instead.
-					setPatchNumDisplay(bank, patch);
-
-					QObject::disconnect(sysxIO, SIGNAL(isChanged()),	
-						this, SLOT(writeToBuffer()));
-				  QObject::connect(sysxIO, SIGNAL(isChanged()),	// Connect the isChanged message
-						this, SLOT(writeToBuffer()));				// to writeToBuffer.
-
-					sysxIO->requestPatchChange(bank, patch);
-			//	}
-			//	else
-			//	{
-			//		writeToBuffer();
-			//	};		 
-				sysxIO->setDeviceReady(true);
-			}
-			else*/ /* If sync we will write (save) the patch directly to selected bank. So we will have to change the patch address */
 			{
 				if((sysxIO->getBank() > bankTotalUser && sysxIO->getBank() <= bankTotalAll) || (sysxIO->getBank() == 105)) // Preset banks are NOT writable so we check.
 				{
