@@ -4,7 +4,7 @@ GT-10FxFloorBoard Copyright (C) 2007, 2008, 2009 Colin Willcocks (gumtownbassman
 =======
 
 
-GT-10FxFloorBoard version 20090820: 20 August 2009
+GT-10FxFloorBoard version 20090903: 03 September 2009
 
 PLEASE FEEL FREE TO DONATE, YOU MAY FREELY USE THIS SOFTWARE, 
  JUST KEEP IN MIND THE 6000 HOURS SPENT OVER 3 YEARS GETTING IT HERE,

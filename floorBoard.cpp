@@ -206,7 +206,9 @@ void floorBoard::setFloorBoard() {
 	// Draw InfoBar
 	QRectF sourceInfoBar(0.0, 0.0, imageInfoBar.width(), imageInfoBar.height());
 	QRectF targetInfoBar(offset, 0.0, imageInfoBar.width(), imageInfoBar.height());
+	QRectF targetInfoBar2(offset, imageInfoBar.height()-4, imageInfoBar.width(), imageInfoBar.height());
 	painter.drawPixmap(targetInfoBar, imageInfoBar, sourceInfoBar);
+	painter.drawPixmap(targetInfoBar2, imageInfoBar, sourceInfoBar);
 
 	// Draw LiberianBar
 	QRectF sourceLiberianBar(0.0, 0.0, imageInfoBar.width(), imageInfoBar.height());
@@ -805,7 +807,7 @@ void floorBoard::setEditDialog(editWindow* editDialog)
 void floorBoard::centerEditDialog()
 {
 	int x = this->displayPos.x() + (((this->floorSize.width() - this->displayPos.x()) - this->editDialog->width()) / 2);
-	int y = this->pos.y() + (((this->floorSize.height() - this->infoBarHeight) - this->editDialog->height()) / 2);
+	int y = this->pos.y() + (((this->floorSize.height() /*- this->infoBarHeight*/) - this->editDialog->height()) / 2);
   this->editDialog->move(x, y);
 };
 

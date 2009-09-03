@@ -1,6 +1,8 @@
 /****************************************************************************
 **
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
+** Copyright (C) 2007, 2008, 2009 Colin Willcocks.
+** Copyright (C) 2005, 2006, 2007 Uco Mesdag. 
+** All rights reserved.
 **
 ** This file is part of "GT-10 Fx FloorBoard".
 **
@@ -19,18 +21,21 @@
 ** 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 **
 ****************************************************************************/
-
+ 
 /* CUSTOM QTREEWIDGET STYLE */
-
+bankTreeList#banklist{
+background-color rgb(0,1,62);
+}
 QTreeWidget#banklist {
 font-family: Arial;
 font-size: 10px;
 font-weight: bold;
 color: rgb(0,255,204);
-background-color: rgb(0,1,62);
+background-color: rgba(0,1,62,255);
 selection-color: rgb(0,255,204);
 selection-background-color: rgb(0,1,62);
 border-style: solid;
+border-radius: 10px;
 border-width: 1px;
 border-color: rgb(150,150,150);
 }
@@ -59,14 +64,6 @@ image: url(":/images/expand.png") 1;
 }
 QTreeWidget#banklist::branch:has-children:open {
 image: url(":/images/collapse.png") 1;
-}
-
-/* CUSTOM STANDARD OS QCOMBOBOX STYLE */
-
-QComboBox#standardcombo {
-font-family: Arial;
-font-size: 10px;
-font-weight: bold;
 }
 
 /* CUSTOM QCOMBOBOX STYLE */
@@ -104,8 +101,8 @@ border-width: 1px;
 border-radius: 3px;
 border-color: rgb(150,150,150);
 padding: -1px;
-padding-left: 1px;
-padding-right: 1px;
+padding-left: 0px;
+padding-right: 0px;
 }
 
 /* CUSTOM SCROLLBAR STYLE */
@@ -165,25 +162,25 @@ border-color: rgb(150,150,150);
 }
 QLabel#bankMain {
 font-family: Arial;
-font-size: 14px;
+font-size: 12px;
 font-weight: bold;
 color: rgb(0,255,204);
 }
 QLabel#bankSub {
 font-family: Arial;
-font-size: 9px;
+font-size: 10px;
 font-weight: bold;
 color: rgb(0,255,204);
 }
 QLabel#nameMain {
 font-family: Arial;
-font-size: 12px;
+font-size: 11px;
 font-weight: bold;
 color: rgb(0,255,204);
 }
 QLabel#nameSub {
 font-family: Arial;
-font-size: 9px;
+font-size: 10px;
 font-weight: bold;
 color: rgb(0,255,204);
 }
@@ -195,7 +192,7 @@ color: rgb(0,255,204);
 }
 QLabel#valueSub {
 font-family: Arial;
-font-size: 9px;
+font-size: 10px;
 font-weight: bold;
 color: rgb(0,255,204);
 }
@@ -254,7 +251,7 @@ margin-top: 8px;
 padding: 2px;
 background-color: rgb(1,35,182);
 }
-
+ 
 /* CUSTOM CONTROLLABEL STYLE */
 
 QLabel#customlabel {
@@ -264,7 +261,7 @@ font-weight: bold;
 color: rgb(255,255,255);
 }
 
-/* CUSTOM CONTROLKNOB STYLE */
+/* CUSTOM CONTROLKNOB STYLE  */
 
 QLineEdit#editdisplay {
 font-family: Arial;
@@ -280,7 +277,6 @@ padding: 0px;
 padding-left: 1px;
 padding-right: 1px;
 }
-
 
 /* CUSTOM TARGETKNOB STYLE  */
 

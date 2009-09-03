@@ -1,8 +1,8 @@
 /****************************************************************************
 **
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
+** Copyright (C) 2009 Colin Willcocks. All rights reserved.
 **
-** This file is part of "GT-10 Fx FloorBoard".
+** This file is part of "GT-10B Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -20,51 +20,42 @@
 **
 ****************************************************************************/
 
-#ifndef FLOORPANELBAR_H
-#define FLOORPANELBAR_H
+#ifndef CUSTOMLABELDISPLAY_H
+#define CUSTOMLABELDISPLAY_H
 
 #include <QtGui>
 #include <QWidget>
-#include <QPixmap>
 
-class floorPanelBar : public QWidget
+class customLabelDisplay : public QWidget
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-	floorPanelBar(
-		QWidget *parent = 0,
-		QString imagePathPanelBar = ":/images/panelbar.png",
-		QSize panelBarSize = QSize::QSize(17, 579));
-	void setValue(int newValue);
-
-public slots:
-	void setPos(QPoint newPos);
-
-signals:
-	void resizeSignal(int newValue);
-	void collapseSignal();
-	void collapseState(bool collapsed);
-
-	void showDragBar(QPoint newpos);
-	void hideDragBar();
+	customLabelDisplay(QRect geometry, QWidget *parent = 0);
+	void setLabelPosition(bool invert = false);
+	void setMainText(QString mainText, Qt::Alignment alignment = Qt::AlignLeft);
+	void setSubText(QString subTextLeft, QString subTextRight = "");
+	void clearAll();
+	void setMainObjectName(QString name);
+	void setSubObjectName(QString name);
+	void setAllColor(QColor color);
+	void resetAllColor();
 
 protected:
 	void paintEvent(QPaintEvent *event);
-	void mousePressEvent(QMouseEvent *event);
-	void mouseDoubleClickEvent(QMouseEvent *event);
-	void mouseMoveEvent(QMouseEvent *event);	
-	void mouseReleaseEvent(QMouseEvent *event);
+
+public slots:
+
+signals:
 
 private:
-	QString imagePathPanelBar;
-	QSize panelBarSize;
-	QPixmap image;
-
-	int r_value;
-	bool c_value;
-
-	QPoint dragStartPosition;
+	QRect geometry;
+	QFont font;
+	QPalette mainPal;
+	QPalette subPal;
+	QLabel *mainLabel;
+	QLabel *subLabelLeft;
+	QLabel *subLabelRight;
 };
 
-#endif // FLOORPANELBAR_H
+#endif // CUSTOMLABELDISPLAY_H

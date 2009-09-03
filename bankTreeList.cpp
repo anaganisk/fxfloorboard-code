@@ -125,13 +125,13 @@ void bankTreeList::setOpenItems(QTreeWidgetItem *item)
 	int c = openPatchTreeItems.size();
 	int b = openBankTreeItems.size();
 	int a = 0;
-	if(treeList->isExpanded(treeList->model()->index(0, 0)) && 
-		treeList->isExpanded(treeList->model()->index(1, 0)))
+	if(treeList->isExpanded(treeList->model()->index(1, 0)) && 
+		treeList->isExpanded(treeList->model()->index(2, 0)))
 	{
 		a = 2;
 	}
-	else if(treeList->isExpanded(treeList->model()->index(0, 0)) || 
-		treeList->isExpanded(treeList->model()->index(1, 0)))
+	else if(treeList->isExpanded(treeList->model()->index(1, 0)) || 
+		treeList->isExpanded(treeList->model()->index(2, 0)))
 	{
 		a = 1;
 	};
@@ -399,7 +399,7 @@ QTreeWidget* bankTreeList::newTreeList()
     for (int a=1; a<=2; a++)
 	{
 		QTreeWidgetItem* QFXbankRange = new QTreeWidgetItem; // don't pass a parent here!
-    QFXbankRange->setText(0, QString::QString("Preset ").append(QString::number(a, 10)).append(" - ").append(QString::number(a+19, 10)) );
+    QFXbankRange->setText(0, QString::QString("Preset ").append(QString::number(a, 10)).append(" - ").append(QString::number(a+9, 10)) );
 		QFXbankRange->setWhatsThis(0, "what the ?");
 		
 			for (int c=1; c<=10; c++)

@@ -29,26 +29,28 @@ HEADERS += ./editPage.h \
     ./mainWindow.h \
     ./bankTreeList.h \
     ./customButton.h \
+    ./customComboBox.h \
     ./customControlKnob.h \
-    ./customControlTarget.h \
     ./customControlRange.h \
     ./customControlLabel.h \
     ./customControlListMenu.h \
     ./customControlSwitch.h \
+    ./customControlTarget.h \
     ./customDial.h \
     ./customDisplay.h \
     ./customKnob.h \
     ./customKnobTarget.h \
     ./customKnobRange.h \
+    ./customLabelDisplay.h \
     ./customLed.h \
     ./customRangeDial.h \
     ./customRenameDialog.h \
     ./customRenameWidget.h \
     ./customSlider.h \
     ./customSplashScreen.h \
+    ./customSwitch.h \ 
     ./customTargetDial.h \
     ./customTargetListMenu.h \
-    ./customSwitch.h \ 
     ./dragBar.h \
     ./floorBoard.h \
     ./floorBoardDisplay.h \
@@ -83,8 +85,8 @@ HEADERS += ./editPage.h \
     ./stompbox_ns_1.h \
     ./stompbox_ns_2.h \
     ./stompbox_od.h \
-    ./stompbox_rv.h \
     ./stompbox_pdl.h \
+    ./stompbox_rv.h \
     ./midiIO.h \
     ./MidiTable.h \
     ./MidiTableDestroyer.h \
@@ -93,13 +95,12 @@ HEADERS += ./editPage.h \
     ./SysxIO.h \
     ./SysxIODestroyer.h \
     ./sysxWriter.h \
-    ./xmlwriter/xmlwriter.h \
-    ./xmlwriter/xmlwriter_p.h \
     ./Preferences.h \
     ./PreferencesDestroyer.h \
     ./preferencesDialog.h \
     ./preferencesPages.h \
-    ./customComboBox.h
+    ./xmlwriter/xmlwriter.h \
+    ./xmlwriter/xmlwriter_p.h 
 
 #Source files
 SOURCES += ./editPage.cpp \
@@ -108,6 +109,7 @@ SOURCES += ./editPage.cpp \
     ./mainWindow.cpp \
     ./bankTreeList.cpp \
     ./customButton.cpp \
+    ./customComboBox.cpp \
     ./customControlKnob.cpp \
     ./customControlLabel.cpp \
     ./customControlListMenu.cpp \
@@ -119,6 +121,7 @@ SOURCES += ./editPage.cpp \
     ./customKnob.cpp \
     ./customKnobTarget.cpp \
     ./customKnobRange.cpp \
+    ./customLabelDisplay.cpp \
     ./customLed.cpp \
     ./customRangeDial.cpp \
     ./customRenameDialog.cpp \
@@ -162,20 +165,19 @@ SOURCES += ./editPage.cpp \
     ./stompbox_ns_1.cpp \
     ./stompbox_ns_2.cpp \
     ./stompbox_od.cpp \
-    ./stompbox_rv.cpp \
     ./stompbox_pdl.cpp \
+    ./stompbox_rv.cpp \ 
     ./midiIO.cpp \
     ./MidiTable.cpp \
     ./MidiTableDestroyer.cpp \
-    ./SysxIO.cpp \
-    ./SysxIODestroyer.cpp \
-    ./sysxWriter.cpp \
-    ./xmlwriter/xmlwriter.cpp \
     ./Preferences.cpp \
     ./PreferencesDestroyer.cpp \
     ./preferencesDialog.cpp \
     ./preferencesPages.cpp \
-    ./customComboBox.cpp
-
+    ./SysxIO.cpp \
+    ./SysxIODestroyer.cpp \
+    ./sysxWriter.cpp \
+    ./xmlwriter/xmlwriter.cpp    
+    
 #Resource file(s)
 RESOURCES += GT-10FxFloorBoard.qrc

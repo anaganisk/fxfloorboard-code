@@ -2,10 +2,10 @@
 
 ; HM NIS Edit Wizard helper defines
 !define PRODUCT_NAME "GT-10FxFloorBoard"
-!define PRODUCT_VERSION "20090820"
+!define PRODUCT_VERSION "20090903"
 !define PRODUCT_PUBLISHER "gumtownbassman"
 !define PRODUCT_WEB_SITE "http://gtx.tinfoilmusic.net"
-!define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\GT-10fxfloorboard.exe"
+!define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\GT-10FxFloorboard.exe"
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
 !define PRODUCT_UNINST_ROOT_KEY "HKLM"
 
@@ -26,7 +26,7 @@
 ; Instfiles page
 !insertmacro MUI_PAGE_INSTFILES
 ; Finish page
-!define MUI_FINISHPAGE_RUN "$INSTDIR\GT-10fxfloorboard.exe"
+!define MUI_FINISHPAGE_RUN "$INSTDIR\GT-10FxFloorboard.exe"
 !define MUI_FINISHPAGE_SHOWREADME "$INSTDIR\readme.txt"
 !insertmacro MUI_PAGE_FINISH
 
@@ -39,7 +39,7 @@
 ; MUI end ------
 
 Name "${PRODUCT_NAME} ${PRODUCT_VERSION}"
-OutFile "Setup.exe"
+OutFile "GT-10FxFloorBoard_Setup.exe"
 InstallDir "$PROGRAMFILES\GT-10FxFloorBoard"
 InstallDirRegKey HKLM "${PRODUCT_DIR_REGKEY}" ""
 ShowInstDetails show
