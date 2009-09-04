@@ -37,7 +37,7 @@ public:
 	floorPanelBar(
 		QWidget *parent = 0,
 		QString imagePathPanelBar = ":/images/panelbar.png",
-		QSize panelBarSize = QSize::QSize(17, 531));
+		QSize panelBarSize = QSize::QSize(17, 579));
 	void setValue(int newValue);
 
 public slots:

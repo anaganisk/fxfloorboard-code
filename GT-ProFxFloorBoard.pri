@@ -40,6 +40,7 @@ HEADERS += ./editPage.h \
     ./customKnob.h \
     ./customKnobRange.h \
     ./customKnobTarget.h \
+    ./customLabelDisplay.h \
     ./customLed.h \
     ./customRangeDial.h \
     ./customRenameDialog.h \
@@ -112,6 +113,7 @@ SOURCES += ./editPage.cpp \
     ./customKnob.cpp \
     ./customKnobRange.cpp \
     ./customKnobTarget.cpp \
+    ./customLabelDisplay.cpp \
     ./customLed.cpp \
     ./customRangeDial.cpp \
     ./customRenameDialog.cpp \
