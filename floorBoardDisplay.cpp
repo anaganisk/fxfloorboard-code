@@ -52,34 +52,38 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
 	this->patchLoadError = false;
 	this->blinkCount = 0;
 	
-	this->patchNumDisplay = new customDisplay(QRect(25, 5, 50, 34), this);
+	int patchDisplayRowOffset = 5;
+	int editButtonRowOffset = 45;
+	int tempRowOffset = 499;
+	int bottomOffset = 544;
+	this->patchNumDisplay = new customDisplay(QRect(25, patchDisplayRowOffset, 50, 34), this);
 	this->patchNumDisplay->setLabelPosition(true);
 	this->patchNumDisplay->setMainObjectName("bankMain");
 	this->patchNumDisplay->setSubObjectName("bankSub");
-	this->patchDisplay = new customDisplay(QRect(85, 5, 150, 34), this);
+	this->patchDisplay = new customDisplay(QRect(85, patchDisplayRowOffset, 150, 34), this);
 	this->patchDisplay->setMainObjectName("nameMain");
 	this->patchDisplay->setSubObjectName("nameSub");
-	this->valueDisplay = new customDisplay(QRect(245, 5, 150, 34), this);
+	this->valueDisplay = new customDisplay(QRect(245, patchDisplayRowOffset, 150, 34), this);
 	this->valueDisplay->setMainObjectName("valueMain");
 	this->valueDisplay->setSubObjectName("valueSub");
 	
-	this->temp1Display = new customLabelDisplay(QRect(10, 62, 170, 18), this);
+	this->temp1Display = new customLabelDisplay(QRect(10, tempRowOffset+17, 170, 18), this);
 	this->temp1Display->setLabelPosition(true);
 	this->temp1Display->setMainObjectName("nameMain");
 	this->temp1Display->setMainText("Empty", Qt::AlignCenter);
-	this->temp2Display = new customLabelDisplay(QRect(190, 62, 170, 18), this);
+	this->temp2Display = new customLabelDisplay(QRect(190, tempRowOffset+17, 170, 18), this);
 	this->temp2Display->setLabelPosition(true);
 	this->temp2Display->setMainObjectName("nameMain");
 	this->temp2Display->setMainText("Empty", Qt::AlignCenter);
-	this->temp3Display = new customLabelDisplay(QRect(370, 62, 170, 18), this);
+	this->temp3Display = new customLabelDisplay(QRect(370, tempRowOffset+17, 170, 18), this);
 	this->temp3Display->setLabelPosition(true);
 	this->temp3Display->setMainObjectName("nameMain");
 	this->temp3Display->setMainText("Empty", Qt::AlignCenter);
-	this->temp4Display = new customLabelDisplay(QRect(550, 62, 170, 18), this);
+	this->temp4Display = new customLabelDisplay(QRect(550, tempRowOffset+17, 170, 18), this);
 	this->temp4Display->setLabelPosition(true);
 	this->temp4Display->setMainObjectName("nameMain");
 	this->temp4Display->setMainText("Empty", Qt::AlignCenter);
-	this->temp5Display = new customLabelDisplay(QRect(730, 62, 170, 18), this);
+	this->temp5Display = new customLabelDisplay(QRect(730, tempRowOffset+17, 170, 18), this);
 	this->temp5Display->setLabelPosition(true);
 	this->temp5Display->setMainObjectName("nameMain");
 	this->temp5Display->setMainText("Empty", Qt::AlignCenter);
@@ -89,55 +93,54 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
 	this->patchDisplay->setMainText(deviceType + (" Fx FloorBoard"));
 	this->patchDisplay->setSubText("version", version);
 
-  int bottomOffset = 499;
-	initPatch = new initPatchListMenu(QRect(405, 24, 168, 15), this);
+ 	initPatch = new initPatchListMenu(QRect(405, patchDisplayRowOffset+19, 168, 15), this);
   renameWidget *nameEdit = new renameWidget(this); 
-  nameEdit->setGeometry(85, 5, 150, 34); 
+  nameEdit->setGeometry(85, patchDisplayRowOffset, 150, 34); 
   customRenameWidget *userDialog = new customRenameWidget(this, "0E", "00", "00", "Structure", "20"); 
-  userDialog->setGeometry(728, bottomOffset+5, 262, 25); 
+  userDialog->setGeometry(728, editButtonRowOffset+5, 262, 25); 
   customRenameWidget *patchDialog = new customRenameWidget(this, "0D", "00", "00", "Structure", "80"); 
-  patchDialog->setGeometry(10, bottomOffset+45, 980, 25); 
+  patchDialog->setGeometry(10, bottomOffset, 980, 25); 
   customControlListMenu *output = new customControlListMenu(this, "00", "00", "11", "top");
-  output->setGeometry(860, 5, 150, 30); 
+  output->setGeometry(860, patchDisplayRowOffset, 150, 30); 
   customControlListMenu *catagory = new customControlListMenu(this, "00", "00", "10", "right");
-  catagory->setGeometry(860, 24, 150, 30); 
+  catagory->setGeometry(860, patchDisplayRowOffset+19, 150, 30); 
 
- 	this->connectButton = new customButton(tr("Connect"), false, QPoint(405, 5), this, ":/images/greenledbutton.png");
-	this->writeButton = new customButton(tr("Write/Sync"), false, QPoint(494, 5), this, ":/images/ledbutton.png");
-  this->assign_Button = new customButton(tr("Assigns"), false, QPoint(584, 5), this, ":/images/pushbutton.png");
-	this->system_midi_Button = new customButton(tr("System Midi"), false, QPoint(673, 5), this, ":/images/pushbutton.png");
-	this->system_Button = new customButton(tr("System Settings"), false, QPoint(762, 5), this, ":/images/pushbutton.png");
-	this->master_Button = new customButton(tr("Master"), false, QPoint(584, 24), this, ":/images/pushbutton.png");
+ 	this->connectButton = new customButton(tr("Connect"), false, QPoint(405, patchDisplayRowOffset), this, ":/images/greenledbutton.png");
+	this->writeButton = new customButton(tr("Write/Sync"), false, QPoint(494, patchDisplayRowOffset), this, ":/images/ledbutton.png");
+  this->assign_Button = new customButton(tr("Assigns"), false, QPoint(584, patchDisplayRowOffset), this, ":/images/pushbutton.png");
+	this->system_midi_Button = new customButton(tr("System Midi"), false, QPoint(673, patchDisplayRowOffset), this, ":/images/pushbutton.png");
+	this->system_Button = new customButton(tr("System Settings"), false, QPoint(762, patchDisplayRowOffset), this, ":/images/pushbutton.png");
+	this->master_Button = new customButton(tr("Master"), false, QPoint(584, patchDisplayRowOffset+19), this, ":/images/pushbutton.png");
 
-  this->ch_mode_Button = new customButton(tr("Channel Mode"), false, QPoint(10, bottomOffset), this, ":/images/pushbutton.png");
-  this->preamp1_Button = new customButton(tr("PreAmp"), false, QPoint(100, bottomOffset), this, ":/images/pushbutton.png");
+  this->ch_mode_Button = new customButton(tr("Channel Mode"), false, QPoint(10, editButtonRowOffset), this, ":/images/pushbutton.png");
+  this->preamp1_Button = new customButton(tr("PreAmp"), false, QPoint(100, editButtonRowOffset), this, ":/images/pushbutton.png");
 	//this->preamp2_Button = new customButton(tr("PreAmp B"), false, QPoint(100, 485), this, ":/images/pushbutton.png");
-	this->distortion_Button = new customButton(tr("Distortion"), false, QPoint(190,bottomOffset), this, ":/images/pushbutton.png");
-	this->compressor_Button = new customButton(tr("Compressor"), false, QPoint(190, bottomOffset+18), this, ":/images/pushbutton.png");
-	this->ns1_Button = new customButton(tr("NS 1"), false, QPoint(280, bottomOffset), this, ":/images/pushbutton.png");
-	this->ns2_Button = new customButton(tr("NS 2"), false, QPoint(280, bottomOffset+18), this, ":/images/pushbutton.png");
-	this->fx1_Button = new customButton(tr("FX 1"), false, QPoint(370, bottomOffset), this, ":/images/pushbutton.png");
-	this->fx2_Button = new customButton(tr("FX 2"), false, QPoint(370, bottomOffset+18), this, ":/images/pushbutton.png");
-	this->reverb_Button = new customButton(tr("Reverb"), false, QPoint(460, bottomOffset), this, ":/images/pushbutton.png");
-	this->delay_Button = new customButton(tr("Delay"), false, QPoint(460, bottomOffset+18), this, ":/images/pushbutton.png");
-	this->chorus_Button = new customButton(tr("Chorus"), false, QPoint(550, bottomOffset), this, ":/images/pushbutton.png");
-	this->sendreturn_Button = new customButton(tr("Send/Return"), false, QPoint(550, bottomOffset+18), this, ":/images/pushbutton.png");
-	this->eq_Button = new customButton(tr("Equalizer"), false, QPoint(640, bottomOffset), this, ":/images/pushbutton.png");
-	this->pedal_Button = new customButton(tr("Pedal"), false, QPoint(640, bottomOffset+18), this, ":/images/pushbutton.png");
+	this->distortion_Button = new customButton(tr("Distortion"), false, QPoint(190,editButtonRowOffset), this, ":/images/pushbutton.png");
+	this->compressor_Button = new customButton(tr("Compressor"), false, QPoint(190, editButtonRowOffset+18), this, ":/images/pushbutton.png");
+	this->ns1_Button = new customButton(tr("NS 1"), false, QPoint(280, editButtonRowOffset), this, ":/images/pushbutton.png");
+	this->ns2_Button = new customButton(tr("NS 2"), false, QPoint(280, editButtonRowOffset+18), this, ":/images/pushbutton.png");
+	this->fx1_Button = new customButton(tr("FX 1"), false, QPoint(370, editButtonRowOffset), this, ":/images/pushbutton.png");
+	this->fx2_Button = new customButton(tr("FX 2"), false, QPoint(370, editButtonRowOffset+18), this, ":/images/pushbutton.png");
+	this->reverb_Button = new customButton(tr("Reverb"), false, QPoint(460, editButtonRowOffset), this, ":/images/pushbutton.png");
+	this->delay_Button = new customButton(tr("Delay"), false, QPoint(460, editButtonRowOffset+18), this, ":/images/pushbutton.png");
+	this->chorus_Button = new customButton(tr("Chorus"), false, QPoint(550, editButtonRowOffset), this, ":/images/pushbutton.png");
+	this->sendreturn_Button = new customButton(tr("Send/Return"), false, QPoint(550, editButtonRowOffset+18), this, ":/images/pushbutton.png");
+	this->eq_Button = new customButton(tr("Equalizer"), false, QPoint(640, editButtonRowOffset), this, ":/images/pushbutton.png");
+	this->pedal_Button = new customButton(tr("Pedal"), false, QPoint(640, editButtonRowOffset+18), this, ":/images/pushbutton.png");
 	
 	
-	this->temp1_copy_Button = new customButton(tr("Temp-1 Copy"), false, QPoint(10, 45), this, ":/images/pushbutton.png");
-	this->temp1_paste_Button = new customButton(tr("Temp-1 Paste"), false, QPoint(100, 45), this, ":/images/pushbutton.png");
-	this->temp2_copy_Button = new customButton(tr("Temp-2 Copy"), false, QPoint(190, 45), this, ":/images/pushbutton.png");
-	this->temp2_paste_Button = new customButton(tr("Temp-2 Paste"), false, QPoint(280, 45), this, ":/images/pushbutton.png");
-	this->temp3_copy_Button = new customButton(tr("Temp-3 Copy"), false, QPoint(370, 45), this, ":/images/pushbutton.png");
-	this->temp3_paste_Button = new customButton(tr("Temp-3 Paste"), false, QPoint(460, 45), this, ":/images/pushbutton.png");
-	this->temp4_copy_Button = new customButton(tr("Temp-4 Copy"), false, QPoint(550, 45), this, ":/images/pushbutton.png");
-	this->temp4_paste_Button = new customButton(tr("Temp-4 Paste"), false, QPoint(640, 45), this, ":/images/pushbutton.png");
-	this->temp5_copy_Button = new customButton(tr("Temp-5 Copy"), false, QPoint(730, 45), this, ":/images/pushbutton.png");
-	this->temp5_paste_Button = new customButton(tr("Temp-5 Paste"), false, QPoint(820, 45), this, ":/images/pushbutton.png");
-	this->temp6_copy_Button = new customButton(tr("Temp-6 Copy"), false, QPoint(910, 45), this, ":/images/pushbutton.png");
-	this->temp6_paste_Button = new customButton(tr("Temp-6 Paste"), false, QPoint(910, 64), this, ":/images/pushbutton.png");
+	this->temp1_copy_Button = new customButton(tr("Temp-1 Copy"), false, QPoint(10, tempRowOffset), this, ":/images/pushbutton.png");
+	this->temp1_paste_Button = new customButton(tr("Temp-1 Paste"), false, QPoint(100, tempRowOffset), this, ":/images/pushbutton.png");
+	this->temp2_copy_Button = new customButton(tr("Temp-2 Copy"), false, QPoint(190, tempRowOffset), this, ":/images/pushbutton.png");
+	this->temp2_paste_Button = new customButton(tr("Temp-2 Paste"), false, QPoint(280, tempRowOffset), this, ":/images/pushbutton.png");
+	this->temp3_copy_Button = new customButton(tr("Temp-3 Copy"), false, QPoint(370, tempRowOffset), this, ":/images/pushbutton.png");
+	this->temp3_paste_Button = new customButton(tr("Temp-3 Paste"), false, QPoint(460, tempRowOffset), this, ":/images/pushbutton.png");
+	this->temp4_copy_Button = new customButton(tr("Temp-4 Copy"), false, QPoint(550, tempRowOffset), this, ":/images/pushbutton.png");
+	this->temp4_paste_Button = new customButton(tr("Temp-4 Paste"), false, QPoint(640, tempRowOffset), this, ":/images/pushbutton.png");
+	this->temp5_copy_Button = new customButton(tr("Temp-5 Copy"), false, QPoint(730, tempRowOffset), this, ":/images/pushbutton.png");
+	this->temp5_paste_Button = new customButton(tr("Temp-5 Paste"), false, QPoint(820, tempRowOffset), this, ":/images/pushbutton.png");
+	this->temp6_copy_Button = new customButton(tr("Future feature"), false, QPoint(910, tempRowOffset), this, ":/images/pushbutton.png");
+	this->temp6_paste_Button = new customButton(tr("Future feature"), false, QPoint(910, tempRowOffset+19), this, ":/images/pushbutton.png");
   
 	
 	
@@ -450,7 +453,7 @@ void floorBoardDisplay::temp1_copy(bool value)
   QString sysxMsg;
 	QList< QList<QString> > patchData = sysxIO->getFileSource().hex; // Get the loaded patch data.
 	QList<QString> patchAddress = sysxIO->getFileSource().address;
-	QString addr1 = QString::number(96, 16).toUpper();  // temp address
+	QString addr1 = tempBulkWrite;  // temp address
 	QString addr2 = QString::number(0, 16).toUpper();
 
 	for(int i=0;i<patchData.size();++i)
@@ -492,7 +495,7 @@ void floorBoardDisplay::temp2_copy(bool value)
   QString sysxMsg;
 	QList< QList<QString> > patchData = sysxIO->getFileSource().hex; // Get the loaded patch data.
 	QList<QString> patchAddress = sysxIO->getFileSource().address;
-	QString addr1 = QString::number(96, 16).toUpper();  // temp address
+	QString addr1 = tempBulkWrite;  // temp address
 	QString addr2 = QString::number(0, 16).toUpper();
 
 	for(int i=0;i<patchData.size();++i)
@@ -534,7 +537,7 @@ void floorBoardDisplay::temp3_copy(bool value)
   QString sysxMsg;
 	QList< QList<QString> > patchData = sysxIO->getFileSource().hex; // Get the loaded patch data.
 	QList<QString> patchAddress = sysxIO->getFileSource().address;
-	QString addr1 = QString::number(96, 16).toUpper();  // temp address
+	QString addr1 = tempBulkWrite;  // temp address
 	QString addr2 = QString::number(0, 16).toUpper();
 
 	for(int i=0;i<patchData.size();++i)
@@ -576,7 +579,7 @@ void floorBoardDisplay::temp4_copy(bool value)
   QString sysxMsg;
 	QList< QList<QString> > patchData = sysxIO->getFileSource().hex; // Get the loaded patch data.
 	QList<QString> patchAddress = sysxIO->getFileSource().address;
-	QString addr1 = QString::number(96, 16).toUpper();  // temp address
+	QString addr1 = tempBulkWrite;  // temp address
 	QString addr2 = QString::number(0, 16).toUpper();
 
 	for(int i=0;i<patchData.size();++i)
@@ -618,7 +621,7 @@ void floorBoardDisplay::temp5_copy(bool value)
   QString sysxMsg;
 	QList< QList<QString> > patchData = sysxIO->getFileSource().hex; // Get the loaded patch data.
 	QList<QString> patchAddress = sysxIO->getFileSource().address;
-	QString addr1 = QString::number(96, 16).toUpper();  // temp address
+	QString addr1 = tempBulkWrite;  // temp address
 	QString addr2 = QString::number(0, 16).toUpper();
 
 	for(int i=0;i<patchData.size();++i)

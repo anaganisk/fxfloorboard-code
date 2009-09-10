@@ -2,7 +2,7 @@
 
 ; HM NIS Edit Wizard helper defines
 !define PRODUCT_NAME "GT-10BFxFloorBoard"
-!define PRODUCT_VERSION "20090819"
+!define PRODUCT_VERSION "20090904"
 !define PRODUCT_PUBLISHER "gumtownbassman"
 !define PRODUCT_WEB_SITE "http://gtx.tinfoilmusic.net"
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\GT-10Bfxfloorboard.exe"
@@ -99,7 +99,6 @@ Section "MainSection" SEC01
   File "GT-10BFxFloorBoard_help_files\image034.gif"
   File "GT-10BFxFloorBoard_help_files\image035.gif"
   File "GT-10BFxFloorBoard_help_files\image038.gif"
-  File "GT-10BFxFloorBoard_help_files\Thumbs.db"
   SetOutPath "$INSTDIR\Init Patches"
   File "Init Patches\001_Super Flat.syx"
   File "Init Patches\002_Flip Top.syx"

@@ -83,17 +83,7 @@ signals:
 	void sendreturn_buttonSignal(bool value);
 	void eq_buttonSignal(bool value);
 	void pedal_buttonSignal(bool value);
-	void temp1_copy_buttonSignal(bool value);
-	void temp1_paste_buttonSignal(bool value);
-	void temp2_copy_buttonSignal(bool value);
-	void temp2_paste_buttonSignal(bool value);
-	void temp3_copy_buttonSignal(bool value);
-	void temp3_paste_buttonSignal(bool value);
-	void temp4_copy_buttonSignal(bool value);
-	void temp4_paste_buttonSignal(bool value);
-	void temp5_copy_buttonSignal(bool value);
-	void temp5_paste_buttonSignal(bool value);
-	
+		
 protected:
 	void paintEvent(QPaintEvent *event);
 	void dragEnterEvent(QDragEnterEvent *event);

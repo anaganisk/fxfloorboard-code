@@ -4,7 +4,7 @@ GT-10BFxFloorBoard Copyright (C) 2007, 2008, 2009 Colin Willcocks (gumtownbassma
 =======
 
 
-GT-10BFxFloorBoard version 20090507: 19 August 2009
+GT-10BFxFloorBoard version 20090904: 04 September 2009
 
 PLEASE FEEL FREE TO DONATE, YOU MAY FREELY USE THIS SOFTWARE, 
  JUST KEEP IN MIND THE 6000 HOURS SPENT OVER 3 YEARS GETTING IT HERE,
@@ -12,29 +12,29 @@ PLEASE FEEL FREE TO DONATE, YOU MAY FREELY USE THIS SOFTWARE,
 
 ******** USEFUL INFORMATION *************
  
-a.) Connect the GT-10B via a USB cable, ensure the Boss usb driver software is installed and the SYSTEM>USB>Driver setting on the GT10B is set to 'advanced'.
+a.) Connect the GT-10B via a USB cable, ensure the Boss usb driver software is installed and the SYSTEM>USB>Driver setting on the GT-10B is set to 'advanced'.
 
-b.) In most cases the program should select GT 10B device and connect automaticaly, if not, then follow the next two steps.
-Start the FxFloorBoard program, for the Menu select Preferences/Midi and select the GT10B midi device for midi input and output.
+b.) In most cases the program should select GT-10B device and connect automaticaly, if not, then follow the next two steps.
+Start the FxFloorBoard program, for the Menu select Preferences/Midi and select the GT-10B midi device for midi input and output.
 
 c.) Select the editor program "Connect" button, it should stay "on" if all connections are correct.
 
 d.) Open the Patch-Tree side panel by clicking your mouse pointer on the 'yellow arrow', the Patch-Tree has items which will expand when you click on the [+] symbols.
- When the tree items expand, you will see the patch names appear as the editor requests this information from the GT10B.
+ When the tree items expand, you will see the patch names appear as the editor requests this information from the GT-10B.
 
-e.) A single mouse pointer click on the Patch-Tree name will change the GT10B to that selected patch only - sound played through the GT10B will have the sound of that patch.
+e.) A single mouse pointer click on the Patch-Tree name will change the GT-10B to that selected patch only - sound played through the GT-10B will have the sound of that patch.
  
-f.) A double click on the patch name will load the patch information from the Gt10B into the editor, all the patch settings will update the editor GUI.
+f.) A double click on the patch name will load the patch information from the GT-10B into the editor, all the patch settings will update the editor GUI.
 
-g.) Any knob turning will change the sound of the effect being adjusted, when the desired sound is achieved, you can either save the patch to the GT10B or save the patch to file on disk.
+g.) Any knob turning will change the sound of the effect being adjusted, when the desired sound is achieved, you can either save the patch to the GT-10B or save the patch to file on disk.
 
-h.) To save the patch to the GT10B press the "write/sync" button.
+h.) To save the patch to the GT-10B press the "write/sync" button.
 
 GT10B-FxFloorBoard: 
 NOTE: THIS IS AN UNPAID PROJECT, SO FAR INVESTING OVER 6000 HOURS OF MY TIME OVER 3 YEARS, I WILL NOT ACCEPT LIABILITY FOR ANY DATA LOSS, TO THE BEST OF MY KNOWLEDGE EVERYTHING SHOULD WORK CORRECTLY, BUT SOME FUNCTIONS MAY BE INCORRECT, IF ANYTHING IS FOUND TO NOT FUNCTION CORRECTLY, PLEASE ADVISE ME. 
 
 saved files can be saved/loaded as syx or mid
-the GT10BFxFloorBoard will also open (guitar version) GT10 SMF (.mid) files, but with unpredicable reasults.
+the GT-10BFxFloorBoard will also open (guitar version) GT-10 SMF (.mid) files, but with unpredicable reasults.
 
 layout increased to fit 17 chain events, may be a problem for low screen resolutions. (i use 1280 X 800)
 
@@ -110,7 +110,4 @@ based on the GT-8 FxFloorBoard Copyright (C)2006, 2007 Uco Mesdag <ucomesdag@gma
 
 Windows(TM), Windows 95(TM), Windows 98(TM), Windows ME(TM), Windows NT(TM), 
 Windows 2000(TM), Windows XP(TM), Windows Vista(TM) and Windows 7(TM) are Copyright (C)Microsoft Corporation. 
-All rights reserved.
-
-based on the GT8 FxFloorBoard Copyright (C)2006, 2007 Uco Mesdag <ucomesdag@gmail.com>.
 All rights reserved.

@@ -51,6 +51,8 @@ public slots:
 	void saveAs();
 	void importSMF();
 	void exportSMF();
+	void openGXB();
+	void saveGXB();
 	void systemSave();
 	void systemLoad();
 	void settings();
@@ -76,6 +78,8 @@ private:
 	QAction *saveAsAct;
 	QAction *importSMFAct;
 	QAction *exportSMFAct;
+	QAction *openGXBAct;
+	QAction *saveGXBAct;
 	QAction *systemLoadAct;
 	QAction *systemSaveAct;
 	QAction *exitAct;

@@ -49,16 +49,17 @@ HEADERS += ./editPage.h \
     ./customTargetDial.h \
     ./customTargetListMenu.h \
     ./dragBar.h \
-    ./menuPage_assign.h \
-    ./menuPage_master.h \
-    ./menuPage_midi.h \
-    ./menuPage_system.h \
+    ./fileDialog.h \
     ./floorBoard.h \
     ./floorBoardDisplay.h \
     ./floorPanelBar.h \
     ./floorPanelBarButton.h \
     ./initPatchListMenu.h \
     ./menuPage.h \
+    ./menuPage_assign.h \
+    ./menuPage_master.h \
+    ./menuPage_midi.h \
+    ./menuPage_system.h \
     ./renameDialog.h \
     ./renameWidget.h \
     ./statusBarSymbol.h \
@@ -127,6 +128,7 @@ SOURCES += ./editPage.cpp \
     ./customTargetDial.cpp \
     ./customTargetListMenu.cpp \
     ./dragBar.cpp \
+    ./fileDialog.cpp \
     ./floorBoard.cpp \
     ./floorBoardDisplay.cpp \
     ./floorPanelBar.cpp \

@@ -170,6 +170,16 @@ void mainWindow::createActions()
 	exportSMFAct->setStatusTip(tr("Export as a Standard Midi File"));
 	connect(exportSMFAct, SIGNAL(triggered()), this, SLOT(exportSMF()));
 	
+  openGXBAct = new QAction(QIcon(":/images/fileopen.png"), tr("&Open GXB... (*.gxb *.gxg)"), this);
+	openGXBAct->setShortcut(tr("Ctrl+K"));
+	openGXBAct->setStatusTip(tr("Import a Boss Librarian File"));
+	connect(openGXBAct, SIGNAL(triggered()), this, SLOT(openGXB()));
+
+	saveGXBAct = new QAction(QIcon(":/images/filesave.png"), tr("Export GXB... (*.gxb)"), this);
+	saveGXBAct->setShortcut(tr("Ctrl+Shift+G"));
+	saveGXBAct->setStatusTip(tr("Export as a Boss Librarian File"));
+	connect(saveGXBAct, SIGNAL(triggered()), this, SLOT(saveGXB()));	
+	
 	systemLoadAct = new QAction(QIcon(":/images/fileopen.png"), tr("&Load GT System Data..."), this);
 	systemLoadAct->setShortcut(tr("Ctrl+L"));
 	systemLoadAct->setStatusTip(tr("Load System Data to GT-10B"));
@@ -189,6 +199,7 @@ void mainWindow::createActions()
 	settingsAct->setShortcut(tr("Ctrl+P"));
 	settingsAct->setStatusTip(tr("...."));
 	connect(settingsAct, SIGNAL(triggered()), this, SLOT(settings()));
+	
 	uploadAct = new QAction(QIcon(":/images/upload.png"), tr("Upload patch to GT-Central"), this);
 	uploadAct->setStatusTip(tr("........"));
 	connect(uploadAct, SIGNAL(triggered()), this, SLOT(upload()));
@@ -230,6 +241,9 @@ void mainWindow::createMenus()
 	fileMenu->addSeparator();
 	fileMenu->addAction(importSMFAct);
 	fileMenu->addAction(exportSMFAct);
+	fileMenu->addSeparator();
+	fileMenu->addAction(openGXBAct);
+	fileMenu->addAction(saveGXBAct);
 	fileMenu->addSeparator();
 	fileMenu->addAction(systemLoadAct);
 	fileMenu->addAction(systemSaveAct);
@@ -429,6 +443,67 @@ void mainWindow::exportSMF()
 			fileName.append(".mid");
 		};
 		file.writeSMF(fileName);
+
+		file.setFile(fileName);  
+		if(file.readFile())
+		{	
+			// DO SOMETHING AFTER READING THE FILE (UPDATE THE GUI)
+			SysxIO *sysxIO = SysxIO::Instance();
+			QString area = "Structure";
+			sysxIO->setFileSource(area, file.getFileSource());
+
+			emit updateSignal();
+		};
+	};
+};
+
+void mainWindow::openGXB()
+{
+	Preferences *preferences = Preferences::Instance();
+	QString dir = preferences->getPreferences("General", "Files", "dir");
+
+	QString fileName = QFileDialog::getOpenFileName(
+                this,
+                "Choose a file",
+                dir,
+                "Boss Librarian File (*.gxb *.gxg)");
+	if (!fileName.isEmpty())	
+	{
+		file.setFile(fileName);  
+		if(file.readFile())
+		{	
+			// DO SOMETHING AFTER READING THE FILE (UPDATE THE GUI)
+			SysxIO *sysxIO = SysxIO::Instance();
+			QString area = "Structure";
+			sysxIO->setFileSource(area, file.getFileSource());
+			sysxIO->setFileName(fileName);
+			sysxIO->setSyncStatus(false);
+			sysxIO->setDevice(false);
+
+			emit updateSignal();
+			if(sysxIO->isConnected())
+			{sysxIO->writeToBuffer(); };
+		};
+	};
+};
+
+void mainWindow::saveGXB()
+{
+	Preferences *preferences = Preferences::Instance();
+	QString dir = preferences->getPreferences("General", "Files", "dir");
+
+	QString fileName = QFileDialog::getSaveFileName(
+                    this,
+                    "Export GXB",
+                    dir,
+                    "Boss Librarian File (*.gxb)");
+	if (!fileName.isEmpty())	
+	{
+		if(!fileName.contains(".gxb"))
+		{
+			fileName.append(".gxb");
+		};
+		file.writeGXB(fileName);
 
 		file.setFile(fileName);  
 		if(file.readFile())

@@ -488,21 +488,22 @@ void floorBoard::initSize(QSize floorSize)
 	
 	unsigned int spacingV = (floorSize.height() - (marginStompBoxesTop + marginStompBoxesBottom)) - (stompSize.height() * 2);
 	unsigned int spacingH = ( (floorSize.width() - offset - (marginStompBoxesWidth * 2)) - (stompSize.width() * 9) ) / 9;
-	//for(unsigned int i=0;i<14;i++)
-	for(int i=17;i>=0;i--)
+	for(unsigned int i=0;i<18;i++)
+	//for(int i=17;i>=0;i--)
 	{
 		unsigned int y = marginStompBoxesTop;
-	  unsigned int x = marginStompBoxesWidth + (( stompSize.width() + spacingH ) * (i-1));
-		if(i==0 )
-		 {
-		 y = 600;   // throw the extra preamp off screen
-		 x = 0;
-		 }
-		if(i>9)
+	  unsigned int x = marginStompBoxesWidth + (( stompSize.width() + spacingH ) * (i));
+		
+		if(i>8)
 		{
 			y = y + stompSize.height() + spacingV;
 			x = x - ((( stompSize.width() + spacingH ) * 17)/2);  // *8.5 causes double to int warning
 		};
+		if(i==17 )
+		 {
+		 y = 600;   // throw the extra preamp off screen
+		 x = 0;
+		 };
 		fxPos.append(QPoint::QPoint(offset + x, y - (this->infoBarHeight/2)));
 	};
 
@@ -759,7 +760,7 @@ void floorBoard::initStomps()
 
 void floorBoard::setStomps(QList<QString> stompOrder)
 {
-	for(int i=0;i<stompOrder.size();i++)
+  for(int i=0;i<stompOrder.size();i++)
 	{
 		QString name = stompOrder.at(i);
 		setStompPos(name, i);
