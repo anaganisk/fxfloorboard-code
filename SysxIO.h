@@ -81,17 +81,13 @@ public:
 	QString getPatchChangeMsg(int bank, int patch);
 	void setCurrentPatchName(QString patchName);
 	QString getCurrentPatchName();
-	
-
 	void sendMidi(QString midiMsg);
 	void sendSysx(QString sysxMsg);
 	void requestPatchName(int bank, int patch);
 	void requestPatch(int bank, int patch);
 	void requestPatchChange(int bank, int patch);
-
 	bool noError();
 	void setNoError(bool status);
-
 	void emitStatusSymbol(int value);
 	void emitStatusProgress(int value);
   void emitStatusMessage(QString message);
@@ -100,6 +96,7 @@ public:
 	QString dBug;
 	void systemWrite();
 	void systemDataRequest();
+	int patchListValue;
 
 public slots:
 	void errorSignal(QString errorType, QString errorMsg);

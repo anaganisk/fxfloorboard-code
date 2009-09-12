@@ -145,7 +145,7 @@ void mainWindow::updateSize(QSize floorSize, QSize oldFloorSize)
 
 void mainWindow::createActions()
 {
-	openAct = new QAction(QIcon(":/images/fileopen.png"), tr("&Open File... (*.syx)"), this);
+	openAct = new QAction(QIcon(":/images/fileopen.png"), tr("&Open File... (*.syx, *.mid, *.gxb)"), this);
 	openAct->setShortcut(tr("Ctrl+O"));
 	openAct->setStatusTip(tr("Open an existing file"));
 	connect(openAct, SIGNAL(triggered()), this, SLOT(open()));
@@ -169,6 +169,16 @@ void mainWindow::createActions()
 	exportSMFAct->setShortcut(tr("Ctrl+Shift+E"));
 	exportSMFAct->setStatusTip(tr("Export as a Standard Midi File"));
 	connect(exportSMFAct, SIGNAL(triggered()), this, SLOT(exportSMF()));
+		
+  openGXGAct = new QAction(QIcon(":/images/fileopen.png"), tr("&Open GXG... (*.gxg *.gxb)"), this);
+	openGXGAct->setShortcut(tr("Ctrl+K"));
+	openGXGAct->setStatusTip(tr("Import a Boss Librarian File"));
+	connect(openGXGAct, SIGNAL(triggered()), this, SLOT(openGXG()));
+
+	saveGXGAct = new QAction(QIcon(":/images/filesave.png"), tr("Export GXG... (*.gxg)"), this);
+	saveGXGAct->setShortcut(tr("Ctrl+Shift+G"));
+	saveGXGAct->setStatusTip(tr("Export as a Boss Librarian File"));
+	connect(saveGXGAct, SIGNAL(triggered()), this, SLOT(saveGXG()));	
 	
   systemLoadAct = new QAction(QIcon(":/images/fileopen.png"), tr("&Load GT System Data..."), this);
 	systemLoadAct->setShortcut(tr("Ctrl+L"));
@@ -190,7 +200,7 @@ void mainWindow::createActions()
 	settingsAct->setStatusTip(tr("...."));
 	connect(settingsAct, SIGNAL(triggered()), this, SLOT(settings()));
 	
-	uploadAct = new QAction(QIcon(":/images/donate.png"), tr("Upload patch to GT-Central"), this);
+	uploadAct = new QAction(QIcon(":/images/upload.png"), tr("Upload patch to GT-Central"), this);
 	uploadAct->setStatusTip(tr("........"));
 	connect(uploadAct, SIGNAL(triggered()), this, SLOT(upload()));
 
@@ -228,13 +238,16 @@ void mainWindow::createMenus()
 {
     menuBar = new QMenuBar;
 
-    QMenu *fileMenu = new QMenu(tr("&File"), this);
+  QMenu *fileMenu = new QMenu(tr("&File"), this);
 	fileMenu->addAction(openAct);
 	fileMenu->addAction(saveAct);
 	fileMenu->addAction(saveAsAct);
 	fileMenu->addSeparator();
-	fileMenu->addAction(importSMFAct);
+	//fileMenu->addAction(importSMFAct);
 	fileMenu->addAction(exportSMFAct);
+	fileMenu->addSeparator();
+	//fileMenu->addAction(openGXGAct);
+	fileMenu->addAction(saveGXGAct);
 	fileMenu->addSeparator();
   fileMenu->addAction(systemLoadAct);
 	fileMenu->addAction(systemSaveAct);
@@ -292,7 +305,7 @@ void mainWindow::open()
                 this,
                 "Choose a file",
                 dir,
-                "System Exclusive GT-10 & GT-8 (*.syx)");
+                "System Exclusive GT-10 & GT-8 (*.syx *.mid *.gxg)");
 	if (!fileName.isEmpty())	
 	{
 		file.setFile(fileName);  
@@ -444,6 +457,67 @@ void mainWindow::exportSMF()
 	};
 };
 
+void mainWindow::openGXG()
+{
+	Preferences *preferences = Preferences::Instance();
+	QString dir = preferences->getPreferences("General", "Files", "dir");
+
+	QString fileName = QFileDialog::getOpenFileName(
+                this,
+                "Choose a file",
+                dir,
+                "Boss Librarian File (*.gxg *.gxb)");
+	if (!fileName.isEmpty())	
+	{
+		file.setFile(fileName);  
+		if(file.readFile())
+		{	
+			// DO SOMETHING AFTER READING THE FILE (UPDATE THE GUI)
+			SysxIO *sysxIO = SysxIO::Instance();
+			QString area = "Structure";
+			sysxIO->setFileSource(area, file.getFileSource());
+			sysxIO->setFileName(fileName);
+			sysxIO->setSyncStatus(false);
+			sysxIO->setDevice(false);
+
+			emit updateSignal();
+			if(sysxIO->isConnected())
+			{sysxIO->writeToBuffer(); };
+		};
+	};
+};
+
+void mainWindow::saveGXG()
+{
+	Preferences *preferences = Preferences::Instance();
+	QString dir = preferences->getPreferences("General", "Files", "dir");
+
+	QString fileName = QFileDialog::getSaveFileName(
+                    this,
+                    "Export GXG",
+                    dir,
+                    "Boss Librarian File (*.gxg)");
+	if (!fileName.isEmpty())	
+	{
+		if(!fileName.contains(".gxg"))
+		{
+			fileName.append(".gxg");
+		};
+		file.writeGXG(fileName);
+
+		file.setFile(fileName);  
+		if(file.readFile())
+		{	
+			// DO SOMETHING AFTER READING THE FILE (UPDATE THE GUI)
+			SysxIO *sysxIO = SysxIO::Instance();
+			QString area = "Structure";
+			sysxIO->setFileSource(area, file.getFileSource());
+
+			emit updateSignal();
+		};
+	};
+};
+
 void mainWindow::systemLoad()
 {
    SysxIO *sysxIO = SysxIO::Instance();
@@ -463,25 +537,36 @@ void mainWindow::systemLoad()
 		if(file.readFile())
 		{	
 			// DO SOMETHING AFTER READING THE FILE (UPDATE THE GUI)
-
-
-
-
-
-
-
-	
 		  SysxIO *sysxIO = SysxIO::Instance();
 			QString area = "System";
 			sysxIO->setFileSource(area, file.getSystemSource());
 			sysxIO->setFileName(fileName);
 			//sysxIO->setSyncStatus(false);
 			//sysxIO->setDevice(false);
-
 			emit updateSignal();
-			sysxIO->systemWrite();
-		};
-	};
+		                 QMessageBox *msgBox = new QMessageBox();
+                                        msgBox->setWindowTitle(deviceType + tr(" Fx FloorBoard"));
+                                        msgBox->setIcon(QMessageBox::Warning);
+                                        msgBox->setTextFormat(Qt::RichText);
+                                        QString msgText;
+                                        msgText.append("<font size='+1'><b>");
+                                        msgText.append(tr("You have chosen to load a SYSTEM DATA file."));
+                                        msgText.append("<b></font><br>");
+                                        msgText.append(tr("This will overwrite the SYSTEM DATA currently stored in the GT-10<br>"));
+                                        msgText.append(tr (" and can't be undone.<br>"));
+                                        msgText.append(tr("Select 'NO' to only update the Editor - Select 'YES' to update the GT-10 memory<br>"));
+
+
+                                        msgBox->setInformativeText(tr("Are you sure you want to write to the GT-10?"));
+                                        msgBox->setText(msgText);
+                                        msgBox->setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+
+                                        if(msgBox->exec() == QMessageBox::Yes)
+                                        {	// Accepted to overwrite system data.
+                                        sysxIO->systemWrite();
+                                        };
+                         };
+	       };
 	}
          else
              {
@@ -532,7 +617,7 @@ SysxIO *sysxIO = SysxIO::Instance();
 	 }
          else
              { 
-              QString snork = "Ensure connection is active and retry";
+              QString snork = "Ensure connection is active and retry<br>";
               QMessageBox *msgBox = new QMessageBox();
 			        msgBox->setWindowTitle(deviceType + " not connected !!");
 		        	msgBox->setIcon(QMessageBox::Information);

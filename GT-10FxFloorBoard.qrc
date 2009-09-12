@@ -1,6 +1,7 @@
 <RCC>
     <qresource prefix="/" >
         <file>about</file>
+        <file>default.gxg</file>
         <file>default.syx</file>
         <file>HexLookupTable.hex</file>
         <file>images/1.png</file>

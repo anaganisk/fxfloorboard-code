@@ -1,10 +1,10 @@
 /****************************************************************************
 **
-** Copyright (C) 2007, 2008, 2009 Colin Willcocks.
+** Copyright (C) 2007, 2008, 2009 Colin Willcocks. 
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
 ** All rights reserved.
 **
-** This file is part of "GT-10 Fx FloorBoard".
+** This file is part of "GT-10B Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -22,38 +22,39 @@
 **
 ****************************************************************************/
 
-#ifndef SYSXWRITER_H
-#define SYSXWRITER_H
+#ifndef FILEDIALOG_H
+#define FILEDIALOG_H
 
-#include <QString>
-#include <QList>
-#include "SysxIO.h"	
+#include <QDialog>
+#include <QComboBox>
+#include <QLabel>
+#include "SysxIO.h"
 
-class sysxWriter
+class QListWidget;
+class QListWidgetItem;
+class QStackedWidget;
+
+class fileDialog : public QDialog
 {
+	Q_OBJECT
 
 public:
-	sysxWriter();
-	~sysxWriter();
-	void setFile(QString fileName);
-	bool readFile();
-	SysxData getFileSource();
-	SysxData getSystemSource();
-	void writeFile(QString fileName);
-	void writeSystemFile(QString fileName);
-	void writeSMF(QString fileName);
-	void writeGXG(QString fileName);
-	QString getFileName();
-  int index;
-	
+	fileDialog(QString fileName, QList<QString> patchList);
+	QLabel *patchLabel;
+  QLabel *nameLabel; 
+  QComboBox *patchCombo;
+  //int index;
+signals:
+  //void currentIndex(int value);
+  void patchIndex(int value);
+                    
 public slots:
-  void patchIndex(int listIndex);
-	
-private:
-	QString fileName;
-	SysxData fileSource;
-	SysxData systemSource;
-	QList<QString> patchList;	
+  void valueChanged(int value);
+   
+private:   
+  QList<QString> patchList;
+	QListWidget *contentsWidget;
+	QStackedWidget *pagesWidget;
 };
 
-#endif // SYSXWRITER_H
+#endif // FILEDIALOG_H

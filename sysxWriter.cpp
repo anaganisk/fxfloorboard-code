@@ -27,6 +27,7 @@
 #include <QByteArray>
 #include <QMessageBox>
 #include "sysxWriter.h"	
+#include "fileDialog.h"
 #include "globalVariables.h"
 
 sysxWriter::sysxWriter() 
@@ -53,19 +54,33 @@ bool sysxWriter::readFile()
 	{
 		QByteArray data = file.readAll();     // read the pre-selected file, 
 		QByteArray default_data;
+		QByteArray GXG_default;
+		QByteArray hextable;
 		QFile file(":default.syx");           // Read the default GT-10 sysx file .
     if (file.open(QIODevice::ReadOnly))
 	  {	default_data = file.readAll(); };
+	  QFile GXGfile(":default.gxg");           // Read the default GT-10 GXG file .
+    if (GXGfile.open(QIODevice::ReadOnly))
+	  {	GXG_default = GXGfile.readAll(); };
+	  QFile hexfile(":HexLookupTable.hex");           // Read the HexLookupTable for the SMF header file .
+    if (hexfile.open(QIODevice::ReadOnly))
+	  {	hextable = hexfile.readAll(); };
 	  
 	  QByteArray default_header = default_data.mid(0, 7);           // copy header from default.syx
 	  QByteArray file_header = data.mid(0, 7);                      // copy header from read file.syx
+	  QByteArray GXG_header = GXG_default.mid(3, 20);                // copy header from default.gxg
+	  QByteArray SMF_header = hextable.mid(288,18);
+	  QByteArray SMF_file = data.mid(0, 18);
 	  bool isHeader = false;
 	  if (default_header == file_header) {isHeader = true;};
 	  QByteArray GTM_bit =  default_data.mid(1765, 5);              // see if the file has a GT-Manager signature.
 	  QByteArray GTM_file = data.mid(1764, 5);
 	  bool isGTM = false;
 	  if (GTM_bit == GTM_file) {isGTM = true;};
-		
+		bool isGXG = false;
+	  if (data.contains(GXG_header)){isGXG = true; };             // see if file is a GXG type and set isGXG flag.
+	  bool isSMF = false;
+	  if (data.contains(SMF_header)) {isSMF = true; };
     if((data.size() == 2340  || data.size() == 2261) && isHeader == true){         // if GT-10 system file size is correct- load file. 
 		SysxIO *sysxIO = SysxIO::Instance();
 		QString area = "System";
@@ -376,15 +391,15 @@ bool sysxWriter::readFile()
 		this->fileSource = sysxIO->getFileSource();
 		return true;
 		}
-    else if (data.size() == 1839)
-  {                                        // file size of a .mid type SMF patch file from Boss Librarian
-   
+    else if (isSMF)                      // SMF ******************************************************************
+  {                                        // file contains a .mid type SMF patch file header from Boss Librarian   
 	QByteArray smf_data = data;
 	QFile file(":default.syx");              // Read the default GT-10 sysx file so we don't start empty handed.
     if (file.open(QIODevice::ReadOnly))
 	{	data = file.readAll(); };
 	QByteArray temp;                         // TRANSLATION of GT-10 SMF PATCHES, data read from smf patch **************
-	if ( smf_data.at(37) != data.at(5) ){    // check if a valid GT-10 file
+	  
+  if ( smf_data.at(37) != data.at(5) ){    // check if a valid GT-10 file
   QMessageBox *msgBox = new QMessageBox();
 	msgBox->setWindowTitle(QObject::tr("SMF file import"));
 	msgBox->setIcon(QMessageBox::Warning);
@@ -393,43 +408,81 @@ bool sysxWriter::readFile()
 	msgText.append("<font size='+1'><b>");
 	msgText.append(QObject::tr("This is not a GT-10 patch!"));
 	msgText.append("<b></font><br>");
-	msgText.append(QObject::tr("this file is most likely a GT-10B Bass version<br>"));
+	msgText.append(QObject::tr("this file is a GT-10B Bass version<br>"));
 	msgText.append(QObject::tr("*Loading this file may have unpredictable results*."));
 	msgBox->setText(msgText);
 	msgBox->setStandardButtons(QMessageBox::Ok);
-	msgBox->exec();
-  
+	msgBox->exec();  
   };
-	temp = smf_data.mid(43, 128);            // copy SMF 128 bytes
+    
+  index = 1;
+  int patchCount = (smf_data.size()-32)/1806;
+  if (patchCount>1)
+  {
+  QString msgText;
+  QString patchText;
+	QString patchNumber;
+	unsigned char r;
+	this->patchList.clear();
+	this->patchList.append("Select Patch");
+  unsigned int a = 43; // locate patch text start position from the start of the file
+     for (int h=0;h<patchCount;h++)
+       {       
+        for (int b=0;b<16;b++)
+           {
+             r = (char)smf_data[a+b];
+             patchText.append(r);
+           };
+            patchNumber = QString::number(h+1, 10).toUpper();
+            msgText.append(patchNumber + " : ");
+            msgText.append(patchText + "   ");
+            this->patchList.append(msgText);
+            patchText.clear();
+            msgText.clear();
+            a=a+1806;                      // offset is set in front of marker
+        }; 
+              
+    fileDialog *dialog = new fileDialog(fileName, patchList); 
+    dialog->exec();    
+    patchIndex(this->index);                          
+   };   
+     
+   int a=30;                             // offset is set to first patch
+   if (patchCount>1)
+   {
+    int q=index-1; 
+    a = q*1806;  
+   }; 
+	temp = smf_data.mid(a+43, 128);            // copy SMF 128 bytes
 	data.replace(11, 128, temp);             // replace gt10 address "00"
-	temp = smf_data.mid(171, 114);           // copy SMF part1
-	temp.append(smf_data.mid(301,14));       // copy SMF part2
+	temp = smf_data.mid(a+171, 114);           // copy SMF part1
+	temp.append(smf_data.mid(a+301,14));       // copy SMF part2
 	data.replace(152, 128, temp);            // replace gt10 address "01"
-	temp = smf_data.mid(315, 128);           // copy SMF part1
+	temp = smf_data.mid(a+315, 128);           // copy SMF part1
 	data.replace(293, 128, temp);            // replace gt10 address "02"
-	temp = smf_data.mid(443, 100);           // copy SMF part1
-	temp.append(smf_data.mid(559,28));       // copy SMF part2
+	temp = smf_data.mid(a+443, 100);           // copy SMF part1
+	temp.append(smf_data.mid(a+559,28));       // copy SMF part2
 	data.replace(434, 128, temp);            // replace gt10 address "03"
-	temp = smf_data.mid(587, 128);           // copy SMF part1
+	temp = smf_data.mid(a+587, 128);           // copy SMF part1
 	data.replace(575, 128, temp);            // replace gt10 address "04"
-	temp = smf_data.mid(715, 86);            // copy SMF part1
+	temp = smf_data.mid(a+715, 86);            // copy SMF part1
 	data.replace(716, 86, temp);             // replace gt10 address "05"
-	temp = smf_data.mid(859, 128);           // copy SMF part1
+	temp = smf_data.mid(a+859, 128);           // copy SMF part1
 	data.replace(815,128, temp);             // replace gt10 address "06"
-	temp = smf_data.mid(987, 72);            // copy SMF part1
-	temp.append(smf_data.mid(1075,56));      // copy SMF part2
+	temp = smf_data.mid(a+987, 72);            // copy SMF part1
+	temp.append(smf_data.mid(a+1075,56));      // copy SMF part2
 	data.replace(956, 128, temp);            // replace gt10 address "07"
-	temp = smf_data.mid(1131, 128);          // copy SMF part1
+	temp = smf_data.mid(a+1131, 128);          // copy SMF part1
 	data.replace(1097,128, temp);            // replace gt10 address "08"
-	temp = smf_data.mid(1259, 58);           // copy SMF part1
-	temp.append(smf_data.mid(1333,42));      // copy SMF part2
+	temp = smf_data.mid(a+1259, 58);           // copy SMF part1
+	temp.append(smf_data.mid(a+1333,42));      // copy SMF part2
 	data.replace(1238, 100, temp);           // replace gt10 address "09"
-	temp = smf_data.mid(1403, 128);          // copy SMF part1
+	temp = smf_data.mid(a+1403, 128);          // copy SMF part1
 	data.replace(1351,128, temp);            // replace gt10 address "0A"
-	temp = smf_data.mid(1531, 44);           // copy SMF part1
-	temp.append(smf_data.mid(1591,84));      // copy SMF part2
+	temp = smf_data.mid(a+1531, 44);           // copy SMF part1
+	temp.append(smf_data.mid(a+1591,84));      // copy SMF part2
 	data.replace(1492, 128, temp);           // replace gt10 address "0B"
-	temp = smf_data.mid(1675, 128);          // copy SMF part1
+	temp = smf_data.mid(a+1675, 128);          // copy SMF part1
 	data.replace(1633,128, temp);            // replace gt10 address "0C"
     
     SysxIO *sysxIO = SysxIO::Instance();
@@ -437,7 +490,120 @@ bool sysxWriter::readFile()
 		sysxIO->setFileSource(area, data);
 		sysxIO->setFileName(this->fileName);
 		this->fileSource = sysxIO->getFileSource();
-		return true;   
+		return true;
+      } 
+  else if (isGXG)      // if the read file is a Boss Librarian type. ***************************************
+  {
+  index=1;
+  unsigned char r = (char)data[35];     // find patch count in GXG file at byte 35, 1~200
+	bool ok;
+  int patchCount;
+  patchCount = QString::number(r, 16).toUpper().toInt(&ok, 16);
+  QByteArray marker;
+  if (patchCount>1)
+  {
+  QString msgText;
+  marker = data.mid(170, 2);      //copy marker key to find "06A5" which marks the start of each patch block
+	QString patchText;
+	QString patchNumber;
+	this->patchList.clear();
+	this->patchList.append("Select Patch");
+  unsigned int a = data.indexOf(marker, 0); // locate patch start position from the start of the file
+   a=a+2;                             // offset is set in front of marker  
+     for (int h=0;h<patchCount;h++)
+       {
+        for (int b=0;b<16;b++)
+           {
+             r = (char)data[a+b];
+             patchText.append(r);
+           };
+            patchNumber = QString::number(h+1, 10).toUpper();
+            msgText.append(patchNumber + " : ");
+            msgText.append(patchText + "   ");
+            this->patchList.append(msgText);
+            patchText.clear();
+            msgText.clear();
+        a = data.indexOf(marker, a); // locate patch start position from the start of the file
+        a=a+2;                      // offset is set in front of marker
+        }; 
+              
+    fileDialog *dialog = new fileDialog(fileName, patchList); 
+    dialog->exec();    
+    patchIndex(this->index);                          
+   };   
+   
+   marker = data.mid(170, 2);      //copy marker key to find "06A5" which marks the start of each patch block
+   unsigned int a = data.indexOf(marker, 0); // locate patch start position from the start of the file
+   a=a+2;                             // offset is set in front of marker
+   if (patchCount>1)
+   {
+    int q=index-1; 
+     for (int h=0;h<q;h++)
+       {
+        a = data.indexOf(marker, a); // locate patch start position from the start of the file
+        a=a+2;
+       };                             // offset is set in front of marker          
+   };    
+   QByteArray temp;
+   temp = data.mid(a, 128);
+   default_data.replace(11, 128, temp);      //address "00" +
+   temp = data.mid(a+128, 128);
+   default_data.replace(152, 128, temp);     //address "01" + 
+   temp = data.mid(a+256, 128);
+   default_data.replace(293, 128, temp);     //address "02" + 
+   temp = data.mid(a+384, 128);
+   default_data.replace(434, 128, temp);     //address "03" +
+   temp = data.mid(a+512, 128);
+   default_data.replace(575, 128, temp);     //address "04" +
+   temp = data.mid(a+640, 86);
+   default_data.replace(716, 86, temp);     //address "05" +        
+   temp = data.mid(a+768, 128);
+   default_data.replace(815, 128, temp);     //address "06" +    
+   temp = data.mid(a+896, 128);
+   default_data.replace(956, 128, temp);     //address "07" +  
+   temp = data.mid(a+1024, 128);
+   default_data.replace(1097, 128, temp);     //address "08" +     
+   temp = data.mid(a+1152, 100);
+   default_data.replace(1238, 100, temp);     //address "09" +
+   temp = data.mid(a+1280, 128);
+   default_data.replace(1351, 128, temp);    //address "0A" +      
+   temp = data.mid(a+1408, 128);
+   default_data.replace(1492, 128, temp);    //address "0B" +     
+   temp = data.mid(a+1536, 128);
+   default_data.replace(1633, 128, temp);    //address "0C" +        
+    
+   temp = data.mid(32, 1);
+   int z = a+1701;
+   int y = data.indexOf( temp, (a+1701));          // copy user text, first two sections only, section terminated by "00"
+   int x = data.indexOf( temp, (a+1701)) + 1; 
+   int w = data.indexOf( temp, (x+1));
+   temp = data.mid(z, (y-z) );
+   marker = data.mid(31, 1);    //"20"
+   if (temp.size()>0 )
+    {      
+      for (int u = (32-(y-z));u>0; u--)
+      { temp.append(marker); };
+      if (temp.size()>32) {temp=temp.mid(0, 32); }
+      default_data.replace(1915, (y-z), temp);       // paste text 1
+    };   
+    temp = data.mid(x, (w-x) );
+    if (temp.size()>0 )
+    {      
+      for (int u = (128-(w-x));u>0; u--)
+      { temp.append(marker); };
+      if (temp.size()>128) {temp=temp.mid(0, 128); }
+      default_data.replace(1774, (w-x), temp);            // paste text 2
+    };
+       
+    if (index>0)
+    {  
+    SysxIO *sysxIO = SysxIO::Instance();
+    QString area = "Structure";
+		sysxIO->setFileSource(area, default_data);
+		sysxIO->setFileName(this->fileName);
+		this->fileSource = sysxIO->getFileSource();
+		return true; 
+    } else { return false; };       
   } 
     else 
   {
@@ -465,6 +631,12 @@ bool sysxWriter::readFile()
 	{
 		return false;
 	};
+};
+
+void sysxWriter::patchIndex(int listIndex)
+{
+  SysxIO *sysxIO = SysxIO::Instance();     
+   this->index=sysxIO->patchListValue;   
 };
 
 void sysxWriter::writeFile(QString fileName)
@@ -661,7 +833,87 @@ void sysxWriter::writeSMF(QString fileName)
 	out.append(temp);
 		file.write(out);
 	};
+};
 
+void sysxWriter::writeGXG(QString fileName)
+{	
+	QFile file(fileName);
+    if (file.open(QIODevice::WriteOnly))
+	{
+		SysxIO *sysxIO = SysxIO::Instance();
+		this->fileSource = sysxIO->getFileSource();
+			
+		QByteArray out;
+		unsigned int count=0;
+		for (QList< QList<QString> >::iterator dev = fileSource.hex.begin(); dev != fileSource.hex.end(); ++dev)
+		{
+			QList<QString> data(*dev);
+			for (QList<QString>::iterator code = data.begin(); code != data.end(); ++code)
+			{
+				QString str(*code);
+				bool ok;
+				unsigned int n = str.toInt(&ok, 16);
+				out[count] = (char)n;
+				count++;
+			};
+		};
+	 QByteArray GXG_default;
+   QByteArray temp;
+   int a = 172;
+    QFile GXGfile(":default.gxg");           // Read the default GT-10 GXG file .
+    if (GXGfile.open(QIODevice::ReadOnly))
+	  {	GXG_default = GXGfile.readAll(); };
+   temp = out.mid(11, 128);
+   GXG_default.replace(a, 128, temp);         //address "00" +   
+   temp = out.mid(152, 128);
+   GXG_default.replace(a+128, 128, temp);     //address "01" +      
+   temp = out.mid(293, 128);
+   GXG_default.replace(a+256, 128, temp);     //address "02" +    
+   temp = out.mid(434, 128);
+   GXG_default.replace(a+384, 128, temp);     //address "03" +        
+   temp = out.mid(575, 128);
+   GXG_default.replace(a+512, 100, temp);     //address "04" +      no "04"     
+   temp = out.mid(716, 86);
+   GXG_default.replace(a+640, 86, temp);     //address "05" +           
+   temp = out.mid(815, 128);
+   GXG_default.replace(a+768, 128, temp);     //address "06" +       
+   temp = out.mid(956, 128);
+   GXG_default.replace(a+896, 128, temp);     //address "07" +      
+   temp = out.mid(1097, 128);
+   GXG_default.replace(a+1024, 128, temp);     //address "08" +      no "08"   
+   temp = out.mid(1238, 100);
+   GXG_default.replace(a+1152, 100, temp);    //address "09" +   
+   temp = out.mid(1351, 128);
+   GXG_default.replace(a+1280, 128, temp);    //address "0A" +        
+   temp = out.mid(1492, 128);
+   GXG_default.replace(a+1408, 128, temp);    //address "0B" +       
+   temp = out.mid(1633, 128);
+   GXG_default.replace(a+1536, 128, temp);    //address "0C" +  
+   /*
+   temp = GXG_default.mid(32, 1);
+   int z = 1701;
+   int y = data.indexOf( temp, (1701));          // copy user text, first two sections only, section terminated by "00"
+   int x = data.indexOf( temp, (1701)) + 1; 
+   int w = data.indexOf( temp, (x+1));
+   temp = out.mid(z, (y-z) );
+   marker = out.mid(31, 1);    //"20"
+   if (temp.size()>0 )
+    {      
+      for (int u = (32-(y-z));u>0; u--)
+      { temp.append(marker); };
+      if (temp.size()>32) {temp=temp.mid(0, 32); }
+      GXG_default.replace(1647, (y-z), temp);       // paste text 1
+    };   
+    temp = out.mid(x, (w-x) );
+    if (temp.size()>0 )
+    {      
+      for (int u = (128-(w-x));u>0; u--)
+      { temp.append(marker); };
+      if (temp.size()>128) {temp=temp.mid(0, 128); }
+      GXG_default.replace(1506, (w-x), temp);            // paste text 2
+    };     */
+		file.write(GXG_default);
+	};
 };
 
 SysxData sysxWriter::getFileSource()

@@ -1287,6 +1287,8 @@ void SysxIO::systemReply(QString replyMsg)
 			msgText.append("<font size='+1'><b>");
 			msgText.append(tr("The Boss ") + deviceType + (" Effects Processor was not found."));
 			msgText.append("<b></font><br>");
+			msgText.append("any saved system data will be as shown on screen<br>");
+			msgText.append("and the GT-10 system data might not be in sync<br>");
 			msgBox->setText(msgText);
 			msgBox->setStandardButtons(QMessageBox::Ok);
 			msgBox->exec();
