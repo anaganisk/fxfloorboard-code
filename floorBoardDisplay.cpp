@@ -427,7 +427,7 @@ void floorBoardDisplay::temp1_copy(bool value)
   QString sysxMsg;
 	QList< QList<QString> > patchData = sysxIO->getFileSource().hex; // Get the loaded patch data.
 	QList<QString> patchAddress = sysxIO->getFileSource().address;
-	QString addr1 = QString::number(96, 16).toUpper();  // temp address
+	QString addr1 = tempBulkWrite;  // temp address
 	QString addr2 = QString::number(0, 16).toUpper();
 
 	for(int i=0;i<patchData.size();++i)
@@ -469,7 +469,7 @@ void floorBoardDisplay::temp2_copy(bool value)
   QString sysxMsg;
 	QList< QList<QString> > patchData = sysxIO->getFileSource().hex; // Get the loaded patch data.
 	QList<QString> patchAddress = sysxIO->getFileSource().address;
-	QString addr1 = QString::number(96, 16).toUpper();  // temp address
+	QString addr1 = tempBulkWrite;  // temp address
 	QString addr2 = QString::number(0, 16).toUpper();
 
 	for(int i=0;i<patchData.size();++i)
@@ -511,7 +511,7 @@ void floorBoardDisplay::temp3_copy(bool value)
   QString sysxMsg;
 	QList< QList<QString> > patchData = sysxIO->getFileSource().hex; // Get the loaded patch data.
 	QList<QString> patchAddress = sysxIO->getFileSource().address;
-	QString addr1 = QString::number(96, 16).toUpper();  // temp address
+	QString addr1 = tempBulkWrite;  // temp address
 	QString addr2 = QString::number(0, 16).toUpper();
 
 	for(int i=0;i<patchData.size();++i)
@@ -553,7 +553,7 @@ void floorBoardDisplay::temp4_copy(bool value)
   QString sysxMsg;
 	QList< QList<QString> > patchData = sysxIO->getFileSource().hex; // Get the loaded patch data.
 	QList<QString> patchAddress = sysxIO->getFileSource().address;
-	QString addr1 = QString::number(96, 16).toUpper();  // temp address
+	QString addr1 = tempBulkWrite;  // temp address
 	QString addr2 = QString::number(0, 16).toUpper();
 
 	for(int i=0;i<patchData.size();++i)

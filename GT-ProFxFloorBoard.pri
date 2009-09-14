@@ -51,6 +51,7 @@ HEADERS += ./editPage.h \
     ./customTargetDial.h \
     ./customTargetListMenu.h \
     ./dragBar.h \
+    ./fileDialog.h \
     ./floorBoard.h \
     ./floorBoardDisplay.h \
     ./floorPanelBar.h \
@@ -124,6 +125,7 @@ SOURCES += ./editPage.cpp \
     ./customTargetDial.cpp \
     ./customTargetListMenu.cpp \
     ./dragBar.cpp \
+    ./fileDialog.cpp \
     ./floorBoard.cpp \
     ./floorBoardDisplay.cpp \
     ./floorPanelBar.cpp \

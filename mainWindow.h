@@ -49,6 +49,8 @@ public slots:
 	void open();
 	void save();
 	void saveAs();
+	void openGTE();
+	void saveGTE();
 	void systemSave();
 	void systemLoad();
 	void settings();
@@ -72,6 +74,8 @@ private:
 	QAction *openAct;
 	QAction *saveAct;
 	QAction *saveAsAct;
+	QAction *openGTEAct;
+	QAction *saveGTEAct;
 	QAction *systemLoadAct;
 	QAction *systemSaveAct;
 	QAction *exitAct;

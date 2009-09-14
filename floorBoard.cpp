@@ -404,8 +404,8 @@ void floorBoard::initSize(QSize floorSize)
 	
 	unsigned int spacingV = (floorSize.height() - (marginStompBoxesTop + marginStompBoxesBottom)) - (stompSize.height() * 2);
 	unsigned int spacingH = ( (floorSize.width() - offset - (marginStompBoxesWidth * 2)) - (stompSize.width() * 7) ) / 6;
-	//for(unsigned int i=0;i<14;i++)
-	for(int i=13;i>=0;i--)
+	for(unsigned int i=0;i<14;i++)
+	//for(int i=13;i>=0;i--)
 	{
 		unsigned int y = marginStompBoxesTop;
 		unsigned int x = marginStompBoxesWidth + (( stompSize.width() + spacingH ) * i);

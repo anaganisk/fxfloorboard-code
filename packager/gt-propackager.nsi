@@ -2,8 +2,8 @@
 
 ; HM NIS Edit Wizard helper defines
 !define PRODUCT_NAME "GT-ProFxFloorBoard"
-!define PRODUCT_VERSION "20090822"
-!define PRODUCT_PUBLISHER "gumtownbassman"
+!define PRODUCT_VERSION "20090914"
+!define PRODUCT_PUBLISHER "gumtown"
 !define PRODUCT_WEB_SITE "http://gtx.tinfoilmusic.net"
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\GT-ProFxFloorBoard.exe"
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
@@ -1507,6 +1507,7 @@ Section "MainSection" SEC01
   File "saved patches\Satriani_Cryin.syx"
   File "saved patches\Satriani_Echo.syx"
   File "saved patches\Satriani_Love_Thing.syx"
+  File "saved patches\collection.gte"
   SetOutPath "$INSTDIR\saved patches\Sorbz patches"
   File "saved patches\Sorbz patches\Ballerina.syx"
   File "saved patches\Sorbz patches\bell tolls 1.syx"
@@ -1800,6 +1801,7 @@ Section Uninstall
   Delete "$INSTDIR\saved patches\Sorbz patches\bell tolls 2.syx"
   Delete "$INSTDIR\saved patches\Sorbz patches\bell tolls 1.syx"
   Delete "$INSTDIR\saved patches\Sorbz patches\Ballerina.syx"
+  Delete "$INSTDIR\saved patches\collection.gte"
   Delete "$INSTDIR\saved patches\Satriani_Love_Thing.syx"
   Delete "$INSTDIR\saved patches\Satriani_Echo.syx"
   Delete "$INSTDIR\saved patches\Satriani_Cryin.syx"

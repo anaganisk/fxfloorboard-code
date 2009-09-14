@@ -22,8 +22,8 @@
 **
 ****************************************************************************/
 
-#ifndef SYSXWRITTER_H
-#define SYSXWRITTER_H
+#ifndef SYSXWRITER_H
+#define SYSXWRITER_H
 
 #include <QString>
 #include <QList>
@@ -42,13 +42,18 @@ public:
 	void writeFile(QString fileName);
 	void writeSystemFile(QString fileName);
 	QString getFileName();
+	void writeGTE(QString fileName);
+	int index;
 
+public slots:
+  void patchIndex(int listIndex);
 	
 private:
 	QString fileName;
 	SysxData fileSource;
 	SysxData systemSource;
+	QList<QString> patchList;	
 };
 
-#endif // SYSXWRITTER_H
+#endif // SYSXWRITER_H
 

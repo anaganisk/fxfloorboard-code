@@ -146,7 +146,7 @@ void mainWindow::updateSize(QSize floorSize, QSize oldFloorSize)
 
 void mainWindow::createActions()
 {
-	openAct = new QAction(QIcon(":/images/fileopen.png"), tr("&Open File..."), this);
+	openAct = new QAction(QIcon(":/images/fileopen.png"), tr("&Open File...(*.syx *.gte)"), this);
 	openAct->setShortcut(tr("Ctrl+O"));
 	openAct->setStatusTip(tr("Open an existing file"));
 	connect(openAct, SIGNAL(triggered()), this, SLOT(open()));
@@ -161,6 +161,16 @@ void mainWindow::createActions()
 	saveAsAct->setStatusTip(tr("Save the document under a new name"));
 	connect(saveAsAct, SIGNAL(triggered()), this, SLOT(saveAs()));
 	
+	openGTEAct = new QAction(QIcon(":/images/fileopen.png"), tr("&Open GTE... (*.gte)"), this);
+	openGTEAct->setShortcut(tr("Ctrl+K"));
+	openGTEAct->setStatusTip(tr("Import a Boss Librarian File"));
+	connect(openGTEAct, SIGNAL(triggered()), this, SLOT(openGTE()));
+
+	saveGTEAct = new QAction(QIcon(":/images/filesave.png"), tr("Export GTE... (*.gte)"), this);
+	saveGTEAct->setShortcut(tr("Ctrl+Shift+G"));
+	saveGTEAct->setStatusTip(tr("Export as a Boss Librarian File"));
+	connect(saveGTEAct, SIGNAL(triggered()), this, SLOT(saveGTE()));	
+		
 	systemLoadAct = new QAction(QIcon(":/images/fileopen.png"), tr("&Load GT System Data..."), this);
 	systemLoadAct->setShortcut(tr("Ctrl+L"));
 	systemLoadAct->setStatusTip(tr("Load System Data to GT-10"));
@@ -219,6 +229,10 @@ void mainWindow::createMenus()
 	fileMenu->addAction(saveAct);
 	fileMenu->addAction(saveAsAct);
 	fileMenu->addSeparator();
+	fileMenu->addSeparator();
+	//fileMenu->addAction(openGTEAct);
+	fileMenu->addAction(saveGTEAct);
+	fileMenu->addSeparator();
 	fileMenu->addAction(systemLoadAct);
 	fileMenu->addAction(systemSaveAct);
 	fileMenu->addSeparator();
@@ -270,7 +284,7 @@ void mainWindow::open()
                 this,
                 "Choose a file",
                 dir,
-                "GT-Pro,8,10 System Exclusive (*.syx)");
+                "GT-Pro ,GT-8, GT-10 (*.syx *.gte)");
 	if (!fileName.isEmpty())	
 	{
 		file.setFile(fileName);  
@@ -355,6 +369,67 @@ void mainWindow::saveAs()
 			SysxIO *sysxIO = SysxIO::Instance();
 	  	QString area = "Structure";
 			sysxIO->setFileSource(area, file.getFileSource());
+			emit updateSignal();
+		};
+	};
+};
+
+void mainWindow::openGTE()
+{
+	Preferences *preferences = Preferences::Instance();
+	QString dir = preferences->getPreferences("General", "Files", "dir");
+
+	QString fileName = QFileDialog::getOpenFileName(
+                this,
+                "Choose a file",
+                dir,
+                "Boss Librarian File (*.gte)");
+	if (!fileName.isEmpty())	
+	{
+		file.setFile(fileName);  
+		if(file.readFile())
+		{	
+			// DO SOMETHING AFTER READING THE FILE (UPDATE THE GUI)
+			SysxIO *sysxIO = SysxIO::Instance();
+			QString area = "Structure";
+			sysxIO->setFileSource(area, file.getFileSource());
+			sysxIO->setFileName(fileName);
+			sysxIO->setSyncStatus(false);
+			sysxIO->setDevice(false);
+
+			emit updateSignal();
+			if(sysxIO->isConnected())
+			{sysxIO->writeToBuffer(); };
+		};
+	};
+};
+
+void mainWindow::saveGTE()
+{
+	Preferences *preferences = Preferences::Instance();
+	QString dir = preferences->getPreferences("General", "Files", "dir");
+
+	QString fileName = QFileDialog::getSaveFileName(
+                    this,
+                    "Export GTE",
+                    dir,
+                    "Boss Librarian File (*.gte)");
+	if (!fileName.isEmpty())	
+	{
+		if(!fileName.contains(".gte"))
+		{
+			fileName.append(".gte");
+		};
+		file.writeGTE(fileName);
+
+		file.setFile(fileName);  
+		if(file.readFile())
+		{	
+			// DO SOMETHING AFTER READING THE FILE (UPDATE THE GUI)
+			SysxIO *sysxIO = SysxIO::Instance();
+			QString area = "Structure";
+			sysxIO->setFileSource(area, file.getFileSource());
+
 			emit updateSignal();
 		};
 	};
