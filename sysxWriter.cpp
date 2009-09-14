@@ -447,10 +447,10 @@ bool sysxWriter::readFile()
     patchIndex(this->index);                          
    };   
      
-   int a=30;                             // offset is set to first patch
+   int a=0;                             
    if (patchCount>1)
    {
-    int q=index-1; 
+    int q=index-1;      // find start of required patch
     a = q*1806;  
    }; 
 	temp = smf_data.mid(a+43, 128);            // copy SMF 128 bytes
@@ -484,13 +484,15 @@ bool sysxWriter::readFile()
 	data.replace(1492, 128, temp);           // replace gt10 address "0B"
 	temp = smf_data.mid(a+1675, 128);          // copy SMF part1
 	data.replace(1633,128, temp);            // replace gt10 address "0C"
-    
+   if (index>0)
+   { 
     SysxIO *sysxIO = SysxIO::Instance();
 		QString area = "Structure";
 		sysxIO->setFileSource(area, data);
 		sysxIO->setFileName(this->fileName);
 		this->fileSource = sysxIO->getFileSource();
 		return true;
+		} else {return false; }
       } 
   else if (isGXG)      // if the read file is a Boss Librarian type. ***************************************
   {

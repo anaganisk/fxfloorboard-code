@@ -4,13 +4,27 @@ GT-10FxFloorBoard Copyright (C) 2007, 2008, 2009 Colin Willcocks (gumtownbassman
 =======
 
 
-GT-10FxFloorBoard version 20090903: 03 September 2009
-
+GT-10FxFloorBoard version 20090912: 12 September 2009
+*****************************************************
 PLEASE FEEL FREE TO DONATE, YOU MAY FREELY USE THIS SOFTWARE, 
  JUST KEEP IN MIND THE 6000 HOURS SPENT OVER 3 YEARS GETTING IT HERE,
-  I WOULD LOVE A BEER!!!.
+  I WOULD LOVE A BEER!!!. :-)
+but then patches created by you for sharing with all would be nice too.
+you can email patches and custom system settings saved files to the above address.
+***********************************************************************************
 
-******** USEFUL INFORMATION *************
+
+********** USEFUL INFORMATION *************
+
+NEW FEATURES FOR THIS RELEASE..
+Multipatch file loading support and support to load/save BOSS Librarian files.
+
+5 way clipboard added, just select copy on any Temp button to copy the current patch settings,
+ and press the paste button to recall the copied patch data.
+
+There are features for editing/loading/saving the system & global data
+
+********* FIRST USE CONNECTION HINTS ************** 
  
 a.) Connect the GT-10 via a USB cable, 
 ensure the Boss usb driver software is installed and the SYSTEM>USB>Driver setting on the GT10 is set to 'advanced'.
@@ -41,10 +55,10 @@ NOTE: THIS IS AN UNPAID PROJECT, SO FAR INVESTING OVER 6000 HOURS OF MY TIME OVE
 I WILL NOT ACCEPT LIABILITY FOR ANY DATA LOSS, TO THE BEST OF MY KNOWLEDGE EVERYTHING SHOULD WORK CORRECTLY, 
 BUT SOME FUNCTIONS MAY BE INCORRECT. 
 
-files can be saved/loaded as syx or mid (SMF).
-the GT-10FxFloorBoard will also open GT10 SMF (.mid) files, and translate GT-8 patch files (*.syx single patch type).
+files can be saved/loaded as syx or mid (SMF) or gxg (Librarian) formats.
+the GT-10FxFloorBoard will also open GT10B *.gxb & *.mid files, and translate GT-8 patch files (*.syx single patch type).
 
-layout increased to fit 18 chain events, may be a problem for low screen resolutions. (i use 1280 X 800)
+layout increased, which may be a problem for low screen resolutions. (i use 1280 X 800 minimum)
 
 This project is a continuing session of evolution.........
 

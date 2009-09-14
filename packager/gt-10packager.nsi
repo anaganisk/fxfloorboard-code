@@ -2,7 +2,7 @@
 
 ; HM NIS Edit Wizard helper defines
 !define PRODUCT_NAME "GT-10FxFloorBoard"
-!define PRODUCT_VERSION "20090912"
+!define PRODUCT_VERSION "20090913"
 !define PRODUCT_PUBLISHER "gumtownbassman"
 !define PRODUCT_WEB_SITE "http://gtx.tinfoilmusic.net"
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\GT-10FxFloorboard.exe"
@@ -2051,7 +2051,6 @@ Section "MainSection" SEC01
   File "Init Patches\ACDC.syx"
   SetOutPath "$INSTDIR\Mid Patches"
   File "Mid Patches\04.mid"
-  File "Mid Patches\12_String_Acoustic_-_Yes_And_You_&__I.syx"
   File "Mid Patches\13-4_SIGNALS.mid"
   File "Mid Patches\3407.mid"
   File "Mid Patches\70___'s_Rock.mid"
@@ -2731,7 +2730,6 @@ Section Uninstall
   Delete "$INSTDIR\Mid Patches\70___'s_Rock.mid"
   Delete "$INSTDIR\Mid Patches\3407.mid"
   Delete "$INSTDIR\Mid Patches\13-4_SIGNALS.mid"
-  Delete "$INSTDIR\Mid Patches\12_String_Acoustic_-_Yes_And_You_&__I.syx"
   Delete "$INSTDIR\Mid Patches\04.mid"
   Delete "$INSTDIR\Init Patches\ACDC.syx"
   Delete "$INSTDIR\Init Patches\049_INIT_(Custom)_Custom_3.syx"

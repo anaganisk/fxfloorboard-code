@@ -145,7 +145,7 @@ void mainWindow::updateSize(QSize floorSize, QSize oldFloorSize)
 
 void mainWindow::createActions()
 {
-	openAct = new QAction(QIcon(":/images/fileopen.png"), tr("&Open File... (*.syx, *.mid, *.gxb)"), this);
+	openAct = new QAction(QIcon(":/images/fileopen.png"), tr("&Open File... (*.syx, *.mid, *.gxg *.gxb)"), this);
 	openAct->setShortcut(tr("Ctrl+O"));
 	openAct->setStatusTip(tr("Open an existing file"));
 	connect(openAct, SIGNAL(triggered()), this, SLOT(open()));
@@ -305,7 +305,7 @@ void mainWindow::open()
                 this,
                 "Choose a file",
                 dir,
-                "System Exclusive GT-10 & GT-8 (*.syx *.mid *.gxg)");
+                "for GT-10, GT-10B, or GT-8   (*.syx *.mid *.gxg *.gxb)");
 	if (!fileName.isEmpty())	
 	{
 		file.setFile(fileName);  

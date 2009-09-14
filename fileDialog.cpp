@@ -49,7 +49,7 @@ fileDialog::fileDialog(QString fileName, QList<QString> patchList)
 
 	QHBoxLayout *buttonsLayout = new QHBoxLayout;
 	buttonsLayout->addStretch(1);
-	//buttonsLayout->addWidget(cancelButton);
+	buttonsLayout->addWidget(cancelButton);
 
 	QVBoxLayout *mainLayout = new QVBoxLayout;
 	mainLayout->addWidget(nameLabel);
