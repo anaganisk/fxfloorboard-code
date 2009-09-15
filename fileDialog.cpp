@@ -28,22 +28,21 @@
 
 fileDialog::fileDialog(QString fileName, QList<QString> patchList)
 {
-  QObject::connect(this, SIGNAL(patchCombo->currentIndex (int)), this->parent(), SLOT(list(int)));
-  
+    QObject::connect(this, SIGNAL(patchIndex(int)),
+                this->parent(), SLOT(patchIndex(int)));
+                
   QLabel *patchLabel = new QLabel(tr("Select patch to load"));
   QLabel *nameLabel = new QLabel(fileName);
 	QComboBox *patchCombo = new QComboBox;
-	patchCombo->addItems(patchList);
+	patchCombo->addItems(patchList); 
 	
-	QObject::connect(patchCombo, SIGNAL(currentIndexChanged(int)),
-                this->parent(), SLOT(patchIndex(unsigned int)));
-                
   QObject::connect(patchCombo, SIGNAL(currentIndexChanged(int)),
-                this, SLOT(close()));              
-		
+                this, SLOT(valueChanged(int)));
+  
 	QPushButton *cancelButton = new QPushButton(tr("Cancel"));
   connect(cancelButton, SIGNAL(clicked()), this, SLOT(close()));
-
+  
+ 
 	QHBoxLayout *horizontalLayout = new QHBoxLayout;	
 	horizontalLayout->addWidget(patchLabel);
 	horizontalLayout->addWidget(patchCombo);
@@ -63,7 +62,14 @@ fileDialog::fileDialog(QString fileName, QList<QString> patchList)
 	setWindowTitle(tr("Bulk File Patch Extraction"));
 };
 
-void fileDialog::list(QString patchList)
+void fileDialog::valueChanged(int value)
 {
-   patchCombo->addItem(patchList);
-};
+  SysxIO *sysxIO = SysxIO::Instance();
+  sysxIO->patchListValue = value;             
+  this->close();
+}; 
+
+
+
+
+

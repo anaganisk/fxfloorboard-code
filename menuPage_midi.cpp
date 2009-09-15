@@ -59,7 +59,7 @@ void menuPage_midi::setEditPages()
 	editDetails()->page()->addComboBox(2, 3, 1, 1, "02", "00", "0D", "System"); // map select
 	
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
-	editDetails()->addPage();
+	editDetails()->addPage("02", "00", "00", "00", "System");
 
  
 };

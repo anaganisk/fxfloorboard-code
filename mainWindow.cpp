@@ -40,7 +40,7 @@
 	//: QMainWindow(parent) 
 {
 	fxsBoard = new floorBoard(this);
-
+  //fxsBoard->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 	
 
 	/* Loads the stylesheet for the current platform if present */
@@ -96,7 +96,7 @@
         //mainLayout->setSizeConstraint(QLayout::SetFixedSize);
 	setLayout(mainLayout);
 
-        //this->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+  
 
 	QObject::connect(fxsBoard, SIGNAL( sizeChanged(QSize, QSize) ),
                 this, SLOT( updateSize(QSize, QSize) ) );
@@ -145,7 +145,7 @@ void mainWindow::updateSize(QSize floorSize, QSize oldFloorSize)
 
 void mainWindow::createActions()
 {
-	openAct = new QAction(QIcon(":/images/fileopen.png"), tr("&Open File... (*.syx)"), this);
+	openAct = new QAction(QIcon(":/images/fileopen.png"), tr("&Open File... (*.syx *.mid *.gxb *.gxg)"), this);
 	openAct->setShortcut(tr("Ctrl+O"));
 	openAct->setStatusTip(tr("Open an existing file"));
 	connect(openAct, SIGNAL(triggered()), this, SLOT(open()));
@@ -189,6 +189,16 @@ void mainWindow::createActions()
 	systemSaveAct->setShortcut(tr("Ctrl+D"));
 	systemSaveAct->setStatusTip(tr("Save System Data to File"));
 	connect(systemSaveAct, SIGNAL(triggered()), this, SLOT(systemSave()));
+	
+	bulkLoadAct = new QAction(QIcon(":/images/fileopen.png"), tr("&Load GT Bulk Backup Data..."), this);
+	bulkLoadAct->setShortcut(tr("Ctrl+B"));
+	bulkLoadAct->setStatusTip(tr("Load Bulk Data to GT-10B"));
+	connect(bulkLoadAct, SIGNAL(triggered()), this, SLOT(bulkLoad()));
+
+	bulkSaveAct = new QAction(QIcon(":/images/filesave.png"), tr("Save GT Bulk Backup Data..."), this);
+	bulkSaveAct->setShortcut(tr("Ctrl+G"));
+	bulkSaveAct->setStatusTip(tr("Save Bulk Data to File"));
+	connect(bulkSaveAct, SIGNAL(triggered()), this, SLOT(bulkSave()));
 
 	exitAct = new QAction(QIcon(":/images/exit.png"),tr("E&xit"), this);
 	exitAct->setShortcut(tr("Ctrl+Q"));
@@ -239,14 +249,17 @@ void mainWindow::createMenus()
 	fileMenu->addAction(saveAct);
 	fileMenu->addAction(saveAsAct);
 	fileMenu->addSeparator();
-	fileMenu->addAction(importSMFAct);
+	//fileMenu->addAction(importSMFAct);
 	fileMenu->addAction(exportSMFAct);
 	fileMenu->addSeparator();
-	fileMenu->addAction(openGXBAct);
+	//fileMenu->addAction(openGXBAct);
 	fileMenu->addAction(saveGXBAct);
 	fileMenu->addSeparator();
 	fileMenu->addAction(systemLoadAct);
 	fileMenu->addAction(systemSaveAct);
+	fileMenu->addSeparator();
+	fileMenu->addAction(bulkLoadAct);
+	fileMenu->addAction(bulkSaveAct);
 	fileMenu->addSeparator();
   fileMenu->addAction(exitAct);
 	menuBar->addMenu(fileMenu);
@@ -267,7 +280,7 @@ void mainWindow::createMenus()
 	helpMenu->addAction(aboutAct);
 	helpMenu->addAction(aboutQtAct);
 	menuBar->addMenu(helpMenu);
-    //menuBar()->addMenu(helpMenu);
+    //menuBar()->addMenu(helpMenu);   
 };
 
 void mainWindow::createStatusBar()
@@ -303,7 +316,7 @@ void mainWindow::open()
                 this,
                 "Choose a file",
                 dir,
-                "System Exclusive GT-10B & GT-6B (*.syx)");
+                "for GT-10B, GT-10, & GT-6B (*.syx *.mid *.gxb *.gxg)");
 	if (!fileName.isEmpty())	
 	{
 		file.setFile(fileName);  
@@ -626,6 +639,114 @@ SysxIO *sysxIO = SysxIO::Instance();
    
 };
 
+void mainWindow::bulkLoad()
+{
+   SysxIO *sysxIO = SysxIO::Instance();
+     if (sysxIO->isConnected())
+	       {
+	Preferences *preferences = Preferences::Instance();
+	QString dir = preferences->getPreferences("General", "Files", "dir");
+
+	QString fileName = QFileDialog::getOpenFileName(
+                this,
+                "Choose a file",
+                dir,
+                "GT10B Bulk Data File (*.GT10B_bulk_syx)");
+	if (!fileName.isEmpty())	
+	{
+		file.setFile(fileName);  
+		if(file.readFile())
+		{	
+			// DO SOMETHING AFTER READING THE FILE (UPDATE THE GUI)
+	
+		  SysxIO *sysxIO = SysxIO::Instance();
+			QString area = "System";
+			sysxIO->setFileSource(area, file.getSystemSource());
+			sysxIO->setFileName(fileName);
+
+			emit updateSignal();
+                        QMessageBox *msgBox = new QMessageBox();
+                                        msgBox->setWindowTitle(deviceType + tr(" Fx FloorBoard"));
+                                        msgBox->setIcon(QMessageBox::Warning);
+                                        msgBox->setTextFormat(Qt::RichText);
+                                        QString msgText;
+                                        msgText.append("<font size='+1'><b>");
+                                        msgText.append(tr("You have chosen to load a SYSTEM DATA file."));
+                                        msgText.append("<b></font><br>");
+                                        msgText.append(tr("This will overwrite the SYSTEM DATA currently stored in the GT-10B<br>"));
+                                        msgText.append(tr (" and can't be undone.<br>"));
+                                        msgText.append(tr("Select 'NO' to only update the Editor - Select 'YES' to update the GT-10B memory<br>"));
+
+
+                                        msgBox->setInformativeText(tr("Are you sure you want to write to the GT-10B?"));
+                                        msgBox->setText(msgText);
+                                        msgBox->setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+
+                                        if(msgBox->exec() == QMessageBox::Yes)
+                                        {	// Accepted to overwrite system data.
+                                        sysxIO->systemWrite();
+                                        };
+		};
+	};
+	}
+         else
+             {
+              QString snork = "Ensure connection is active and retry";
+              QMessageBox *msgBox = new QMessageBox();
+			        msgBox->setWindowTitle(deviceType + " not connected !!");
+		        	msgBox->setIcon(QMessageBox::Information);
+		        	msgBox->setText(snork);
+		        	msgBox->setStandardButtons(QMessageBox::Ok);
+		        	msgBox->exec(); 
+              };  
+};
+
+void mainWindow::bulkSave()
+{ 
+SysxIO *sysxIO = SysxIO::Instance();
+     if (sysxIO->isConnected())
+	       {
+  sysxIO->systemDataRequest();
+  
+	Preferences *preferences = Preferences::Instance();
+	QString dir = preferences->getPreferences("General", "Files", "dir");
+
+	QString fileName = QFileDialog::getSaveFileName(
+                    this,
+                    "Save System Data",
+                    dir,
+                    "System Exclusive File (*.GT10B_bulk_syx)");
+	if (!fileName.isEmpty())	
+	{
+	  if(!fileName.contains(".GT10B_bulk_syx"))
+		{
+			fileName.append(".GT10B_bulk_syx");
+		};
+    	
+		file.writeSystemFile(fileName);
+		file.setFile(fileName);  
+		if(file.readFile())
+		{	
+		  SysxIO *sysxIO = SysxIO::Instance();
+			QString area = "System";
+			sysxIO->setFileSource(area, file.getSystemSource());
+			emit updateSignal();
+		};
+	};
+	 }
+         else
+             { 
+              QString snork = "Ensure connection is active and retry";
+              QMessageBox *msgBox = new QMessageBox();
+			        msgBox->setWindowTitle(deviceType + " not connected !!");
+		        	msgBox->setIcon(QMessageBox::Information);
+		        	msgBox->setText(snork);
+		        	msgBox->setStandardButtons(QMessageBox::Ok);
+		        	msgBox->exec(); 
+              };  
+   
+};
+
 /* TOOLS MENU */
 void mainWindow::settings()
 {
@@ -656,7 +777,7 @@ void mainWindow::settings()
 		preferences->setPreferences("Window", "Restore", "sidepanel", sidepanel);
 		preferences->setPreferences("Window", "Restore", "window", window);
 		preferences->setPreferences("Window", "Splash", "bool", splash);
-		//preferences->savePreferences();
+		preferences->savePreferences();
 	};
 };
 

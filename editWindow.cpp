@@ -1,6 +1,8 @@
 /****************************************************************************
 **
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
+** Copyright (C) 2007, 2008, 2009 Colin Willcocks.
+** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
+** All rights reserved.
 **
 ** This file is part of "GT-10B Fx FloorBoard".
 **
@@ -49,15 +51,61 @@ editWindow::editWindow(QWidget *parent)
 	this->pageComboBox->setFrame(false);
 	this->pageComboBox->setVisible(false);
 
+  this->swap_Button = new customControlLabel;
+	this->swap_Button->setButton(true);
+	this->swap_Button->setImage(":/images/pushbutton_dark.png");
+	this->swap_Button->setText(tr("Pre A/B swap"));
+	this->swap_Button->setAlignment(Qt::AlignCenter);
+	
+  this->temp1_Button = new customControlLabel;
+	this->temp1_Button->setButton(true);
+	this->temp1_Button->setImage(":/images/pushbutton_dark.png");
+	this->temp1_Button->setText(tr("Temp 1 Partial"));
+	this->temp1_Button->setAlignment(Qt::AlignCenter);
+		
+	this->temp2_Button = new customControlLabel;
+	this->temp2_Button->setButton(true);
+	this->temp2_Button->setImage(":/images/pushbutton_dark.png");
+	this->temp2_Button->setText(tr("Temp 2 Partial"));
+	this->temp2_Button->setAlignment(Qt::AlignCenter);
+	
+	this->temp3_Button = new customControlLabel;
+	this->temp3_Button->setButton(true);
+	this->temp3_Button->setImage(":/images/pushbutton_dark.png");
+	this->temp3_Button->setText(tr("Temp 3 Partial"));
+	this->temp3_Button->setAlignment(Qt::AlignCenter);
+	
+	this->temp4_Button = new customControlLabel;
+	this->temp4_Button->setButton(true);
+	this->temp4_Button->setImage(":/images/pushbutton_dark.png");
+	this->temp4_Button->setText(tr("Temp 4 Partial"));
+	this->temp4_Button->setAlignment(Qt::AlignCenter);
+	
+	this->temp5_Button = new customControlLabel;
+	this->temp5_Button->setButton(true);
+	this->temp5_Button->setImage(":/images/pushbutton_dark.png");
+	this->temp5_Button->setText(tr("Temp 5 Partial"));
+	this->temp5_Button->setAlignment(Qt::AlignCenter);
+	
 	this->closeButton = new customControlLabel;
 	this->closeButton->setButton(true);
 	this->closeButton->setImage(":/images/closebutton.png");
+	
+	QHBoxLayout *buttonLayout = new QHBoxLayout;
+	buttonLayout->addWidget(this->swap_Button);
+	buttonLayout->addWidget(this->temp1_Button);
+	buttonLayout->addWidget(this->temp2_Button);
+	buttonLayout->addWidget(this->temp3_Button);
+	buttonLayout->addWidget(this->temp4_Button);
+	buttonLayout->addWidget(this->temp5_Button);
 
 	QHBoxLayout *headerLayout = new QHBoxLayout;
 	headerLayout->addWidget(this->title);
 	headerLayout->addStretch();
 	headerLayout->addWidget(this->comboBoxLabel);
 	headerLayout->addWidget(this->pageComboBox);
+	headerLayout->addStretch();
+	headerLayout->addLayout(buttonLayout);
 	headerLayout->addStretch();
 	headerLayout->addWidget(this->closeButton);
 
@@ -78,13 +126,20 @@ editWindow::editWindow(QWidget *parent)
 	mainLayout->addStretch();
 	//mainLayout->addLayout(sellectLayout);
 	mainLayout->addLayout(pagesLayout);
-	mainLayout->addStretch();
+	mainLayout->addStretch(); 
 	mainLayout->addSpacing(16);
 	setLayout(mainLayout);
 
 	this->tempPage = new editPage;
 
 	QObject::connect(this->pageComboBox, SIGNAL(activated(int)), this->pagesWidget, SLOT(setCurrentIndex(int)));
+	
+	QObject::connect(this->swap_Button, SIGNAL(mouseReleased()), this, SLOT(hide()));
+	QObject::connect(this->temp1_Button, SIGNAL(mouseReleased()), this, SLOT(hide()));
+	QObject::connect(this->temp2_Button, SIGNAL(mouseReleased()), this, SLOT(hide()));
+	QObject::connect(this->temp3_Button, SIGNAL(mouseReleased()), this, SLOT(hide()));
+	QObject::connect(this->temp4_Button, SIGNAL(mouseReleased()), this, SLOT(hide()));
+	QObject::connect(this->temp5_Button, SIGNAL(mouseReleased()), this, SLOT(hide()));
 
 	QObject::connect(this->closeButton, SIGNAL(mouseReleased()), this, SLOT(hide()));
 	
@@ -147,7 +202,19 @@ void editWindow::addPage(QString hex1, QString hex2, QString hex3, QString hex4,
 
 	QObject::connect(editPages.last(), SIGNAL( updateSignal() ),
 		this, SIGNAL( updateSignal() ));
-   if (area != "System"){this->area = "Structure";};
+   if (!area.contains("System")){this->area = "Structure";};
+   if (this->area != "Structure")
+    {
+      this->temp1_Button->hide();
+      this->temp2_Button->hide();
+      this->temp3_Button->hide();
+      this->temp4_Button->hide();
+      this->temp5_Button->hide();
+    };
+    if (this->area != "Structure" || this->hex1 != "01" || this->hex3 != "50")
+     {
+       this->swap_Button->hide();
+     };
 	if(hex1 != "void" && hex2 != "void" && hex3 != "void")
 	{
 		MidiTable *midiTable = MidiTable::Instance();

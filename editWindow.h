@@ -71,6 +71,12 @@ private:
 	QLabel* comboBoxLabel;
 	QStackedWidget* pagesWidget;
 	QComboBox* pageComboBox;
+	customControlLabel* swap_Button;
+	customControlLabel* temp1_Button;
+	customControlLabel* temp2_Button;
+	customControlLabel* temp3_Button;
+	customControlLabel* temp4_Button;
+	customControlLabel* temp5_Button;
 	customControlLabel* closeButton;
 	editPage* tempPage;
 	QList<editPage*> editPages;

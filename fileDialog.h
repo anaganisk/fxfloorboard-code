@@ -28,6 +28,7 @@
 #include <QDialog>
 #include <QComboBox>
 #include <QLabel>
+#include "SysxIO.h" 
 
 class QListWidget;
 class QListWidgetItem;
@@ -42,10 +43,14 @@ public:
 	QLabel *patchLabel;
   QLabel *nameLabel; 
   QComboBox *patchCombo;
-
+  //int index;
+signals:
+  //void currentIndex(int value);
+  void patchIndex(int value);
+                    
 public slots:
-	void list(QString patchList);
-  
+  void valueChanged(int value);
+   
 private:   
   QList<QString> patchList;
 	QListWidget *contentsWidget;

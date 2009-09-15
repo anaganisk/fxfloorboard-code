@@ -98,6 +98,7 @@ public:
 	QString dBug;
 	void systemWrite();
 	void systemDataRequest();
+	int patchListValue;
 
 public slots:
 	void errorSignal(QString errorType, QString errorMsg);

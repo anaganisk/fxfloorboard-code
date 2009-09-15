@@ -1,6 +1,6 @@
 /****************************************************************************
 **
-** Copyright (C) 2008 Colin Willcocks.
+** Copyright (C) 2007, 2008, 2009 Colin Willcocks.
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
 ** All rights reserved.
 **
@@ -55,6 +55,8 @@ public slots:
 	void saveGXB();
 	void systemSave();
 	void systemLoad();
+	void bulkSave();
+	void bulkLoad();
 	void settings();
 	void upload();
 	void help();
@@ -82,6 +84,8 @@ private:
 	QAction *saveGXBAct;
 	QAction *systemLoadAct;
 	QAction *systemSaveAct;
+	QAction *bulkLoadAct;
+	QAction *bulkSaveAct;
 	QAction *exitAct;
 	QAction *settingsAct;
 	QAction *uploadAct;

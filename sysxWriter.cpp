@@ -54,16 +54,22 @@ bool sysxWriter::readFile()
 		QByteArray data = file.readAll();     // read the pre-selected file, copy to 'data'
 		QByteArray default_data;
 		QByteArray GXB_default;
+		QByteArray hextable;
 		QFile file(":default.syx");           // Read the default GT-10B sysx file .
     if (file.open(QIODevice::ReadOnly))
 	  {	default_data = file.readAll(); };
 	  QFile GXBfile(":default.gxb");           // Read the default GT-10B GXB file .
     if (GXBfile.open(QIODevice::ReadOnly))
 	  {	GXB_default = GXBfile.readAll(); };
+	  QFile hexfile(":HexLookupTable.hex");           // Read the HexLookupTable for the SMF header file .
+    if (hexfile.open(QIODevice::ReadOnly))
+	  {	hextable = hexfile.readAll(); };
 	  
 	  QByteArray default_header = default_data.mid(0, 7);           // copy header from default.syx
 	  QByteArray file_header = data.mid(0, 7);                      // copy header from read file.syx
 	  QByteArray GXB_header = GXB_default.mid(3, 20);                // copy header from default.gxb
+	  QByteArray SMF_header = hextable.mid(288,18);
+	  QByteArray SMF_file = data.mid(0, 18);
 	  bool isHeader = false;
 	  if (default_header == file_header) {isHeader = true;};
 	  QByteArray GTM_bit =  default_data.mid(1765, 5);              // see if the file has a GT-Manager signature.
@@ -72,16 +78,18 @@ bool sysxWriter::readFile()
 	  if (GTM_bit == GTM_file) {isGTM = true;};
 	  bool isGXB = false;
 	  if (data.contains(GXB_header)){isGXB = true; };             // see if file is a GXB type and set isGXB flag.
+	  bool isSMF = false;
+	  if (data.contains(SMF_header)) {isSMF = true; };
 	  
 		SysxIO *sysxIO = SysxIO::Instance();
-    if(data.size() == 2366 && isHeader == true)  {         //if GT-10B system file size is correct- load file. 
+    if(data.size() == 2366 && isHeader == true)  {         //if GT-10B SYSTEM file size is correct- load file. 
 		QString area = "System";
 		sysxIO->setFileSource(area, data);
 		sysxIO->setFileName(this->fileName);
 		this->systemSource = sysxIO->getSystemSource();		
 		return true;
 		}
-    else if(data.size() == 1777 && isHeader == true){         //1777 if GT-10B patch file size is correct- load file >>>  currently at 1763 bytes.
+    else if(data.size() == 1777 && isHeader == true){         //1777 if GT-10B SYX PATCH file size is correct- load file >>>  currently at 1763 bytes.
 		   
     SysxIO *sysxIO = SysxIO::Instance();
 		QString area = "Structure";
@@ -387,9 +395,9 @@ bool sysxWriter::readFile()
 		sysxIO->setFileName(this->fileName);
 		this->fileSource = sysxIO->getFileSource();
 		return true;
-		
-    }	else if (data.size() == 1839)
-  {                                        // file size of a .mid type SMF patch file from Boss Librarian
+		                                        
+    }	else if (isSMF)                      // SMF ******************************************************************
+  {                                        // file contains a .mid type SMF patch file header from Boss Librarian
    
 	QByteArray smf_data = data;
 	QFile file(":default.syx");              // Read the default GT-10B sysx file so we don't start empty handed.
@@ -405,59 +413,93 @@ bool sysxWriter::readFile()
 	msgText.append("<font size='+1'><b>");
 	msgText.append(QObject::tr("This is not a GT-10B patch!"));
 	msgText.append("<b></font><br>");
-	msgText.append(QObject::tr("this file is most likely a GT-10 Guitar version<br>"));
+	msgText.append(QObject::tr("this file is a GT-10 Guitar version<br>"));
 	msgText.append(QObject::tr("*Loading this file may have unpredictable results*."));
 	msgBox->setText(msgText);
 	msgBox->setStandardButtons(QMessageBox::Ok);
-	msgBox->exec();
-  
+	msgBox->exec();  
   };
-	temp = smf_data.mid(43, 128);            // copy SMF 128 bytes
+  
+  index = 1;
+  int patchCount = (smf_data.size()-32)/1806;
+  if (patchCount>1)
+  {
+  QString msgText;
+  QString patchText;
+	QString patchNumber;
+	unsigned char r;
+	this->patchList.clear();
+	this->patchList.append("Select Patch");
+  unsigned int a = 43; // locate patch text start position from the start of the file
+     for (int h=0;h<patchCount;h++)
+       {       
+        for (int b=0;b<16;b++)
+           {
+             r = (char)smf_data[a+b];
+             patchText.append(r);
+           };
+            patchNumber = QString::number(h+1, 10).toUpper();
+            msgText.append(patchNumber + " : ");
+            msgText.append(patchText + "   ");
+            this->patchList.append(msgText);
+            patchText.clear();
+            msgText.clear();
+            a=a+1806;                      // offset is set in front of marker
+        }; 
+              
+    fileDialog *dialog = new fileDialog(fileName, patchList); 
+    dialog->exec();    
+    patchIndex(this->index);                          
+   };   
+     
+   int a=0;                             // offset is set to first patch
+   if (patchCount>1)
+   {
+    int q=index-1; 
+    a = q*1806;  
+   };    
+  
+	temp = smf_data.mid(a+43, 128);            // copy SMF 128 bytes
 	data.replace(11, 128, temp);             // replace gt10 address "00"...
-	temp = smf_data.mid(171, 114);           // copy SMF part1...
-	temp.append(smf_data.mid(301,14));       // copy SMF part2...
+	temp = smf_data.mid(a+171, 114);           // copy SMF part1...
+	temp.append(smf_data.mid(a+301,14));       // copy SMF part2...
 	data.replace(152, 128, temp);            // replace gt10 address "01"...
-	temp = smf_data.mid(315, 128);           // copy SMF part1...
+	temp = smf_data.mid(a+315, 128);           // copy SMF part1...
 	data.replace(293, 128, temp);            // replace gt10 address "02"...
-	temp = smf_data.mid(443, 100);           // copy SMF part1...
+	temp = smf_data.mid(a+443, 100);           // copy SMF part1...
 	data.replace(434, 100, temp);            // replace gt10 address "03"...
-	temp = smf_data.mid(715, 86);            // copy SMF part1...
-	temp.append(smf_data.mid(817,42));       // copy SMF part2...
+	temp = smf_data.mid(a+715, 86);            // copy SMF part1...
+	temp.append(smf_data.mid(a+817,42));       // copy SMF part2...
 	data.replace(547, 128, temp);             // replace gt10 address "05"...
-	temp = smf_data.mid(859, 128);           // copy SMF part1...
+	temp = smf_data.mid(a+859, 128);           // copy SMF part1...
 	data.replace(688,128, temp);             // replace gt10 address "06"...
-	temp = smf_data.mid(987, 72);            // copy SMF part1...
-	temp.append(smf_data.mid(1075,28));      // copy SMF part2...
+	temp = smf_data.mid(a+987, 72);            // copy SMF part1...
+	temp.append(smf_data.mid(a+1075,28));      // copy SMF part2...
 	data.replace(829, 100, temp);            // replace gt10 address "07"...
-	temp = smf_data.mid(1259, 58);           // copy SMF part1...
-	temp.append(smf_data.mid(1333,42));      // copy SMF part2...
+	temp = smf_data.mid(a+1259, 58);           // copy SMF part1...
+	temp.append(smf_data.mid(a+1333,42));      // copy SMF part2...
 	data.replace(942, 100, temp);           // replace gt10 address "09"...
-	temp = smf_data.mid(1403, 128);          // copy SMF part1...
+	temp = smf_data.mid(a+1403, 128);          // copy SMF part1...
 	data.replace(1083,128, temp);            // replace gt10 address "0A"...
-	temp = smf_data.mid(1531, 44);           // copy SMF part1...
-	temp.append(smf_data.mid(1591,84));      // copy SMF part2...
+	temp = smf_data.mid(a+1531, 44);           // copy SMF part1...
+	temp.append(smf_data.mid(a+1591,84));      // copy SMF part2...
 	data.replace(1224, 128, temp);           // replace gt10 address "0B"...
-	temp = smf_data.mid(1675, 128);          // copy SMF part1...
+	temp = smf_data.mid(a+1675, 128);          // copy SMF part1...
 	data.replace(1365,128, temp);            // replace gt10 address "0C"...
 	
-/*	QMessageBox *msgBox = new QMessageBox();
-	msgBox->setWindowTitle("SMF size");
-	QString msgText;
-	msgText.append("file size after conversion = ");
-	msgText.append(QString::number(data.size(), 10));
-	msgBox->setText(msgText);
-	msgBox->setStandardButtons(QMessageBox::Ok);
-	msgBox->exec();     */
-    
+    if (index>0)
+    {
     SysxIO *sysxIO = SysxIO::Instance();
     QString area = "Structure";
 		sysxIO->setFileSource(area, data);
 		sysxIO->setFileName(this->fileName);
 		this->fileSource = sysxIO->getFileSource();
-		return true;   
+		return true;  
+    } else { return false; }; 
   } 
-  else if (isGXB)      // if the read file is a Boss Librarian type.
+  else if (isGXB)      // if the read file is a Boss Librarian type. ***************************************
   {
+  index=1;
   unsigned char r = (char)data[35];     // find patch count in GXB file at byte 35, 1~200
 	bool ok;
   int patchCount;
@@ -488,27 +530,25 @@ bool sysxWriter::readFile()
             msgText.clear();
         a = data.indexOf(marker, a); // locate patch start position from the start of the file
         a=a+2;                      // offset is set in front of marker
-        };        
-    fileDialog *dialog = new fileDialog(fileName, patchList);
-    dialog->exec();                            
+        }; 
+              
+    fileDialog *dialog = new fileDialog(fileName, patchList); 
+    dialog->exec();    
+    patchIndex(this->index);                          
    };   
-   index=7;
+   
    marker = data.mid(170, 2);      //copy marker key to find "06A5" which marks the start of each patch block
    unsigned int a = data.indexOf(marker, 0); // locate patch start position from the start of the file
    a=a+2;                             // offset is set in front of marker
    if (patchCount>1)
    {
-    int q=this->index; 
+    int q=index-1; 
      for (int h=0;h<q;h++)
        {
         a = data.indexOf(marker, a); // locate patch start position from the start of the file
         a=a+2;
-       };                             // offset is set in front of marker    
-   }; 
-  
-   
-   
-   
+       };                             // offset is set in front of marker          
+   };    
    QByteArray temp;
    temp = data.mid(a, 128);
    default_data.replace(11, 128, temp);      //address "00" +
@@ -556,22 +596,25 @@ bool sysxWriter::readFile()
       default_data.replace(1506, (w-x), temp);            // paste text 2
     };
     
-  SysxIO *sysxIO = SysxIO::Instance();
+    if (index>0)
+    {
+    SysxIO *sysxIO = SysxIO::Instance();
     QString area = "Structure";
 		sysxIO->setFileSource(area, default_data);
 		sysxIO->setFileName(this->fileName);
 		this->fileSource = sysxIO->getFileSource();
-		return true;     
+		return true; 
+    } else { return false; };    
   }
     else  // if nothing else matches, then the file can't be loaded
   {
 	QMessageBox *msgBox = new QMessageBox();
-	msgBox->setWindowTitle(QObject::tr("Patch size Error!"));
+	msgBox->setWindowTitle(QObject::tr("Patch can't be loaded"));
 	msgBox->setIcon(QMessageBox::Warning);
 	msgBox->setTextFormat(Qt::RichText);
 	QString msgText;
-	msgText.append("<font size='+1'><b>");
-	msgText.append(QObject::tr("This is not a ") + deviceType + (" patch!"));
+	msgText.append("<font size='+2'><b>");
+	msgText.append(QObject::tr("This file is not known to the ") + deviceType);
 	msgText.append("<b></font><br>");
 	if (data.size() == 1763){
   msgText.append("but appears to be a GT-10 patch<br>");};
@@ -594,9 +637,10 @@ bool sysxWriter::readFile()
 	};
 };
 
-void sysxWriter::patchIndex(unsigned int listIndex)
+void sysxWriter::patchIndex(int listIndex)
 {
-   this->index = listIndex;
+  SysxIO *sysxIO = SysxIO::Instance();     
+   this->index=sysxIO->patchListValue;   
 };
 
 void sysxWriter::writeFile(QString fileName)

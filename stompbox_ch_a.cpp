@@ -349,5 +349,5 @@ void stompbox_ch_a::setEditPages()
 	editDetails()->page()->addStackField();
 	// PAGE 12 ABOVE
 	
-  editDetails()->addPage();	
+  editDetails()->addPage("01", "00", "50", "Structure");	
 };
