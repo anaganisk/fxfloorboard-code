@@ -472,18 +472,24 @@ void floorBoardDisplay::temp1_copy(bool value)
 			sysxMsg.append(hex);
 		}; 
 	}; 
-  this->temp1_sysxMsg = sysxMsg;   
+  sysxIO->temp1_sysxMsg = sysxMsg;   
 };
 
 void floorBoardDisplay::temp1_paste(bool value)
-{
+{ 
+  SysxIO *sysxIO = SysxIO::Instance();
+  this->temp1_sysxMsg = sysxIO->temp1_sysxMsg;
   if (!temp1_sysxMsg.isEmpty() )
   {
   SysxIO *sysxIO = SysxIO::Instance();
   sysxIO->setFileSource("patch", temp1_sysxMsg);
   emit updateSignal();  
 	sysxIO->writeToBuffer();
-	};
+	}
+  else
+  {
+   QApplication::beep();
+  };
 };
 
 void floorBoardDisplay::temp2_copy(bool value)
@@ -514,18 +520,23 @@ void floorBoardDisplay::temp2_copy(bool value)
 			sysxMsg.append(hex);
 		}; 
 	}; 
-  this->temp2_sysxMsg = sysxMsg;   
+  sysxIO->temp2_sysxMsg = sysxMsg;   
 };
 
 void floorBoardDisplay::temp2_paste(bool value)
 {
+  SysxIO *sysxIO = SysxIO::Instance();
+  this->temp2_sysxMsg = sysxIO->temp2_sysxMsg;
   if (!temp2_sysxMsg.isEmpty() )
   {
   SysxIO *sysxIO = SysxIO::Instance();
   sysxIO->setFileSource("patch", temp2_sysxMsg);
   emit updateSignal();  
 	sysxIO->writeToBuffer();
-	};
+	}else
+  {
+   QApplication::beep();
+  };
 };
 
 void floorBoardDisplay::temp3_copy(bool value)
@@ -556,18 +567,23 @@ void floorBoardDisplay::temp3_copy(bool value)
 			sysxMsg.append(hex);
 		}; 
 	}; 
-  this->temp3_sysxMsg = sysxMsg;   
+  sysxIO->temp3_sysxMsg = sysxMsg;   
 };
 
 void floorBoardDisplay::temp3_paste(bool value)
 {
+  SysxIO *sysxIO = SysxIO::Instance();
+  this->temp3_sysxMsg = sysxIO->temp3_sysxMsg;
   if (!temp3_sysxMsg.isEmpty() )
   {
   SysxIO *sysxIO = SysxIO::Instance();
   sysxIO->setFileSource("patch", temp3_sysxMsg);
   emit updateSignal();  
 	sysxIO->writeToBuffer();
-	};
+	}else
+  {
+   QApplication::beep();
+  };
 };
 
 void floorBoardDisplay::temp4_copy(bool value)
@@ -598,18 +614,23 @@ void floorBoardDisplay::temp4_copy(bool value)
 			sysxMsg.append(hex);
 		}; 
 	}; 
-  this->temp4_sysxMsg = sysxMsg;   
+  sysxIO->temp4_sysxMsg = sysxMsg;   
 };
 
 void floorBoardDisplay::temp4_paste(bool value)
 {
+  SysxIO *sysxIO = SysxIO::Instance();
+  this->temp4_sysxMsg = sysxIO->temp4_sysxMsg;
   if (!temp4_sysxMsg.isEmpty() )
   {
   SysxIO *sysxIO = SysxIO::Instance();
   sysxIO->setFileSource("patch", temp4_sysxMsg);
   emit updateSignal();  
 	sysxIO->writeToBuffer();
-	};
+	}else
+  {
+   QApplication::beep();
+  };
 };
 
 void floorBoardDisplay::temp5_copy(bool value)
@@ -640,18 +661,23 @@ void floorBoardDisplay::temp5_copy(bool value)
 			sysxMsg.append(hex);
 		}; 
 	}; 
-  this->temp5_sysxMsg = sysxMsg;   
+  sysxIO->temp5_sysxMsg = sysxMsg;   
 };
 
 void floorBoardDisplay::temp5_paste(bool value)
 {
+  SysxIO *sysxIO = SysxIO::Instance();
+  this->temp5_sysxMsg = sysxIO->temp5_sysxMsg;
   if (!temp5_sysxMsg.isEmpty() )
   {
   SysxIO *sysxIO = SysxIO::Instance();
   sysxIO->setFileSource("patch", temp5_sysxMsg);
   emit updateSignal();  
 	sysxIO->writeToBuffer();
-	};
+	}else
+  {
+   QApplication::beep();
+  };
 };
 
 

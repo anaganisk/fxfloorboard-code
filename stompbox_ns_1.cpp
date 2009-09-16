@@ -55,5 +55,8 @@ void stompbox_ns_1::setEditPages()
 	editDetails()->page()->addKnob(0, 0, 1, 1, "0A", "00", "72");
 	editDetails()->page()->addKnob(0, 1, 1, 1, "0A", "00", "73");
 	editDetails()->page()->addGroupBox(0, 1, 1, 1);
-	editDetails()->addPage();	
+	
+	editDetails()->addPage();
+	editDetails()->patchPos(2392, 8, "0A", "71");    // sysx file offset and data length of chorus parameters x2,
+                                                  // and hex1 & hex3 address start point.
 };

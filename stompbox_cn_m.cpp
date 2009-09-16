@@ -28,7 +28,7 @@ stompbox_cn_m::stompbox_cn_m(QWidget *parent)
 {
 	/* CHAIN MERGE */
 	this->setImage(":/images/cn_m.png");
-	setLSB("0A", "00");
+	setLSB("00", "00");
 	setEditPages();
 };
 
@@ -39,5 +39,6 @@ void stompbox_cn_m::updateSignal()
 
 void stompbox_cn_m::setEditPages()
 {
-	
+ editDetails()->addPage();
+ editDetails()->patchPos(0, 0, "void", "void");    // don't want buttons on a blank page.	
 };

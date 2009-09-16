@@ -870,5 +870,7 @@ editDetails()->page()->addComboBox(0, 0, 1, 1, "05", "00", "44");
 	editDetails()->page()->addStackField();
 
 
-editDetails()->addPage();	
+editDetails()->addPage();
+editDetails()->patchPos(586, 764, "02", "00");    // sysx file offset and data length of chorus parameters x2,
+                                                  // and hex1 & hex3 address start point.	
 };

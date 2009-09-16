@@ -135,18 +135,17 @@ editWindow::editWindow(QWidget *parent)
 	QObject::connect(this->pageComboBox, SIGNAL(activated(int)), this->pagesWidget, SLOT(setCurrentIndex(int)));
 	
 	QObject::connect(this->swap_Button, SIGNAL(mouseReleased()), this, SLOT(hide()));
-	QObject::connect(this->temp1_Button, SIGNAL(mouseReleased()), this, SLOT(hide()));
-	QObject::connect(this->temp2_Button, SIGNAL(mouseReleased()), this, SLOT(hide()));
-	QObject::connect(this->temp3_Button, SIGNAL(mouseReleased()), this, SLOT(hide()));
-	QObject::connect(this->temp4_Button, SIGNAL(mouseReleased()), this, SLOT(hide()));
-	QObject::connect(this->temp5_Button, SIGNAL(mouseReleased()), this, SLOT(hide()));
+	QObject::connect(this->temp1_Button, SIGNAL(mouseReleased()), this, SLOT(temp1()));
+	QObject::connect(this->temp2_Button, SIGNAL(mouseReleased()), this, SLOT(temp2()));
+	QObject::connect(this->temp3_Button, SIGNAL(mouseReleased()), this, SLOT(temp3()));
+	QObject::connect(this->temp4_Button, SIGNAL(mouseReleased()), this, SLOT(temp4()));
+	QObject::connect(this->temp5_Button, SIGNAL(mouseReleased()), this, SLOT(temp5()));
 
 	QObject::connect(this->closeButton, SIGNAL(mouseReleased()), this, SLOT(hide()));
 	
 	QObject::connect(this, SIGNAL( closeWindow() ), this, SLOT(hide()));
 
-	/*QObject::connect(this, SIGNAL( updateSignal() ),
-            this->parent(), SIGNAL( updateSignal() ));*/
+	QObject::connect(this, SIGNAL( updateSignal() ), this->parent(), SIGNAL( dialogUpdateSignal() ));
 
 	QObject::connect(this, SIGNAL( dialogUpdateSignal() ), this, SLOT( pageUpdateSignal() ));
 
@@ -203,7 +202,7 @@ void editWindow::addPage(QString hex1, QString hex2, QString hex3, QString hex4,
 	QObject::connect(editPages.last(), SIGNAL( updateSignal() ),
 		this, SIGNAL( updateSignal() ));
    if (!area.contains("System")){this->area = "Structure";};
-   if (this->area != "Structure")
+   if (this->area != "Structure" || this->temp_hex1 == "void")
     {
       this->temp1_Button->hide();
       this->temp2_Button->hide();
@@ -286,6 +285,7 @@ void editWindow::pageUpdateSignal()
 		//this->valueChanged(index);
 
 	}; */
+	emit updateSignal();
 };
 
 editPage* editWindow::page()
@@ -303,4 +303,92 @@ void editWindow::hideWindow()
 {
   QApplication::beep();
   emit hide();
+};
+
+void editWindow::temp1()
+{
+  
+  SysxIO *sysxIO = SysxIO::Instance();
+  if (!sysxIO->temp1_sysxMsg.isEmpty() && !temp_hex1.isEmpty() && !temp_hex1.contains("void") )
+  {
+  QString temp = sysxIO->temp1_sysxMsg.mid(this->position, this->length);
+  sysxIO->setFileSource("Structure", this->temp_hex1, "00", this->temp_hex3, temp);
+  emit updateSignal();
+  } 
+  else 
+  {
+    QApplication::beep(); 
+  };
+};
+
+void editWindow::temp2()
+{
+  
+  SysxIO *sysxIO = SysxIO::Instance();
+  if (!sysxIO->temp2_sysxMsg.isEmpty() && !temp_hex1.isEmpty() && !temp_hex1.contains("void")  )
+  {
+  QString temp = sysxIO->temp2_sysxMsg.mid(this->position, this->length);
+  sysxIO->setFileSource("Structure", this->temp_hex1, "00", this->temp_hex3, temp);
+  emit updateSignal();
+  } 
+  else 
+  {
+    QApplication::beep(); 
+  };
+};
+
+void editWindow::temp3()
+{
+  
+  SysxIO *sysxIO = SysxIO::Instance();
+  if (!sysxIO->temp3_sysxMsg.isEmpty() && !temp_hex1.isEmpty() && !temp_hex1.contains("void")  )
+  {
+  QString temp = sysxIO->temp3_sysxMsg.mid(this->position, this->length);
+  sysxIO->setFileSource("Structure", this->temp_hex1, "00", this->temp_hex3, temp);
+  emit updateSignal();
+  } 
+  else 
+  {
+    QApplication::beep(); 
+  };
+};
+
+void editWindow::temp4()
+{
+  
+  SysxIO *sysxIO = SysxIO::Instance();
+  if (!sysxIO->temp4_sysxMsg.isEmpty() && !temp_hex1.isEmpty() && !temp_hex1.contains("void")  )
+  {
+  QString temp = sysxIO->temp4_sysxMsg.mid(this->position, this->length);
+  sysxIO->setFileSource("Structure", this->temp_hex1, "00", this->temp_hex3, temp);
+  emit updateSignal();
+  } 
+  else 
+  {
+    QApplication::beep(); 
+  };
+};
+
+void editWindow::temp5()
+{
+  
+  SysxIO *sysxIO = SysxIO::Instance();
+  if (!sysxIO->temp5_sysxMsg.isEmpty() && !temp_hex1.isEmpty() && !temp_hex1.contains("void")  )
+  {
+  QString temp = sysxIO->temp5_sysxMsg.mid(this->position, this->length);
+  sysxIO->setFileSource("Structure", this->temp_hex1, "00", this->temp_hex3, temp);
+  emit updateSignal();
+  } 
+  else 
+  {
+    QApplication::beep(); 
+  };
+};
+
+void editWindow::patchPos(int pos, int len, QString t_hex1, QString t_hex3)
+{
+  this->position = pos;
+  this->length = len;
+  this->temp_hex1 = t_hex1;
+  this->temp_hex3 = t_hex3;
 };

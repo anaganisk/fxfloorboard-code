@@ -44,6 +44,7 @@ public:
 	QString getTitle();
 	void addPage(QString hex1 = "void", QString hex2 = "void", QString hex3 = "void", QString hex4 = "void", QString area = "Structure");
 	editPage* page();
+	void patchPos(int pos, int len, QString t_hex1, QString t_hex3);
 
 signals:
 	void dialogUpdateSignal();
@@ -56,6 +57,11 @@ public slots:
 	void pageUpdateSignal();
 	virtual void closeEvent(QCloseEvent* ce);
 	void hideWindow();
+	void temp1();
+	void temp2();
+	void temp3();
+	void temp4();
+	void temp5();
 
 protected:
 	void paintEvent(QPaintEvent *event);
@@ -80,6 +86,10 @@ private:
 	customControlLabel* closeButton;
 	editPage* tempPage;
 	QList<editPage*> editPages;
+	int position;
+	int length;
+	QString temp_hex1;
+	QString temp_hex3;
 };
 
 #endif // EDITWINDOW_H

@@ -157,5 +157,7 @@ void stompbox_pdl::setEditPages()
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->page()->addStackField();
 
-	editDetails()->addPage();	
+	editDetails()->addPage();
+	editDetails()->patchPos(2294, 60, "0A", "40");    // sysx file offset and data length of chorus parameters x2,
+                                                  // and hex1 & hex3 address start point.
 };

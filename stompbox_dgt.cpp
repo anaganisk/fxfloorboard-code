@@ -27,12 +27,12 @@ stompbox_dgt::stompbox_dgt(QWidget *parent)
 {
 	/* D-OUT */
 	this->setImage(":/images/dgt.png");
-	setLSB("void", "void");
+	setLSB("00", "00");
 	setEditPages();
 };
 
 void stompbox_dgt::setEditPages()
 {
     
-	
+ editDetails()->patchPos(0, 0, "void", "void");    // don't want buttons on a blank page.		
 };

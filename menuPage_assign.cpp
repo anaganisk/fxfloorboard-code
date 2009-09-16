@@ -74,8 +74,10 @@ void menuPage_assign::setEditPages()
 	editDetails()->page()->newGroupBox("");
 	editDetails()->page()->insertStackField(0, 0, 1, 1, 1);
 	editDetails()->page()->addGroupBox(1, 0, 1, 1);	
+	
 	editDetails()->addPage();
-
+  editDetails()->patchPos(2512, 284, "0B", "20");    //192 sysx file offset and data length of chorus parameters x2,
+                                                    // and hex1 & hex3 address start point.
  
   editDetails()->page()->newStackField(0);
   editDetails()->page()->newGroupBox("Assign 1 Target");

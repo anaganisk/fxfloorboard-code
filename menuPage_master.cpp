@@ -59,4 +59,6 @@ void menuPage_master::setEditPages()
 	editDetails()->page()->addGroupBox(0, 2, 1, 1);
 
 	editDetails()->addPage();
+	editDetails()->patchPos(2358, 20, "0A", "60");    // sysx file offset and data length of chorus parameters x2,
+                                                  // and hex1 & hex3 address start point.
 };
