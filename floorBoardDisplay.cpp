@@ -126,7 +126,7 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
 	this->chorus_Button = new customButton(tr("Chorus"), false, QPoint(550, editButtonRowOffset), this, ":/images/pushbutton.png");
 	this->sendreturn_Button = new customButton(tr("Send/Return"), false, QPoint(550, editButtonRowOffset+18), this, ":/images/pushbutton.png");
 	this->eq_Button = new customButton(tr("Equalizer"), false, QPoint(640, editButtonRowOffset), this, ":/images/pushbutton.png");
-	this->pedal_Button = new customButton(tr("Pedal"), false, QPoint(640, editButtonRowOffset+18), this, ":/images/pushbutton.png");
+	this->pedal_Button = new customButton(tr("Pedal/Wha"), false, QPoint(640, editButtonRowOffset+18), this, ":/images/pushbutton.png");
 	
 	
 	this->temp1_copy_Button = new customButton(tr("Temp-1 Copy"), false, QPoint(10, tempRowOffset), this, ":/images/pushbutton.png");

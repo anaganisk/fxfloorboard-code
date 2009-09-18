@@ -107,6 +107,7 @@ public slots:
 	void sendreturn_ButtonSignal(bool value);
 	void eq_ButtonSignal(bool value);
 	void pedal_ButtonSignal(bool value);
+	void test();
 		
 signals:
 	void valueChanged(QString fxName, QString valueName, QString valueStr);

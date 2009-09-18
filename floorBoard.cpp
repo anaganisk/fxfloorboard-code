@@ -105,7 +105,7 @@ floorBoard::floorBoard(QWidget *parent,
 
 	floorBoardDisplay *display2 = new floorBoardDisplay(this);
 	display2->setPos(liberainPos);
-
+  
 	QObject::connect(this, SIGNAL( resizeSignal(QRect) ), bankList, SLOT( updateSize(QRect) ) );
 	QObject::connect(display, SIGNAL(connectedSignal()), bankList, SLOT(connectedSignal()));
 	QObject::connect(this, SIGNAL(valueChanged(QString, QString, QString)), display, SLOT(setValueDisplay(QString, QString, QString)));
@@ -121,9 +121,10 @@ floorBoard::floorBoard(QWidget *parent,
 
 	QObject::connect(panelBar, SIGNAL(showDragBar(QPoint)), this, SIGNAL(showDragBar(QPoint)));
 	QObject::connect(panelBar, SIGNAL(hideDragBar()), this, SIGNAL(hideDragBar()));
+	
+	QObject::connect( editDialog, SIGNAL(updateSignal_2()), this->parent(), SIGNAL(updateSignal()));
 
-
-	bool ok;
+  bool ok;
 	Preferences *preferences = Preferences::Instance();
 	QString collapseState = preferences->getPreferences("Window", "Collapsed", "bool");
 	QString width = preferences->getPreferences("Window", "Collapsed", "width");

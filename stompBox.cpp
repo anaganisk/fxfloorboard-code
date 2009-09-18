@@ -1,6 +1,8 @@
 /****************************************************************************
-**
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
+** 
+** Copyright (C) 2007, 2008, 2009 Colin Willcocks.
+** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
+** All rights reserved.
 **
 ** This file is part of "GT-10B Fx FloorBoard".
 **
@@ -47,7 +49,7 @@ stompBox::stompBox(QWidget *parent, unsigned int id, QString imagePath, QPoint s
 	QObject::connect(this->parent(), SIGNAL( updateSignal() ), this, SLOT( updateSignal() ));
 
 	QObject::connect(this->editDialog, SIGNAL( updateSignal() ), this, SLOT( updateSignal() ));
-
+	
 	QObject::connect(this, SIGNAL( dialogUpdateSignal() ), this->editDialog, SIGNAL( dialogUpdateSignal() ));	
 
 	QObject::connect(this->parent(), SIGNAL( updateSignal() ), this->editDialog, SIGNAL( dialogUpdateSignal() ));
@@ -787,7 +789,7 @@ void stompBox::updateStompPath()
 	if (this->id == 7) {this->hexdata_A = "07"; this->hexdata_B = "47"; this->namedata = "DD";   this->fxName = "Delay";};
 	if (this->id == 8) {this->hexdata_A = "08"; this->hexdata_B = "48"; this->namedata = "CE";   this->fxName = "Chorus";};
 	if (this->id == 9) {this->hexdata_A = "09"; this->hexdata_B = "49"; this->namedata = "RV";   this->fxName = "Reverb";};
-	if (this->id == 10){this->hexdata_A = "0A"; this->hexdata_B = "4A"; this->namedata = "PDL";  this->fxName = "Pedal";};
+	if (this->id == 10){this->hexdata_A = "0A"; this->hexdata_B = "4A"; this->namedata = "PDL";  this->fxName = "Pedal/Wha";};
 	if (this->id == 11){this->hexdata_A = "0B"; this->hexdata_B = "4B"; this->namedata = "FV";   this->fxName = "Volume";};
 	if (this->id == 12){this->hexdata_A = "0C"; this->hexdata_B = "4C"; this->namedata = "NS_1"; this->fxName = "Noise Suppressor 1";};
 	if (this->id == 13){this->hexdata_A = "0D"; this->hexdata_B = "4D"; this->namedata = "NS_2"; this->fxName = "Noise Suppressor 2";};
@@ -823,3 +825,7 @@ void stompBox::getStompOrder()
 	this->stompOrderHex = stompOrderHex;
 };
 
+ void stompBox::test()
+ {
+   QApplication::beep();
+ };

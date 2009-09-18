@@ -25,7 +25,8 @@
 #include "editWindow.h"
 #include "MidiTable.h"
 #include "SysxIO.h"
-#include "floorBoardDisplay.h"
+#include "globalVariables.h"
+//#include "floorBoardDisplay.h"
 
 editWindow::editWindow(QWidget *parent)
     : QWidget(parent)
@@ -145,8 +146,6 @@ editWindow::editWindow(QWidget *parent)
 	
 	QObject::connect(this, SIGNAL( closeWindow() ), this, SLOT(hide()));
 
-	QObject::connect(this, SIGNAL( updateSignal() ), this->parent(), SIGNAL( dialogUpdateSignal() ));
-
 	QObject::connect(this, SIGNAL( dialogUpdateSignal() ), this, SLOT( pageUpdateSignal() ));
 
 	QObject::connect(this->pageComboBox, SIGNAL(activated(int)), this, SLOT(valueChanged(int)));
@@ -169,8 +168,8 @@ editWindow::~editWindow()
 
 void editWindow::setLSB(QString hex1, QString hex2)
 {
-	this->hex1 = hex1;
-	this->hex2 = hex2;
+	//this->hex1 = hex1;
+	//this->hex2 = hex2;
 };
 
 void editWindow::setWindow(QString title)
@@ -283,9 +282,7 @@ void editWindow::pageUpdateSignal()
 		this->pageComboBox->setCurrentIndex(index);
 		this->pagesWidget->setCurrentIndex(index);
 		//this->valueChanged(index);
-
 	}; */
-	emit updateSignal();
 };
 
 editPage* editWindow::page()
@@ -313,7 +310,31 @@ void editWindow::temp1()
   {
   QString temp = sysxIO->temp1_sysxMsg.mid(this->position, this->length);
   sysxIO->setFileSource("Structure", this->temp_hex1, "00", this->temp_hex3, temp);
-  emit updateSignal();
+  
+  QList< QList<QString> > patchData = sysxIO->getFileSource().hex; // Get the loaded patch data.
+  QList<QString> patchAddress = sysxIO->getFileSource().address;
+	QString addr1 = tempBulkWrite;  // temp address
+	QString addr2 = QString::number(0, 16).toUpper();
+  QString sysxMsg;
+	for(int i=0;i<patchData.size();++i)
+	{
+		QList<QString> data = patchData.at(i);
+		for(int x=0;x<data.size();++x)
+		{
+			QString hex;
+			if(x == sysxAddressOffset)
+			{ hex = addr1; }
+			else if(x == sysxAddressOffset + 1)
+			{	hex = addr2; }
+			else
+			{	hex = data.at(x);	};
+			if (hex.length() < 2) hex.prepend("0");
+			sysxMsg.append(hex);
+		}; 
+	}; 
+  sysxMsg = sysxMsg.replace(this->position, this->length, temp);  
+  sysxIO->setFileSource("Structure", sysxMsg );
+  emit dialogUpdateSignal();
   } 
   else 
   {
@@ -329,7 +350,30 @@ void editWindow::temp2()
   {
   QString temp = sysxIO->temp2_sysxMsg.mid(this->position, this->length);
   sysxIO->setFileSource("Structure", this->temp_hex1, "00", this->temp_hex3, temp);
-  emit updateSignal();
+  QList< QList<QString> > patchData = sysxIO->getFileSource().hex; // Get the loaded patch data.
+  QList<QString> patchAddress = sysxIO->getFileSource().address;
+	QString addr1 = tempBulkWrite;  // temp address
+	QString addr2 = QString::number(0, 16).toUpper();
+  QString sysxMsg;
+	for(int i=0;i<patchData.size();++i)
+	{
+		QList<QString> data = patchData.at(i);
+		for(int x=0;x<data.size();++x)
+		{
+			QString hex;
+			if(x == sysxAddressOffset)
+			{ hex = addr1; }
+			else if(x == sysxAddressOffset + 1)
+			{	hex = addr2; }
+			else
+			{	hex = data.at(x);	};
+			if (hex.length() < 2) hex.prepend("0");
+			sysxMsg.append(hex);
+		}; 
+	}; 
+  sysxMsg = sysxMsg.replace(this->position, this->length, temp);  
+  sysxIO->setFileSource("Structure", sysxMsg );
+  emit dialogUpdateSignal();
   } 
   else 
   {
@@ -345,7 +389,30 @@ void editWindow::temp3()
   {
   QString temp = sysxIO->temp3_sysxMsg.mid(this->position, this->length);
   sysxIO->setFileSource("Structure", this->temp_hex1, "00", this->temp_hex3, temp);
-  emit updateSignal();
+  QList< QList<QString> > patchData = sysxIO->getFileSource().hex; // Get the loaded patch data.
+  QList<QString> patchAddress = sysxIO->getFileSource().address;
+	QString addr1 = tempBulkWrite;  // temp address
+	QString addr2 = QString::number(0, 16).toUpper();
+  QString sysxMsg;
+	for(int i=0;i<patchData.size();++i)
+	{
+		QList<QString> data = patchData.at(i);
+		for(int x=0;x<data.size();++x)
+		{
+			QString hex;
+			if(x == sysxAddressOffset)
+			{ hex = addr1; }
+			else if(x == sysxAddressOffset + 1)
+			{	hex = addr2; }
+			else
+			{	hex = data.at(x);	};
+			if (hex.length() < 2) hex.prepend("0");
+			sysxMsg.append(hex);
+		}; 
+	}; 
+  sysxMsg = sysxMsg.replace(this->position, this->length, temp);  
+  sysxIO->setFileSource("Structure", sysxMsg );
+  emit dialogUpdateSignal();
   } 
   else 
   {
@@ -361,7 +428,30 @@ void editWindow::temp4()
   {
   QString temp = sysxIO->temp4_sysxMsg.mid(this->position, this->length);
   sysxIO->setFileSource("Structure", this->temp_hex1, "00", this->temp_hex3, temp);
-  emit updateSignal();
+  QList< QList<QString> > patchData = sysxIO->getFileSource().hex; // Get the loaded patch data.
+  QList<QString> patchAddress = sysxIO->getFileSource().address;
+	QString addr1 = tempBulkWrite;  // temp address
+	QString addr2 = QString::number(0, 16).toUpper();
+  QString sysxMsg;
+	for(int i=0;i<patchData.size();++i)
+	{
+		QList<QString> data = patchData.at(i);
+		for(int x=0;x<data.size();++x)
+		{
+			QString hex;
+			if(x == sysxAddressOffset)
+			{ hex = addr1; }
+			else if(x == sysxAddressOffset + 1)
+			{	hex = addr2; }
+			else
+			{	hex = data.at(x);	};
+			if (hex.length() < 2) hex.prepend("0");
+			sysxMsg.append(hex);
+		}; 
+	}; 
+  sysxMsg = sysxMsg.replace(this->position, this->length, temp);  
+  sysxIO->setFileSource("Structure", sysxMsg );
+  emit dialogUpdateSignal();
   } 
   else 
   {
@@ -377,7 +467,30 @@ void editWindow::temp5()
   {
   QString temp = sysxIO->temp5_sysxMsg.mid(this->position, this->length);
   sysxIO->setFileSource("Structure", this->temp_hex1, "00", this->temp_hex3, temp);
-  emit updateSignal();
+  QList< QList<QString> > patchData = sysxIO->getFileSource().hex; // Get the loaded patch data.
+  QList<QString> patchAddress = sysxIO->getFileSource().address;
+	QString addr1 = tempBulkWrite;  // temp address
+	QString addr2 = QString::number(0, 16).toUpper();
+  QString sysxMsg;
+	for(int i=0;i<patchData.size();++i)
+	{
+		QList<QString> data = patchData.at(i);
+		for(int x=0;x<data.size();++x)
+		{
+			QString hex;
+			if(x == sysxAddressOffset)
+			{ hex = addr1; }
+			else if(x == sysxAddressOffset + 1)
+			{	hex = addr2; }
+			else
+			{	hex = data.at(x);	};
+			if (hex.length() < 2) hex.prepend("0");
+			sysxMsg.append(hex);
+		}; 
+	}; 
+  sysxMsg = sysxMsg.replace(this->position, this->length, temp);  
+  sysxIO->setFileSource("Structure", sysxMsg );
+  emit dialogUpdateSignal();
   } 
   else 
   {
