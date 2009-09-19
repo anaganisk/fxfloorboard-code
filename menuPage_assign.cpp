@@ -29,6 +29,7 @@ menuPage_assign::menuPage_assign(QWidget *parent)
 {
   //this->setImage(":/images/assigns_pushbutton.png");
   setLSB("0B", "00");
+  editDetails()->patchPos(3048, 284, "0B", "20"); 
 	setEditPages();
 };
 
@@ -75,7 +76,7 @@ void menuPage_assign::setEditPages()
 	editDetails()->page()->insertStackField(0, 1, 0, 1, 1);
 	//editDetails()->page()->addGroupBox(1, 0, 1, 1);	
 	editDetails()->addPage();
-
+  
  
   editDetails()->page()->newStackField(0);
   editDetails()->page()->newGroupBox("Assign 1 Target");

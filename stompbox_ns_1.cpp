@@ -33,7 +33,7 @@ stompbox_ns_1::stompbox_ns_1(QWidget *parent)
 	setKnob1("0A", "00", "72");
 	setKnob2("0A", "00", "73");
 	setButton("0A", "00", "71");
-	setEditPages();
+	editDetails()->patchPos(2928, 8, "0A", "71");
 	setEditPages();
 };
 
@@ -46,7 +46,7 @@ void stompbox_ns_1::updateSignal()
 
 void stompbox_ns_1::setEditPages()
 {
- editDetails()->page()->newGroupBox("Effect");
+  editDetails()->page()->newGroupBox("Effect");
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "0A", "00", "71", "middle", Qt::AlignCenter);
 	editDetails()->page()->addComboBox(1, 0, 1, 1, "0A", "00", "74");
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
@@ -56,4 +56,5 @@ void stompbox_ns_1::setEditPages()
 	editDetails()->page()->addKnob(0, 1, 1, 1, "0A", "00", "73");
 	editDetails()->page()->addGroupBox(0, 1, 1, 1);
 	editDetails()->addPage();	
+	 
 };

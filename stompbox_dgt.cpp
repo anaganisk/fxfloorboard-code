@@ -35,6 +35,6 @@ stompbox_dgt::stompbox_dgt(QWidget *parent)
 
 void stompbox_dgt::setEditPages()
 {
-    
-	
+  editDetails()->addPage();  
+	editDetails()->patchPos(-1, -1, "void", "void");
 };

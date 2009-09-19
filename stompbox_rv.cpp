@@ -34,6 +34,7 @@ stompbox_rv::stompbox_rv(QWidget *parent)
 	setKnob2("0A", "00", "37");
 	setComboBox("0A", "00", "31");
 	setButton("0A", "00", "30");
+	editDetails()->patchPos(2798, 22, "0A", "30");
 	setEditPages();
 };
 

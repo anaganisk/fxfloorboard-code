@@ -34,6 +34,7 @@ stompbox_ce::stompbox_ce(QWidget *parent)
 	setKnob2("0A", "00", "23");
 	setComboBox("0A", "00", "21");
 	setButton("0A", "00", "20");
+	editDetails()->patchPos(2766, 16, "0A", "20");
 	setEditPages();
 };
 
@@ -67,5 +68,6 @@ void stompbox_ce::setEditPages()
 	editDetails()->page()->addKnob(0, 0, 1, 1, "0A", "00", "27");
 	editDetails()->page()->addGroupBox(0, 3, 2, 1);
 
-	editDetails()->addPage();	
+	editDetails()->addPage();
+  	
 };

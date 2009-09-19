@@ -29,6 +29,7 @@ menuPage_master::menuPage_master(QWidget *parent)
 {
   //setImage(":/images/master_pushbutton.png");
   setLSB("0A", "00");
+  editDetails()->patchPos(2894, 20, "0A", "60");    
 	setEditPages();
 };
 
@@ -58,5 +59,5 @@ void menuPage_master::setEditPages()
   editDetails()->page()->addComboBox(0, 0, 1, 1, "0A", "00", "69");                     // amp control
 	editDetails()->page()->addGroupBox(0, 2, 1, 1);
 
-	editDetails()->addPage();          
+	editDetails()->addPage();      
 };

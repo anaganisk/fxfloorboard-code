@@ -4,7 +4,7 @@ GT-10FxFloorBoard Copyright (C) 2007, 2008, 2009 Colin Willcocks (gumtownbassman
 =======
 
 
-GT-10FxFloorBoard version 20090912: 12 September 2009
+GT-10FxFloorBoard version 20090919: 19 September 2009
 *****************************************************
 PLEASE FEEL FREE TO DONATE, YOU MAY FREELY USE THIS SOFTWARE, 
  JUST KEEP IN MIND THE 6000 HOURS SPENT OVER 3 YEARS GETTING IT HERE,
@@ -12,7 +12,12 @@ PLEASE FEEL FREE TO DONATE, YOU MAY FREELY USE THIS SOFTWARE,
 but then patches created by you for sharing with all would be nice too.
 you can email patches and custom system settings saved files to the above address.
 ***********************************************************************************
-
+ ********* LATEST FEATURES ADDED****************************************************
+ The editor now supports using Boss Librarian *.gxg files.
+ ClipBoard buttons have been added to the main page selectin bar (below) and can copy up to
+  5 opened patches for quick comparison. 
+  The ditpages have 5 patch pertial paste buttons added, where the page only part is copyed from
+   the associated clipBoard and replaces the current settings for that one effect only.
 
 ********** USEFUL INFORMATION *************
 

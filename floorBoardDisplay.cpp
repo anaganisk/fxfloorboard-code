@@ -129,7 +129,7 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
 	this->chorus_Button = new customButton(tr("Chorus"), false, QPoint(550, editButtonRowOffset), this, ":/images/pushbutton.png");
 	this->sendreturn_Button = new customButton(tr("Send/Return"), false, QPoint(550, editButtonRowOffset+18), this, ":/images/pushbutton.png");
 	this->eq_Button = new customButton(tr("Equalizer"), false, QPoint(640, editButtonRowOffset), this, ":/images/pushbutton.png");
-	this->pedal_Button = new customButton(tr("Pedal"), false, QPoint(640, editButtonRowOffset+18), this, ":/images/pushbutton.png");
+	this->pedal_Button = new customButton(tr("Pedal/Wha"), false, QPoint(640, editButtonRowOffset+18), this, ":/images/pushbutton.png");
 	
 	this->temp1_copy_Button = new customButton(tr("Temp-1 Copy"), false, QPoint(10, tempRowOffset), this, ":/images/pushbutton.png");
 	this->temp1_paste_Button = new customButton(tr("Temp-1 Paste"), false, QPoint(100, tempRowOffset), this, ":/images/pushbutton.png");
@@ -452,7 +452,7 @@ void floorBoardDisplay::temp1_copy(bool value)
   QString sysxMsg;
 	QList< QList<QString> > patchData = sysxIO->getFileSource().hex; // Get the loaded patch data.
 	QList<QString> patchAddress = sysxIO->getFileSource().address;
-	QString addr1 = QString::number(96, 16).toUpper();  // temp address
+	QString addr1 = tempBulkWrite;  // temp address
 	QString addr2 = QString::number(0, 16).toUpper();
 
 	for(int i=0;i<patchData.size();++i)
@@ -471,18 +471,24 @@ void floorBoardDisplay::temp1_copy(bool value)
 			sysxMsg.append(hex);
 		}; 
 	}; 
-  this->temp1_sysxMsg = sysxMsg;   
+  sysxIO->temp1_sysxMsg = sysxMsg;   
 };
 
 void floorBoardDisplay::temp1_paste(bool value)
-{
+{ 
+  SysxIO *sysxIO = SysxIO::Instance();
+  this->temp1_sysxMsg = sysxIO->temp1_sysxMsg;
   if (!temp1_sysxMsg.isEmpty() )
   {
   SysxIO *sysxIO = SysxIO::Instance();
   sysxIO->setFileSource("patch", temp1_sysxMsg);
   emit updateSignal();  
 	sysxIO->writeToBuffer();
-	};
+	}
+  else
+  {
+   QApplication::beep();
+  };
 };
 
 void floorBoardDisplay::temp2_copy(bool value)
@@ -494,7 +500,7 @@ void floorBoardDisplay::temp2_copy(bool value)
   QString sysxMsg;
 	QList< QList<QString> > patchData = sysxIO->getFileSource().hex; // Get the loaded patch data.
 	QList<QString> patchAddress = sysxIO->getFileSource().address;
-	QString addr1 = QString::number(96, 16).toUpper();  // temp address
+	QString addr1 = tempBulkWrite;  // temp address
 	QString addr2 = QString::number(0, 16).toUpper();
 
 	for(int i=0;i<patchData.size();++i)
@@ -513,18 +519,23 @@ void floorBoardDisplay::temp2_copy(bool value)
 			sysxMsg.append(hex);
 		}; 
 	}; 
-  this->temp2_sysxMsg = sysxMsg;   
+  sysxIO->temp2_sysxMsg = sysxMsg;   
 };
 
 void floorBoardDisplay::temp2_paste(bool value)
 {
+  SysxIO *sysxIO = SysxIO::Instance();
+  this->temp2_sysxMsg = sysxIO->temp2_sysxMsg;
   if (!temp2_sysxMsg.isEmpty() )
   {
   SysxIO *sysxIO = SysxIO::Instance();
   sysxIO->setFileSource("patch", temp2_sysxMsg);
   emit updateSignal();  
 	sysxIO->writeToBuffer();
-	};
+	}else
+  {
+   QApplication::beep();
+  };
 };
 
 void floorBoardDisplay::temp3_copy(bool value)
@@ -536,7 +547,7 @@ void floorBoardDisplay::temp3_copy(bool value)
   QString sysxMsg;
 	QList< QList<QString> > patchData = sysxIO->getFileSource().hex; // Get the loaded patch data.
 	QList<QString> patchAddress = sysxIO->getFileSource().address;
-	QString addr1 = QString::number(96, 16).toUpper();  // temp address
+	QString addr1 = tempBulkWrite;  // temp address
 	QString addr2 = QString::number(0, 16).toUpper();
 
 	for(int i=0;i<patchData.size();++i)
@@ -555,18 +566,23 @@ void floorBoardDisplay::temp3_copy(bool value)
 			sysxMsg.append(hex);
 		}; 
 	}; 
-  this->temp3_sysxMsg = sysxMsg;   
+  sysxIO->temp3_sysxMsg = sysxMsg;   
 };
 
 void floorBoardDisplay::temp3_paste(bool value)
 {
+  SysxIO *sysxIO = SysxIO::Instance();
+  this->temp3_sysxMsg = sysxIO->temp3_sysxMsg;
   if (!temp3_sysxMsg.isEmpty() )
   {
   SysxIO *sysxIO = SysxIO::Instance();
   sysxIO->setFileSource("patch", temp3_sysxMsg);
   emit updateSignal();  
 	sysxIO->writeToBuffer();
-	};
+	}else
+  {
+   QApplication::beep();
+  };
 };
 
 void floorBoardDisplay::temp4_copy(bool value)
@@ -578,7 +594,7 @@ void floorBoardDisplay::temp4_copy(bool value)
   QString sysxMsg;
 	QList< QList<QString> > patchData = sysxIO->getFileSource().hex; // Get the loaded patch data.
 	QList<QString> patchAddress = sysxIO->getFileSource().address;
-	QString addr1 = QString::number(96, 16).toUpper();  // temp address
+	QString addr1 = tempBulkWrite;  // temp address
 	QString addr2 = QString::number(0, 16).toUpper();
 
 	for(int i=0;i<patchData.size();++i)
@@ -597,18 +613,23 @@ void floorBoardDisplay::temp4_copy(bool value)
 			sysxMsg.append(hex);
 		}; 
 	}; 
-  this->temp4_sysxMsg = sysxMsg;   
+  sysxIO->temp4_sysxMsg = sysxMsg;   
 };
 
 void floorBoardDisplay::temp4_paste(bool value)
 {
+  SysxIO *sysxIO = SysxIO::Instance();
+  this->temp4_sysxMsg = sysxIO->temp4_sysxMsg;
   if (!temp4_sysxMsg.isEmpty() )
   {
   SysxIO *sysxIO = SysxIO::Instance();
   sysxIO->setFileSource("patch", temp4_sysxMsg);
   emit updateSignal();  
 	sysxIO->writeToBuffer();
-	};
+	}else
+  {
+   QApplication::beep();
+  };
 };
 
 void floorBoardDisplay::temp5_copy(bool value)
@@ -620,7 +641,7 @@ void floorBoardDisplay::temp5_copy(bool value)
   QString sysxMsg;
 	QList< QList<QString> > patchData = sysxIO->getFileSource().hex; // Get the loaded patch data.
 	QList<QString> patchAddress = sysxIO->getFileSource().address;
-	QString addr1 = QString::number(96, 16).toUpper();  // temp address
+	QString addr1 = tempBulkWrite;  // temp address
 	QString addr2 = QString::number(0, 16).toUpper();
 
 	for(int i=0;i<patchData.size();++i)
@@ -639,18 +660,23 @@ void floorBoardDisplay::temp5_copy(bool value)
 			sysxMsg.append(hex);
 		}; 
 	}; 
-  this->temp5_sysxMsg = sysxMsg;   
+  sysxIO->temp5_sysxMsg = sysxMsg;   
 };
 
 void floorBoardDisplay::temp5_paste(bool value)
 {
+  SysxIO *sysxIO = SysxIO::Instance();
+  this->temp5_sysxMsg = sysxIO->temp5_sysxMsg;
   if (!temp5_sysxMsg.isEmpty() )
   {
   SysxIO *sysxIO = SysxIO::Instance();
   sysxIO->setFileSource("patch", temp5_sysxMsg);
   emit updateSignal();  
 	sysxIO->writeToBuffer();
-	};
+	}else
+  {
+   QApplication::beep();
+  };
 };
 
 void floorBoardDisplay::connectSignal(bool value)
