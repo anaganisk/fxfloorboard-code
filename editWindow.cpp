@@ -25,6 +25,7 @@
 #include "editWindow.h"
 #include "MidiTable.h"
 #include "SysxIO.h"
+#include "globalVariables.h"
 
 editWindow::editWindow(QWidget *parent)
     : QWidget(parent)
@@ -49,16 +50,63 @@ editWindow::editWindow(QWidget *parent)
 	this->pageComboBox->setEditable(false);
 	this->pageComboBox->setFrame(false);
 	this->pageComboBox->setVisible(false);
+	
+  this->swap_Button = new customControlLabel;
+	this->swap_Button->setButton(true);
+	this->swap_Button->setImage(":/images/pushbutton_dark.png");
+	this->swap_Button->setText(tr("Pre A/B swap"));
+	this->swap_Button->setAlignment(Qt::AlignCenter);
+	
+  this->temp1_Button = new customControlLabel;
+	this->temp1_Button->setButton(true);
+	this->temp1_Button->setImage(":/images/pushbutton_dark.png");
+	this->temp1_Button->setText(tr("Temp 1 Partial"));
+	this->temp1_Button->setAlignment(Qt::AlignCenter);
+		
+	this->temp2_Button = new customControlLabel;
+	this->temp2_Button->setButton(true);
+	this->temp2_Button->setImage(":/images/pushbutton_dark.png");
+	this->temp2_Button->setText(tr("Temp 2 Partial"));
+	this->temp2_Button->setAlignment(Qt::AlignCenter);
+	
+	this->temp3_Button = new customControlLabel;
+	this->temp3_Button->setButton(true);
+	this->temp3_Button->setImage(":/images/pushbutton_dark.png");
+	this->temp3_Button->setText(tr("Temp 3 Partial"));
+	this->temp3_Button->setAlignment(Qt::AlignCenter);
+	
+	this->temp4_Button = new customControlLabel;
+	this->temp4_Button->setButton(true);
+	this->temp4_Button->setImage(":/images/pushbutton_dark.png");
+	this->temp4_Button->setText(tr("Temp 4 Partial"));
+	this->temp4_Button->setAlignment(Qt::AlignCenter);
+	
+	this->temp5_Button = new customControlLabel;
+	this->temp5_Button->setButton(true);
+	this->temp5_Button->setImage(":/images/pushbutton_dark.png");
+	this->temp5_Button->setText(tr("Temp 5 Partial"));
+	this->temp5_Button->setAlignment(Qt::AlignCenter);
+	
 
 	this->closeButton = new customControlLabel;
 	this->closeButton->setButton(true);
 	this->closeButton->setImage(":/images/closebutton.png");
+	
+	QHBoxLayout *buttonLayout = new QHBoxLayout;
+	buttonLayout->addWidget(this->swap_Button);
+	buttonLayout->addWidget(this->temp1_Button);
+	buttonLayout->addWidget(this->temp2_Button);
+	buttonLayout->addWidget(this->temp3_Button);
+	buttonLayout->addWidget(this->temp4_Button);
+	buttonLayout->addWidget(this->temp5_Button);
 
 	QHBoxLayout *headerLayout = new QHBoxLayout;
 	headerLayout->addWidget(this->title);
 	headerLayout->addStretch();
 	headerLayout->addWidget(this->comboBoxLabel);
 	headerLayout->addWidget(this->pageComboBox);
+	headerLayout->addStretch();
+	headerLayout->addLayout(buttonLayout);
 	headerLayout->addStretch();
 	headerLayout->addWidget(this->closeButton);
 
@@ -87,16 +135,18 @@ editWindow::editWindow(QWidget *parent)
 
 	QObject::connect(this->pageComboBox, SIGNAL(activated(int)), this->pagesWidget, SLOT(setCurrentIndex(int)));
 
+  QObject::connect(this->swap_Button, SIGNAL(mouseReleased()), this, SLOT(swap_pre()));
+	QObject::connect(this->temp1_Button, SIGNAL(mouseReleased()), this, SLOT(temp1()));
+	QObject::connect(this->temp2_Button, SIGNAL(mouseReleased()), this, SLOT(temp2()));
+	QObject::connect(this->temp3_Button, SIGNAL(mouseReleased()), this, SLOT(temp3()));
+	QObject::connect(this->temp4_Button, SIGNAL(mouseReleased()), this, SLOT(temp4()));
+	QObject::connect(this->temp5_Button, SIGNAL(mouseReleased()), this, SLOT(temp5()));
 
 	QObject::connect(this->closeButton, SIGNAL(mouseReleased()), this, SLOT(hide()));
 
-
 	QObject::connect(this, SIGNAL( closeWindow() ), this, SLOT(hide()));
 
-	/*QObject::connect(this, SIGNAL( updateSignal() ), this->parent(), SIGNAL( updateSignal() ));*/
-
 	QObject::connect(this, SIGNAL( dialogUpdateSignal() ), this, SLOT( pageUpdateSignal() ));
-
 
 	QObject::connect(this->pageComboBox, SIGNAL(activated(int)), this, SLOT(valueChanged(int)));
 
@@ -149,6 +199,18 @@ void editWindow::addPage(QString hex1, QString hex2, QString hex3, QString hex4,
 
 	QObject::connect(editPages.last(), SIGNAL( updateSignal() ), this, SIGNAL( updateSignal() ));
   
+   if (this->area != "Structure" || this->temp_hex1.isEmpty() || this->temp_hex1.contains("void"))
+    {
+      this->temp1_Button->hide();
+      this->temp2_Button->hide();
+      this->temp3_Button->hide();
+      this->temp4_Button->hide();
+      this->temp5_Button->hide();
+    };
+    if (this->area != "Structure" || this->temp_hex1 != "07")
+     {
+       this->swap_Button->hide();
+     };
 	if(hex1 != "void" && hex2 != "void" && hex3 != "void")
 	{
 		MidiTable *midiTable = MidiTable::Instance();
@@ -234,5 +296,245 @@ editPage* editWindow::page()
 void editWindow::closeEvent(QCloseEvent* ce)
 {
 	ce->accept();
+};
+
+void editWindow::temp1()
+{
+  
+  SysxIO *sysxIO = SysxIO::Instance();
+  if (!sysxIO->temp1_sysxMsg.isEmpty() && !temp_hex1.isEmpty() && !temp_hex1.contains("void") )
+  {
+  QString temp = sysxIO->temp1_sysxMsg.mid(this->position, this->length);
+  sysxIO->setFileSource("Structure", this->temp_hex1, "00", this->temp_hex3, temp);
+  
+  QList< QList<QString> > patchData = sysxIO->getFileSource().hex; // Get the loaded patch data.
+  QList<QString> patchAddress = sysxIO->getFileSource().address;
+	QString addr1 = tempBulkWrite;  // temp address
+	QString addr2 = QString::number(0, 16).toUpper();
+  QString sysxMsg;
+	for(int i=0;i<patchData.size();++i)
+	{
+		QList<QString> data = patchData.at(i);
+		for(int x=0;x<data.size();++x)
+		{
+			QString hex;
+			if(x == sysxAddressOffset)
+			{ hex = addr1; }
+			else if(x == sysxAddressOffset + 1)
+			{	hex = addr2; }
+			else
+			{	hex = data.at(x);	};
+			if (hex.length() < 2) hex.prepend("0");
+			sysxMsg.append(hex);
+		}; 
+	}; 
+  sysxMsg = sysxMsg.replace(this->position, this->length, temp);  
+  sysxIO->setFileSource("Structure", sysxMsg );
+  emit dialogUpdateSignal();
+  } 
+  else 
+  {
+    QApplication::beep(); 
+  };
+};
+
+void editWindow::temp2()
+{
+  
+  SysxIO *sysxIO = SysxIO::Instance();
+  if (!sysxIO->temp2_sysxMsg.isEmpty() && !temp_hex1.isEmpty() && !temp_hex1.contains("void")  )
+  {
+  QString temp = sysxIO->temp2_sysxMsg.mid(this->position, this->length);
+  sysxIO->setFileSource("Structure", this->temp_hex1, "00", this->temp_hex3, temp);
+  QList< QList<QString> > patchData = sysxIO->getFileSource().hex; // Get the loaded patch data.
+  QList<QString> patchAddress = sysxIO->getFileSource().address;
+	QString addr1 = tempBulkWrite;  // temp address
+	QString addr2 = QString::number(0, 16).toUpper();
+  QString sysxMsg;
+	for(int i=0;i<patchData.size();++i)
+	{
+		QList<QString> data = patchData.at(i);
+		for(int x=0;x<data.size();++x)
+		{
+			QString hex;
+			if(x == sysxAddressOffset)
+			{ hex = addr1; }
+			else if(x == sysxAddressOffset + 1)
+			{	hex = addr2; }
+			else
+			{	hex = data.at(x);	};
+			if (hex.length() < 2) hex.prepend("0");
+			sysxMsg.append(hex);
+		}; 
+	}; 
+  sysxMsg = sysxMsg.replace(this->position, this->length, temp);  
+  sysxIO->setFileSource("Structure", sysxMsg );
+  emit dialogUpdateSignal();
+  } 
+  else 
+  {
+    QApplication::beep(); 
+  };
+};
+
+void editWindow::temp3()
+{
+  
+  SysxIO *sysxIO = SysxIO::Instance();
+  if (!sysxIO->temp3_sysxMsg.isEmpty() && !temp_hex1.isEmpty() && !temp_hex1.contains("void")  )
+  {
+  QString temp = sysxIO->temp3_sysxMsg.mid(this->position, this->length);
+  sysxIO->setFileSource("Structure", this->temp_hex1, "00", this->temp_hex3, temp);
+  QList< QList<QString> > patchData = sysxIO->getFileSource().hex; // Get the loaded patch data.
+  QList<QString> patchAddress = sysxIO->getFileSource().address;
+	QString addr1 = tempBulkWrite;  // temp address
+	QString addr2 = QString::number(0, 16).toUpper();
+  QString sysxMsg;
+	for(int i=0;i<patchData.size();++i)
+	{
+		QList<QString> data = patchData.at(i);
+		for(int x=0;x<data.size();++x)
+		{
+			QString hex;
+			if(x == sysxAddressOffset)
+			{ hex = addr1; }
+			else if(x == sysxAddressOffset + 1)
+			{	hex = addr2; }
+			else
+			{	hex = data.at(x);	};
+			if (hex.length() < 2) hex.prepend("0");
+			sysxMsg.append(hex);
+		}; 
+	}; 
+  sysxMsg = sysxMsg.replace(this->position, this->length, temp);  
+  sysxIO->setFileSource("Structure", sysxMsg );
+  emit dialogUpdateSignal();
+  } 
+  else 
+  {
+    QApplication::beep(); 
+  };
+};
+
+void editWindow::temp4()
+{
+  
+  SysxIO *sysxIO = SysxIO::Instance();
+  if (!sysxIO->temp4_sysxMsg.isEmpty() && !temp_hex1.isEmpty() && !temp_hex1.contains("void")  )
+  {
+  QString temp = sysxIO->temp4_sysxMsg.mid(this->position, this->length);
+  sysxIO->setFileSource("Structure", this->temp_hex1, "00", this->temp_hex3, temp);
+  QList< QList<QString> > patchData = sysxIO->getFileSource().hex; // Get the loaded patch data.
+  QList<QString> patchAddress = sysxIO->getFileSource().address;
+	QString addr1 = tempBulkWrite;  // temp address
+	QString addr2 = QString::number(0, 16).toUpper();
+  QString sysxMsg;
+	for(int i=0;i<patchData.size();++i)
+	{
+		QList<QString> data = patchData.at(i);
+		for(int x=0;x<data.size();++x)
+		{
+			QString hex;
+			if(x == sysxAddressOffset)
+			{ hex = addr1; }
+			else if(x == sysxAddressOffset + 1)
+			{	hex = addr2; }
+			else
+			{	hex = data.at(x);	};
+			if (hex.length() < 2) hex.prepend("0");
+			sysxMsg.append(hex);
+		}; 
+	}; 
+  sysxMsg = sysxMsg.replace(this->position, this->length, temp);  
+  sysxIO->setFileSource("Structure", sysxMsg );
+  emit dialogUpdateSignal();
+  } 
+  else 
+  {
+    QApplication::beep(); 
+  };
+};
+
+void editWindow::temp5()
+{
+  
+  SysxIO *sysxIO = SysxIO::Instance();
+  if (!sysxIO->temp5_sysxMsg.isEmpty() && !temp_hex1.isEmpty() && !temp_hex1.contains("void")  )
+  {
+  QString temp = sysxIO->temp5_sysxMsg.mid(this->position, this->length);
+  sysxIO->setFileSource("Structure", this->temp_hex1, "00", this->temp_hex3, temp);
+  QList< QList<QString> > patchData = sysxIO->getFileSource().hex; // Get the loaded patch data.
+  QList<QString> patchAddress = sysxIO->getFileSource().address;
+	QString addr1 = tempBulkWrite;  // temp address
+	QString addr2 = QString::number(0, 16).toUpper();
+  QString sysxMsg;
+	for(int i=0;i<patchData.size();++i)
+	{
+		QList<QString> data = patchData.at(i);
+		for(int x=0;x<data.size();++x)
+		{
+			QString hex;
+			if(x == sysxAddressOffset)
+			{ hex = addr1; }
+			else if(x == sysxAddressOffset + 1)
+			{	hex = addr2; }
+			else
+			{	hex = data.at(x);	};
+			if (hex.length() < 2) hex.prepend("0");
+			sysxMsg.append(hex);
+		}; 
+	}; 
+  sysxMsg = sysxMsg.replace(this->position, this->length, temp);  
+  sysxIO->setFileSource("Structure", sysxMsg );
+  emit dialogUpdateSignal();
+  } 
+  else 
+  {
+    QApplication::beep(); 
+  };
+};
+
+void editWindow::swap_pre()
+{
+  SysxIO *sysxIO = SysxIO::Instance();
+  
+  QList< QList<QString> > patchData = sysxIO->getFileSource().hex; // Get the loaded patch data.
+  QList<QString> patchAddress = sysxIO->getFileSource().address;
+	QString addr1 = tempBulkWrite;  // temp address
+	QString addr2 = QString::number(0, 16).toUpper();
+  QString sysxMsg;
+	for(int i=0;i<patchData.size();++i)
+	{
+		QList<QString> data = patchData.at(i);
+		for(int x=0;x<data.size();++x)
+		{
+			QString hex;
+			if(x == sysxAddressOffset)
+			{ hex = addr1; }
+			else if(x == sysxAddressOffset + 1)
+			{	hex = addr2; }
+			else
+			{	hex = data.at(x);	};
+			if (hex.length() < 2) hex.prepend("0");
+			sysxMsg.append(hex);
+		}; 
+	};
+  QString pre_A = sysxMsg.mid(522, 34);
+  QString pre_B = sysxMsg.mid(556, 34); 
+  sysxMsg = sysxMsg.replace(522, 34, pre_B); 
+  sysxMsg = sysxMsg.replace(556, 34, pre_A);  
+  sysxIO->setFileSource("Structure", sysxMsg );
+  emit dialogUpdateSignal();
+  
+  sysxMsg = sysxMsg.mid(510, 80);
+  sysxIO->setFileSource("Structure", "07", "00", "00", sysxMsg);
+  
+};
+void editWindow::patchPos(int pos, int len, QString t_hex1, QString t_hex3)
+{
+  this->position = pos;
+  this->length = len;
+  this->temp_hex1 = t_hex1;
+  this->temp_hex3 = t_hex3;
 };
 

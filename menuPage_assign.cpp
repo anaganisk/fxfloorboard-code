@@ -28,7 +28,8 @@ menuPage_assign::menuPage_assign(QWidget *parent)
     : menuPage(parent)
 {
   setImage(":/images/system_pushbutton.png");
-  setLSB("16", "00");
+  setLSB("20", "00");
+  editDetails()->patchPos(1544, 694, "20", "00");
 	setEditPages();
 };
 

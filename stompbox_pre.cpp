@@ -31,6 +31,7 @@ stompbox_pre::stompbox_pre(QWidget *parent)
 	setImage(":/images/pre.png");
 	setLSB("07", "00");
 	setSwitch("07", "00", "00");
+	editDetails()->patchPos(510, 80, "07", "00");
 	setEditPages();
 };
 

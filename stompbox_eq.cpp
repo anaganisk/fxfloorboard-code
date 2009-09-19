@@ -30,28 +30,13 @@ stompbox_eq::stompbox_eq(QWidget *parent)
 	/* EQ */
 	setImage(":/images/eq.png");
 	setLSB("08", "00");
-
-	/*int range1 = midiTable->getRange("Structure", "08", "00", "03");
-	int range2 = midiTable->getRange("Structure", "08", "00", "06");
-	int range3 = midiTable->getRange("Structure", "08", "00", "09");
-	int range4 = midiTable->getRange("Structure", "08", "00", "0A");
-	int range5 = midiTable->getRange("Structure", "08", "00", "0C");
-
-	customSlider *slider1 = new customSlider(0, 0, range1, 1, 10, QPoint::QPoint(8, 17), this, "08", "00", "03");
-	customSlider *slider2 = new customSlider(0, 0, range2, 1, 10, QPoint::QPoint(24, 17), this, "08", "00", "06");
-	customSlider *slider3 = new customSlider(0, 0, range3, 1, 10, QPoint::QPoint(40, 17), this, "08", "00", "09");
-	customSlider *slider4 = new customSlider(0, 0, range4, 1, 10, QPoint::QPoint(56, 17), this, "08", "00", "0A");	
-	customSlider *slider5 = new customSlider(0, 0, range5, 1, 10, QPoint::QPoint(79, 17), this, "08", "00", "0C");	
-	customButton *button = new customButton(false, QPoint::QPoint(4, 110), this);
-	customLed *led = new customLed(false, QPoint::QPoint(41, 4), this);
-	QObject::connect(button, SIGNAL(valueChanged(bool)),
-                         led, SLOT(changeValue(bool)));	*/
 	setSlider1("08", "00", "03");
 	setSlider2("08", "00", "06");
 	setSlider3("08", "00", "09");
 	setSlider4("08", "00", "0A");
 	setSlider5("08", "00", "0C");
 	setButton("08", "00", "00");
+	editDetails()->patchPos(616, 26, "08", "00");
 	setEditPages();
 };
 

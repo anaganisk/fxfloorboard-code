@@ -29,14 +29,14 @@ stompbox_fv::stompbox_fv(QWidget *parent)
 {
 	/* VOLUME */
 	setImage(":/images/fv.png");
-	setLSB("15", "00");
-	//setButton("15", "00", "00", QPoint::QPoint(0, 109), ":/images/pedal.png");
+	setLSB("0E", "00");
+	editDetails()->patchPos(2264, 38, "2C", "00");
 	setEditPages();
 };
 
 void stompbox_fv::updateSignal()
 {
-	//updateButton("15", "00", "00");
+	
 };
 
 void stompbox_fv::setEditPages()
