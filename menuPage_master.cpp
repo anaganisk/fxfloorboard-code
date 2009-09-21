@@ -1,6 +1,6 @@
 /****************************************************************************
 **
-** Copyright (C) 2008 Colin Willcocks
+** Copyright (C) 2007, 2008, 2009 Colin Willcocks.
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
 ** All rights reserved.
 **
@@ -27,8 +27,8 @@
 menuPage_master::menuPage_master(QWidget *parent)
     : menuPage(parent)
 {
-   //setImage(":/images/menuPage_stomp.png");
   setLSB("0A", "00");
+  editDetails()->patchPos(2358, 20, "0A", "60");    // sysx file offset and data length of chorus parameters x2,
 	setEditPages();
 };
 
@@ -59,6 +59,5 @@ void menuPage_master::setEditPages()
 	editDetails()->page()->addGroupBox(0, 2, 1, 1);
 
 	editDetails()->addPage();
-	editDetails()->patchPos(2358, 20, "0A", "60");    // sysx file offset and data length of chorus parameters x2,
-                                                  // and hex1 & hex3 address start point.
+	                                             // and hex1 & hex3 address start point.
 };

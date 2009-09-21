@@ -28,6 +28,7 @@
 #include "preferencesDialog.h"
 #include "statusBarWidget.h"
 #include "SysxIO.h"
+#include "bulkSaveDialog.h"
 #include "globalVariables.h"
 
 
@@ -291,16 +292,13 @@ void mainWindow::createStatusBar()
 	statusInfo->setStatusSymbol(0);
 	statusInfo->setStatusMessage(tr("Not connected"));
 
-	QObject::connect(sysxIO, SIGNAL(setStatusSymbol(int)),
-                statusInfo, SLOT(setStatusSymbol(int)));
-	QObject::connect(sysxIO, SIGNAL(setStatusProgress(int)),
-                statusInfo, SLOT(setStatusProgress(int)));;
-	QObject::connect(sysxIO, SIGNAL(setStatusMessage(QString)),
-                statusInfo, SLOT(setStatusMessage(QString)));
-  QObject::connect(sysxIO, SIGNAL(setStatusdBugMessage(QString)),
-                statusInfo, SLOT(setStatusdBugMessage(QString)));
-
-
+	QObject::connect(sysxIO, SIGNAL(setStatusSymbol(int)), statusInfo, SLOT(setStatusSymbol(int)));
+	QObject::connect(sysxIO, SIGNAL(setStatusProgress(int)), statusInfo, SLOT(setStatusProgress(int)));
+	QObject::connect(sysxIO, SIGNAL(setStatusMessage(QString)), statusInfo, SLOT(setStatusMessage(QString)));
+  QObject::connect(sysxIO, SIGNAL(setStatusdBugMessage(QString)), statusInfo, SLOT(setStatusdBugMessage(QString)));
+  
+ 
+  
 	statusBar = new QStatusBar;
 	statusBar->addWidget(statusInfo);
 	statusBar->setSizeGripEnabled(false);
@@ -703,6 +701,9 @@ void mainWindow::bulkLoad()
 
 void mainWindow::bulkSave()
 { 
+    bulkSaveDialog *bulkDialog = new bulkSaveDialog(); 
+    bulkDialog->exec();    
+ /*
 SysxIO *sysxIO = SysxIO::Instance();
      if (sysxIO->isConnected())
 	       {
@@ -744,7 +745,7 @@ SysxIO *sysxIO = SysxIO::Instance();
 		        	msgBox->setStandardButtons(QMessageBox::Ok);
 		        	msgBox->exec(); 
               };  
-   
+           */
 };
 
 /* TOOLS MENU */

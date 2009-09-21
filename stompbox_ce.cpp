@@ -1,6 +1,8 @@
 /****************************************************************************
 **
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
+** Copyright (C) 2007, 2008, 2009 Colin Willcocks.
+** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
+** All rights reserved.
 **
 ** This file is part of "GT-10B Fx FloorBoard".
 **
@@ -32,6 +34,7 @@ stompbox_ce::stompbox_ce(QWidget *parent)
 	setKnob2("0A", "00", "23");
 	setComboBox("0A", "00", "21");
 	setButton("0A", "00", "20");
+	editDetails()->patchPos(2230, 16, "0A", "20");  
 	setEditPages();
 };
 
@@ -66,5 +69,5 @@ void stompbox_ce::setEditPages()
 	editDetails()->page()->addGroupBox(0, 3, 2, 1);
 
 	editDetails()->addPage();	
-	editDetails()->patchPos(2230, 16, "0A", "20");    // sysx file offset and data length of chorus parameters x2,
+  // sysx file offset and data length of chorus parameters x2,
 };                                                  // and hex1 & hex3 address start point.

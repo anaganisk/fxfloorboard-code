@@ -1,6 +1,6 @@
 /****************************************************************************
 **
-** Copyright (C) 2008 Colin Willcocks.
+** Copyright (C) 2007, 2008, 2009 Colin Willcocks.
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
 ** All rights reserved.
 **
@@ -34,6 +34,7 @@ stompbox_rv::stompbox_rv(QWidget *parent)
 	setKnob2("0A", "00", "37");
 	setComboBox("0A", "00", "31");
 	setButton("0A", "00", "30");
+	editDetails()->patchPos(2262, 22, "0A", "30");    // sysx file offset and data length of chorus parameters x2,
 	setEditPages();
 };
 
@@ -72,8 +73,7 @@ void stompbox_rv::setEditPages()
 	editDetails()->page()->addGroupBox(0, 3, 1, 1);
 
 	editDetails()->addPage();
-	editDetails()->patchPos(2262, 22, "0A", "30");    // sysx file offset and data length of chorus parameters x2,
-                                                  // and hex1 & hex3 address start point.
+	                                                // and hex1 & hex3 address start point.
 	
 	editDetails()->page()->newStackField(0);editDetails()->page()->addStackField();
 	editDetails()->page()->newStackField(0);editDetails()->page()->addStackField();

@@ -1,6 +1,6 @@
 /****************************************************************************
 **
-** Copyright (C) 2007, 2008, 2009 Colin Willcocks.
+** Copyright (C) 2007, 2008, 2009 Colin Willcocks. 
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
 ** All rights reserved.
 **
@@ -22,25 +22,50 @@
 **
 ****************************************************************************/
 
-#include "stompbox_fv.h"
+#ifndef BULKSAVEDIALOG_H
+#define BULKSAVEDIALOG_H
 
-stompbox_fv::stompbox_fv(QWidget *parent)
-    : stompBox(parent)
+#include <QDialog>
+#include <QWidget>
+#include <QLabel>
+#include <QProgressBar>
+#include <QSpinBox>
+#include <QCheckBox>
+#include "SysxIO.h" 
+
+
+class bulkSaveDialog : public QDialog
 {
-	/* VOLUME */
-	setImage(":/images/fv.png");
-	setLSB("0A", "00");
-	setEditPages();
+	Q_OBJECT
+  
+public:
+	bulkSaveDialog();
+	QLabel *progressLabel;
+  QCheckBox* systemCheckBox;
+	QSpinBox* startRangeSpinBox;
+	QSpinBox* finishRangeSpinBox;
+  QProgressBar *progressBar;
+  void run();
+  
+  
+signals:
+  void setStatusMessage(QString message);
+  void setStatusProgress(int value);
+  void setStatusSymbol(int value);
+                    
+public slots:
+  void backup();
+  void requestPatch(int bank, int patch);
+  void updatePatch(QString replyMsg);
+  void bulkStatusProgress(int value);
+   
+private:   
+  int bankStart;
+	int bankFinish;
+	int progress;
+	bool systemSelect;
+	QString bulkData;	
+	QString bulk;
 };
 
-void stompbox_fv::updateSignal()
-{
-
-};
-
-void stompbox_fv::setEditPages()
-{
-  editDetails()->page()->newGroupBox("Foot Volume contols are located in PEDAL/WHA stomp");
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
-	editDetails()->addPage();
-};
+#endif // BULKSAVEDIALOG_H

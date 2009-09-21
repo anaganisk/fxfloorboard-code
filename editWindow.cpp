@@ -190,6 +190,7 @@ void editWindow::addPage(QString hex1, QString hex2, QString hex3, QString hex4,
 	this->hex3 = hex3;
 	this->area = area;
 
+  if (!area.contains("System")){this->area = "Structure";};
 	this->tempPage->setGridLayout();
 	this->editPages.append(this->tempPage);
 	this->pagesWidget->addWidget(editPages.last());
@@ -200,8 +201,8 @@ void editWindow::addPage(QString hex1, QString hex2, QString hex3, QString hex4,
 
 	QObject::connect(editPages.last(), SIGNAL( updateSignal() ),
 		this, SIGNAL( updateSignal() ));
-   if (!area.contains("System")){this->area = "Structure";};
-   if (this->area != "Structure" || this->temp_hex1 == "void")
+   
+   if (this->area != "Structure" || this->temp_hex1.isEmpty() || this->temp_hex1.contains("void"))
     {
       this->temp1_Button->hide();
       this->temp2_Button->hide();
@@ -209,7 +210,7 @@ void editWindow::addPage(QString hex1, QString hex2, QString hex3, QString hex4,
       this->temp4_Button->hide();
       this->temp5_Button->hide();
     };
-    if (this->area != "Structure" || this->hex1 != "01" || this->hex3 != "50")
+    //if (this->area != "Structure" || this->temp_hex1 != "01" || this->temp_hex3 == "70")
      {
        this->swap_Button->hide();
      };

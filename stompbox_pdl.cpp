@@ -1,6 +1,6 @@
 /****************************************************************************
 **
-** Copyright (C) 2008 Colin Willcocks.
+** Copyright (C) 2007, 2008, 2009 Colin Willcocks.
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
 ** All rights reserved.
 **
@@ -32,6 +32,7 @@ stompbox_pdl::stompbox_pdl(QWidget *parent)
 	setLSB("0A", "00");
 	setComboBox("0A", "00", "45");
 	setButton("0A", "00", "40", QPoint::QPoint(0, 110), ":/images/pedal.png");
+	editDetails()->patchPos(2294, 60, "0A", "40");    // sysx file offset and data length of chorus parameters x2,
 	setEditPages();
 };
 
@@ -157,7 +158,5 @@ void stompbox_pdl::setEditPages()
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->page()->addStackField();
 
-	editDetails()->addPage();
-	editDetails()->patchPos(2294, 60, "0A", "40");    // sysx file offset and data length of chorus parameters x2,
-                                                  // and hex1 & hex3 address start point.
+	editDetails()->addPage();                                                  // and hex1 & hex3 address start point.
 };

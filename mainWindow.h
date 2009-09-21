@@ -95,7 +95,7 @@ private:
 	QAction *licenseAct;
 	QAction *aboutAct;
 	QAction *aboutQtAct;
-
+  //QWidget *bulkDialog;
 	sysxWriter file;
 	floorBoard *fxsBoard;
 };
