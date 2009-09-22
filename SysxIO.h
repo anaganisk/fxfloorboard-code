@@ -105,11 +105,13 @@ public:
 	QString temp3_sysxMsg;
 	QString temp4_sysxMsg;
 	QString temp5_sysxMsg;
+	
+	QString bulk;
 
 public slots:
 	void errorSignal(QString errorType, QString errorMsg);
 	void writeToBuffer();
-
+	
 private slots:
 	void returnPatchName(QString sysxMsg);
 	void receiveSysx(QString sysxMsg);
@@ -118,6 +120,7 @@ private slots:
 	void resetDevice(QString sysxMsg);
 	void checkPatchChange(QString name);
 	void systemReply(QString replyMsg);
+	
 	
 
 signals:

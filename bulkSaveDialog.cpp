@@ -60,36 +60,49 @@ bulkSaveDialog::bulkSaveDialog()
 	startRangeSpinBox->setSuffix("-1");
 
 	this->finishRangeSpinBox = finishRangeSpinBox;
-	finishRangeSpinBox->setValue(50);
+	finishRangeSpinBox->setValue(1);    // needs to be 50
 	finishRangeSpinBox->setRange(1, 50);
 	finishRangeSpinBox->setPrefix("Finish at U");
 	finishRangeSpinBox->setSuffix("-4");
 
 	QVBoxLayout *rangeLabelLayout = new QVBoxLayout;
+	rangeLabelLayout->addSpacing(12);
 	rangeLabelLayout->addWidget(startRangeLabel);
 	rangeLabelLayout->addWidget(finishRangeLabel);
 
 	QVBoxLayout *rangeBoxLayout = new QVBoxLayout;
 	rangeBoxLayout->addWidget(systemCheckBox);
+	rangeBoxLayout->addSpacing(12);
 	rangeBoxLayout->addWidget(startRangeSpinBox);
+	rangeBoxLayout->addSpacing(12);
 	rangeBoxLayout->addWidget(finishRangeSpinBox);
 
 	QHBoxLayout *dataRangeLayout = new QHBoxLayout;
-	dataRangeLayout->addSpacing(12);
+	dataRangeLayout->addSpacing(20);
 	dataRangeLayout->addLayout(rangeLabelLayout);
-	dataRangeLayout->addSpacing(12);
+	//dataRangeLayout->addSpacing(12);
 	dataRangeLayout->addLayout(rangeBoxLayout);
-	dataRangeLayout->addSpacing(12);
+	dataRangeLayout->addSpacing(20);
 
 	patchRangeGroup->setLayout(dataRangeLayout);
 
-  QPushButton *startButton = new QPushButton(tr("Start"));
+  this->startButton = new QPushButton(this);
+  this->startButton->setText("Start");
   connect(startButton, SIGNAL(clicked()), this, SLOT(backup()));
   
-	QPushButton *cancelButton = new QPushButton(tr("Cancel"));
-  connect(cancelButton, SIGNAL(clicked()), this, SLOT(close()));
+  this->completedButton = new QPushButton(this);
+  this->completedButton->setText("DATA TRANSFER COMPLETED");
+  this->completedButton->hide();
+  connect(completedButton, SIGNAL(clicked()), this, SLOT(close()));
   
-  QLabel *progressLabel = new QLabel(tr("Set the range of Bank data."));
+	this->cancelButton = new QPushButton(this);
+	this->cancelButton->setText("Cancel");
+  connect(cancelButton, SIGNAL(clicked()), this, SLOT(terminate()));
+  
+  this->progressLabel = new QLabel(this);
+  this->progressLabel->setText("Full Backup may take up to 2 minutes");
+  this->bytesLabel = new QLabel(this);
+  this->bytesLabel->setText("");
   
   this->progressBar = new QProgressBar(this);
 	this->progressBar->setTextVisible(false);
@@ -97,9 +110,11 @@ bulkSaveDialog::bulkSaveDialog()
 	this->progressBar->setValue(0);  
  
 	QHBoxLayout *buttonsLayout = new QHBoxLayout;
+	buttonsLayout->addSpacing(20);
 	buttonsLayout->addWidget(startButton);
 	buttonsLayout->addStretch(1);
 	buttonsLayout->addWidget(cancelButton);
+	buttonsLayout->addSpacing(20);
 	
 	QHBoxLayout *progressBarLayout = new QHBoxLayout;	
 	progressBarLayout->addWidget(progressBar);
@@ -107,16 +122,21 @@ bulkSaveDialog::bulkSaveDialog()
 	QVBoxLayout *mainLayout = new QVBoxLayout;
 	mainLayout->addStretch(1);
 	mainLayout->addSpacing(12);
-	mainLayout->addLayout(buttonsLayout);
+	mainLayout->addLayout(buttonsLayout, Qt::AlignCenter);
 	mainLayout->addStretch(1);
 	mainLayout->addSpacing(12);
-	mainLayout->addWidget(patchRangeGroup);
+	mainLayout->addWidget(patchRangeGroup, Qt::AlignCenter);
 	mainLayout->addStretch(1);
 	mainLayout->addSpacing(12);
-	mainLayout->addWidget(progressLabel);
+	mainLayout->addWidget(progressLabel, Qt::AlignCenter);
+	
+	mainLayout->addWidget(bytesLabel, Qt::AlignCenter);
 	mainLayout->addStretch(1);
 	mainLayout->addSpacing(12);
-	mainLayout->addLayout(progressBarLayout);
+	mainLayout->addWidget(completedButton);
+	mainLayout->addStretch(1);
+	mainLayout->addSpacing(12);
+	mainLayout->addLayout(progressBarLayout, Qt::AlignCenter);
 	setLayout(mainLayout);
 
 	setWindowTitle(tr("Bulk File Backup"));
@@ -126,55 +146,35 @@ bulkSaveDialog::bulkSaveDialog()
 	SysxIO *sysxIO = SysxIO::Instance();
 	QObject::connect(this, SIGNAL(setStatusSymbol(int)), sysxIO, SIGNAL(setStatusSymbol(int)));
 	QObject::connect(this, SIGNAL(setStatusProgress(int)), sysxIO, SIGNAL(setStatusProgress(int)));
-	QObject::connect(this, SIGNAL(setStatusMessage(QString)), sysxIO, SIGNAL(setStatusMessage(QString)));
-	
+	QObject::connect(this, SIGNAL(setStatusMessage(QString)), sysxIO, SIGNAL(setStatusMessage(QString)));	 
 };
 
 void bulkSaveDialog::run()
 {
-  if (this->bulk.size()>0)
-  {
-  QMessageBox *msgBox = new QMessageBox();
-	msgBox->setWindowTitle(QObject::tr("Bulk Backup"));
-	msgBox->setIcon(QMessageBox::Warning);
-	msgBox->setTextFormat(Qt::RichText);
-	QString msgText;
-	msgText.append(QObject::tr("Saved file size = "));
-	QString text = QString::number(bulk.size()/2, 10).toUpper();
-	msgText.append(text);
-	msgBox->setText(msgText);
-	msgBox->setStandardButtons(QMessageBox::Ok);
-	msgBox->exec();
-	};
+  
+  
+  
+  
+  terminate(); 
+};
+
+void bulkSaveDialog::terminate()
+{
+  
+  //close();
 };
 void bulkSaveDialog::backup()
 {
+  this->startButton->hide();
+  this->cancelButton->hide();
   this->bankStart = this->startRangeSpinBox->value();
   this->bankFinish = this->finishRangeSpinBox->value();
-  
-	this->bulk.clear();
-	int check=0;
+  this->bank=bankStart*4;
+	bulk.clear();
 	this->progress = 0;
-	int patch = 1;
-	int timer = 200;
-	int range = 200/(bankFinish-bankStart+1);
-	int x  = range;
-	for (int bank=bankStart*4; bank<((bankFinish+1)*4); bank++)
-       {
-        this->progress = x;
-        x=x+range;
-        bulkStatusProgress(this->progress);
-        requestPatch(bank/4, patch);
-        //SysxIO *sysxIO = SysxIO::Instance();
-		    //QObject::connect(sysxIO, SIGNAL(sysxReply(QString)), this, SLOT(updatePatch(QString)));					
-		    //sysxIO->requestPatch(bank/4, patch);	
-        ++patch; if(patch>4) {patch=1;};
-        check = (this->bulk.size()/2)+1;
-        while ((this->bulk.size()/2)<check && 0<timer){SLEEP(5); --timer;  };        
-        timer = 200;
-       };
-  
-  //close();
+	this->patch = 1;
+	range = 200/(bankFinish-bankStart+1);
+	requestPatch(bank/4, patch);  
 };
 
 void bulkSaveDialog::requestPatch(int bank, int patch) 
@@ -184,20 +184,17 @@ SysxIO *sysxIO = SysxIO::Instance();
 	{
 	  SysxIO *sysxIO = SysxIO::Instance();
 		QObject::connect(sysxIO, SIGNAL(sysxReply(QString)), this, SLOT(updatePatch(QString)));					
-		sysxIO->requestPatch(bank, patch);
-    		
+		sysxIO->requestPatch(bank, patch);    		
 	};
 };
 
 void bulkSaveDialog::updatePatch(QString replyMsg)
 {
-   QApplication::beep();
 	SysxIO *sysxIO = SysxIO::Instance(); 
-	 QObject::connect(sysxIO, SIGNAL(sysxReply(QString)), this, SLOT(updatePatch(QString)));	
 	QObject::disconnect(sysxIO, SIGNAL(sysxReply(QString)), this, SLOT(updatePatch(QString)));		
 	sysxIO->setDeviceReady(true); // Free the device after finishing interaction.
 	
-	replyMsg = replyMsg.remove(" ").toUpper();       /* TRANSLATE SYSX MESSAGE FORMAT to 128 byte data blocks */
+	replyMsg = replyMsg.remove(" ").toUpper();       // TRANSLATE SYSX MESSAGE FORMAT to 128 byte data blocks 
 	if (replyMsg.size()/2 == 1530){              // size of patch sent from GT10B   GT-10=1784
 	QString header = "F0410000003012";
 	QString footer ="00F7";
@@ -252,7 +249,7 @@ void bulkSaveDialog::updatePatch(QString replyMsg)
   };
 	replyMsg.append(sysxBuffer);
 	
-	QString reBuild = "";       /* Add correct checksum to patch strings */
+	QString reBuild = "";       // Add correct checksum to patch strings 
   QString sysxEOF = "";	
   QString hex = "";
   int msgLength = replyMsg.length()/2;
@@ -279,12 +276,58 @@ void bulkSaveDialog::updatePatch(QString replyMsg)
 		i=i+2;
     }; 
   };    
-	replyMsg = reBuild.simplified().toUpper().remove("0X").remove(" ");
-	bulk.append(replyMsg); 
-	
-	}; 
-	
-	run(); 
+	replyMsg = reBuild.simplified().toUpper().remove("0X").remove(" ");	
+	bulk.append(replyMsg); 	                                           // add patch to the bulk string.
+	}; 	       
+	      ++patch; 
+        if(patch>4) {patch=1; bank=bank+4;};	                      // increment patch.
+        progress=progress+range;
+        bulkStatusProgress(this->progress);                         // advance the progressbar.
+        int bf = (bankFinish+1)*4 -2;
+  if (bank >= bf) 
+      {                                                             // check if finished.
+        this->completedButton->show();
+        this->progressLabel->setText("Bulk data transfer completed!!");
+      };              
+  if (bank<(bankFinish+1)*4 )
+  {      
+        bool ok;
+        QString patchText;
+        QString name = replyMsg.mid(22, 32);                       // get name from loaded patch. 
+        QList<QString> x;        
+        for (int b=0;b<16;b++)
+        {
+          x.append(name.mid(b*2, 2));       
+        };
+        for (int b=0;b<16;b++)
+        {
+        	QString hexStr = x.at(b);			
+		      patchText.append( (char)(hexStr.toInt(&ok, 16)) );      // convert name to readable text characters.
+        };
+        
+  QString patchNumber = QString::number(bank/4, 10).toUpper();
+  if (patchNumber.size()<2) { patchNumber.prepend("0"); };
+  patchNumber.prepend( "Copying U:" );
+  patchNumber.append("-");
+  patchNumber.append( QString::number(patch, 10).toUpper() );
+  patchNumber.append("     ");
+  patchNumber.append(patchText);
+  patchText=patchNumber;   
+  this->progressLabel->setText(patchText);                        //display the patch number and name.
+  
+  patchNumber = "File build size = ";
+  int size = (bulk.size()/2)+1777;
+  patchNumber.append(QString::number(size, 10).toUpper() );
+  patchNumber.append(" bytes");
+  this->bytesLabel->setText(patchNumber);                         //display the bulk data size.
+  
+  setStatusMessage("Bulk Download");  
+  requestPatch(bank/4, patch);                                   //request the next patch.
+  } else {
+  setStatusMessage("Ready");
+  sysxIO->bulk = this->bulk;  
+  };
+   
 };
 
 void bulkSaveDialog::bulkStatusProgress(int value)
@@ -294,3 +337,9 @@ void bulkSaveDialog::bulkStatusProgress(int value)
   if (value<0) {value = 0; };
 	this->progressBar->setValue(value);
 };
+
+void bulkSaveDialog::bulkStatusPatchName(QString name)
+{
+  	this->progressLabel->setText(name);
+};
+

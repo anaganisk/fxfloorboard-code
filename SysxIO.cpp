@@ -23,6 +23,9 @@
 ****************************************************************************/
 
 #include <QApplication>
+#include <QFile>
+#include <QDataStream>
+#include <QByteArray>
 #include <QMessageBox>
 #include "SysxIO.h"
 #include "SysxIODestroyer.h"
@@ -1341,3 +1344,6 @@ void SysxIO::writeToBuffer()
 	emit setStatusMessage(tr("Ready"));
 	setDeviceReady(true);
 };
+
+
+

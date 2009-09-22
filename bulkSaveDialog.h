@@ -28,6 +28,7 @@
 #include <QDialog>
 #include <QWidget>
 #include <QLabel>
+#include <QLineEdit>
 #include <QProgressBar>
 #include <QSpinBox>
 #include <QCheckBox>
@@ -40,13 +41,12 @@ class bulkSaveDialog : public QDialog
   
 public:
 	bulkSaveDialog();
-	QLabel *progressLabel;
   QCheckBox* systemCheckBox;
 	QSpinBox* startRangeSpinBox;
 	QSpinBox* finishRangeSpinBox;
   QProgressBar *progressBar;
   void run();
-  
+  QString msg;
   
 signals:
   void setStatusMessage(QString message);
@@ -54,18 +54,28 @@ signals:
   void setStatusSymbol(int value);
                     
 public slots:
+  void terminate();
   void backup();
   void requestPatch(int bank, int patch);
   void updatePatch(QString replyMsg);
   void bulkStatusProgress(int value);
+  void bulkStatusPatchName(QString name);
    
-private:   
+private: 
+  QLabel *progressLabel;
+  QLabel *bytesLabel; 
+  QPushButton *startButton;
+  QPushButton *cancelButton; 
+  QPushButton *completedButton;
   int bankStart;
 	int bankFinish;
 	int progress;
 	bool systemSelect;
 	QString bulkData;	
 	QString bulk;
+	int range;
+	int patch;
+	int bank;
 };
 
 #endif // BULKSAVEDIALOG_H
