@@ -247,6 +247,7 @@ void mainWindow::createMenus()
 
     QMenu *fileMenu = new QMenu(tr("&File"), this);
 	fileMenu->addAction(openAct);
+	fileMenu->addSeparator();
 	fileMenu->addAction(saveAct);
 	fileMenu->addAction(saveAsAct);
 	fileMenu->addSeparator();
@@ -541,7 +542,7 @@ void mainWindow::systemLoad()
                 this,
                 "Choose a file",
                 dir,
-                "GT10B System Data File (*.GT10B_system_syx)");
+                "GT10B Bulk Data File (*.syx)");
 	if (!fileName.isEmpty())	
 	{
 		file.setFile(fileName);  
@@ -550,9 +551,7 @@ void mainWindow::systemLoad()
 			// DO SOMETHING AFTER READING THE FILE (UPDATE THE GUI)
 	
 		  SysxIO *sysxIO = SysxIO::Instance();
-			QString area = "System";
-			sysxIO->setFileSource(area, file.getSystemSource());
-			sysxIO->setFileName(fileName);
+		  sysxIO->setFileName(fileName);
 
 			emit updateSignal();
                         QMessageBox *msgBox = new QMessageBox();
@@ -561,9 +560,9 @@ void mainWindow::systemLoad()
                                         msgBox->setTextFormat(Qt::RichText);
                                         QString msgText;
                                         msgText.append("<font size='+1'><b>");
-                                        msgText.append(tr("You have chosen to load a SYSTEM DATA file."));
+                                        msgText.append(tr("You have chosen to load a BULK DATA backup file."));
                                         msgText.append("<b></font><br>");
-                                        msgText.append(tr("This will overwrite the SYSTEM DATA currently stored in the GT-10B<br>"));
+                                        msgText.append(tr("This will overwrite the GT-10B DATA currently stored in the GT-10B<br>"));
                                         msgText.append(tr (" and can't be undone.<br>"));
                                         msgText.append(tr("Select 'NO' to only update the Editor - Select 'YES' to update the GT-10B memory<br>"));
 
@@ -701,41 +700,14 @@ void mainWindow::bulkLoad()
 
 void mainWindow::bulkSave()
 { 
-    bulkSaveDialog *bulkDialog = new bulkSaveDialog(); 
-    bulkDialog->exec();    
- /*
-SysxIO *sysxIO = SysxIO::Instance();
+     
+ SysxIO *sysxIO = SysxIO::Instance();
      if (sysxIO->isConnected())
 	       {
-  sysxIO->systemDataRequest();
-  
-	Preferences *preferences = Preferences::Instance();
-	QString dir = preferences->getPreferences("General", "Files", "dir");
-
-	QString fileName = QFileDialog::getSaveFileName(
-                    this,
-                    "Save System Data",
-                    dir,
-                    "System Exclusive File (*.GT10B_bulk_syx)");
-	if (!fileName.isEmpty())	
-	{
-	  if(!fileName.contains(".GT10B_bulk_syx"))
-		{
-			fileName.append(".GT10B_bulk_syx");
-		};
-    	
-		file.writeSystemFile(fileName);
-		file.setFile(fileName);  
-		if(file.readFile())
-		{	
-		  SysxIO *sysxIO = SysxIO::Instance();
-			QString area = "System";
-			sysxIO->setFileSource(area, file.getSystemSource());
-			emit updateSignal();
-		};
-	};
-	 }
-         else
+            bulkSaveDialog *bulkDialog = new bulkSaveDialog(); 
+            bulkDialog->exec(); 
+	        }
+           else
              { 
               QString snork = "Ensure connection is active and retry";
               QMessageBox *msgBox = new QMessageBox();
@@ -744,8 +716,7 @@ SysxIO *sysxIO = SysxIO::Instance();
 		        	msgBox->setText(snork);
 		        	msgBox->setStandardButtons(QMessageBox::Ok);
 		        	msgBox->exec(); 
-              };  
-           */
+              };     
 };
 
 /* TOOLS MENU */

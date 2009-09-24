@@ -70,6 +70,13 @@ bool sysxWriter::readFile()
 	  QByteArray GXB_header = GXB_default.mid(3, 20);                // copy header from default.gxb
 	  QByteArray SMF_header = hextable.mid(288,18);
 	  QByteArray SMF_file = data.mid(0, 18);
+	  unsigned char r = (char)data[7];     // find patch number in file (msb))
+	  bool ok;
+    int patchNum;
+    patchNum = QString::number(r, 16).toUpper().toInt(&ok, 16);
+	  bool isPatch = false;
+	  if (patchNum >= 16) { isPatch = true; };    // check the sysx file is a valid patch & not system data.
+	  
 	  bool isHeader = false;
 	  if (default_header == file_header) {isHeader = true;};
 	  QByteArray GTM_bit =  default_data.mid(1765, 5);              // see if the file has a GT-Manager signature.
@@ -88,15 +95,56 @@ bool sysxWriter::readFile()
 		sysxIO->setFileName(this->fileName);
 		this->systemSource = sysxIO->getSystemSource();		
 		return true;
-		}
-    else if(data.size() == 1777 && isHeader == true){         //1777 if GT-10B SYX PATCH file size is correct- load file >>>  currently at 1763 bytes.
-		   
+		}                                                                                 //***************** SYX ******************
+    else if(isPatch == true && /*data.size() == 1777 && */isHeader == true){         //1777 if GT-10B SYX PATCH file size is correct- load file >>>  currently at 1763 bytes.
+	index = 1;
+  int patchCount = data.size()/1777;
+  if (patchCount>1)
+  {
+  QString msgText;
+  QString patchText;
+	QString patchNumber;
+	unsigned char r;
+	this->patchList.clear();
+	this->patchList.append("Select Patch");
+  unsigned int a = 11; // locate patch text start position from the start of the file
+     for (int h=0;h<patchCount;h++)
+       {       
+        for (int b=0;b<16;b++)
+           {
+             r = (char)data[a+b];
+             patchText.append(r);
+           };
+            patchNumber = QString::number(h+1, 10).toUpper();
+            msgText.append(patchNumber + " : ");
+            msgText.append(patchText + "   ");
+            this->patchList.append(msgText);
+            patchText.clear();
+            msgText.clear();
+            a=a+1777;                      // offset is set in front of marker
+        }; 
+              
+    fileDialog *dialog = new fileDialog(fileName, patchList); 
+    dialog->exec();    
+    patchIndex(this->index);                          
+   };   
+     
+   int a=0;                             // offset is set to first patch
+   if (patchCount>1)
+   {
+    int q=index-1; 
+    a = q*1777;  
+   };
+   if (index>0)
+    { 
+     QByteArray temp = data.mid(a, 1777);  
     SysxIO *sysxIO = SysxIO::Instance();
 		QString area = "Structure";
-		sysxIO->setFileSource(area, data);
+		sysxIO->setFileSource(area, temp);
 		sysxIO->setFileName(this->fileName);
 		this->fileSource = sysxIO->getFileSource();
-		return true;}
+		return true;}  else { return false; };
+		}
 		else if((data.size() == patchSize || data.size() == 1636) && isHeader == true){         // if GT-10B standard patch file size is correct- load file.
 		QByteArray standard_data = data;
 	  QFile file(":default.syx");   // Read the default GT-10 sysx file so we don't start empty handed.

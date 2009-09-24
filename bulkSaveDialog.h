@@ -26,12 +26,11 @@
 #define BULKSAVEDIALOG_H
 
 #include <QDialog>
-#include <QWidget>
 #include <QLabel>
-#include <QLineEdit>
 #include <QProgressBar>
 #include <QSpinBox>
 #include <QCheckBox>
+#include <QRadioButton>
 #include "SysxIO.h" 
 
 
@@ -45,7 +44,6 @@ public:
 	QSpinBox* startRangeSpinBox;
 	QSpinBox* finishRangeSpinBox;
   QProgressBar *progressBar;
-  void run();
   QString msg;
   
 signals:
@@ -54,19 +52,20 @@ signals:
   void setStatusSymbol(int value);
                     
 public slots:
-  void terminate();
   void backup();
   void requestPatch(int bank, int patch);
   void updatePatch(QString replyMsg);
   void bulkStatusProgress(int value);
-  void bulkStatusPatchName(QString name);
-   
+     
 private: 
   QLabel *progressLabel;
   QLabel *bytesLabel; 
   QPushButton *startButton;
   QPushButton *cancelButton; 
   QPushButton *completedButton;
+  QRadioButton *gxbButton;
+  QRadioButton *syxButton;
+  QRadioButton *midButton;
   int bankStart;
 	int bankFinish;
 	int progress;
@@ -76,6 +75,10 @@ private:
 	int range;
 	int patch;
 	int bank;
+	QString fileName;
+	void writeGXB();
+	void writeSYX();
+	void writeSMF();
 };
 
 #endif // BULKSAVEDIALOG_H

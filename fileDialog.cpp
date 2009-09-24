@@ -40,7 +40,7 @@ fileDialog::fileDialog(QString fileName, QList<QString> patchList)
                 this, SLOT(valueChanged(int)));
   
 	QPushButton *cancelButton = new QPushButton(tr("Cancel"));
-  connect(cancelButton, SIGNAL(clicked()), this, SLOT(close()));
+  connect(cancelButton, SIGNAL(clicked()), this, SLOT(cancel()));
   
  
 	QHBoxLayout *horizontalLayout = new QHBoxLayout;	
@@ -69,7 +69,12 @@ void fileDialog::valueChanged(int value)
   this->close();
 }; 
 
-
+ void fileDialog::cancel()
+{
+  SysxIO *sysxIO = SysxIO::Instance();
+  sysxIO->patchListValue = 0;             
+  this->close();
+}; 
 
 
 

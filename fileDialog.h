@@ -50,6 +50,7 @@ signals:
                     
 public slots:
   void valueChanged(int value);
+  void cancel();
    
 private:   
   QList<QString> patchList;

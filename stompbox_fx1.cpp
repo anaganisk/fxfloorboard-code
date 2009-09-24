@@ -80,9 +80,9 @@ void stompbox_fx1::setEditPages()
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 
 	editDetails()->page()->newGroupBox("Auto Wah");
-	editDetails()->page()->addKnob(0, 3, 1, 1, "02", "00", "15", "normal","right", 105);
+	editDetails()->page()->addKnob(0, 3, 1, 1, "02", "00", "15");
 	editDetails()->page()->addKnob(0, 1, 1, 1, "02", "00", "16");
-	editDetails()->page()->addKnob(0, 2, 1, 1, "02", "00", "17");
+	editDetails()->page()->addKnob(0, 2, 1, 1, "02", "00", "17", "normal","right", 105);
 	editDetails()->page()->addKnob(0, 4, 1, 1, "02", "00", "18");
 	editDetails()->page()->addGroupBox(0, 1, 1, 1);
 
