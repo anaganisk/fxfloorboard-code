@@ -29,6 +29,7 @@
 #include "statusBarWidget.h"
 #include "SysxIO.h"
 #include "bulkSaveDialog.h"
+#include "bulkLoadDialog.h"
 #include "globalVariables.h"
 
 
@@ -146,17 +147,17 @@ void mainWindow::updateSize(QSize floorSize, QSize oldFloorSize)
 
 void mainWindow::createActions()
 {
-	openAct = new QAction(QIcon(":/images/fileopen.png"), tr("&Open File... (*.syx *.mid *.gxb *.gxg)"), this);
+	openAct = new QAction(QIcon(":/images/fileopen.png"), tr("&Load Patch File... (*.syx *.mid *.gxb *.gxg)"), this);
 	openAct->setShortcut(tr("Ctrl+O"));
 	openAct->setStatusTip(tr("Open an existing file"));
 	connect(openAct, SIGNAL(triggered()), this, SLOT(open()));
 	
-	saveAct = new QAction(QIcon(":/images/filesave.png"), tr("&Save...       (*.syx)"), this);
+	saveAct = new QAction(QIcon(":/images/filesave.png"), tr("&Save Patch...       (*.syx)"), this);
 	saveAct->setShortcut(tr("Ctrl+S"));
 	saveAct->setStatusTip(tr("Save the document to disk"));
 	connect(saveAct, SIGNAL(triggered()), this, SLOT(save()));
 
-	saveAsAct = new QAction(QIcon(":/images/filesave.png"), tr("Save &As...  (*.syx)"), this);
+	saveAsAct = new QAction(QIcon(":/images/filesave.png"), tr("Save &As Patch...  (*.syx)"), this);
 	saveAsAct->setShortcut(tr("Ctrl+Shift+S"));
 	saveAsAct->setStatusTip(tr("Save the document under a new name"));
 	connect(saveAsAct, SIGNAL(triggered()), this, SLOT(saveAs()));
@@ -166,7 +167,7 @@ void mainWindow::createActions()
 	importSMFAct->setStatusTip(tr("Import an existing SMF"));
 	connect(importSMFAct, SIGNAL(triggered()), this, SLOT(importSMF()));
 
-	exportSMFAct = new QAction(QIcon(":/images/filesave.png"), tr("Export &SMF... (*.mid)"), this);
+	exportSMFAct = new QAction(QIcon(":/images/filesave.png"), tr("Save As &SMF Patch... (*.mid)"), this);
 	exportSMFAct->setShortcut(tr("Ctrl+Shift+E"));
 	exportSMFAct->setStatusTip(tr("Export as a Standard Midi File"));
 	connect(exportSMFAct, SIGNAL(triggered()), this, SLOT(exportSMF()));
@@ -176,27 +177,27 @@ void mainWindow::createActions()
 	openGXBAct->setStatusTip(tr("Import a Boss Librarian File"));
 	connect(openGXBAct, SIGNAL(triggered()), this, SLOT(openGXB()));
 
-	saveGXBAct = new QAction(QIcon(":/images/filesave.png"), tr("Export GXB... (*.gxb)"), this);
+	saveGXBAct = new QAction(QIcon(":/images/filesave.png"), tr("Save As GXB Patch... (*.gxb)"), this);
 	saveGXBAct->setShortcut(tr("Ctrl+Shift+G"));
 	saveGXBAct->setStatusTip(tr("Export as a Boss Librarian File"));
 	connect(saveGXBAct, SIGNAL(triggered()), this, SLOT(saveGXB()));	
 	
-	systemLoadAct = new QAction(QIcon(":/images/fileopen.png"), tr("&Load GT System Data..."), this);
+	systemLoadAct = new QAction(QIcon(":/images/fileopen.png"), tr("&Load System and Global Data..."), this);
 	systemLoadAct->setShortcut(tr("Ctrl+L"));
 	systemLoadAct->setStatusTip(tr("Load System Data to GT-10B"));
 	connect(systemLoadAct, SIGNAL(triggered()), this, SLOT(systemLoad()));
 
-	systemSaveAct = new QAction(QIcon(":/images/filesave.png"), tr("Save GT System Data..."), this);
+	systemSaveAct = new QAction(QIcon(":/images/filesave.png"), tr("Save System and Global Data to File..."), this);
 	systemSaveAct->setShortcut(tr("Ctrl+D"));
 	systemSaveAct->setStatusTip(tr("Save System Data to File"));
 	connect(systemSaveAct, SIGNAL(triggered()), this, SLOT(systemSave()));
 	
-	bulkLoadAct = new QAction(QIcon(":/images/fileopen.png"), tr("&Load GT Bulk Backup Data..."), this);
+	bulkLoadAct = new QAction(QIcon(":/images/fileopen.png"), tr("&Load Bulk Patch File to GT-10B..."), this);
 	bulkLoadAct->setShortcut(tr("Ctrl+B"));
 	bulkLoadAct->setStatusTip(tr("Load Bulk Data to GT-10B"));
 	connect(bulkLoadAct, SIGNAL(triggered()), this, SLOT(bulkLoad()));
 
-	bulkSaveAct = new QAction(QIcon(":/images/filesave.png"), tr("Save GT Bulk Backup Data..."), this);
+	bulkSaveAct = new QAction(QIcon(":/images/filesave.png"), tr("Save Bulk GT-10B Patches to File..."), this);
 	bulkSaveAct->setShortcut(tr("Ctrl+G"));
 	bulkSaveAct->setStatusTip(tr("Save Bulk Data to File"));
 	connect(bulkSaveAct, SIGNAL(triggered()), this, SLOT(bulkSave()));
@@ -542,7 +543,7 @@ void mainWindow::systemLoad()
                 this,
                 "Choose a file",
                 dir,
-                "GT10B Bulk Data File (*.syx)");
+                "GT10B Bulk Data File (*.GT10B_system_syx)");
 	if (!fileName.isEmpty())	
 	{
 		file.setFile(fileName);  
@@ -641,38 +642,28 @@ void mainWindow::bulkLoad()
    SysxIO *sysxIO = SysxIO::Instance();
      if (sysxIO->isConnected())
 	       {
-	Preferences *preferences = Preferences::Instance();
-	QString dir = preferences->getPreferences("General", "Files", "dir");
-
-	QString fileName = QFileDialog::getOpenFileName(
-                this,
-                "Choose a file",
-                dir,
-                "GT10B Bulk Data File (*.GT10B_bulk_syx)");
-	if (!fileName.isEmpty())	
-	{
-		file.setFile(fileName);  
-		if(file.readFile())
+	
+		bulkLoadDialog *loadDialog = new bulkLoadDialog(); 
+            loadDialog->exec(); 
+ 
+		/*if(file.readFile())
 		{	
 			// DO SOMETHING AFTER READING THE FILE (UPDATE THE GUI)
 	
 		  SysxIO *sysxIO = SysxIO::Instance();
-			QString area = "System";
-			sysxIO->setFileSource(area, file.getSystemSource());
 			sysxIO->setFileName(fileName);
 
-			emit updateSignal();
                         QMessageBox *msgBox = new QMessageBox();
                                         msgBox->setWindowTitle(deviceType + tr(" Fx FloorBoard"));
                                         msgBox->setIcon(QMessageBox::Warning);
                                         msgBox->setTextFormat(Qt::RichText);
                                         QString msgText;
                                         msgText.append("<font size='+1'><b>");
-                                        msgText.append(tr("You have chosen to load a SYSTEM DATA file."));
+                                        msgText.append(tr("You have chosen to load a BULK DATA file."));
                                         msgText.append("<b></font><br>");
-                                        msgText.append(tr("This will overwrite the SYSTEM DATA currently stored in the GT-10B<br>"));
+                                        msgText.append(tr("This will overwrite the SYSTEM or PATCH DATA currently stored in the GT-10B<br>"));
                                         msgText.append(tr (" and can't be undone.<br>"));
-                                        msgText.append(tr("Select 'NO' to only update the Editor - Select 'YES' to update the GT-10B memory<br>"));
+                                        //msgText.append(tr("Select 'NO' to only update the Editor - Select 'YES' to update the GT-10B memory<br>"));
 
 
                                         msgBox->setInformativeText(tr("Are you sure you want to write to the GT-10B?"));
@@ -684,7 +675,7 @@ void mainWindow::bulkLoad()
                                         sysxIO->systemWrite();
                                         };
 		};
-	};
+	};      */
 	}
          else
              {
