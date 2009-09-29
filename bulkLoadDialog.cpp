@@ -233,18 +233,6 @@ void bulkLoadDialog::comboValueChanged(int value)
   this->startRangeComboBox->setMaxVisibleItems(200-(finishList-startList));
 }; 
 
-void bulkLoadDialog::valueChanged(int value)
-{ 
-  QApplication::beep(); 
-  int x = (bankStart+(finishList-startList)/4);
-  if (x<1) {x=1; };
-  QString text = "Finish at U";
-  text.append(QString::number(x, 10).toUpper() );
-  text.append("-x");
-  this->finishRange->setText(text); 
-  
-};
-
 void bulkLoadDialog::sendData() 
 {	
   bankStart = this->startRangeComboBox->currentIndex()+1;
@@ -252,9 +240,9 @@ void bulkLoadDialog::sendData()
   finishList = this->finishPatchCombo->currentIndex();
   startButton->hide();
   cancelButton->hide();
-  //progress = 0;
-  //patch = 1;
-  //range = 200/(patchRange-bankStart+1);
+  progress = 0;
+  patch = 1;
+  range = 200/(finishList-startList+1);
    
    int z = (this->bankStart);
    QString q;
@@ -305,27 +293,36 @@ void bulkLoadDialog::sendData()
 		i=i+2;
     }; 
   };   
-	replyMsg = reBuild.simplified().toUpper().remove("0X").remove(" ");	
-	              
-    SysxIO *sysxIO = SysxIO::Instance();
-    sysxIO->sendSysx(replyMsg);
+	this->bulk = reBuild.simplified().toUpper().remove("0X").remove(" ");	
+	bank = (bankStart+3/*+(finishList-startList)/4*/);
+  patch = bank/4; patch = patch*4; patch=bank-patch;
+          steps=0;
+          dataSent=0;
+          sendSequence("");
+};	
+	
+void bulkLoadDialog::sendPatch(QString data)
+{
+	   SysxIO *sysxIO = SysxIO::Instance();
+	   QObject::connect(sysxIO, SIGNAL(sysxReply(QString)), this, SLOT(sendSequence(QString)));          
+     sysxIO->sendSysx(data);	          
+};                                                           
 
- 	   /*    
-	      ++patch; 
-        if(patch>4) {patch=1; bank=bank+4;};	                      // increment patch.
+void bulkLoadDialog::sendSequence(QString value)
+{ 
+  SysxIO *sysxIO = SysxIO::Instance();
+  QObject::disconnect(sysxIO, SIGNAL(sysxReply(QString)), this, SLOT(sendSequence(QString)));
+  sysxIO->setDeviceReady(true); // Free the device after finishing interaction.
+     msg=bulk.mid(steps*1777*2, 1777*2);    
+        
         progress=progress+range;
         bulkStatusProgress(this->progress);                         // advance the progressbar.
-        int bf = (patchRange+1)*4 -2;
-  if (bank >= bf) 
-      {                                                            // check if nearly finished.
-        this->completedButton->show();        
-        this->progressLabel->setText("Bulk data transfer completed!!");              
-      };              
-  if (bank<(patchRange+1)*4 )
+                           
+  if (steps<patchCount+1 )
   {      
         bool ok;
         QString patchText;
-        QString name = replyMsg.mid(22, 32);                       // get name from loaded patch. 
+        QString name = msg.mid(22, 32);                       // get name from loaded patch. 
         QList<QString> x;        
         for (int b=0;b<16;b++)
         {
@@ -336,9 +333,11 @@ void bulkLoadDialog::sendData()
         	QString hexStr = x.at(b);			
 		      patchText.append( (char)(hexStr.toInt(&ok, 16)) );      // convert name to readable text characters.
         };
+        int bf = patchCount-1;
+        if(steps>bf) {this->completedButton->show();        
+          this->progressLabel->setText("Bulk data transfer completed!!");   };
         
   QString patchNumber = QString::number(bank/4, 10).toUpper();
-  if (patchNumber.size()<2) { patchNumber.prepend("0"); };
   patchNumber.prepend( "User Patch U" );
   patchNumber.append("-");
   patchNumber.append( QString::number(patch, 10).toUpper() );
@@ -348,21 +347,23 @@ void bulkLoadDialog::sendData()
   this->progressLabel->setText(patchText);                        //display the patch number and name.
   
   patchNumber = "File build size = ";
-  int size = (bulk.size()/2)+1777;
-  patchNumber.append(QString::number(size, 10).toUpper() );
+  dataSent = dataSent+(msg.size()/2);
+  patchNumber.append(QString::number(dataSent, 10).toUpper() );
   patchNumber.append(" bytes");
   this->bytesLabel->setText(patchNumber);                         //display the bulk data size.
-  
-  setStatusMessage("Bulk Upload");  
-  requestPatch(bank/4, patch);                                   //request the next patch.
+        ++steps;
+	      ++patch; 
+        if(patch>4) {patch=1; bank=bank+4;};	                      // increment patch.
+  sendPatch(msg);                                 //request the next patch.  
   } else {
+  QObject::disconnect(sysxIO, SIGNAL(sysxReply(QString)), this, SLOT(sendSequence(QString)));
+  sysxIO->setDeviceReady(true); // Free the device after finishing interaction.
   setStatusMessage("Ready");
-    
-  };      */
-  
-  
-	close();
+  SLEEP(3000);
+  close();  
+  };      
 };
+
 
 void bulkLoadDialog::updatePatch()
 {
@@ -426,7 +427,7 @@ void bulkLoadDialog::updatePatch()
 
 void bulkLoadDialog::bulkStatusProgress(int value)
 {
-   value=value/8;
+   value=value/2;
   if (value >100) {value = 100;};
   if (value<0) {value = 0; };
 	this->progressBar->setValue(value);

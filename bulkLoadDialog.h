@@ -53,11 +53,12 @@ public slots:
   void sendData();
   void updatePatch();
   void bulkStatusProgress(int value);
+  void sendSequence(QString value); 
+  void sendPatch(QString data);
   
 private slots:
   void comboValueChanged(int value);
-  void valueChanged(int value); 
-     
+       
 private: 
   QComboBox *startPatchCombo;
 	QComboBox *finishPatchCombo;
@@ -81,6 +82,8 @@ private:
 	int patch;
 	int bank;
 	int patchCount;
+	int steps;
+	int dataSent;
 	QString fileName;
 	void loadGXB();
 	void loadSYX();
