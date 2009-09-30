@@ -1,8 +1,10 @@
 /****************************************************************************
-**  
-** Copyright (C) 2007, 2008, 2009 Colin Willcocks. 
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
+**
+** Copyright (C) 2007, 2008, 2009 Colin Willcocks.
+** Copyright (C) 2005, 2006, 2007 Uco Mesdag. 
 ** All rights reserved.
+
+**
 ** This file is part of "GT-8 Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
@@ -82,8 +84,8 @@ floorBoard::floorBoard(QWidget *parent,
 	
 	setFloorBoard();
 
-	floorBoardDisplay *display = new floorBoardDisplay(this);
-	display->setPos(displayPos);
+        floorBoardDisplay *display = new floorBoardDisplay(this);
+        display->setPos(displayPos);
 
 	floorPanelBar *panelBar = new floorPanelBar(this);
 	panelBar->setPos(panelBarPos);	
@@ -92,10 +94,10 @@ floorBoard::floorBoard(QWidget *parent,
 	bar->setDragBarSize(QSize::QSize(4, panelBar->height() ));
 	bar->setDragBarMinOffset(2, 8);
 	bar->setDragBarMaxOffset(offset - panelBarOffset + 5);
-
+  
   initStomps();
   initMenuPages();
-  
+
 	this->editDialog = new editWindow(this);
 	this->editDialog->hide();
 	this->oldDialog = this->editDialog;
@@ -152,6 +154,7 @@ floorBoard::floorBoard(QWidget *parent,
 	};
 
         emit updateSignal();
+
 };
 
 floorBoard::~floorBoard()
@@ -198,12 +201,14 @@ void floorBoard::setFloorBoard() {
 	// Draw InfoBar
 	QRectF sourceInfoBar(0.0, 0.0, imageInfoBar.width(), imageInfoBar.height());
 	QRectF targetInfoBar(offset, 0.0, imageInfoBar.width(), imageInfoBar.height());
+	QRectF targetInfoBar2(offset, imageInfoBar.height()-4, imageInfoBar.width(), imageInfoBar.height());
 	painter.drawPixmap(targetInfoBar, imageInfoBar, sourceInfoBar);
+	painter.drawPixmap(targetInfoBar2, imageInfoBar, sourceInfoBar);
 
 	// Draw LiberianBar
 	QRectF sourceLiberianBar(0.0, 0.0, imageInfoBar.width(), imageInfoBar.height());
 	QRectF targetLiberianBar(offset, (imageFloor.height() - imageInfoBar.height()) - 2, imageInfoBar.width(), imageInfoBar.height());
-	QRectF targetLiberianBar2(offset, (imageFloor.height() - (imageInfoBar.height()*2)+2), imageInfoBar.width(), imageInfoBar.height());
+        QRectF targetLiberianBar2(offset, (imageFloor.height() - (imageInfoBar.height()*2)+2), imageInfoBar.width(), imageInfoBar.height());
 	painter.drawPixmap(targetLiberianBar, imageInfoBar, sourceLiberianBar);
 	painter.drawPixmap(targetLiberianBar2, imageInfoBar, sourceLiberianBar);
 
@@ -341,7 +346,7 @@ void floorBoard::dropEvent(QDropEvent *event)
 
 					hexData.append(fxHexValue);
 				};
-				 sysxIO->setFileSource("Structure", chainAddress, "00", "00", hexData);
+                                sysxIO->setFileSource("Structure", chainAddress, "00", "00", hexData);
 			};
 		}
 		else
@@ -400,8 +405,8 @@ void floorBoard::initSize(QSize floorSize)
 	
 	unsigned int spacingV = (floorSize.height() - (marginStompBoxesTop + marginStompBoxesBottom)) - (stompSize.height() * 2);
 	unsigned int spacingH = ( (floorSize.width() - offset - (marginStompBoxesWidth * 2)) - (stompSize.width() * 7) ) / 6;
-	//for(unsigned int i=0;i<14;i++)
-	for(int i=13;i>=0;i--)
+	for(unsigned int i=0;i<14;i++)
+	//for(int i=13;i>=0;i--)
 	{
 		unsigned int y = marginStompBoxesTop;
 		unsigned int x = marginStompBoxesWidth + (( stompSize.width() + spacingH ) * i);
@@ -683,31 +688,32 @@ void floorBoard::setEditDialog(editWindow* editDialog)
 void floorBoard::centerEditDialog()
 {
 	int x = this->displayPos.x() + (((this->floorSize.width() - this->displayPos.x()) - this->editDialog->width()) / 2);
-	int y = this->pos.y() + ((this->floorSize.height() - this->infoBarHeight - this->editDialog->height()) / 2);
+        int y = this->pos.y() + ((this->floorSize.height() /*- this->infoBarHeight*/ - this->editDialog->height()) / 2);
 	this->editDialog->move(x, y);
 };
 
 void floorBoard::initMenuPages()
 {
-	QVector<menuPage *> initMenuPages(3);
+        QVector<menuPage *> initMenuPages(3);
 	this->menuPages = initMenuPages.toList();;
 	
-	/* EDITPAGES */
+        // EDITPAGES
 	menuPage *assign = new menuPage_assign(this);
 	assign->setId(20);
 	assign->setPos(QPoint(955, 5));
-	menuPage *midi = new menuPage_midi(this);
+        menuPage *midi = new menuPage_midi(this);
 	midi->setId(19);
 	midi->setPos(QPoint(1045, 5));
 	menuPage *system = new menuPage_system(this);
 	system->setId(18);
-	system->setPos(QPoint(1045, 24));
+        system->setPos(QPoint(1045, 24));
 	
-	};
-	
-	void floorBoard::menuButtonSignal()
+        };
+
+void floorBoard::menuButtonSignal()
 {
    this->oldDialog->hide();
    this->editDialog->show();
 };
+
 

@@ -99,9 +99,16 @@ public:
 	QString dBug;
 	void systemWrite();
 	void systemDataRequest();
+	int patchListValue;	
+	QString temp1_sysxMsg;
+	QString temp2_sysxMsg;
+	QString temp3_sysxMsg;
+	QString temp4_sysxMsg;
+	QString temp5_sysxMsg;	
+	QString bulk;
 
 public slots:
-	void errorSignal(QString windowTitle, QString errorMsg);
+	void errorSignal(QString midiErrorType, QString midiErrorMsg);
 	void writeToBuffer();
 
 private slots:

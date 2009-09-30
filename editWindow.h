@@ -1,9 +1,10 @@
 /****************************************************************************
-**  
-** Copyright (C) 2007, 2008, 2009 Colin Willcocks. 
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
+**
+** Copyright (C) 2007, 2008, 2009 Colin Willcocks.
+** Copyright (C) 2005, 2006, 2007 Uco Mesdag. 
 ** All rights reserved.
-** This file is part of "GT-8 Fx FloorBoard".
+**
+** This file is part of "GT-Pro Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -30,7 +31,7 @@
 #include <QCloseEvent>
 #include "editPage.h"
 #include "customControlLabel.h"
-
+           
 class editWindow : public QWidget
 {
     Q_OBJECT
@@ -45,6 +46,7 @@ public:
 	QString getTitle();
 	void addPage(QString hex1 = "void", QString hex2 = "void", QString hex3 = "void", QString hex4 = "void", QString area = "Structure");
 	editPage* page();
+	void patchPos(int pos, int len, QString t_hex1, QString t_hex3);
 
 signals:
 	void dialogUpdateSignal();
@@ -56,6 +58,12 @@ public slots:
 	void valueChanged(int index);
 	void pageUpdateSignal();
 	virtual void closeEvent(QCloseEvent* ce);
+	void temp1();
+	void temp2();
+	void temp3();
+	void temp4();
+	void temp5();
+	void swap_pre();
 	
 protected:
 	void paintEvent(QPaintEvent *event);
@@ -67,6 +75,12 @@ private:
 	QString hex3;
 	QString area;
 	int pages;
+	customControlLabel* swap_Button;
+	customControlLabel* temp1_Button;
+	customControlLabel* temp2_Button;
+	customControlLabel* temp3_Button;
+	customControlLabel* temp4_Button;
+	customControlLabel* temp5_Button;
 	QLabel* title;
 	QLabel* comboBoxLabel;
 	QStackedWidget* pagesWidget;
@@ -74,6 +88,10 @@ private:
 	customControlLabel* closeButton;
 	editPage* tempPage;
 	QList<editPage*> editPages;
+	int position;
+	int length;
+	QString temp_hex1;
+	QString temp_hex3;
 };
 
 #endif // EDITWINDOW_H

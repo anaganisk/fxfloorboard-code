@@ -1,9 +1,10 @@
 /****************************************************************************
-**  
-** Copyright (C) 2007, 2008, 2009 Colin Willcocks. 
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
+**
+** Copyright (C) 2007, 2008, 2009 Colin Willcocks.
+** Copyright (C) 2005, 2006, 2007 Uco Mesdag. 
 ** All rights reserved.
-** This file is part of "GT-8 Fx FloorBoard".
+**
+** This file is part of "GT-Pro Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -21,7 +22,7 @@
 **
 ****************************************************************************/
 
-#include "stompbox_rv.h"
+#include "stompbox_rv.h"                     
  
 stompbox_rv::stompbox_rv(QWidget *parent)
     : stompBox(parent)
@@ -33,6 +34,7 @@ stompbox_rv::stompbox_rv(QWidget *parent)
 	setKnob2("0D", "00", "08");
 	setComboBox("0D", "00", "02");
 	setButton("0D", "00", "00");
+	editDetails()->patchPos(1212, 20, "0D", "00");
 	setEditPages();
 };
 
@@ -47,7 +49,7 @@ void stompbox_rv::updateSignal()
 void stompbox_rv::setEditPages()
 {
 	editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "0D", "00", "00");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "0D", "00", "00", "middle", Qt::AlignCenter);
 	editDetails()->page()->addComboBox(1, 0, 1, 1, "0D", "00", "02");
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 

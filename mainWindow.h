@@ -22,7 +22,7 @@
 ****************************************************************************/
 
 #ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#define MAINWINDOW_H          
 
 #include <QMainWindow>
 #include "floorBoard.h"
@@ -50,6 +50,8 @@ public slots:
 	void saveAs();
 	void systemSave();
 	void systemLoad();
+	void bulkSave();
+	void bulkLoad();
 	void settings();
 	void upload();
 	void help();
@@ -73,6 +75,8 @@ private:
 	QAction *saveAsAct;
 	QAction *systemLoadAct;
 	QAction *systemSaveAct;
+	QAction *bulkLoadAct;
+	QAction *bulkSaveAct;
 	QAction *exitAct;
 	QAction *settingsAct;
 	QAction *uploadAct;

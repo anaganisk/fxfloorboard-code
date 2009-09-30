@@ -2,10 +2,10 @@
 <!-- Preferences of the GT-8 Fx FloorBoard application. -->
 <Preferences>
 	<General>
-		<Application version="beta 20090724"/>
+		<Application version="20090728"/>
 		<Donate url="http://gtx.tinfoilmusic.net/donate.html"/>
 		<Files dir=""/>
-		<Help url="GT-8EditorManual_E.htm"/>
+		<Help url="GT-8FxFloorBoard_help.mht"/>
 		<Language code="en"/>
 		<Upload url="http://www.bossgtcentral.com/dm"/>
 		<Webpage url="http://gtx.tinfoilmusic.net/"/>

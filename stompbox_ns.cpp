@@ -1,9 +1,10 @@
 /****************************************************************************
-**  
-** Copyright (C) 2007, 2008, 2009 Colin Willcocks. 
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
+**
+** Copyright (C) 2007, 2008, 2009 Colin Willcocks.
+** Copyright (C) 2005, 2006, 2007 Uco Mesdag. 
 ** All rights reserved.
-** This file is part of "GT-8 Fx FloorBoard".
+**
+** This file is part of "GT-Pro Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -32,6 +33,7 @@ stompbox_ns::stompbox_ns(QWidget *parent)
 	setKnob1("0E", "00", "01");
 	setKnob2("0E", "00", "02");
 	setButton("0E", "00", "00");
+	editDetails()->patchPos(1258, 8, "0E", "00");
 	setEditPages();
 };
 
@@ -44,14 +46,12 @@ void stompbox_ns::updateSignal()
 
 void stompbox_ns::setEditPages()
 {
-   editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "0E", "00", "00");
-	editDetails()->page()->addComboBox(1, 0, 1, 1, "0E", "00", "03");
+  editDetails()->page()->newGroupBox("Noise Suppressor");
+	editDetails()->page()->addSwitch(0, 0, 1, 1, "0E", "00", "00", "middle", Qt::AlignCenter);    // on/off
+	editDetails()->page()->addComboBox(0, 1, 1, 1, "0E", "00", "03");  // input select	
+	editDetails()->page()->addKnob(0, 2, 1, 1, "0E", "00", "01");       // threshold
+	editDetails()->page()->addKnob(0, 3, 1, 1, "0E", "00", "02");       // release
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
-
-	editDetails()->page()->newGroupBox("Noise Suppressor");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "0E", "00", "01");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "0E", "00", "02");
-	editDetails()->page()->addGroupBox(0, 1, 1, 1);
+		
 	editDetails()->addPage();	
 };

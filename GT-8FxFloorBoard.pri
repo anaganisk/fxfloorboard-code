@@ -28,6 +28,8 @@ HEADERS += ./editPage.h \
     ./globalVariables.h \
     ./mainWindow.h \
     ./bankTreeList.h \
+    ./bulkLoadDialog.h \
+    ./bulkSaveDialog.h \
     ./customButton.h \
     ./customControlKnob.h \
     ./customControlLabel.h \
@@ -40,6 +42,7 @@ HEADERS += ./editPage.h \
     ./customKnob.h \
     ./customKnobRange.h \
     ./customKnobTarget.h \
+    ./customLabelDisplay.h \
     ./customLed.h \
     ./customRangeDial.h \
     ./customRenameDialog.h \
@@ -48,7 +51,9 @@ HEADERS += ./editPage.h \
     ./customSplashScreen.h \
     ./customSwitch.h \
     ./customTargetDial.h \
+    ./customTargetListMenu.h \
     ./dragBar.h \
+    ./fileDialog.h \
     ./floorBoard.h \
     ./floorBoardDisplay.h \
     ./floorPanelBar.h \
@@ -99,6 +104,8 @@ SOURCES += ./editPage.cpp \
     ./main.cpp \
     ./mainWindow.cpp \
     ./bankTreeList.cpp \
+    ./bulkLoadDialog.cpp \
+    ./bulkSaveDialog.cpp \
     ./customButton.cpp \
     ./customControlKnob.cpp \
     ./customControlLabel.cpp \
@@ -119,7 +126,10 @@ SOURCES += ./editPage.cpp \
     ./customSplashScreen.cpp \
     ./customSwitch.cpp \
     ./customTargetDial.cpp \
+    ./customTargetListMenu.cpp \
+    ./customLabelDisplay.cpp \
     ./dragBar.cpp \
+    ./fileDialog.cpp \
     ./floorBoard.cpp \
     ./floorBoardDisplay.cpp \
     ./floorPanelBar.cpp \

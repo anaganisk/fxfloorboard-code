@@ -27,6 +27,8 @@
 #include "preferencesDialog.h"
 #include "statusBarWidget.h"
 #include "SysxIO.h"
+#include "bulkSaveDialog.h"
+#include "bulkLoadDialog.h"
 #include "globalVariables.h"
 
 mainWindow::mainWindow(QWidget *parent)
@@ -145,30 +147,40 @@ void mainWindow::updateSize(QSize floorSize, QSize oldFloorSize)
 
 void mainWindow::createActions()
 {
-	openAct = new QAction(QIcon(":/images/fileopen.png"), tr("&Open File..."), this);
+	openAct = new QAction(QIcon(":/images/fileopen.png"), tr("&Load Patch File..."), this);
 	openAct->setShortcut(tr("Ctrl+O"));
 	openAct->setStatusTip(tr("Open an existing file"));
 	connect(openAct, SIGNAL(triggered()), this, SLOT(open()));
 
-	saveAct = new QAction(QIcon(":/images/filesave.png"), tr("&Save"), this);
+	saveAct = new QAction(QIcon(":/images/filesave.png"), tr("&Save Patch..."), this);
 	saveAct->setShortcut(tr("Ctrl+S"));
 	saveAct->setStatusTip(tr("Save the document to disk"));
 	connect(saveAct, SIGNAL(triggered()), this, SLOT(save()));
 
-	saveAsAct = new QAction(QIcon(":/images/filesave.png"), tr("Save &As..."), this);
+	saveAsAct = new QAction(QIcon(":/images/filesave.png"), tr("Save &As Patch..."), this);
 	saveAsAct->setShortcut(tr("Ctrl+Shift+S"));
 	saveAsAct->setStatusTip(tr("Save the document under a new name"));
 	connect(saveAsAct, SIGNAL(triggered()), this, SLOT(saveAs()));
 	
-	systemLoadAct = new QAction(QIcon(":/images/fileopen.png"), tr("&Load GT System Data..."), this);
+	systemLoadAct = new QAction(QIcon(":/images/fileopen.png"), tr("&Load System and Global Data..."), this);
 	systemLoadAct->setShortcut(tr("Ctrl+L"));
 	systemLoadAct->setStatusTip(tr("Load System Data to GT-8"));
 	connect(systemLoadAct, SIGNAL(triggered()), this, SLOT(systemLoad()));
 
-	systemSaveAct = new QAction(QIcon(":/images/filesave.png"), tr("Save GT System Data..."), this);
+	systemSaveAct = new QAction(QIcon(":/images/filesave.png"), tr("Save System and Global Data..."), this);
 	systemSaveAct->setShortcut(tr("Ctrl+D"));
 	systemSaveAct->setStatusTip(tr("Save System Data to File"));
 	connect(systemSaveAct, SIGNAL(triggered()), this, SLOT(systemSave()));
+			
+	bulkLoadAct = new QAction(QIcon(":/images/fileopen.png"), tr("&Load Bulk Patch File to GT-8..."), this);
+	bulkLoadAct->setShortcut(tr("Ctrl+B"));
+	bulkLoadAct->setStatusTip(tr("Load Bulk Data to GT-10B"));
+	connect(bulkLoadAct, SIGNAL(triggered()), this, SLOT(bulkLoad()));
+
+	bulkSaveAct = new QAction(QIcon(":/images/filesave.png"), tr("Save Bulk GT-8 Patches to File..."), this);
+	bulkSaveAct->setShortcut(tr("Ctrl+G"));
+	bulkSaveAct->setStatusTip(tr("Save Bulk Data to File"));
+	connect(bulkSaveAct, SIGNAL(triggered()), this, SLOT(bulkSave()));
 
 	exitAct = new QAction(QIcon(":/images/exit.png"),tr("E&xit"), this);
 	exitAct->setShortcut(tr("Ctrl+Q"));
@@ -213,13 +225,17 @@ void mainWindow::createMenus()
 {
     menuBar = new QMenuBar;
 
-    QMenu *fileMenu = new QMenu(tr("&File"), this);
-	fileMenu->addAction(openAct);
+  QMenu *fileMenu = new QMenu(tr("&File"), this);
+	fileMenu->addAction(openAct); 
+	fileMenu->addSeparator();
 	fileMenu->addAction(saveAct);
 	fileMenu->addAction(saveAsAct);
 	fileMenu->addSeparator();
 	fileMenu->addAction(systemLoadAct);
 	fileMenu->addAction(systemSaveAct);
+	fileMenu->addSeparator();
+	fileMenu->addAction(bulkLoadAct);
+	fileMenu->addAction(bulkSaveAct);
 	fileMenu->addSeparator();
   fileMenu->addAction(exitAct);
 	menuBar->addMenu(fileMenu);
@@ -277,7 +293,7 @@ void mainWindow::open()
                 this,
                 "Choose a file",
                 dir,
-                "GT8, GT10 System Exclusive (*.syx)");
+                "GT8, GT-Pro, GT10 patch (*.syx *.gte)");
 	if (!fileName.isEmpty())	
 	{
 		file.setFile(fileName);  
@@ -473,6 +489,47 @@ SysxIO *sysxIO = SysxIO::Instance();
 		        	msgBox->setStandardButtons(QMessageBox::Ok);
 		        	msgBox->exec(); 
               };  
+};
+void mainWindow::bulkLoad()
+{
+   SysxIO *sysxIO = SysxIO::Instance();
+     if (sysxIO->isConnected())
+	       {
+	
+		bulkLoadDialog *loadDialog = new bulkLoadDialog(); 
+            loadDialog->exec(); 
+	}
+         else
+             {
+              QString snork = "Ensure connection is active and retry";
+              QMessageBox *msgBox = new QMessageBox();
+			        msgBox->setWindowTitle(deviceType + " not connected !!");
+		        	msgBox->setIcon(QMessageBox::Information);
+		        	msgBox->setText(snork);
+		        	msgBox->setStandardButtons(QMessageBox::Ok);
+		        	msgBox->exec(); 
+              };  
+};
+
+void mainWindow::bulkSave()
+{ 
+     
+ SysxIO *sysxIO = SysxIO::Instance();
+     if (sysxIO->isConnected())
+	       {
+            bulkSaveDialog *bulkDialog = new bulkSaveDialog(); 
+            bulkDialog->exec(); 
+	        }
+           else
+             { 
+              QString snork = "Ensure connection is active and retry";
+              QMessageBox *msgBox = new QMessageBox();
+			        msgBox->setWindowTitle(deviceType + " not connected !!");
+		        	msgBox->setIcon(QMessageBox::Information);
+		        	msgBox->setText(snork);
+		        	msgBox->setStandardButtons(QMessageBox::Ok);
+		        	msgBox->exec(); 
+              };     
 };
 
 /* TOOLS MENU */

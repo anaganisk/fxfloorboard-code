@@ -29,7 +29,8 @@ stompbox_fv::stompbox_fv(QWidget *parent)
 	/* VOLUME */
 	setImage(":/images/fv.png");
 	setLSB("15", "00");
-	//setButton("15", "00", "00", QPoint::QPoint(0, 109), ":/images/pedal.png");
+	editDetails()->patchPos(1266, 38, "0E", "00");
+	//editDetails()->patchPos(1442, 66, "13", "00");
 	setEditPages();
 };
 
@@ -40,6 +41,7 @@ void stompbox_fv::updateSignal()
 
 void stompbox_fv::setEditPages()
 {
+  
   editDetails()->page()->newGroupBox("Foot Volume");
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "0E", "00", "08", "bottom", Qt::AlignTop);
 	editDetails()->page()->addKnob(0, 1, 1, 1, "0E", "00", "07");
