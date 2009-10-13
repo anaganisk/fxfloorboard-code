@@ -99,6 +99,7 @@ void SysxIO::setFileSource(QString area, QByteArray data)
 	
 	QString errorList;
 	QList<QString> sysxBuffer; 
+	QList<QString> patchString; 
 	int dataSize = 0; int offset = 0;
 	for(int i=0;i<data.size();i++)
 	{
@@ -119,10 +120,10 @@ void SysxIO::setFileSource(QString area, QByteArray data)
 		if(nexthex == "F7")
 		{		
 			QString checksum = hex;
-
+      /*
 			if(getCheckSum(dataSize) != checksum)
 			{
-			/*	QString errorString;
+				QString errorString;
 				errorString.append(tr("Address") + ": ");
 				errorString.append(sysxBuffer.at(sysxAddressOffset) + " ");
 				errorString.append(sysxBuffer.at(sysxAddressOffset + 1) + " ");
@@ -131,10 +132,12 @@ void SysxIO::setFileSource(QString area, QByteArray data)
 				errorString.append(tr("checksum") + " (" + checksum + ") ");
 				errorString.append(tr("should have been") + " (" + getCheckSum(dataSize) + ")");
 				errorString.append("\n");
-				errorList.append(errorString);			         */
-				sysxBuffer = correctSysxMsg(sysxBuffer);         
-			};
-			//sysxBuffer = correctSysxMsg(sysxBuffer);
+				errorList.append(errorString);			         
+				//sysxBuffer = correctSysxMsg(sysxBuffer);         
+			};   */
+			
+			
+			if (!area.contains("System")){patchString = sysxBuffer; sysxBuffer.clear(); sysxBuffer = correctSysxMsg(patchString); };
 		};
 		offset++;
     
@@ -627,16 +630,16 @@ QList<QString> SysxIO::correctSysxMsg(QList<QString> sysxMsg)
   bool ok;
 
 	MidiTable *midiTable = MidiTable::Instance();
-	for(int i=sysxDataOffset;i<sysxMsg.size() - 3;i++)
+	for(int i=sysxDataOffset;i<sysxMsg.size()-2;i++)
 	{
-		QString address3 = QString::number(i - sysxDataOffset, 16).toUpper();
+	 	QString address3 = QString::number(i - sysxDataOffset, 16).toUpper();
 		if(address3.length()<2) address3.prepend("0");
 		
 		int range = midiTable->getRange("Structure", address1, address2, address3);
 		int rangeMin = midiTable->getRangeMinimum("Structure", address1, address2, address3);
-
+     
 		if(midiTable->isData("Structure", address1, address2, address3))
-		{	
+		{	 
 			int maxRange = QString("7F").toInt(&ok, 16) + 1; // index starts at 0 -> 0-127 = 128 entry's.
 			int value1 = sysxMsg.at(i).toInt(&ok, 16);
 			int value2 = sysxMsg.at(i + 1).toInt(&ok, 16);
@@ -663,15 +666,17 @@ QList<QString> SysxIO::correctSysxMsg(QList<QString> sysxMsg)
 				
 				sysxMsg.replace(i, valueHex1);
 				sysxMsg.replace(i + 1, valueHex2);
-			};
-			i++;
-		}
-		else
+			};    
+			i++;          
+		}   
+		else    
 		{
 			if(sysxMsg.at(i).toInt(&ok, 16) > range || sysxMsg.at(i).toInt(&ok, 16) < rangeMin)
 			{
 			  isWrong = true;
-				int value = (range/2); 
+			  int value=0;
+				if(sysxMsg.at(i).toInt(&ok, 16) > range) {value = (range); }
+				else if (sysxMsg.at(i).toInt(&ok, 16) < rangeMin) {value = (rangeMin); };
 				QString valueHex = QString::number(value, 16).toUpper();
 				if(valueHex.length() < 2) valueHex.prepend("0");
 				
@@ -683,8 +688,8 @@ QList<QString> SysxIO::correctSysxMsg(QList<QString> sysxMsg)
 				badHex.append(": new data = ");
 				badHex.append(valueHex);						
 				sysxMsg.replace(i, valueHex);
-			};
-		};
+			};      
+		};    
 	};	
 	int dataSize = 0;
 	for(int i=checksumOffset; i<sysxMsg.size() - 1;i++)
@@ -701,17 +706,18 @@ QList<QString> SysxIO::correctSysxMsg(QList<QString> sysxMsg)
         snork.append(sysxMsg.at(i));
         snork.append(" ");
       };
-      snork.append("F7");
-      snork.append("<br><br>bad data has been repaired with default values");
-      snork.append("<br>loaction of bad data was at "+ badHex);
+      snork.append("F7");    
+      snork.append("<br><br>bad data has been repaired with default values<br>");   
+      snork.append("loaction of bad data was at "+ badHex);
 			QMessageBox *msgBox = new QMessageBox();
 			msgBox->setWindowTitle("File contains out of range data");
 			msgBox->setIcon(QMessageBox::Information);
 			msgBox->setText(snork);
 			msgBox->setStandardButtons(QMessageBox::Ok);
-		//	msgBox->exec();
+			msgBox->exec();       
+			//emitStatusdBugMessage(snork);
 		};
-
+       
 	return sysxMsg;
 };
 
@@ -874,9 +880,9 @@ void SysxIO::sendMidi(QString midiMsg)
 void SysxIO::finishedSending()
 {
 	emit isFinished();
-	emit setStatusSymbol(1);
-	emit setStatusProgress(0);
-	emit setStatusMessage(tr("Ready"));
+	//emit setStatusSymbol(1);
+	//emit setStatusProgress(0);
+	//emit setStatusMessage(tr("Ready"));
 	//this->namePatchChange();
 };
 
@@ -966,8 +972,9 @@ void SysxIO::sendSysx(QString sysxMsg)
 	int midiOutPort = preferences->getPreferences("Midi", "MidiOut", "device").toInt(&ok, 10);	// Get midi out device from preferences.
 	int midiInPort = preferences->getPreferences("Midi", "MidiIn", "device").toInt(&ok, 10);	// Get midi in device from preferences.
 	
-	midiIO *midi = new midiIO();
-	midi->sendSysxMsg(sysxMsg, midiOutPort, midiInPort);
+	   midiIO *midi = new midiIO();
+	   midi->sendSysxMsg(sysxMsg, midiOutPort, midiInPort);
+	
 			 /*DeBugGING OUTPUT */
 	if(preferences->getPreferences("Midi", "DBug", "bool")=="true")
 	{
@@ -1043,9 +1050,9 @@ void SysxIO::returnPatchName(QString sysxMsg)
 			this, SLOT(returnPatchName(QString)));
 	
 	QString name; 
-	if(sysxMsg.size()/2 == 29)
+	if(sysxMsg.size()/2 == nameReplySize)
 	{		
-		int dataStartOffset = sysxNameOffset;
+		int dataStartOffset = sysxDataOffset;
 		QString hex1, hex2, hex3, hex4;
 		for(int i=dataStartOffset*2; i<(dataStartOffset*2)+(nameLength*2);++i)   //read the length of name string.
 		{
@@ -1093,15 +1100,7 @@ void SysxIO::errorSignal(QString windowTitle, QString errorMsg)
 	{
 		setNoError(false);
 		//emit notConnectedSignal();
-		emit setStatusdBugMessage(this->errorType + "  " + this->errorMsg);
-
-		/*QMessageBox *msgBox = new QMessageBox();
-		msgBox->setWindowTitle(windowTitle);
-		msgBox->setIcon(QMessageBox::Warning);
-		msgBox->setTextFormat(Qt::RichText);
-		msgBox->setText(errorMsg);
-		msgBox->setStandardButtons(QMessageBox::Ok);
-		msgBox->exec(); */
+		emit setStatusdBugMessage(windowTitle + "   " + errorType + "  " + errorMsg);
 	};	  
 		this->errorType = "";
 		this->errorMsg = "";
@@ -1154,14 +1153,16 @@ void SysxIO::emitStatusMessage(QString message)
 {
 	emit setStatusMessage(message);
 };
+
 void SysxIO::emitStatusdBugMessage(QString dBug)
 {
 	emit setStatusdBugMessage(dBug);
 };
+
 void SysxIO::errorReturn(QString errorType, QString errorMsg)
 { 
     this->errorType = errorType;
-    this->errorMsg = errorMsg;  
+    this->errorMsg = errorMsg;                                                 
 };
 
 void SysxIO::systemWrite()

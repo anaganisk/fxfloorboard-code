@@ -81,13 +81,6 @@ editWindow::editWindow(QWidget *parent)
 	this->temp4_Button->setText(tr("Temp 4 Partial"));
 	this->temp4_Button->setAlignment(Qt::AlignCenter);
 	
-	this->temp5_Button = new customControlLabel;
-	this->temp5_Button->setButton(true);
-	this->temp5_Button->setImage(":/images/pushbutton_dark.png");
-	this->temp5_Button->setText(tr("Temp 5 Partial"));
-	this->temp5_Button->setAlignment(Qt::AlignCenter);
-	
-
 	this->closeButton = new customControlLabel;
 	this->closeButton->setButton(true);
 	this->closeButton->setImage(":/images/closebutton.png");
@@ -98,7 +91,6 @@ editWindow::editWindow(QWidget *parent)
 	buttonLayout->addWidget(this->temp2_Button);
 	buttonLayout->addWidget(this->temp3_Button);
 	buttonLayout->addWidget(this->temp4_Button);
-	buttonLayout->addWidget(this->temp5_Button);
 
 	QHBoxLayout *headerLayout = new QHBoxLayout;
 	headerLayout->addWidget(this->title);
@@ -140,8 +132,7 @@ editWindow::editWindow(QWidget *parent)
 	QObject::connect(this->temp2_Button, SIGNAL(mouseReleased()), this, SLOT(temp2()));
 	QObject::connect(this->temp3_Button, SIGNAL(mouseReleased()), this, SLOT(temp3()));
 	QObject::connect(this->temp4_Button, SIGNAL(mouseReleased()), this, SLOT(temp4()));
-	QObject::connect(this->temp5_Button, SIGNAL(mouseReleased()), this, SLOT(temp5()));
-
+	
 	QObject::connect(this->closeButton, SIGNAL(mouseReleased()), this, SLOT(hide()));
 
 	QObject::connect(this, SIGNAL( closeWindow() ), this, SLOT(hide()));
@@ -205,7 +196,6 @@ void editWindow::addPage(QString hex1, QString hex2, QString hex3, QString hex4,
       this->temp2_Button->hide();
       this->temp3_Button->hide();
       this->temp4_Button->hide();
-      this->temp5_Button->hide();
     };
     if (this->area != "Structure" || this->temp_hex1 != "07")
      {
@@ -334,7 +324,8 @@ void editWindow::temp1()
   } 
   else 
   {
-    QApplication::beep(); 
+    QApplication::beep();
+    sysxIO->emitStatusdBugMessage("patch must be copied to Temp-1 clipboard first"); 
   };
 };
 
@@ -374,6 +365,7 @@ void editWindow::temp2()
   else 
   {
     QApplication::beep(); 
+    sysxIO->emitStatusdBugMessage("patch must be copied to Temp-2 clipboard first");
   };
 };
 
@@ -413,6 +405,7 @@ void editWindow::temp3()
   else 
   {
     QApplication::beep(); 
+    sysxIO->emitStatusdBugMessage("patch must be copied to Temp-3 clipboard first");
   };
 };
 
@@ -451,46 +444,8 @@ void editWindow::temp4()
   } 
   else 
   {
-    QApplication::beep(); 
-  };
-};
-
-void editWindow::temp5()
-{
-  
-  SysxIO *sysxIO = SysxIO::Instance();
-  if (!sysxIO->temp5_sysxMsg.isEmpty() && !temp_hex1.isEmpty() && !temp_hex1.contains("void")  )
-  {
-  QString temp = sysxIO->temp5_sysxMsg.mid(this->position, this->length);
-  sysxIO->setFileSource("Structure", this->temp_hex1, "00", this->temp_hex3, temp);
-  QList< QList<QString> > patchData = sysxIO->getFileSource().hex; // Get the loaded patch data.
-  QList<QString> patchAddress = sysxIO->getFileSource().address;
-	QString addr1 = tempBulkWrite;  // temp address
-	QString addr2 = QString::number(0, 16).toUpper();
-  QString sysxMsg;
-	for(int i=0;i<patchData.size();++i)
-	{
-		QList<QString> data = patchData.at(i);
-		for(int x=0;x<data.size();++x)
-		{
-			QString hex;
-			if(x == sysxAddressOffset)
-			{ hex = addr1; }
-			else if(x == sysxAddressOffset + 1)
-			{	hex = addr2; }
-			else
-			{	hex = data.at(x);	};
-			if (hex.length() < 2) hex.prepend("0");
-			sysxMsg.append(hex);
-		}; 
-	}; 
-  sysxMsg = sysxMsg.replace(this->position, this->length, temp);  
-  sysxIO->setFileSource("Structure", sysxMsg );
-  emit dialogUpdateSignal();
-  } 
-  else 
-  {
-    QApplication::beep(); 
+    QApplication::beep();
+    sysxIO->emitStatusdBugMessage("patch must be copied to Temp-1 clipboard first"); 
   };
 };
 

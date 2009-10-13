@@ -28,7 +28,7 @@ stompbox_fx2::stompbox_fx2(QWidget *parent)
     : stompBox(parent)
 { 
 	setImage(":/images/fx2.png");
-	setLSB("09", "00");
+	//setLSB("09", "00");
 	setComboBox("09", "00", "02", QRect(8, 31, 79, 13));
 	setButton("09", "00", "00");
 	editDetails()->patchPos(624, 440, "09", "00");
@@ -110,7 +110,7 @@ void stompbox_fx2::setEditPages()
 	/* AW */
 	editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addComboBox(1, 0, 1, 1, "09", "00", "15");
+	editDetails()->page()->addComboBox(0, 0, 1, 1, "09", "00", "15");
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 
 	editDetails()->page()->newGroupBox("Auto Wah");

@@ -286,7 +286,7 @@ void midiIO::receiveMsg(QString sysxInMsg, int midiInPort)
 #endif
 	if (msgType == "patch"){
   loopCount = x*600;
-  count = 1153;
+  count = 1010;
   } else if(msgType == "system"){
   loopCount = x*900;
   count = 4326; // native gt-pro system size, then trimmed to 4313 later.
@@ -460,9 +460,8 @@ void midiIO::sendSysxMsg(QString sysxOutMsg, int midiOutPort, int midiInPort)
 	  QString checksum = QString::number(sum, 16).toUpper();
 	   if(checksum.length()<2) {checksum.prepend("0");};
       	hex.append(checksum);
-        hex.append("F7");   
-        if (!hex.contains("F0000000001B12")) 
-         {reBuild.append(hex); };   
+        hex.append("F7");
+        if (!hex.contains("F0000000001B12") ) {reBuild.append(hex); };   
 		hex.clear();
 		sysxEOF.clear();
 		i=i+2;
@@ -477,16 +476,29 @@ void midiIO::sendSysxMsg(QString sysxOutMsg, int midiOutPort, int midiInPort)
    
   if (sysxOutMsg != idRequestString && sysxOutMsg.contains("F0410000000611000000000")) {msgType = "system"; };
   
-
-	this->midiOutPort = midiOutPort;
+ 	this->midiOutPort = midiOutPort;
 	this->midiInPort = midiInPort;
 	this->midi = false;
 	Preferences *preferences = Preferences::Instance();// Load the preferences.
 	QString midiOut = preferences->getPreferences("Midi", "MidiOut", "device");
-  if(midiOut!="") {start(); } else {
-  emit setStatusSymbol(0);
-  emit setStatusMessage(tr("no midi device set"));
-  emit replyMsg("");};  
+	QString check = sysxOutMsg.mid(0, 14);
+   if (check == "F0000000001B12")
+   { 
+      emit setStatusSymbol(1);
+    	emit setStatusProgress(0);
+    	emit setStatusMessage(tr("Ready"));
+    	emit replyMsg("");
+   }
+   else if (midiOut!="" ) 
+    {
+      start(); 
+    } 
+    else
+    {
+        emit setStatusSymbol(1);
+        emit setStatusMessage(tr("no midi device set"));
+        emit replyMsg("");
+    };  
 };
 
 /*********************** sendMidi() **********************************

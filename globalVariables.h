@@ -44,7 +44,7 @@ const int buttonBlinkInterval = 250;				// The interval (ms) the led on buttons 
 const int sysxAddressOffset = 7;	// Offset (starts at 0) where the address information starts in a sysx message.
 const int sysxDataOffset = 11;		// Offset (starts at 0) where the data starts in a sysx message.
 const int checksumOffset = 7;		  // Offset (starts at 0) where we start calculating the checksum (Normally this is the address offset).
-const int sysxNameOffset = 11;		// Offset (starts at 0) where the data starts in a sysx message. ///was 365?
+const int sysxNameOffset = 692;		// Offset (starts at 0) where the data starts in a sysx message. ///was 365?
 const int nameLength = 16;        // length of name string
 
 /* Patches and Banks */

@@ -44,7 +44,7 @@
 bulkLoadDialog::bulkLoadDialog()
 { 
 
-  Qt::WindowStaysOnTopHint;
+  //Qt::WindowStaysOnTopHint;
   QLabel *startListLabel = new QLabel(tr("Starting from"));
   this->startPatchCombo = new QComboBox(this);
   QLabel *finishListLabel = new QLabel(tr("Finishing at"));
@@ -175,10 +175,10 @@ bulkLoadDialog::bulkLoadDialog()
 	{
 		this->data = file.readAll();     // read the pre-selected file, copy to 'data'
 		QByteArray GTE_default;
-		QFile file(":default.syx");           // Read the default GT-10B sysx file .
+		QFile file(":default.syx");           // Read the default GT-8 sysx file .
     if (file.open(QIODevice::ReadOnly))
 	  {	default_data = file.readAll(); };
-	  QFile GTEfile(":default.gte");           // Read the default GT-10B GTE file .
+	  QFile GTEfile(":default.gte");           // Read the default GT-8 GTE file .
     if (GTEfile.open(QIODevice::ReadOnly))
 	  {	GTE_default = GTEfile.readAll(); };
 	  QFile hexfile(":HexLookupTable.hex");           // Read the HexLookupTable for the SMF header file .
@@ -195,22 +195,32 @@ bulkLoadDialog::bulkLoadDialog()
     int patchNum;
     patchNum = QString::number(r, 16).toUpper().toInt(&ok, 16);
 	  bool isPatch = false;
-	  if (patchNum >= 16) { isPatch = true; };    // check the sysx file is a valid patch & not system data.
-	  
+	  if (patchNum >= 8) { isPatch = true; };    // check the sysx file is a valid patch & not system data.
+	   if (data.size()>141400 && data.contains(default_header) )
+	  {
+       int x = data.size()-141400;             // if there is temp data or excessive patches, trim off extras.
+       data.remove(0, x);
+    };
+	  	  
 	  bool isHeader = false;
 	  if (default_header == file_header) {isHeader = true;};
-	  QByteArray GTM_bit =  default_data.mid(1765, 5);              // see if the file has a GT-Manager signature.
-	  QByteArray GTM_file = data.mid(1764, 5);
-	  bool isGTM = false;
-	  if (GTM_bit == GTM_file) {isGTM = true;};
 	  bool isGTE = false;
 	  if (data.contains(GTE_header)){isGTE = true; };             // see if file is a GTE type and set isGTE flag.
 	  bool isSMF = false;
 	  if (data.contains(SMF_header)) {isSMF = true; };
 	  
-	  if (isHeader == true && isPatch == true) {loadSYX(); }
-	  else if (isGTE == true) { loadGTE(); }
-	  else if (isSMF == true) { loadSMF(); };
+	  if (isHeader == true && isPatch == true)
+     {
+        loadSYX();
+     }
+	  else if (isGTE == true) 
+     {
+        loadGTE();
+     }
+	  else if (isSMF == true)
+     { 
+        loadSMF();
+     }; 
 	  };
 	};
 };
@@ -253,7 +263,7 @@ void bulkLoadDialog::sendData()
    QString replyMsg;
    for (int a=startList;a<(finishList+1);a++)
    {
-      if (z>128) {z=z-128; addrMSB = "09"; };          // next address range when > 10 7F.
+      if (z>128) {z=z-128; addrMSB = "09"; };          // next address range when > 08 7F.
       address = QString::number(z-1, 16).toUpper();
       if (address.size()<2){ address.prepend("0"); };
       int b = a*1010;                                // multiples of patch size.
@@ -304,8 +314,9 @@ void bulkLoadDialog::sendData()
 void bulkLoadDialog::sendPatch(QString data)
 {
 	   SysxIO *sysxIO = SysxIO::Instance();
-	   QObject::connect(sysxIO, SIGNAL(sysxReply(QString)), this, SLOT(sendSequence(QString)));          
-     sysxIO->sendSysx(data);	          
+	   QObject::connect(sysxIO, SIGNAL(sysxReply(QString)), this, SLOT(sendSequence(QString)));  
+     if (sysxIO->isConnected() && !data.isEmpty() ) { sysxIO->sendSysx(data); };        
+     	          
 };                                                           
 
 void bulkLoadDialog::sendSequence(QString value)
@@ -318,11 +329,11 @@ void bulkLoadDialog::sendSequence(QString value)
         progress=progress+range;
         bulkStatusProgress(this->progress);                         // advance the progressbar.
                            
-  if (steps<patchCount+1 )
+  if (steps<patchCount+1 && !msg.isEmpty() )
   {      
         bool ok;
         QString patchText;
-        QString name = msg.mid(1384, 32);                       // get name from loaded patch. 
+        QString name = msg.mid(sysxNameOffset*2, 32);                       // get name from loaded patch. 
         QList<QString> x;        
         for (int b=0;b<16;b++)
         {
@@ -354,11 +365,17 @@ void bulkLoadDialog::sendSequence(QString value)
         ++steps;
 	      ++patch; 
         if(patch>4) {patch=1; bank=bank+4;};	                      // increment patch.
-  sendPatch(msg);                                 //request the next patch.  
+  sendPatch(msg);                                                    //send the next patch. 
+  sysxIO->emitStatusdBugMessage("Bulk Patch transfer in progress - please wait until finished");
+  sysxIO->emitStatusMessage("Bulk Upload");                                 
   } else {
+  sysxIO->emitStatusdBugMessage("Bulk Patch transfer completed !!");
+  sysxIO->emitStatusMessage("Ready");
   QObject::disconnect(sysxIO, SIGNAL(sysxReply(QString)), this, SLOT(sendSequence(QString)));
   sysxIO->setDeviceReady(true); // Free the device after finishing interaction.
-  setStatusMessage("Ready");
+  this->completedButton->show();        
+  this->progressLabel->setText("Bulk data transfer completed!!"); 
+  bulkStatusProgress(200); 
   SLEEP(3000);
   close();  
   };      
@@ -372,8 +389,8 @@ void bulkLoadDialog::updatePatch()
   QString patchText;
 	QString patchNumber;
 	unsigned char r;
-	this->patchList.clear();
-  unsigned int a = 11; // locate patch text start position from the start of the file
+	patchList.clear();
+  unsigned int a = sysxNameOffset; // locate patch text start position from the start of the file
      for (int h=0;h<patchCount;h++)
        {       
         for (int b=0;b<16;b++)
@@ -384,7 +401,7 @@ void bulkLoadDialog::updatePatch()
             patchNumber = QString::number(h+1, 10).toUpper();
             msgText.append(patchNumber + " : ");
             msgText.append(patchText + "   ");
-            this->patchList.append(msgText);
+            patchList.append(msgText);
             patchText.clear();
             msgText.clear();
             a=a+1010;                      // offset is set in front of marker
@@ -400,7 +417,7 @@ void bulkLoadDialog::updatePatch()
    this->finishRange->setText(text);   
    
    	QString U = "U";
-	for (int x=0; x<50; x++)
+	for (int x=0; x<35; x++)
 	{
     QString bnk = "U" + QString::number(x+1, 10).toUpper() + "-1";
     this->startRangeComboBox->addItem(bnk);
@@ -435,44 +452,113 @@ void bulkLoadDialog::bulkStatusProgress(int value)
 
 void bulkLoadDialog::loadGTE()         // ************************************ GTE File Format***************************
 {	
-  unsigned char r = (char)data[35];     // find patch count in GTE file at byte 35, 1~200
+  unsigned char r = (char)data[35];     // find hex patch count in GTE file at byte 35, 1~140
 	bool ok;
   int count;
   count = QString::number(r, 16).toUpper().toInt(&ok, 16);
-  QByteArray marker;
-  
-  marker = data.mid(170, 2);      //copy marker key to find "06A5" which marks the start of each patch block
-	unsigned int a = data.indexOf(marker, 0); // locate patch start position from the start of the file
-   a=a+2;                             // offset is set in front of marker  
+  int a=160;                             // offset is set to first patch start. 
      for (int h=0;h<count;h++)
        {
-           QByteArray temp;
-           temp = data.mid(a, 128);
-           default_data.replace(11, 128, temp);      //address "00" +
-           temp = data.mid(a+128, 128);
-           default_data.replace(152, 128, temp);     //address "01" + 
-           temp = data.mid(a+256, 128);
-           default_data.replace(293, 128, temp);     //address "02" + 
-           temp = data.mid(a+384, 100);
-           default_data.replace(434, 100, temp);     //address "03" +      no "04"   
-           temp = data.mid(a+640, 128);
-           default_data.replace(547, 128, temp);     //address "05" +        
-           temp = data.mid(a+768, 128);
-           default_data.replace(688, 128, temp);     //address "06" +    
-           temp = data.mid(a+896, 100);
-           default_data.replace(829, 100, temp);     //address "07" +      no "08"
-           temp = data.mid(a+1152, 128);
-           default_data.replace(942, 128, temp);     //address "09" +
-           temp = data.mid(a+1280, 128);
-           default_data.replace(1083, 128, temp);    //address "0A" +      
-           temp = data.mid(a+1408, 128);
-           default_data.replace(1224, 128, temp);    //address "0B" +     
-           temp = data.mid(a+1536, 128);
-           default_data.replace(1365, 128, temp);    //address "0C" +  
-            a = data.indexOf(marker, a); // locate patch start position from the start of the file
-            a=a+2;                      // offset is set in front of marker
-            temp = default_data;
-           this->sysxPatches.append(temp);
+        QByteArray temp;
+   temp = data.mid(a+8, 130);
+   default_data.replace(11, 130, temp);    //address "00"  ++   fx1
+   
+   temp = data.mid(a+142, 9);
+   default_data.replace(154, 9, temp);     //address "02"  ++
+   
+   temp = data.mid(a+155, 5);
+   default_data.replace(176, 5, temp);     //address "03"  ++
+   
+   temp = data.mid(a+164, 5);
+   default_data.replace(194, 5, temp);    //address "04"  ++
+   
+   //temp = data.mid(a+180, 1);
+   //default_data.replace(220, 1, temp);     //address "05"  
+          
+   temp = data.mid(a+186, 8);
+   default_data.replace(212, 8, temp);     //address "06"  ++
+      
+   temp = data.mid(a+198, 40);
+   default_data.replace(233, 40, temp);    //address "07"  ++ 
+    
+   temp = data.mid(a+242, 13);
+   default_data.replace(286, 13, temp);    //address "08"  ++
+        
+   temp = data.mid(a+259, 220);
+   default_data.replace(312, 220, temp);   //address "09"  ++
+   
+   temp = data.mid(a+483, 26);
+   default_data.replace(545, 26, temp);    //address "0B"  ++
+       
+   temp = data.mid(a+513, 9);
+   default_data.replace(584, 9, temp);     //address "0C"  ++  
+   
+   temp = data.mid(a+526, 10);
+   default_data.replace(606, 10, temp);    //address "0D"  ++   
+   
+   temp = data.mid(a+540, 9);
+   default_data.replace(629, 9, temp);    //address "0E"  ++ 
+   
+   temp = data.mid(a+554, 1);
+   default_data.replace(651, 1, temp);     //address "0F"  ++ 
+   
+   //temp = data.mid(a+559, 1);
+   //default_data.replace(688, 1, temp);     //address "10"   
+    
+   temp = data.mid(a+564, 14);
+   default_data.replace(665, 14, temp);    //address "11" ++   chain
+   
+   temp = data.mid(a+582, 16);
+   default_data.replace(692, 16, temp);    //address "12" ++   name
+   
+   temp = data.mid(a+598, 1);
+   default_data.replace(1007, 1, temp);     //address "1E"  
+   /*
+   temp = data.mid(a+794, 17);
+   default_data.replace(772, 17, temp);    //address "20"     
+   
+   temp = data.mid(a+815, 17);
+   default_data.replace(802, 17, temp);    //address "21"     
+   
+   temp = data.mid(a+836, 17);
+   default_data.replace(832, 17, temp);    //address "22"     
+   
+   temp = data.mid(a+857, 17);
+   default_data.replace(862, 17, temp);    //address "23"     
+   
+   temp = data.mid(a+878, 17);
+   default_data.replace(892, 17, temp);    //address "24"     
+   
+   temp = data.mid(a+899, 17);
+   default_data.replace(922, 17, temp);    //address "25"   
+      
+   temp = data.mid(a+920, 17);
+   default_data.replace(952, 17, temp);    //address "26"     
+   
+   temp = data.mid(a+941, 17);
+   default_data.replace(982, 17, temp);    //address "27"     
+   
+   temp = data.mid(a+962, 17);
+   default_data.replace(1012, 17, temp);   //address "28"     
+   
+   temp = data.mid(a+983, 17);
+   default_data.replace(1042, 17, temp);   //address "29"     
+   
+   temp = data.mid(a+1004, 17);
+   default_data.replace(1072, 17, temp);   //address "2A"     
+   
+   temp = data.mid(a+1025, 17);
+   default_data.replace(1102, 17, temp);   //address "2B"  
+    
+   temp = data.mid(a+1046, 3);
+   default_data.replace(1132, 3, temp);    //address "2C"  
+     
+   temp = data.mid(a+1053, 3);
+   default_data.replace(1142, 3, temp);    //address "2D"       */
+   default_data.remove(1010, 231);         // trim the user text content
+   
+           a=a+1060;                      // offset is set for next patch.
+           this->sysxPatches.append(default_data);
         };                               
    updatePatch();   
 };
@@ -535,7 +621,7 @@ void bulkLoadDialog::loadSMF()    // **************************** SMF FILE FORMA
         	default_data.replace(1365,128, temp);            // replace gt10 address "0C"...           
           a=a+1806;                      // offset is set in front of marker
           temp = default_data;
-          this->sysxPatches.append(temp);
+          //this->sysxPatches.append(temp);
         }; 
-       updatePatch();                	
+       //updatePatch();                	
 };

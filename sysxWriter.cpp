@@ -26,6 +26,7 @@
 #include <QByteArray>
 #include <QMessageBox>
 #include "sysxWriter.h"	
+#include "fileDialog.h"
 #include "globalVariables.h"
 
 sysxWriter::sysxWriter() 
@@ -51,22 +52,40 @@ bool sysxWriter::readFile()
     if (file.open(QIODevice::ReadOnly))
 	{
 		QByteArray data = file.readAll();
-
-		if(data.size() == patchSize){
-		SysxIO *sysxIO = SysxIO::Instance();
+		QByteArray default_data; 
+		QFile file(":default.syx");   // Read the default GT-8 sysx file so we don't start empty handed.
+    if (file.open(QIODevice::ReadOnly))
+	  {	default_data = file.readAll(); };
+    QByteArray gt8_header = default_data.mid(0, 7);
+    QByteArray data_header;
+    bool is_patch = false;
+     bool is_system = false;
+    QByteArray system_data;
+	  QFile sysfile(":system.syx");   // Read the hexlookuptable
+    if (sysfile.open(QIODevice::ReadOnly))
+	  {	system_data = sysfile.readAll(); };
+	  QByteArray system_header = system_data.mid(0, 11);  // copy system area file header
+	 	  
+	  SysxIO *sysxIO = SysxIO::Instance();
+	  
+    data_header = data.mid(0, 11);
+	  if (data_header == system_header) {is_system = true; sysxIO->emitStatusdBugMessage("is GT-8 System"); };
+    data_header = data.mid(0, 7);
+    if ((data_header == gt8_header) && (!is_system)) {is_patch = true; sysxIO->emitStatusdBugMessage("is GT-8 Patch"); };
+   
+    if(data.size() == patchSize && is_patch){		
 		QString area = "Structure";
 		sysxIO->setFileSource(area, data);
 		sysxIO->setFileName(this->fileName);
 		this->fileSource = sysxIO->getFileSource();
 		return true;
 		}
-		 else if (data.size() == 1010) { // if an original basic GT-8 patch file.
-		QByteArray gt8_data = data;
-		QByteArray temp;   
+		 else if (data.size() == 1010 && is_patch) { // if an original basic GT-8 patch file.
+		QByteArray gt8_data = data;		  
 		QFile file(":default.syx");   // Read the default GT-8 sysx file so we don't start empty handed.
     if (file.open(QIODevice::ReadOnly))
 	  {	data = file.readAll(); };
-	   temp = data.mid(1010, 231);
+	   QByteArray temp = data.mid(1010, 231);
 	   gt8_data.append(temp);
 	   data = gt8_data;
 	   SysxIO *sysxIO = SysxIO::Instance();
@@ -74,10 +93,63 @@ bool sysxWriter::readFile()
 		sysxIO->setFileSource(area, data);
 		sysxIO->setFileName(this->fileName);
 		this->fileSource = sysxIO->getFileSource();
-		return true;   }
+		return true;
+    }
+     else if (data.size() > patchSize && is_patch)
+     {
+     index = 1;
+  int patchCount = data.size()/1010;
+  if (patchCount>1)
+  {
+  QString msgText;
+  QString patchText;
+	QString patchNumber;
+	unsigned char r;
+	this->patchList.clear();
+	this->patchList.append("Select Patch");
+  unsigned int a = sysxNameOffset; // locate patch text start position from the start of the file
+     for (int h=0;h<patchCount;h++)
+       {       
+        for (int b=0;b<16;b++)
+           {
+             r = (char)data[a+b];
+             patchText.append(r);
+           };
+            patchNumber = QString::number(h+1, 10).toUpper();
+            msgText.append(patchNumber + " : ");
+            msgText.append(patchText + "   ");
+            this->patchList.append(msgText);
+            patchText.clear();
+            msgText.clear();
+            a=a+1010;                      // offset is set in front of marker
+        }; 
+              
+    fileDialog *dialog = new fileDialog(fileName, patchList); 
+    dialog->exec();    
+    patchIndex(this->index);                          
+   };   
+     
+   int a=0;                             
+   if (patchCount>1)
+   {
+    int q=index-1;      // find start of required patch
+    a = q*1010;  
+   }; 
+   data = data.mid(a, 1010); 
+   data.append(default_data.mid(1010, 231));    
+  if (index>0)
+   { 
+    SysxIO *sysxIO = SysxIO::Instance();
+		QString area = "Structure";
+		sysxIO->setFileSource(area, data);
+		sysxIO->setFileName(this->fileName);
+		this->fileSource = sysxIO->getFileSource();
+		return true;
+		} else {return false; }
+     }
 		else if(data.size() == 1763  || data.size() == 2045 || data.size() == 1862)  {       // if a GT-10 patch file, with or without text
     QByteArray gt10_data = data;
-		QByteArray temp;   
+		QByteArray temp;                                    
 		QFile file(":default.syx");   // Read the default GT-8 sysx file so we don't start empty handed.
     if (file.open(QIODevice::ReadOnly))
 	  {	data = file.readAll(); };
@@ -158,10 +230,7 @@ bool sysxWriter::readFile()
     data.replace(606, 1, temp);      // replace  gt8 reverb sw    address 00 0D 00  
     temp = gt10_data.mid(1400, 8);        // copy gt10 patch reverb data
     data.replace(608, 8, temp);      // replace  gt8 reverb data    address 00 0D 00 
-       
            
-            
-       
     QString chain;
     int k = 665;    // gt-8 chain data start location offset.
     for(int i=0;i<18;i++)
@@ -177,9 +246,7 @@ bool sysxWriter::readFile()
                 data.replace(k, 1, temp);      // replace gt8 chain 
                 k=k+1;  
               };
-      };
- 
-       
+      };       
     temp = gt10_data.mid(1524, 1);        // copy gt10 patch assign1 sw
     data.replace(767, 1, temp);      // replace  gt8 assign1 sw    address 00 16 00 
     temp = gt10_data.mid(1525, 2);        // copy gt10 patch assign1 target
@@ -255,7 +322,7 @@ bool sysxWriter::readFile()
 		this->fileSource = sysxIO->getFileSource();
 		return true;
 		} 
-		else if (data.size() == systemDataSize)  {         //if GT-8 system file size is correct- load file. 
+		else if ((data.size() == systemDataSize) && (is_system))  {         //if GT-8 system file size is correct- load file. 
     SysxIO *sysxIO = SysxIO::Instance();
 		QString area = "System";
 		sysxIO->setFileSource(area, data);
@@ -269,13 +336,13 @@ bool sysxWriter::readFile()
 	msgBox->setTextFormat(Qt::RichText);
 	QString msgText;
 	msgText.append("<font size='+1'><b>");
-	msgText.append(QObject::tr("This is not a ") + deviceType + (" patch!"));
+	msgText.append(QObject::tr("This is not recognised as a ") + deviceType + (" patch!"));
 	msgText.append("<b></font><br>");
 	if (data.size() == 670){
   msgText.append("but appears to be a GT-6 patch<br>");};
   if (data.size() == 650){
   msgText.append("but appears to be a GT-3 patch<br>");};
-	msgText.append(QObject::tr("Patch size not ") + (QString::number(patchSize, 10)) + (" bytes, please try another file."));
+	msgText.append(QObject::tr("Patch size is ") + (QString::number(data.size(), 10)) + (" bytes, please try another file."));
 	msgBox->setText(msgText);
 	msgBox->setStandardButtons(QMessageBox::Ok);
 	msgBox->exec();
@@ -285,6 +352,12 @@ bool sysxWriter::readFile()
 	{
 		return false;
 	};
+};
+
+void sysxWriter::patchIndex(int listIndex)
+{
+  SysxIO *sysxIO = SysxIO::Instance();     
+   this->index=sysxIO->patchListValue;   
 };
 
 void sysxWriter::writeFile(QString fileName)
