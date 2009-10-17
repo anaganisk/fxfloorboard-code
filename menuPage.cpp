@@ -135,9 +135,9 @@ void menuPage::menuButtonSignal(bool value)
          }
          else
             {
-              QString snork = "Ensure connection is set and retry";
+              QString snork = tr("Ensure connection is set and retry");
               QMessageBox *msgBox = new QMessageBox();
-			        msgBox->setWindowTitle(deviceType + " not connected !!");
+			        msgBox->setWindowTitle(deviceType + tr(" not connected !!"));
 		        	msgBox->setIcon(QMessageBox::Information);
 		        	msgBox->setText(snork);
 		        	msgBox->setStandardButtons(QMessageBox::Ok);
@@ -340,9 +340,9 @@ void menuPage::emitValueChanged(QString hex1, QString hex2, QString hex3, QStrin
 		else
 		{
 		 
-		  if (this->id == 18)this->fxName = "System settings";
-		  if (this->id == 19)this->fxName = "Custom Settings";
-		  if (this->id == 20)this->fxName = "Assigns";
+		  if (this->id == 18)this->fxName = tr("System settings");
+		  if (this->id == 19)this->fxName = tr("Custom Settings");
+		  if (this->id == 20)this->fxName = tr("Assigns");
 		  //if (this->id == 23)this->fxName = "Pedal"; 
 				 //midiTable->getMidiMap("Structure", hex1, hex2, hex3).name;//hex1).customdesc;
 		};

@@ -288,18 +288,17 @@ void editWindow::closeEvent(QCloseEvent* ce)
 	ce->accept();
 };
 
-void editWindow::temp1()
+void editWindow::temp1()     // paste partial patch effect only data
 {
   
   SysxIO *sysxIO = SysxIO::Instance();
-  if (!sysxIO->temp1_sysxMsg.isEmpty() && !temp_hex1.isEmpty() && !temp_hex1.contains("void") )
+  if (!sysxIO->temp1_sysxMsg.isEmpty() && !temp_hex1.isEmpty() && !temp_hex1.contains("void") )   //check we are sending from a proper address
   {
-  QString temp = sysxIO->temp1_sysxMsg.mid(this->position, this->length);
+  QList<QString> temp = sysxIO->temp1_sysxMsg.mid(this->position/2, this->length/2);   // copy the effct only section from the temp 1 saved patch.
   sysxIO->setFileSource("Structure", this->temp_hex1, "00", this->temp_hex3, temp);
   
   QList< QList<QString> > patchData = sysxIO->getFileSource().hex; // Get the loaded patch data.
-  QList<QString> patchAddress = sysxIO->getFileSource().address;
-	QString addr1 = tempBulkWrite;  // temp address
+  QString addr1 = tempBulkWrite;  // temp address
 	QString addr2 = QString::number(0, 16).toUpper();
   QString sysxMsg;
 	for(int i=0;i<patchData.size();++i)
@@ -318,14 +317,23 @@ void editWindow::temp1()
 			sysxMsg.append(hex);
 		}; 
 	}; 
-  sysxMsg = sysxMsg.replace(this->position, this->length, temp);  
+  QString msg;
+  int l=temp.size();
+  for (int x=0; x<l; x++)
+  {
+   	  QString hex;
+			hex = temp.at(x);	
+			if (hex.length() < 2) hex.prepend("0");
+			msg.append(hex);
+  };  
+  sysxMsg = sysxMsg.replace(this->position, this->length, msg);  
   sysxIO->setFileSource("Structure", sysxMsg );
   emit dialogUpdateSignal();
   } 
   else 
   {
     QApplication::beep();
-    sysxIO->emitStatusdBugMessage("patch must be copied to Temp-1 clipboard first"); 
+    sysxIO->emitStatusdBugMessage(tr("patch must be copied to clipboard first")); 
   };
 };
 
@@ -335,11 +343,10 @@ void editWindow::temp2()
   SysxIO *sysxIO = SysxIO::Instance();
   if (!sysxIO->temp2_sysxMsg.isEmpty() && !temp_hex1.isEmpty() && !temp_hex1.contains("void")  )
   {
-  QString temp = sysxIO->temp2_sysxMsg.mid(this->position, this->length);
+  QList<QString> temp = sysxIO->temp2_sysxMsg.mid(this->position/2, this->length/2);
   sysxIO->setFileSource("Structure", this->temp_hex1, "00", this->temp_hex3, temp);
   QList< QList<QString> > patchData = sysxIO->getFileSource().hex; // Get the loaded patch data.
-  QList<QString> patchAddress = sysxIO->getFileSource().address;
-	QString addr1 = tempBulkWrite;  // temp address
+  QString addr1 = tempBulkWrite;  // temp address
 	QString addr2 = QString::number(0, 16).toUpper();
   QString sysxMsg;
 	for(int i=0;i<patchData.size();++i)
@@ -358,14 +365,23 @@ void editWindow::temp2()
 			sysxMsg.append(hex);
 		}; 
 	}; 
-  sysxMsg = sysxMsg.replace(this->position, this->length, temp);  
+  QString msg;
+  int l=temp.size();
+  for (int x=0; x<l; x++)
+  {
+   	  QString hex;
+			hex = temp.at(x);	
+			if (hex.length() < 2) hex.prepend("0");
+			msg.append(hex);
+  };  
+  sysxMsg = sysxMsg.replace(this->position, this->length, msg); 
   sysxIO->setFileSource("Structure", sysxMsg );
   emit dialogUpdateSignal();
   } 
   else 
   {
     QApplication::beep(); 
-    sysxIO->emitStatusdBugMessage("patch must be copied to Temp-2 clipboard first");
+    sysxIO->emitStatusdBugMessage(tr("patch must be copied to clipboard first"));
   };
 };
 
@@ -375,11 +391,10 @@ void editWindow::temp3()
   SysxIO *sysxIO = SysxIO::Instance();
   if (!sysxIO->temp3_sysxMsg.isEmpty() && !temp_hex1.isEmpty() && !temp_hex1.contains("void")  )
   {
-  QString temp = sysxIO->temp3_sysxMsg.mid(this->position, this->length);
+  QList<QString> temp = sysxIO->temp3_sysxMsg.mid(this->position/2, this->length/2);
   sysxIO->setFileSource("Structure", this->temp_hex1, "00", this->temp_hex3, temp);
   QList< QList<QString> > patchData = sysxIO->getFileSource().hex; // Get the loaded patch data.
-  QList<QString> patchAddress = sysxIO->getFileSource().address;
-	QString addr1 = tempBulkWrite;  // temp address
+  QString addr1 = tempBulkWrite;  // temp address
 	QString addr2 = QString::number(0, 16).toUpper();
   QString sysxMsg;
 	for(int i=0;i<patchData.size();++i)
@@ -398,14 +413,23 @@ void editWindow::temp3()
 			sysxMsg.append(hex);
 		}; 
 	}; 
-  sysxMsg = sysxMsg.replace(this->position, this->length, temp);  
+  QString msg;
+  int l=temp.size();
+  for (int x=0; x<l; x++)
+  {
+   	  QString hex;
+			hex = temp.at(x);	
+			if (hex.length() < 2) hex.prepend("0");
+			msg.append(hex);
+  };  
+  sysxMsg = sysxMsg.replace(this->position, this->length, msg);
   sysxIO->setFileSource("Structure", sysxMsg );
   emit dialogUpdateSignal();
   } 
   else 
   {
     QApplication::beep(); 
-    sysxIO->emitStatusdBugMessage("patch must be copied to Temp-3 clipboard first");
+    sysxIO->emitStatusdBugMessage(tr("patch must be copied to clipboard first"));
   };
 };
 
@@ -415,11 +439,10 @@ void editWindow::temp4()
   SysxIO *sysxIO = SysxIO::Instance();
   if (!sysxIO->temp4_sysxMsg.isEmpty() && !temp_hex1.isEmpty() && !temp_hex1.contains("void")  )
   {
-  QString temp = sysxIO->temp4_sysxMsg.mid(this->position, this->length);
+  QList<QString> temp = sysxIO->temp4_sysxMsg.mid(this->position/2, this->length/2);
   sysxIO->setFileSource("Structure", this->temp_hex1, "00", this->temp_hex3, temp);
   QList< QList<QString> > patchData = sysxIO->getFileSource().hex; // Get the loaded patch data.
-  QList<QString> patchAddress = sysxIO->getFileSource().address;
-	QString addr1 = tempBulkWrite;  // temp address
+  QString addr1 = tempBulkWrite;  // temp address
 	QString addr2 = QString::number(0, 16).toUpper();
   QString sysxMsg;
 	for(int i=0;i<patchData.size();++i)
@@ -438,14 +461,23 @@ void editWindow::temp4()
 			sysxMsg.append(hex);
 		}; 
 	}; 
-  sysxMsg = sysxMsg.replace(this->position, this->length, temp);  
+  QString msg;
+  int l=temp.size();
+  for (int x=0; x<l; x++)
+  {
+   	  QString hex;
+			hex = temp.at(x);	
+			if (hex.length() < 2) hex.prepend("0");
+			msg.append(hex);
+  };  
+  sysxMsg = sysxMsg.replace(this->position, this->length, msg); 
   sysxIO->setFileSource("Structure", sysxMsg );
   emit dialogUpdateSignal();
   } 
   else 
   {
     QApplication::beep();
-    sysxIO->emitStatusdBugMessage("patch must be copied to Temp-1 clipboard first"); 
+    sysxIO->emitStatusdBugMessage(tr("patch must be copied to clipboard first")); 
   };
 };
 
@@ -454,10 +486,10 @@ void editWindow::swap_pre()
   SysxIO *sysxIO = SysxIO::Instance();
   
   QList< QList<QString> > patchData = sysxIO->getFileSource().hex; // Get the loaded patch data.
-  QList<QString> patchAddress = sysxIO->getFileSource().address;
-	QString addr1 = tempBulkWrite;  // temp address
+ 	QString addr1 = tempBulkWrite;  // temp address
 	QString addr2 = QString::number(0, 16).toUpper();
   QString sysxMsg;
+  QList<QString> msg;
 	for(int i=0;i<patchData.size();++i)
 	{
 		QList<QString> data = patchData.at(i);
@@ -478,12 +510,11 @@ void editWindow::swap_pre()
   QString pre_B = sysxMsg.mid(512, 34); 
   sysxMsg = sysxMsg.replace(478, 34, pre_B); 
   sysxMsg = sysxMsg.replace(512, 34, pre_A);  
-  sysxIO->setFileSource("Structure", sysxMsg );
-  emit dialogUpdateSignal();
-  
+  QString temp = sysxMsg;
   sysxMsg = sysxMsg.mid(466, 80);
-  sysxIO->setFileSource("Structure", "07", "00", "00", sysxMsg);
-  
+  sysxIO->setFileSource("Structure", "07", "00", "00", sysxMsg);  
+  sysxIO->setFileSource("Structure", temp );
+  emit dialogUpdateSignal();  
 };
 void editWindow::patchPos(int pos, int len, QString t_hex1, QString t_hex3)
 {

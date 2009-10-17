@@ -100,11 +100,10 @@ public:
 	void systemWrite();
 	void systemDataRequest();
 	int patchListValue;	
-	QString temp1_sysxMsg;
-	QString temp2_sysxMsg;
-	QString temp3_sysxMsg;
-	QString temp4_sysxMsg;
-	QString temp5_sysxMsg;	
+	QList<QString> temp1_sysxMsg;
+	QList<QString> temp2_sysxMsg;
+	QList<QString> temp3_sysxMsg;
+	QList<QString> temp4_sysxMsg;
 	QString bulk;
 
 public slots:

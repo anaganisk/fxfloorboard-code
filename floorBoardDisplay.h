@@ -131,11 +131,7 @@ private:
 
 	initPatchListMenu *initPatch;
 	QString patchName;
-	QString temp1_sysxMsg;
-	QString temp2_sysxMsg;
-	QString temp3_sysxMsg;
-	QString temp4_sysxMsg;
-	};
+};
 
 #endif // FLOORBOARDDISPLAY_H
 

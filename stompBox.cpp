@@ -694,22 +694,22 @@ void stompBox::emitValueChanged(QString hex1, QString hex2, QString hex3, QStrin
 		this->fxName = "Digital Out";
 	};
 	
-	if (this->id == 0) {this->namedata = "FX1";   this->fxName = "FX-1";};
-	if (this->id == 1) {this->namedata = "CS";   this->fxName = "Compressor/Limiter";};
-	if (this->id == 2) {this->namedata = "WAH"; this->fxName = "Wah";};
-	if (this->id == 3) {this->namedata = "LP"; this->fxName = "Loop";};
-	if (this->id == 4) {this->namedata = "OD";   this->fxName = "Distortion";};
-	if (this->id == 5) {this->namedata = "PRE";  this->fxName = "PreAmp/Speaker";};
-	if (this->id == 6) {this->namedata = "EQ";  this->fxName = "Equaliser";};
-	if (this->id == 7) {this->namedata = "FX2";   this->fxName = "FX-2";};
-	if (this->id == 8) {this->namedata = "DD";   this->fxName = "Delay";};
-	if (this->id == 9) {this->namedata = "CE";   this->fxName = "Chorus";};
-	if (this->id == 10){this->namedata = "RV";  this->fxName = "Reverb";};
-	if (this->id == 11){this->namedata = "NS";   this->fxName = "Noise Suppessor";};
-	if (this->id == 12){this->namedata = "FV"; this->fxName = "Foot Volume";};
-	if (this->id == 13){this->namedata = "DGT"; this->fxName = "Digital Out";};
-	if (this->id == 14){this->namedata = "LP";   this->fxName = "Send/Return";};
-	if (this->id == 15){this->namedata = "DGT";  this->fxName = "Digital Out";};
+	if (this->id == 0) {this->namedata = "FX1";   this->fxName = tr("FX-1");};
+	if (this->id == 1) {this->namedata = "CS";   this->fxName = tr("Compressor/Limiter");};
+	if (this->id == 2) {this->namedata = "WAH"; this->fxName = tr("Wah");};
+	if (this->id == 3) {this->namedata = "LP"; this->fxName = tr("Loop");};
+	if (this->id == 4) {this->namedata = "OD";   this->fxName = tr("Distortion");};
+	if (this->id == 5) {this->namedata = "PRE";  this->fxName = tr("PreAmp/Speaker");};
+	if (this->id == 6) {this->namedata = "EQ";  this->fxName = tr("Equaliser");};
+	if (this->id == 7) {this->namedata = "FX2";   this->fxName = tr("FX-2");};
+	if (this->id == 8) {this->namedata = "DD";   this->fxName = tr("Delay");};
+	if (this->id == 9) {this->namedata = "CE";   this->fxName = tr("Chorus");};
+	if (this->id == 10){this->namedata = "RV";  this->fxName = tr("Reverb");};
+	if (this->id == 11){this->namedata = "NS";   this->fxName = tr("Noise Suppessor");};
+	if (this->id == 12){this->namedata = "FV"; this->fxName = tr("Foot Volume");};
+	if (this->id == 13){this->namedata = "DGT"; this->fxName = tr("Digital Out");};
+	if (this->id == 14){this->namedata = "LP";   this->fxName = tr("Send/Return");};
+	if (this->id == 15){this->namedata = "DGT";  this->fxName = tr("Digital Out");};
         //if (this->id == 16){this->namedata = "CN_S"; this->fxName = "Chain Split";};
         //if (this->id == 17){this->namedata = "CN_M"; this->fxName = "Chain Merge";};
 	

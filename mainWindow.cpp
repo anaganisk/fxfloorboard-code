@@ -45,7 +45,7 @@ mainWindow::mainWindow(QWidget *parent)
 #ifdef Q_OS_WIN
 		/* This set the floorboard default style to the "plastique" style, 
 	   as it comes the nearest what the stylesheet uses. */
-	//fxsBoard->setStyle(QStyleFactory::create("windowsvista"));
+	fxsBoard->setStyle(QStyleFactory::create("plastique"));
 		if(QFile(":qss/windows.qss").exists())
 		{
                         QFile file(":qss/windows.qss");
@@ -58,7 +58,7 @@ mainWindow::mainWindow(QWidget *parent)
 #ifdef Q_WS_X11
 		/* This set the floorboard default style to the "plastique" style, 
 	   as it comes the nearest what the stylesheet uses. */
-	//fxsBoard->setStyle(QStyleFactory::create("plastique"));
+	fxsBoard->setStyle(QStyleFactory::create("plastique"));
 		if(QFile(":qss/linux.qss").exists())
 		{
 			QFile file(":qss/linux.qss");
@@ -82,7 +82,7 @@ mainWindow::mainWindow(QWidget *parent)
 	#endif
 	
 	
-	this->setWindowTitle(deviceType + " Fx FloorBoard");
+	this->setWindowTitle(deviceType + tr(" Fx FloorBoard"));
 	//this->setCentralWidget(fxsBoard);
 	
 	this->createActions();
@@ -147,7 +147,7 @@ void mainWindow::updateSize(QSize floorSize, QSize oldFloorSize)
 
 void mainWindow::createActions()
 {
-	openAct = new QAction(QIcon(":/images/fileopen.png"), tr("&Load Patch File..."), this);
+	openAct = new QAction(QIcon(":/images/fileopen.png"), tr("&Load Patch File... *.syx *.gte *.mid"), this);
 	openAct->setShortcut(tr("Ctrl+O"));
 	openAct->setStatusTip(tr("Open an existing file"));
 	connect(openAct, SIGNAL(triggered()), this, SLOT(open()));
@@ -227,15 +227,15 @@ void mainWindow::createMenus()
 
   QMenu *fileMenu = new QMenu(tr("&File"), this);
 	fileMenu->addAction(openAct); 
-	fileMenu->addSeparator();
-	fileMenu->addAction(saveAct);
+	//fileMenu->addSeparator();
+	//fileMenu->addAction(saveAct);
 	fileMenu->addAction(saveAsAct);
-	fileMenu->addSeparator();
-	fileMenu->addAction(systemLoadAct);
-	fileMenu->addAction(systemSaveAct);
 	fileMenu->addSeparator();
 	fileMenu->addAction(bulkLoadAct);
 	fileMenu->addAction(bulkSaveAct);
+	fileMenu->addSeparator();
+	fileMenu->addAction(systemLoadAct);
+	fileMenu->addAction(systemSaveAct);
 	fileMenu->addSeparator();
   fileMenu->addAction(exitAct);
 	menuBar->addMenu(fileMenu);
@@ -291,7 +291,7 @@ void mainWindow::open()
 
 	QString fileName = QFileDialog::getOpenFileName(
                 this,
-                "Choose a file",
+                tr("Choose a file"),
                 dir,
                 "GT8, GT-Pro, GT10 patch (*.syx *.gte)");
 	if (!fileName.isEmpty())	
@@ -326,7 +326,7 @@ void mainWindow::save()
 						this,
 						"Save As",
 						dir,
-						"System Exclusive (*.syx)");
+						tr("System Exclusive (*.syx)"));
 		if (!fileName.isEmpty())	
 		{
 			if(!fileName.contains(".syx"))
@@ -361,7 +361,7 @@ void mainWindow::saveAs()
                     this,
                     "Save As",
                     dir,
-                    "System Exclusive (*.syx)");
+                    tr("System Exclusive (*.syx)"));
 	if (!fileName.isEmpty())	
 	{
 		if(!fileName.contains(".syx"))
@@ -393,7 +393,7 @@ void mainWindow::systemLoad()
                 this,
                 "Choose a file",
                 dir,
-                "GT-8 System Data File (*.GT8_system_syx)");
+                tr("GT-8 System Data File (*.GT8_system_syx)"));
 	if (!fileName.isEmpty())	
 	{
 		file.setFile(fileName);  
@@ -432,10 +432,10 @@ void mainWindow::systemLoad()
 	};
            if (!sysxIO->isConnected())
              {
-              QString snork = "DATA TRANSFER REQUIRED<br>"; 
-              snork.append("Ensure connection is active, and<br>");
+              QString snork = tr("DATA TRANSFER REQUIRED<br>"); 
+              snork.append(tr("Ensure connection is active, and<br>"));
               QMessageBox *msgBox = new QMessageBox();
-			        msgBox->setWindowTitle(deviceType + " Connection required!!");
+			        msgBox->setWindowTitle(deviceType + tr(" Connection required!!"));
 		        	msgBox->setIcon(QMessageBox::Information);
 		        	msgBox->setText(snork);
 		        	msgBox->setStandardButtons(QMessageBox::Ok);
@@ -458,7 +458,7 @@ SysxIO *sysxIO = SysxIO::Instance();
                     this,
                     "Save System Data",
                     dir,
-                    "System Exclusive File (*.GT8_system_syx)");
+                    tr("System Exclusive File (*.GT8_system_syx)"));
 	if (!fileName.isEmpty())	
 	{
 	  if(!fileName.contains(".GT8_system_syx"))
@@ -480,10 +480,10 @@ SysxIO *sysxIO = SysxIO::Instance();
 	 }
          else
              { 
-              QString snork = "DATA TRANSFER REQUIRED<br>"; 
-              snork.append("Ensure connection is active");
+              QString snork = tr("DATA TRANSFER REQUIRED<br>"); 
+              snork.append(tr("Ensure connection is active"));
               QMessageBox *msgBox = new QMessageBox();
-			        msgBox->setWindowTitle(deviceType + " Connection required!!");
+			        msgBox->setWindowTitle(deviceType + tr(" Connection required!!"));
 		        	msgBox->setIcon(QMessageBox::Information);
 		        	msgBox->setText(snork);
 		        	msgBox->setStandardButtons(QMessageBox::Ok);
@@ -501,9 +501,9 @@ void mainWindow::bulkLoad()
 	}
          else
              {
-              QString snork = "Ensure connection is active and retry";
+              QString snork = tr("Ensure connection is active and retry");
               QMessageBox *msgBox = new QMessageBox();
-			        msgBox->setWindowTitle(deviceType + " not connected !!");
+			        msgBox->setWindowTitle(deviceType + tr(" not connected !!"));
 		        	msgBox->setIcon(QMessageBox::Information);
 		        	msgBox->setText(snork);
 		        	msgBox->setStandardButtons(QMessageBox::Ok);
@@ -522,9 +522,9 @@ void mainWindow::bulkSave()
 	        }
            else
              { 
-              QString snork = "Ensure connection is active and retry";
+              QString snork = tr("Ensure connection is active and retry");
               QMessageBox *msgBox = new QMessageBox();
-			        msgBox->setWindowTitle(deviceType + " not connected !!");
+			        msgBox->setWindowTitle(deviceType + tr(" not connected !!"));
 		        	msgBox->setIcon(QMessageBox::Information);
 		        	msgBox->setText(snork);
 		        	msgBox->setStandardButtons(QMessageBox::Ok);

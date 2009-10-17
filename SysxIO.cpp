@@ -175,8 +175,8 @@ void SysxIO::setFileSource(QString area, QByteArray data)
 		msgText.append("<font size='+1'><b>");
 		msgText.append(tr("The file opened contains one or more incorrect checksums."));
 		msgText.append("<b></font><br>");
-		msgText.append(tr("The incorrect values have been corrected where possible.\n" 
-			"If correction was impossible then some settings might have been reset to zero."));
+		msgText.append(tr("The incorrect values have been corrected where possible.<br>" 
+			"If correction was impossible then some settings might have been reset to zero.<br>"));
 		msgBox->setText(msgText);
 		msgBox->setInformativeText(tr("Be aware of possible inconsistencies in this patch!"));
 		msgBox->setDetailedText(errorList);
@@ -305,7 +305,7 @@ void SysxIO::setFileSource(QString area, QString hex1, QString hex2, QString hex
 		this->setDeviceReady(false);
 
 		emit setStatusSymbol(2);
-		emit setStatusMessage("Sending");
+		emit setStatusMessage(tr("Sending"));
 
 		QObject::connect(this, SIGNAL(sysxReply(QString)), this, SLOT(resetDevice(QString)));
 
@@ -382,7 +382,7 @@ if (area.contains("System"))
 		this->setDeviceReady(false);
 
 		emit setStatusSymbol(2);
-		emit setStatusMessage("Sending");
+		emit setStatusMessage(tr("Sending"));
 
 		QObject::connect(this, SIGNAL(sysxReply(QString)),	
 			this, SLOT(resetDevice(QString)));
@@ -452,7 +452,7 @@ void SysxIO::setFileSource(QString area, QString hex1, QString hex2, QString hex
 			this->setDeviceReady(false);
 
 			emit setStatusSymbol(2);
-			emit setStatusMessage("Sending");
+			emit setStatusMessage(tr("Sending"));
 
 			QObject::connect(this, SIGNAL(sysxReply(QString)),	
 				this, SLOT(resetDevice(QString)));
@@ -522,7 +522,7 @@ void SysxIO::resetDevice(QString replyMsg)
 
 		this->setDeviceReady(true);	// Free the device after finishing interaction.
 
-		emit setStatusMessage("Ready");
+		emit setStatusMessage(tr("Ready"));
 	}
 	else
 	{
@@ -657,11 +657,11 @@ QList<QString> SysxIO::correctSysxMsg(QList<QString> sysxMsg)
 				if(valueHex2.length() < 2) valueHex2.prepend("0");		
 				
 				badHex.append(" <br>");
-				badHex.append("Location = ");
+				badHex.append(tr("Location = "));
 				badHex.append(QString::number(i-sysxDataOffset, 16).toUpper());
-				badHex.append(": bad data = ");
+				badHex.append(tr(": bad data = "));
 				badHex.append(sysxMsg.at(i)+sysxMsg.at(i+1));
-				badHex.append(": new data = ");
+				badHex.append(tr(": new data = "));
 				badHex.append(valueHex1+valueHex2);
 				
 				sysxMsg.replace(i, valueHex1);
@@ -681,11 +681,11 @@ QList<QString> SysxIO::correctSysxMsg(QList<QString> sysxMsg)
 				if(valueHex.length() < 2) valueHex.prepend("0");
 				
 				badHex.append(" <br>");
-				badHex.append("Location = ");
+				badHex.append(tr("Location = "));
 				badHex.append(QString::number(i-sysxDataOffset, 10).toUpper());
-				badHex.append(": bad data = ");
+				badHex.append(tr(": bad data = "));
 				badHex.append(sysxMsg.at(i));
-				badHex.append(": new data = ");
+				badHex.append(tr(": new data = "));
 				badHex.append(valueHex);						
 				sysxMsg.replace(i, valueHex);
 			};      
@@ -706,11 +706,11 @@ QList<QString> SysxIO::correctSysxMsg(QList<QString> sysxMsg)
         snork.append(sysxMsg.at(i));
         snork.append(" ");
       };
-      snork.append("F7");    
-      snork.append("<br><br>bad data has been repaired with default values<br>");   
-      snork.append("loaction of bad data was at "+ badHex);
+      snork.append("F7<br><br>");    
+      snork.append(tr("bad data has been repaired with default values<br>"));   
+      snork.append(tr("loaction of bad data was at ")+ badHex);
 			QMessageBox *msgBox = new QMessageBox();
-			msgBox->setWindowTitle("File contains out of range data");
+			msgBox->setWindowTitle(tr("File contains out of range data"));
 			msgBox->setIcon(QMessageBox::Information);
 			msgBox->setText(snork);
 			msgBox->setStandardButtons(QMessageBox::Ok);
@@ -732,7 +732,7 @@ bool SysxIO::isConnected()
 void SysxIO::setConnected(bool connected)
 {
 	this->connected = connected;	
-	emit setStatusMessage("Ready");
+	emit setStatusMessage(tr("Ready"));
 };
 
 /***************************** deviceReady() ******************************
@@ -898,7 +898,7 @@ void SysxIO::requestPatchChange(int bank, int patch)
 		this, SLOT(namePatchChange()));				// to returnPatchName function.
 	
 	QString midiMsg = getPatchChangeMsg(bank, patch);
-	emit setStatusMessage("Patch change");
+	emit setStatusMessage(tr("Patch change"));
 	this->sendMidi(midiMsg);
 };
   
@@ -942,7 +942,7 @@ void SysxIO::checkPatchChange(QString name)
 
 			emit setStatusSymbol(2);
 			//emit setStatusProgress(0);
-			emit setStatusMessage("Sending");
+			emit setStatusMessage(tr("Sending"));
 		}
 		else
 		{
@@ -998,10 +998,10 @@ void SysxIO::receiveSysx(QString sysxMsg)
 			snork.append("{ size=");
 			snork.append(QString::number(sysxMsg.size()/2, 10));
 			snork.append("}");	
-			snork.append("\n midi data received\n");
+			snork.append("<br> midi data received\n");
 		  if (sysxMsg == dBug){
-				  snork.append("\n WARNING: midi data received = data sent");
-				  snork.append("\n caused by a midi loopback, port change is required\n");
+				  snork.append("<br> WARNING: midi data received = data sent");
+				  snork.append("<br> caused by a midi loopback, port change is required\n");
 			 };
 			for(int i=0;i<sysxMsg.size();++i)
 			{
@@ -1013,7 +1013,7 @@ void SysxIO::receiveSysx(QString sysxMsg)
 			snork.replace("F0", "{ F0");
 			
 			QMessageBox *msgBox = new QMessageBox();
-			msgBox->setWindowTitle("dBug Result for formatted syx message");
+			msgBox->setWindowTitle(tr("dBug Result for formatted syx message"));
 			msgBox->setIcon(QMessageBox::Information);
 			msgBox->setText(snork);
 			msgBox->setStandardButtons(QMessageBox::Ok);
@@ -1075,8 +1075,8 @@ void SysxIO::returnPatchName(QString sysxMsg)
 		};
 	}
 		else if (sysxMsg.size()/2 > 0 && sysxMsg.size()/2 != 29)
-  {name = "bad data";} 
-  else {name = "no reply"; };  
+  {name = tr("bad data");} 
+  else {name = tr("no reply"); };  
 	emit patchName(name);	
 };
 
@@ -1203,10 +1203,10 @@ void SysxIO::systemDataRequest()
          }
          else
              {
-              QString snork = "Ensure connection is active<br>";
-              snork.append(" and retry");
+              QString snork = tr("Ensure connection is active<br>");
+              snork.append(tr(" and retry"));
               QMessageBox *msgBox = new QMessageBox();
-			        msgBox->setWindowTitle(deviceType + " not connected !!");
+			        msgBox->setWindowTitle(deviceType + tr(" not connected !!"));
 		        	msgBox->setIcon(QMessageBox::Information);
 		        	msgBox->setText(snork);
 		        	msgBox->setStandardButtons(QMessageBox::Ok);
@@ -1269,7 +1269,7 @@ void SysxIO::systemReply(QString replyMsg)
 			msgBox->setTextFormat(Qt::RichText);
 			QString msgText;
 			msgText.append("<font size='+1'><b>");
-			msgText.append(tr("The Boss ") + deviceType + (" Effects Processor was not found."));
+			msgText.append(tr("The Boss ") + deviceType + (tr(" Effects Processor was not found.")));
 			msgText.append("<b></font><br>");
 			msgBox->setText(msgText);
 			msgBox->setStandardButtons(QMessageBox::Ok);
@@ -1284,7 +1284,7 @@ void SysxIO::systemReply(QString replyMsg)
 			msgBox->setTextFormat(Qt::RichText);
 			QString msgText;
 			msgText.append("<font size='+1'><b>");
-			msgText.append(tr("The Boss ") + deviceType + (" reports a Data Error occured during transfer.<br>"));
+			msgText.append(tr("The Boss ") + deviceType + (tr(" reports a Data Error occured during transfer.<br>")));
 			msgText.append("<b></font><br>");
 				msgText.append(tr(" please try again."));
 			msgBox->setText(msgText);

@@ -69,24 +69,24 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
 	this->temp1Display = new customLabelDisplay(QRect(10, tempRowOffset+17, 170, 18), this);
 	this->temp1Display->setLabelPosition(true);
 	this->temp1Display->setMainObjectName("nameMain");
-	this->temp1Display->setMainText("Empty", Qt::AlignCenter);
+	this->temp1Display->setMainText(tr("Empty"), Qt::AlignCenter);
 	this->temp2Display = new customLabelDisplay(QRect(190, tempRowOffset+17, 170, 18), this);
 	this->temp2Display->setLabelPosition(true);
 	this->temp2Display->setMainObjectName("nameMain");
-	this->temp2Display->setMainText("Empty", Qt::AlignCenter);
+	this->temp2Display->setMainText(tr("Empty"), Qt::AlignCenter);
 	this->temp3Display = new customLabelDisplay(QRect(370, tempRowOffset+17, 170, 18), this);
 	this->temp3Display->setLabelPosition(true);
 	this->temp3Display->setMainObjectName("nameMain");
-	this->temp3Display->setMainText("Empty", Qt::AlignCenter);
+	this->temp3Display->setMainText(tr("Empty"), Qt::AlignCenter);
 	this->temp4Display = new customLabelDisplay(QRect(550, tempRowOffset+17, 170, 18), this);
 	this->temp4Display->setLabelPosition(true);
 	this->temp4Display->setMainObjectName("nameMain");
-	this->temp4Display->setMainText("Empty", Qt::AlignCenter);
+	this->temp4Display->setMainText(tr("Empty"), Qt::AlignCenter);
 	
 	Preferences *preferences = Preferences::Instance();
 	QString version = preferences->getPreferences("General", "Application", "version");
-	this->patchDisplay->setMainText(deviceType + (" Fx FloorBoard"));
-	this->patchDisplay->setSubText("version", version);
+	this->patchDisplay->setMainText(deviceType + (tr(" Fx FloorBoard")));
+	this->patchDisplay->setSubText(tr("version"), version);
 
 	initPatch = new initPatchListMenu(QRect(405, patchDisplayRowOffset+19, 168, 15), this);
   renameWidget *nameEdit = new renameWidget(this); 
@@ -234,12 +234,12 @@ void floorBoardDisplay::setPatchNumDisplay(int bank, int patch)
 			if(bank <= bankTotalUser)
 		{
 		 this->patchNumDisplay->resetAllColor();
-     this->patchNumDisplay->setSubText("User");
+     this->patchNumDisplay->setSubText(tr("User"));
 		}
 		else
 		{
 			this->patchNumDisplay->setAllColor(QColor(255,0,0));
-      this->patchNumDisplay->setSubText("Preset");
+      this->patchNumDisplay->setSubText(tr("Preset"));
 		};
 		QString str;
 				if(bank < 36) 
@@ -260,8 +260,8 @@ void floorBoardDisplay::setPatchNumDisplay(int bank, int patch)
 	else
 	{
 		//this->patchNumDisplay->clearAll();
-		this->patchNumDisplay->setSubText("Temp");
-		QString str = "Buffer";
+		this->patchNumDisplay->setSubText(tr("Temp"));
+		QString str = tr("Buffer");
 		this->patchNumDisplay->setMainText(str, Qt::AlignCenter);
 
 	};
@@ -271,7 +271,7 @@ void floorBoardDisplay::temp1_copy(bool value)
 {
   SysxIO *sysxIO = SysxIO::Instance();
   
-  QString sysxMsg;
+  QList<QString> sysxMsg;
 	QList< QList<QString> > patchData = sysxIO->getFileSource().hex; // Get the loaded patch data.
 	QString addr1 = tempBulkWrite;  // temp address
 	QString addr2 = QString::number(0, 16).toUpper();
@@ -292,31 +292,41 @@ void floorBoardDisplay::temp1_copy(bool value)
 			sysxMsg.append(hex);
 		}; 
 	}; 
-	if( sysxMsg.size()/2 == patchSize)
+	if( sysxMsg.size() == patchSize)
 	{
 	this->patchName = sysxIO->getCurrentPatchName();
   this->temp1Display->setMainText(patchName, Qt::AlignCenter);  
   sysxIO->temp1_sysxMsg = sysxMsg;  
   } else {
-  QApplication::beep(); 
-  sysxIO->emitStatusdBugMessage("corrupted patch file data detected : re-save file to correct");
+  QApplication::beep();
+  QString size = QString::number(sysxMsg.size(), 10); 
+  sysxIO->emitStatusdBugMessage(tr("in-consistant patch data detected ") + size + tr("bytes: re-save or re-load file to correct"));
   }; 
 };
 
 void floorBoardDisplay::temp1_paste(bool value)
 {
   SysxIO *sysxIO = SysxIO::Instance();
-  this->temp1_sysxMsg = sysxIO->temp1_sysxMsg;
-  if (!temp1_sysxMsg.isEmpty() )
+  if (!sysxIO->temp1_sysxMsg.isEmpty() )
   {
   SysxIO *sysxIO = SysxIO::Instance();
-  sysxIO->setFileSource("patch", temp1_sysxMsg);
+  QList<QString> temp = sysxIO->temp1_sysxMsg;
+  QString sysxMsg;
+  int l=temp.size();
+  for (int x=0; x<l; x++)
+  {
+   	  QString hex;
+			hex = temp.at(x);	
+			if (hex.length() < 2) hex.prepend("0");
+			sysxMsg.append(hex);
+  };
+  sysxIO->setFileSource("Structure", sysxMsg);
   emit updateSignal();  
 	sysxIO->writeToBuffer();
 	}else
   {
    QApplication::beep();
-   sysxIO->emitStatusdBugMessage("patch must be copied to Temp-1 clipboard first");
+   sysxIO->emitStatusdBugMessage(tr("patch must be copied to Temp-1 clipboard first"));
 	};
 };
 
@@ -324,7 +334,7 @@ void floorBoardDisplay::temp2_copy(bool value)
 {
   SysxIO *sysxIO = SysxIO::Instance();
   
-  QString sysxMsg;
+  QList<QString> sysxMsg;
 	QList< QList<QString> > patchData = sysxIO->getFileSource().hex; // Get the loaded patch data.
 	QString addr1 = tempBulkWrite;  // temp address
 	QString addr2 = QString::number(0, 16).toUpper();
@@ -345,31 +355,42 @@ void floorBoardDisplay::temp2_copy(bool value)
 			sysxMsg.append(hex);
 		}; 
 	}; 
-	if( sysxMsg.size()/2 == patchSize)
+	if( sysxMsg.size() == patchSize)
 	{
 	this->patchName = sysxIO->getCurrentPatchName();
   this->temp2Display->setMainText(patchName, Qt::AlignCenter);  
   sysxIO->temp2_sysxMsg = sysxMsg;  
   } else {
   QApplication::beep(); 
-  sysxIO->emitStatusdBugMessage("corrupted patch file data detected : re-save file to correct");
+    QString size = QString::number(sysxMsg.size(), 10); 
+  sysxIO->emitStatusdBugMessage(tr("in-consistant patch data detected ") + size + tr("bytes: re-save or re-load file to correct"));
   }; 
 };
 
 void floorBoardDisplay::temp2_paste(bool value)
 {
   SysxIO *sysxIO = SysxIO::Instance();
-  this->temp2_sysxMsg = sysxIO->temp2_sysxMsg;
-  if (!temp2_sysxMsg.isEmpty() )
+  if (!sysxIO->temp2_sysxMsg.isEmpty() )
   {
   SysxIO *sysxIO = SysxIO::Instance();
-  sysxIO->setFileSource("patch", temp2_sysxMsg);
+  QList<QString> temp = sysxIO->temp2_sysxMsg;
+  QString sysxMsg;
+  int l=temp.size();
+  for (int x=0; x<l; x++)
+  {
+   	  QString hex;
+			hex = temp.at(x);	
+			if (hex.length() < 2) hex.prepend("0");
+			sysxMsg.append(hex);
+  };
+  sysxIO->setFileSource("Structure", sysxMsg);
+  //sysxIO->setFileSource("patch", temp2_sysxMsg);
   emit updateSignal();  
 	sysxIO->writeToBuffer();
 	}else
   {
    QApplication::beep();
-   sysxIO->emitStatusdBugMessage("patch must be copied to Temp-2 clipboard first");
+   sysxIO->emitStatusdBugMessage(tr("patch must be copied to Temp-2 clipboard first"));
 	};
 };
 
@@ -377,7 +398,7 @@ void floorBoardDisplay::temp3_copy(bool value)
 {
   SysxIO *sysxIO = SysxIO::Instance();
   
-  QString sysxMsg;
+  QList<QString> sysxMsg;
 	QList< QList<QString> > patchData = sysxIO->getFileSource().hex; // Get the loaded patch data.
 	QString addr1 = tempBulkWrite;  // temp address
 	QString addr2 = QString::number(0, 16).toUpper();
@@ -398,31 +419,41 @@ void floorBoardDisplay::temp3_copy(bool value)
 			sysxMsg.append(hex);
 		}; 
 	}; 
-	if( sysxMsg.size()/2 == patchSize)
+	if( sysxMsg.size() == patchSize)
 	{
 	this->patchName = sysxIO->getCurrentPatchName();
   this->temp3Display->setMainText(patchName, Qt::AlignCenter);  
   sysxIO->temp3_sysxMsg = sysxMsg;  
   } else {
   QApplication::beep(); 
-  sysxIO->emitStatusdBugMessage("corrupted patch file data detected : re-save file to correct");
+  QString size = QString::number(sysxMsg.size(), 10); 
+  sysxIO->emitStatusdBugMessage(tr("in-consistant patch data detected ") + size + tr("bytes: re-save or re-load file to correct"));
   };  
 };
 
 void floorBoardDisplay::temp3_paste(bool value)
 {
   SysxIO *sysxIO = SysxIO::Instance();
-  this->temp3_sysxMsg = sysxIO->temp3_sysxMsg;
-  if (!temp3_sysxMsg.isEmpty() )
+  if (!sysxIO->temp3_sysxMsg.isEmpty() )
   {
   SysxIO *sysxIO = SysxIO::Instance();
-  sysxIO->setFileSource("patch", temp3_sysxMsg);
+  QList<QString> temp = sysxIO->temp3_sysxMsg;
+  QString sysxMsg;
+  int l=temp.size();
+  for (int x=0; x<l; x++)
+  {
+   	  QString hex;
+			hex = temp.at(x);	
+			if (hex.length() < 2) hex.prepend("0");
+			sysxMsg.append(hex);
+  };
+  sysxIO->setFileSource("Structure", sysxMsg);
   emit updateSignal();  
 	sysxIO->writeToBuffer();
 	}else
   {
    QApplication::beep();
-   sysxIO->emitStatusdBugMessage("patch must be copied to Temp-3 clipboard first");
+   sysxIO->emitStatusdBugMessage(tr("patch must be copied to Temp-3 clipboard first"));
 	};
 };
 
@@ -430,7 +461,7 @@ void floorBoardDisplay::temp4_copy(bool value)
 {
  SysxIO *sysxIO = SysxIO::Instance();
   
-  QString sysxMsg;
+  QList<QString> sysxMsg;
 	QList< QList<QString> > patchData = sysxIO->getFileSource().hex; // Get the loaded patch data.
 	QString addr1 = tempBulkWrite;  // temp address
 	QString addr2 = QString::number(0, 16).toUpper();
@@ -451,31 +482,41 @@ void floorBoardDisplay::temp4_copy(bool value)
 			sysxMsg.append(hex);
 		}; 
 	}; 
-	if( sysxMsg.size()/2 == patchSize)
+	if( sysxMsg.size() == patchSize)
 	{
 	this->patchName = sysxIO->getCurrentPatchName();
   this->temp4Display->setMainText(patchName, Qt::AlignCenter);  
   sysxIO->temp4_sysxMsg = sysxMsg;  
   } else {
   QApplication::beep(); 
-  sysxIO->emitStatusdBugMessage("corrupted patch file data detected : re-save file to correct");
+  QString size = QString::number(sysxMsg.size(), 10); 
+  sysxIO->emitStatusdBugMessage(tr("in-consistant patch data detected ") + size + tr("bytes: re-save or re-load file to correct"));
   }; 
 };
 
 void floorBoardDisplay::temp4_paste(bool value)
 {
   SysxIO *sysxIO = SysxIO::Instance();
-  this->temp4_sysxMsg = sysxIO->temp4_sysxMsg;
-  if (!temp4_sysxMsg.isEmpty() )
+  if (!sysxIO->temp4_sysxMsg.isEmpty() )
   {
   SysxIO *sysxIO = SysxIO::Instance();
-  sysxIO->setFileSource("patch", temp4_sysxMsg);
+  QList<QString> temp = sysxIO->temp4_sysxMsg;
+  QString sysxMsg;
+  int l=temp.size();
+  for (int x=0; x<l; x++)
+  {
+   	  QString hex;
+			hex = temp.at(x);	
+			if (hex.length() < 2) hex.prepend("0");
+			sysxMsg.append(hex);
+  };
+  sysxIO->setFileSource("Structure", sysxMsg);
   emit updateSignal();  
 	sysxIO->writeToBuffer();
 	}else
   {
    QApplication::beep();
-   sysxIO->emitStatusdBugMessage("patch must be copied to Temp-4 clipboard first");
+   sysxIO->emitStatusdBugMessage(tr("patch must be copied to Temp-4 clipboard first"));
 	};
 };
 

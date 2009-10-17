@@ -60,13 +60,13 @@ bulkSaveDialog::bulkSaveDialog()
 	this->startRangeSpinBox = startRangeSpinBox;
 	startRangeSpinBox->setValue(1);
 	startRangeSpinBox->setRange(1, 35);
-	startRangeSpinBox->setPrefix("Start at U");
+	startRangeSpinBox->setPrefix(tr("Start at U"));
 	startRangeSpinBox->setSuffix("-1");
 
 	this->finishRangeSpinBox = finishRangeSpinBox;
 	finishRangeSpinBox->setValue(35);    
 	finishRangeSpinBox->setRange(1, 35);
-	finishRangeSpinBox->setPrefix("Finish at U");
+	finishRangeSpinBox->setPrefix(tr("Finish at U"));
 	finishRangeSpinBox->setSuffix("-4");
 
 	QVBoxLayout *rangeLabelLayout = new QVBoxLayout;
@@ -96,16 +96,16 @@ bulkSaveDialog::bulkSaveDialog()
   connect(startButton, SIGNAL(clicked()), this, SLOT(backup()));
   
   this->completedButton = new QPushButton(this);
-  this->completedButton->setText("DATA TRANSFER COMPLETED");
+  this->completedButton->setText(tr("DATA TRANSFER COMPLETED"));
   this->completedButton->hide();
   connect(completedButton, SIGNAL(clicked()), this, SLOT(close()));
   
 	this->cancelButton = new QPushButton(this);
-	this->cancelButton->setText("Cancel");
+	this->cancelButton->setText(tr("Cancel"));
   connect(cancelButton, SIGNAL(clicked()), this, SLOT(close()));
   
   this->progressLabel = new QLabel(this);
-  this->progressLabel->setText("Full Backup may take up to 2 minutes");
+  this->progressLabel->setText(tr("Full Backup may take up to 2 minutes"));
   this->bytesLabel = new QLabel(this);
   this->bytesLabel->setText("");
   
@@ -119,12 +119,12 @@ bulkSaveDialog::bulkSaveDialog()
 	fileFormatLayout->addSpacing(6);
 	fileFormatLayout->addWidget(gxbButton);
 	fileFormatLayout->addStretch(1);
-	fileFormatLayout->addSpacing(6);
+	fileFormatLayout->addSpacing(6);    
 	fileFormatLayout->addWidget(syxButton);
 	fileFormatLayout->addStretch(1);
 	fileFormatLayout->addSpacing(6);
-	fileFormatLayout->addWidget(midButton);
-	fileFormatLayout->addSpacing(6);
+	fileFormatLayout->addWidget(midButton);  
+	fileFormatLayout->addSpacing(6);    
 	 QGroupBox *fileFormatGroup = new QGroupBox(tr("Select File format to save"));
   fileFormatGroup->setLayout(fileFormatLayout);
  
@@ -243,7 +243,7 @@ void bulkSaveDialog::updatePatch(QString replyMsg)
   if (bank >= bf) 
       {                                                            // check if nearly finished.
         this->completedButton->show();        
-        this->progressLabel->setText("Bulk data transfer completed!!");              
+        this->progressLabel->setText(tr("Bulk data transfer completed!!"));              
       };              
   if (bank<(bankFinish+1)*4 )
   {      
@@ -263,7 +263,7 @@ void bulkSaveDialog::updatePatch(QString replyMsg)
         
   QString patchNumber = QString::number(bank/4, 10).toUpper();
   if (patchNumber.size()<2) { patchNumber.prepend("0"); };
-  patchNumber.prepend( "User Patch U" );
+  patchNumber.prepend(tr( "User Patch U" ));
   patchNumber.append("-");
   patchNumber.append( QString::number(patch, 10).toUpper() );
   patchNumber.append("     ");
@@ -274,17 +274,17 @@ void bulkSaveDialog::updatePatch(QString replyMsg)
   patchNumber = "File build size = ";
   int size = (bulk.size()/2);
   patchNumber.append(QString::number(size, 10).toUpper() );
-  patchNumber.append(" bytes");
+  patchNumber.append(tr(" bytes"));
   this->bytesLabel->setText(patchNumber);                         //display the bulk data size.
   
-  setStatusMessage("Bulk Download");  
+  setStatusMessage(tr("Bulk Download"));  
   requestPatch(bank/4, patch);                                   //request the next patch.
   } else {
-  setStatusMessage("Ready");
+  setStatusMessage(tr("Ready"));
   sysxIO->bulk = this->bulk;
-  if (this->gxbButton->isChecked() ) { writeGXB(); };                      // format and write bulk patches.
+  if (this->gxbButton->isChecked() ) { writeSYX(); };// { writeGXB(); };                      // format and write bulk patches.
   if (this->syxButton->isChecked() ) { writeSYX(); };
-  if (this->midButton->isChecked() ) { writeSMF(); };
+  if (this->midButton->isChecked() ) { writeSYX(); };//{ writeSMF(); };
   };  
 };
 
@@ -303,9 +303,9 @@ void bulkSaveDialog::writeGXB()         // ************************************ 
 
           	QString fileName = QFileDialog::getSaveFileName(
                     this,
-                    "Save Bulk Data",
+                    tr("Save Bulk Data"),
                     dir,
-                    "Librarian Backup File (*.gxb)");
+                    tr("Librarian Backup File (*.gxb)"));
 	             if (!fileName.isEmpty())	
                 	{
 	                  if(!fileName.contains(".gxb"))
@@ -381,9 +381,9 @@ void bulkSaveDialog::writeSYX()        //********************************* SYX F
 
           	QString fileName = QFileDialog::getSaveFileName(
                     this,
-                    "Save Bulk Data",
+                    tr("Save Bulk Data"),
                     dir,
-                    "System Exclusive Backup File (*.syx)");
+                    tr("System Exclusive Backup File (*.syx)"));
 	             if (!fileName.isEmpty())	
                 	{
 	                  if(!fileName.contains(".syx"))
@@ -417,9 +417,9 @@ void bulkSaveDialog::writeSMF()    // **************************** SMF FILE FORM
 
           	QString fileName = QFileDialog::getSaveFileName(
                     this,
-                    "Save Bulk Data",
+                    tr("Save Bulk Data"),
                     dir,
-                    "Standard Midi Backup File (*.mid)");
+                    tr("Standard Midi Backup File (*.mid)"));
 	             if (!fileName.isEmpty())	
                 	{
 	                  if(!fileName.contains(".mid"))
@@ -454,7 +454,7 @@ void bulkSaveDialog::writeSMF()    // **************************** SMF FILE FORM
 	  {
 	  out.clear();
 	  out.append( patches.mid(b, 1010) );
-    out.remove(1495, 282);	   // remove the user text portion at the end..		
+    out.remove(1010, 282);	   // remove the user text portion at the end..		
 		out.remove(0, 11);         // remove address "00 00" header...
 		temp = Qhex.mid((320), 13);
 		out.insert(0, temp);       // insert new address "00 00" header...

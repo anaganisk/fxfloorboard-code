@@ -2,7 +2,7 @@
 **  
 ** Copyright (C) 2007, 2008, 2009 Colin Willcocks. 
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
-** All rights reserved.
+** All rights reserved.   
 ** This file is part of "GT-8 Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
@@ -53,18 +53,24 @@ bool sysxWriter::readFile()
 	{
 		QByteArray data = file.readAll();
 		QByteArray default_data; 
-		QFile file(":default.syx");   // Read the default GT-8 sysx file so we don't start empty handed.
+		QFile file(":default.syx");   // Read the default GT-8 sysx file.
     if (file.open(QIODevice::ReadOnly))
 	  {	default_data = file.readAll(); };
     QByteArray gt8_header = default_data.mid(0, 7);
     QByteArray data_header;
     bool is_patch = false;
-     bool is_system = false;
+    bool is_system = false;
+    bool is_gte = false;
     QByteArray system_data;
 	  QFile sysfile(":system.syx");   // Read the hexlookuptable
     if (sysfile.open(QIODevice::ReadOnly))
 	  {	system_data = sysfile.readAll(); };
 	  QByteArray system_header = system_data.mid(0, 11);  // copy system area file header
+	  QByteArray gte_data; 
+		QFile gtefile(":default.gte");   // Read the default GT-8 gte file.
+    if (gtefile.open(QIODevice::ReadOnly))
+	  {	gte_data = gtefile.readAll(); };
+    QByteArray gte_header = gte_data.mid(0, 16);
 	 	  
 	  SysxIO *sysxIO = SysxIO::Instance();
 	  
@@ -72,32 +78,200 @@ bool sysxWriter::readFile()
 	  if (data_header == system_header) {is_system = true; sysxIO->emitStatusdBugMessage("is GT-8 System"); };
     data_header = data.mid(0, 7);
     if ((data_header == gt8_header) && (!is_system)) {is_patch = true; sysxIO->emitStatusdBugMessage("is GT-8 Patch"); };
+    data_header = data.mid(0, 16);
+    if (data_header == gte_header) {is_gte = true; sysxIO->emitStatusdBugMessage("is GTE file"); };
    
-    if(data.size() == patchSize && is_patch){		
+   
+    if(data.size() == patchSize && is_patch){		 // if is an enhanced patch with user text, then load.
 		QString area = "Structure";
 		sysxIO->setFileSource(area, data);
 		sysxIO->setFileName(this->fileName);
 		this->fileSource = sysxIO->getFileSource();
 		return true;
 		}
-		 else if (data.size() == 1010 && is_patch) { // if an original basic GT-8 patch file.
-		QByteArray gt8_data = data;		  
-		QFile file(":default.syx");   // Read the default GT-8 sysx file so we don't start empty handed.
-    if (file.open(QIODevice::ReadOnly))
-	  {	data = file.readAll(); };
-	   QByteArray temp = data.mid(1010, 231);
-	   gt8_data.append(temp);
-	   data = gt8_data;
-	   SysxIO *sysxIO = SysxIO::Instance();
+		 else if (is_patch)
+     {
+      QByteArray test = default_data.mid(1010, 6);     // check for GT-Manager data in the file.
+      test.remove(2, 1);
+     if (data.contains(test))
+     {
+       QMessageBox *msgBox = new QMessageBox();
+	msgBox->setWindowTitle(QObject::tr("File compatibility Error!"));
+	msgBox->setIcon(QMessageBox::Warning);
+	msgBox->setTextFormat(Qt::RichText);
+	QString msgText;
+	msgText.append("<font size='+1'><b>");
+	msgText.append(QObject::tr("This is not recognised as a supported ") + deviceType + QObject::tr(" patch file"));
+	msgText.append("<b></font><br>");
+	msgText.append(QObject::tr("but appears to be a GT-Manager proprietry format<br>"));
+	msgText.append(QObject::tr("please try another file."));
+	msgBox->setText(msgText);
+	msgBox->setStandardButtons(QMessageBox::Ok);
+	msgBox->exec();
+	return false;
+     };
+     index = 1;
+  int patchCount = data.size()/1010;       // calculate how many patches are in the file.
+  if (patchCount>1)
+  {
+  QString msgText;
+  QString patchText;
+	QString patchNumber;
+	unsigned char r;
+	this->patchList.clear();
+	QString text = QObject::tr("Select Patch");
+	this->patchList.append(text);
+  unsigned int a = sysxNameOffset; // locate patch text start position from the start of the file
+     for (int h=0;h<patchCount;h++)
+       {       
+        for (int b=0;b<16;b++)
+           {
+             r = (char)data[a+b];
+             patchText.append(r);         // extract the text characters from the current patch name.
+           };
+            patchNumber = QString::number(h+1, 10).toUpper();
+            msgText.append(patchNumber + " : ");
+            msgText.append(patchText + "   ");
+            this->patchList.append(msgText);
+            patchText.clear();
+            msgText.clear();
+            a=a+1010;                      // offset is set in front of marker
+        };               
+    fileDialog *dialog = new fileDialog(fileName, patchList); 
+    dialog->exec();    
+    patchIndex(this->index);                          
+   };       
+   int a=0;                             
+   if (patchCount>1)
+   {
+    int q=index-1;      // find start of required patch
+    a = q*1010;  
+   };    
+   data = data.mid(a, 1010); 
+   data.append(default_data.mid(1010, 231));    
+  if (index>0)
+   { 
+    SysxIO *sysxIO = SysxIO::Instance();
 		QString area = "Structure";
 		sysxIO->setFileSource(area, data);
 		sysxIO->setFileName(this->fileName);
 		this->fileSource = sysxIO->getFileSource();
 		return true;
-    }
-     else if (data.size() > patchSize && is_patch)
+		} else {return false; }
+     }
+     else if (is_gte)                 // if it is a GTE type file.
      {
-     index = 1;
+        unsigned char r = (char)data[35];     // find hex patch count in GTE file at byte 35, 1~140
+	bool ok;
+	QByteArray sysxPatches;
+  int count;
+  count = QString::number(r, 16).toUpper().toInt(&ok, 16);
+  int a=160;                             // offset is set to first patch start. 
+     for (int h=0;h<count;h++)
+       {
+        QByteArray temp;
+        QByteArray rebuilt_data = default_data.mid(0, 1010);
+   temp = data.mid(a+8, 130);
+   rebuilt_data.replace(11, 130, temp);    //address "00"  ++   fx1
+   
+   temp = data.mid(a+142, 9);
+   rebuilt_data.replace(154, 9, temp);     //address "02"  ++
+   
+   temp = data.mid(a+155, 5);
+   rebuilt_data.replace(176, 5, temp);     //address "03"  ++
+   
+   temp = data.mid(a+164, 5);
+   rebuilt_data.replace(194, 5, temp);    //address "04"  ++
+   
+   //temp = data.mid(a+180, 1);
+   //rebuilt_data.replace(220, 1, temp);     //address "05"  
+          
+   temp = data.mid(a+186, 8);
+   rebuilt_data.replace(212, 8, temp);     //address "06"  ++
+      
+   temp = data.mid(a+198, 40);
+   rebuilt_data.replace(233, 40, temp);    //address "07"  ++ 
+    
+   temp = data.mid(a+242, 13);
+   rebuilt_data.replace(286, 13, temp);    //address "08"  ++
+        
+   temp = data.mid(a+259, 220);
+   rebuilt_data.replace(312, 220, temp);   //address "09"  ++
+   
+   temp = data.mid(a+483, 26);
+   rebuilt_data.replace(545, 26, temp);    //address "0B"  ++
+       
+   temp = data.mid(a+513, 9);
+   rebuilt_data.replace(584, 9, temp);     //address "0C"  ++  
+   
+   temp = data.mid(a+526, 10);
+   rebuilt_data.replace(606, 10, temp);    //address "0D"  ++   
+   
+   temp = data.mid(a+540, 9);
+   rebuilt_data.replace(629, 9, temp);    //address "0E"  ++ 
+   
+   temp = data.mid(a+554, 1);
+   rebuilt_data.replace(651, 1, temp);     //address "0F"  ++ 
+   
+   //temp = data.mid(a+559, 1);
+   //rebuilt_data.replace(688, 1, temp);     //address "10"   
+    
+   temp = data.mid(a+564, 14);
+   rebuilt_data.replace(665, 14, temp);    //address "11" ++   chain
+   
+   temp = data.mid(a+582, 16);
+   rebuilt_data.replace(692, 16, temp);    //address "12" ++   name
+   
+   temp = data.mid(a+598, 1);
+   rebuilt_data.replace(1007, 1, temp);     //address "1E"  
+   /*
+   temp = data.mid(a+794, 17);
+   rebuilt_data.replace(772, 17, temp);    //address "20"     
+   
+   temp = data.mid(a+815, 17);
+   rebuilt_data.replace(802, 17, temp);    //address "21"     
+   
+   temp = data.mid(a+836, 17);
+   rebuilt_data.replace(832, 17, temp);    //address "22"     
+   
+   temp = data.mid(a+857, 17);
+   rebuilt_data.replace(862, 17, temp);    //address "23"     
+   
+   temp = data.mid(a+878, 17);
+   rebuilt_data.replace(892, 17, temp);    //address "24"     
+   
+   temp = data.mid(a+899, 17);
+   rebuilt_data.replace(922, 17, temp);    //address "25"   
+      
+   temp = data.mid(a+920, 17);
+   rebuilt_data.replace(952, 17, temp);    //address "26"     
+   
+   temp = data.mid(a+941, 17);
+   rebuilt_data.replace(982, 17, temp);    //address "27"     
+   
+   temp = data.mid(a+962, 17);
+   rebuilt_data.replace(1012, 17, temp);   //address "28"     
+   
+   temp = data.mid(a+983, 17);
+   rebuilt_data.replace(1042, 17, temp);   //address "29"     
+   
+   temp = data.mid(a+1004, 17);
+   rebuilt_data.replace(1072, 17, temp);   //address "2A"     
+   
+   temp = data.mid(a+1025, 17);
+   rebuilt_data.replace(1102, 17, temp);   //address "2B"  
+    
+   temp = data.mid(a+1046, 3);
+   rebuilt_data.replace(1132, 3, temp);    //address "2C"  
+     
+   temp = data.mid(a+1053, 3);
+   rebuilt_data.replace(1142, 3, temp);    //address "2D"       */
+   
+           a=a+1060;                      // offset is set for next patch.
+           sysxPatches.append(rebuilt_data);
+        };   
+       data = sysxPatches;
+      index = 1;
   int patchCount = data.size()/1010;
   if (patchCount>1)
   {
@@ -106,7 +280,7 @@ bool sysxWriter::readFile()
 	QString patchNumber;
 	unsigned char r;
 	this->patchList.clear();
-	this->patchList.append("Select Patch");
+	this->patchList.append(QObject::tr("Select Patch"));
   unsigned int a = sysxNameOffset; // locate patch text start position from the start of the file
      for (int h=0;h<patchCount;h++)
        {       
@@ -122,19 +296,17 @@ bool sysxWriter::readFile()
             patchText.clear();
             msgText.clear();
             a=a+1010;                      // offset is set in front of marker
-        }; 
-              
+        };               
     fileDialog *dialog = new fileDialog(fileName, patchList); 
     dialog->exec();    
     patchIndex(this->index);                          
-   };   
-     
-   int a=0;                             
+   };       
+   a=0;                             
    if (patchCount>1)
    {
     int q=index-1;      // find start of required patch
     a = q*1010;  
-   }; 
+   };    
    data = data.mid(a, 1010); 
    data.append(default_data.mid(1010, 231));    
   if (index>0)
@@ -146,7 +318,9 @@ bool sysxWriter::readFile()
 		this->fileSource = sysxIO->getFileSource();
 		return true;
 		} else {return false; }
-     }
+     
+     
+    } 
 		else if(data.size() == 1763  || data.size() == 2045 || data.size() == 1862)  {       // if a GT-10 patch file, with or without text
     QByteArray gt10_data = data;
 		QByteArray temp;                                    
@@ -339,10 +513,10 @@ bool sysxWriter::readFile()
 	msgText.append(QObject::tr("This is not recognised as a ") + deviceType + (" patch!"));
 	msgText.append("<b></font><br>");
 	if (data.size() == 670){
-  msgText.append("but appears to be a GT-6 patch<br>");};
+  msgText.append(QObject::tr("but appears to be a GT-6 patch<br>"));};
   if (data.size() == 650){
-  msgText.append("but appears to be a GT-3 patch<br>");};
-	msgText.append(QObject::tr("Patch size is ") + (QString::number(data.size(), 10)) + (" bytes, please try another file."));
+  msgText.append(QObject::tr("but appears to be a GT-3 patch<br>"));};
+	msgText.append(QObject::tr("Patch size is ") + (QString::number(data.size(), 10)) + (QObject::tr(" bytes, please try another file.")));
 	msgBox->setText(msgText);
 	msgBox->setStandardButtons(QMessageBox::Ok);
 	msgBox->exec();

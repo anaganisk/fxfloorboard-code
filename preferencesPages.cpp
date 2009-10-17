@@ -189,7 +189,7 @@ MidiPage::MidiPage(QWidget *parent)
 	midiDelaySpinBox->setValue(minWait);
 	midiDelaySpinBox->setRange(1, 30);
 	midiDelaySpinBox->setPrefix("= ");
-	midiDelaySpinBox->setSuffix(" times/second");
+	midiDelaySpinBox->setSuffix(tr(" times/second"));
 
 
 	QVBoxLayout *dBugLabelLayout = new QVBoxLayout;

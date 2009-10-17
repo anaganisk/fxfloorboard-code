@@ -95,11 +95,11 @@ bulkLoadDialog::bulkLoadDialog()
   patchRangeGroup->setLayout(dataRangeLayout);
 
   this->startButton = new QPushButton(this);
-  this->startButton->setText("Start");
+  this->startButton->setText(tr("Start"));
   connect(startButton, SIGNAL(clicked()), this, SLOT(sendData()));
   
   this->completedButton = new QPushButton(this);
-  this->completedButton->setText("DATA TRANSFER COMPLETED");
+  this->completedButton->setText(tr("DATA TRANSFER COMPLETED"));
   this->completedButton->hide();
   connect(completedButton, SIGNAL(clicked()), this, SLOT(close()));
   
@@ -108,7 +108,7 @@ bulkLoadDialog::bulkLoadDialog()
   connect(cancelButton, SIGNAL(clicked()), this, SLOT(close()));
   
   this->progressLabel = new QLabel(this);
-  this->progressLabel->setText("Full Restoration may take up to 2 minutes");
+  this->progressLabel->setText(tr("Full Restoration may take up to 2 minutes"));
   this->bytesLabel = new QLabel(this);
   this->bytesLabel->setText("");
   
@@ -164,9 +164,9 @@ bulkLoadDialog::bulkLoadDialog()
 
 	QString fileName = QFileDialog::getOpenFileName(
                 this,
-                "Choose a file",
+                tr("Choose a file"),
                 dir,
-                "GT-8 Bulk Data File (*.gte *.syx *.mid)");
+                tr("GT-8 Bulk Data File (*.gte *.syx *.mid)"));
 	if (!fileName.isEmpty())	
 	{
 	
@@ -346,10 +346,10 @@ void bulkLoadDialog::sendSequence(QString value)
         };
         int bf = patchCount-1;
         if(steps>bf) {this->completedButton->show();        
-          this->progressLabel->setText("Bulk data transfer completed!!");   };
+          this->progressLabel->setText(tr("Bulk data transfer completed!!"));   };
         
   QString patchNumber = QString::number(bank/4, 10).toUpper();
-  patchNumber.prepend( "User Patch U" );
+  patchNumber.prepend(tr("User Patch U" ));
   patchNumber.append("-");
   patchNumber.append( QString::number(patch, 10).toUpper() );
   patchNumber.append("     ");
@@ -357,7 +357,7 @@ void bulkLoadDialog::sendSequence(QString value)
   patchText=patchNumber;   
   this->progressLabel->setText(patchText);                        //display the patch number and name.
   
-  patchNumber = "File build size = ";
+  patchNumber = tr("File build size = ");
   dataSent = dataSent+(msg.size()/2);
   patchNumber.append(QString::number(dataSent, 10).toUpper() );
   patchNumber.append(" bytes");
@@ -366,15 +366,15 @@ void bulkLoadDialog::sendSequence(QString value)
 	      ++patch; 
         if(patch>4) {patch=1; bank=bank+4;};	                      // increment patch.
   sendPatch(msg);                                                    //send the next patch. 
-  sysxIO->emitStatusdBugMessage("Bulk Patch transfer in progress - please wait until finished");
-  sysxIO->emitStatusMessage("Bulk Upload");                                 
+  sysxIO->emitStatusdBugMessage(tr("Bulk Patch transfer in progress - please wait until finished"));
+  sysxIO->emitStatusMessage(tr("Bulk Upload"));                                 
   } else {
-  sysxIO->emitStatusdBugMessage("Bulk Patch transfer completed !!");
-  sysxIO->emitStatusMessage("Ready");
+  sysxIO->emitStatusdBugMessage(tr("Bulk Patch transfer completed !!"));
+  sysxIO->emitStatusMessage(tr("Ready"));
   QObject::disconnect(sysxIO, SIGNAL(sysxReply(QString)), this, SLOT(sendSequence(QString)));
   sysxIO->setDeviceReady(true); // Free the device after finishing interaction.
   this->completedButton->show();        
-  this->progressLabel->setText("Bulk data transfer completed!!"); 
+  this->progressLabel->setText(tr("Bulk data transfer completed!!")); 
   bulkStatusProgress(200); 
   SLEEP(3000);
   close();  
@@ -410,7 +410,7 @@ void bulkLoadDialog::updatePatch()
    this->finishPatchCombo->addItems(patchList);
    this->finishPatchCombo->setCurrentIndex(patchCount-1);     // set the finish combobox index to the end of the list.
    this->startPatchCombo->setCurrentIndex(0);
-   QString text = "Finish at U";
+   QString text = tr("Finish at U");
    if (patchCount<4) {patchCount=4; };
    text.append(QString::number(patchCount/4, 10).toUpper() );
    text.append("-x");

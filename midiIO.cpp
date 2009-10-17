@@ -289,7 +289,7 @@ void midiIO::receiveMsg(QString sysxInMsg, int midiInPort)
   count = 1010;
   } else if(msgType == "system"){
   loopCount = x*900;
-  count = 4326; // native gt-pro system size, then trimmed to 4313 later.
+  count = 4402; // native gt-8 system size, then trimmed to 4389 later.
   }
   else if (msgType == "name"){
   loopCount = x*80;
@@ -371,7 +371,7 @@ void midiIO::run()
 	 		 }; 
 					
 		emit setStatusSymbol(2);
-		emit setStatusMessage("Sending");
+		emit setStatusMessage(tr("Sending"));
 		emit setStatusProgress(33); // time wasting sinusidal statusbar progress animation
 		SLEEP(40);
 		emit setStatusProgress(66);

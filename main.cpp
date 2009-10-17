@@ -33,10 +33,12 @@ int main(int argc, char *argv[])
 {
 	QApplication app(argc, argv);
 
-	/* Loading translation */
+ /* Loading translation */
 	QTranslator translator;
-	translator.load("translation");
+	translator.load(":language_fr.qm");
 	app.installTranslator(&translator);
+	
+
 	
 	/* Splash Screen setup uses subclassed QSplashScreen for message position controle. */
 	QPixmap splashImage(":images/splash.png");

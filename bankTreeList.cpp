@@ -295,8 +295,10 @@ QTreeWidget* bankTreeList::newTreeList()
 	newTreeList->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded); 
 	
 	QStringList headers;
-	headers << "Double-click tree item to load patch";
-    newTreeList->setHeaderLabels(headers);
+	QString text;
+	text.append(tr("Double-click tree item to load patch"));
+	headers.append(text);
+  newTreeList->setHeaderLabels(headers);
     
   QTreeWidgetItem *temp = new QTreeWidgetItem(newTreeList);
 	temp->setText(0, "Temp");
