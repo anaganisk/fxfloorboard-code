@@ -11,7 +11,6 @@
     </message>
     <message>
         <location filename="preferencesPages.cpp" line="38"/>
-        <location filename="preferencesPages.cpp" line="297"/>
         <source>Select the default folder for storing patches.</source>
         <translation>Choisissez le dossier de défaut pour stocker des Patches.</translation>
     </message>
@@ -34,59 +33,52 @@
         <translation>Arrangements du Midi</translation>
     </message>
     <message>
-        <location filename="preferencesPages.cpp" line="90"/>
         <source>Select your midi in and out device.</source>
-        <translation>Choisissez le votre Midi dans et dehors dispositif.</translation>
+        <translation type="obsolete">Choisissez le votre Midi dans et dehors dispositif.</translation>
     </message>
     <message>
-        <location filename="preferencesPages.cpp" line="91"/>
         <source>Midi in:</source>
-        <translation>Le Midi dans :</translation>
+        <translation type="obsolete">Le Midi dans :</translation>
     </message>
     <message>
-        <location filename="preferencesPages.cpp" line="92"/>
         <source>Midi out:</source>
-        <translation>Le Midi dehors :</translation>
+        <translation type="obsolete">Le Midi dehors :</translation>
     </message>
     <message>
-        <location filename="preferencesPages.cpp" line="96"/>
         <source>Select midi-in device</source>
-        <translation>Choisissez Midi-dans le dispositif</translation>
+        <translation type="obsolete">Choisissez Midi-dans le dispositif</translation>
     </message>
     <message>
-        <location filename="preferencesPages.cpp" line="111"/>
         <source>Select midi-out device</source>
-        <translation>Choisissez le dispositif du Midi-dehors</translation>
+        <translation type="obsolete">Choisissez le dispositif du Midi-dehors</translation>
     </message>
     <message>
-        <location filename="preferencesPages.cpp" line="147"/>
         <source>dBug and timing</source>
-        <translation>dBug et synchronisation</translation>
+        <translation type="obsolete">dBug et synchronisation</translation>
     </message>
     <message>
-        <location filename="preferencesPages.cpp" line="149"/>
         <source>Debug mode &amp; midi settings.</source>
-        <translation>Corrigez le &amp; de mode ; arrangements du Midi.</translation>
+        <translation type="obsolete">Corrigez le &amp; de mode ; arrangements du Midi.</translation>
     </message>
     <message>
-        <location filename="preferencesPages.cpp" line="150"/>
         <source>System data request size.</source>
-        <translation>Taille de demande de données de système.</translation>
+        <translation type="obsolete">Taille de demande de données de système.</translation>
     </message>
     <message>
-        <location filename="preferencesPages.cpp" line="151"/>
         <source>Realtime edit send rate.</source>
-        <translation>Le temps réel éditent envoient le taux.</translation>
+        <translation type="obsolete">Le temps réel éditent envoient le taux.</translation>
     </message>
     <message>
-        <location filename="preferencesPages.cpp" line="153"/>
         <source>deBug Mode</source>
-        <translation>corrigez le mode</translation>
+        <translation type="obsolete">corrigez le mode</translation>
     </message>
     <message>
-        <location filename="preferencesPages.cpp" line="192"/>
         <source> times/second</source>
-        <translation>périodes/en second lieu</translation>
+        <translation type="obsolete">périodes/en second lieu</translation>
+    </message>
+    <message>
+        <source>= </source>
+        <translation type="obsolete">= </translation>
     </message>
 </context>
 <context>
@@ -237,6 +229,101 @@
         <location filename="sysxWriter.cpp" line="519"/>
         <source> bytes, please try another file.</source>
         <translation>les bytes, essayent svp un autre dossier.</translation>
+    </message>
+    <message>
+        <location filename="preferencesPages.cpp" line="90"/>
+        <source>Select your midi in and out device.</source>
+        <translation>Choisissez le votre Midi dans et dehors dispositif.</translation>
+    </message>
+    <message>
+        <location filename="preferencesPages.cpp" line="91"/>
+        <source>Midi in:</source>
+        <translation>Le Midi dans :</translation>
+    </message>
+    <message>
+        <location filename="preferencesPages.cpp" line="92"/>
+        <source>Midi out:</source>
+        <translation>Le Midi dehors :</translation>
+    </message>
+    <message>
+        <location filename="preferencesPages.cpp" line="96"/>
+        <source>Select midi-in device</source>
+        <translation>Choisissez Midi-dans le dispositif</translation>
+    </message>
+    <message>
+        <location filename="preferencesPages.cpp" line="111"/>
+        <source>Select midi-out device</source>
+        <translation>Choisissez le dispositif du Midi-dehors</translation>
+    </message>
+    <message>
+        <location filename="preferencesPages.cpp" line="147"/>
+        <source>dBug and timing</source>
+        <translation>dBug et synchronisation</translation>
+    </message>
+    <message>
+        <location filename="preferencesPages.cpp" line="149"/>
+        <source>Debug mode &amp; midi settings.</source>
+        <translation>Corrigez le &amp; de mode ; arrangements du Midi.</translation>
+    </message>
+    <message>
+        <location filename="preferencesPages.cpp" line="151"/>
+        <source>Realtime edit send rate.</source>
+        <translation>Le temps réel éditent envoient le taux.</translation>
+    </message>
+    <message>
+        <location filename="preferencesPages.cpp" line="153"/>
+        <source>deBug Mode</source>
+        <translation>corrigez le mode</translation>
+    </message>
+    <message>
+        <location filename="preferencesPages.cpp" line="191"/>
+        <source>= </source>
+        <translation>= </translation>
+    </message>
+    <message>
+        <location filename="preferencesPages.cpp" line="192"/>
+        <source> times/second</source>
+        <translation>périodes/en second lieu</translation>
+    </message>
+    <message>
+        <location filename="preferencesPages.cpp" line="238"/>
+        <source>Window settings</source>
+        <translation>Arrangements de fenêtre</translation>
+    </message>
+    <message>
+        <location filename="preferencesPages.cpp" line="240"/>
+        <source>Select if you want the window position to be saved on exit.</source>
+        <translation>Choisissez si vous voulez que la position de fenêtre soit sauvée sur la sortie.</translation>
+    </message>
+    <message>
+        <location filename="preferencesPages.cpp" line="241"/>
+        <source>Restore window</source>
+        <translation>Fenêtre de restauration</translation>
+    </message>
+    <message>
+        <location filename="preferencesPages.cpp" line="242"/>
+        <source>Restore sidepanel</source>
+        <translation>Sidepanel de restauration</translation>
+    </message>
+    <message>
+        <location filename="preferencesPages.cpp" line="265"/>
+        <source>Show splash screen</source>
+        <translation>Montrez l&apos;écran d&apos;éclaboussure</translation>
+    </message>
+    <message>
+        <location filename="preferencesPages.cpp" line="267"/>
+        <source>Disable or enable the splash screen.</source>
+        <translation>Désactivez ou permettez l&apos;écran d&apos;éclaboussure.</translation>
+    </message>
+    <message>
+        <location filename="preferencesPages.cpp" line="268"/>
+        <source>Splash screen</source>
+        <translation>Écran d&apos;éclaboussure</translation>
+    </message>
+    <message>
+        <location filename="preferencesPages.cpp" line="297"/>
+        <source>Select the default folder for storing patches.</source>
+        <translation>Choisissez le dossier de défaut pour stocker des Patches.</translation>
     </message>
 </context>
 <context>
@@ -396,39 +483,32 @@ If correction was impossible then some settings might have been reset to zero.</
 <context>
     <name>WindowPage</name>
     <message>
-        <location filename="preferencesPages.cpp" line="238"/>
         <source>Window settings</source>
-        <translation>Arrangements de fenêtre</translation>
+        <translation type="obsolete">Arrangements de fenêtre</translation>
     </message>
     <message>
-        <location filename="preferencesPages.cpp" line="240"/>
         <source>Select if you want the window position to be saved on exit.</source>
-        <translation>Choisissez si vous voulez que la position de fenêtre soit sauvée sur la sortie.</translation>
+        <translation type="obsolete">Choisissez si vous voulez que la position de fenêtre soit sauvée sur la sortie.</translation>
     </message>
     <message>
-        <location filename="preferencesPages.cpp" line="241"/>
         <source>Restore window</source>
-        <translation>Fenêtre de restauration</translation>
+        <translation type="obsolete">Fenêtre de restauration</translation>
     </message>
     <message>
-        <location filename="preferencesPages.cpp" line="242"/>
         <source>Restore sidepanel</source>
-        <translation>Sidepanel de restauration</translation>
+        <translation type="obsolete">Sidepanel de restauration</translation>
     </message>
     <message>
-        <location filename="preferencesPages.cpp" line="265"/>
         <source>Show splash screen</source>
-        <translation>Montrez l&apos;écran d&apos;éclaboussure</translation>
+        <translation type="obsolete">Montrez l&apos;écran d&apos;éclaboussure</translation>
     </message>
     <message>
-        <location filename="preferencesPages.cpp" line="267"/>
         <source>Disable or enable the splash screen.</source>
-        <translation>Désactivez ou permettez l&apos;écran d&apos;éclaboussure.</translation>
+        <translation type="obsolete">Désactivez ou permettez l&apos;écran d&apos;éclaboussure.</translation>
     </message>
     <message>
-        <location filename="preferencesPages.cpp" line="268"/>
         <source>Splash screen</source>
-        <translation>Écran d&apos;éclaboussure</translation>
+        <translation type="obsolete">Écran d&apos;éclaboussure</translation>
     </message>
 </context>
 <context>
@@ -1511,6 +1591,48 @@ If correction was impossible then some settings might have been reset to zero.</
 </context>
 <context>
     <name>midiIO</name>
+    <message>
+        <location filename="midiIO.cpp" line="74"/>
+        <location filename="midiIO.cpp" line="83"/>
+        <location filename="midiIO.cpp" line="205"/>
+        <location filename="midiIO.cpp" line="244"/>
+        <source>Midi Output Error</source>
+        <translation>Erreur de rendement du Midi</translation>
+    </message>
+    <message>
+        <location filename="midiIO.cpp" line="74"/>
+        <location filename="midiIO.cpp" line="124"/>
+        <source>port error</source>
+        <translation>erreur gauche</translation>
+    </message>
+    <message>
+        <location filename="midiIO.cpp" line="83"/>
+        <location filename="midiIO.cpp" line="131"/>
+        <location filename="midiIO.cpp" line="205"/>
+        <location filename="midiIO.cpp" line="244"/>
+        <location filename="midiIO.cpp" line="326"/>
+        <source>data error</source>
+        <translation>erreur de données</translation>
+    </message>
+    <message>
+        <location filename="midiIO.cpp" line="90"/>
+        <location filename="midiIO.cpp" line="137"/>
+        <source>un-named midi device: </source>
+        <translation>dispositif anonyme du Midi : </translation>
+    </message>
+    <message>
+        <location filename="midiIO.cpp" line="99"/>
+        <location filename="midiIO.cpp" line="147"/>
+        <source>no midi device available</source>
+        <translation>aucun dispositif du Midi disponible</translation>
+    </message>
+    <message>
+        <location filename="midiIO.cpp" line="124"/>
+        <location filename="midiIO.cpp" line="131"/>
+        <location filename="midiIO.cpp" line="326"/>
+        <source>Midi Input Error</source>
+        <translation>Erreur d&apos;entrée du Midi</translation>
+    </message>
     <message>
         <location filename="midiIO.cpp" line="374"/>
         <source>Sending</source>
