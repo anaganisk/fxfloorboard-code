@@ -292,6 +292,44 @@ WindowPage::WindowPage(QWidget *parent)
 	setLayout(mainLayout);
 };
 
+LanguagePage::LanguagePage(QWidget *parent)
+	: QWidget(parent)
+{
+	Preferences *preferences = Preferences::Instance();
+	QString lang = preferences->getPreferences("Language", "Locale", "select");
+	bool ok;
+	int choice = lang.toInt(&ok, 16);
+  
+	QGroupBox *languageGroup = new QGroupBox(QObject::tr("Language Selection"));
+	
+	QRadioButton *englishButton = new QRadioButton(QObject::tr("English"));
+	this->englishButton = englishButton;
+  this->frenchButton = new QRadioButton(QObject::tr("French"));
+  this->germanButton = new QRadioButton(QObject::tr("German"));
+  this->chineseButton = new QRadioButton(QObject::tr("Chinese (simplified)"));
+  if (choice == 3) {chineseButton->setChecked(true); }
+  else if (choice == 2) {germanButton->setChecked(true); }
+  else if (choice == 1) {frenchButton->setChecked(true); }
+  else {englishButton->setChecked(true); };
+ 
+	QVBoxLayout *languageLayout = new QVBoxLayout;
+	languageLayout->addWidget(englishButton);
+	languageLayout->addWidget(frenchButton);
+	languageLayout->addWidget(germanButton);
+	languageLayout->addWidget(chineseButton);
+	
+  languageGroup->setLayout(languageLayout);
+  
+  QLabel *note = new QLabel(QObject::tr("Changes take effect on next startup" ));
+
+	QVBoxLayout *mainLayout = new QVBoxLayout;
+	mainLayout->addWidget(languageGroup);
+	languageLayout->addSpacing(12);
+	mainLayout->addStretch(1);
+	mainLayout->addWidget(note);
+	setLayout(mainLayout);
+};
+
 void GeneralPage::browseDir()
 {
 	QString dirName = QFileDialog::getExistingDirectory(this, QObject::tr("Select the default folder for storing patches."),

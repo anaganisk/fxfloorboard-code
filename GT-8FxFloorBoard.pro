@@ -40,9 +40,11 @@ DESTDIR = ./packager
 	INCLUDEPATH += ./generatedfiles \
     ./generatedfiles/release \
     .
-TRANSLATIONS = language_dk.ts \
+TRANSLATIONS = language_fr.ts \
+               language_dk.ts \
                language_ge.ts \
-               language_fr.ts
+               language_ch.ts
+               
 CODECFORTR = UTF-8
 
 DEPENDPATH += .

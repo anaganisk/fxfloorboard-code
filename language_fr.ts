@@ -26,6 +26,33 @@
     </message>
 </context>
 <context>
+    <name>LanguagePage</name>
+    <message>
+        <source>Language Selection</source>
+        <translation type="obsolete">Choix de langue</translation>
+    </message>
+    <message>
+        <source>English</source>
+        <translation type="obsolete">Anglais</translation>
+    </message>
+    <message>
+        <source>French</source>
+        <translation type="obsolete">Français</translation>
+    </message>
+    <message>
+        <source>German</source>
+        <translation type="obsolete">Allemand</translation>
+    </message>
+    <message>
+        <source>Chinese (simplified)</source>
+        <translation type="obsolete">Chinois (simplifiés)</translation>
+    </message>
+    <message>
+        <source>Changes take effect on next startup</source>
+        <translation type="obsolete">Les changements entrent en vigueur sur le prochain démarrage</translation>
+    </message>
+</context>
+<context>
     <name>MidiPage</name>
     <message>
         <location filename="preferencesPages.cpp" line="88"/>
@@ -130,42 +157,42 @@
         <translation>*Loading ce dossier peut avoir le results* imprévisible.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="71"/>
+        <location filename="main.cpp" line="80"/>
         <source>Initializing...</source>
         <translation>Initialisation…</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="78"/>
+        <location filename="main.cpp" line="87"/>
         <source>Checking license file...</source>
         <translation>Vérifiant le dossier de permis…</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="81"/>
+        <location filename="main.cpp" line="90"/>
         <source>Loading license file...</source>
         <translation>Dossier de permis de chargement…</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="89"/>
+        <location filename="main.cpp" line="98"/>
         <source>Loading midi mapping...</source>
         <translation>Cartographie du Midi de chargement…</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="95"/>
+        <location filename="main.cpp" line="104"/>
         <source>Initializing main window...</source>
         <translation>Fenêtre principale de initialisation…</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="140"/>
+        <location filename="main.cpp" line="149"/>
         <source>Restoring window position...</source>
         <translation>Reconstituant la position de fenêtre…</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="155"/>
+        <location filename="main.cpp" line="164"/>
         <source>Centering main window...</source>
         <translation>Centrant la fenêtre principale…</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="170"/>
+        <location filename="main.cpp" line="179"/>
         <source>Finished Initializing...</source>
         <translation>Initialisation de finition…</translation>
     </message>
@@ -321,9 +348,45 @@
         <translation>Écran d&apos;éclaboussure</translation>
     </message>
     <message>
-        <location filename="preferencesPages.cpp" line="297"/>
+        <location filename="preferencesPages.cpp" line="303"/>
+        <source>Language Selection</source>
+        <translation>Choix de langue</translation>
+    </message>
+    <message>
+        <location filename="preferencesPages.cpp" line="305"/>
+        <source>English</source>
+        <translation>Anglais</translation>
+    </message>
+    <message>
+        <location filename="preferencesPages.cpp" line="307"/>
+        <source>French</source>
+        <translation>Français</translation>
+    </message>
+    <message>
+        <location filename="preferencesPages.cpp" line="308"/>
+        <source>German</source>
+        <translation>Allemand</translation>
+    </message>
+    <message>
+        <location filename="preferencesPages.cpp" line="309"/>
+        <source>Chinese (simplified)</source>
+        <translation>Chinois (simplifiés)</translation>
+    </message>
+    <message>
+        <location filename="preferencesPages.cpp" line="323"/>
+        <source>Changes take effect on next startup</source>
+        <translation>Les changements entrent en vigueur sur le prochain démarrage</translation>
+    </message>
+    <message>
+        <location filename="preferencesPages.cpp" line="335"/>
         <source>Select the default folder for storing patches.</source>
         <translation>Choisissez le dossier de défaut pour stocker des Patches.</translation>
+    </message>
+    <message>
+        <location filename="bankTreeList.cpp" line="539"/>
+        <location filename="bankTreeList.cpp" line="557"/>
+        <source> is connected correctly and re-try.</source>
+        <translation> est relié correctement et tentative.</translation>
     </message>
 </context>
 <context>
@@ -516,7 +579,7 @@ If correction was impossible then some settings might have been reset to zero.</
     <message>
         <location filename="bankTreeList.cpp" line="299"/>
         <source>Double-click tree item to load patch</source>
-        <translation>Article d&apos;arbre de Double-click à la charge</translation>
+        <translation>Double-article d&apos;arbre de clic pour charger</translation>
     </message>
     <message>
         <location filename="bankTreeList.cpp" line="427"/>
@@ -1407,113 +1470,118 @@ If correction was impossible then some settings might have been reset to zero.</
         <translation>&amp;Dossier</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="245"/>
+        <location filename="mainWindow.cpp" line="243"/>
         <source>&amp;Tools</source>
         <translation>&amp;Outils</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="251"/>
+        <location filename="mainWindow.cpp" line="249"/>
         <source>&amp;Help</source>
         <translation>&amp;Aide</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="270"/>
+        <location filename="mainWindow.cpp" line="267"/>
         <source>Not Connected</source>
         <translation>Non relié</translation>
     </message>
     <message>
+        <location filename="mainWindow.cpp" line="617"/>
+        <source> Fx FloorBoard, </source>
+        <translation>Planche de Fx, </translation>
+    </message>
+    <message>
         <location filename="mainWindow.cpp" line="85"/>
-        <location filename="mainWindow.cpp" line="411"/>
+        <location filename="mainWindow.cpp" line="404"/>
         <source> Fx FloorBoard</source>
         <translation>Planche de Fx</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="294"/>
+        <location filename="mainWindow.cpp" line="287"/>
         <source>Choose a file</source>
         <translation>Choisissez un dossier</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="329"/>
-        <location filename="mainWindow.cpp" line="364"/>
+        <location filename="mainWindow.cpp" line="322"/>
+        <location filename="mainWindow.cpp" line="357"/>
         <source>System Exclusive (*.syx)</source>
         <translation>Exclusivité de système (*.syx)</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="396"/>
+        <location filename="mainWindow.cpp" line="389"/>
         <source>GT-8 System Data File (*.GT8_system_syx)</source>
         <translation>Fichier de données du système GT-8 (*.GT8_system_syx)</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="416"/>
+        <location filename="mainWindow.cpp" line="409"/>
         <source>You have chosen to load a SYSTEM DATA file.</source>
         <translation>Vous avez choisi de charger un fichier de DONNÉES de SYSTÈME.</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="418"/>
+        <location filename="mainWindow.cpp" line="411"/>
         <source>This will overwrite the SYSTEM DATA currently stored in the GT-8&lt;br&gt;</source>
         <translation>Ceci recouvrira les DONNÉES de SYSTÈME actuellement stockées dans le GT-8&lt;br&gt;</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="419"/>
+        <location filename="mainWindow.cpp" line="412"/>
         <source> and can&apos;t be undone.&lt;br&gt;</source>
         <translation>et can&apos; ; t soit défait.&lt;br&gt;</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="420"/>
+        <location filename="mainWindow.cpp" line="413"/>
         <source>Select &apos;NO&apos; to only update the Editor - Select &apos;YES&apos; to update the GT-8 memory&lt;br&gt;</source>
         <translation>Choisissez &apos; ; NO&apos; ; pour mettre à jour seulement le rédacteur - choisissez &apos; ; YES&apos; ; pour mettre à jour la mémoire GT-8&lt;br&gt;</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="423"/>
+        <location filename="mainWindow.cpp" line="416"/>
         <source>Are you sure you want to write to the GT-8?</source>
         <translation>Êtes-vous sûr vous voulez-vous écrire au GT-8 ?</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="435"/>
-        <location filename="mainWindow.cpp" line="483"/>
+        <location filename="mainWindow.cpp" line="428"/>
+        <location filename="mainWindow.cpp" line="476"/>
         <source>DATA TRANSFER REQUIRED&lt;br&gt;</source>
         <translation>LE TRANSFERT DE DONNÉES A EXIGÉ&lt;br&gt;</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="436"/>
+        <location filename="mainWindow.cpp" line="429"/>
         <source>Ensure connection is active, and&lt;br&gt;</source>
         <translation>Assurez que le raccordement est en activité, et&lt;br&gt;</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="438"/>
-        <location filename="mainWindow.cpp" line="486"/>
+        <location filename="mainWindow.cpp" line="431"/>
+        <location filename="mainWindow.cpp" line="479"/>
         <source> Connection required!!</source>
         <translation>Raccordement requis ! !</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="461"/>
+        <location filename="mainWindow.cpp" line="454"/>
         <source>System Exclusive File (*.GT8_system_syx)</source>
         <translation>Dossier exclusif de système (*.GT8_system_syx)</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="484"/>
+        <location filename="mainWindow.cpp" line="477"/>
         <source>Ensure connection is active</source>
         <translation>Assurez que le raccordement est en activité</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="504"/>
-        <location filename="mainWindow.cpp" line="525"/>
+        <location filename="mainWindow.cpp" line="497"/>
+        <location filename="mainWindow.cpp" line="518"/>
         <source>Ensure connection is active and retry</source>
         <translation>Assurez que le raccordement est en activité et tentative</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="506"/>
-        <location filename="mainWindow.cpp" line="527"/>
+        <location filename="mainWindow.cpp" line="499"/>
+        <location filename="mainWindow.cpp" line="520"/>
         <source> not connected !!</source>
         <translation>non relié ! !</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="618"/>
+        <location filename="mainWindow.cpp" line="616"/>
         <source> Fx FloorBoard - About</source>
         <translation>Planche de Fx - environ</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="619"/>
+        <location filename="mainWindow.cpp" line="617"/>
         <source>version</source>
         <translation>version</translation>
     </message>
@@ -1653,34 +1721,39 @@ If correction was impossible then some settings might have been reset to zero.</
 <context>
     <name>preferencesDialog</name>
     <message>
-        <location filename="preferencesDialog.cpp" line="54"/>
+        <location filename="preferencesDialog.cpp" line="58"/>
         <source>Ok</source>
         <translation>Ok</translation>
     </message>
     <message>
-        <location filename="preferencesDialog.cpp" line="55"/>
+        <location filename="preferencesDialog.cpp" line="59"/>
         <source>Cancel</source>
         <translation>Annulation</translation>
     </message>
     <message>
-        <location filename="preferencesDialog.cpp" line="79"/>
+        <location filename="preferencesDialog.cpp" line="83"/>
         <source>GT-8 Fx FloorBoard - Preferences</source>
         <translation>Planche de GT-8 Fx - préférences</translation>
     </message>
     <message>
-        <location filename="preferencesDialog.cpp" line="86"/>
+        <location filename="preferencesDialog.cpp" line="90"/>
         <source>General</source>
         <translation>Généralités</translation>
     </message>
     <message>
-        <location filename="preferencesDialog.cpp" line="92"/>
+        <location filename="preferencesDialog.cpp" line="96"/>
         <source>Midi</source>
         <translation>Midi</translation>
     </message>
     <message>
-        <location filename="preferencesDialog.cpp" line="98"/>
+        <location filename="preferencesDialog.cpp" line="102"/>
         <source>Window</source>
         <translation>Fenêtre</translation>
+    </message>
+    <message>
+        <location filename="preferencesDialog.cpp" line="108"/>
+        <source>Language</source>
+        <translation>Langue</translation>
     </message>
 </context>
 <context>

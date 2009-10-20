@@ -240,8 +240,6 @@ void mainWindow::createMenus()
   fileMenu->addAction(exitAct);
 	menuBar->addMenu(fileMenu);
 
-     
-
 	QMenu *toolsMenu = new QMenu(tr("&Tools"), this);
 	toolsMenu->addAction(settingsAct);
 	toolsMenu->addAction(uploadAct);
@@ -258,7 +256,6 @@ void mainWindow::createMenus()
 	helpMenu->addAction(aboutAct);
 	helpMenu->addAction(aboutQtAct);
 	menuBar->addMenu(helpMenu);
-
 };
 
 void mainWindow::createStatusBar()
@@ -273,10 +270,6 @@ void mainWindow::createStatusBar()
 	QObject::connect(sysxIO, SIGNAL(setStatusProgress(int)), statusInfo, SLOT(setStatusProgress(int)));;
 	QObject::connect(sysxIO, SIGNAL(setStatusMessage(QString)), statusInfo, SLOT(setStatusMessage(QString)));
 	QObject::connect(sysxIO, SIGNAL(setStatusdBugMessage(QString)), statusInfo, SLOT(setStatusdBugMessage(QString)));
-
-
-
-
 
 	statusBar = new QStatusBar;
 	statusBar->addWidget(statusInfo);
@@ -549,12 +542,17 @@ void mainWindow::settings()
 		QString midiOut = QString::number(dialog->midiSettings->midiOutCombo->currentIndex() - 1, 10);
 		//QString midiTimeSet =QString::number(dialog->midiSettings->midiTimeSpinBox->value());
 		QString receiveTimeout =QString::number(dialog->midiSettings->midiDelaySpinBox->value());
-                QString sys_Byte1 = QString::number(dialog->midiSettings->sysByteSpinBox1->value());
+    QString sys_Byte1 = QString::number(dialog->midiSettings->sysByteSpinBox1->value());
 		QString sys_Byte2 = QString::number(dialog->midiSettings->sysByteSpinBox2->value());
 		QString sys_Byte3 = QString::number(dialog->midiSettings->sysByteSpinBox3->value());
-		QString sys_Byte4 = QString::number(dialog->midiSettings->sysByteSpinBox4->value());
-
-
+		QString sys_Byte4 = QString::number(dialog->midiSettings->sysByteSpinBox4->value());		
+    QString lang;
+    if (dialog->languageSettings->chineseButton->isChecked() ) {lang="3"; }
+    else if (dialog->languageSettings->germanButton->isChecked() ) {lang="2"; }
+    else if (dialog->languageSettings->frenchButton->isChecked() ) {lang="1"; }
+    else /*if (dialog->languageSettings->englishButton->isChecked() )*/ {lang="0"; };
+    preferences->setPreferences("Language", "Locale", "select", lang);
+    
 
 		if(midiIn=="-1") { midiIn = ""; };
 		if(midiOut=="-1") {	midiOut = ""; };
@@ -616,7 +614,7 @@ void mainWindow::about()
 	if(file.open(QIODevice::ReadOnly))
 	{	
 		QMessageBox::about(this, deviceType + tr(" Fx FloorBoard - About"), 
-			deviceType + " Fx FloorBoard, " + tr("version") + " " + version + "\n" + file.readAll());
+			deviceType + tr(" Fx FloorBoard, ") + tr("version") + " " + version + "<br>" + file.readAll());
 	};
 };
 
