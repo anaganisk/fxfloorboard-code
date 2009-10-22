@@ -44,6 +44,7 @@ public:
 	void writeSMF(QString fileName);
 	void writeGXG(QString fileName);
 	QString getFileName();
+	QList<QString> patchList;	
   int index;
 	
 public slots:
@@ -53,7 +54,6 @@ private:
 	QString fileName;
 	SysxData fileSource;
 	SysxData systemSource;
-	QList<QString> patchList;	
 };
 
 #endif // SYSXWRITER_H

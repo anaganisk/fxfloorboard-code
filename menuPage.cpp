@@ -105,7 +105,7 @@ void menuPage::master_ButtonSignal(bool value)
     if (this->id == 23)
     { 
       emitValueChanged(this->hex1, this->hex2, "00", "void");
-	    this->editDialog->setWindow("Master");
+	    this->editDialog->setWindow(tr("Master"));
       emit setEditDialog(this->editDialog);
     };
 };
@@ -115,7 +115,7 @@ void menuPage::fx1_autoriff_ButtonSignal(bool value)
     if (this->id == 21)
     { 
       emitValueChanged(this->hex1, this->hex2, "00", "void");
-	    this->editDialog->setWindow("FX1 AutoRiff");
+	    this->editDialog->setWindow(tr("FX1 AutoRiff"));
       emit setEditDialog(this->editDialog);
     };
 };
@@ -125,7 +125,7 @@ void menuPage::fx2_autoriff_ButtonSignal(bool value)
     if (this->id == 22)
     { 
       emitValueChanged(this->hex1, this->hex2, "00", "void");
-	    this->editDialog->setWindow("FX2 AutoRiff");
+	    this->editDialog->setWindow(tr("FX2 AutoRiff"));
       emit setEditDialog(this->editDialog);
     };
 };
@@ -160,9 +160,9 @@ void menuPage::menuButtonSignal(bool value)
          }
          else
             {
-              QString snork = "Ensure connection is active and retry";
+              QString snork = tr("Ensure connection is active and retry");
               QMessageBox *msgBox = new QMessageBox();
-			        msgBox->setWindowTitle(deviceType + " not connected !!");
+			        msgBox->setWindowTitle(deviceType + tr(" not connected !!"));
 		        	msgBox->setIcon(QMessageBox::Information);
 		        	msgBox->setText(snork);
 		        	msgBox->setStandardButtons(QMessageBox::Ok);
@@ -288,7 +288,7 @@ void menuPage::systemReply(QString replyMsg)
 			msgBox->setTextFormat(Qt::RichText);
 			QString msgText;
 			msgText.append("<font size='+1'><b>");
-			msgText.append(tr("The Boss ") + deviceType + (" Effects Processor was not found."));
+			msgText.append(tr("The Boss ") + deviceType + tr(" Effects Processor was not found."));
 			msgText.append("<b></font><br>");
 			msgBox->setText(msgText);
 			msgBox->setStandardButtons(QMessageBox::Ok);
@@ -405,12 +405,12 @@ void menuPage::emitValueChanged(QString hex1, QString hex2, QString hex3, QStrin
 		}
 		else
 		{
-		  if (this->id == 18)this->fxName = "System settings";
-		  if (this->id == 19)this->fxName = "System Midi";
-		  if (this->id == 20)this->fxName = "Assigns";
-		  if (this->id == 21)this->fxName = "FX1 AutoRiff User";  
-      if (this->id == 22)this->fxName = "FX2 AutoRiff User";  
-      if (this->id == 23)this->fxName = "Master";  
+		  if (this->id == 18)this->fxName = tr("System settings");
+		  if (this->id == 19)this->fxName = tr("System Midi");
+		  if (this->id == 20)this->fxName = tr("Assigns");
+		  if (this->id == 21)this->fxName = tr("FX1 AutoRiff User");  
+      if (this->id == 22)this->fxName = tr("FX2 AutoRiff User");  
+      if (this->id == 23)this->fxName = tr("Master");  
 		};
 	};
 

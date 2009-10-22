@@ -343,7 +343,8 @@ void editWindow::temp1()
   } 
   else 
   {
-    QApplication::beep(); 
+    QApplication::beep();
+    sysxIO->emitStatusdBugMessage(tr("patch must be copied to clipboard first"));  
   };
 };
 
@@ -383,6 +384,7 @@ void editWindow::temp2()
   else 
   {
     QApplication::beep(); 
+    sysxIO->emitStatusdBugMessage(tr("patch must be copied to clipboard first")); 
   };
 };
 
@@ -422,6 +424,7 @@ void editWindow::temp3()
   else 
   {
     QApplication::beep(); 
+    sysxIO->emitStatusdBugMessage(tr("patch must be copied to clipboard first")); 
   };
 };
 
@@ -461,6 +464,7 @@ void editWindow::temp4()
   else 
   {
     QApplication::beep(); 
+    sysxIO->emitStatusdBugMessage(tr("patch must be copied to clipboard first")); 
   };
 };
 
@@ -500,6 +504,7 @@ void editWindow::temp5()
   else 
   {
     QApplication::beep(); 
+    sysxIO->emitStatusdBugMessage(tr("patch must be copied to clipboard first")); 
   };
 };
 

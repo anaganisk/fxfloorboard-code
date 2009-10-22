@@ -407,7 +407,7 @@ void midiIO::run()
 		else 
 		{
 			emit setStatusSymbol(2);
-			emit setStatusMessage("Sending");
+			emit setStatusMessage(tr("Sending"));
 			sendSyxMsg(sysxOutMsg, midiOutPort);
 			Preferences *preferences = Preferences::Instance(); bool ok;// Load the preferences.
 			const int minWait = preferences->getPreferences("Midi", "Delay", "set").toInt(&ok, 10);

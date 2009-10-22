@@ -424,7 +424,7 @@ bool sysxWriter::readFile()
 	QString patchNumber;
 	unsigned char r;
 	this->patchList.clear();
-	this->patchList.append("Select Patch");
+	this->patchList.append(QObject::tr("Select Patch"));
   unsigned int a = 43; // locate patch text start position from the start of the file
      for (int h=0;h<patchCount;h++)
        {       
@@ -509,7 +509,7 @@ bool sysxWriter::readFile()
 	QString patchText;
 	QString patchNumber;
 	this->patchList.clear();
-	this->patchList.append("Select Patch");
+	this->patchList.append(QObject::tr("Select Patch"));
   unsigned int a = data.indexOf(marker, 0); // locate patch start position from the start of the file
    a=a+2;                             // offset is set in front of marker  
      for (int h=0;h<patchCount;h++)
@@ -615,14 +615,14 @@ bool sysxWriter::readFile()
 	msgBox->setTextFormat(Qt::RichText);
 	QString msgText;
 	msgText.append("<font size='+1'><b>");
-	msgText.append(QObject::tr("This is not a ") + deviceType + (" patch!"));
+	msgText.append(QObject::tr("This is not a ") + deviceType + QObject::tr(" patch!"));
 	msgText.append("<b></font><br>");
 	if (data.size() == 670){
-  msgText.append("but appears to be a GT-6 patch<br>");};
+  msgText.append(QObject::tr("but appears to be a GT-6 patch<br>"));};
   if (data.size() == 650){
-  msgText.append("but appears to be a GT-3 patch<br>");};
+  msgText.append(QObject::tr("but appears to be a GT-3 patch<br>"));};
 
-	msgText.append(QObject::tr("Patch size is not ") + (QString::number(patchSize, 10)) + (" bytes, please try another file."));
+	msgText.append(QObject::tr("Patch size is not ") + (QString::number(patchSize, 10)) + QObject::tr(" bytes, please try another file."));
 	msgBox->setText(msgText);
 	msgBox->setStandardButtons(QMessageBox::Ok);
 	msgBox->exec();

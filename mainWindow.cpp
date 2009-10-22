@@ -28,6 +28,8 @@
 #include "preferencesDialog.h"
 #include "statusBarWidget.h"
 #include "SysxIO.h"
+#include "bulkSaveDialog.h"
+#include "bulkLoadDialog.h"
 #include "globalVariables.h"
 
 
@@ -58,7 +60,7 @@ mainWindow::mainWindow(QWidget *parent)
 	#endif
 
 	#ifdef Q_WS_X11
-	//fxsBoard->setStyle(QStyleFactory::create("plastique"));
+	fxsBoard->setStyle(QStyleFactory::create("plastique"));
 		if(QFile(":qss/linux.qss").exists())
 		{
 			QFile file(":qss/linux.qss");
@@ -69,7 +71,7 @@ mainWindow::mainWindow(QWidget *parent)
 	#endif
 
 	#ifdef Q_WS_MAC
-	//fxsBoard->setStyle(QStyleFactory::create("plastique"));
+	fxsBoard->setStyle(QStyleFactory::create("plastique"));
 		if(QFile(":qss/macosx.qss").exists())
 		{
 			QFile file(":qss/macosx.qss");
@@ -80,7 +82,7 @@ mainWindow::mainWindow(QWidget *parent)
 	#endif
 	
 	
-	this->setWindowTitle(deviceType + " Fx FloorBoard");
+	this->setWindowTitle(deviceType + tr(" Fx FloorBoard"));
 	//this->setCentralWidget(fxsBoard);
 	
 	this->createActions();
@@ -145,17 +147,17 @@ void mainWindow::updateSize(QSize floorSize, QSize oldFloorSize)
 
 void mainWindow::createActions()
 {
-	openAct = new QAction(QIcon(":/images/fileopen.png"), tr("&Open File... (*.syx, *.mid, *.gxg *.gxb)"), this);
+	openAct = new QAction(QIcon(":/images/fileopen.png"), tr("&Load Patch File... (*.syx, *.mid, *.gxg *.gxb)"), this);
 	openAct->setShortcut(tr("Ctrl+O"));
 	openAct->setStatusTip(tr("Open an existing file"));
 	connect(openAct, SIGNAL(triggered()), this, SLOT(open()));
 	
-	saveAct = new QAction(QIcon(":/images/filesave.png"), tr("&Save...       (*.syx)"), this);
+	saveAct = new QAction(QIcon(":/images/filesave.png"), tr("&Save Patch...       (*.syx)"), this);
 	saveAct->setShortcut(tr("Ctrl+S"));
 	saveAct->setStatusTip(tr("Save the document to disk"));
 	connect(saveAct, SIGNAL(triggered()), this, SLOT(save()));
 
-	saveAsAct = new QAction(QIcon(":/images/filesave.png"), tr("Save &As...  (*.syx)"), this);
+	saveAsAct = new QAction(QIcon(":/images/filesave.png"), tr("Save &As Patch...  (*.syx)"), this);
 	saveAsAct->setShortcut(tr("Ctrl+Shift+S"));
 	saveAsAct->setStatusTip(tr("Save the document under a new name"));
 	connect(saveAsAct, SIGNAL(triggered()), this, SLOT(saveAs()));
@@ -165,7 +167,7 @@ void mainWindow::createActions()
 	importSMFAct->setStatusTip(tr("Import an existing SMF"));
 	connect(importSMFAct, SIGNAL(triggered()), this, SLOT(importSMF()));
 	
-	exportSMFAct = new QAction(QIcon(":/images/filesave.png"), tr("Export &SMF... (*.mid)"), this);
+	exportSMFAct = new QAction(QIcon(":/images/filesave.png"), tr("Save As &SMF Patch... (*.mid)"), this);
 	exportSMFAct->setShortcut(tr("Ctrl+Shift+E"));
 	exportSMFAct->setStatusTip(tr("Export as a Standard Midi File"));
 	connect(exportSMFAct, SIGNAL(triggered()), this, SLOT(exportSMF()));
@@ -175,20 +177,30 @@ void mainWindow::createActions()
 	openGXGAct->setStatusTip(tr("Import a Boss Librarian File"));
 	connect(openGXGAct, SIGNAL(triggered()), this, SLOT(openGXG()));
 
-	saveGXGAct = new QAction(QIcon(":/images/filesave.png"), tr("Export GXG... (*.gxg)"), this);
+	saveGXGAct = new QAction(QIcon(":/images/filesave.png"), tr("Save As GXG Patch... (*.gxg)"), this);
 	saveGXGAct->setShortcut(tr("Ctrl+Shift+G"));
 	saveGXGAct->setStatusTip(tr("Export as a Boss Librarian File"));
 	connect(saveGXGAct, SIGNAL(triggered()), this, SLOT(saveGXG()));	
 	
-  systemLoadAct = new QAction(QIcon(":/images/fileopen.png"), tr("&Load GT System Data..."), this);
+  systemLoadAct = new QAction(QIcon(":/images/fileopen.png"), tr("&Load System and Global Data..."), this);
 	systemLoadAct->setShortcut(tr("Ctrl+L"));
 	systemLoadAct->setStatusTip(tr("Load System Data to GT-10"));
 	connect(systemLoadAct, SIGNAL(triggered()), this, SLOT(systemLoad()));
 
-	systemSaveAct = new QAction(QIcon(":/images/filesave.png"), tr("Save GT System Data..."), this);
+	systemSaveAct = new QAction(QIcon(":/images/filesave.png"), tr("Save System and Global Data to File..."), this);
 	systemSaveAct->setShortcut(tr("Ctrl+D"));
 	systemSaveAct->setStatusTip(tr("Save System Data to File"));
 	connect(systemSaveAct, SIGNAL(triggered()), this, SLOT(systemSave()));
+		
+	bulkLoadAct = new QAction(QIcon(":/images/fileopen.png"), tr("&Load Bulk Patch File to GT-10..."), this);
+	bulkLoadAct->setShortcut(tr("Ctrl+B"));
+	bulkLoadAct->setStatusTip(tr("Load Bulk Data to GT-10B"));
+	connect(bulkLoadAct, SIGNAL(triggered()), this, SLOT(bulkLoad()));
+
+	bulkSaveAct = new QAction(QIcon(":/images/filesave.png"), tr("Save Bulk GT-10 Patches to File..."), this);
+	bulkSaveAct->setShortcut(tr("Ctrl+G"));
+	bulkSaveAct->setStatusTip(tr("Save Bulk Data to File"));
+	connect(bulkSaveAct, SIGNAL(triggered()), this, SLOT(bulkSave()));
 
 	exitAct = new QAction(QIcon(":/images/exit.png"),tr("E&xit"), this);
 	exitAct->setShortcut(tr("Ctrl+Q"));
@@ -240,6 +252,7 @@ void mainWindow::createMenus()
 
   QMenu *fileMenu = new QMenu(tr("&File"), this);
 	fileMenu->addAction(openAct);
+	fileMenu->addSeparator();
 	fileMenu->addAction(saveAct);
 	fileMenu->addAction(saveAsAct);
 	fileMenu->addSeparator();
@@ -251,6 +264,9 @@ void mainWindow::createMenus()
 	fileMenu->addSeparator();
   fileMenu->addAction(systemLoadAct);
 	fileMenu->addAction(systemSaveAct);
+	fileMenu->addSeparator();
+	fileMenu->addAction(bulkLoadAct);
+	fileMenu->addAction(bulkSaveAct);
 	fileMenu->addSeparator();
   fileMenu->addAction(exitAct);
 	menuBar->addMenu(fileMenu);
@@ -303,9 +319,9 @@ void mainWindow::open()
 
 	QString fileName = QFileDialog::getOpenFileName(
                 this,
-                "Choose a file",
+                tr("Choose a file"),
                 dir,
-                "for GT-10, GT-10B, or GT-8   (*.syx *.mid *.gxg *.gxb)");
+                tr("for GT-10, GT-10B, or GT-8   (*.syx *.mid *.gxg *.gxb)"));
 	if (!fileName.isEmpty())	
 	{
 		file.setFile(fileName);  
@@ -337,9 +353,9 @@ void mainWindow::save()
 	{
 		QString fileName = QFileDialog::getSaveFileName(
 						this,
-						"Save As",
+						tr("Save As"),
 						dir,
-						"System Exclusive (*.syx)");
+						tr("System Exclusive (*.syx)"));
 		if (!fileName.isEmpty())	
 		{
 			if(!fileName.contains(".syx"))
@@ -372,9 +388,9 @@ void mainWindow::saveAs()
 
 	QString fileName = QFileDialog::getSaveFileName(
                     this,
-                    "Save As",
+                    tr("Save As"),
                     dir,
-                    "System Exclusive (*.syx)");
+                    tr("System Exclusive (*.syx)"));
 	if (!fileName.isEmpty())	
 	{
 		if(!fileName.contains(".syx"))
@@ -404,9 +420,9 @@ void mainWindow::importSMF()
 
 	QString fileName = QFileDialog::getOpenFileName(
                 this,
-                "Choose a file",
+                tr("Choose a file"),
                 dir,
-                "Standard Midi File (*.mid)");
+                tr("Standard Midi File (*.mid)"));
 	if (!fileName.isEmpty())	
 	{
 		file.setFile(fileName);  
@@ -433,9 +449,9 @@ void mainWindow::exportSMF()
 
 	QString fileName = QFileDialog::getSaveFileName(
                     this,
-                    "Export SMF",
+                    tr("Export SMF"),
                     dir,
-                    "Standard Midi File (*.mid)");
+                    tr("Standard Midi File (*.mid)"));
 	if (!fileName.isEmpty())	
 	{
 		if(!fileName.contains(".mid"))
@@ -464,9 +480,9 @@ void mainWindow::openGXG()
 
 	QString fileName = QFileDialog::getOpenFileName(
                 this,
-                "Choose a file",
+                tr("Choose a file"),
                 dir,
-                "Boss Librarian File (*.gxg *.gxb)");
+                tr("Boss Librarian File (*.gxg *.gxb)"));
 	if (!fileName.isEmpty())	
 	{
 		file.setFile(fileName);  
@@ -494,9 +510,9 @@ void mainWindow::saveGXG()
 
 	QString fileName = QFileDialog::getSaveFileName(
                     this,
-                    "Export GXG",
+                    tr("Export GXG"),
                     dir,
-                    "Boss Librarian File (*.gxg)");
+                    tr("Boss Librarian File (*.gxg)"));
 	if (!fileName.isEmpty())	
 	{
 		if(!fileName.contains(".gxg"))
@@ -528,9 +544,9 @@ void mainWindow::systemLoad()
 
 	QString fileName = QFileDialog::getOpenFileName(
                 this,
-                "Choose a file",
+                tr("Choose a file"),
                 dir,
-                "GT10 System Data File (*.GT10_system_syx)");
+                tr("GT10 System Data File (*.GT10_system_syx)"));
 	if (!fileName.isEmpty())	
 	{
 		file.setFile(fileName);  
@@ -570,9 +586,9 @@ void mainWindow::systemLoad()
 	}
          else
              {
-              QString snork = "Ensure connection is active and retry";
+              QString snork = tr("Ensure connection is active and retry");
               QMessageBox *msgBox = new QMessageBox();
-			        msgBox->setWindowTitle(deviceType + " not connected !!");
+			        msgBox->setWindowTitle(deviceType + tr(" not connected !!"));
 		        	msgBox->setIcon(QMessageBox::Information);
 		        	msgBox->setText(snork);
 		        	msgBox->setStandardButtons(QMessageBox::Ok);
@@ -593,9 +609,9 @@ SysxIO *sysxIO = SysxIO::Instance();
 
 	QString fileName = QFileDialog::getSaveFileName(
                     this,
-                    "Save System Data",
+                    tr("Save System Data"),
                     dir,
-                    "System Exclusive File (*.GT10_system_syx)");
+                    tr("System Exclusive File (*.GT10_system_syx)"));
 	if (!fileName.isEmpty())	
 	{
 	  if(!fileName.contains(".GT10_system_syx"))
@@ -617,14 +633,55 @@ SysxIO *sysxIO = SysxIO::Instance();
 	 }
          else
              { 
-              QString snork = "Ensure connection is active and retry<br>";
+              QString snork = tr("Ensure connection is active and retry<br>");
               QMessageBox *msgBox = new QMessageBox();
-			        msgBox->setWindowTitle(deviceType + " not connected !!");
+			        msgBox->setWindowTitle(deviceType + tr(" not connected !!"));
 		        	msgBox->setIcon(QMessageBox::Information);
 		        	msgBox->setText(snork);
 		        	msgBox->setStandardButtons(QMessageBox::Ok);
 		        	msgBox->exec(); 
               };  
+};
+
+void mainWindow::bulkLoad()
+{
+   SysxIO *sysxIO = SysxIO::Instance();
+     if (sysxIO->isConnected())
+	       {	
+		bulkLoadDialog *loadDialog = new bulkLoadDialog(); 
+            loadDialog->exec(); 
+	}
+         else
+             {
+              QString snork = tr("Ensure connection is active and retry");
+              QMessageBox *msgBox = new QMessageBox();
+			        msgBox->setWindowTitle(deviceType + tr(" not connected !!"));
+		        	msgBox->setIcon(QMessageBox::Information);
+		        	msgBox->setText(snork);
+		        	msgBox->setStandardButtons(QMessageBox::Ok);
+		        	msgBox->exec(); 
+              };  
+};
+
+void mainWindow::bulkSave()
+{ 
+     
+ SysxIO *sysxIO = SysxIO::Instance();
+     if (sysxIO->isConnected())
+	       {
+            bulkSaveDialog *bulkDialog = new bulkSaveDialog(); 
+            bulkDialog->exec(); 
+	        }
+           else
+             { 
+              QString snork = tr("Ensure connection is active and retry");
+              QMessageBox *msgBox = new QMessageBox();
+			        msgBox->setWindowTitle(deviceType + tr(" not connected !!"));
+		        	msgBox->setIcon(QMessageBox::Information);
+		        	msgBox->setText(snork);
+		        	msgBox->setStandardButtons(QMessageBox::Ok);
+		        	msgBox->exec(); 
+              };     
 };
 
 /* TOOLS MENU */
@@ -644,6 +701,12 @@ void mainWindow::settings()
 		QString midiOut = QString::number(dialog->midiSettings->midiOutCombo->currentIndex() - 1, 10);
 		QString midiTimeSet =QString::number(dialog->midiSettings->midiTimeSpinBox->value());
 		QString receiveTimeout =QString::number(dialog->midiSettings->midiDelaySpinBox->value());
+		 QString lang;
+    if (dialog->languageSettings->chineseButton->isChecked() ) {lang="3"; }
+    else if (dialog->languageSettings->germanButton->isChecked() ) {lang="2"; }
+    else if (dialog->languageSettings->frenchButton->isChecked() ) {lang="1"; }
+    else /*if (dialog->languageSettings->englishButton->isChecked() )*/ {lang="0"; };
+    preferences->setPreferences("Language", "Locale", "select", lang);
 
 		if(midiIn=="-1") { midiIn = ""; };
 		if(midiOut=="-1") {	midiOut = ""; };
@@ -705,7 +768,7 @@ void mainWindow::about()
 	if(file.open(QIODevice::ReadOnly))
 	{	
 		QMessageBox::about(this, tr("GT-10 Fx FloorBoard - About"), 
-			"GT-10 Fx FloorBoard, " + tr("version") + " " + version + "\n" + file.readAll());
+			tr("GT-10 Fx FloorBoard, ") + tr("version") + " " + version + "<br>" + file.readAll());
 	};
 };
 

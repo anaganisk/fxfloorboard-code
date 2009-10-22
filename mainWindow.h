@@ -55,6 +55,8 @@ public slots:
 	void saveGXG();
 	void systemSave();
 	void systemLoad();
+	void bulkSave();
+	void bulkLoad();
 	void settings();
 	void upload();
 	void help();
@@ -83,6 +85,8 @@ private:
 	QAction *saveGXGAct;
 	QAction *systemLoadAct;
 	QAction *systemSaveAct;
+	QAction *bulkLoadAct;
+	QAction *bulkSaveAct;
 	QAction *exitAct;
 	QAction *settingsAct;
 	QAction *uploadAct;

@@ -34,9 +34,18 @@ int main(int argc, char *argv[])
 {
 	QApplication app(argc, argv);
 
-	/* Loading translation */
+	 Preferences *preferences = Preferences::Instance(); // Load the preferences.
+  QString lang = preferences->getPreferences("Language", "Locale", "select");
+	bool ok;
+	int choice = lang.toInt(&ok, 16);
+ /* Loading translation */
 	QTranslator translator;
-	translator.load("translation");
+	
+	if (choice == 3) {translator.load(":language_ch.qm");  }
+	else if (choice ==2) {translator.load(":language_ge.qm"); }
+	else if (choice ==1) {translator.load(":language_fr.qm"); }
+	else {translator.load(":language_en.qm"); };
+
 	app.installTranslator(&translator);
 	
 	/* Splash Screen setup uses subclassed QSplashScreen for message position controle. */
@@ -57,7 +66,7 @@ int main(int argc, char *argv[])
 	//splash->setWindowOpacity(0.90);
 	splash->setWindowFlags(Qt::WindowStaysOnTopHint | Qt::SplashScreen);
 	
-	Preferences *preferences = Preferences::Instance(); // Load the preferences.
+	//Preferences *preferences = Preferences::Instance(); // Load the preferences.
 	if(preferences->getPreferences("Window", "Splash", "bool")=="true")
 	{
 		splash->show();
@@ -99,7 +108,7 @@ int main(int argc, char *argv[])
 
 	app.processEvents(); 
 
-	bool ok;
+	//bool ok;
 	QString x_str = preferences->getPreferences("Window", "Position", "x");
 	QString y_str = preferences->getPreferences("Window", "Position", "y");
 

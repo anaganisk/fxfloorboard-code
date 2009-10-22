@@ -300,8 +300,8 @@ QTreeWidget* bankTreeList::newTreeList()
 	newTreeList->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
 	
 	QStringList headers;
-	headers << " Double-click tree item to load patch";
-    newTreeList->setHeaderLabels(headers);
+	headers << QObject::tr("Double-click tree item to load patch");
+	newTreeList->setHeaderLabels(headers);
 
   QTreeWidgetItem *temp = new QTreeWidgetItem(newTreeList);
 	temp->setText(0, "Temp");
@@ -698,7 +698,7 @@ void bankTreeList::updatePatch(QString replyMsg)
 	msgText.append("<font size='+1'><b>");
 	msgText.append(QObject::tr("Patch data transfer wrong size or data error"));
 	msgText.append("<b></font><br>");
-	msgText.append(QObject::tr("Please make sure the ") + deviceType + (" is connected correctly and re-try."));
+	msgText.append(QObject::tr("Please make sure the ") + deviceType + QObject::tr(" is connected correctly and re-try."));
 	msgBox->setText(msgText);
 	msgBox->setStandardButtons(QMessageBox::Ok);
 	msgBox->exec();
@@ -716,7 +716,7 @@ void bankTreeList::updatePatch(QString replyMsg)
 	msgText.append("<font size='+1'><b>");
 	msgText.append(QObject::tr("Patch data transfer failed, are the correct midi ports selected?"));
 	msgText.append("<b></font><br>");
-	msgText.append(QObject::tr("Please make sure the ") + deviceType + (" is connected correctly and re-try."));
+	msgText.append(QObject::tr("Please make sure the ") + deviceType + QObject::tr(" is connected correctly and re-try."));
 	msgBox->setText(msgText);
 	msgBox->setStandardButtons(QMessageBox::Ok);
 	msgBox->exec();
@@ -729,10 +729,10 @@ void bankTreeList::updatePatch(QString replyMsg)
 	if (replyMsg.size() > 0){
 		QString snork;
 			snork.append("<font size='-1'>");
-			snork.append("{ size=");
+			snork.append(tr("{ size="));
 			snork.append(QString::number(replyMsg.size()/2, 10));
 			snork.append("}");	
-			snork.append("<br> midi data received");
+			snork.append(tr("<br> midi data received"));
 			for(int i=0;i<replyMsg.size();++i)
 			{
 				snork.append(replyMsg.mid(i, 2));
@@ -744,7 +744,7 @@ void bankTreeList::updatePatch(QString replyMsg)
 			
 		 
 			QMessageBox *msgBox = new QMessageBox();
-			msgBox->setWindowTitle("dBug Result for re-formatted GT-10 patch data");
+			msgBox->setWindowTitle(tr("dBug Result for re-formatted GT-10 patch data"));
 			msgBox->setIcon(QMessageBox::Information);
 			msgBox->setText(snork);
 			msgBox->setStandardButtons(QMessageBox::Ok);
@@ -843,7 +843,7 @@ void bankTreeList::updatePatchNames(QString name)
 	     if(sysxIO->isConnected())
 	     {
 		      emit setStatusSymbol(3);
-		      emit setStatusMessage(tr("Reading patch names"));
+		      emit setStatusMessage(tr("Reading names"));
 	     }
 		  else  
 		    {         

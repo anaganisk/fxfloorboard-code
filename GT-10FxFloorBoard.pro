@@ -37,9 +37,16 @@ DESTDIR = ./packager
 	OBJECTS_DIR += release
 	UI_DIR += ./generatedfiles
 	MOC_DIR += ./generatedfiles/release
-	INCLUDEPATH += ./generatedfiles \
+INCLUDEPATH += ./generatedfiles \
     ./generatedfiles/release \
     .
+    
+TRANSLATIONS = language_fr.ts \
+               language_dk.ts \
+               language_ge.ts \
+               language_ch.ts
+               
+CODECFORTR = UTF-8
 
 DEPENDPATH += .
 QT += xml

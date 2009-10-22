@@ -102,6 +102,7 @@ public:
 	QString temp3_sysxMsg;
 	QString temp4_sysxMsg;
 	QString temp5_sysxMsg;
+	QString bulk;
 
 public slots:
 	void errorSignal(QString errorType, QString errorMsg);
@@ -132,7 +133,7 @@ signals:
 protected :
 	SysxIO();
 	friend class SysxIODestroyer;
-	virtual ~SysxIO() { };
+	virtual ~SysxIO() { }
 
 private:
 	static SysxIO* _instance;

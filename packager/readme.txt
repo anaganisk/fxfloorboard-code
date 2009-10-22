@@ -4,30 +4,25 @@ GT-10FxFloorBoard Copyright (C) 2007, 2008, 2009 Colin Willcocks (gumtownbassman
 =======
 
 
-GT-10FxFloorBoard version 20090919: 19 September 2009
+GT-10FxFloorBoard version 20090930: 30 September 2009
 *****************************************************
 PLEASE FEEL FREE TO DONATE, YOU MAY FREELY USE THIS SOFTWARE, 
- JUST KEEP IN MIND THE 6000 HOURS SPENT OVER 3 YEARS GETTING IT HERE,
+ JUST KEEP IN MIND THE 7000 HOURS SPENT OVER 4 YEARS GETTING IT HERE,
   I WOULD LOVE A BEER!!!. :-)
 but then patches created by you for sharing with all would be nice too.
 you can email patches and custom system settings saved files to the above address.
 ***********************************************************************************
  ********* LATEST FEATURES ADDED****************************************************
+ *Bulk File save/restore in 3 formats *.gxg, *.mid & *.syx so your Boss Librarian can use the Bulk files 
+ and the FxFloorBoard can load in Bulk backups of patches, system and Global data. 
  The editor now supports using Boss Librarian *.gxg files.
  ClipBoard buttons have been added to the main page selectin bar (below) and can copy up to
   5 opened patches for quick comparison. 
-  The ditpages have 5 patch pertial paste buttons added, where the page only part is copyed from
+  The editpages have 5 patch pertial paste buttons added, where the single effect part only part is copyed from
    the associated clipBoard and replaces the current settings for that one effect only.
 
 ********** USEFUL INFORMATION *************
 
-NEW FEATURES FOR THIS RELEASE..
-Multipatch file loading support and support to load/save BOSS Librarian files.
-
-5 way clipboard added, just select copy on any Temp button to copy the current patch settings,
- and press the paste button to recall the copied patch data.
-
-There are features for editing/loading/saving the system & global data
 
 ********* FIRST USE CONNECTION HINTS ************** 
  
@@ -54,6 +49,9 @@ when the desired sound is achieved, you can either save the patch to the GT10 or
 
 h.) To save the patch to the GT10, select a location with a 'single-click' on the Patch-Tree,
 then press the "write/sync" button. 
+
+****************** If there is a problem 'connecting' ensure the GT-10 UNIT ID is set to "1" (factory default) 
+* and the midi channel is set to "1".*************************************************************************
 
 GT10-FxFloorBoard: 
 NOTE: THIS IS AN UNPAID PROJECT, SO FAR INVESTING OVER 6000 HOURS OF MY TIME OVER 3 YEARS, 

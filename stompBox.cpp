@@ -214,7 +214,7 @@ void stompBox::ch_mode_ButtonSignal(bool value)
     if (this->id == 16)
     { 
       emitValueChanged(this->hex1, this->hex2, "00", "void");
-	    this->editDialog->setWindow("Channel Mode");
+	    this->editDialog->setWindow(tr("Channel Mode"));
       emit setEditDialog(this->editDialog);
     };
 };
@@ -858,24 +858,24 @@ void stompBox::updateStompPath()
 {
 	getStompOrder();
 	
-	if (this->id == 0) {this->hexdata_A = "00"; this->hexdata_B = "40"; this->namedata = "CS";   this->fxName = "Compressor";};
-	if (this->id == 1) {this->hexdata_A = "01"; this->hexdata_B = "41"; this->namedata = "OD";   this->fxName = "Distortion";};
-	if (this->id == 2) {this->hexdata_A = "02"; this->hexdata_B = "42"; this->namedata = "CH_A"; this->fxName = "PreAmp/Speaker A";};
-	if (this->id == 3) {this->hexdata_A = "03"; this->hexdata_B = "43"; this->namedata = "CH_B"; this->fxName = "PreAmp/Speaker B";};
-	if (this->id == 4) {this->hexdata_A = "04"; this->hexdata_B = "44"; this->namedata = "EQ";   this->fxName = "Equalizer";};
-	if (this->id == 5) {this->hexdata_A = "05"; this->hexdata_B = "45"; this->namedata = "FX1";  this->fxName = "FX-1";};
-	if (this->id == 6) {this->hexdata_A = "06"; this->hexdata_B = "46"; this->namedata = "FX2";  this->fxName = "FX-2";};
-	if (this->id == 7) {this->hexdata_A = "07"; this->hexdata_B = "47"; this->namedata = "DD";   this->fxName = "Delay";};
-	if (this->id == 8) {this->hexdata_A = "08"; this->hexdata_B = "48"; this->namedata = "CE";   this->fxName = "Chorus";};
-	if (this->id == 9) {this->hexdata_A = "09"; this->hexdata_B = "49"; this->namedata = "RV";   this->fxName = "Reverb";};
-	if (this->id == 10){this->hexdata_A = "0A"; this->hexdata_B = "4A"; this->namedata = "PDL";  this->fxName = "Pedal";};
-	if (this->id == 11){this->hexdata_A = "0B"; this->hexdata_B = "4B"; this->namedata = "FV";   this->fxName = "Volume";};
-	if (this->id == 12){this->hexdata_A = "0C"; this->hexdata_B = "4C"; this->namedata = "NS_1"; this->fxName = "Noise Suppressor 1";};
-	if (this->id == 13){this->hexdata_A = "0D"; this->hexdata_B = "4D"; this->namedata = "NS_2"; this->fxName = "Noise Suppressor 2";};
-	if (this->id == 14){this->hexdata_A = "0E"; this->hexdata_B = "4E"; this->namedata = "LP";   this->fxName = "Send/Return";};
-	if (this->id == 15){this->hexdata_A = "0F"; this->hexdata_B = "4F"; this->namedata = "DGT";  this->fxName = "Digital Out";};
-	if (this->id == 16){this->hexdata_A = "10"; this->hexdata_B = "10"; this->namedata = "CN_S"; this->fxName = "PreAmp CH Mode";};
-	if (this->id == 17){this->hexdata_A = "11"; this->hexdata_B = "11"; this->namedata = "CN_M"; this->fxName = "Chain Merge";};
+	if (this->id == 0) {this->hexdata_A = "00"; this->hexdata_B = "40"; this->namedata = "CS";   this->fxName = tr("Compressor");};
+	if (this->id == 1) {this->hexdata_A = "01"; this->hexdata_B = "41"; this->namedata = "OD";   this->fxName = tr("Distortion");};
+	if (this->id == 2) {this->hexdata_A = "02"; this->hexdata_B = "42"; this->namedata = "CH_A"; this->fxName = tr("PreAmp/Speaker A");};
+	if (this->id == 3) {this->hexdata_A = "03"; this->hexdata_B = "43"; this->namedata = "CH_B"; this->fxName = tr("PreAmp/Speaker B");};
+	if (this->id == 4) {this->hexdata_A = "04"; this->hexdata_B = "44"; this->namedata = "EQ";   this->fxName = tr("Equalizer");};
+	if (this->id == 5) {this->hexdata_A = "05"; this->hexdata_B = "45"; this->namedata = "FX1";  this->fxName = tr("FX-1");};
+	if (this->id == 6) {this->hexdata_A = "06"; this->hexdata_B = "46"; this->namedata = "FX2";  this->fxName = tr("FX-2");};
+	if (this->id == 7) {this->hexdata_A = "07"; this->hexdata_B = "47"; this->namedata = "DD";   this->fxName = tr("Delay");};
+	if (this->id == 8) {this->hexdata_A = "08"; this->hexdata_B = "48"; this->namedata = "CE";   this->fxName = tr("Chorus");};
+	if (this->id == 9) {this->hexdata_A = "09"; this->hexdata_B = "49"; this->namedata = "RV";   this->fxName = tr("Reverb");};
+	if (this->id == 10){this->hexdata_A = "0A"; this->hexdata_B = "4A"; this->namedata = "PDL";  this->fxName = tr("Pedal");};
+	if (this->id == 11){this->hexdata_A = "0B"; this->hexdata_B = "4B"; this->namedata = "FV";   this->fxName = tr("Volume");};
+	if (this->id == 12){this->hexdata_A = "0C"; this->hexdata_B = "4C"; this->namedata = "NS_1"; this->fxName = tr("Noise Suppressor 1");};
+	if (this->id == 13){this->hexdata_A = "0D"; this->hexdata_B = "4D"; this->namedata = "NS_2"; this->fxName = tr("Noise Suppressor 2");};
+	if (this->id == 14){this->hexdata_A = "0E"; this->hexdata_B = "4E"; this->namedata = "LP";   this->fxName = tr("Send/Return");};
+	if (this->id == 15){this->hexdata_A = "0F"; this->hexdata_B = "4F"; this->namedata = "DGT";  this->fxName = tr("Digital Out");};
+	if (this->id == 16){this->hexdata_A = "10"; this->hexdata_B = "10"; this->namedata = "CN_S"; this->fxName = tr("PreAmp CH Mode");};
+	if (this->id == 17){this->hexdata_A = "11"; this->hexdata_B = "11"; this->namedata = "CN_M"; this->fxName = tr("Chain Merge");};
 	
 
      int hex_A = stompOrderName.indexOf("CN_S");

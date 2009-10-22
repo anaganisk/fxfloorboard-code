@@ -31,24 +31,22 @@
 class QListWidget;
 class QListWidgetItem;
 class QStackedWidget;
-
 class preferencesDialog : public QDialog
 {
 	Q_OBJECT
 
 public:
 	preferencesDialog();
-
 	GeneralPage* generalSettings;
 	MidiPage* midiSettings;
 	WindowPage* windowSettings;
+	LanguagePage* languageSettings;
 
 public slots:
 	void changePage(QListWidgetItem *current, QListWidgetItem *previous);
 
 private:
 	void createIcons();
-
 	QListWidget *contentsWidget;
 	QStackedWidget *pagesWidget;
 };

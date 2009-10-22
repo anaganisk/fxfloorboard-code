@@ -43,6 +43,7 @@
         <file>images/knobbg.png</file>
         <file>images/knobbgn.png</file>
         <file>images/knobbgt.png</file>
+        <file>images/language.png</file>
         <file>images/led.png</file>
         <file>images/ledbutton.png</file>
         <file>images/licence.png</file>
@@ -79,6 +80,9 @@
         <file>images/upload.png</file>
         <file>images/window.png</file>
         <file>images/windowicon.png</file>
+        <file>language_fr.qm</file>
+        <file>language_ge.qm</file>
+        <file>language_ch.qm</file>
         <file>license.txt</file>
         <file>midi.xml</file>
         <file>preferences.xml.dist</file>

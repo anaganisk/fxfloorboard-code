@@ -80,9 +80,9 @@ void stompbox_fx2::setEditPages()
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 
 	editDetails()->page()->newGroupBox("Auto Wah");
-	editDetails()->page()->addKnob(0, 3, 1, 1, "06", "00", "15", "normal","right", 105);  // freq
+	editDetails()->page()->addKnob(0, 3, 1, 1, "06", "00", "15");  // freq
 	editDetails()->page()->addKnob(0, 1, 1, 1, "06", "00", "16");  // peak
-	editDetails()->page()->addKnob(0, 2, 1, 1, "06", "00", "17");   // rate
+	editDetails()->page()->addKnob(0, 2, 1, 1, "06", "00", "17", "normal","right", 105);   // rate
 	editDetails()->page()->addKnob(0, 4, 1, 1, "06", "00", "18");   // depth
 	editDetails()->page()->addGroupBox(0, 1, 1, 1);
 
