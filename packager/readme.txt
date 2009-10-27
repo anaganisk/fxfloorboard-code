@@ -4,11 +4,15 @@ GT-10BFxFloorBoard Copyright (C) 2007, 2008, 2009 Colin Willcocks (gumtownbassma
 =======
 
 
-GT-10BFxFloorBoard version 20090913: 13 September 2009
+GT-10BFxFloorBoard version 20090929: 29 September 2009
 
 PLEASE FEEL FREE TO DONATE, YOU MAY FREELY USE THIS SOFTWARE, 
- JUST KEEP IN MIND THE 6000 HOURS SPENT OVER 3 YEARS GETTING IT HERE,
+ JUST KEEP IN MIND THE 7000 HOURS SPENT OVER 4 YEARS GETTING IT HERE,
  SO FAR WITH LITTLE REWARD. I WOULD LOVE A BEER!!!. :-)
+ 
+ ******************LATEST FEATURE***********************
+ *Added Bulk File support for saving and loading, complete patch and system & global data backups and restoration now possible. 
+ *5 way clipboard added for patch storage and partial patch pasting of individual effects. 
 
 ******** USEFUL INFORMATION *************
  
@@ -31,7 +35,7 @@ g.) Any knob turning will change the sound of the effect being adjusted, when th
 h.) To save the patch to the GT-10B press the "write/sync" button.
 
 GT10B-FxFloorBoard: 
-NOTE: THIS IS AN UNPAID PROJECT, SO FAR INVESTING OVER 6000 HOURS OF MY TIME OVER 3 YEARS, I WILL NOT ACCEPT LIABILITY FOR ANY DATA LOSS, TO THE BEST OF MY KNOWLEDGE EVERYTHING SHOULD WORK CORRECTLY, BUT SOME FUNCTIONS MAY BE INCORRECT, IF ANYTHING IS FOUND TO NOT FUNCTION CORRECTLY, PLEASE ADVISE ME. 
+NOTE: THIS IS AN UNPAID PROJECT, SO FAR INVESTING OVER 7000 HOURS OF MY TIME OVER 4 YEARS, I WILL NOT ACCEPT LIABILITY FOR ANY DATA LOSS, TO THE BEST OF MY KNOWLEDGE EVERYTHING SHOULD WORK CORRECTLY, BUT SOME FUNCTIONS MAY BE INCORRECT, IF ANYTHING IS FOUND TO NOT FUNCTION CORRECTLY, PLEASE ADVISE ME. 
 
 saved files can be saved/loaded as syx or mid
 the GT-10BFxFloorBoard will also open (guitar version) GT-10 SMF (.mid) files, but with unpredicable reasults.

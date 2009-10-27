@@ -87,7 +87,7 @@ customControlTarget::customControlTarget(QWidget *parent,
 	this->display->setObjectName("editdisplay");
 	this->display->setFixedWidth(lenght);
 	this->display->setFixedHeight(14);
-	this->display->setAlignment(Qt::AlignLeft);
+	this->display->setAlignment(Qt::AlignCenter);
 	this->display->setDisabled(true);	
 	this->display->hide();  // hide the display dialog
 	this->label->setText("TARGET");

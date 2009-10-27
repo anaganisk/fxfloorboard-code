@@ -21,6 +21,7 @@
 **
 ****************************************************************************/
 
+
 #include <QtGui>
 #include "midiIO.h"
 #include "RtMidi.h"
@@ -33,12 +34,12 @@ GeneralPage::GeneralPage(QWidget *parent)
 	Preferences *preferences = Preferences::Instance();
 	QString dir = preferences->getPreferences("General", "Files", "dir");
 
-	QGroupBox *patchGroup = new QGroupBox(tr("Patch folder"));
+	QGroupBox *patchGroup = new QGroupBox(QObject::tr("Patch folder"));
 
-	QLabel *descriptionLabel = new QLabel(tr("Select the default folder for storing patches."));
-	QLabel *dirLabel = new QLabel(tr("Default patch folder:"));
+	QLabel *descriptionLabel = new QLabel(QObject::tr("Select the default folder for storing patches."));
+	QLabel *dirLabel = new QLabel(QObject::tr("Default patch folder:"));
 	QLineEdit *dirEdit = new QLineEdit(dir);
-	QPushButton *browseButton = new QPushButton(tr("Browse"));
+	QPushButton *browseButton = new QPushButton(QObject::tr("Browse"));
 
 	connect(browseButton, SIGNAL(clicked()), this, SLOT(browseDir()));
 
@@ -81,15 +82,15 @@ MidiPage::MidiPage(QWidget *parent)
 	QList<QString> midiInDevices = midi->getMidiInDevices();
 	QList<QString> midiOutDevices = midi->getMidiOutDevices();
 	
-	QGroupBox *midiGroup = new QGroupBox(tr("Midi settings"));
+	QGroupBox *midiGroup = new QGroupBox(QObject::tr("Midi settings"));
 
-	QLabel *mididescriptionLabel = new QLabel(tr("Select your midi in and out device."));
-	QLabel *midiInLabel = new QLabel(tr("Midi in:"));
-	QLabel *midiOutLabel = new QLabel(tr("Midi out:"));
+	QLabel *mididescriptionLabel = new QLabel(QObject::tr("Select your midi in and out device."));
+	QLabel *midiInLabel = new QLabel(QObject::tr("Midi in:"));
+	QLabel *midiOutLabel = new QLabel(QObject::tr("Midi out:"));
 
 	QComboBox *midiInCombo = new QComboBox;
 	this->midiInCombo = midiInCombo;
-	midiInCombo->addItem(tr("Select midi-in device"));
+	midiInCombo->addItem(QObject::tr("Select midi-in device"));
 	id = 0;
 	for (QList<QString>::iterator dev = midiInDevices.begin(); dev != midiInDevices.end(); ++dev)
     {
@@ -105,11 +106,11 @@ MidiPage::MidiPage(QWidget *parent)
   {
     int inputDevice = midiInDevices.indexOf("BOSS GT-10B") + 1;
     midiInCombo->setCurrentIndex(inputDevice);
-  }; 
+	};
 	
 	QComboBox *midiOutCombo = new QComboBox;
 	this->midiOutCombo = midiOutCombo;
-	midiOutCombo->addItem(tr("Select midi-out device"));
+	midiOutCombo->addItem(QObject::tr("Select midi-out device"));
 	id = 0;
 	for (QList<QString>::iterator dev = midiOutDevices.begin(); dev != midiOutDevices.end(); ++dev)
     {
@@ -121,12 +122,12 @@ MidiPage::MidiPage(QWidget *parent)
 	{
 		midiOutCombo->setCurrentIndex(midiOutDeviceID + 1); // +1 because there is a default entry at 0
 	};
-  if ( midiOutDevices.contains("BOSS GT-10B") )
+	if ( midiOutDevices.contains("BOSS GT-10B") )
   {
     int outputDevice = midiOutDevices.indexOf("BOSS GT-10B") + 1;
     midiOutCombo->setCurrentIndex(outputDevice);
   }; 
-  
+
 	QVBoxLayout *midiLabelLayout = new QVBoxLayout;
 	midiLabelLayout->addWidget(midiInLabel);
 	midiLabelLayout->addWidget(midiOutLabel);
@@ -150,13 +151,13 @@ MidiPage::MidiPage(QWidget *parent)
 
 
 
-	QGroupBox *dBugScreenGroup = new QGroupBox(tr("Advanced settings"));
+	QGroupBox *dBugScreenGroup = new QGroupBox(QObject::tr("Advanced settings"));
 
-	QLabel *dBugDescriptionLabel = new QLabel(tr("Debug mode & advanced midi settings."));
+	QLabel *dBugDescriptionLabel = new QLabel(QObject::tr("Debug mode."));
 	//QLabel *midiTimeDescriptionLabel = new QLabel(tr("Data receive wait time."));
 	//QLabel *midiDelayDescriptionLabel = new QLabel(tr("Realtime edit send rate."));
 
-	QCheckBox *dBugCheckBox = new QCheckBox(tr("deBug Mode"));
+	QCheckBox *dBugCheckBox = new QCheckBox(QObject::tr("deBug Mode"));
 	QSpinBox *midiTimeSpinBox = new QSpinBox;
 	QSpinBox *midiDelaySpinBox = new QSpinBox;
 
@@ -171,14 +172,14 @@ MidiPage::MidiPage(QWidget *parent)
 	midiTimeSpinBox->setValue(tempDataWrite);
 	midiTimeSpinBox->setRange(1, 99);
 	midiTimeSpinBox->setPrefix("= ");
-	midiTimeSpinBox->setSuffix("0 milliseconds");
+	midiTimeSpinBox->setSuffix(QObject::tr("0 millisecond"));
 
 	this->midiDelaySpinBox = midiDelaySpinBox;
 	const int minWait = preferences->getPreferences("Midi", "Delay", "set").toInt(&ok, 10);
 	midiDelaySpinBox->setValue(minWait);
 	midiDelaySpinBox->setRange(1, 20);
 	midiDelaySpinBox->setPrefix("= ");
-	midiDelaySpinBox->setSuffix(" times/second");
+	midiDelaySpinBox->setSuffix(QObject::tr(" times/second"));
 
 
 	QVBoxLayout *dBugLabelLayout = new QVBoxLayout;
@@ -197,7 +198,7 @@ MidiPage::MidiPage(QWidget *parent)
 
 	QVBoxLayout *dBugScreenLayout = new QVBoxLayout;
 	dBugScreenLayout->addWidget(dBugDescriptionLabel);
-	//dBugScreenLayout->addSpacing(12);
+
 	dBugScreenLayout->addLayout(dBugSelectLayout);
 
 	dBugScreenGroup->setLayout(dBugScreenLayout);
@@ -218,11 +219,11 @@ WindowPage::WindowPage(QWidget *parent)
 	QString sidepanelRestore = preferences->getPreferences("Window", "Restore", "sidepanel");
 	QString splashScreen = preferences->getPreferences("Window", "Splash", "bool");
 
-	QGroupBox *windowGroup = new QGroupBox(tr("Window settings"));
+	QGroupBox *windowGroup = new QGroupBox(QObject::tr("Window settings"));
 
-	QLabel *restoreDescriptionLabel = new QLabel(tr("Select if you want the window position to be saved on exit."));
-	QCheckBox *windowCheckBox = new QCheckBox(tr("Restore window"));
-	QCheckBox *sidepanelCheckBox = new QCheckBox(tr("Restore sidepanel"));
+	QLabel *restoreDescriptionLabel = new QLabel(QObject::tr("Select if you want the window position to be saved on exit."));
+	QCheckBox *windowCheckBox = new QCheckBox(QObject::tr("Restore window"));
+	QCheckBox *sidepanelCheckBox = new QCheckBox(QObject::tr("Restore sidepanel"));
 	this->windowCheckBox = windowCheckBox;
 	this->sidepanelCheckBox = sidepanelCheckBox;
 
@@ -245,10 +246,10 @@ WindowPage::WindowPage(QWidget *parent)
 	windowLayout->addLayout(restoreLayout);
 	windowGroup->setLayout(windowLayout);
 
-	QGroupBox *splashScreenGroup = new QGroupBox(tr("Show splash screen"));
+	QGroupBox *splashScreenGroup = new QGroupBox(QObject::tr("Show splash screen"));
 
-	QLabel *splashDescriptionLabel = new QLabel(tr("Disable or enable the splash screen."));
-	QCheckBox *splashCheckBox = new QCheckBox(tr("Splash screen"));
+	QLabel *splashDescriptionLabel = new QLabel(QObject::tr("Disable or enable the splash screen."));
+	QCheckBox *splashCheckBox = new QCheckBox(QObject::tr("Splash screen"));
 	this->splashCheckBox = splashCheckBox;
 
 	if(splashScreen=="true")
@@ -275,9 +276,47 @@ WindowPage::WindowPage(QWidget *parent)
 	setLayout(mainLayout);
 };
 
+LanguagePage::LanguagePage(QWidget *parent)
+	: QWidget(parent)
+{
+	Preferences *preferences = Preferences::Instance();
+	QString lang = preferences->getPreferences("Language", "Locale", "select");
+	bool ok;
+	int choice = lang.toInt(&ok, 16);
+  
+	QGroupBox *languageGroup = new QGroupBox(QObject::tr("Language Selection"));
+	
+	QRadioButton *englishButton = new QRadioButton(QObject::tr("English"));
+	this->englishButton = englishButton;
+  this->frenchButton = new QRadioButton(QObject::tr("French"));
+  this->germanButton = new QRadioButton(QObject::tr("German"));
+  this->chineseButton = new QRadioButton(QObject::tr("Chinese (simplified)"));
+  if (choice == 3) {chineseButton->setChecked(true); }
+  else if (choice == 2) {germanButton->setChecked(true); }
+  else if (choice == 1) {frenchButton->setChecked(true); }
+  else {englishButton->setChecked(true); };
+ 
+	QVBoxLayout *languageLayout = new QVBoxLayout;
+	languageLayout->addWidget(englishButton);
+	languageLayout->addWidget(frenchButton);
+	languageLayout->addWidget(germanButton);
+	languageLayout->addWidget(chineseButton);
+	
+  languageGroup->setLayout(languageLayout);
+  
+  QLabel *note = new QLabel(QObject::tr("Changes take effect on next startup" ));
+
+	QVBoxLayout *mainLayout = new QVBoxLayout;
+	mainLayout->addWidget(languageGroup);
+	languageLayout->addSpacing(12);
+	mainLayout->addStretch(1);
+	mainLayout->addWidget(note);
+	setLayout(mainLayout);
+};
+
 void GeneralPage::browseDir()
 {
-	QString dirName = QFileDialog::getExistingDirectory(this, tr("Select the default folder for storing patches."),
+	QString dirName = QFileDialog::getExistingDirectory(this, QObject::tr("Select the default folder for storing patches."),
 		this->dirEdit->text(),
         QFileDialog::ShowDirsOnly);
 	if(!dirName.isEmpty())
@@ -285,3 +324,4 @@ void GeneralPage::browseDir()
 		this->dirEdit->setText(dirName);
 	};
 };
+

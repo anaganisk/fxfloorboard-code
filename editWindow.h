@@ -47,8 +47,8 @@ public:
 	void patchPos(int pos, int len, QString t_hex1, QString t_hex3);
 
 signals:
-	virtual void dialogUpdateSignal();
-	virtual void updateSignal();
+	void dialogUpdateSignal();
+	void updateSignal();
 	void updateSignal_2();
 	void updateDisplay(QString text);
 	void closeWindow();
@@ -78,7 +78,7 @@ private:
 	QLabel* comboBoxLabel;
 	QStackedWidget* pagesWidget;
 	QComboBox* pageComboBox;
-	customControlLabel* swap_Button;
+	//customControlLabel* swap_Button;
 	customControlLabel* temp1_Button;
 	customControlLabel* temp2_Button;
 	customControlLabel* temp3_Button;

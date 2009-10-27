@@ -39,7 +39,7 @@ void menuPage_system::updateSignal()
 
 void menuPage_system::setEditPages()
 {
-	editDetails()->page()->addLabel(0, 0, 1, 1, "***CAUTION*** Settings changes are automatically written to GT-10B");
+	editDetails()->page()->addLabel(0, 0, 1, 1, tr("***CAUTION*** Settings changes are automatically written to GT-10B"));
   editDetails()->page()->newGroupBox("settings");
   editDetails()->page()->addKnob(0, 0, 1, 1, "00", "00", "00", "System"); // lcd contrast
   editDetails()->page()->addLabel(0, 1, 1, 1, "     ");
@@ -106,7 +106,7 @@ void menuPage_system::setEditPages()
   editDetails()->addPage("00", "00", "01", "00", "System");
 
 	
-	editDetails()->page()->newGroupBox("User Options  ***CAUTION*** Settings changes are automatically written to GT-10B");
+	editDetails()->page()->newGroupBox(tr("User Options  ***CAUTION*** Settings changes are automatically written to GT-10B"));
 	editDetails()->page()->newGroupBox("Output");
   editDetails()->page()->addComboBox(0, 0, 1, 1, "00", "00", "4E", "System"); // output mode
   editDetails()->page()->addLabel(0, 1, 1, 1, "     ");
@@ -144,7 +144,7 @@ void menuPage_system::setEditPages()
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
   editDetails()->addPage("00", "00", "01", "01", "System");
 	
-	editDetails()->page()->newGroupBox("Internal Pedals  ***CAUTION*** Settings changes are automatically written to GT-10B");
+	editDetails()->page()->newGroupBox(tr("Internal Pedals  ***CAUTION*** Settings changes are automatically written to GT-10B"));
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "00", "00", "7A", "System"); // exp1 pdl
 	editDetails()->page()->addComboBox(0, 1, 1, 1, "00", "01", "10", "System"); // exp1 setting
 	editDetails()->page()->addComboBox(0, 2, 1, 1, "00", "01", "11", "System"); // exp1 function
@@ -187,7 +187,7 @@ void menuPage_system::setEditPages()
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
   editDetails()->addPage("00", "00", "01", "02", "System");
 	
-	editDetails()->page()->newGroupBox("External pedals  ***CAUTION*** Settings changes are automatically written to GT-10B");
+	editDetails()->page()->newGroupBox(tr("External pedals  ***CAUTION*** Settings changes are automatically written to GT-10B"));
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "00", "00", "7E", "System"); // exp2 pdl
   editDetails()->page()->addComboBox(0, 1, 1, 1, "00", "01", "50", "System"); // exp2 setting
 	editDetails()->page()->addComboBox(0, 2, 1, 1, "00", "01", "51", "System"); // exp2 function
@@ -221,7 +221,7 @@ void menuPage_system::setEditPages()
   editDetails()->addPage("00", "00", "01", "03", "System"); 
   
   
-  editDetails()->page()->newGroupBox("User Category Names  ***CAUTION*** Settings changes are automatically written to GT-10B");
+  editDetails()->page()->newGroupBox(tr("User Category Names  ***CAUTION*** Settings changes are automatically written to GT-10B"));
   //editDetails()->page()->addLabel(0, 0, 1, 1, "THIS AREA IS STILL UNDER CONSTRUCTION !!");
   editDetails()->page()->addNameEdit(0, 0, 1, 1, "00", "02", "00", "System", "8"); //user catagory #1
   editDetails()->page()->addLabel(0, 1, 1, 1, "     ");
@@ -239,7 +239,7 @@ void menuPage_system::setEditPages()
   editDetails()->page()->addGroupBox(0, 0, 1, 1);
   editDetails()->addPage("00", "00", "01", "04", "System"); 
   
-  editDetails()->page()->newGroupBox("MANUAL and OD/DS variations  ***CAUTION*** Settings changes are automatically written to GT-10B");
+  editDetails()->page()->newGroupBox(tr("MANUAL and OD/DS variations  ***CAUTION*** Settings changes are automatically written to GT-10B"));
   editDetails()->page()->newGroupBox("MANUAL settings");
   editDetails()->page()->addComboBox(1, 0, 1, 1, "00", "02", "50", "System"); // manual pedal 1
 	editDetails()->page()->addComboBox(1, 1, 1, 1, "00", "02", "51", "System"); // manual pedal 2
@@ -262,7 +262,7 @@ void menuPage_system::setEditPages()
   
   
   ////// PREAMP #1 //////////PREAMP #1 //////////PREAMP #1 //////////PREAMP #1 //////////PREAMP #1 //////////
-  editDetails()->page()->addLabel(0, 1, 1, 1, "***CAUTION*** Settings changes are automatically written to GT-10B");
+  editDetails()->page()->addLabel(0, 1, 1, 1, tr("***CAUTION*** Settings changes are automatically written to GT-10B"));
   editDetails()->page()->newGroupBox("Effect");
   editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "02", "4D", "System");   // off/on effect
   editDetails()->page()->newStackControl(0);
@@ -569,7 +569,7 @@ void menuPage_system::setEditPages()
 	
 	
 	 ////// PREAMP #2 //////////PREAMP #2 //////////PREAMP #2 //////////PREAMP #2 //////////PREAMP #2 //////////
-  editDetails()->page()->addLabel(0, 1, 1, 1, "***CAUTION*** Settings changes are automatically written to GT-10B");
+  editDetails()->page()->addLabel(0, 1, 1, 1, tr("***CAUTION*** Settings changes are automatically written to GT-10B"));
   editDetails()->page()->newGroupBox("Effect");
   editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "03", "00", "System");   // off/on effect
   editDetails()->page()->newStackControl(0);
@@ -876,7 +876,7 @@ void menuPage_system::setEditPages()
 	
 	
 	 ////// PREAMP #3 //////////PREAMP #3 //////////PREAMP #3 //////////PREAMP #3 //////////PREAMP #3 //////////
-	editDetails()->page()->addLabel(0, 1, 1, 1, "***CAUTION*** Settings changes are automatically written to GT-10B");
+	editDetails()->page()->addLabel(0, 1, 1, 1, tr("***CAUTION*** Settings changes are automatically written to GT-10B"));
   editDetails()->page()->newGroupBox("Effect");
   editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "04", "00", "System");   // off/on effect
   editDetails()->page()->newStackControl(0);

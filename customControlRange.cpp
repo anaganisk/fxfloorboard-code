@@ -130,7 +130,7 @@ void customControlRange::paintEvent(QPaintEvent *)
 };
 
 void customControlRange::dialogUpdateSignal()
-{
+{  
 	SysxIO *sysxIO = SysxIO::Instance();
 	QString valueStr;
 	QString valueHex;

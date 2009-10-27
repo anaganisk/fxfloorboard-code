@@ -172,8 +172,8 @@ void SysxIO::setFileSource(QString area, QByteArray data)
 		msgText.append("<font size='+1'><b>");
 		msgText.append(tr("The file opened contains one or more incorrect checksums."));
 		msgText.append("<b></font><br>");
-		msgText.append(tr("The incorrect values have been corrected where possible.\n" 
-			"If correction was inpossible then some settings might have been reset to zero."));
+		msgText.append(tr("The incorrect values have been corrected where possible.<br>" 
+			"If correction was impossible then some settings might have been reset to zero."));
 		msgBox->setText(msgText);
 		msgBox->setInformativeText(tr("Be aware of possible inconsistencies in this patch!"));
 		msgBox->setDetailedText(errorList);
@@ -278,7 +278,7 @@ void SysxIO::setFileSource(QString area, QString hex1, QString hex2, QString hex
 		this->setDeviceReady(false);
 
 		emit setStatusSymbol(2);
-		emit setStatusMessage("Sending");
+		emit setStatusMessage(tr("Sending"));
 
 		QObject::connect(this, SIGNAL(sysxReply(QString)),	
 			this, SLOT(resetDevice(QString)));
@@ -352,7 +352,7 @@ void SysxIO::setFileSource(QString area, QString hex1, QString hex2, QString hex
 		this->setDeviceReady(false);
 
 		emit setStatusSymbol(2);
-		emit setStatusMessage("Sending");
+		emit setStatusMessage(tr("Sending"));
 
 		QObject::connect(this, SIGNAL(sysxReply(QString)),	
 			this, SLOT(resetDevice(QString)));
@@ -419,7 +419,7 @@ void SysxIO::setFileSource(QString area, QString hex1, QString hex2, QString hex
 			this->setDeviceReady(false);
 
 			emit setStatusSymbol(2);
-			emit setStatusMessage("Sending");
+			emit setStatusMessage(tr("Sending"));
 
 			QObject::connect(this, SIGNAL(sysxReply(QString)),	
 				this, SLOT(resetDevice(QString)));
@@ -657,8 +657,7 @@ bool SysxIO::isConnected()
 void SysxIO::setConnected(bool connected)
 {
 	this->connected = connected;	
-	emit setStatusMessage("Ready");
-	emit setStatusdBugMessage("");
+	emit setStatusMessage(tr("Ready"));
 };
 
 /***************************** deviceReady() ******************************
@@ -829,7 +828,7 @@ void SysxIO::requestPatchChange(int bank, int patch)
 		this, SLOT(namePatchChange()));				// to returnPatchName function.
 	
 	QString midiMsg = getPatchChangeMsg(bank, patch);
-	emit setStatusMessage("Patch change");
+	emit setStatusMessage(tr("Patch change"));
 	this->sendMidi(midiMsg);
 };
   
@@ -937,10 +936,10 @@ void SysxIO::receiveSysx(QString sysxMsg)
 	if (sysxMsg.size() > 0){
 			QString snork;
 			snork.append("<font size='-1'>");
-			snork.append("{ size=");
+			snork.append(tr("{ size="));
 			snork.append(QString::number(sysxMsg.size()/2, 10));
 			snork.append("}");	
-			snork.append("<br> midi data received");
+			snork.append(tr("<br> midi data received"));
 			for(int i=0;i<sysxMsg.size();++i)
 			{
 				snork.append(sysxMsg.mid(i, 2));
@@ -950,12 +949,12 @@ void SysxIO::receiveSysx(QString sysxMsg)
 			snork.replace("F7", "F7 }<br>");
 			snork.replace("F0", "{ F0");
 		  if (sysxMsg == dBug){
-				  snork.append("<br> WARNING: midi data received = data sent");
-				  snork.append("<br> caused by a midi loopback, port change is required");
+				  snork.append(tr("<br> WARNING: midi data received = data sent"));
+				  snork.append(tr("<br> caused by a midi loopback, port change is required"));
 			 };
 
 			QMessageBox *msgBox = new QMessageBox();
-			msgBox->setWindowTitle("dBug Result for received sysx data");
+			msgBox->setWindowTitle(tr("dBug Result for received sysx data"));
 			msgBox->setIcon(QMessageBox::Information);
 			msgBox->setText(snork);
 			msgBox->setStandardButtons(QMessageBox::Ok);
@@ -1048,7 +1047,6 @@ void SysxIO::errorReturn(QString errorType, QString errorMsg)
 {
 		setNoError(false);
 		emit setStatusdBugMessage(this->errorType + "  " + this->errorMsg);
-    SLEEP(2000);
     emit setStatusdBugMessage("");
 		this->errorType = "";
 		this->errorMsg = "";
@@ -1163,9 +1161,9 @@ void SysxIO::systemDataRequest()
          }
          else
              {
-              QString snork = "Ensure connection is active and retry";
+              QString snork = tr("Ensure connection is active and retry");
               QMessageBox *msgBox = new QMessageBox();
-			        msgBox->setWindowTitle(deviceType + " not connected !!");
+			        msgBox->setWindowTitle(deviceType + tr(" not connected !!"));
 		        	msgBox->setIcon(QMessageBox::Information);
 		        	msgBox->setText(snork);
 		        	msgBox->setStandardButtons(QMessageBox::Ok);
@@ -1284,7 +1282,7 @@ void SysxIO::systemReply(QString replyMsg)
 			msgBox->setTextFormat(Qt::RichText);
 			QString msgText;
 			msgText.append("<font size='+1'><b>");
-			msgText.append(tr("The Boss ") + deviceType + (" Effects Processor was not found."));
+			msgText.append(tr("The Boss ") + deviceType + tr(" Effects Processor was not found."));
 			msgText.append("<b></font><br>");
 			msgBox->setText(msgText);
 			msgBox->setStandardButtons(QMessageBox::Ok);

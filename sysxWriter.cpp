@@ -106,7 +106,7 @@ bool sysxWriter::readFile()
 	QString patchNumber;
 	unsigned char r;
 	this->patchList.clear();
-	this->patchList.append("Select Patch");
+	this->patchList.append(QObject::tr("Select Patch"));
   unsigned int a = 11; // locate patch text start position from the start of the file
      for (int h=0;h<patchCount;h++)
        {       
@@ -477,7 +477,7 @@ bool sysxWriter::readFile()
 	QString patchNumber;
 	unsigned char r;
 	this->patchList.clear();
-	this->patchList.append("Select Patch");
+	this->patchList.append(QObject::tr("Select Patch"));
   unsigned int a = 43; // locate patch text start position from the start of the file
      for (int h=0;h<patchCount;h++)
        {       
@@ -560,7 +560,7 @@ bool sysxWriter::readFile()
 	QString patchText;
 	QString patchNumber;
 	this->patchList.clear();
-	this->patchList.append("Select Patch");
+	this->patchList.append(QObject::tr("Select Patch"));
   unsigned int a = data.indexOf(marker, 0); // locate patch start position from the start of the file
    a=a+2;                             // offset is set in front of marker  
      for (int h=0;h<patchCount;h++)
@@ -665,14 +665,14 @@ bool sysxWriter::readFile()
 	msgText.append(QObject::tr("This file is not known to the ") + deviceType);
 	msgText.append("<b></font><br>");
 	if (data.size() == 1763){
-  msgText.append("but appears to be a GT-10 patch<br>");};
+  msgText.append(QObject::tr("but appears to be a GT-10 patch<br>"));};
   if (data.size() == 1010){
-  msgText.append("but appears to be a GT-8 patch<br>");};
+  msgText.append(QObject::tr("but appears to be a GT-8 patch<br>"));};
   if (data.size() == 670){
-  msgText.append("but appears to be a GT-6 patch<br>");};
+  msgText.append(QObject::tr("but appears to be a GT-6 patch<br>"));};
   if (data.size() == 650){
-  msgText.append("but appears to be a GT-3 patch<br>");};
- 	msgText.append(QObject::tr("Patch size is ") + (QString::number(data.size(), 10)) + (" bytes, please try another file."));
+  msgText.append(QObject::tr("but appears to be a GT-3 patch<br>"));};
+ 	msgText.append(QObject::tr("Patch size is ") + (QString::number(data.size(), 10)) + QObject::tr(" bytes, please try another file."));
 	msgBox->setText(msgText);
 	msgBox->setStandardButtons(QMessageBox::Ok);
 	msgBox->exec();

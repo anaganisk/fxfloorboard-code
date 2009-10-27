@@ -52,11 +52,11 @@ editWindow::editWindow(QWidget *parent)
 	this->pageComboBox->setFrame(false);
 	this->pageComboBox->setVisible(false);
 
-  this->swap_Button = new customControlLabel;
+  /*this->swap_Button = new customControlLabel;
 	this->swap_Button->setButton(true);
 	this->swap_Button->setImage(":/images/pushbutton_dark.png");
 	this->swap_Button->setText(tr("Pre A/B swap"));
-	this->swap_Button->setAlignment(Qt::AlignCenter);
+	this->swap_Button->setAlignment(Qt::AlignCenter);     */
 	
   this->temp1_Button = new customControlLabel;
 	this->temp1_Button->setButton(true);
@@ -93,7 +93,7 @@ editWindow::editWindow(QWidget *parent)
 	this->closeButton->setImage(":/images/closebutton.png");
 	
 	QHBoxLayout *buttonLayout = new QHBoxLayout;
-	buttonLayout->addWidget(this->swap_Button);
+	//buttonLayout->addWidget(this->swap_Button);
 	buttonLayout->addWidget(this->temp1_Button);
 	buttonLayout->addWidget(this->temp2_Button);
 	buttonLayout->addWidget(this->temp3_Button);
@@ -135,7 +135,7 @@ editWindow::editWindow(QWidget *parent)
 
 	QObject::connect(this->pageComboBox, SIGNAL(activated(int)), this->pagesWidget, SLOT(setCurrentIndex(int)));
 	
-	QObject::connect(this->swap_Button, SIGNAL(mouseReleased()), this, SLOT(hide()));
+	//QObject::connect(this->swap_Button, SIGNAL(mouseReleased()), this, SLOT(hide()));
 	QObject::connect(this->temp1_Button, SIGNAL(mouseReleased()), this, SLOT(temp1()));
 	QObject::connect(this->temp2_Button, SIGNAL(mouseReleased()), this, SLOT(temp2()));
 	QObject::connect(this->temp3_Button, SIGNAL(mouseReleased()), this, SLOT(temp3()));
@@ -210,10 +210,10 @@ void editWindow::addPage(QString hex1, QString hex2, QString hex3, QString hex4,
       this->temp4_Button->hide();
       this->temp5_Button->hide();
     };
-    //if (this->area != "Structure" || this->temp_hex1 != "01" || this->temp_hex3 == "70")
+    /*if (this->area != "Structure" || this->temp_hex1 != "01" || this->temp_hex3 == "70")
      {
        this->swap_Button->hide();
-     };
+     };  */
 	if(hex1 != "void" && hex2 != "void" && hex3 != "void")
 	{
 		MidiTable *midiTable = MidiTable::Instance();
@@ -340,6 +340,7 @@ void editWindow::temp1()
   else 
   {
     QApplication::beep(); 
+    sysxIO->emitStatusdBugMessage(tr("patch must be copied to clipboard first"));  
   };
 };
 
@@ -379,6 +380,7 @@ void editWindow::temp2()
   else 
   {
     QApplication::beep(); 
+    sysxIO->emitStatusdBugMessage(tr("patch must be copied to clipboard first"));  
   };
 };
 
@@ -417,7 +419,8 @@ void editWindow::temp3()
   } 
   else 
   {
-    QApplication::beep(); 
+    QApplication::beep();
+    sysxIO->emitStatusdBugMessage(tr("patch must be copied to clipboard first"));   
   };
 };
 
@@ -457,6 +460,7 @@ void editWindow::temp4()
   else 
   {
     QApplication::beep(); 
+    sysxIO->emitStatusdBugMessage(tr("patch must be copied to clipboard first"));  
   };
 };
 
@@ -496,6 +500,7 @@ void editWindow::temp5()
   else 
   {
     QApplication::beep(); 
+    sysxIO->emitStatusdBugMessage(tr("patch must be copied to clipboard first"));  
   };
 };
 

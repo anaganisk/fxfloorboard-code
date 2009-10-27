@@ -141,7 +141,7 @@ signals:
 protected :
 	SysxIO();
 	friend class SysxIODestroyer;
-	virtual ~SysxIO() { };
+	virtual ~SysxIO() { }
 
 private:
 	static SysxIO* _instance;

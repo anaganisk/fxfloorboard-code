@@ -44,7 +44,7 @@
 bulkLoadDialog::bulkLoadDialog()
 { 
 
-  Qt::WindowStaysOnTopHint;
+  //Qt::WindowStaysOnTopHint;
   QLabel *startListLabel = new QLabel(tr("Starting from"));
   this->startPatchCombo = new QComboBox(this);
   QLabel *finishListLabel = new QLabel(tr("Finishing at"));
@@ -95,20 +95,20 @@ bulkLoadDialog::bulkLoadDialog()
   patchRangeGroup->setLayout(dataRangeLayout);
 
   this->startButton = new QPushButton(this);
-  this->startButton->setText("Start");
+  this->startButton->setText(tr("Start"));
   connect(startButton, SIGNAL(clicked()), this, SLOT(sendData()));
   
   this->completedButton = new QPushButton(this);
-  this->completedButton->setText("DATA TRANSFER COMPLETED");
+  this->completedButton->setText(tr("DATA TRANSFER COMPLETED"));
   this->completedButton->hide();
   connect(completedButton, SIGNAL(clicked()), this, SLOT(close()));
   
 	this->cancelButton = new QPushButton(this);
-	this->cancelButton->setText("Cancel");
+	this->cancelButton->setText(tr("Cancel"));
   connect(cancelButton, SIGNAL(clicked()), this, SLOT(close()));
   
   this->progressLabel = new QLabel(this);
-  this->progressLabel->setText("Full Restoration may take up to 2 minutes");
+  this->progressLabel->setText(tr("Full Restoration may take up to 2 minutes"));
   this->bytesLabel = new QLabel(this);
   this->bytesLabel->setText("");
   
@@ -164,9 +164,9 @@ bulkLoadDialog::bulkLoadDialog()
 
 	QString fileName = QFileDialog::getOpenFileName(
                 this,
-                "Choose a file",
+                tr("Choose a file"),
                 dir,
-                "GT10B Bulk Data File (*.gxb *.syx *.mid)");
+                tr("GT10B Bulk Data File (*.gxb *.syx *.mid)"));
 	if (!fileName.isEmpty())	
 	{
 	
@@ -224,7 +224,7 @@ void bulkLoadDialog::comboValueChanged(int value)
   else if (finishList < startList) {this->finishPatchCombo->setCurrentIndex(startList); }; 
   int x = (bankStart+(finishList-startList));
   if (x<0) {x=0; } else if (x>199) { x=199; bankStart=199-(finishList-startList);  startRangeComboBox->setCurrentIndex(199-(finishList-startList)); };
-  QString text = "Finish at U";
+  QString text = tr("Finish at U");
   int y = x/4; y = y*4; y=x-y;
   text.append(QString::number((x/4)+1, 10).toUpper() );
   text.append("-");
@@ -335,10 +335,10 @@ void bulkLoadDialog::sendSequence(QString value)
         };
         int bf = patchCount-1;
         if(steps>bf) {this->completedButton->show();        
-          this->progressLabel->setText("Bulk data transfer completed!!");   };
+          this->progressLabel->setText(tr("Bulk data transfer completed!!"));   };
         
   QString patchNumber = QString::number(bank/4, 10).toUpper();
-  patchNumber.prepend( "User Patch U" );
+  patchNumber.prepend(tr( "User Patch U" ));
   patchNumber.append("-");
   patchNumber.append( QString::number(patch, 10).toUpper() );
   patchNumber.append("     ");
@@ -346,10 +346,10 @@ void bulkLoadDialog::sendSequence(QString value)
   patchText=patchNumber;   
   this->progressLabel->setText(patchText);                        //display the patch number and name.
   
-  patchNumber = "File build size = ";
+  patchNumber = tr("File build size = ");
   dataSent = dataSent+(msg.size()/2);
   patchNumber.append(QString::number(dataSent, 10).toUpper() );
-  patchNumber.append(" bytes");
+  patchNumber.append(tr(" bytes"));
   this->bytesLabel->setText(patchNumber);                         //display the bulk data size.
         ++steps;
 	      ++patch; 
@@ -358,7 +358,7 @@ void bulkLoadDialog::sendSequence(QString value)
   } else {
   QObject::disconnect(sysxIO, SIGNAL(sysxReply(QString)), this, SLOT(sendSequence(QString)));
   sysxIO->setDeviceReady(true); // Free the device after finishing interaction.
-  setStatusMessage("Ready");
+  setStatusMessage(tr("Ready"));
   SLEEP(3000);
   close();  
   };      
@@ -393,7 +393,7 @@ void bulkLoadDialog::updatePatch()
    this->finishPatchCombo->addItems(patchList);
    this->finishPatchCombo->setCurrentIndex(patchCount-1);     // set the finish combobox index to the end of the list.
    this->startPatchCombo->setCurrentIndex(0);
-   QString text = "Finish at U";
+   QString text = tr("Finish at U");
    if (patchCount<4) {patchCount=4; };
    text.append(QString::number(patchCount/4, 10).toUpper() );
    text.append("-x");

@@ -24,6 +24,7 @@
 
 customSplashScreen::customSplashScreen(const QPixmap& pixmap)
 {
+  Qt::WindowStaysOnTopHint;
 	QSplashScreen::setPixmap(pixmap);
 };
 

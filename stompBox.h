@@ -81,7 +81,7 @@ public:
 	virtual void setEditPages() {};
 	editWindow* editDetails();
 	void getStompOrder();
-	
+
 
 public slots:
 	void updatePos(signed int offsetDif);

@@ -60,13 +60,13 @@ bulkSaveDialog::bulkSaveDialog()
 	this->startRangeSpinBox = startRangeSpinBox;
 	startRangeSpinBox->setValue(1);
 	startRangeSpinBox->setRange(1, 50);
-	startRangeSpinBox->setPrefix("Start at U");
+	startRangeSpinBox->setPrefix(tr("Start at U"));
 	startRangeSpinBox->setSuffix("-1");
 
 	this->finishRangeSpinBox = finishRangeSpinBox;
 	finishRangeSpinBox->setValue(50);    
 	finishRangeSpinBox->setRange(1, 50);
-	finishRangeSpinBox->setPrefix("Finish at U");
+	finishRangeSpinBox->setPrefix(tr("Finish at U"));
 	finishRangeSpinBox->setSuffix("-4");
 
 	QVBoxLayout *rangeLabelLayout = new QVBoxLayout;
@@ -92,20 +92,20 @@ bulkSaveDialog::bulkSaveDialog()
   patchRangeGroup->setLayout(dataRangeLayout);
 
   this->startButton = new QPushButton(this);
-  this->startButton->setText("Start");
+  this->startButton->setText(tr("Start"));
   connect(startButton, SIGNAL(clicked()), this, SLOT(backup()));
   
   this->completedButton = new QPushButton(this);
-  this->completedButton->setText("DATA TRANSFER COMPLETED");
+  this->completedButton->setText(tr("DATA TRANSFER COMPLETED"));
   this->completedButton->hide();
   connect(completedButton, SIGNAL(clicked()), this, SLOT(close()));
   
 	this->cancelButton = new QPushButton(this);
-	this->cancelButton->setText("Cancel");
+	this->cancelButton->setText(tr("Cancel"));
   connect(cancelButton, SIGNAL(clicked()), this, SLOT(close()));
   
   this->progressLabel = new QLabel(this);
-  this->progressLabel->setText("Full Backup may take up to 2 minutes");
+  this->progressLabel->setText(tr("Full Backup may take up to 2 minutes"));
   this->bytesLabel = new QLabel(this);
   this->bytesLabel->setText("");
   
@@ -295,7 +295,7 @@ void bulkSaveDialog::updatePatch(QString replyMsg)
   if (bank >= bf) 
       {                                                            // check if nearly finished.
         this->completedButton->show();        
-        this->progressLabel->setText("Bulk data transfer completed!!");              
+        this->progressLabel->setText(tr("Bulk data transfer completed!!"));              
       };              
   if (bank<(bankFinish+1)*4 )
   {      
@@ -315,7 +315,7 @@ void bulkSaveDialog::updatePatch(QString replyMsg)
         
   QString patchNumber = QString::number(bank/4, 10).toUpper();
   if (patchNumber.size()<2) { patchNumber.prepend("0"); };
-  patchNumber.prepend( "User Patch U" );
+  patchNumber.prepend(tr( "User Patch U" ));
   patchNumber.append("-");
   patchNumber.append( QString::number(patch, 10).toUpper() );
   patchNumber.append("     ");
@@ -323,16 +323,16 @@ void bulkSaveDialog::updatePatch(QString replyMsg)
   patchText=patchNumber;   
   this->progressLabel->setText(patchText);                        //display the patch number and name.
   
-  patchNumber = "File build size = ";
+  patchNumber = tr("File build size = ");
   int size = (bulk.size()/2)+1777;
   patchNumber.append(QString::number(size, 10).toUpper() );
-  patchNumber.append(" bytes");
+  patchNumber.append(tr(" bytes"));
   this->bytesLabel->setText(patchNumber);                         //display the bulk data size.
   
-  setStatusMessage("Bulk Download");  
+  setStatusMessage(tr("Bulk Download"));  
   requestPatch(bank/4, patch);                                   //request the next patch.
   } else {
-  setStatusMessage("Ready");
+  setStatusMessage(tr("Ready"));
   sysxIO->bulk = this->bulk;
   if (this->gxbButton->isChecked() ) { writeGXB(); };                      // format and write bulk patches.
   if (this->syxButton->isChecked() ) { writeSYX(); };
@@ -355,9 +355,9 @@ void bulkSaveDialog::writeGXB()         // ************************************ 
 
           	QString fileName = QFileDialog::getSaveFileName(
                     this,
-                    "Save Bulk Data",
+                    tr("Save Bulk Data"),
                     dir,
-                    "Librarian Backup File (*.gxb)");
+                    tr("Librarian Backup File (*.gxb)"));
 	             if (!fileName.isEmpty())	
                 	{
 	                  if(!fileName.contains(".gxb"))
@@ -433,9 +433,9 @@ void bulkSaveDialog::writeSYX()        //********************************* SYX F
 
           	QString fileName = QFileDialog::getSaveFileName(
                     this,
-                    "Save Bulk Data",
+                    tr("Save Bulk Data"),
                     dir,
-                    "System Exclusive Backup File (*.syx)");
+                    tr("System Exclusive Backup File (*.syx)"));
 	             if (!fileName.isEmpty())	
                 	{
 	                  if(!fileName.contains(".syx"))
@@ -469,9 +469,9 @@ void bulkSaveDialog::writeSMF()    // **************************** SMF FILE FORM
 
           	QString fileName = QFileDialog::getSaveFileName(
                     this,
-                    "Save Bulk Data",
+                    tr("Save Bulk Data"),
                     dir,
-                    "Standard Midi Backup File (*.mid)");
+                    tr("Standard Midi Backup File (*.mid)"));
 	             if (!fileName.isEmpty())	
                 	{
 	                  if(!fileName.contains(".mid"))

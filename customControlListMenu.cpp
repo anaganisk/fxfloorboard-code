@@ -73,7 +73,7 @@ customControlListMenu::customControlListMenu(QWidget *parent,
 		mainLayout->setSpacing(0);
 		mainLayout->addStretch(0);
 		mainLayout->addWidget(this->label, 0, Qt::AlignLeft);
-		mainLayout->addWidget(this->controlListComboBox, 0, Qt::AlignLeft);
+		mainLayout->addWidget(this->controlListComboBox, 0, Qt::AlignCenter);
 
 		this->setLayout(mainLayout);
 		this->setFixedHeight(12 + 15);
@@ -88,7 +88,7 @@ customControlListMenu::customControlListMenu(QWidget *parent,
 		mainLayout->setSpacing(0);
 		mainLayout->addStretch(0);
 		mainLayout->addWidget(this->label, 0, Qt::AlignLeft);
-		mainLayout->addWidget(this->controlListComboBox, 0, Qt::AlignLeft);
+		mainLayout->addWidget(this->controlListComboBox, 0, Qt::AlignCenter);
 
 		this->setLayout(mainLayout);
 		this->setFixedHeight(12 + 15);

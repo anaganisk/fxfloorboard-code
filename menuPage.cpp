@@ -130,9 +130,9 @@ void menuPage::menuButtonSignal(bool value)
          }
          else
              {
-              QString snork = "Ensure connection is active and retry";
+              QString snork = tr("Ensure connection is active and retry");
               QMessageBox *msgBox = new QMessageBox();
-			        msgBox->setWindowTitle(deviceType + " not connected !!");
+			        msgBox->setWindowTitle(deviceType + tr(" not connected !!"));
 		        	msgBox->setIcon(QMessageBox::Information);
 		        	msgBox->setText(snork);
 		        	msgBox->setStandardButtons(QMessageBox::Ok);
@@ -255,7 +255,7 @@ void menuPage::systemReply(QString replyMsg)
 			msgBox->setTextFormat(Qt::RichText);
 			QString msgText;
 			msgText.append("<font size='+1'><b>");
-			msgText.append(tr("The Boss ") + deviceType + (" Effects Processor was not found."));
+			msgText.append(tr("The Boss ") + deviceType + tr(" Effects Processor was not found."));
 			msgText.append("<b></font><br>");
 			msgBox->setText(msgText);
 			msgBox->setStandardButtons(QMessageBox::Ok);
@@ -372,10 +372,10 @@ void menuPage::emitValueChanged(QString hex1, QString hex2, QString hex3, QStrin
 		}
 		else
 		{
-		  if (this->id == 18){this->fxName = "System settings"; this->area_mode = "System";   };
-		  if (this->id == 19){this->fxName = "System Midi";     this->area_mode = "System";   };
-		  if (this->id == 20){this->fxName = "Assigns";         this->area_mode = "Structure";};
-		  if (this->id == 21){this->fxName = "Master";          this->area_mode = "Structure";};
+		  if (this->id == 18){this->fxName = tr("System settings"); this->area_mode = "System";   };
+		  if (this->id == 19){this->fxName = tr("System Midi");     this->area_mode = "System";   };
+		  if (this->id == 20){this->fxName = tr("Assigns");         this->area_mode = "Structure";};
+		  if (this->id == 21){this->fxName = tr("Master");          this->area_mode = "Structure";};
 		};
 	};
 

@@ -29,6 +29,8 @@
 #include "floorBoard.h"
 #include "sysxWriter.h"
 #include "MidiTable.h"
+#include <QPrintDialog>
+#include <QPrinter>
 
 class mainWindow : public QWidget
 //class mainWindow : public QMainWindow
@@ -59,11 +61,13 @@ public slots:
 	void bulkLoad();
 	void settings();
 	void upload();
+	void summaryPage();
 	void help();
 	void homepage();
 	void donate();
 	void license();
 	void about();
+	void print();
 
 private:
 	void createActions();
@@ -89,12 +93,14 @@ private:
 	QAction *exitAct;
 	QAction *settingsAct;
 	QAction *uploadAct;
+	QAction *summaryAct;
 	QAction *helpAct;
 	QAction *homepageAct;
 	QAction *donationAct;
 	QAction *licenseAct;
 	QAction *aboutAct;
 	QAction *aboutQtAct;
+	QAction *printAct;
   //QWidget *bulkDialog;
 	sysxWriter file;
 	floorBoard *fxsBoard;

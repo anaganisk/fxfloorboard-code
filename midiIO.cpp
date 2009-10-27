@@ -70,7 +70,7 @@ void midiIO::queryMidiOutDevices()
    try { midiout = new RtMidiOut(clientName); }   /* RtMidiOut constructor */
    catch (RtError &error) {
     error.printMessage();
-    emit errorSignal("Midi Output Error", "port error");
+    emit errorSignal(tr("Midi Output Error"), tr("port error"));
     goto cleanup; };
    outPorts = midiout->getPortCount();      /* Check outputs. */ 
    for ( unsigned int i=0; i<outPorts; i++ ) {
@@ -79,14 +79,14 @@ void midiIO::queryMidiOutDevices()
         }
     catch (RtError &error) {
       error.printMessage();
-      emit errorSignal("Midi Output Error", "data error");
+      emit errorSignal(tr("Midi Output Error"), tr("data error"));
       goto cleanup; };
 #ifdef Q_OS_WIN
 	/* if we are running msdos based windows, use device numbers instead, UNICODE not supported*/
     if(QSysInfo::WindowsVersion <= QSysInfo::WV_Me) 
 	{
 		char dev = char(i+49); // point to character set numerals
-		QString outstring = ("un-named midi device: ");
+		QString outstring = (tr("un-named midi device: "));
 		outstring.append(dev);
 		this->midiOutDevices.append(outstring);
 	}
@@ -95,7 +95,7 @@ void midiIO::queryMidiOutDevices()
 	this->midiOutDevices.append(QString::fromStdString(portName));
 #endif
   }; 
-  if (outPorts < 1) { this->midiOutDevices.push_back("no midi device available"); };
+  if (outPorts < 1) { this->midiOutDevices.push_back(tr("no midi device available")); };
  /* Clean up */
  cleanup:
   delete midiout;
@@ -120,20 +120,20 @@ void midiIO::queryMidiInDevices()
   try { midiin = new RtMidiIn(clientName); }    /* RtMidiIn constructor */
   catch (RtError &error) {
     error.printMessage();
-    emit errorSignal("Midi Input Error", "port error");
+    emit errorSignal(tr("Midi Input Error"), tr("port error"));
     goto cleanup; };
   inPorts = midiin->getPortCount();   /* Check inputs. */
   for ( unsigned int i=0; i<inPorts; i++ ) {
      try { portName = midiin->getPortName(i); }
      catch (RtError &error) {
         error.printMessage();
-        emit errorSignal("Midi Input Error", "data error");
+        emit errorSignal(tr("Midi Input Error"), tr("data error"));
         goto cleanup; };
 #ifdef Q_OS_WIN
   if(QSysInfo::WindowsVersion <= QSysInfo::WV_Me) 
 	{
 		char dev = char(i+49); // point to character set numerals
-		QString instring = ("un-named midi device: ");
+		QString instring = (tr("un-named midi device: "));
 		instring.append(dev);
 		this->midiInDevices.append(instring);
 	}
@@ -143,7 +143,7 @@ void midiIO::queryMidiInDevices()
 #endif
   };
   if (inPorts < 1) 
-	{ this->midiInDevices.push_back("no midi device available"); };
+	{ this->midiInDevices.push_back(tr("no midi device available")); };
  // Clean up
  cleanup:
   delete midiin;
@@ -198,7 +198,7 @@ void midiIO::sendSyxMsg(QString sysxOutMsg, int midiOutPort)
  catch (RtError &error)
    {
 	  error.printMessage();
-	  emit errorSignal("Syx Output Error", "data error");
+	  emit errorSignal(tr("Syx Output Error"), tr("data error"));
 	  goto cleanup;
     };   
    /* Clean up */
@@ -236,7 +236,7 @@ void midiIO::sendMidiMsg(QString sysxOutMsg, int midiOutPort)
  catch (RtError &error)
    {
 	  error.printMessage();
-	  emit errorSignal("Midi Output Error", "data error");
+	  emit errorSignal(tr("Midi Output Error"), tr("data error"));
 	  goto cleanup;
     };   
    /* Clean up*/
@@ -308,7 +308,7 @@ void midiIO::receiveMsg(QString sysxInMsg, int midiInPort)
 	 catch (RtError &error)
 	 {
 	  error.printMessage();
-	  emit errorSignal("Midi Input Error", "data error");
+	  emit errorSignal(tr("Midi Input Error"), tr("data error"));
 	  goto cleanup;
      };   		
 		/*Clean up */
@@ -401,7 +401,7 @@ void midiIO::run()
 		else 
 		{
 			emit setStatusSymbol(2);
-			emit setStatusMessage("Sending");
+			emit setStatusMessage(tr("Sending"));
 			sendSyxMsg(sysxOutMsg, midiOutPort);
 			Preferences *preferences = Preferences::Instance(); bool ok;// Load the preferences.
 			const int minWait = preferences->getPreferences("Midi", "Delay", "set").toInt(&ok, 10);

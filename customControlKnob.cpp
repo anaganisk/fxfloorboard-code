@@ -107,6 +107,7 @@ customControlKnob::customControlKnob(QWidget *parent,
 	{
 		this->label->setAlignment(Qt::AlignCenter);
 		this->display->setFixedWidth(lenght);
+		this->display->setAlignment(Qt::AlignCenter);
 		
 		QVBoxLayout *mainLayout = new QVBoxLayout;
 		mainLayout->setMargin(0);

@@ -36,17 +36,16 @@ class preferencesDialog : public QDialog
 
 public:
 	preferencesDialog();
-
 	GeneralPage* generalSettings;
 	MidiPage* midiSettings;
 	WindowPage* windowSettings;
+	LanguagePage* languageSettings;
 
 public slots:
 	void changePage(QListWidgetItem *current, QListWidgetItem *previous);
 
 private:
 	void createIcons();
-
 	QListWidget *contentsWidget;
 	QStackedWidget *pagesWidget;
 };

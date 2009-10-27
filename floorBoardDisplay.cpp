@@ -90,8 +90,8 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
 	
 	Preferences *preferences = Preferences::Instance();
 	QString version = preferences->getPreferences("General", "Application", "version");
-	this->patchDisplay->setMainText(deviceType + (" Fx FloorBoard"));
-	this->patchDisplay->setSubText("version", version);
+	this->patchDisplay->setMainText(deviceType + tr(" Fx FloorBoard"));
+	this->patchDisplay->setSubText(tr("version"), version);
 
  	initPatch = new initPatchListMenu(QRect(405, patchDisplayRowOffset+19, 168, 15), this);
   renameWidget *nameEdit = new renameWidget(this); 
@@ -222,7 +222,7 @@ void floorBoardDisplay::setPatchDisplay(QString patchName)
 	if(sysxIO->getFileName() == tr("init patch") || sysxIO->getFileName() == ":default.syx")
 	{
 		sysxIO->setFileName("");
-		this->patchName = "Empty";
+		this->patchName = tr("Empty");
 	}
 	else
 	{
@@ -259,22 +259,22 @@ void floorBoardDisplay::setPatchNumDisplay(int bank, int patch)
 			if(bank <= bankTotalUser)
 		{
 		 this->patchNumDisplay->resetAllColor();
-     this->patchNumDisplay->setSubText("User");
+     this->patchNumDisplay->setSubText(tr("User"));
 		}
 		else if (bank > bankTotalUser && bank <= bankTotalAll)
 		{
 			this->patchNumDisplay->setAllColor(QColor(255,0,0));
-      this->patchNumDisplay->setSubText("Preset");
+      this->patchNumDisplay->setSubText(tr("Preset"));
 		}
     	else if (bank == 101)
 		{
      this->patchNumDisplay->resetAllColor();
-     this->patchNumDisplay->setSubText("Quick");
+     this->patchNumDisplay->setSubText(tr("Quick"));
     }
     else
     {
      this->patchNumDisplay->setAllColor(QColor(255,0,0));
-     this->patchNumDisplay->setSubText("Quick");
+     this->patchNumDisplay->setSubText(tr("Quick"));
     };
 		QString str;
 		if(bank < 51) 
@@ -303,8 +303,8 @@ void floorBoardDisplay::setPatchNumDisplay(int bank, int patch)
 	else
 	{
 		//this->patchNumDisplay->clearAll();
-		this->patchNumDisplay->setSubText("Temp");
-		QString str = "Buffer";
+		this->patchNumDisplay->setSubText(tr("Temp"));
+		QString str = tr("Buffer");
 		this->patchNumDisplay->setMainText(str, Qt::AlignCenter);
 
 	};
@@ -489,6 +489,7 @@ void floorBoardDisplay::temp1_paste(bool value)
   else
   {
    QApplication::beep();
+   sysxIO->emitStatusdBugMessage(tr("patch must be copied to clipboard first"));
   };
 };
 
@@ -536,6 +537,7 @@ void floorBoardDisplay::temp2_paste(bool value)
 	}else
   {
    QApplication::beep();
+   sysxIO->emitStatusdBugMessage(tr("patch must be copied to clipboard first"));
   };
 };
 
@@ -583,6 +585,7 @@ void floorBoardDisplay::temp3_paste(bool value)
 	}else
   {
    QApplication::beep();
+   sysxIO->emitStatusdBugMessage(tr("patch must be copied to clipboard first"));
   };
 };
 
@@ -630,6 +633,7 @@ void floorBoardDisplay::temp4_paste(bool value)
 	}else
   {
    QApplication::beep();
+   sysxIO->emitStatusdBugMessage(tr("patch must be copied to clipboard first"));
   };
 };
 
@@ -677,6 +681,7 @@ void floorBoardDisplay::temp5_paste(bool value)
 	}else
   {
    QApplication::beep();
+   sysxIO->emitStatusdBugMessage(tr("patch must be copied to clipboard first"));
   };
 };
 
@@ -759,7 +764,7 @@ void floorBoardDisplay::connectionResult(QString sysxMsg)
 			msgBox->setTextFormat(Qt::RichText);
 			QString msgText;
 			msgText.append("<font size='+1'><b>");
-			msgText.append(tr("The device connected is not a Boss ") + deviceType + (" Effects Processor."));
+			msgText.append(tr("The device connected is not a Boss ") + deviceType + tr(" Effects Processor."));
 			if (sysxMsg.contains(idRequestString))
 			{msgText.append(tr("<br>Midi loopback detected, ensure midi device 'thru' is switched off.")); };
 			msgText.append("<b></font>");
@@ -785,7 +790,7 @@ void floorBoardDisplay::connectionResult(QString sysxMsg)
 			msgBox->setTextFormat(Qt::RichText);
 			QString msgText;
 			msgText.append("<font size='+1'><b>");
-			msgText.append(tr("The Boss ") + deviceType + (" Effects Processor was not found."));
+			msgText.append(tr("The Boss ") + deviceType + tr(" Effects Processor was not found."));
 			msgText.append(tr("<br><br>Ensure correct midi device is selected in Menu, "));
 			msgText.append(tr("<br>Boss drivers are installed and the GT-10B is switched on,"));
 			msgText.append(tr("<br>and GT-10 USB driver mode is set to advanced"));
@@ -859,14 +864,14 @@ void floorBoardDisplay::writeSignal(bool)
 					msgBox->setTextFormat(Qt::RichText);
 					QString msgText;
 					msgText.append("<font size='+1'><b>");
-					msgText.append(tr("You have chosen to write the patch permanently into ") + deviceType + (" memory."));
+					msgText.append(tr("You have chosen to write the patch permanently into ") + deviceType + tr(" memory."));
 					msgText.append("<b></font><br>");
 					msgText.append(tr("This will overwrite the patch currently stored at patch location<br>"));
 					msgText.append("<font size='+2'><b>");
-					if (bank == 101){ msgText.append(("Quick Effects ") + patchNum); } 
+					if (bank == 101){ msgText.append(tr("Quick Effects ") + patchNum); } 
 					else { msgText.append(bankNum +(":") +patchNum	); };
 					msgText.append("<b></font><br>");
-          msgText.append(tr (" and can't be undone. "));
+          msgText.append(tr(" and can't be undone. "));
 					msgBox->setInformativeText(tr("Are you sure you want to continue?"));
 					msgBox->setText(msgText);
 					msgBox->setStandardButtons(QMessageBox::Yes | QMessageBox::No);
