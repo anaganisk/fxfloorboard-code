@@ -39,13 +39,13 @@
         <file>images/knobbg.png</file>
         <file>images/knobbgn.png</file>
         <file>images/knobbgt.png</file>
+        <file>images/language.png</file>
         <file>images/led.png</file>
         <file>images/ledbutton.png</file>
         <file>images/licence.png</file>
         <file>images/lp.png</file>
         <file>images/menu_pushbutton.png</file>
         <file>images/midi.png</file>
-        <file>images/midi_pushbutton.png</file>
         <file>images/ns.png</file>
         <file>images/od.png</file>
         <file>images/panelbar.png</file>
@@ -72,6 +72,9 @@
         <file>images/window.png</file>
         <file>images/windowicon.png</file>
         <file>HexLookupTable.hex</file>
+        <file>language_fr.qm</file>
+        <file>language_ge.qm</file>
+        <file>language_ch.qm</file>
         <file>license.txt</file>
         <file>midi.xml</file>
         <file>preferences.xml.dist</file>

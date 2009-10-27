@@ -39,8 +39,8 @@ void menuPage_system::updateSignal()
 
 void menuPage_system::setEditPages()
 {
-  editDetails()->page()->addLabel(0, 0, 1, 1, "***CAUTION*** Settings changes are automatically written to GT-Pro");     
-  editDetails()->page()->newGroupBox("SYSTEM SETTINGS");
+  editDetails()->page()->addLabel(0, 0, 1, 1, tr("***CAUTION*** Settings changes are automatically written to GT-Pro"));     
+  editDetails()->page()->newGroupBox(tr("SYSTEM SETTINGS"));
   editDetails()->page()->addKnob(0, 0, 1, 1, "02", "00", "00", "System01"); // lcd contrast
   editDetails()->page()->addComboBox(1, 0, 1, 1, "02", "00", "09", "System01"); // knob mode
   editDetails()->page()->addComboBox(2, 0, 1, 1, "02", "00", "08", "System01"); // assign hold
@@ -74,7 +74,7 @@ void menuPage_system::setEditPages()
 	editDetails()->addPage("30", "00", "01", "00");                                       
     
   
-  editDetails()->page()->addLabel(0, 0, 1, 1, "***CAUTION*** Settings changes are automatically written to GT-Pro");                       
+  editDetails()->page()->addLabel(0, 0, 1, 1, tr("***CAUTION*** Settings changes are automatically written to GT-Pro"));                       
   
 	editDetails()->page()->newGroupBox("LOOP Levels");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "02", "00", "15", "System01"); // loop1/2 send level
@@ -107,7 +107,7 @@ void menuPage_system::setEditPages()
   editDetails()->addPage("30", "00", "01", "01");
 
 
-  editDetails()->page()->addLabel(0, 0, 1, 1, "***CAUTION*** Settings changes are automatically written to GT-Pro");                       
+  editDetails()->page()->addLabel(0, 0, 1, 1, tr("***CAUTION*** Settings changes are automatically written to GT-Pro"));                       
   
   editDetails()->page()->newGroupBox("Output Channel");
   editDetails()->page()->addComboBox(0, 0, 1, 1, "00", "00", "0C", "System01"); // output channel 
@@ -140,7 +140,7 @@ void menuPage_system::setEditPages()
   editDetails()->addPage("30", "00", "01", "02");
                       
 
-	editDetails()->page()->addLabel(0, 0, 1, 1, "***CAUTION*** Settings changes are automatically written to GT-Pro");
+	editDetails()->page()->addLabel(0, 0, 1, 1, tr("***CAUTION*** Settings changes are automatically written to GT-Pro"));
 	editDetails()->page()->newGroupBox("System Midi");	            
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "04", "20", "00", "System01"); // rx channel
 	editDetails()->page()->addComboBox(1, 0, 1, 1, "04", "20", "01", "System01"); // omni mode
@@ -159,7 +159,7 @@ void menuPage_system::setEditPages()
 	editDetails()->page()->addGroupBox(1, 0, 1, 1);
   editDetails()->addPage("30", "00", "01", "03");
   
-  editDetails()->page()->addLabel(0, 0, 1, 1, "***CAUTION*** Settings changes are automatically written to GT-Pro");
+  editDetails()->page()->addLabel(0, 0, 1, 1, tr("***CAUTION*** Settings changes are automatically written to GT-Pro"));
   editDetails()->page()->newGroupBox("MANUAL MODE settings");
   editDetails()->page()->addComboBox(0, 0, 1, 1, "01", "00", "00", "System02"); // manual pedal 1
   editDetails()->page()->addLabel(1, 0, 1, 1, "           ");

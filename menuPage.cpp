@@ -118,9 +118,9 @@ void menuPage::menuButtonSignal(bool value)
          }
          else
             {
-              QString snork = "Ensure connection is set and retry";
+              QString snork = tr("Ensure connection is set and retry");
               QMessageBox *msgBox = new QMessageBox();
-			        msgBox->setWindowTitle(deviceType + " not connected !!");
+			        msgBox->setWindowTitle(deviceType + tr(" not connected !!"));
 		        	msgBox->setIcon(QMessageBox::Information);
 		        	msgBox->setText(snork);
 		        	msgBox->setStandardButtons(QMessageBox::Ok);
@@ -186,7 +186,7 @@ void menuPage::systemReply(QString replyMsg)
 			msgBox->setTextFormat(Qt::RichText);
 			QString msgText;
 			msgText.append("<font size='+1'><b>");
-			msgText.append(tr("The ") + deviceType + (" Editor settings may not be synchronized with the GT-Pro.\n"));
+			msgText.append(tr("The ") + deviceType + tr(" Editor settings may not be synchronized with the GT-Pro.<br>"));
 			msgText.append(tr("To retrieve System Data, ensure the GT-Pro and Editor are 'connected'."));
 			msgText.append("<b></font><br>");
 			msgBox->setText(msgText);
@@ -202,7 +202,7 @@ void menuPage::systemReply(QString replyMsg)
 			msgBox->setTextFormat(Qt::RichText);
 			QString msgText;
 			msgText.append("<font size='+1'><b>");
-			msgText.append(tr("The Boss ") + deviceType + (" reports a Data Error occured during transfer.<br>"));
+			msgText.append(tr("The Boss ") + deviceType + tr(" reports a Data Error occured during transfer.<br>"));
 			msgText.append("<b></font><br>");
 				msgText.append(tr(" please try again."));
 			msgBox->setText(msgText);
@@ -313,9 +313,9 @@ void menuPage::emitValueChanged(QString hex1, QString hex2, QString hex3, QStrin
 		}
 		else
 		{	 
-		  if (this->id == 18)this->fxName = "System settings";
-		  if (this->id == 19)this->fxName = "Custom Settings";
-		  if (this->id == 20)this->fxName = "Assigns";
+		  if (this->id == 18)this->fxName = tr("System settings");
+		  if (this->id == 19)this->fxName = tr("Custom Settings");
+		  if (this->id == 20)this->fxName = tr("Assigns");
 		};
 	};
 

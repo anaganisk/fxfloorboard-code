@@ -81,7 +81,7 @@ mainWindow::mainWindow(QWidget *parent)
 	#endif
 	
 	
-	this->setWindowTitle(deviceType + " Fx FloorBoard");
+	this->setWindowTitle(deviceType + tr(" Fx FloorBoard"));
 	//this->setCentralWidget(fxsBoard);
 	
 	this->createActions();
@@ -282,9 +282,9 @@ void mainWindow::open()
 
 	QString fileName = QFileDialog::getOpenFileName(
                 this,
-                "Choose a file",
+                tr("Choose a file"),
                 dir,
-                "GT-Pro ,GT-8, GT-10 (*.syx *.gte)");
+                tr("GT-Pro ,GT-8, GT-10 (*.syx *.gte)"));
 	if (!fileName.isEmpty())	
 	{
 		file.setFile(fileName);  
@@ -316,9 +316,9 @@ void mainWindow::save()
 	{
 		QString fileName = QFileDialog::getSaveFileName(
 						this,
-						"Save As",
+						tr("Save As"),
 						dir,
-						"System Exclusive (*.syx)");
+						tr("System Exclusive (*.syx)"));
 		if (!fileName.isEmpty())	
 		{
 			if(!fileName.contains(".syx"))
@@ -351,9 +351,9 @@ void mainWindow::saveAs()
 
 	QString fileName = QFileDialog::getSaveFileName(
                     this,
-                    "Save As",
+                    tr("Save As"),
                     dir,
-                    "System Exclusive (*.syx)");
+                    tr("System Exclusive (*.syx)"));
 	if (!fileName.isEmpty())	
 	{
 		if(!fileName.contains(".syx"))
@@ -381,9 +381,9 @@ void mainWindow::openGTE()
 
 	QString fileName = QFileDialog::getOpenFileName(
                 this,
-                "Choose a file",
+                tr("Choose a file"),
                 dir,
-                "Boss Librarian File (*.gte)");
+                tr("Boss Librarian File (*.gte)"));
 	if (!fileName.isEmpty())	
 	{
 		file.setFile(fileName);  
@@ -411,9 +411,9 @@ void mainWindow::saveGTE()
 
 	QString fileName = QFileDialog::getSaveFileName(
                     this,
-                    "Export GTE",
+                    tr("Export GTE"),
                     dir,
-                    "Boss Librarian File (*.gte)");
+                    tr("Boss Librarian File (*.gte)"));
 	if (!fileName.isEmpty())	
 	{
 		if(!fileName.contains(".gte"))
@@ -444,9 +444,9 @@ void mainWindow::systemLoad()
 
 	QString fileName = QFileDialog::getOpenFileName(
                 this,
-                "Choose a file",
+                tr("Choose a file"),
                 dir,
-                "GT-Pro System Data File (*.GTPro_system_syx)");
+                tr("GT-Pro System Data File (*.GTPro_system_syx)"));
 	if (!fileName.isEmpty())	
 	{
 		file.setFile(fileName);  
@@ -509,9 +509,9 @@ SysxIO *sysxIO = SysxIO::Instance();
 
 	QString fileName = QFileDialog::getSaveFileName(
                     this,
-                    "Save System Data",
+                    tr("Save System Data"),
                     dir,
-                    "System Exclusive File (*.GTPro_system_syx)");
+                    tr("System Exclusive File (*.GTPro_system_syx)"));
 	if (!fileName.isEmpty())	
 	{
 	  if(!fileName.contains(".GTPro_system_syx"))
@@ -533,10 +533,10 @@ SysxIO *sysxIO = SysxIO::Instance();
 	 }
          else
              { 
-              QString snork = "DATA TRANSFER REQUIRED<br>"; 
-              snork.append("Ensure connection is active");
+              QString snork = tr("DATA TRANSFER REQUIRED<br>"); 
+              snork.append(tr("Ensure connection is active"));
               QMessageBox *msgBox = new QMessageBox();
-			        msgBox->setWindowTitle(deviceType + " Connection required!!.............");
+			        msgBox->setWindowTitle(deviceType + tr(" Connection required!!............."));
 		        	msgBox->setIcon(QMessageBox::Information);
 		        	msgBox->setText(snork);
 		        	msgBox->setStandardButtons(QMessageBox::Ok);
@@ -565,8 +565,12 @@ void mainWindow::settings()
 		QString sys_Byte2 = QString::number(dialog->midiSettings->sysByteSpinBox2->value());
 		QString sys_Byte3 = QString::number(dialog->midiSettings->sysByteSpinBox3->value());
 		QString sys_Byte4 = QString::number(dialog->midiSettings->sysByteSpinBox4->value());
-
-
+    QString lang;
+    if (dialog->languageSettings->chineseButton->isChecked() ) {lang="3"; }
+    else if (dialog->languageSettings->germanButton->isChecked() ) {lang="2"; }
+    else if (dialog->languageSettings->frenchButton->isChecked() ) {lang="1"; }
+    else  {lang="0"; };
+    preferences->setPreferences("Language", "Locale", "select", lang);
 
 		if(midiIn=="-1") { midiIn = ""; };
 		if(midiOut=="-1") {	midiOut = ""; };
@@ -628,7 +632,7 @@ void mainWindow::about()
 	if(file.open(QIODevice::ReadOnly))
 	{	
 		QMessageBox::about(this, deviceType + tr(" Fx FloorBoard - About"), 
-			deviceType + " Fx FloorBoard, " + tr("version") + " " + version + "\n" + file.readAll());
+			deviceType + tr(" Fx FloorBoard, ") + tr("version") + " " + version + "<br>" + file.readAll());
 	};
 };
 

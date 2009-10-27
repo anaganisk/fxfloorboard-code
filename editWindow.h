@@ -62,7 +62,6 @@ public slots:
 	void temp2();
 	void temp3();
 	void temp4();
-	void temp5();
 	void swap_pre();
 	
 protected:
@@ -80,7 +79,6 @@ private:
 	customControlLabel* temp2_Button;
 	customControlLabel* temp3_Button;
 	customControlLabel* temp4_Button;
-	customControlLabel* temp5_Button;
 	QLabel* title;
 	QLabel* comboBoxLabel;
 	QStackedWidget* pagesWidget;
