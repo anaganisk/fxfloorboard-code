@@ -29,6 +29,7 @@
 #include "customButton.h"
 #include "customDisplay.h"
 #include "initPatchListMenu.h"
+#include "customLabelDisplay.h"
 
 class floorBoardDisplay : public QWidget
 {
@@ -45,6 +46,14 @@ public slots:
 	void setPatchNumDisplay(int bank, int patch);
 	void setPos(QPoint newPos);
 	void updateDisplay();
+	void temp1_copy(bool value);
+	void temp1_paste(bool value);
+	void temp2_copy(bool value);
+	void temp2_paste(bool value);
+	void temp3_copy(bool value);
+	void temp3_paste(bool value);
+	void temp4_copy(bool value);
+	void temp4_paste(bool value);
 	void autoconnect();   
 	void connectSignal(bool value);
 	void writeSignal(bool value);
@@ -77,6 +86,10 @@ private:
 	customDisplay *valueDisplay;
 	customDisplay *patchDisplay;
 	customDisplay *patchNumDisplay;
+	customLabelDisplay *temp1Display;
+	customLabelDisplay *temp2Display;
+	customLabelDisplay *temp3Display;
+	customLabelDisplay *temp4Display;
 
 	customButton *connectButton;
 	customButton *writeButton;
@@ -94,6 +107,16 @@ private:
 	customButton *chorus_Button;
 	customButton *eq_Button;
 	customButton *pedal_Button;
+	customButton *temp1_copy_Button;
+	customButton *temp1_paste_Button;
+	customButton *temp2_copy_Button;
+	customButton *temp2_paste_Button;
+	customButton *temp3_copy_Button;
+	customButton *temp3_paste_Button;
+	customButton *temp4_copy_Button;
+	customButton *temp4_paste_Button;
+	customButton *temp5_copy_Button;
+	customButton *temp5_paste_Button;
 
 	bool connectButtonActive;
   bool patchLoadError;
@@ -102,6 +125,7 @@ private:
 	bool currentSyncStatus;
 
 	initPatchListMenu *initPatch;
+	QString patchName;
 	};
 
 #endif // FLOORBOARDDISPLAY_H

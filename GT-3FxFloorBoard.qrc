@@ -38,6 +38,7 @@
         <file>images/knobbg.png</file>
         <file>images/knobbgn.png</file>
         <file>images/knobbgt.png</file>
+        <file>images/language.png</file>
         <file>images/led.png</file>
         <file>images/ledbutton.png</file>
         <file>images/licence.png</file>
@@ -51,6 +52,7 @@
         <file>images/pre.png</file>
         <file>images/preferences.png</file>
         <file>images/pushbutton.png</file>
+        <file>images/pushbutton_dark.png</file>
         <file>images/qt-logo.png</file>
         <file>images/rv.png</file>
         <file>images/slide.png</file>
@@ -70,6 +72,9 @@
         <file>license.txt</file>
         <file>midi.xml</file>
         <file>preferences.xml.dist</file>
+        <file>language_fr.qm</file>
+        <file>language_ge.qm</file>
+        <file>language_ch.qm</file>
         <file>qss/linux.qss</file>
         <file>qss/macosx.qss</file>
         <file>qss/windows.qss</file>

@@ -30,6 +30,7 @@ stompbox_fx2::stompbox_fx2(QWidget *parent)
 	setLSB("06", "00");
 	setComboBox("06", "00", "01", QRect(8, 31, 79, 13));
 	setButton("06", "00", "00");
+	editDetails()->patchPos(318, 202, "06", "00");
 	setEditPages();
 };
 

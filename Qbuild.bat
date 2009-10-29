@@ -12,9 +12,15 @@ echo *                               or                                 *
 echo *                      Press [3] for "Run only"                    *
 echo *                               or                                 *
 echo *                      Press [4] for "EXIT"                        *
-echo ********************************************************************
+echo *                               or                                	   *
+echo *                      Press [5] to "Generate translation ts scripts" *
+echo *                               or                                    *
+echo *                      Press [6] to "Generated translated qm source"  *
+echo ***********************************************************************
 echo .
-choice /c:1234  Choose an option
+choice /c:123456  Choose an option
+if errorlevel 6 goto F-OPTION
+if errorlevel 5 goto E-OPTION
 if errorlevel 4 goto D-OPTION
 if errorlevel 3 goto C-OPTION
 if errorlevel 2 goto B-OPTION
@@ -42,6 +48,16 @@ goto CHECK
 
 :D-OPTION
 goto END
+
+:E-OPTION
+c:\qt\4.5.1\bin\lupdate.exe GT-3FxFloorBoard.pro
+pause
+goto CHECK
+
+:F-OPTION
+c:\qt\4.5.1\bin\lrelease.exe GT-3FxFloorBoard.pro
+pause
+goto CHECK
 
 :END
 echo .

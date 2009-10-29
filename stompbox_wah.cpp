@@ -30,6 +30,7 @@ stompbox_wah::stompbox_wah(QWidget *parent)
 	setLSB("02", "00");
 	setButton("02", "00", "00", QPoint::QPoint(0, 109), ":/images/pedal.png");
 	setComboBox("02", "00", "01");
+	editDetails()->patchPos(140, 24, "02", "00");
 	setEditPages();
 };
 

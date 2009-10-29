@@ -51,61 +51,89 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
 	this->patchLoadError = false;
 	this->blinkCount = 0;
 	
-	this->patchNumDisplay = new customDisplay(QRect(25, 5, 50, 34), this);
+	int patchDisplayRowOffset = 5;
+	int editButtonRowOffset = 45;
+	int tempRowOffset = 499;
+	int bottomOffset = 544;
+	this->patchNumDisplay = new customDisplay(QRect(25, patchDisplayRowOffset, 50, 34), this);
 	this->patchNumDisplay->setLabelPosition(true);
 	this->patchNumDisplay->setMainObjectName("bankMain");
 	this->patchNumDisplay->setSubObjectName("bankSub");
-	this->patchDisplay = new customDisplay(QRect(85, 5, 150, 34), this);
+	this->patchDisplay = new customDisplay(QRect(85, patchDisplayRowOffset, 150, 34), this);
 	this->patchDisplay->setMainObjectName("nameMain");
 	this->patchDisplay->setSubObjectName("nameSub");
-	this->valueDisplay = new customDisplay(QRect(245, 5, 150, 34), this);
+	this->valueDisplay = new customDisplay(QRect(245, patchDisplayRowOffset, 150, 34), this);
 	this->valueDisplay->setMainObjectName("valueMain");
 	this->valueDisplay->setSubObjectName("valueSub");
 	
+	this->temp1Display = new customLabelDisplay(QRect(10, tempRowOffset+17, 170, 18), this);
+	this->temp1Display->setLabelPosition(true);
+	this->temp1Display->setMainObjectName("nameMain");
+	this->temp1Display->setMainText(tr("Empty"), Qt::AlignCenter);
+	this->temp2Display = new customLabelDisplay(QRect(190, tempRowOffset+17, 170, 18), this);
+	this->temp2Display->setLabelPosition(true);
+	this->temp2Display->setMainObjectName("nameMain");
+	this->temp2Display->setMainText(tr("Empty"), Qt::AlignCenter);
+	this->temp3Display = new customLabelDisplay(QRect(370, tempRowOffset+17, 170, 18), this);
+	this->temp3Display->setLabelPosition(true);
+	this->temp3Display->setMainObjectName("nameMain");
+	this->temp3Display->setMainText(tr("Empty"), Qt::AlignCenter);
+	this->temp4Display = new customLabelDisplay(QRect(550, tempRowOffset+17, 170, 18), this);
+	this->temp4Display->setLabelPosition(true);
+	this->temp4Display->setMainObjectName("nameMain");
+	this->temp4Display->setMainText(tr("Empty"), Qt::AlignCenter);
+
 	Preferences *preferences = Preferences::Instance();
 	QString version = preferences->getPreferences("General", "Application", "version");
-	this->patchDisplay->setMainText(deviceType + (" Fx FloorBoard"));
-	this->patchDisplay->setSubText("version", version);
+	this->patchDisplay->setMainText(deviceType + (tr(" Fx FloorBoard")));
+	this->patchDisplay->setSubText(tr("version"), version);
 
-	initPatch = new initPatchListMenu(QRect(405, 24, 168, 15), this);
+	initPatch = new initPatchListMenu(QRect(405, patchDisplayRowOffset+19, 168, 15), this);
   renameWidget *nameEdit = new renameWidget(this); 
-  nameEdit->setGeometry(85, 5, 150, 34); 
-  customRenameWidget *userDialog = new customRenameWidget(this, "18", "00", "00", "Structure", "20"); 
-  userDialog->setGeometry(500, 462, 262, 25); 
-  customRenameWidget *patchDialog = new customRenameWidget(this, "17", "00", "00", "Structure", "80"); 
-  patchDialog->setGeometry(10, 502, 750, 25); 
-  //customControlListMenu *output = new customControlListMenu(this, "00", "00", "11", "top");
-  //output->setGeometry(860, 5, 150, 30); 
-  //customControlListMenu *catagory = new customControlListMenu(this, "00", "00", "10", "right");
-  //catagory->setGeometry(860, 24, 150, 30); 
+  nameEdit->setGeometry(85, patchDisplayRowOffset, 150, 34); 
+  customRenameWidget *userDialog = new customRenameWidget(this, "18", "00", "00", "Structure", "20");
+  userDialog->setGeometry(500, editButtonRowOffset+5, 262, 25); 
+  customRenameWidget *patchDialog = new customRenameWidget(this, "17", "00", "00", "Structure", "80");
+  patchDialog->setGeometry(10, bottomOffset, 750, 25);  
 
- 	this->connectButton = new customButton(tr("Bulk Mode"), false, QPoint(405, 5), this, ":/images/greenledbutton.png");
-	this->writeButton = new customButton(tr("Write/Sync"), false, QPoint(494, 5), this, ":/images/ledbutton.png");
-	this->assign_Button = new customButton(tr("Assigns"), false, QPoint(584, 5), this, ":/images/pushbutton.png");	
-	this->system_Button = new customButton(tr("System Settings"), false, QPoint(673, 5), this, ":/images/pushbutton.png");
-	this->compressor_Button = new customButton(tr("Compressor"), false, QPoint(673, 24), this, ":/images/pushbutton.png");
-	this->fv_Button = new customButton(tr("Foot Volume"), false, QPoint(584, 24), this, ":/images/pushbutton.png");
+ 	this->connectButton = new customButton(tr("Bulk Mode"), false, QPoint(405, patchDisplayRowOffset), this, ":/images/greenledbutton.png");
+	this->writeButton = new customButton(tr("Write/Sync"), false, QPoint(494, patchDisplayRowOffset), this, ":/images/ledbutton.png");
+	this->assign_Button = new customButton(tr("Assigns"), false, QPoint(584, patchDisplayRowOffset), this, ":/images/pushbutton.png");	
+	this->system_Button = new customButton(tr("System Settings"), false, QPoint(673, patchDisplayRowOffset), this, ":/images/pushbutton.png");
+	this->compressor_Button = new customButton(tr("Compressor"), false, QPoint(673, patchDisplayRowOffset+19), this, ":/images/pushbutton.png");
+	this->fv_Button = new customButton(tr("Foot Volume"), false, QPoint(584, patchDisplayRowOffset+19), this, ":/images/pushbutton.png");
 	
-	this->preamp1_Button = new customButton(tr("PreAmp"), false, QPoint(10, 457), this, ":/images/pushbutton.png");
-	this->pedal_Button = new customButton(tr("Wah"), false, QPoint(10, 475), this, ":/images/pushbutton.png");
-	this->eq_Button = new customButton(tr("Equalizer"), false, QPoint(100, 457), this, ":/images/pushbutton.png");
-	this->chorus_Button = new customButton(tr("Chorus"), false, QPoint(100, 475), this, ":/images/pushbutton.png");
-	this->distortion_Button = new customButton(tr("Distortion"), false, QPoint(190,457), this, ":/images/pushbutton.png");
-	this->ns1_Button = new customButton(tr("NoiseSupp"), false, QPoint(190, 475), this, ":/images/pushbutton.png");
-	this->fx1_Button = new customButton(tr("SFX"), false, QPoint(280, 457), this, ":/images/pushbutton.png");
-	this->fx2_Button = new customButton(tr("MOD"), false, QPoint(280, 475), this, ":/images/pushbutton.png");
-	this->reverb_Button = new customButton(tr("Reverb"), false, QPoint(370, 457), this, ":/images/pushbutton.png");
-	this->delay_Button = new customButton(tr("Delay"), false, QPoint(370, 475), this, ":/images/pushbutton.png");
+	this->preamp1_Button = new customButton(tr("PreAmp"), false, QPoint(10, editButtonRowOffset), this, ":/images/pushbutton.png");
+	this->pedal_Button = new customButton(tr("Wah"), false, QPoint(10, editButtonRowOffset+18), this, ":/images/pushbutton.png");
+	this->eq_Button = new customButton(tr("Equalizer"), false, QPoint(100, editButtonRowOffset), this, ":/images/pushbutton.png");
+	this->chorus_Button = new customButton(tr("Chorus"), false, QPoint(100, editButtonRowOffset+18), this, ":/images/pushbutton.png");
+	this->distortion_Button = new customButton(tr("Distortion"), false, QPoint(190,editButtonRowOffset), this, ":/images/pushbutton.png");
+	this->ns1_Button = new customButton(tr("NoiseSupp"), false, QPoint(190, editButtonRowOffset+18), this, ":/images/pushbutton.png");
+	this->fx1_Button = new customButton(tr("SFX"), false, QPoint(280, editButtonRowOffset), this, ":/images/pushbutton.png");
+	this->fx2_Button = new customButton(tr("MOD"), false, QPoint(280, editButtonRowOffset+18), this, ":/images/pushbutton.png");
+	this->reverb_Button = new customButton(tr("Reverb"), false, QPoint(370, editButtonRowOffset), this, ":/images/pushbutton.png");
+	this->delay_Button = new customButton(tr("Delay"), false, QPoint(370, editButtonRowOffset+18), this, ":/images/pushbutton.png");
+	
+	this->temp1_copy_Button = new customButton(tr("Temp-1 Copy"), false, QPoint(10, tempRowOffset), this, ":/images/pushbutton.png");
+	this->temp1_paste_Button = new customButton(tr("Temp-1 Paste"), false, QPoint(100, tempRowOffset), this, ":/images/pushbutton.png");
+	this->temp2_copy_Button = new customButton(tr("Temp-2 Copy"), false, QPoint(190, tempRowOffset), this, ":/images/pushbutton.png");
+  this->temp2_paste_Button = new customButton(tr("Temp-2 Paste"), false, QPoint(280, tempRowOffset), this, ":/images/pushbutton.png");
+  this->temp3_copy_Button = new customButton(tr("Temp-3 Copy"), false, QPoint(370, tempRowOffset), this, ":/images/pushbutton.png");
+  this->temp3_paste_Button = new customButton(tr("Temp-3 Paste"), false, QPoint(460, tempRowOffset), this, ":/images/pushbutton.png");
+  this->temp4_copy_Button = new customButton(tr("Temp-4 Copy"), false, QPoint(550, tempRowOffset), this, ":/images/pushbutton.png");
+  this->temp4_paste_Button = new customButton(tr("Temp-4 Paste"), false, QPoint(640, tempRowOffset), this, ":/images/pushbutton.png");
+
 	
 	SysxIO *sysxIO = SysxIO::Instance();
 	QObject::connect(this, SIGNAL(setStatusSymbol(int)), sysxIO, SIGNAL(setStatusSymbol(int)));
 	QObject::connect(this, SIGNAL(setStatusProgress(int)), sysxIO, SIGNAL(setStatusProgress(int)));
 	QObject::connect(this, SIGNAL(setStatusMessage(QString)), sysxIO, SIGNAL(setStatusMessage(QString)));
 
-    QObject::connect(sysxIO, SIGNAL(notConnectedSignal()), this, SLOT(notConnected()));
+  QObject::connect(sysxIO, SIGNAL(notConnectedSignal()), this, SLOT(notConnected()));
 	QObject::connect(this, SIGNAL(notConnectedSignal()), this, SLOT(notConnected()));
 
 	QObject::connect(this->parent(), SIGNAL(updateSignal()), this, SLOT(updateDisplay()));
+	QObject::connect(this, SIGNAL(updateSignal()), this->parent(), SIGNAL(updateSignal()));
 
 	QObject::connect(this->connectButton, SIGNAL(valueChanged(bool)), this, SLOT(connectSignal(bool)));
 	QObject::connect(this->writeButton, SIGNAL(valueChanged(bool)), this, SLOT(writeSignal(bool)));
@@ -122,7 +150,16 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
 	QObject::connect(this->eq_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(eq_buttonSignal(bool)));
 	QObject::connect(this->pedal_Button, SIGNAL(valueChanged(bool)), this->parent(), SIGNAL(pedal_buttonSignal(bool)));
 	
-	QString midiIn = preferences->getPreferences("Midi", "MidiIn", "device");
+	QObject::connect(this->temp1_copy_Button, SIGNAL(valueChanged(bool)),  this, SLOT(temp1_copy(bool)));
+	QObject::connect(this->temp1_paste_Button, SIGNAL(valueChanged(bool)), this, SLOT(temp1_paste(bool)));
+	QObject::connect(this->temp2_copy_Button, SIGNAL(valueChanged(bool)),  this, SLOT(temp2_copy(bool)));
+	QObject::connect(this->temp2_paste_Button, SIGNAL(valueChanged(bool)), this, SLOT(temp2_paste(bool)));
+	QObject::connect(this->temp3_copy_Button, SIGNAL(valueChanged(bool)),  this, SLOT(temp3_copy(bool)));
+	QObject::connect(this->temp3_paste_Button, SIGNAL(valueChanged(bool)), this, SLOT(temp3_paste(bool)));
+	QObject::connect(this->temp4_copy_Button, SIGNAL(valueChanged(bool)),  this, SLOT(temp4_copy(bool)));
+	QObject::connect(this->temp4_paste_Button, SIGNAL(valueChanged(bool)), this, SLOT(temp4_paste(bool)));
+
+  QString midiIn = preferences->getPreferences("Midi", "MidiIn", "device");
 	QString midiOut = preferences->getPreferences("Midi", "MidiOut", "device");
 	if(midiIn!="" && midiOut!="") {autoconnect(); };
   };
@@ -152,10 +189,12 @@ void floorBoardDisplay::setPatchDisplay(QString patchName)
 		QString fileName = sysxIO->getFileName();
 		this->patchDisplay->setMainText(patchName);
 		this->patchDisplay->setSubText(fileName.section('/', -1, -1));
+		this->patchName = patchName;
 	};
 	if(sysxIO->getFileName() == tr("init patch") || sysxIO->getFileName() == ":default.syx")
 	{
 		sysxIO->setFileName("");
+		this->patchName = "Empty";
 	}
 	else
 	{
@@ -192,12 +231,12 @@ void floorBoardDisplay::setPatchNumDisplay(int bank, int patch)
 			if(bank <= bankTotalUser)
 		{
 		 this->patchNumDisplay->resetAllColor();
-     this->patchNumDisplay->setSubText("User");
+     this->patchNumDisplay->setSubText(tr("User"));
 		}
 		else
 		{
 			this->patchNumDisplay->setAllColor(QColor(255,0,0));
-      this->patchNumDisplay->setSubText("Preset");
+      this->patchNumDisplay->setSubText(tr("Preset"));
 		};
 		QString str;
 		if (deviceType == "GT-6B"){
@@ -229,9 +268,262 @@ void floorBoardDisplay::setPatchNumDisplay(int bank, int patch)
 	else
 	{
 		//this->patchNumDisplay->clearAll();
-		this->patchNumDisplay->setSubText("Temp");
-		QString str = "Buffer";
+		this->patchNumDisplay->setSubText(tr("Temp"));
+		QString str = tr("Buffer");
 		this->patchNumDisplay->setMainText(str, Qt::AlignCenter);
+	};
+};
+
+void floorBoardDisplay::temp1_copy(bool value)
+{
+  SysxIO *sysxIO = SysxIO::Instance();
+  
+  QList<QString> sysxMsg;
+	QList< QList<QString> > patchData = sysxIO->getFileSource().hex; // Get the loaded patch data.
+	QString addr1 = tempBulkWrite;  // temp address
+	QString addr2 = QString::number(0, 16).toUpper();
+
+	for(int i=0;i<patchData.size();++i)
+	{
+		QList<QString> data = patchData.at(i);
+		for(int x=0;x<data.size();++x)
+		{
+			QString hex;
+			if(x == sysxAddressOffset)
+			{ hex = addr1; }
+			else if(x == sysxAddressOffset + 1)
+			{	hex = addr2; }
+			else
+			{	hex = data.at(x);	};
+			if (hex.length() < 2) hex.prepend("0");
+			sysxMsg.append(hex);
+		}; 
+	}; 
+	if( sysxMsg.size() == patchSize+228)
+	{
+	this->patchName = sysxIO->getCurrentPatchName();
+  this->temp1Display->setMainText(patchName, Qt::AlignCenter);  
+  sysxIO->temp1_sysxMsg = sysxMsg;  
+  } else {
+  QApplication::beep();
+  QString size = QString::number(sysxMsg.size(), 10); 
+  sysxIO->emitStatusdBugMessage(tr("in-consistant patch data detected ") + size + tr("bytes: re-save or re-load file to correct"));
+  }; 
+};
+
+void floorBoardDisplay::temp1_paste(bool value)
+{
+  SysxIO *sysxIO = SysxIO::Instance();
+  if (!sysxIO->temp1_sysxMsg.isEmpty() )
+  {
+  SysxIO *sysxIO = SysxIO::Instance();
+  QList<QString> temp = sysxIO->temp1_sysxMsg;
+  QString sysxMsg;
+  int l=temp.size();
+  for (int x=0; x<l; x++)
+  {
+   	  QString hex;
+			hex = temp.at(x);	
+			if (hex.length() < 2) hex.prepend("0");
+			sysxMsg.append(hex);
+  };
+  sysxIO->setFileSource("Structure", sysxMsg);
+  emit updateSignal();  
+	sysxIO->writeToBuffer();
+	}else
+  {
+   QApplication::beep();
+   sysxIO->emitStatusdBugMessage(tr("patch must be copied to Temp-1 clipboard first"));
+	};
+};
+
+void floorBoardDisplay::temp2_copy(bool value)
+{
+  SysxIO *sysxIO = SysxIO::Instance();
+  
+  QList<QString> sysxMsg;
+	QList< QList<QString> > patchData = sysxIO->getFileSource().hex; // Get the loaded patch data.
+	QString addr1 = tempBulkWrite;  // temp address
+	QString addr2 = QString::number(0, 16).toUpper();
+
+	for(int i=0;i<patchData.size();++i)
+	{
+		QList<QString> data = patchData.at(i);
+		for(int x=0;x<data.size();++x)
+		{
+			QString hex;
+			if(x == sysxAddressOffset)
+			{ hex = addr1; }
+			else if(x == sysxAddressOffset + 1)
+			{	hex = addr2; }
+			else
+			{	hex = data.at(x);	};
+			if (hex.length() < 2) hex.prepend("0");
+			sysxMsg.append(hex);
+		}; 
+	}; 
+	if( sysxMsg.size() == patchSize+228)
+	{
+	this->patchName = sysxIO->getCurrentPatchName();
+  this->temp2Display->setMainText(patchName, Qt::AlignCenter);  
+  sysxIO->temp2_sysxMsg = sysxMsg;  
+  } else {
+  QApplication::beep(); 
+    QString size = QString::number(sysxMsg.size(), 10); 
+  sysxIO->emitStatusdBugMessage(tr("in-consistant patch data detected ") + size + tr("bytes: re-save or re-load file to correct"));
+  }; 
+};
+
+void floorBoardDisplay::temp2_paste(bool value)
+{
+  SysxIO *sysxIO = SysxIO::Instance();
+  if (!sysxIO->temp2_sysxMsg.isEmpty() )
+  {
+  SysxIO *sysxIO = SysxIO::Instance();
+  QList<QString> temp = sysxIO->temp2_sysxMsg;
+  QString sysxMsg;
+  int l=temp.size();
+  for (int x=0; x<l; x++)
+  {
+   	  QString hex;
+			hex = temp.at(x);	
+			if (hex.length() < 2) hex.prepend("0");
+			sysxMsg.append(hex);
+  };
+  sysxIO->setFileSource("Structure", sysxMsg);
+  //sysxIO->setFileSource("patch", temp2_sysxMsg);
+  emit updateSignal();  
+	sysxIO->writeToBuffer();
+	}else
+  {
+   QApplication::beep();
+   sysxIO->emitStatusdBugMessage(tr("patch must be copied to Temp-2 clipboard first"));
+	};
+};
+
+void floorBoardDisplay::temp3_copy(bool value)
+{
+  SysxIO *sysxIO = SysxIO::Instance();
+  
+  QList<QString> sysxMsg;
+	QList< QList<QString> > patchData = sysxIO->getFileSource().hex; // Get the loaded patch data.
+	QString addr1 = tempBulkWrite;  // temp address
+	QString addr2 = QString::number(0, 16).toUpper();
+
+	for(int i=0;i<patchData.size();++i)
+	{
+		QList<QString> data = patchData.at(i);
+		for(int x=0;x<data.size();++x)
+		{
+			QString hex;
+			if(x == sysxAddressOffset)
+			{ hex = addr1; }
+			else if(x == sysxAddressOffset + 1)
+			{	hex = addr2; }
+			else
+			{	hex = data.at(x);	};
+			if (hex.length() < 2) hex.prepend("0");
+			sysxMsg.append(hex);
+		}; 
+	}; 
+	if( sysxMsg.size() == patchSize+228)
+	{
+	this->patchName = sysxIO->getCurrentPatchName();
+  this->temp3Display->setMainText(patchName, Qt::AlignCenter);  
+  sysxIO->temp3_sysxMsg = sysxMsg;  
+  } else {
+  QApplication::beep(); 
+  QString size = QString::number(sysxMsg.size(), 10); 
+  sysxIO->emitStatusdBugMessage(tr("in-consistant patch data detected ") + size + tr("bytes: re-save or re-load file to correct"));
+  };  
+};
+
+void floorBoardDisplay::temp3_paste(bool value)
+{
+  SysxIO *sysxIO = SysxIO::Instance();
+  if (!sysxIO->temp3_sysxMsg.isEmpty() )
+  {
+  SysxIO *sysxIO = SysxIO::Instance();
+  QList<QString> temp = sysxIO->temp3_sysxMsg;
+  QString sysxMsg;
+  int l=temp.size();
+  for (int x=0; x<l; x++)
+  {
+   	  QString hex;
+			hex = temp.at(x);	
+			if (hex.length() < 2) hex.prepend("0");
+			sysxMsg.append(hex);
+  };
+  sysxIO->setFileSource("Structure", sysxMsg);
+  emit updateSignal();  
+	sysxIO->writeToBuffer();
+	}else
+  {
+   QApplication::beep();
+   sysxIO->emitStatusdBugMessage(tr("patch must be copied to Temp-3 clipboard first"));
+	};
+};
+
+void floorBoardDisplay::temp4_copy(bool value)
+{
+ SysxIO *sysxIO = SysxIO::Instance();
+  
+  QList<QString> sysxMsg;
+	QList< QList<QString> > patchData = sysxIO->getFileSource().hex; // Get the loaded patch data.
+	QString addr1 = tempBulkWrite;  // temp address
+	QString addr2 = QString::number(0, 16).toUpper();
+
+	for(int i=0;i<patchData.size();++i)
+	{
+		QList<QString> data = patchData.at(i);
+		for(int x=0;x<data.size();++x)
+		{
+			QString hex;
+			if(x == sysxAddressOffset)
+			{ hex = addr1; }
+			else if(x == sysxAddressOffset + 1)
+			{	hex = addr2; }
+			else
+			{	hex = data.at(x);	};
+			if (hex.length() < 2) hex.prepend("0");
+			sysxMsg.append(hex);
+		}; 
+	}; 
+	if( sysxMsg.size() == patchSize+228)
+	{
+	this->patchName = sysxIO->getCurrentPatchName();
+  this->temp4Display->setMainText(patchName, Qt::AlignCenter);  
+  sysxIO->temp4_sysxMsg = sysxMsg;  
+  } else {
+  QApplication::beep(); 
+  QString size = QString::number(sysxMsg.size(), 10); 
+  sysxIO->emitStatusdBugMessage(tr("in-consistant patch data detected ") + size + tr("bytes: re-save or re-load file to correct"));
+  }; 
+};
+
+void floorBoardDisplay::temp4_paste(bool value)
+{
+  SysxIO *sysxIO = SysxIO::Instance();
+  if (!sysxIO->temp4_sysxMsg.isEmpty() )
+  {
+  SysxIO *sysxIO = SysxIO::Instance();
+  QList<QString> temp = sysxIO->temp4_sysxMsg;
+  QString sysxMsg;
+  int l=temp.size();
+  for (int x=0; x<l; x++)
+  {
+   	  QString hex;
+			hex = temp.at(x);	
+			if (hex.length() < 2) hex.prepend("0");
+			sysxMsg.append(hex);
+  };
+  sysxIO->setFileSource("Structure", sysxMsg);
+  emit updateSignal();  
+	sysxIO->writeToBuffer();
+	}else
+  {
+   QApplication::beep();
+   sysxIO->emitStatusdBugMessage(tr("patch must be copied to Temp-4 clipboard first"));
 	};
 };
 
@@ -462,7 +754,7 @@ void floorBoardDisplay::connectionResult(QString sysxMsg)
 			msgBox->setTextFormat(Qt::RichText);
 			QString msgText;
 			msgText.append("<font size='+1'><b>");
-			msgText.append(tr("The device connected is not a Boss ") + deviceType + (" Effects Processor."));
+			msgText.append(tr("The device connected is not a Boss ") + deviceType + tr(" Effects Processor."));
 			if (sysxMsg.contains(idRequestString))
 			{msgText.append(tr("<br>Midi loopback detected, ensure midi device 'thru' is switched off.")); };
 			msgText.append("<b></font>");
@@ -488,7 +780,7 @@ void floorBoardDisplay::connectionResult(QString sysxMsg)
 			msgBox->setTextFormat(Qt::RichText);
 			QString msgText;
 			msgText.append("<font size='+1'><b>");
-			msgText.append(tr("The Boss ") + deviceType + (" Effects Processor BULK MODE connection was not found."));
+			msgText.append(tr("The Boss ") + deviceType + tr(" Effects Processor BULK MODE connection was not found."));
 			msgText.append("<b></font><br>");
 			msgText.append(tr("Ensure the unit is selected to Bulk Load for data retrieval-"));
 			msgText.append("<b></font><br>");
@@ -565,13 +857,13 @@ void floorBoardDisplay::writeSignal(bool)
 					msgBox->setTextFormat(Qt::RichText);
 					QString msgText;
 					msgText.append("<font size='+1'><b>");
-					msgText.append(tr("You have chosen to write the patch permanently into ") + deviceType + (" memory."));
+					msgText.append(tr("You have chosen to write the patch permanently into ") + deviceType + tr(" memory."));
 					msgText.append("<b></font><br>");
-					msgText.append(tr("This will overwrite the patch currently stored at patch location\n"));
+					msgText.append(tr("This will overwrite the patch currently stored at patch location<br>"));
 					msgText.append("<font size='+3'><b>");
 					msgText.append(bankNum +(":") +patchNum	);
 					msgText.append("<b></font><br>");
-          msgText.append(tr (" and can't be undone.------- Ensure Bulk Load Mode is selected"));
+          msgText.append(tr(" and can't be undone.------- Ensure Bulk Load Mode is selected"));
 
 					msgBox->setInformativeText(tr("Are you sure you want to continue?"));
 					msgBox->setText(msgText);

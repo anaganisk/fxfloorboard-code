@@ -1,8 +1,8 @@
 /****************************************************************************
 **
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
+** Copyright (C) 2009 Colin Willcocks. All rights reserved.
 **
-** This file is part of "GT-3 Fx FloorBoard".
+** This file is part of "GT-10B Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -20,34 +20,42 @@
 **
 ****************************************************************************/
 
-#ifndef PREFERENCESDIALOG_H
-#define PREFERENCESDIALOG_H
+#ifndef CUSTOMLABELDISPLAY_H
+#define CUSTOMLABELDISPLAY_H
 
-#include <QDialog>
-#include "preferencesPages.h"
+#include <QtGui>
+#include <QWidget>
 
-class QListWidget;
-class QListWidgetItem;
-class QStackedWidget;
-
-class preferencesDialog : public QDialog
+class customLabelDisplay : public QWidget
 {
 	Q_OBJECT
 
 public:
-	preferencesDialog();
-	GeneralPage* generalSettings;
-	MidiPage* midiSettings;
-	WindowPage* windowSettings;
-	LanguagePage* languageSettings;
+	customLabelDisplay(QRect geometry, QWidget *parent = 0);
+	void setLabelPosition(bool invert = false);
+	void setMainText(QString mainText, Qt::Alignment alignment = Qt::AlignLeft);
+	void setSubText(QString subTextLeft, QString subTextRight = "");
+	void clearAll();
+	void setMainObjectName(QString name);
+	void setSubObjectName(QString name);
+	void setAllColor(QColor color);
+	void resetAllColor();
+
+protected:
+	void paintEvent(QPaintEvent *event);
 
 public slots:
-	void changePage(QListWidgetItem *current, QListWidgetItem *previous);
+
+signals:
 
 private:
-	void createIcons();
-	QListWidget *contentsWidget;
-	QStackedWidget *pagesWidget;
+	QRect geometry;
+	QFont font;
+	QPalette mainPal;
+	QPalette subPal;
+	QLabel *mainLabel;
+	QLabel *subLabelLeft;
+	QLabel *subLabelRight;
 };
 
-#endif // PREFERENCESDIALOG_H
+#endif // CUSTOMLABELDISPLAY_H
