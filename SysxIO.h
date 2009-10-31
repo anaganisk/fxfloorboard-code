@@ -43,8 +43,7 @@ class SysxIO: public QObject
 	Q_OBJECT
 
 public:
-	static SysxIO* Instance(); //Singleton patern design
-
+	static SysxIO* Instance(); //Singleton pattern design
 	void setFileSource(QString area, SysxData fileSource);
 	void setFileSource(QString area, QByteArray data);
 	void setFileSource(QString area, QString data);
@@ -81,17 +80,13 @@ public:
 	QString getPatchChangeMsg(int bank, int patch);
 	void setCurrentPatchName(QString patchName);
 	QString getCurrentPatchName();
-	
-
 	void sendMidi(QString midiMsg);
 	void sendSysx(QString sysxMsg);
 	void requestPatchName(int bank, int patch);
 	void requestPatch(int bank, int patch);
 	void requestPatchChange(int bank, int patch);
-
 	bool noError();
 	void setNoError(bool status);
-
 	void emitStatusSymbol(int value);
 	void emitStatusProgress(int value);
   void emitStatusMessage(QString message);
@@ -100,6 +95,10 @@ public:
 	QString dBug;
 	void systemWrite();
 	void systemDataRequest();
+	QList<QString> temp1_sysxMsg;
+	QList<QString> temp2_sysxMsg;
+	QList<QString> temp3_sysxMsg;
+	QList<QString> temp4_sysxMsg;
 
 public slots:
 	void errorSignal(QString errorType, QString errorMsg);
@@ -132,7 +131,7 @@ signals:
 protected :
 	SysxIO();
 	friend class SysxIODestroyer;
-	virtual ~SysxIO() { };
+	virtual ~SysxIO() { }
 
 private:
 	static SysxIO* _instance;

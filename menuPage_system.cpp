@@ -38,7 +38,7 @@ void menuPage_system::updateSignal()
 
 void menuPage_system::setEditPages()
 {
-  editDetails()->page()->addLabel(0, 0, 1, 1, "***CAUTION*** Settings changes are automatically written to GT-6B");
+  editDetails()->page()->addLabel(0, 0, 1, 1, tr("***CAUTION*** Settings changes are automatically written to GT-6B"));
   editDetails()->page()->newGroupBox("Global");
   editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "00", "System02"); // lcd contrast
   editDetails()->page()->addLabel(0, 1, 1, 1, "     ");
@@ -77,7 +77,7 @@ void menuPage_system::setEditPages()
 
 
 	
-	editDetails()->page()->newGroupBox("System Midi  ***CAUTION*** Settings changes are automatically written to GT-6B");
+	editDetails()->page()->newGroupBox(tr("System Midi  ***CAUTION*** Settings changes are automatically written to GT-6B"));
 	
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "02", "00", "00", "System02"); // rx channel
 	editDetails()->page()->addComboBox(1, 0, 1, 1, "02", "00", "01", "System02"); // omni mode
@@ -94,7 +94,7 @@ void menuPage_system::setEditPages()
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
   editDetails()->addPage("1A", "00", "01", "01");
    
-  editDetails()->page()->addLabel(0, 0, 1, 1, "***CAUTION*** Settings changes are automatically written to GT-6B");
+  editDetails()->page()->addLabel(0, 0, 1, 1, tr("***CAUTION*** Settings changes are automatically written to GT-6B"));
 	editDetails()->page()->newGroupBox("Custom Distortion 1");
   editDetails()->page()->addComboBox(0, 0, 1, 1, "07", "00", "00", "System02"); // dist type
   editDetails()->page()->addKnob(0, 1, 1, 1, "07", "00", "01", "System02"); // bottom
@@ -112,7 +112,7 @@ void menuPage_system::setEditPages()
   editDetails()->page()->addGroupBox(2, 0, 1, 2);
   editDetails()->addPage("1A", "00", "01", "02");
   
-   editDetails()->page()->addLabel(0, 0, 1, 1, "***CAUTION*** Settings changes are automatically written to GT-6");
+   editDetails()->page()->addLabel(0, 0, 1, 1, tr("***CAUTION*** Settings changes are automatically written to GT-6B"));
 	editDetails()->page()->newGroupBox("Custom Wah 1");
   editDetails()->page()->addComboBox(0, 0, 1, 1, "08", "00", "00", "System02"); // wah type
   editDetails()->page()->addKnob(0, 1, 1, 1, "08", "00", "01", "System02"); // Q

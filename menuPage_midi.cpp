@@ -38,12 +38,12 @@ void menuPage_midi::updateSignal()
 
 void menuPage_midi::setEditPages()
 { 
-  editDetails()->page()->newGroupBox("Master");
+  editDetails()->page()->newGroupBox(tr("Master"));
   editDetails()->page()->addKnob(0, 0, 1, 1, "09", "00", "03");   // effect level
   editDetails()->page()->addKnob(0, 1, 1, 1, "09", "00", "04");   // master bpm
   editDetails()->page()->addComboBox(0, 2, 1, 1, "09", "00", "06");  // bypass routing
   editDetails()->page()->addGroupBox(0, 0, 1, 1);
-  editDetails()->page()->newGroupBox("Manual");
+  editDetails()->page()->newGroupBox(tr("Manual"));
   editDetails()->page()->addKnob(0, 0, 1, 1, "0F", "00", "00");   //  pedal 1
   editDetails()->page()->addKnob(0, 1, 1, 1, "0F", "00", "01");   //  pedal 2
   editDetails()->page()->addKnob(0, 2, 1, 1, "0F", "00", "02");   //  pedal 3

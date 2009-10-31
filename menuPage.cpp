@@ -159,7 +159,7 @@ void menuPage::systemReply(QString replyMsg)
 			msgBox->setTextFormat(Qt::RichText);
 			QString msgText;
 			msgText.append("<font size='+1'><b>");
-			msgText.append(tr("The ") + deviceType + (" Editor settings may not be syncronized with the GT-6B.\n"));
+			msgText.append(tr("The ") + deviceType + tr(" Editor settings may not be syncronized with the GT-6B.<br>"));
 			msgText.append(tr("To retrieve System Data, set GT-6B and Editor to Bulk Mode"));
 			msgText.append("<b></font><br>");
 			msgBox->setText(msgText);
@@ -272,10 +272,10 @@ void menuPage::emitValueChanged(QString hex1, QString hex2, QString hex3, QStrin
 		}
 		else
 		{		 
-		  if (this->id == 18)this->fxName = "System settings";
-		  if (this->id == 19)this->fxName = "Custom Settings";
-		  if (this->id == 20)this->fxName = "Assigns";
-		  if (this->id == 21)this->fxName = "Master"; 
+		  if (this->id == 18)this->fxName = tr("System settings");
+		  if (this->id == 19)this->fxName = tr("Custom Settings");
+		  if (this->id == 20)this->fxName = tr("Assigns");
+		  if (this->id == 21)this->fxName = tr("Master"); 
 		};
 	};
 	emit valueChanged(this->fxName, valueName, valueStr);

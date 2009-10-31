@@ -80,7 +80,7 @@ mainWindow::mainWindow(QWidget *parent)
 	#endif
 	
 	
-	this->setWindowTitle(deviceType + " Fx FloorBoard");
+	this->setWindowTitle(deviceType + tr(" Fx FloorBoard"));
 	//this->setCentralWidget(fxsBoard);
 	
 	this->createActions();
@@ -269,9 +269,9 @@ void mainWindow::open()
 
 	QString fileName = QFileDialog::getOpenFileName(
                 this,
-                "Choose a file",
+                tr("Choose a file"),
                 dir,
-                "System Exclusive (*.syx)");
+                tr("System Exclusive (*.syx)"));
 	if (!fileName.isEmpty())	
 	{
 		file.setFile(fileName);  
@@ -303,9 +303,9 @@ void mainWindow::save()
 	{
 		QString fileName = QFileDialog::getSaveFileName(
 						this,
-						"Save As",
+						tr("Save As"),
 						dir,
-						"System Exclusive (*.syx)");
+						tr("System Exclusive (*.syx)"));
 		if (!fileName.isEmpty())	
 		{
 			if(!fileName.contains(".syx"))
@@ -338,9 +338,9 @@ void mainWindow::saveAs()
 
 	QString fileName = QFileDialog::getSaveFileName(
                     this,
-                    "Save As",
+                    tr("Save As"),
                     dir,
-                    "System Exclusive (*.syx)");
+                    tr("System Exclusive (*.syx)"));
 	if (!fileName.isEmpty())	
 	{
 		if(!fileName.contains(".syx"))
@@ -369,9 +369,9 @@ void mainWindow::systemLoad()
 
 	QString fileName = QFileDialog::getOpenFileName(
                 this,
-                "Choose a file",
+                tr("Choose a file"),
                 dir,
-                "GT6B System Data File (*.GT6B_system_syx)");
+                tr("GT6B System Data File (*.GT6B_system_syx)"));
 	if (!fileName.isEmpty())	
 	{
 		file.setFile(fileName);  
@@ -408,12 +408,12 @@ void mainWindow::systemLoad()
 	   };
        if (!sysxIO->isConnected())
              {
-              QString snork = "DATA TRANSFER REQUIRED<br>"; 
-              snork.append("Ensure connection is active, and<br>");
-              snork.append("Bulk Mode is set on the " + deviceType + "<br>");
-              snork.append("and then set Bulk Mode here");
+              QString snork = tr("DATA TRANSFER REQUIRED<br>"); 
+              snork.append(tr("Ensure connection is active, and<br>"));
+              snork.append(tr("Bulk Mode is set on the ") + deviceType + "<br>");
+              snork.append(tr("and then set Bulk Mode here"));
               QMessageBox *msgBox = new QMessageBox();
-			        msgBox->setWindowTitle(deviceType + " Bulk Mode connection required!!");
+			        msgBox->setWindowTitle(deviceType + tr(" Bulk Mode connection required!!"));
 		        	msgBox->setIcon(QMessageBox::Information);
 		        	msgBox->setText(snork);
 		        	msgBox->setStandardButtons(QMessageBox::Ok);
@@ -435,9 +435,9 @@ SysxIO *sysxIO = SysxIO::Instance();
 
 	QString fileName = QFileDialog::getSaveFileName(
                     this,
-                    "Save System Data",
+                    tr("Save System Data"),
                     dir,
-                    "System Exclusive File (*.GT6B_system_syx)");
+                    tr("System Exclusive File (*.GT6B_system_syx)"));
 	if (!fileName.isEmpty())	
 	{
 	  if(!fileName.contains(".GT6B_system_syx"))
@@ -459,12 +459,12 @@ SysxIO *sysxIO = SysxIO::Instance();
 	 }
          else
              { 
-              QString snork = "DATA TRANSFER REQUIRED<br>"; 
-              snork.append("Ensure connection is active, and<br>");
-              snork.append("Bulk Mode is set on the " + deviceType + "<br>");
-              snork.append("and then set Bulk Mode here");
+              QString snork = tr("DATA TRANSFER REQUIRED<br>"); 
+              snork.append(tr("Ensure connection is active, and<br>"));
+              snork.append(tr("Bulk Mode is set on the ") + deviceType + "<br>");
+              snork.append(tr("and then set Bulk Mode here"));
               QMessageBox *msgBox = new QMessageBox();
-			        msgBox->setWindowTitle(deviceType + " Bulk Mode connection required!!");
+			        msgBox->setWindowTitle(deviceType + tr(" Bulk Mode connection required!!"));
 		        	msgBox->setIcon(QMessageBox::Information);
 		        	msgBox->setText(snork);
 		        	msgBox->setStandardButtons(QMessageBox::Ok);
@@ -487,9 +487,14 @@ void mainWindow::settings()
 		QString dBug = (dialog->midiSettings->dBugCheckBox->checkState())?QString("true"):QString("false");
 		QString midiIn = QString::number(dialog->midiSettings->midiInCombo->currentIndex() - 1, 10); // -1 because there is a default entry at index 0
 		QString midiOut = QString::number(dialog->midiSettings->midiOutCombo->currentIndex() - 1, 10);
-		QString midiTimeSet =QString::number(dialog->midiSettings->midiTimeSpinBox->value());
+		//QString midiTimeSet =QString::number(dialog->midiSettings->midiTimeSpinBox->value());
 		QString receiveTimeout =QString::number(dialog->midiSettings->midiDelaySpinBox->value());
-
+     QString lang;
+    if (dialog->languageSettings->chineseButton->isChecked() ) {lang="3"; }
+    else if (dialog->languageSettings->germanButton->isChecked() ) {lang="2"; }
+    else if (dialog->languageSettings->frenchButton->isChecked() ) {lang="1"; }
+    else  {lang="0"; };
+    preferences->setPreferences("Language", "Locale", "select", lang);
 
 		if(midiIn=="-1") { midiIn = ""; };
 		if(midiOut=="-1") {	midiOut = ""; };
@@ -498,7 +503,7 @@ void mainWindow::settings()
 		preferences->setPreferences("Midi", "MidiIn", "device", midiIn);
 		preferences->setPreferences("Midi", "MidiOut", "device", midiOut);
 		preferences->setPreferences("Midi", "DBug", "bool", dBug);
-		preferences->setPreferences("Midi", "Time", "set", midiTimeSet);
+		//preferences->setPreferences("Midi", "Time", "set", midiTimeSet);
 		preferences->setPreferences("Midi", "Delay", "set", receiveTimeout);
 		preferences->setPreferences("Window", "Restore", "sidepanel", sidepanel);
 		preferences->setPreferences("Window", "Restore", "window", window);
@@ -546,7 +551,7 @@ void mainWindow::about()
 	if(file.open(QIODevice::ReadOnly))
 	{	
 		QMessageBox::about(this, deviceType + tr(" Fx FloorBoard - About"), 
-			deviceType + " Fx FloorBoard, " + tr("version") + " " + version + "\n" + file.readAll());
+			deviceType + tr(" Fx FloorBoard, ") + tr("version") + " " + version + "<br>" + file.readAll());
 	};
 };
 

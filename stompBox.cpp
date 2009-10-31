@@ -628,7 +628,7 @@ void stompBox::emitValueChanged(QString hex1, QString hex2, QString hex3, QStrin
 			valueName = items.desc;
 			if(hex1 == "09") // NoiseSuppressor is part of MASTER -> correcting the name for consistency.
 			{
-				this->fxName = "Noise Suppressor";
+				this->fxName = tr("Noise Suppressor");
 				if(items.desc == "NS :Effect")
 				{
 					valueName = "On/Off";
@@ -657,11 +657,11 @@ void stompBox::emitValueChanged(QString hex1, QString hex2, QString hex3, QStrin
 		{
 				if(hex1 == "09") // NoiseSuppressor is part of MASTER -> correcting the name for consistency.
 			{
-				this->fxName = "Noise Suppressor";
+				this->fxName = tr("Noise Suppressor");
 			}
 			else if(this->hex1 == "0C") // Expression Pedal -> correcting the name for consistency.
 			{
-				this->fxName = "Foot Volume";
+				this->fxName = tr("Foot Volume");
 			}
 			else
 			{
@@ -675,11 +675,11 @@ void stompBox::emitValueChanged(QString hex1, QString hex2, QString hex3, QStrin
 	};
 		if(hex1 == "04" && hex3 >= "10") // Rename the Pre amp to Speaker Cabinet, shared memory location
 			{
-				this->fxName = "Speaker Cabinet";
+				this->fxName = tr("Speaker Cabinet");
 			}
 		if(hex1 == "04" && hex3 <= "0F" && hex3 >= "01") // Rename the Pre amp to Speaker Cabinet, shared memory location
 			{
-				this->fxName = "Pre Amplifier";
+				this->fxName = tr("Pre Amplifier");
 			}
 			
 	emit valueChanged(this->fxName, valueName, valueStr);

@@ -29,6 +29,7 @@ stompbox_fv::stompbox_fv(QWidget *parent)
 	setImage(":/images/fv.png");
 	setLSB("0F", "00");
 	setButton("0C", "00", "00", QPoint::QPoint(0, 109), ":/images/pedal.png");
+	//editDetails()->patchPos(858, 90, "0C", "00");
 	setEditPages();
 };
 

@@ -39,6 +39,13 @@ UI_DIR += ./generatedfiles
 INCLUDEPATH += ./generatedfiles \
 	./generatedfiles/release \
 	.
+	
+TRANSLATIONS = language_fr.ts \
+               language_ge.ts \
+               language_ch.ts
+               
+CODECFORTR = UTF-8
+
 DEPENDPATH += .
 QT += xml
 

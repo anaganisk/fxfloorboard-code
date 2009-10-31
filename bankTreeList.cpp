@@ -294,7 +294,7 @@ QTreeWidget* bankTreeList::newTreeList()
 	newTreeList->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded); 
 	
 	QStringList headers;
-	headers << "Double-click tree item to load patch";
+	headers << tr("Double-click tree item to load patch");
     newTreeList->setHeaderLabels(headers);
     
   QTreeWidgetItem *temp = new QTreeWidgetItem(newTreeList);
@@ -540,7 +540,7 @@ void bankTreeList::updatePatch(QString replyMsg)
 	msgText.append("<font size='+1'><b>");
 	msgText.append(QObject::tr("Patch data transfer wrong size"));
 	msgText.append("<b></font><br>");
-	msgText.append(QObject::tr("Please make sure the ") + deviceType + (" is connected correctly and re-try."));
+	msgText.append(QObject::tr("Please make sure the ") + deviceType + tr(" is connected correctly and re-try."));
 	msgBox->setText(msgText);
 	msgBox->setStandardButtons(QMessageBox::Ok);
 	msgBox->exec();
@@ -558,7 +558,7 @@ void bankTreeList::updatePatch(QString replyMsg)
 	msgText.append("<font size='+1'><b>");
 	msgText.append(QObject::tr("Patch data transfer failed, are the correct midi ports selected?"));
 	msgText.append("<b></font><br>");
-	msgText.append(QObject::tr("Please make sure the ") + deviceType + (" is connected correctly and re-try."));
+	msgText.append(QObject::tr("Please make sure the ") + deviceType + tr(" is connected correctly and re-try."));
 	msgBox->setText(msgText);
 	msgBox->setStandardButtons(QMessageBox::Ok);
 	msgBox->exec();

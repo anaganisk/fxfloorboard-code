@@ -163,7 +163,7 @@ bool sysxWriter::readFile()
 	msgBox->setTextFormat(Qt::RichText);
 	QString msgText;
 	msgText.append("<font size='+1'><b>");
-	msgText.append(QObject::tr("This is not a known ") + deviceType + (" patch!"));
+	msgText.append(QObject::tr("This is not a known ") + deviceType + QObject::tr(" patch!"));
 	msgText.append("<b></font><br>");
 	msgText.append(QObject::tr("Patch file not within allowable parameters or<br>"));
   msgText.append(QObject::tr("file format unknown, please try another file."));

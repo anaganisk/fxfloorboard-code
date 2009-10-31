@@ -1,8 +1,8 @@
 /****************************************************************************
 **
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
+** Copyright (C) 2009 Colin Willcocks. All rights reserved.
 **
-** This file is part of "GT6B Fx FloorBoard".
+** This file is part of "GT-10B Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -20,34 +20,42 @@
 **
 ****************************************************************************/
 
-#ifndef STATUSBARWIDGET_H
-#define STATUSBARWIDGET_H
+#ifndef CUSTOMLABELDISPLAY_H
+#define CUSTOMLABELDISPLAY_H
 
+#include <QtGui>
 #include <QWidget>
-#include <QLabel>
-#include <QProgressBar>
-#include <QStatusBar>
-#include "statusBarSymbol.h"
 
-class statusBarWidget : public QWidget
+class customLabelDisplay : public QWidget
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    statusBarWidget(QWidget *parent = 0);
+	customLabelDisplay(QRect geometry, QWidget *parent = 0);
+	void setLabelPosition(bool invert = false);
+	void setMainText(QString mainText, Qt::Alignment alignment = Qt::AlignLeft);
+	void setSubText(QString subTextLeft, QString subTextRight = "");
+	void clearAll();
+	void setMainObjectName(QString name);
+	void setSubObjectName(QString name);
+	void setAllColor(QColor color);
+	void resetAllColor();
+
+protected:
+	void paintEvent(QPaintEvent *event);
 
 public slots:
-	void setStatusMessage(QString message);
-	void setStatusdBugMessage(QString dBug);
-	void setStatusProgress(int value);
-	void setStatusSymbol(int value);
+
+signals:
 
 private:
-	QProgressBar *progressBar;
-	statusBarSymbol *symbol;
-	QLabel *label;
-	QStatusBar *dBuglabel;
+	QRect geometry;
+	QFont font;
+	QPalette mainPal;
+	QPalette subPal;
+	QLabel *mainLabel;
+	QLabel *subLabelLeft;
+	QLabel *subLabelRight;
 };
 
-#endif // STATUSBARWIDGET_H
-
+#endif // CUSTOMLABELDISPLAY_H

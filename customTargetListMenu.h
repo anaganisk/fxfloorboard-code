@@ -1,8 +1,10 @@
 /****************************************************************************
 **
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
+** Copyright (C) 2007, 2008, 2009 Colin Willcocks.
+** Copyright (C) 2005, 2006, 2007 Uco Mesdag. 
+** All rights reserved.
 **
-** This file is part of "GT-10B Fx FloorBoard".
+** This file is part of "GT-Pro Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -20,67 +22,51 @@
 **
 ****************************************************************************/
 
-#ifndef customControlTarget_H
-#define customControlTarget_H
+#ifndef CUSTOMTARGETLISTMENU_H
+#define CUSTOMTARGETLISTMENU_H
 
 #include <QWidget>
 #include <QtGui>
-#include "customKnobTarget.h"
 #include "customControlLabel.h"
-#include "customTargetListMenu.h"
+#include "customComboBox.h"
 
-class customControlTarget : public QWidget
+class customTargetListMenu : public QWidget
 {
     Q_OBJECT
 
 public:
-    customControlTarget(QWidget *parent = 0, 
+    customTargetListMenu(QWidget *parent = 0, 
 		QString hex1 = "void",
 		QString hex2 = "void",
 		QString hex3 = "void",
-		QString background = "normal", 
-		QString hexMin = "04", 
-		QString hexMax = "06");
+		QString hexMsb = "void",
+		QString hexLsb = "void",
+		QString direction = "bottom");
 
 protected:
 	void paintEvent(QPaintEvent *event);
 
 public slots:
+	void valueChanged(int index);
 	void dialogUpdateSignal();
-	void knobSignal(QString, QString, QString);
 
 signals:
 	void updateSignal();
-	void updateDisplayTarget(QString text);
-	void updateDisplayMin(QString text);
-	void updateDisplayMax(QString text);
-	void updateTarget(QString hexMsb, QString hex2, QString hexLsb);
-	void updateHex(QString hexMsb, QString hex2, QString hexLsb);
+	void updateDisplay(QString text);
+	void currentIndexChanged(int index);
+	void updateTarget(QString hex1, QString hex2, QString hex3);
 
 private:
+	void setComboBox();
 	customControlLabel* label;
-	customControlLabel* labelMin;
-	customControlLabel* labelMax;
-	QLineEdit* display;
-	customTargetListMenu* displayCombo;
-	QLineEdit* displayMin;
-	QLineEdit* displayMax;
-	customKnobTarget* knobTarget;
-	customKnobTarget* knobMin;
-	customKnobTarget* knobMax;
+	customComboBox* controlListComboBox;
 	QString hex1;
 	QString hex2;
 	QString hex3;
-	QString hex4;
-	QString hex5;
-	QString hexMin;
-	QString hexMax;
 	QString hexMsb;
 	QString hexLsb;
-	QString hexTarget;
-	QString hexTemp1;
-	QString hexTemp2;
-	QString direction;
+	QString area;
+	int comboWidth;
 };
 
-#endif // customControlTarget_H
+#endif // CUSTOMTARGETLISTMENU_H
