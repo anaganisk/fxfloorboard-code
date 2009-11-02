@@ -39,8 +39,8 @@ void menuPage_assign::updateSignal()
 void menuPage_assign::setEditPages()
 {
 
-	editDetails()->page()->newGroupBox("Assigns");
-	editDetails()->page()->newGroupBox("Assign 1-8");
+	editDetails()->page()->newGroupBox(tr("Assigns"));
+	editDetails()->page()->newGroupBox(tr("Assign 1-8"));
 	editDetails()->page()->newStackControl(0);
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "19", "00", "00");
 	editDetails()->page()->addStackControl();

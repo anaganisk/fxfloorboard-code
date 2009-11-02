@@ -27,6 +27,7 @@
 #include <QtGui>
 #include "customKnobTarget.h"
 #include "customControlLabel.h"
+#include "customTargetListMenu.h"
 
 class customControlTarget : public QWidget
 {
@@ -39,7 +40,7 @@ public:
 		QString hex3 = "void",
 		QString background = "normal", 
 		QString hexMin = "04", 
-		QString hexMin = "06");
+		QString hexMax = "06");
 
 protected:
 	void paintEvent(QPaintEvent *event);
@@ -61,6 +62,7 @@ private:
 	customControlLabel* labelMin;
 	customControlLabel* labelMax;
 	QLineEdit* display;
+	customTargetListMenu* displayCombo;
 	QLineEdit* displayMin;
 	QLineEdit* displayMax;
 	customKnobTarget* knobTarget;

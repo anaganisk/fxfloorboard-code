@@ -26,6 +26,7 @@
 #include <QWidget>
 #include <QtGui>
 #include <QSpinBox>
+#include <QRadioButton>
 
 class GeneralPage : public QWidget
 {
@@ -46,15 +47,7 @@ public:
 	QComboBox* midiInCombo;
 	QComboBox* midiOutCombo;
 	QCheckBox* dBugCheckBox;
-	QSpinBox* sysByteSpinBox1;
-	QSpinBox* sysByteSpinBox2;
-	QSpinBox* sysByteSpinBox3;
-	QSpinBox* sysByteSpinBox4;
 	QSpinBox* midiDelaySpinBox;
-	int byte1;
-	int byte2;
-	int byte3;
-	int byte4;
 };
 
 class WindowPage : public QWidget
@@ -66,5 +59,14 @@ public:
 	QCheckBox* splashCheckBox;
 };
 
+class LanguagePage : public QWidget
+{
+public:
+	LanguagePage(QWidget *parent = 0);
+	QRadioButton* englishButton;
+	QRadioButton* frenchButton;
+	QRadioButton* germanButton;
+	QRadioButton* chineseButton;
+};
 
 #endif // PREFERENCESPAGES_H

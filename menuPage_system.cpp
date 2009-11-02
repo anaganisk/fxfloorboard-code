@@ -38,7 +38,7 @@ void menuPage_system::updateSignal()
 
 void menuPage_system::setEditPages()
 {
-  editDetails()->page()->addLabel(0, 0, 1, 1, "***CAUTION*** Settings changes are automatically written to GT-6");
+  editDetails()->page()->addLabel(0, 0, 1, 1, tr("***CAUTION*** Settings changes are automatically written to GT-6"));
   editDetails()->page()->newGroupBox("settings");
   editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "00", "System02"); // lcd contrast
   editDetails()->page()->addLabel(0, 1, 1, 1, "     ");
@@ -80,7 +80,7 @@ void menuPage_system::setEditPages()
 
 
 	
-	editDetails()->page()->newGroupBox("System Midi  ***CAUTION*** Settings changes are automatically written to GT-6");
+	editDetails()->page()->newGroupBox(tr("System Midi  ***CAUTION*** Settings changes are automatically written to GT-6"));
 	
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "02", "00", "00", "System02"); // rx channel
 	editDetails()->page()->addComboBox(1, 0, 1, 1, "02", "00", "01", "System02"); // omni mode
@@ -96,7 +96,7 @@ void menuPage_system::setEditPages()
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
   editDetails()->addPage("19", "00", "01", "01");
   
-  editDetails()->page()->newGroupBox("MANUAL settings  ***CAUTION*** Settings changes are automatically written to GT-6");
+  editDetails()->page()->newGroupBox(tr("MANUAL settings  ***CAUTION*** Settings changes are automatically written to GT-6"));
   editDetails()->page()->addComboBox(1, 0, 1, 1, "00", "00", "00", "System03"); // manual pedal 1
 	editDetails()->page()->addComboBox(1, 1, 1, 1, "00", "00", "01", "System03"); // manual pedal 2
 	editDetails()->page()->addComboBox(1, 2, 1, 1, "00", "00", "02", "System03"); // manual pedal 3

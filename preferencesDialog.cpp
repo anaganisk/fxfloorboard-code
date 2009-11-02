@@ -23,29 +23,33 @@
 #include <QtGui>
 #include "preferencesDialog.h"
 #include "preferencesPages.h"
-#include "globalVariables.h"
+
 
 preferencesDialog::preferencesDialog()
 {
 	contentsWidget = new QListWidget;
 	contentsWidget->setViewMode(QListView::IconMode);
-	contentsWidget->setIconSize(QSize(55, 50));
+	contentsWidget->setIconSize(QSize(45, 40));
 	contentsWidget->setMovement(QListView::Static);
-	contentsWidget->setSpacing(4);
-	contentsWidget->setFixedWidth(75);
+	contentsWidget->setSpacing(10);
+	contentsWidget->setFixedHeight(330);
+	contentsWidget->setFixedWidth(85); // 70 to 75 for OS X.
 
 	GeneralPage *generalSettings = new GeneralPage;
 	MidiPage *midiSettings = new MidiPage;
 	WindowPage *windowSettings = new WindowPage;
+	LanguagePage *languageSettings = new LanguagePage;
 
 	this->generalSettings = generalSettings;
 	this->midiSettings = midiSettings;
 	this->windowSettings = windowSettings;
+	this->languageSettings = languageSettings;
 
 	pagesWidget = new QStackedWidget;
 	pagesWidget->addWidget(generalSettings);
 	pagesWidget->addWidget(midiSettings);
 	pagesWidget->addWidget(windowSettings);
+	pagesWidget->addWidget(languageSettings);
 	/*pagesWidget->addWidget(new GeneralPage);
 	pagesWidget->addWidget(new MidiPage);
 	pagesWidget->addWidget(new WindowPage);*/
@@ -75,7 +79,7 @@ preferencesDialog::preferencesDialog()
 	mainLayout->addLayout(buttonsLayout);
 	setLayout(mainLayout);
 
-	setWindowTitle(deviceType + tr(" Fx FloorBoard - Preferences"));
+	setWindowTitle(tr("GT-3 Fx FloorBoard - Preferences"));
 };
 
 void preferencesDialog::createIcons()
@@ -97,6 +101,12 @@ void preferencesDialog::createIcons()
 	windowButton->setText(tr("Window"));
 	windowButton->setTextAlignment(Qt::AlignHCenter);
 	windowButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+	
+	QListWidgetItem *languageButton = new QListWidgetItem(contentsWidget);
+	languageButton->setIcon(QIcon(":images/language.png"));
+	languageButton->setText(tr("Language"));
+	languageButton->setTextAlignment(Qt::AlignHCenter);
+	languageButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 
 	connect(contentsWidget,
 		SIGNAL(currentItemChanged(QListWidgetItem *, QListWidgetItem *)),
@@ -111,3 +121,4 @@ void preferencesDialog::changePage(QListWidgetItem *current, QListWidgetItem *pr
 	};
 	pagesWidget->setCurrentIndex(contentsWidget->row(current));
 };
+

@@ -100,6 +100,10 @@ public:
 	QString dBug;
 	void systemWrite();
 	void systemDataRequest();
+	QList<QString> temp1_sysxMsg;
+	QList<QString> temp2_sysxMsg;
+	QList<QString> temp3_sysxMsg;
+	QList<QString> temp4_sysxMsg;
 
 public slots:
 	void errorSignal(QString errorType, QString errorMsg);
@@ -132,7 +136,7 @@ signals:
 protected :
 	SysxIO();
 	friend class SysxIODestroyer;
-	virtual ~SysxIO() { };
+	virtual ~SysxIO() { }
 
 private:
 	static SysxIO* _instance;

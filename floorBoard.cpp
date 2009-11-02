@@ -193,7 +193,9 @@ void floorBoard::setFloorBoard() {
 	// Draw InfoBar
 	QRectF sourceInfoBar(0.0, 0.0, imageInfoBar.width(), imageInfoBar.height());
 	QRectF targetInfoBar(offset, 0.0, imageInfoBar.width(), imageInfoBar.height());
+	QRectF targetInfoBar2(offset, imageInfoBar.height()-4, imageInfoBar.width(), imageInfoBar.height());
 	painter.drawPixmap(targetInfoBar, imageInfoBar, sourceInfoBar);
+	painter.drawPixmap(targetInfoBar2, imageInfoBar, sourceInfoBar);
 
 	// Draw LiberianBar
 	QRectF sourceLiberianBar(0.0, 0.0, imageInfoBar.width(), imageInfoBar.height());
@@ -394,8 +396,8 @@ void floorBoard::initSize(QSize floorSize)
 	
 	unsigned int spacingV = (floorSize.height() - (marginStompBoxesTop + marginStompBoxesBottom)) - (stompSize.height() * 2);
 	unsigned int spacingH = ( (floorSize.width() - offset - (marginStompBoxesWidth * 1)) - (stompSize.width() * 6) ) / 6;
-	//for(unsigned int i=0;i<14;i++)
-	for(int i=10;i>=0;i--)
+	for(unsigned int i=0;i<11;i++)
+	//for(int i=10;i>=0;i--)
 	{
 		unsigned int y = marginStompBoxesTop;
 		unsigned int x = marginStompBoxesWidth + (( stompSize.width() + spacingH ) * i);
@@ -656,7 +658,7 @@ void floorBoard::setEditDialog(editWindow* editDialog)
 void floorBoard::centerEditDialog()
 {
 	int x = this->displayPos.x() + (((this->floorSize.width() - this->displayPos.x()) - this->editDialog->width()) / 2);
-	int y = this->pos.y() + (((this->floorSize.height() - this->infoBarHeight) - this->editDialog->height()) / 2);
+	int y = this->pos.y() + (((this->floorSize.height() /*- this->infoBarHeight*/) - this->editDialog->height()) / 2);
 	this->editDialog->move(x, y);
 };
 

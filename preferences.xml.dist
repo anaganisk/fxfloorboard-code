@@ -2,7 +2,7 @@
 <!-- Preferences of the GT-6 Fx FloorBoard application. -->
 <Preferences>
 	<General>
-		<Application version="20090808"/>
+		<Application version="20091102"/>
 		<Donate url="http://gtx.tinfoilmusic.net/donate.html"/>
 		<Files dir=""/>
 		<Help url="GT-6EditorManual_E.htm"/>
@@ -10,6 +10,9 @@
 		<Upload url="http://www.bossgtcentral.com/dm"/>
 		<Webpage url="http://gtx.tinfoilmusic.net/"/>
 	</General>
+		<Language>
+    <Locale select="0"/>
+  </Language>
 	<Midi>
 		<MidiIn device=""/>
 		<MidiOut device=""/>

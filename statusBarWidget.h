@@ -26,6 +26,7 @@
 #include <QWidget>
 #include <QLabel>
 #include <QProgressBar>
+#include <QStatusBar>
 #include "statusBarSymbol.h"
 
 class statusBarWidget : public QWidget
@@ -45,7 +46,8 @@ private:
 	QProgressBar *progressBar;
 	statusBarSymbol *symbol;
 	QLabel *label;
-	QLabel *dBuglabel;
+	QStatusBar *dBuglabel;
 };
 
 #endif // STATUSBARWIDGET_H
+

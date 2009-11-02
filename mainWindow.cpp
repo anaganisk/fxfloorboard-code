@@ -80,7 +80,7 @@ mainWindow::mainWindow(QWidget *parent)
 	#endif
 	
 	
-	this->setWindowTitle(deviceType + " Fx FloorBoard");
+	this->setWindowTitle(deviceType + tr(" Fx FloorBoard"));
 	//this->setCentralWidget(fxsBoard);
 	
 	this->createActions();
@@ -268,9 +268,9 @@ void mainWindow::open()
 
 	QString fileName = QFileDialog::getOpenFileName(
                 this,
-                "Choose a file",
+                tr("Choose a file"),
                 dir,
-                "GT-6 System Exclusive (*.syx)");
+                tr("GT-6 System Exclusive (*.syx)"));
 	if (!fileName.isEmpty())	
 	{
 		file.setFile(fileName);  
@@ -301,9 +301,9 @@ void mainWindow::save()
 	{
 		QString fileName = QFileDialog::getSaveFileName(
 						this,
-						"Save As",
+						tr("Save As"),
 						dir,
-						"System Exclusive (*.syx)");
+						tr("System Exclusive (*.syx)"));
 		if (!fileName.isEmpty())	
 		{
 			if(!fileName.contains(".syx"))
@@ -336,9 +336,9 @@ void mainWindow::saveAs()
 
 	QString fileName = QFileDialog::getSaveFileName(
                     this,
-                    "Save As",
+                    tr("Save As"),
                     dir,
-                    "System Exclusive (*.syx)");
+                    tr("System Exclusive (*.syx)"));
 	if (!fileName.isEmpty())	
 	{
 		if(!fileName.contains(".syx"))
@@ -369,9 +369,9 @@ void mainWindow::systemLoad()
 
 	QString fileName = QFileDialog::getOpenFileName(
                 this,
-                "Choose a file",
+                tr("Choose a file"),
                 dir,
-                "GT6 System Data File (*.GT6_system_syx)");
+                tr("GT6 System Data File (*.GT6_system_syx)"));
 	if (!fileName.isEmpty())	
 	{
 		file.setFile(fileName);  
@@ -393,7 +393,7 @@ void mainWindow::systemLoad()
 					msgText.append(tr("You have chosen to load a SYSTEM DATA file."));
 					msgText.append("<b></font><br>");
 					msgText.append(tr("This will overwrite the SYSTEM DATA currently stored in the GT-6<br>"));
-					msgText.append(tr (" and can't be undone.<br>"));
+					msgText.append(tr(" and can't be undone.<br>"));
 					msgText.append(tr("Select 'NO' to only update the Editor settings-<br> Select 'YES' to update the GT-6 memory<br>"));
           
 
@@ -410,12 +410,12 @@ void mainWindow::systemLoad()
 	}
          else
              {
-              QString snork = "DATA TRANSFER REQUIRED<br>"; 
-              snork.append("Ensure connection is active, and<br>");
-              snork.append("Bulk Mode is set on the " + deviceType + "<br>");
-              snork.append("and then set Bulk Mode here");
+              QString snork = tr("DATA TRANSFER REQUIRED<br>"); 
+              snork.append(tr("Ensure connection is active, and<br>"));
+              snork.append(tr("Bulk Mode is set on the ") + deviceType + "<br>");
+              snork.append(tr("and then set Bulk Mode here"));
               QMessageBox *msgBox = new QMessageBox();
-			        msgBox->setWindowTitle(deviceType + " Bulk Mode connection required!!");
+			        msgBox->setWindowTitle(deviceType + tr(" Bulk Mode connection required!!"));
 		        	msgBox->setIcon(QMessageBox::Information);
 		        	msgBox->setText(snork);
 		        	msgBox->setStandardButtons(QMessageBox::Ok);
@@ -436,9 +436,9 @@ SysxIO *sysxIO = SysxIO::Instance();
 
 	QString fileName = QFileDialog::getSaveFileName(
                     this,
-                    "Save System Data",
+                    tr("Save System Data"),
                     dir,
-                    "System Exclusive File (*.GT6_system_syx)");
+                    tr("System Exclusive File (*.GT6_system_syx)"));
 	if (!fileName.isEmpty())	
 	{
 	  if(!fileName.contains(".GT6_system_syx"))
@@ -460,12 +460,12 @@ SysxIO *sysxIO = SysxIO::Instance();
 	 }
          else
              { 
-              QString snork = "DATA TRANSFER REQUIRED<br>"; 
-              snork.append("Ensure connection is active, and<br>");
-              snork.append("Bulk Mode is set on the " + deviceType + "<br>");
-              snork.append("and then set Bulk Mode here");
+              QString snork = tr("DATA TRANSFER REQUIRED<br>"); 
+              snork.append(tr("Ensure connection is active, and<br>"));
+              snork.append(tr("Bulk Mode is set on the ") + deviceType + "<br>");
+              snork.append(tr("and then set Bulk Mode here"));
               QMessageBox *msgBox = new QMessageBox();
-			        msgBox->setWindowTitle(deviceType + " Bulk Mode connection required!!");
+			        msgBox->setWindowTitle(deviceType + tr(" Bulk Mode connection required!!"));
 		        	msgBox->setIcon(QMessageBox::Information);
 		        	msgBox->setText(snork);
 		        	msgBox->setStandardButtons(QMessageBox::Ok);
@@ -489,11 +489,12 @@ void mainWindow::settings()
 		QString midiIn = QString::number(dialog->midiSettings->midiInCombo->currentIndex() - 1, 10); // -1 because there is a default entry at index 0
 		QString midiOut = QString::number(dialog->midiSettings->midiOutCombo->currentIndex() - 1, 10);
 		QString receiveTimeout = QString::number(dialog->midiSettings->midiDelaySpinBox->value());
-		QString sys_Byte1 = QString::number(dialog->midiSettings->sysByteSpinBox1->value());
-		QString sys_Byte2 = QString::number(dialog->midiSettings->sysByteSpinBox2->value());
-		QString sys_Byte3 = QString::number(dialog->midiSettings->sysByteSpinBox3->value());
-		QString sys_Byte4 = QString::number(dialog->midiSettings->sysByteSpinBox4->value());
-
+		QString lang;
+    if (dialog->languageSettings->chineseButton->isChecked() ) {lang="3"; }
+    else if (dialog->languageSettings->germanButton->isChecked() ) {lang="2"; }
+    else if (dialog->languageSettings->frenchButton->isChecked() ) {lang="1"; }
+    else /*if (dialog->languageSettings->englishButton->isChecked() )*/ {lang="0"; };
+    preferences->setPreferences("Language", "Locale", "select", lang);
 
 		if(midiIn=="-1") { midiIn = ""; };
 		if(midiOut=="-1") {	midiOut = ""; };
@@ -503,10 +504,6 @@ void mainWindow::settings()
 		preferences->setPreferences("Midi", "MidiOut", "device", midiOut);
 		preferences->setPreferences("Midi", "DBug", "bool", dBug);
 		preferences->setPreferences("Midi", "Delay", "set", receiveTimeout);
-		preferences->setPreferences("Midi", "System", "byte1", sys_Byte1);
-		preferences->setPreferences("Midi", "System", "byte2", sys_Byte2);
-		preferences->setPreferences("Midi", "System", "byte3", sys_Byte3);
-		preferences->setPreferences("Midi", "System", "byte4", sys_Byte4);
 		preferences->setPreferences("Window", "Restore", "sidepanel", sidepanel);
 		preferences->setPreferences("Window", "Restore", "window", window);
 		preferences->setPreferences("Window", "Splash", "bool", splash);
@@ -553,7 +550,7 @@ void mainWindow::about()
 	if(file.open(QIODevice::ReadOnly))
 	{	
 		QMessageBox::about(this, deviceType + tr(" Fx FloorBoard - About"), 
-			deviceType + " Fx FloorBoard, " + tr("version") + " " + version + "\n" + file.readAll());
+			deviceType + tr(" Fx FloorBoard, ") + tr("version") + " " + version + "<br>" + file.readAll());
 	};
 };
 

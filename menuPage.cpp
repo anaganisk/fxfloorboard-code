@@ -146,9 +146,9 @@ void menuPage::menuButtonSignal(bool value)
          }
          else
             {
-              QString snork = "Ensure Bulk Mode is set and retry";
+              QString snork = tr("Ensure Bulk Mode is set and retry");
               QMessageBox *msgBox = new QMessageBox();
-			        msgBox->setWindowTitle(deviceType + " not connected !!");
+			        msgBox->setWindowTitle(deviceType + tr(" not connected !!"));
 		        	msgBox->setIcon(QMessageBox::Information);
 		        	msgBox->setText(snork);
 		        	msgBox->setStandardButtons(QMessageBox::Ok);
@@ -191,7 +191,7 @@ void menuPage::systemReply(QString replyMsg)
 			msgBox->setTextFormat(Qt::RichText);
 			QString msgText;
 			msgText.append("<font size='+1'><b>");
-			msgText.append(tr("The Boss ") + deviceType + (" Effects Processor was not found."));
+			msgText.append(tr("The Boss ") + deviceType + tr(" Effects Processor was not found."));
 			msgText.append("<b></font><br>");
 			msgBox->setText(msgText);
 			msgBox->setStandardButtons(QMessageBox::Ok);
@@ -308,11 +308,9 @@ void menuPage::emitValueChanged(QString hex1, QString hex2, QString hex3, QStrin
 		else
 		{
 		 
-		  if (this->id == 18)this->fxName = "System settings";
-		  if (this->id == 19)this->fxName = "Custom Settings";
-		  if (this->id == 20)this->fxName = "Assigns";
-		  //if (this->id == 23)this->fxName = "Pedal"; 
-				 //midiTable->getMidiMap("Structure", hex1, hex2, hex3).name;//hex1).customdesc;
+		  if (this->id == 18)this->fxName = tr("System settings");
+		  if (this->id == 19)this->fxName = tr("Custom Settings");
+		  if (this->id == 20)this->fxName = tr("Assigns");
 		};
 	};
 

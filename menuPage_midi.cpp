@@ -38,7 +38,7 @@ void menuPage_midi::updateSignal()
 
 void menuPage_midi::setEditPages()
 {
-  editDetails()->page()->addLabel(0, 0, 1, 1, "***CAUTION*** Settings changes are automatically written to GT-6");
+  editDetails()->page()->addLabel(0, 0, 1, 1, tr("***CAUTION*** Settings changes are automatically written to GT-6"));
   editDetails()->page()->newGroupBox("Custom Preamp 1");
   editDetails()->page()->addComboBox(0, 0, 1, 1, "06", "00", "00", "System02"); // preamp type
   editDetails()->page()->addKnob(0, 1, 1, 1, "06", "00", "01", "System02"); // bottom
@@ -78,7 +78,7 @@ void menuPage_midi::setEditPages()
   editDetails()->addPage("19", "00", "02", "00");
 
 
-	editDetails()->page()->addLabel(0, 0, 1, 1, "***CAUTION*** Settings changes are automatically written to GT-6");
+	editDetails()->page()->addLabel(0, 0, 1, 1, tr("***CAUTION*** Settings changes are automatically written to GT-6"));
 	editDetails()->page()->newGroupBox("Custom Distortion 1");
   editDetails()->page()->addComboBox(0, 0, 1, 1, "07", "00", "00", "System02"); // dist type
   editDetails()->page()->addKnob(0, 1, 1, 1, "07", "00", "01", "System02"); // bottom
@@ -97,7 +97,7 @@ void menuPage_midi::setEditPages()
   
   editDetails()->addPage("19", "00", "02", "01");
   
-  editDetails()->page()->addLabel(0, 0, 1, 1, "***CAUTION*** Settings changes are automatically written to GT-6");
+  editDetails()->page()->addLabel(0, 0, 1, 1, tr("***CAUTION*** Settings changes are automatically written to GT-6"));
 	editDetails()->page()->newGroupBox("Custom Wah 1");
   editDetails()->page()->addComboBox(0, 0, 1, 1, "08", "00", "00", "System02"); // wah type
   editDetails()->page()->addKnob(0, 1, 1, 1, "08", "00", "01", "System02"); // Q

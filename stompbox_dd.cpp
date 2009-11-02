@@ -38,6 +38,7 @@ stompbox_dd::stompbox_dd(QWidget *parent)
 	setKnob2("06", "00", "06");
 	setComboBox("06", "00", "02");
 	setButton("06", "00", "00");
+	editDetails()->patchPos(598, 18, "06", "00");
 	setEditPages();
 };
 
