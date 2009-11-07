@@ -45,44 +45,39 @@ void stompbox_fx1::setEditPages()
 	
 	editDetails()->page()->newGroupBox("Effect");
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "00", "00", "00", "middle", Qt::AlignCenter);
-	//editDetails()->page()->addComboBox(1, 0, 1, 1, "00", "00", "01");
+	editDetails()->page()->newStackControl(0);
+	editDetails()->page()->addComboBox(1, 0, 1, 1, "00", "00", "01");
+	editDetails()->page()->addStackControl();
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
-	editDetails()->page()->newGroupBox("AC");
+	editDetails()->page()->insertStackField(0, 1, 0, 1, 1);
+	
+	editDetails()->page()->newStackField(0);
+  editDetails()->page()->newGroupBox("Acoustic Processor");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "00", "00", "02", "turbo");  //ac top
 	editDetails()->page()->addKnob(0, 1, 1, 1, "00", "00", "03", "turbo");   //ac body
 	editDetails()->page()->addKnob(0, 2, 1, 1, "00", "00", "04", "turbo");   //ac level
 	editDetails()->page()->addGroupBox(1, 0, 1, 1);
-	editDetails()->addPage("00", "00", "01", "00");   //combo selection address
-	  // PAGE 1 ABOVE
+	editDetails()->page()->addStackField();   // PAGE 1 ABOVE
 
-	editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "00", "00", "00", "middle", Qt::AlignCenter);
-	//editDetails()->page()->addComboBox(1, 0, 1, 1, "00", "00", "01");
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
-	editDetails()->page()->newGroupBox("SG");
+	editDetails()->page()->newStackField(0);
+	editDetails()->page()->newGroupBox("Slow Gear");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "00", "00", "05");
 	editDetails()->page()->addKnob(0, 1, 1, 1, "00", "00", "06");
 	editDetails()->page()->addGroupBox(1, 0, 1, 1);
-	editDetails()->addPage("00", "00", "01", "01");  // PAGE 2 ABOVE
+	editDetails()->page()->addStackField();  // PAGE 2 ABOVE
 
 	
-	editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "00", "00", "00", "middle", Qt::AlignCenter);
-	//editDetails()->page()->addComboBox(1, 0, 1, 1, "00", "00", "01");
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
-	editDetails()->page()->newGroupBox("AFB");
+	editDetails()->page()->newStackField(0);
+	editDetails()->page()->newGroupBox("Anti FeedBacker");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "00", "00", "07");  //afb freq
 	editDetails()->page()->addKnob(0, 1, 1, 1, "00", "00", "08");  //afb depth
 	editDetails()->page()->addComboBox(0, 2, 1, 1, "00", "00", "09");   //afb search
 	editDetails()->page()->addGroupBox(1, 0, 1, 1);
-	editDetails()->addPage("00", "00", "01", "02");  // PAGE 3 ABOVE
+	editDetails()->page()->addStackField();  // PAGE 3 ABOVE
 
 	
-	editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "00", "00", "00", "middle", Qt::AlignCenter);
-	//editDetails()->page()->addComboBox(1, 0, 1, 1, "00", "00", "01");
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
-	editDetails()->page()->newGroupBox("FB");
+	editDetails()->page()->newStackField(0);
+	editDetails()->page()->newGroupBox("FeedBacker");
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "00", "00", "0A");  //fb mode
 	editDetails()->page()->addKnob(0, 1, 1, 1, "00", "00", "0B");      //fb rise time
 	editDetails()->page()->addKnob(0, 2, 1, 1, "00", "00", "0C");      //fb rise time fine
@@ -93,30 +88,24 @@ void stompbox_fx1::setEditPages()
 	editDetails()->page()->addKnob(0, 7, 1, 1, "00", "00", "11");      //fb vibe depth
 	editDetails()->page()->addComboBox(0, 8, 1, 1, "00", "00", "12");  //fb tone
 	editDetails()->page()->addGroupBox(1, 0, 1, 1);
-	editDetails()->addPage("00", "00", "01", "03");  // PAGE 4 ABOVE
+	editDetails()->page()->addStackField();   // PAGE 4 ABOVE
 
 	
-	editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "00", "00", "00", "middle", Qt::AlignCenter);
-	//editDetails()->page()->addComboBox(1, 0, 1, 1, "00", "00", "01");
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
-	editDetails()->page()->newGroupBox("PIC");
+	editDetails()->page()->newStackField(0);
+	editDetails()->page()->newGroupBox("Picking Simulator");
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "00", "00", "13");      //pic type
 	editDetails()->page()->addKnob(0, 1, 1, 1, "00", "00", "14");          // pic tone
 	editDetails()->page()->addKnob(0, 2, 1, 1, "00", "00", "15", "turbo"); //pic level
 	editDetails()->page()->addGroupBox(1, 0, 1, 1);
-	editDetails()->addPage("00", "00", "01", "04");// PAGE 5 ABOVE
+	editDetails()->page()->addStackField();     // PAGE 5 ABOVE
 	
-	editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "00", "00", "00", "middle", Qt::AlignCenter);
-	//editDetails()->page()->addComboBox(1, 0, 1, 1, "00", "00", "01");
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
-	editDetails()->page()->newGroupBox("TR");
+	editDetails()->page()->newStackField(0);
+	editDetails()->page()->newGroupBox("Tremolo");
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "00", "00", "16");      //tr mode
 	editDetails()->page()->addKnob(0, 1, 1, 1, "00", "00", "17");          // tr wave shape
 	editDetails()->page()->addKnob(0, 2, 1, 1, "00", "00", "18", "turbo"); //tr depth
 	editDetails()->page()->addGroupBox(1, 0, 1, 1);
-	editDetails()->addPage("00", "00", "01", "05");// PAGE 6 ABOVE
+	editDetails()->page()->addStackField();   // PAGE 6 ABOVE
 
-	
+ editDetails()->addPage();		
 };

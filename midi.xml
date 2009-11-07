@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<!-- edited with XMLSpy v2005 sp1 U (http://www.xmlspy.com) by Ru-Board (Ru-Board) -->
+<!-- edited with XMLSpy v2009 sp1 (http://www.altova.com) by col (x) -->
 <SysX desc="GT-3 Midi implementation GT3" version="0.2c" customdesc="">
 	<Header>
 		<DATA value="00" abbr="" desc="" customdesc="">
@@ -655,12 +655,12 @@
 					<PARAM value="01" name="On" desc="" customdesc="on"/>
 				</DATA>
 				<DATA value="01" name="" abbr="" desc="SFX:FX Select" customdesc="FX Select">
-					<PARAM value="00" name="AC" desc="AC" customdesc="Acoustic sim      "/>
-					<PARAM value="01" name="SG" desc="SG" customdesc="Slow Gear      "/>
-					<PARAM value="02" name="AFB" desc="AFB" customdesc="AntiFeedBacker     "/>
-					<PARAM value="03" name="FB" desc="FB" customdesc="FeedBacker     "/>
-					<PARAM value="04" name="PIC" desc="PIC" customdesc="Picking Simulator      "/>
-					<PARAM value="05" name="TR" desc="TR" customdesc="Tremolo      "/>
+					<PARAM value="00" name="Acoustic sim      " desc="Acoustic sim      " customdesc="Acoustic sim      "/>
+					<PARAM value="01" name="Slow Gear      " desc="Slow Gear      " customdesc="Slow Gear      "/>
+					<PARAM value="02" name="AntiFeedBacker     " desc="AntiFeedBacker     " customdesc="AntiFeedBacker     "/>
+					<PARAM value="03" name="FeedBacker     " desc="FeedBacker     " customdesc="FeedBacker     "/>
+					<PARAM value="04" name="Picking Simulator      " desc="Picking Simulator      " customdesc="Picking Simulator      "/>
+					<PARAM value="05" name="Tremolo      " desc="Tremolo      " customdesc="Tremolo      "/>
 				</DATA>
 				<DATA value="02" name="" abbr="" desc="AC Top" customdesc="Top">
 					<PARAM value="range" name="00/64/00/100" desc=" %" customdesc=""/>
@@ -717,9 +717,9 @@
 					<PARAM value="01" name="+1 octave" desc="+1 octave" customdesc="+1 octave      "/>
 				</DATA>
 				<DATA value="13" name="" abbr="" desc="PIC Type" customdesc="Type">
-					<PARAM value="00" name="S to H" desc="" customdesc="S to H      "/>
-					<PARAM value="01" name="H to S" desc="" customdesc="H to S"/>
-					<PARAM value="02" name="H to HF" desc="" customdesc="H to HF       "/>
+					<PARAM value="00" name="Solid to Hollow      " desc="Solid to Hollow      " customdesc="Solid to Hollow      "/>
+					<PARAM value="01" name="Hollow to Solid" desc="Hollow to Solid" customdesc="Hollow to Solid"/>
+					<PARAM value="02" name="Holloe to Hollow F-hole       " desc="Holloe to Hollow F-hole       " customdesc="Holloe to Hollow F-hole       "/>
 				</DATA>
 				<DATA value="14" name="" abbr="" desc="PIC Tone" customdesc="Tone">
 					<PARAM value="range" name="00/64/00/100" desc=" %"/>
@@ -846,10 +846,10 @@
 					<PARAM value="range" name="00/64/00/100" desc=" %" customdesc=""/>
 				</DATA>
 				<DATA value="03" name="" abbr="" desc="Bass" customdesc="Bass">
-					<PARAM value="range" name="00/64/-50/+50" desc=" %" customdesc=""/>
+					<PARAM value="range" name="00/64/-50/+50" desc=" " customdesc=""/>
 				</DATA>
 				<DATA value="04" name="" abbr="" desc="Treble" customdesc="Treble">
-					<PARAM value="range" name="00/64/-50/+50" desc=" %" customdesc=""/>
+					<PARAM value="range" name="00/64/-50/+50" desc=" " customdesc=""/>
 				</DATA>
 				<DATA value="05" name="" abbr="" desc="Effect Level" customdesc="Effect Level">
 					<PARAM value="range" name="00/64/00/100" desc=" %" customdesc=""/>
@@ -1023,18 +1023,18 @@
 					<PARAM value="01" name="On" desc="" customdesc=""/>
 				</DATA>
 				<DATA value="01" name="" abbr="" desc="MOD:FX Select" customdesc="FX Select">
-					<PARAM value="00" name="HR" desc="Harmonist" customdesc="Harmonist"/>
-					<PARAM value="01" name="FL" desc="Flanger" customdesc="Flanger"/>
-					<PARAM value="02" name="PH" desc="Phaser" customdesc="Phaser"/>
-					<PARAM value="03" name="AR" desc="Auto Riff" customdesc="Auto Riff"/>
-					<PARAM value="04" name="SEQ" desc="SEQ" customdesc="SEQ"/>
-					<PARAM value="05" name="2CE" desc="2x2 Chorus" customdesc="2x2 Chorus"/>
-					<PARAM value="06" name="SDD" desc="Short Delay" customdesc="Short Delay"/>
-					<PARAM value="07" name="HU" desc="Humanizer" customdesc="Humanizer"/>
-					<PARAM value="08" name="VB" desc="Vibrato" customdesc="Vibrato"/>
-					<PARAM value="09" name="SYN" desc="Guitar Synth" customdesc="Guitar Synth"/>
-					<PARAM value="0A" name="RM" desc="Ring Modulator" customdesc="Ring Modulator      "/>
-					<PARAM value="0B" name="SL" desc="SL" customdesc="SL"/>
+					<PARAM value="00" name="Harmonist" desc="Harmonist" customdesc="Harmonist"/>
+					<PARAM value="01" name="Flanger" desc="Flanger" customdesc="Flanger"/>
+					<PARAM value="02" name="Phaser" desc="Phaser" customdesc="Phaser"/>
+					<PARAM value="03" name="Auto Riff" desc="Auto Riff" customdesc="Auto Riff"/>
+					<PARAM value="04" name="Sub Equalizer" desc="Sub Equalizer" customdesc="Sub Equalizer"/>
+					<PARAM value="05" name="2x2 Chorus" desc="2x2 Chorus" customdesc="2x2 Chorus"/>
+					<PARAM value="06" name="Short Delay" desc="Short Delay" customdesc="Short Delay"/>
+					<PARAM value="07" name="Humanizer" desc="Humanizer" customdesc="Humanizer"/>
+					<PARAM value="08" name="Vibrato" desc="Vibrato" customdesc="Vibrato"/>
+					<PARAM value="09" name="Guitar Synth" desc="Guitar Synth" customdesc="Guitar Synth"/>
+					<PARAM value="0A" name="Ring Modulator      " desc="Ring Modulator      " customdesc="Ring Modulator      "/>
+					<PARAM value="0B" name="Slicer" desc="Slicer" customdesc="Slicer"/>
 				</DATA>
 				<DATA value="02" name="" abbr="" desc="HR :Voice" customdesc="Voice">
 					<PARAM value="00" name="1-Voice" desc="1-Voice" customdesc="1-Voice"/>
@@ -2317,9 +2317,9 @@
 						<PARAM value="49" name="NS: Threshold" desc="0A" customdesc="04"/>
 						<PARAM value="4A" name="NS: Release" desc="0A" customdesc="05"/>
 						<PARAM value="4B" name="FV: Level" desc="0A" customdesc="06"/>
-						<PARAM value="4C" name="Master Tap BPM" desc="0A" customdesc="00"/>
-						<PARAM value="4D" name="MANUAL On/off" desc="0A" customdesc="00"/>
-						<PARAM value="4E" name="TUNER On/off" desc="0A" customdesc="00"/>
+						<PARAM value="4C" name="Master Tap BPM" desc="0A" customdesc="01"/>
+						<PARAM value="4D" name="MANUAL On/off" desc="0A" customdesc="03"/>
+						<PARAM value="4E" name="TUNER On/off" desc="0A" customdesc="03"/>
 					</DATA>
 				</DATA>
 				<DATA value="02" name="EXP Pedal" abbr="" desc="Target LSB"/>
@@ -2733,9 +2733,9 @@
 						<PARAM value="49" name="NS: Threshold" desc="0A" customdesc="04"/>
 						<PARAM value="4A" name="NS: Release" desc="0A" customdesc="05"/>
 						<PARAM value="4B" name="FV: Level" desc="0A" customdesc="06"/>
-						<PARAM value="4C" name="Master Tap BPM" desc="0A" customdesc="00"/>
-						<PARAM value="4D" name="MANUAL On/off" desc="0A" customdesc="00"/>
-						<PARAM value="4E" name="TUNER On/off" desc="0A" customdesc="00"/>
+						<PARAM value="4C" name="Master Tap BPM" desc="0A" customdesc="01"/>
+						<PARAM value="4D" name="MANUAL On/off" desc="0A" customdesc="03"/>
+						<PARAM value="4E" name="TUNER On/off" desc="0A" customdesc="03"/>
 					</DATA>
 				</DATA>
 				<DATA value="02" name="CTL Pedal" abbr="" desc="Target LSB"/>
@@ -3153,9 +3153,9 @@
 						<PARAM value="49" name="NS: Threshold" desc="0A" customdesc="04"/>
 						<PARAM value="4A" name="NS: Release" desc="0A" customdesc="05"/>
 						<PARAM value="4B" name="FV: Level" desc="0A" customdesc="06"/>
-						<PARAM value="4C" name="Master Tap BPM" desc="0A" customdesc="00"/>
-						<PARAM value="4D" name="MANUAL On/off" desc="0A" customdesc="00"/>
-						<PARAM value="4E" name="TUNER On/off" desc="0A" customdesc="00"/>
+						<PARAM value="4C" name="Master Tap BPM" desc="0A" customdesc="01"/>
+						<PARAM value="4D" name="MANUAL On/off" desc="0A" customdesc="03"/>
+						<PARAM value="4E" name="TUNER On/off" desc="0A" customdesc="03"/>
 					</DATA>
 				</DATA>
 				<DATA value="02" name="Assign-1" abbr="" desc="Target LSB" customdesc="Target LSB"/>
@@ -3740,9 +3740,9 @@
 						<PARAM value="49" name="NS: Threshold" desc="0A" customdesc="04"/>
 						<PARAM value="4A" name="NS: Release" desc="0A" customdesc="05"/>
 						<PARAM value="4B" name="FV: Level" desc="0A" customdesc="06"/>
-						<PARAM value="4C" name="Master Tap BPM" desc="0A" customdesc="00"/>
-						<PARAM value="4D" name="MANUAL On/off" desc="0A" customdesc="00"/>
-						<PARAM value="4E" name="TUNER On/off" desc="0A" customdesc="00"/>
+						<PARAM value="4C" name="Master Tap BPM" desc="0A" customdesc="01"/>
+						<PARAM value="4D" name="MANUAL On/off" desc="0A" customdesc="03"/>
+						<PARAM value="4E" name="TUNER On/off" desc="0A" customdesc="03"/>
 					</DATA>
 				</DATA>
 				<DATA value="02" name="Assign 2" abbr="" desc="Target LSB" customdesc="Target LSB"/>
@@ -4327,9 +4327,9 @@
 						<PARAM value="49" name="NS: Threshold" desc="0A" customdesc="04"/>
 						<PARAM value="4A" name="NS: Release" desc="0A" customdesc="05"/>
 						<PARAM value="4B" name="FV: Level" desc="0A" customdesc="06"/>
-						<PARAM value="4C" name="Master Tap BPM" desc="0A" customdesc="00"/>
-						<PARAM value="4D" name="MANUAL On/off" desc="0A" customdesc="00"/>
-						<PARAM value="4E" name="TUNER On/off" desc="0A" customdesc="00"/>
+						<PARAM value="4C" name="Master Tap BPM" desc="0A" customdesc="01"/>
+						<PARAM value="4D" name="MANUAL On/off" desc="0A" customdesc="03"/>
+						<PARAM value="4E" name="TUNER On/off" desc="0A" customdesc="03"/>
 					</DATA>
 				</DATA>
 				<DATA value="02" name="Assign 3" abbr="" desc="Target LSB" customdesc="Target LSB"/>
@@ -4914,9 +4914,9 @@
 						<PARAM value="49" name="NS: Threshold" desc="0A" customdesc="04"/>
 						<PARAM value="4A" name="NS: Release" desc="0A" customdesc="05"/>
 						<PARAM value="4B" name="FV: Level" desc="0A" customdesc="06"/>
-						<PARAM value="4C" name="Master Tap BPM" desc="0A" customdesc="00"/>
-						<PARAM value="4D" name="MANUAL On/off" desc="0A" customdesc="00"/>
-						<PARAM value="4E" name="TUNER On/off" desc="0A" customdesc="00"/>
+						<PARAM value="4C" name="Master Tap BPM" desc="0A" customdesc="01"/>
+						<PARAM value="4D" name="MANUAL On/off" desc="0A" customdesc="03"/>
+						<PARAM value="4E" name="TUNER On/off" desc="0A" customdesc="03"/>
 					</DATA>
 				</DATA>
 				<DATA value="02" name="Assign 4" abbr="" desc="Target LSB" customdesc="Target LSB"/>
@@ -5501,9 +5501,9 @@
 						<PARAM value="49" name="NS: Threshold" desc="0A" customdesc="04"/>
 						<PARAM value="4A" name="NS: Release" desc="0A" customdesc="05"/>
 						<PARAM value="4B" name="FV: Level" desc="0A" customdesc="06"/>
-						<PARAM value="4C" name="Master Tap BPM" desc="0A" customdesc="00"/>
-						<PARAM value="4D" name="MANUAL On/off" desc="0A" customdesc="00"/>
-						<PARAM value="4E" name="TUNER On/off" desc="0A" customdesc="00"/>
+						<PARAM value="4C" name="Master Tap BPM" desc="0A" customdesc="01"/>
+						<PARAM value="4D" name="MANUAL On/off" desc="0A" customdesc="03"/>
+						<PARAM value="4E" name="TUNER On/off" desc="0A" customdesc="03"/>
 					</DATA>
 				</DATA>
 				<DATA value="02" name="Assign 5" abbr="" desc="Target LSB" customdesc="Target LSB"/>
@@ -6088,9 +6088,9 @@
 						<PARAM value="49" name="NS: Threshold" desc="0A" customdesc="04"/>
 						<PARAM value="4A" name="NS: Release" desc="0A" customdesc="05"/>
 						<PARAM value="4B" name="FV: Level" desc="0A" customdesc="06"/>
-						<PARAM value="4C" name="Master Tap BPM" desc="0A" customdesc="00"/>
-						<PARAM value="4D" name="MANUAL On/off" desc="0A" customdesc="00"/>
-						<PARAM value="4E" name="TUNER On/off" desc="0A" customdesc="00"/>
+						<PARAM value="4C" name="Master Tap BPM" desc="0A" customdesc="01"/>
+						<PARAM value="4D" name="MANUAL On/off" desc="0A" customdesc="03"/>
+						<PARAM value="4E" name="TUNER On/off" desc="0A" customdesc="03"/>
 					</DATA>
 				</DATA>
 				<DATA value="02" name="Assign 6" abbr="" desc="Target LSB" customdesc="Target LSB"/>
@@ -6675,9 +6675,9 @@
 						<PARAM value="49" name="NS: Threshold" desc="0A" customdesc="04"/>
 						<PARAM value="4A" name="NS: Release" desc="0A" customdesc="05"/>
 						<PARAM value="4B" name="FV: Level" desc="0A" customdesc="06"/>
-						<PARAM value="4C" name="Master Tap BPM" desc="0A" customdesc="00"/>
-						<PARAM value="4D" name="MANUAL On/off" desc="0A" customdesc="00"/>
-						<PARAM value="4E" name="TUNER On/off" desc="0A" customdesc="00"/>
+						<PARAM value="4C" name="Master Tap BPM" desc="0A" customdesc="01"/>
+						<PARAM value="4D" name="MANUAL On/off" desc="0A" customdesc="03"/>
+						<PARAM value="4E" name="TUNER On/off" desc="0A" customdesc="03"/>
 					</DATA>
 				</DATA>
 				<DATA value="02" name="Assign 7" abbr="" desc="Target LSB" customdesc="Target LSB"/>
@@ -7262,9 +7262,9 @@
 						<PARAM value="49" name="NS: Threshold" desc="0A" customdesc="04"/>
 						<PARAM value="4A" name="NS: Release" desc="0A" customdesc="05"/>
 						<PARAM value="4B" name="FV: Level" desc="0A" customdesc="06"/>
-						<PARAM value="4C" name="Master Tap BPM" desc="0A" customdesc="00"/>
-						<PARAM value="4D" name="MANUAL On/off" desc="0A" customdesc="00"/>
-						<PARAM value="4E" name="TUNER On/off" desc="0A" customdesc="00"/>
+						<PARAM value="4C" name="Master Tap BPM" desc="0A" customdesc="01"/>
+						<PARAM value="4D" name="MANUAL On/off" desc="0A" customdesc="03"/>
+						<PARAM value="4E" name="TUNER On/off" desc="0A" customdesc="03"/>
 					</DATA>
 				</DATA>
 				<DATA value="02" name="Assign 8" abbr="" desc="Target LSB" customdesc="Target LSB"/>

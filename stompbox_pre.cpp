@@ -50,8 +50,13 @@ void stompbox_pre::setEditPages()
 
   editDetails()->page()->newGroupBox("Pre-Amp Effect");
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "04", "00", "00", "middle", Qt::AlignCenter);
-	editDetails()->page()->addGroupBox(1, 0, 1, 1);
+	editDetails()->page()->newStackControl(0);
+	editDetails()->page()->addComboBox(0, 1, 1, 1, "04", "00", "01");
+	editDetails()->page()->addStackControl();
+	editDetails()->page()->addGroupBox(0, 0, 1, 1);
+	editDetails()->page()->insertStackField(0, 0, 1, 1, 1);
 	
+	 editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("JC-120");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "04", "00", "02", "turbo");//volume
 	editDetails()->page()->addKnob(0, 1, 1, 1, "04", "00", "03");         //bass
@@ -61,21 +66,16 @@ void stompbox_pre::setEditPages()
 	editDetails()->page()->addKnob(0, 5, 1, 1, "04", "00", "07", "turbo");//level
 	editDetails()->page()->addSwitch(0, 6, 1, 1, "04", "00", "08", "middle", Qt::AlignCenter);       //bright
 	editDetails()->page()->addComboBox(0, 7, 1, 1, "04", "00", "09");     //gain
-	editDetails()->page()->addGroupBox(1, 1, 1, 1);
+	editDetails()->page()->addGroupBox(1, 0, 1, 1);
 	
 	editDetails()->page()->newGroupBox("Speaker Cabinet");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "04", "00", "0A");     //mic set
 	editDetails()->page()->addKnob(0, 1, 1, 1, "04", "00", "0B", "turbo");// mic level
 	editDetails()->page()->addKnob(0, 2, 1, 1, "04", "00", "0C", "turbo");//direct level
 	editDetails()->page()->addGroupBox(2, 0, 1, 2);
-	
-	editDetails()->addPage("04", "00", "01", "00");
-	  // PAGE 1 ABOVE
+	editDetails()->page()->addStackField();  // PAGE 1 ABOVE
 	  
-	editDetails()->page()->newGroupBox("Pre-Amp Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "04", "00", "00", "middle", Qt::AlignCenter);
-	editDetails()->page()->addGroupBox(1, 0, 1, 1);
-	
+	editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Clean Twin");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "04", "00", "02", "turbo");//volume
 	editDetails()->page()->addKnob(0, 1, 1, 1, "04", "00", "03");         //bass
@@ -84,22 +84,17 @@ void stompbox_pre::setEditPages()
 	editDetails()->page()->addKnob(0, 4, 1, 1, "04", "00", "06");         //presence
 	editDetails()->page()->addKnob(0, 5, 1, 1, "04", "00", "07", "turbo");//level
 	editDetails()->page()->addSwitch(0, 6, 1, 1, "04", "00", "08", "middle", Qt::AlignCenter);       //bright
-	editDetails()->page()->addComboBox(0, 7, 1, 1, "04", "00", "09");     //gain
-	
-	editDetails()->page()->addGroupBox(1, 1, 1, 1);
+	editDetails()->page()->addComboBox(0, 7, 1, 1, "04", "00", "09");     //gain	
+	editDetails()->page()->addGroupBox(1, 0, 1, 1);
 	
 	editDetails()->page()->newGroupBox("Speaker Cabinet");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "04", "00", "0A");     //mic set
 	editDetails()->page()->addKnob(0, 1, 1, 1, "04", "00", "0B", "turbo");// mic level
 	editDetails()->page()->addKnob(0, 2, 1, 1, "04", "00", "0C", "turbo");//direct level
 	editDetails()->page()->addGroupBox(2, 0, 1, 2);
-	editDetails()->addPage("04", "00", "01", "01");
-	  // PAGE 2 ABOVE  
+	editDetails()->page()->addStackField(); // PAGE 2 ABOVE  
 
-	editDetails()->page()->newGroupBox("Pre-Amp Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "04", "00", "00", "middle", Qt::AlignCenter);
-	editDetails()->page()->addGroupBox(1, 0, 1, 1);
-	
+	editDetails()->page()->newStackField(0);	
 	editDetails()->page()->newGroupBox("Crunch");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "04", "00", "02", "turbo");//volume
 	editDetails()->page()->addKnob(0, 1, 1, 1, "04", "00", "03");         //bass
@@ -108,22 +103,17 @@ void stompbox_pre::setEditPages()
 	editDetails()->page()->addKnob(0, 4, 1, 1, "04", "00", "06");         //presence
 	editDetails()->page()->addKnob(0, 5, 1, 1, "04", "00", "07", "turbo");//level
 	editDetails()->page()->addSwitch(0, 6, 1, 1, "04", "00", "08", "middle", Qt::AlignCenter);       //bright
-	editDetails()->page()->addComboBox(0, 7, 1, 1, "04", "00", "09");     //gain
-	
-	editDetails()->page()->addGroupBox(1, 1, 1, 1);
+	editDetails()->page()->addComboBox(0, 7, 1, 1, "04", "00", "09");     //gain	
+	editDetails()->page()->addGroupBox(1, 0, 1, 1);
 	
 	editDetails()->page()->newGroupBox("Speaker Cabinet");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "04", "00", "0A");     //mic set
 	editDetails()->page()->addKnob(0, 1, 1, 1, "04", "00", "0B", "turbo");// mic level
 	editDetails()->page()->addKnob(0, 2, 1, 1, "04", "00", "0C", "turbo");//direct level
 	editDetails()->page()->addGroupBox(2, 0, 1, 2);
-	editDetails()->addPage("04", "00", "01", "02");
-	  // PAGE 3 ABOVE
+	editDetails()->page()->addStackField(); // PAGE 3 ABOVE
 	  
-	editDetails()->page()->newGroupBox("Pre-Amp Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "04", "00", "00", "middle", Qt::AlignCenter);
-	editDetails()->page()->addGroupBox(1, 0, 1, 1);
-	
+	editDetails()->page()->newStackField(0);	
 	editDetails()->page()->newGroupBox("MATCH Drive");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "04", "00", "02", "turbo");//volume
 	editDetails()->page()->addKnob(0, 1, 1, 1, "04", "00", "03");         //bass
@@ -132,22 +122,17 @@ void stompbox_pre::setEditPages()
 	editDetails()->page()->addKnob(0, 4, 1, 1, "04", "00", "06");         //presence
 	editDetails()->page()->addKnob(0, 5, 1, 1, "04", "00", "07", "turbo");//level
 	editDetails()->page()->addSwitch(0, 6, 1, 1, "04", "00", "08", "middle", Qt::AlignCenter);       //bright
-	editDetails()->page()->addComboBox(0, 7, 1, 1, "04", "00", "09");     //gain
-	
-	editDetails()->page()->addGroupBox(1, 1, 1, 1);
+	editDetails()->page()->addComboBox(0, 7, 1, 1, "04", "00", "09");     //gain	
+	editDetails()->page()->addGroupBox(1, 0, 1, 1);
 	
 	editDetails()->page()->newGroupBox("Speaker Cabinet");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "04", "00", "0A");     //mic set
 	editDetails()->page()->addKnob(0, 1, 1, 1, "04", "00", "0B", "turbo");// mic level
 	editDetails()->page()->addKnob(0, 2, 1, 1, "04", "00", "0C", "turbo");//direct level
 	editDetails()->page()->addGroupBox(2, 0, 1, 2);
-	editDetails()->addPage("04", "00", "01", "03");
-	  // PAGE 4 ABOVE
+	editDetails()->page()->addStackField(); // PAGE 4 ABOVE
 	  
-	editDetails()->page()->newGroupBox("Pre-Amp Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "04", "00", "00", "middle", Qt::AlignCenter);
-	editDetails()->page()->addGroupBox(1, 0, 1, 1);
-	
+	editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("VOXY Drive");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "04", "00", "02", "turbo");//volume
 	editDetails()->page()->addKnob(0, 1, 1, 1, "04", "00", "03");         //bass
@@ -156,22 +141,17 @@ void stompbox_pre::setEditPages()
 	editDetails()->page()->addKnob(0, 4, 1, 1, "04", "00", "06");         //presence
 	editDetails()->page()->addKnob(0, 5, 1, 1, "04", "00", "07", "turbo");//level
 	editDetails()->page()->addSwitch(0, 6, 1, 1, "04", "00", "08", "middle", Qt::AlignCenter);       //bright
-	editDetails()->page()->addComboBox(0, 7, 1, 1, "04", "00", "09");     //gain
-	
-	editDetails()->page()->addGroupBox(1, 1, 1, 1);
+	editDetails()->page()->addComboBox(0, 7, 1, 1, "04", "00", "09");     //gain	
+	editDetails()->page()->addGroupBox(1, 0, 1, 1);
 	
 	editDetails()->page()->newGroupBox("Speaker Cabinet");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "04", "00", "0A");     //mic set
 	editDetails()->page()->addKnob(0, 1, 1, 1, "04", "00", "0B", "turbo");// mic level
 	editDetails()->page()->addKnob(0, 2, 1, 1, "04", "00", "0C", "turbo");//direct level
 	editDetails()->page()->addGroupBox(2, 0, 1, 2);
-	editDetails()->addPage("04", "00", "01", "04");
-	  // PAGE 5 ABOVE
+	editDetails()->page()->addStackField();  // PAGE 5 ABOVE
 	  
-	editDetails()->page()->newGroupBox("Pre-Amp Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "04", "00", "00", "middle", Qt::AlignCenter);
-	editDetails()->page()->addGroupBox(1, 0, 1, 1);
-	
+	editDetails()->page()->newStackField(0);	
 	editDetails()->page()->newGroupBox("Blues");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "04", "00", "02", "turbo");//volume
 	editDetails()->page()->addKnob(0, 1, 1, 1, "04", "00", "03");         //bass
@@ -180,22 +160,17 @@ void stompbox_pre::setEditPages()
 	editDetails()->page()->addKnob(0, 4, 1, 1, "04", "00", "06");         //presence
 	editDetails()->page()->addKnob(0, 5, 1, 1, "04", "00", "07", "turbo");//level
 	editDetails()->page()->addSwitch(0, 6, 1, 1, "04", "00", "08", "middle", Qt::AlignCenter);       //bright
-	editDetails()->page()->addComboBox(0, 7, 1, 1, "04", "00", "09");     //gain
-	
-	editDetails()->page()->addGroupBox(1, 1, 1, 1);
+	editDetails()->page()->addComboBox(0, 7, 1, 1, "04", "00", "09");     //gain	
+	editDetails()->page()->addGroupBox(1, 0, 1, 1);
 	
 	editDetails()->page()->newGroupBox("Speaker Cabinet");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "04", "00", "0A");     //mic set
 	editDetails()->page()->addKnob(0, 1, 1, 1, "04", "00", "0B", "turbo");// mic level
 	editDetails()->page()->addKnob(0, 2, 1, 1, "04", "00", "0C", "turbo");//direct level
 	editDetails()->page()->addGroupBox(2, 0, 1, 2);
-	editDetails()->addPage("04", "00", "01", "05");
-	  // PAGE 6 ABOVE
+	editDetails()->page()->addStackField(); // PAGE 6 ABOVE
 	  
-	editDetails()->page()->newGroupBox("Pre-Amp Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "04", "00", "00", "middle", Qt::AlignCenter);
-	editDetails()->page()->addGroupBox(1, 0, 1, 1);
-	
+	editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("BG Lead");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "04", "00", "02", "turbo");//volume
 	editDetails()->page()->addKnob(0, 1, 1, 1, "04", "00", "03");         //bass
@@ -204,22 +179,17 @@ void stompbox_pre::setEditPages()
 	editDetails()->page()->addKnob(0, 4, 1, 1, "04", "00", "06");         //presence
 	editDetails()->page()->addKnob(0, 5, 1, 1, "04", "00", "07", "turbo");//level
 	editDetails()->page()->addSwitch(0, 6, 1, 1, "04", "00", "08", "middle", Qt::AlignCenter);       //bright
-	editDetails()->page()->addComboBox(0, 7, 1, 1, "04", "00", "09");     //gain
-	
-	editDetails()->page()->addGroupBox(1, 1, 1, 1);
+	editDetails()->page()->addComboBox(0, 7, 1, 1, "04", "00", "09");     //gain	
+	editDetails()->page()->addGroupBox(1, 0, 1, 1);
 	
 	editDetails()->page()->newGroupBox("Speaker Cabinet");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "04", "00", "0A");     //mic set
 	editDetails()->page()->addKnob(0, 1, 1, 1, "04", "00", "0B", "turbo");// mic level
 	editDetails()->page()->addKnob(0, 2, 1, 1, "04", "00", "0C", "turbo");//direct level
 	editDetails()->page()->addGroupBox(2, 0, 1, 2);
-	editDetails()->addPage("04", "00", "01", "06");
-	  // PAGE 7 ABOVE
+	editDetails()->page()->addStackField();  // PAGE 7 ABOVE
 	  
-	editDetails()->page()->newGroupBox("Pre-Amp Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "04", "00", "00", "middle", Qt::AlignCenter);
-	editDetails()->page()->addGroupBox(1, 0, 1, 1);
-	
+	editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("MS1959(1)");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "04", "00", "02", "turbo");//volume
 	editDetails()->page()->addKnob(0, 1, 1, 1, "04", "00", "03");         //bass
@@ -228,22 +198,17 @@ void stompbox_pre::setEditPages()
 	editDetails()->page()->addKnob(0, 4, 1, 1, "04", "00", "06");         //presence
 	editDetails()->page()->addKnob(0, 5, 1, 1, "04", "00", "07", "turbo");//level
 	editDetails()->page()->addSwitch(0, 6, 1, 1, "04", "00", "08", "middle", Qt::AlignCenter);       //bright
-	editDetails()->page()->addComboBox(0, 7, 1, 1, "04", "00", "09");     //gain
-	
-	editDetails()->page()->addGroupBox(1, 1, 1, 1);
+	editDetails()->page()->addComboBox(0, 7, 1, 1, "04", "00", "09");     //gain	
+	editDetails()->page()->addGroupBox(1, 0, 1, 1);
 	
 	editDetails()->page()->newGroupBox("Speaker Cabinet");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "04", "00", "0A");     //mic set
 	editDetails()->page()->addKnob(0, 1, 1, 1, "04", "00", "0B", "turbo");// mic level
 	editDetails()->page()->addKnob(0, 2, 1, 1, "04", "00", "0C", "turbo");//direct level
 	editDetails()->page()->addGroupBox(2, 0, 1, 2);
-	editDetails()->addPage("04", "00", "01", "07");
-	  // PAGE 8 ABOVE
+	editDetails()->page()->addStackField();  // PAGE 8 ABOVE
 	  
-	editDetails()->page()->newGroupBox("Pre-Amp Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "04", "00", "00", "middle", Qt::AlignCenter);
-	editDetails()->page()->addGroupBox(1, 0, 1, 1);
-	
+  editDetails()->page()->newStackField(0);	
 	editDetails()->page()->newGroupBox("MS1959(2)");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "04", "00", "02", "turbo");//volume
 	editDetails()->page()->addKnob(0, 1, 1, 1, "04", "00", "03");         //bass
@@ -253,21 +218,16 @@ void stompbox_pre::setEditPages()
 	editDetails()->page()->addKnob(0, 5, 1, 1, "04", "00", "07", "turbo");//level
 	editDetails()->page()->addSwitch(0, 6, 1, 1, "04", "00", "08", "middle", Qt::AlignCenter);       //bright
 	editDetails()->page()->addComboBox(0, 7, 1, 1, "04", "00", "09");     //gain
-	
-	editDetails()->page()->addGroupBox(1, 1, 1, 1);
+	editDetails()->page()->addGroupBox(1, 0, 1, 1);
 	
 	editDetails()->page()->newGroupBox("Speaker Cabinet");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "04", "00", "0A");     //mic set
 	editDetails()->page()->addKnob(0, 1, 1, 1, "04", "00", "0B", "turbo");// mic level
 	editDetails()->page()->addKnob(0, 2, 1, 1, "04", "00", "0C", "turbo");//direct level
 	editDetails()->page()->addGroupBox(2, 0, 1, 2);
-	editDetails()->addPage("04", "00", "01", "08");
-	  // PAGE 9 ABOVE
+	editDetails()->page()->addStackField(); // PAGE 9 ABOVE
 	  
-	editDetails()->page()->newGroupBox("Pre-Amp Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "04", "00", "00", "middle", Qt::AlignCenter);
-	editDetails()->page()->addGroupBox(1, 0, 1, 1);
-	
+	editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("MS1959(1+2)");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "04", "00", "02", "turbo");//volume
 	editDetails()->page()->addKnob(0, 1, 1, 1, "04", "00", "03");         //bass
@@ -276,22 +236,17 @@ void stompbox_pre::setEditPages()
 	editDetails()->page()->addKnob(0, 4, 1, 1, "04", "00", "06");         //presence
 	editDetails()->page()->addKnob(0, 5, 1, 1, "04", "00", "07", "turbo");//level
 	editDetails()->page()->addSwitch(0, 6, 1, 1, "04", "00", "08", "middle", Qt::AlignCenter);       //bright
-	editDetails()->page()->addComboBox(0, 7, 1, 1, "04", "00", "09");     //gain
-	
-	editDetails()->page()->addGroupBox(1, 1, 1, 1);
+	editDetails()->page()->addComboBox(0, 7, 1, 1, "04", "00", "09");     //gain	
+	editDetails()->page()->addGroupBox(1, 0, 1, 1);
 	
 	editDetails()->page()->newGroupBox("Speaker Cabinet");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "04", "00", "0A");     //mic set
 	editDetails()->page()->addKnob(0, 1, 1, 1, "04", "00", "0B", "turbo");// mic level
 	editDetails()->page()->addKnob(0, 2, 1, 1, "04", "00", "0C", "turbo");//direct level
 	editDetails()->page()->addGroupBox(2, 0, 1, 2);
-	editDetails()->addPage("04", "00", "01", "09");
-	  // PAGE 10 ABOVE
+	editDetails()->page()->addStackField(); // PAGE 10 ABOVE
 	  
-	editDetails()->page()->newGroupBox("Pre-Amp Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "04", "00", "00", "middle", Qt::AlignCenter);
-	editDetails()->page()->addGroupBox(1, 0, 1, 1);
-	
+  editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("SLDN Lead");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "04", "00", "02", "turbo");//volume
 	editDetails()->page()->addKnob(0, 1, 1, 1, "04", "00", "03");         //bass
@@ -300,22 +255,17 @@ void stompbox_pre::setEditPages()
 	editDetails()->page()->addKnob(0, 4, 1, 1, "04", "00", "06");         //presence
 	editDetails()->page()->addKnob(0, 5, 1, 1, "04", "00", "07", "turbo");//level
 	editDetails()->page()->addSwitch(0, 6, 1, 1, "04", "00", "08", "middle", Qt::AlignCenter);       //bright
-	editDetails()->page()->addComboBox(0, 7, 1, 1, "04", "00", "09");     //gain
-	
-	editDetails()->page()->addGroupBox(1, 1, 1, 1);
+	editDetails()->page()->addComboBox(0, 7, 1, 1, "04", "00", "09");     //gain	
+	editDetails()->page()->addGroupBox(1, 0, 1, 1);
 	
 	editDetails()->page()->newGroupBox("Speaker Cabinet");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "04", "00", "0A");     //mic set
 	editDetails()->page()->addKnob(0, 1, 1, 1, "04", "00", "0B", "turbo");// mic level
 	editDetails()->page()->addKnob(0, 2, 1, 1, "04", "00", "0C", "turbo");//direct level
 	editDetails()->page()->addGroupBox(2, 0, 1, 2);
-	editDetails()->addPage("04", "00", "01", "0A");
-	  // PAGE 11 ABOVE
+	editDetails()->page()->addStackField(); // PAGE 11 ABOVE
 	  
-	editDetails()->page()->newGroupBox("Pre-Amp Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "04", "00", "00", "middle", Qt::AlignCenter);
-	editDetails()->page()->addGroupBox(1, 0, 1, 1);
-	
+  editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Metal 5150");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "04", "00", "02", "turbo");//volume
 	editDetails()->page()->addKnob(0, 1, 1, 1, "04", "00", "03");         //bass
@@ -325,21 +275,16 @@ void stompbox_pre::setEditPages()
 	editDetails()->page()->addKnob(0, 5, 1, 1, "04", "00", "07", "turbo");//level
 	editDetails()->page()->addSwitch(0, 6, 1, 1, "04", "00", "08", "middle", Qt::AlignCenter);       //bright
 	editDetails()->page()->addComboBox(0, 7, 1, 1, "04", "00", "09");     //gain
-	
-	editDetails()->page()->addGroupBox(1, 1, 1, 1);
+	editDetails()->page()->addGroupBox(1, 0, 1, 1);
 	
 	editDetails()->page()->newGroupBox("Speaker Cabinet");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "04", "00", "0A");     //mic set
 	editDetails()->page()->addKnob(0, 1, 1, 1, "04", "00", "0B", "turbo");// mic level
 	editDetails()->page()->addKnob(0, 2, 1, 1, "04", "00", "0C", "turbo");//direct level
 	editDetails()->page()->addGroupBox(2, 0, 1, 2);
-	editDetails()->addPage("04", "00", "01", "0B");
-	  // PAGE 12 ABOVE
+	editDetails()->page()->addStackField();  // PAGE 12 ABOVE
 	  
-	editDetails()->page()->newGroupBox("Pre-Amp Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "04", "00", "00", "middle", Qt::AlignCenter);
-	editDetails()->page()->addGroupBox(1, 0, 1, 1);
-	
+  editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Metal Drive");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "04", "00", "02", "turbo");//volume
 	editDetails()->page()->addKnob(0, 1, 1, 1, "04", "00", "03");         //bass
@@ -348,22 +293,17 @@ void stompbox_pre::setEditPages()
 	editDetails()->page()->addKnob(0, 4, 1, 1, "04", "00", "06");         //presence
 	editDetails()->page()->addKnob(0, 5, 1, 1, "04", "00", "07", "turbo");//level
 	editDetails()->page()->addSwitch(0, 6, 1, 1, "04", "00", "08", "middle", Qt::AlignCenter);       //bright
-	editDetails()->page()->addComboBox(0, 7, 1, 1, "04", "00", "09");     //gain
-	
-	editDetails()->page()->addGroupBox(1, 1, 1, 1);
+	editDetails()->page()->addComboBox(0, 7, 1, 1, "04", "00", "09");     //gain	
+	editDetails()->page()->addGroupBox(1, 0, 1, 1);
 	
 	editDetails()->page()->newGroupBox("Speaker Cabinet");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "04", "00", "0A");     //mic set
 	editDetails()->page()->addKnob(0, 1, 1, 1, "04", "00", "0B", "turbo");// mic level
 	editDetails()->page()->addKnob(0, 2, 1, 1, "04", "00", "0C", "turbo");//direct level
 	editDetails()->page()->addGroupBox(2, 0, 1, 2);
-	editDetails()->addPage("04", "00", "01", "0C");
-	  // PAGE 13 ABOVE
+	editDetails()->page()->addStackField(); // PAGE 13 ABOVE
 	  
-	editDetails()->page()->newGroupBox("Pre-Amp Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "04", "00", "00", "middle", Qt::AlignCenter);
-	editDetails()->page()->addGroupBox(1, 0, 1, 1);
-	
+  editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("AC. Guitar");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "04", "00", "02", "turbo");//volume
 	editDetails()->page()->addKnob(0, 1, 1, 1, "04", "00", "03");         //bass
@@ -372,18 +312,15 @@ void stompbox_pre::setEditPages()
 	editDetails()->page()->addKnob(0, 4, 1, 1, "04", "00", "06");         //presence
 	editDetails()->page()->addKnob(0, 5, 1, 1, "04", "00", "07", "turbo");//level
 	editDetails()->page()->addSwitch(0, 6, 1, 1, "04", "00", "08", "middle", Qt::AlignCenter);       //bright
-	editDetails()->page()->addComboBox(0, 7, 1, 1, "04", "00", "09");     //gain
-	
-	editDetails()->page()->addGroupBox(1, 1, 1, 1);
+	editDetails()->page()->addComboBox(0, 7, 1, 1, "04", "00", "09");     //gain	
+	editDetails()->page()->addGroupBox(1, 0, 1, 1);
 	
 	editDetails()->page()->newGroupBox("Speaker Cabinet");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "04", "00", "0A");     //mic set
 	editDetails()->page()->addKnob(0, 1, 1, 1, "04", "00", "0B", "turbo");// mic level
 	editDetails()->page()->addKnob(0, 2, 1, 1, "04", "00", "0C", "turbo");//direct level
 	editDetails()->page()->addGroupBox(2, 0, 1, 2);
-	editDetails()->addPage("04", "00", "01", "0D");
-	  // PAGE 14 ABOVE
+	editDetails()->page()->addStackField();  // PAGE 14 ABOVE
 	  
-	  
-	
+	editDetails()->addPage();		
 };

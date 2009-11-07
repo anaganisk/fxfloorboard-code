@@ -76,7 +76,7 @@ void stompbox_eq::setEditPages()
 
 	editDetails()->page()->newGroupBox("Output");
 	editDetails()->page()->addKnob(2, 0, 1, 1, "05", "00", "09");          //level
-	editDetails()->page()->addGroupBox(1, 3, 1, 1);
+	editDetails()->page()->addGroupBox(1, 1, 1, 3);
 	editDetails()->addPage();  // PAGE 1 ABOVE 
 
 };

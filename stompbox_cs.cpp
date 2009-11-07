@@ -48,30 +48,29 @@ void stompbox_cs::setEditPages()
 {
 	editDetails()->page()->newGroupBox("Effect");
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "00", "middle", Qt::AlignCenter);
+	editDetails()->page()->newStackControl(0);
+	editDetails()->page()->addComboBox(1, 0, 1, 1, "01", "00", "01");
+	editDetails()->page()->addStackControl();
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
+	editDetails()->page()->insertStackField(0, 0, 1, 1, 1);
 
-  editDetails()->page()->newGroupBox("CS");
+  editDetails()->page()->newStackField(0);
+  editDetails()->page()->newGroupBox("Compressor");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "02", "turbo");// sustain
 	editDetails()->page()->addKnob(0, 1, 1, 1, "01", "00", "03");         //attack
 	editDetails()->page()->addKnob(0, 2, 1, 1, "01", "00", "04", "turbo");// tone
 	editDetails()->page()->addKnob(0, 3, 1, 1, "01", "00", "05");         //level
 	editDetails()->page()->addGroupBox(1, 0, 1, 1);
-	editDetails()->addPage("01", "00", "01", "00");  // PAGE 1 ABOVE
+	editDetails()->page()->addStackField();  // PAGE 1 ABOVE
 
-
-	editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "00", "middle", Qt::AlignCenter);
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
-	
-    editDetails()->page()->newGroupBox("LM");
+	editDetails()->page()->newStackField(0);
+  editDetails()->page()->newGroupBox("Limiter");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "06", "turbo");//threshold
 	editDetails()->page()->addKnob(0, 1, 1, 1, "01", "00", "07");         //release
 	editDetails()->page()->addKnob(0, 2, 1, 1, "01", "00", "08", "turbo");//tone
 	editDetails()->page()->addKnob(0, 3, 1, 1, "01", "00", "09");         //level
 	editDetails()->page()->addGroupBox(1, 0, 1, 1);
-	editDetails()->addPage("01", "00", "01", "01");  // PAGE 2 ABOVE
+	editDetails()->page()->addStackField();  // PAGE 2 ABOVE
 
-
-
-	
+  editDetails()->addPage();	
 };

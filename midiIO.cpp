@@ -221,7 +221,7 @@ void midiIO::sendMidiMsg(QString sysxOutMsg, int midiOutPort)
 		char *ptr  = new char[msgLength];		// Convert QString to char* (hex value) 
 		for(int i=0;i<msgLength*2;++i)
         {unsigned int n;
-			QString hex = "0x";
+			QString hex;
 			hex.append(sysxOutMsg.mid(i, 2));
 			bool ok;
 			n = hex.toInt(&ok, 16);

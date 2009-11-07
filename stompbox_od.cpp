@@ -46,9 +46,15 @@ void stompbox_od::updateSignal()
 
 void stompbox_od::setEditPages()
 {
-    editDetails()->page()->newGroupBox("Effect");
+  editDetails()->page()->newGroupBox("Effect");
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "03", "00", "00", "middle", Qt::AlignCenter);
-	editDetails()->page()->addGroupBox(1, 0, 1, 1);
+	editDetails()->page()->newStackControl(0);
+	editDetails()->page()->addComboBox(1, 0, 1, 1, "03", "00", "01");
+	editDetails()->page()->addStackControl();
+	editDetails()->page()->addGroupBox(0, 0, 1, 1);
+	editDetails()->page()->insertStackField(0, 1, 0, 1, 1);
+	
+	editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Natural O/D");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "03", "00", "02", "turbo");         //drive
 	editDetails()->page()->addGroupBox(1, 1, 1, 1);
@@ -59,11 +65,9 @@ void stompbox_od::setEditPages()
 	editDetails()->page()->newGroupBox("Output");
 	editDetails()->page()->addKnob(0, 3, 1, 1, "03", "00", "05", "turbo");//effect level
 	editDetails()->page()->addGroupBox(1, 3, 1, 1);
-	editDetails()->addPage("03", "00", "01", "00");  // PAGE 1 ABOVE 
+	editDetails()->page()->addStackField(); // PAGE 1 ABOVE 
 
-    editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "03", "00", "00", "middle", Qt::AlignCenter);
-	editDetails()->page()->addGroupBox(1, 0, 1, 1);
+  editDetails()->page()->newStackField(0); 
 	editDetails()->page()->newGroupBox("Vintage O/D");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "03", "00", "02", "turbo");         //drive
 	editDetails()->page()->addGroupBox(1, 1, 1, 1);
@@ -73,13 +77,10 @@ void stompbox_od::setEditPages()
 	editDetails()->page()->addGroupBox(1, 2, 1, 1);
 	editDetails()->page()->newGroupBox("Output");
 	editDetails()->page()->addKnob(0, 3, 1, 1, "03", "00", "05", "turbo");//effect level
-	//editDetails()->page()->addKnob(0, 4, 1, 1, "03", "00", "07", "turbo");//direct level
 	editDetails()->page()->addGroupBox(1, 3, 1, 1);
-	editDetails()->addPage("03", "00", "01", "01");  // PAGE 2 ABOVE 
+	editDetails()->page()->addStackField();  // PAGE 2 ABOVE 
 
-    editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "03", "00", "00", "middle", Qt::AlignCenter);
-	editDetails()->page()->addGroupBox(1, 0, 1, 1);
+  editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Turbo O/D");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "03", "00", "02", "turbo");         //drive
 	editDetails()->page()->addGroupBox(1, 1, 1, 1);
@@ -89,13 +90,10 @@ void stompbox_od::setEditPages()
 	editDetails()->page()->addGroupBox(1, 2, 1, 1);
 	editDetails()->page()->newGroupBox("Output");
 	editDetails()->page()->addKnob(0, 3, 1, 1, "03", "00", "05", "turbo");//effect level
-	//editDetails()->page()->addKnob(0, 4, 1, 1, "03", "00", "07", "turbo");//direct level
 	editDetails()->page()->addGroupBox(1, 3, 1, 1);
-	editDetails()->addPage("03", "00", "01", "02");  // PAGE 3 ABOVE 
+	editDetails()->page()->addStackField();  // PAGE 3 ABOVE 
 
-	editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "03", "00", "00", "middle", Qt::AlignCenter);
-	editDetails()->page()->addGroupBox(1, 0, 1, 1);
+	editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Blues");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "03", "00", "02", "turbo");         //drive
 	editDetails()->page()->addGroupBox(1, 1, 1, 1);
@@ -105,13 +103,10 @@ void stompbox_od::setEditPages()
 	editDetails()->page()->addGroupBox(1, 2, 1, 1);
 	editDetails()->page()->newGroupBox("Output");
 	editDetails()->page()->addKnob(0, 3, 1, 1, "03", "00", "05", "turbo");//effect level
-	//editDetails()->page()->addKnob(0, 4, 1, 1, "03", "00", "07", "turbo");//direct level
 	editDetails()->page()->addGroupBox(1, 3, 1, 1);
-	editDetails()->addPage("03", "00", "01", "03");  // PAGE 4 ABOVE 
+	editDetails()->page()->addStackField();  // PAGE 4 ABOVE 
 
-	editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "03", "00", "00", "middle", Qt::AlignCenter);
-	editDetails()->page()->addGroupBox(1, 0, 1, 1);
+	editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Crunch");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "03", "00", "02", "turbo");         //drive
 	editDetails()->page()->addGroupBox(1, 1, 1, 1);
@@ -121,13 +116,10 @@ void stompbox_od::setEditPages()
 	editDetails()->page()->addGroupBox(1, 2, 1, 1);
 	editDetails()->page()->newGroupBox("Output");
 	editDetails()->page()->addKnob(0, 3, 1, 1, "03", "00", "05", "turbo");//effect level
-	//editDetails()->page()->addKnob(0, 4, 1, 1, "03", "00", "07", "turbo");//direct level
 	editDetails()->page()->addGroupBox(1, 3, 1, 1);
-	editDetails()->addPage("03", "00", "01", "04");  // PAGE 5 ABOVE 
+	editDetails()->page()->addStackField();  // PAGE 5 ABOVE 
 
-	editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "03", "00", "00", "middle", Qt::AlignCenter);
-	editDetails()->page()->addGroupBox(1, 0, 1, 1);
+	editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Distortion 1");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "03", "00", "02", "turbo");         //drive
 	editDetails()->page()->addGroupBox(1, 1, 1, 1);
@@ -137,13 +129,10 @@ void stompbox_od::setEditPages()
 	editDetails()->page()->addGroupBox(1, 2, 1, 1);
 	editDetails()->page()->newGroupBox("Output");
 	editDetails()->page()->addKnob(0, 3, 1, 1, "03", "00", "05", "turbo");//effect level
-	//editDetails()->page()->addKnob(0, 4, 1, 1, "03", "00", "07", "turbo");//direct level
 	editDetails()->page()->addGroupBox(1, 3, 1, 1);
-	editDetails()->addPage("03", "00", "01", "05");  // PAGE 6 ABOVE 
+	editDetails()->page()->addStackField();  // PAGE 6 ABOVE 
 
-	editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "03", "00", "00", "middle", Qt::AlignCenter);
-	editDetails()->page()->addGroupBox(1, 0, 1, 1);
+	editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Distortion 2");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "03", "00", "02", "turbo");         //drive
 	editDetails()->page()->addGroupBox(1, 1, 1, 1);
@@ -153,13 +142,10 @@ void stompbox_od::setEditPages()
 	editDetails()->page()->addGroupBox(1, 2, 1, 1);
 	editDetails()->page()->newGroupBox("Output");
 	editDetails()->page()->addKnob(0, 3, 1, 1, "03", "00", "05", "turbo");//effect level
-	//editDetails()->page()->addKnob(0, 4, 1, 1, "03", "00", "07", "turbo");//direct level
 	editDetails()->page()->addGroupBox(1, 3, 1, 1);
-	editDetails()->addPage("03", "00", "01", "06");  // PAGE 7 ABOVE 
+	editDetails()->page()->addStackField();  // PAGE 7 ABOVE 
 
-	editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "03", "00", "00", "middle", Qt::AlignCenter);
-	editDetails()->page()->addGroupBox(1, 0, 1, 1);
+	editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Grunge");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "03", "00", "02", "turbo");         //drive
 	editDetails()->page()->addGroupBox(1, 1, 1, 1);
@@ -169,14 +155,11 @@ void stompbox_od::setEditPages()
 	editDetails()->page()->addGroupBox(1, 2, 1, 1);
 	editDetails()->page()->newGroupBox("Output");
 	editDetails()->page()->addKnob(0, 3, 1, 1, "03", "00", "05", "turbo");//effect level
-	//editDetails()->page()->addKnob(0, 4, 1, 1, "03", "00", "07", "turbo");//direct level
 	editDetails()->page()->addGroupBox(1, 3, 1, 1);
-	editDetails()->addPage("03", "00", "01", "07");  // PAGE 8 ABOVE 
+	editDetails()->page()->addStackField();  // PAGE 8 ABOVE 
 
 	
-	editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "03", "00", "00", "middle", Qt::AlignCenter);
-	editDetails()->page()->addGroupBox(1, 0, 1, 1);
+	editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Metal 1");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "03", "00", "02", "turbo");         //drive
 	editDetails()->page()->addGroupBox(1, 1, 1, 1);
@@ -186,13 +169,10 @@ void stompbox_od::setEditPages()
 	editDetails()->page()->addGroupBox(1, 2, 1, 1);
 	editDetails()->page()->newGroupBox("Output");
 	editDetails()->page()->addKnob(0, 3, 1, 1, "03", "00", "05", "turbo");//effect level
-	//editDetails()->page()->addKnob(0, 4, 1, 1, "03", "00", "07", "turbo");//direct level
 	editDetails()->page()->addGroupBox(1, 3, 1, 1);
-	editDetails()->addPage("03", "00", "01", "08");  // PAGE 9 ABOVE 
+	editDetails()->page()->addStackField();  // PAGE 9 ABOVE 
 
-	editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "03", "00", "00", "middle", Qt::AlignCenter);
-	editDetails()->page()->addGroupBox(1, 0, 1, 1);
+	editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Metal 2");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "03", "00", "02", "turbo");         //drive
 	editDetails()->page()->addGroupBox(1, 1, 1, 1);
@@ -202,21 +182,10 @@ void stompbox_od::setEditPages()
 	editDetails()->page()->addGroupBox(1, 2, 1, 1);
 	editDetails()->page()->newGroupBox("Output");
 	editDetails()->page()->addKnob(0, 3, 1, 1, "03", "00", "05", "turbo");//effect level
-	//editDetails()->page()->addKnob(0, 4, 1, 1, "03", "00", "07", "turbo");//direct level
 	editDetails()->page()->addGroupBox(1, 3, 1, 1);
+	editDetails()->page()->addStackField();  // PAGE 10 ABOVE 
 
-    //editDetails()->page()->newGroupBox("Custom");
-	//editDetails()->page()->addKnob(0, 0, 1, 1, "03", "00", "03");         //drive
-	//editDetails()->page()->addKnob(0, 1, 1, 1, "03", "00", "04", "turbo");//bass
-	//editDetails()->page()->addKnob(0, 2, 1, 1, "03", "00", "05");         //treble
-	//editDetails()->page()->addKnob(0, 3, 1, 1, "03", "00", "06");         //effect level
-	//editDetails()->page()->addKnob(0, 4, 1, 1, "03", "00", "07");         //direct level 
-	//editDetails()->page()->addGroupBox(2, 1, 1, 1);
-	editDetails()->addPage("03", "00", "01", "09");  // PAGE 10 ABOVE 
-
-	editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "03", "00", "00", "middle", Qt::AlignCenter);
-	editDetails()->page()->addGroupBox(1, 0, 1, 1);
+  editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("FUZZ");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "03", "00", "02", "turbo");         //drive
 	editDetails()->page()->addGroupBox(1, 1, 1, 1);
@@ -226,20 +195,10 @@ void stompbox_od::setEditPages()
 	editDetails()->page()->addGroupBox(1, 2, 1, 1);
 	editDetails()->page()->newGroupBox("Output");
 	editDetails()->page()->addKnob(0, 3, 1, 1, "03", "00", "05", "turbo");//effect level
-	//editDetails()->page()->addKnob(0, 4, 1, 1, "03", "00", "07", "turbo");//direct level
 	editDetails()->page()->addGroupBox(1, 3, 1, 1);
-	//editDetails()->page()->newGroupBox("Custom");
-	//editDetails()->page()->addKnob(0, 0, 1, 1, "03", "00", "03");         //drive
-	//editDetails()->page()->addKnob(0, 1, 1, 1, "03", "00", "04", "turbo");//bass
-	//editDetails()->page()->addKnob(0, 2, 1, 1, "03", "00", "05");         //treble
-	//editDetails()->page()->addKnob(0, 3, 1, 1, "03", "00", "06");         //effect level
-	//editDetails()->page()->addKnob(0, 4, 1, 1, "03", "00", "07");         //direct level
-	//()->page()->addGroupBox(2, 1, 1, 1);
-	editDetails()->addPage("03", "00", "01", "0A");   // PAGE 11 ABOVE 
+	editDetails()->page()->addStackField();   // PAGE 11 ABOVE 
 	
-	editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "03", "00", "00", "middle", Qt::AlignCenter);
-	editDetails()->page()->addGroupBox(1, 0, 1, 1);
+	editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("EXT OD/DS");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "03", "00", "02", "turbo");         //drive
 	editDetails()->page()->addGroupBox(1, 1, 1, 1);
@@ -249,15 +208,8 @@ void stompbox_od::setEditPages()
 	editDetails()->page()->addGroupBox(1, 2, 1, 1);
 	editDetails()->page()->newGroupBox("Output");
 	editDetails()->page()->addKnob(0, 3, 1, 1, "03", "00", "05", "turbo");//effect level
-	//editDetails()->page()->addKnob(0, 4, 1, 1, "03", "00", "07", "turbo");//direct level
 	editDetails()->page()->addGroupBox(1, 3, 1, 1);
-	//editDetails()->page()->newGroupBox("Custom");
-	//editDetails()->page()->addKnob(0, 0, 1, 1, "03", "00", "03");         //drive
-	//editDetails()->page()->addKnob(0, 1, 1, 1, "03", "00", "04", "turbo");//bass
-	//editDetails()->page()->addKnob(0, 2, 1, 1, "03", "00", "05");         //treble
-	//editDetails()->page()->addKnob(0, 3, 1, 1, "03", "00", "06");         //effect level
-	//editDetails()->page()->addKnob(0, 4, 1, 1, "03", "00", "07");         //direct level
-	//()->page()->addGroupBox(2, 1, 1, 1);
-	editDetails()->addPage("03", "00", "01", "0B");   // PAGE 12 ABOVE 
-
-	};
+	editDetails()->page()->addStackField();    // PAGE 12 ABOVE 
+	
+	editDetails()->addPage();  
+};

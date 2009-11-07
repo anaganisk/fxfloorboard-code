@@ -44,17 +44,20 @@ void stompbox_wah::setEditPages()
 {
  	editDetails()->page()->newGroupBox("Effect");
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "02", "00", "00", "middle", Qt::AlignCenter);
+	editDetails()->page()->newStackControl(0);
+	editDetails()->page()->addComboBox(1, 0, 1, 1, "02", "00", "01");
+	editDetails()->page()->addStackControl();
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
-	editDetails()->page()->newGroupBox("Pedal Wah");
-	editDetails()->page()->addKnob(0, 3, 1, 1, "02", "00", "02");           //pedal pos
-	editDetails()->page()->addKnob(0, 5, 1, 1, "02", "00", "03");           //level
-	editDetails()->page()->addGroupBox(1, 0, 1, 1);
-	editDetails()->addPage("02", "00", "01", "00");  // PAGE 1 ABOVE
-
+	editDetails()->page()->insertStackField(0, 1, 0, 1, 1);
 	
-	editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "02", "00", "00", "middle", Qt::AlignCenter);
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
+	editDetails()->page()->newStackField(0);
+	editDetails()->page()->newGroupBox("Pedal Wah");
+	editDetails()->page()->addKnob(0, 1, 1, 1, "02", "00", "02");           //pedal pos
+	editDetails()->page()->addKnob(0, 3, 1, 1, "02", "00", "03");           //level
+	editDetails()->page()->addGroupBox(1, 0, 1, 3);
+	editDetails()->page()->addStackField();   // PAGE 1 ABOVE
+
+	editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Auto Wah");
 	editDetails()->page()->addComboBox(0, 1, 1, 1, "02", "00", "04");       //mode
 	editDetails()->page()->addComboBox(0, 2, 1, 1, "02", "00", "05");       //polarity
@@ -65,8 +68,7 @@ void stompbox_wah::setEditPages()
   editDetails()->page()->addKnob(0, 7, 1, 1, "02", "00", "0A");           //depth
   editDetails()->page()->addKnob(0, 8, 1, 1, "02", "00", "0B");           //level
 	editDetails()->page()->addGroupBox(1, 0, 1, 1);
-	editDetails()->addPage("02", "00", "01", "01");  // PAGE 2 ABOVE
+	editDetails()->page()->addStackField();   // PAGE 2 ABOVE
 
-	
-
-	};
+	editDetails()->addPage();	
+};

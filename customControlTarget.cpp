@@ -48,15 +48,10 @@ customControlTarget::customControlTarget(QWidget *parent,
 	this->hexTarget = hexTarget;
 	this->hexTemp1 = hexTemp1;
 	this->hexTemp2 = hexTemp2;
-	
+		
   bool ok;
-  //QString hexTemp;
-  //{hexTemp = QString::number((hex3.toInt(&ok, 16) + 4), 16).toUpper(); } // go forward 4 to select target Max address
-  //if(hexTemp.length() < 2) hexTemp.prepend("0");                         // prepend with "0" if single digit.
-  this->hexMax = hexMax;//Temp;
-	//{hexTemp = QString::number((hex3.toInt(&ok, 16) + 2), 16).toUpper(); };// go forward 2 to select target Min address
-	//if(hexTemp.length() < 2) hexTemp.prepend("0");                         // prepend with "0" if single digit.
-	this->hexMin = hexMin;//Temp;
+  this->hexMax = hexMax;
+	this->hexMin = hexMin;
 	
 	SysxIO *sysxIO = SysxIO::Instance();
 	QString area;
@@ -87,6 +82,8 @@ customControlTarget::customControlTarget(QWidget *parent,
 	this->display->setFixedHeight(15);
 	this->display->setAlignment(Qt::AlignLeft);
 	this->display->setDisabled(true);	
+	this->display->hide();  // hide the display dialog
+	this->displayCombo = new customTargetListMenu(this, hex1, hex2, hex3, hexMsb, hexLsb, "Structure");
 	this->label->setText("TARGET");
 	this->label->setAlignment(Qt::AlignCenter);
 	
@@ -114,6 +111,7 @@ customControlTarget::customControlTarget(QWidget *parent,
 		targetLayout->addWidget(this->label, 0, Qt::AlignCenter);
 		targetLayout->addWidget(this->knobTarget, 0, Qt::AlignCenter);
 		targetLayout->addWidget(this->display, 0, Qt::AlignCenter);
+		targetLayout->addWidget(this->displayCombo, 0, Qt::AlignCenter);
 		targetLayout->addStretch(0);
 		
 		QVBoxLayout *minLayout = new QVBoxLayout;
@@ -134,7 +132,7 @@ customControlTarget::customControlTarget(QWidget *parent,
 		
 		QHBoxLayout *mainLayout = new QHBoxLayout;
 		mainLayout->setMargin(0);
-		mainLayout->setSpacing(10);
+		mainLayout->setSpacing(0);
 		mainLayout->addLayout(targetLayout);
 		mainLayout->addLayout(minLayout);
 		mainLayout->addLayout(maxLayout);
@@ -153,6 +151,9 @@ customControlTarget::customControlTarget(QWidget *parent,
 
 	QObject::connect(this, SIGNAL( updateDisplayTarget(QString) ),
                 this->display, SLOT( setText(QString) ));
+                 
+  QObject::connect(this, SIGNAL( updateDisplayTarget(QString) ),
+                this, SIGNAL( updateSignal() ));    
                 
   QObject::connect(this, SIGNAL( updateDisplayMin(QString) ),
                 this->displayMin, SLOT( setText(QString) ));
