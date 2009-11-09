@@ -1,8 +1,9 @@
 /****************************************************************************
 **
-** Copyright (C) 2005-2006 Uco Mesdag. All rights reserved.
-**
-** This file is part of "GT6B FX FloorBoard".
+** Copyright (C) 2007~2010 Colin Willcocks.
+** Copyright (C) 2005~2007 Uco Mesdag. 
+** All rights reserved.
+** This file is part of "GT-6 Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -52,7 +53,7 @@ void stompbox_eq::setEditPages()
 {
     editDetails()->page()->newGroupBox("Effect");
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "04", "00", "00", "middle", Qt::AlignCenter);        //on/off
-	editDetails()->page()->addGroupBox(1, 0, 1, 1);
+	editDetails()->page()->addGroupBox(1, 0, 1, 2);
 
 	editDetails()->page()->newGroupBox("Low EQ");
 	editDetails()->page()->addKnob(0, 2, 1, 1, "04", "00", "02", "turbo"); //level
@@ -77,9 +78,8 @@ void stompbox_eq::setEditPages()
 	editDetails()->page()->addGroupBox(0, 3, 1, 1);
 
 	editDetails()->page()->newGroupBox("Output");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "04", "00", "0A");          //level
-	
-	editDetails()->page()->addGroupBox(1, 3, 1, 1);
+	editDetails()->page()->addKnob(0, 0, 1, 1, "04", "00", "0A");          //level	
+	editDetails()->page()->addGroupBox(1, 2, 1, 2);
 	editDetails()->addPage();  // PAGE 1 ABOVE 
 
 

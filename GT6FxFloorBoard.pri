@@ -1,8 +1,10 @@
 #############################################################################
 ##
-## Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
+## Copyright (C) 2007~2010 Colin Willcocks.
+## Copyright (C) 2005~2007 Uco Mesdag.
+## All rights reserved.
 ##
-## This file is part of "GT6 Fx FloorBoard".
+## This file is part of "GT-6 Fx FloorBoard".
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -66,12 +68,10 @@ HEADERS += ./editPage.h \
     ./stompbox_ce.h \
     ./stompbox_cs.h \
     ./stompbox_dd.h \
-  #  ./stompbox_dgt.h \
     ./stompbox_eq.h \
     ./stompbox_fv.h \
     ./stompbox_fx1.h \
     ./stompbox_fx2.h \
- #   ./stompbox_lp.h \
     ./stompbox_ns.h \
     ./stompbox_od.h \
     ./stompbox_pre.h \
@@ -139,12 +139,10 @@ SOURCES += ./editPage.cpp \
     ./stompbox_ce.cpp \
     ./stompbox_cs.cpp \
     ./stompbox_dd.cpp \
-  #  ./stompbox_dgt.cpp \
     ./stompbox_eq.cpp \
     ./stompbox_fv.cpp \
     ./stompbox_fx1.cpp \
     ./stompbox_fx2.cpp \
-  #  ./stompbox_lp.cpp \
     ./stompbox_ns.cpp \
     ./stompbox_od.cpp \
     ./stompbox_pre.cpp \

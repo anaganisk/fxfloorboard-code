@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<!-- edited with XMLSpy v2005 sp1 U (http://www.xmlspy.com) by Ru-Board (Ru-Board) -->
-<SysX desc="GT6 Midi implementation" version="0.2c" customdesc="">
+<!-- edited with XMLSpy v2009 sp1 (http://www.altova.com) by col (x) -->
+<SysX desc="GT6 Midi implementation" version="1.0" customdesc="">
 	<Header>
 		<DATA value="00" abbr="" desc="" customdesc="">
 			<PARAM value="F0" name="SOX" desc="Exclusive Status" customdesc=""/>

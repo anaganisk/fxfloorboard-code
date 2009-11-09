@@ -1,7 +1,8 @@
 /****************************************************************************
 **
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
-**
+** Copyright (C) 2007~2010 Colin Willcocks.
+** Copyright (C) 2005~2007 Uco Mesdag. 
+** All rights reserved.
 ** This file is part of "GT-6 Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
@@ -670,13 +671,13 @@ void floorBoard::initMenuPages()
 	/* EDITPAGES */
 	menuPage *assign = new menuPage_assign(this);
 	assign->setId(20);
-	assign->setPos(QPoint(943, 5));
+	assign->setPos(QPoint(956, 5));
 	menuPage *midi = new menuPage_midi(this);
 	midi->setId(19);
-	midi->setPos(QPoint(1034, 5));
+	midi->setPos(QPoint(1050, 5));
 	menuPage *system = new menuPage_system(this);
 	system->setId(18);
-	system->setPos(QPoint(1034, 24));
+	system->setPos(QPoint(1050, 24));
 	
 	};
 

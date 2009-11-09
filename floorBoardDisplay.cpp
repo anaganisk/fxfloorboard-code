@@ -1,8 +1,8 @@
 /****************************************************************************
-** 
-** Copyright (C) 2007, 2008 Colin Willcocks.
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
 **
+** Copyright (C) 2007~2010 Colin Willcocks.
+** Copyright (C) 2005~2007 Uco Mesdag. 
+** All rights reserved.
 ** This file is part of "GT-6 Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
@@ -1001,6 +1001,7 @@ void floorBoardDisplay::resetDevice(QString replyMsg)
 		SLEEP(100);
 	sysxIO->setDeviceReady(true);	// Free the device after finishing interaction.
 	emit connectedSignal();			// Emit this signal to tell we are still connected and to update the patch names in case they have changed.
+  emit setStatusMessage(tr("Ready"));
 };
 
 void floorBoardDisplay::patchSelectSignal(int bank, int patch)

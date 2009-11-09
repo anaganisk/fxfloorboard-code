@@ -1,8 +1,9 @@
 /****************************************************************************
 **
-** Copyright (C) 2005-2006 Uco Mesdag. All rights reserved.
-**
-** This file is part of "GT6B FX FloorBoard".
+** Copyright (C) 2007~2010 Colin Willcocks.
+** Copyright (C) 2005~2007 Uco Mesdag. 
+** All rights reserved.
+** This file is part of "GT-6 Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -44,18 +45,21 @@ void stompbox_wah::setEditPages()
 {
  	editDetails()->page()->newGroupBox("Effect");
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "00", "middle", Qt::AlignCenter);
+	editDetails()->page()->newStackControl(0);
+	editDetails()->page()->addComboBox(0, 1, 1, 1, "01", "00", "02");	
+	editDetails()->page()->addStackControl();
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
+	editDetails()->page()->insertStackField(0, 1, 0, 1, 1);
+	
+	editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Wah");
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "01", "00", "03");       //wah type
 	editDetails()->page()->addKnob(0, 3, 1, 1, "01", "00", "04");           //pedal pos
 	editDetails()->page()->addKnob(0, 5, 1, 1, "01", "00", "05");           //level
 	editDetails()->page()->addGroupBox(1, 0, 1, 1);
-	editDetails()->addPage("01", "00", "02", "00");  // PAGE 1 ABOVE
-
+	editDetails()->page()->addStackField();  // PAGE 1 ABOVE
 	
-	editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "00", "middle", Qt::AlignCenter);
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
+  editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Auto Wah");
 	editDetails()->page()->addComboBox(0, 1, 1, 1, "01", "00", "06");       //mode
 	editDetails()->page()->addComboBox(0, 2, 1, 1, "01", "00", "07");       //polarity
@@ -64,21 +68,17 @@ void stompbox_wah::setEditPages()
 	editDetails()->page()->addKnob(0, 5, 1, 1, "01", "00", "0A");           //peak
 	editDetails()->page()->addKnob(0, 6, 1, 1, "01", "00", "0B", "normal", "right", 60); //rate
 	editDetails()->page()->addKnob(0, 7, 1, 1, "01", "00", "0C");           //depth
-    editDetails()->page()->addKnob(0, 8, 1, 1, "01", "00", "0D");           //level
+  editDetails()->page()->addKnob(0, 8, 1, 1, "01", "00", "0D");           //level
 	editDetails()->page()->addGroupBox(1, 0, 1, 1);
-	editDetails()->addPage("01", "00", "02", "01");  // PAGE 2 ABOVE
+	editDetails()->page()->addStackField();  // PAGE 2 ABOVE
 
-	
-	editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "00", "middle", Qt::AlignCenter);
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
+	editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Footpedal Wah");
 	editDetails()->page()->addComboBox(0, 1, 1, 1, "01", "00", "0E");       //type
 	editDetails()->page()->addKnob(0, 2, 1, 1, "01", "00", "0F", "turbo");  //pdl pos
-	editDetails()->page()->addKnob(0, 3, 1, 1, "01", "00", "10");           //level
-	
+	editDetails()->page()->addKnob(0, 3, 1, 1, "01", "00", "10");           //level	
 	editDetails()->page()->addGroupBox(1, 0, 1, 1);
-	editDetails()->addPage("01", "00", "02", "02");  // PAGE 3 ABOVE
+	editDetails()->page()->addStackField();  // PAGE 3 ABOVE
 	
-	
-	};
+	editDetails()->addPage();
+};
