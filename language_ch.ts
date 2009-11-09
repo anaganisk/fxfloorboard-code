@@ -39,13 +39,13 @@
     <message>
         <location filename="bulkLoadDialog.cpp" line="497"/>
         <source>This is not a GT-10B file!</source>
-        <translation type="unfinished"></translation>
+        <translation>这不是GT-10B文件!</translation>
     </message>
     <message>
         <location filename="bulkLoadDialog.cpp" line="499"/>
         <location filename="sysxWriter.cpp" line="464"/>
         <source>this file is a GT-10 Guitar version&lt;br&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>这个文件是GT-10吉他版本&lt;br&gt;</translation>
     </message>
     <message>
         <location filename="bulkLoadDialog.cpp" line="500"/>
@@ -54,42 +54,42 @@
         <translation>装载这个文件也许有变化莫测的结果。</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="71"/>
+        <location filename="main.cpp" line="80"/>
         <source>Initializing...</source>
         <translation>初始化…</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="78"/>
+        <location filename="main.cpp" line="87"/>
         <source>Checking license file...</source>
         <translation>检查执照文件…</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="81"/>
+        <location filename="main.cpp" line="90"/>
         <source>Loading license file...</source>
         <translation>装货执照文件…</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="89"/>
+        <location filename="main.cpp" line="98"/>
         <source>Loading midi mapping...</source>
         <translation>Loading midi mapping...</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="95"/>
+        <location filename="main.cpp" line="104"/>
         <source>Initializing main window...</source>
         <translation>Initializing main window...</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="146"/>
+        <location filename="main.cpp" line="155"/>
         <source>Restoring window position...</source>
         <translation>恢复窗口位置…</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="161"/>
+        <location filename="main.cpp" line="170"/>
         <source>Centering main window...</source>
         <translation>集中主窗口…</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="176"/>
+        <location filename="main.cpp" line="185"/>
         <source>Finished Initializing...</source>
         <translation>完成初始化…</translation>
     </message>
@@ -152,7 +152,7 @@
     <message>
         <location filename="preferencesPages.cpp" line="156"/>
         <source>Debug mode.</source>
-        <translation type="unfinished"></translation>
+        <translation>调试方式</translation>
     </message>
     <message>
         <location filename="preferencesPages.cpp" line="160"/>
@@ -235,6 +235,13 @@
         <translation>变动起对下起动的作用</translation>
     </message>
     <message>
+        <location filename="sysxWriter.cpp" line="109"/>
+        <location filename="sysxWriter.cpp" line="480"/>
+        <location filename="sysxWriter.cpp" line="563"/>
+        <source>Select Patch</source>
+        <translation>选择补丁</translation>
+    </message>
+    <message>
         <location filename="sysxWriter.cpp" line="167"/>
         <source>Patch file conversion</source>
         <translation>补丁文件转换</translation>
@@ -242,7 +249,7 @@
     <message>
         <location filename="sysxWriter.cpp" line="172"/>
         <source>This is a GT-6B patch!</source>
-        <translation type="unfinished"></translation>
+        <translation>这是GT-6B补丁!</translation>
     </message>
     <message>
         <location filename="sysxWriter.cpp" line="174"/>
@@ -252,22 +259,47 @@
     <message>
         <location filename="sysxWriter.cpp" line="462"/>
         <source>This is not a GT-10B patch!</source>
-        <translation type="unfinished"></translation>
+        <translation>这不是GT-10B补丁!</translation>
     </message>
     <message>
         <location filename="sysxWriter.cpp" line="660"/>
         <source>Patch can&apos;t be loaded</source>
-        <translation type="unfinished"></translation>
+        <translation>补丁不可能被装载</translation>
     </message>
     <message>
         <location filename="sysxWriter.cpp" line="665"/>
         <source>This file is not known to the </source>
-        <translation type="unfinished"></translation>
+        <translation>这个文件没有为所知 </translation>
+    </message>
+    <message>
+        <location filename="sysxWriter.cpp" line="668"/>
+        <source>but appears to be a GT-10 patch&lt;br&gt;</source>
+        <translation>但是看来是GT-10补丁&lt;br&gt;</translation>
+    </message>
+    <message>
+        <location filename="sysxWriter.cpp" line="670"/>
+        <source>but appears to be a GT-8 patch&lt;br&gt;</source>
+        <translation>但是看来是GT-8补丁&lt;br&gt;</translation>
+    </message>
+    <message>
+        <location filename="sysxWriter.cpp" line="672"/>
+        <source>but appears to be a GT-6 patch&lt;br&gt;</source>
+        <translation>但是看来是GT-6补丁</translation>
+    </message>
+    <message>
+        <location filename="sysxWriter.cpp" line="674"/>
+        <source>but appears to be a GT-3 patch&lt;br&gt;</source>
+        <translation>但是看来是GT-3补丁</translation>
     </message>
     <message>
         <location filename="sysxWriter.cpp" line="675"/>
         <source>Patch size is </source>
         <translation>补丁大小是 </translation>
+    </message>
+    <message>
+        <location filename="sysxWriter.cpp" line="675"/>
+        <source> bytes, please try another file.</source>
+        <translation>字节，请尝试另一个文件。</translation>
     </message>
 </context>
 <context>
@@ -275,7 +307,7 @@
     <message>
         <location filename="SysxIO.cpp" line="168"/>
         <source>GT-10B Fx FloorBoard</source>
-        <translation type="unfinished"></translation>
+        <translation>GT-10B Fx地板</translation>
     </message>
     <message>
         <location filename="SysxIO.cpp" line="173"/>
@@ -285,7 +317,7 @@
     <message>
         <location filename="SysxIO.cpp" line="175"/>
         <source>The incorrect values have been corrected where possible.&lt;br&gt;If correction was impossible then some settings might have been reset to zero.</source>
-        <translation type="unfinished"></translation>
+        <translation>尽可能改正了不正确价值。如果更正是不可&lt;br&gt;能的那么有些设置也许已经被重设到零。</translation>
     </message>
     <message>
         <location filename="SysxIO.cpp" line="178"/>
@@ -415,6 +447,11 @@
         <translation>恰当地被连接和再试。</translation>
     </message>
     <message>
+        <location filename="bankTreeList.cpp" line="725"/>
+        <source>{ size =</source>
+        <translation>{大小=</translation>
+    </message>
+    <message>
         <location filename="bankTreeList.cpp" line="728"/>
         <source>&lt;br&gt; midi data received</source>
         <translation>&lt;br&gt;被接受的密地数据</translation>
@@ -422,12 +459,12 @@
     <message>
         <location filename="bankTreeList.cpp" line="739"/>
         <source>dBug Result for re-formatted</source>
-        <translation type="unfinished"></translation>
+        <translation>调试重新排版的结果</translation>
     </message>
     <message>
         <location filename="bankTreeList.cpp" line="739"/>
         <source>patch data</source>
-        <translation type="unfinished"></translation>
+        <translation>补丁数据</translation>
     </message>
     <message>
         <location filename="bankTreeList.cpp" line="837"/>
@@ -500,7 +537,7 @@
     <message>
         <location filename="bulkLoadDialog.cpp" line="169"/>
         <source>GT10B Bulk Data File (*.gxb *.syx *.mid)</source>
-        <translation type="unfinished"></translation>
+        <translation>GT10B大块数据文件(*.gxb *.syx *.mid)</translation>
     </message>
     <message>
         <location filename="bulkLoadDialog.cpp" line="227"/>
@@ -549,7 +586,7 @@
     <message>
         <location filename="bulkSaveDialog.cpp" line="49"/>
         <source>*.gxb Librarian file</source>
-        <translation type="unfinished"></translation>
+        <translation>*.gxb图书管理员文件</translation>
     </message>
     <message>
         <location filename="bulkSaveDialog.cpp" line="50"/>
@@ -667,6 +704,21 @@
 <context>
     <name>customRenameDialog</name>
     <message>
+        <location filename="customRenameDialog.cpp" line="46"/>
+        <source>Patch Description</source>
+        <translation>补丁描述</translation>
+    </message>
+    <message>
+        <location filename="customRenameDialog.cpp" line="52"/>
+        <source>Patch created by</source>
+        <translation>被创造的补丁 </translation>
+    </message>
+    <message>
+        <location filename="customRenameDialog.cpp" line="57"/>
+        <source>Rename Catagory</source>
+        <translation>给类别改名</translation>
+    </message>
+    <message>
         <location filename="customRenameDialog.cpp" line="61"/>
         <source>Name:</source>
         <translation>名字：</translation>
@@ -695,9 +747,8 @@
         <translation>精选</translation>
     </message>
     <message>
-        <location filename="editWindow.cpp" line="58"/>
         <source>Pre A/B swap</source>
-        <translation>前A/B交换</translation>
+        <translation type="obsolete">前A/B交换</translation>
     </message>
     <message>
         <location filename="editWindow.cpp" line="64"/>
@@ -722,7 +773,7 @@
     <message>
         <location filename="editWindow.cpp" line="88"/>
         <source>Temp 5 Partial</source>
-        <translation type="unfinished"></translation>
+        <translation>部份的临时雇员5</translation>
     </message>
     <message>
         <location filename="editWindow.cpp" line="343"/>
@@ -805,7 +856,7 @@
     <message>
         <location filename="floorBoardDisplay.cpp" line="116"/>
         <source>PreAmp</source>
-        <translation type="unfinished"></translation>
+        <translation>前置放大器</translation>
     </message>
     <message>
         <location filename="floorBoardDisplay.cpp" line="118"/>
@@ -865,7 +916,7 @@
     <message>
         <location filename="floorBoardDisplay.cpp" line="129"/>
         <source>Pedal/Wah</source>
-        <translation type="unfinished"></translation>
+        <translation>脚蹬或Wha</translation>
     </message>
     <message>
         <location filename="floorBoardDisplay.cpp" line="132"/>
@@ -910,12 +961,12 @@
     <message>
         <location filename="floorBoardDisplay.cpp" line="140"/>
         <source>Temp-5 Copy</source>
-        <translation type="unfinished"></translation>
+        <translation>临时雇员5拷贝</translation>
     </message>
     <message>
         <location filename="floorBoardDisplay.cpp" line="141"/>
         <source>Temp-5 Paste</source>
-        <translation type="unfinished"></translation>
+        <translation>临时雇员5浆糊</translation>
     </message>
     <message>
         <location filename="floorBoardDisplay.cpp" line="142"/>
@@ -1041,7 +1092,7 @@
     <message>
         <location filename="floorBoardDisplay.cpp" line="795"/>
         <source>&lt;br&gt;Boss drivers are installed and the GT-10B is switched on,</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;br&gt;安装上司司机，并且GT-10B被接通，</translation>
     </message>
     <message>
         <location filename="floorBoardDisplay.cpp" line="796"/>
@@ -1066,7 +1117,7 @@
     <message>
         <location filename="floorBoardDisplay.cpp" line="867"/>
         <source> memory.</source>
-        <translation type="unfinished"></translation>
+        <translation>记忆。</translation>
     </message>
     <message>
         <location filename="floorBoardDisplay.cpp" line="869"/>
@@ -1076,7 +1127,7 @@
     <message>
         <location filename="floorBoardDisplay.cpp" line="871"/>
         <source>Quick Effects </source>
-        <translation type="unfinished"></translation>
+        <translation>快的作用 </translation>
     </message>
     <message>
         <location filename="floorBoardDisplay.cpp" line="874"/>
@@ -1117,7 +1168,7 @@
     <message>
         <location filename="mainWindow.cpp" line="151"/>
         <source>&amp;Load Patch File... (*.syx *.mid *.gxb *.gxg)</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;装载补丁文件… (*.syx *.mid *.gxb *.gxg)</translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="152"/>
@@ -1167,7 +1218,7 @@
     <message>
         <location filename="mainWindow.cpp" line="167"/>
         <source>Ctrl+I</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="168"/>
@@ -1182,7 +1233,7 @@
     <message>
         <location filename="mainWindow.cpp" line="172"/>
         <source>Ctrl+Shift+E</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="173"/>
@@ -1192,12 +1243,12 @@
     <message>
         <location filename="mainWindow.cpp" line="176"/>
         <source>&amp;Open GXB... (*.gxb *.gxg)</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;打开GXB… (*.gxb *.gxg)</translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="177"/>
         <source>Ctrl+K</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="178"/>
@@ -1207,12 +1258,12 @@
     <message>
         <location filename="mainWindow.cpp" line="181"/>
         <source>Save As GXB Patch... (*.gxb)</source>
-        <translation type="unfinished"></translation>
+        <translation>除当GXB补丁之外… (*.gxb)</translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="182"/>
         <source>Ctrl+Shift+G</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="183"/>
@@ -1232,7 +1283,7 @@
     <message>
         <location filename="mainWindow.cpp" line="188"/>
         <source>Load System Data to GT-10B</source>
-        <translation type="unfinished"></translation>
+        <translation>装载对GT-10B的系统数据</translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="191"/>
@@ -1252,7 +1303,7 @@
     <message>
         <location filename="mainWindow.cpp" line="196"/>
         <source>&amp;Load Bulk Patch File to GT-10B...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;对GT-10B的装载大块补丁文件…</translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="197"/>
@@ -1267,7 +1318,7 @@
     <message>
         <location filename="mainWindow.cpp" line="201"/>
         <source>Save Bulk GT-10B Patches to File...</source>
-        <translation type="unfinished"></translation>
+        <translation>除归档的大块GT-10B补丁之外…</translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="202"/>
@@ -1282,17 +1333,17 @@
     <message>
         <location filename="mainWindow.cpp" line="206"/>
         <source>Print Page...</source>
-        <translation type="unfinished"></translation>
+        <translation>印刷品页…</translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="207"/>
         <source>Ctrl+F12</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="208"/>
         <source>Print Screen</source>
-        <translation type="unfinished"></translation>
+        <translation>打印屏幕</translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="211"/>
@@ -1341,12 +1392,12 @@
     <message>
         <location filename="mainWindow.cpp" line="225"/>
         <source>Summary Page &amp; Print</source>
-        <translation type="unfinished"></translation>
+        <translation>概要页和印刷品</translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="229"/>
         <source>GT-10B Fx FloorBoard &amp;Help</source>
-        <translation type="unfinished"></translation>
+        <translation>GT-10B Fx地板&amp;帮助</translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="230"/>
@@ -1361,7 +1412,7 @@
     <message>
         <location filename="mainWindow.cpp" line="234"/>
         <source>GT-10B Fx FloorBoard &amp;Webpage</source>
-        <translation type="unfinished"></translation>
+        <translation>GT-10B Fx地板&amp;网页</translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="238"/>
@@ -1424,7 +1475,7 @@
     <message>
         <location filename="mainWindow.cpp" line="334"/>
         <source>for GT-10B, GT-10, &amp; GT-6B (*.syx *.mid *.gxb *.gxg)</source>
-        <translation type="unfinished"></translation>
+        <translation>为GT-10B， GT-10， &amp; GT-6B (*.syx *.mid *.gxb *.gxg)</translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="366"/>
@@ -1452,24 +1503,25 @@
     <message>
         <location filename="mainWindow.cpp" line="497"/>
         <source>Boss Librarian File (*.gxb *.gxg)</source>
-        <translation type="unfinished"></translation>
+        <translation>上司图书管理员文件(*.gxb *.gxg)</translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="525"/>
         <source>Export GXB</source>
-        <translation type="unfinished"></translation>
+        <translation>出口GXB</translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="527"/>
         <source>Boss Librarian File (*.gxb)</source>
-        <translation type="unfinished"></translation>
+        <translation>上司图书管理员文件(*.gxb)</translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="561"/>
         <source>GT10B Bulk Data File (*.GT10B_system_syx)</source>
-        <translation type="unfinished"></translation>
+        <translation>GT10B大块数据文件(*.GT10B_system_syx)</translation>
     </message>
     <message>
+        <location filename="mainWindow.cpp" line="86"/>
         <location filename="mainWindow.cpp" line="574"/>
         <source> Fx FloorBoard</source>
         <translation>Fx地板</translation>
@@ -1477,12 +1529,12 @@
     <message>
         <location filename="mainWindow.cpp" line="579"/>
         <source>You have chosen to load a BULK DATA backup file.</source>
-        <translation type="unfinished"></translation>
+        <translation>您选择装载一个大块数据备份文件。</translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="581"/>
         <source>This will overwrite the GT-10B DATA currently stored in the GT-10B&lt;br&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>这将重写在GT-10B当前存放的GT-10B数据&lt;br&gt;</translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="582"/>
@@ -1492,12 +1544,12 @@
     <message>
         <location filename="mainWindow.cpp" line="583"/>
         <source>Select &apos;NO&apos; to only update the Editor - Select &apos;YES&apos; to update the GT-10B memory&lt;br&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>只更新编辑的精选的没有-是选择更新GT-10B记忆&lt;br&gt;</translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="586"/>
         <source>Are you sure you want to write to the GT-10B?</source>
-        <translation type="unfinished"></translation>
+        <translation>是否是给GT-10B写?</translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="599"/>
@@ -1523,27 +1575,27 @@
     <message>
         <location filename="mainWindow.cpp" line="623"/>
         <source>System Exclusive File (*.GT10B_system_syx)</source>
-        <translation type="unfinished"></translation>
+        <translation>系统专属文件(*.GT10B_system_syx)</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="805"/>
+        <location filename="mainWindow.cpp" line="811"/>
         <source>GT-10B Fx FloorBoard - About</source>
-        <translation type="unfinished"></translation>
+        <translation>GT-10B Fx地板- </translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="806"/>
+        <location filename="mainWindow.cpp" line="812"/>
         <source>GT-10B Fx FloorBoard, </source>
-        <translation type="unfinished"></translation>
+        <translation>GT-10B Fx地板， </translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="806"/>
+        <location filename="mainWindow.cpp" line="812"/>
         <source>version</source>
         <translation>版本</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="824"/>
+        <location filename="mainWindow.cpp" line="830"/>
         <source>Print Document</source>
-        <translation type="unfinished"></translation>
+        <translation>印刷品文件</translation>
     </message>
 </context>
 <context>
@@ -1551,7 +1603,7 @@
     <message>
         <location filename="menuPage.cpp" line="112"/>
         <source>Opening Page...</source>
-        <translation type="unfinished"></translation>
+        <translation>开头页…</translation>
     </message>
     <message>
         <location filename="menuPage.cpp" line="123"/>
@@ -1640,32 +1692,32 @@
         <location filename="menuPage_system.cpp" line="572"/>
         <location filename="menuPage_system.cpp" line="879"/>
         <source>***CAUTION*** Settings changes are automatically written to GT-10B</source>
-        <translation type="unfinished"></translation>
+        <translation>***小心***设置变动给GT-10B自动地被写</translation>
     </message>
     <message>
         <location filename="menuPage_system.cpp" line="109"/>
         <source>User Options  ***CAUTION*** Settings changes are automatically written to GT-10B</source>
-        <translation type="unfinished"></translation>
+        <translation>用户选项***小心***设置变动给GT-10B自动地被写</translation>
     </message>
     <message>
         <location filename="menuPage_system.cpp" line="147"/>
         <source>Internal Pedals  ***CAUTION*** Settings changes are automatically written to GT-10B</source>
-        <translation type="unfinished"></translation>
+        <translation>内部脚蹬***小心***设置变动给GT-10B自动地被写</translation>
     </message>
     <message>
         <location filename="menuPage_system.cpp" line="190"/>
         <source>External pedals  ***CAUTION*** Settings changes are automatically written to GT-10B</source>
-        <translation type="unfinished"></translation>
+        <translation>外部脚蹬***小心***设置变动给GT-10B自动地被写</translation>
     </message>
     <message>
         <location filename="menuPage_system.cpp" line="224"/>
         <source>User Category Names  ***CAUTION*** Settings changes are automatically written to GT-10B</source>
-        <translation type="unfinished"></translation>
+        <translation>用户类别名字***小心***设置变动给GT-10B自动地被写</translation>
     </message>
     <message>
         <location filename="menuPage_system.cpp" line="242"/>
         <source>MANUAL and OD/DS variations  ***CAUTION*** Settings changes are automatically written to GT-10B</source>
-        <translation type="unfinished"></translation>
+        <translation>指南和OD/DS变异***小心***设置变动给GT-10B自动地被写</translation>
     </message>
 </context>
 <context>
@@ -1683,24 +1735,24 @@
     <message>
         <location filename="midiIO.cpp" line="73"/>
         <location filename="midiIO.cpp" line="82"/>
-        <location filename="midiIO.cpp" line="239"/>
+        <location filename="midiIO.cpp" line="236"/>
         <source>Midi Output Error</source>
-        <translation type="unfinished">密地输出错误</translation>
+        <translation>密地输出错误</translation>
     </message>
     <message>
         <location filename="midiIO.cpp" line="73"/>
         <location filename="midiIO.cpp" line="123"/>
         <source>port error</source>
-        <translation type="unfinished"></translation>
+        <translation>港错误</translation>
     </message>
     <message>
         <location filename="midiIO.cpp" line="82"/>
         <location filename="midiIO.cpp" line="130"/>
-        <location filename="midiIO.cpp" line="201"/>
-        <location filename="midiIO.cpp" line="239"/>
-        <location filename="midiIO.cpp" line="311"/>
+        <location filename="midiIO.cpp" line="198"/>
+        <location filename="midiIO.cpp" line="236"/>
+        <location filename="midiIO.cpp" line="308"/>
         <source>data error</source>
-        <translation type="unfinished"></translation>
+        <translation>数据错误</translation>
     </message>
     <message>
         <location filename="midiIO.cpp" line="89"/>
@@ -1717,14 +1769,14 @@
     <message>
         <location filename="midiIO.cpp" line="123"/>
         <location filename="midiIO.cpp" line="130"/>
-        <location filename="midiIO.cpp" line="311"/>
+        <location filename="midiIO.cpp" line="308"/>
         <source>Midi Input Error</source>
-        <translation type="unfinished">密地输入错误</translation>
+        <translation>密地输入错误</translation>
     </message>
     <message>
-        <location filename="midiIO.cpp" line="201"/>
+        <location filename="midiIO.cpp" line="198"/>
         <source>Syx Output Error</source>
-        <translation type="unfinished"></translation>
+        <translation>系统专属输出错误</translation>
     </message>
     <message>
         <source>Midi Input Error</source>
@@ -1737,13 +1789,13 @@
         <translation type="obsolete">密地输入错误</translation>
     </message>
     <message>
-        <location filename="midiIO.cpp" line="404"/>
+        <location filename="midiIO.cpp" line="401"/>
         <source>Sending</source>
         <translation>送</translation>
     </message>
     <message>
-        <location filename="midiIO.cpp" line="470"/>
-        <location filename="midiIO.cpp" line="485"/>
+        <location filename="midiIO.cpp" line="467"/>
+        <location filename="midiIO.cpp" line="482"/>
         <source>no midi device set</source>
         <translation>没有密地设备集合</translation>
     </message>
@@ -1763,7 +1815,7 @@
     <message>
         <location filename="preferencesDialog.cpp" line="83"/>
         <source>GT-10B Fx FloorBoard - Preferences</source>
-        <translation type="unfinished"></translation>
+        <translation>GT-10B Fx地板-特选</translation>
     </message>
     <message>
         <location filename="preferencesDialog.cpp" line="90"/>
@@ -1840,7 +1892,7 @@
     <message>
         <location filename="stompBox.cpp" line="785"/>
         <source>GT-10 preamp</source>
-        <translation type="unfinished"></translation>
+        <translation>GT-10前置放大器</translation>
     </message>
     <message>
         <location filename="stompBox.cpp" line="786"/>
@@ -1913,57 +1965,41 @@
     <message>
         <location filename="summaryDialog.cpp" line="48"/>
         <source>Close</source>
-        <translation type="unfinished"></translation>
+        <translation>关闭</translation>
     </message>
     <message>
         <location filename="summaryDialog.cpp" line="51"/>
         <source>Print</source>
-        <translation type="unfinished"></translation>
+        <translation>印刷品</translation>
     </message>
     <message>
         <location filename="summaryDialog.cpp" line="71"/>
         <source>Patch File Summary</source>
-        <translation type="unfinished"></translation>
+        <translation>补丁文件总结</translation>
     </message>
     <message>
         <location filename="summaryDialog.cpp" line="92"/>
         <source>Print Document</source>
-        <translation type="unfinished"></translation>
+        <translation>印刷品文件</translation>
     </message>
 </context>
 <context>
     <name>sysxWriter</name>
     <message>
-        <location filename="sysxWriter.cpp" line="109"/>
-        <location filename="sysxWriter.cpp" line="480"/>
-        <location filename="sysxWriter.cpp" line="563"/>
         <source>Select Patch</source>
-        <translation>选择补丁</translation>
+        <translation type="obsolete">选择补丁</translation>
     </message>
     <message>
-        <location filename="sysxWriter.cpp" line="668"/>
-        <source>but appears to be a GT-10 patch&lt;br&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="sysxWriter.cpp" line="670"/>
-        <source>but appears to be a GT-8 patch&lt;br&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="sysxWriter.cpp" line="672"/>
         <source>but appears to be a GT-6 patch&lt;br&gt;</source>
-        <translation>但是看来是GT-6补丁</translation>
+        <translation type="obsolete">但是看来是GT-6补丁</translation>
     </message>
     <message>
-        <location filename="sysxWriter.cpp" line="674"/>
         <source>but appears to be a GT-3 patch&lt;br&gt;</source>
-        <translation>但是看来是GT-3补丁</translation>
+        <translation type="obsolete">但是看来是GT-3补丁</translation>
     </message>
     <message>
-        <location filename="sysxWriter.cpp" line="675"/>
         <source> bytes, please try another file.</source>
-        <translation>字节，请尝试另一个文件。</translation>
+        <translation type="obsolete">字节，请尝试另一个文件。</translation>
     </message>
 </context>
 </TS>

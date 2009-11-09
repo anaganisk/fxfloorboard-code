@@ -22,58 +22,77 @@
 ****************************************************************************/
 
 #include <QtGui>
-#include "fileDialog.h"
+#include "summaryDialog.h"
 
 
-fileDialog::fileDialog(QString fileName, QList<QString> patchList)
+summaryDialog::summaryDialog(QWidget *parent)
+                  : QWidget(parent)
 {
-    QObject::connect(this, SIGNAL(patchIndex(int)),
-                this->parent(), SLOT(patchIndex(int)));
-                
-  QLabel *patchLabel = new QLabel(tr("Select patch to load"));
-  QLabel *nameLabel = new QLabel(fileName);
-	QComboBox *patchCombo = new QComboBox;
-	patchCombo->addItems(patchList); 
-	
-  QObject::connect(patchCombo, SIGNAL(currentIndexChanged(int)),
-                this, SLOT(valueChanged(int)));
+            
+  this->textDialog = new QTextEdit(parent);
+  textDialog->setReadOnly(true);
   
-	QPushButton *cancelButton = new QPushButton(tr("Cancel"));
+  
+  
+  QString text = "Hello this is some text to hopefully print out<br>";
+  text.append(".                              [PRE-A][NS2][DELAY]                              <br>");
+  text.append("[FV][COMP][wha][dist][FX1]                                            [chorus][REV][DGT]<br>");
+  text.append(".                               [PRE-B][NS1][EQ] ");
+   textDialog->show();
+  
+	textDialog->setText(text); 
+	//QTextDocument *document = textDialog->document(); 
+  
+	
+	QPushButton *cancelButton = new QPushButton(tr("Close"));
   connect(cancelButton, SIGNAL(clicked()), this, SLOT(cancel()));
+  
+  QPushButton *printButton = new QPushButton(tr("Print"));
+  connect(printButton, SIGNAL(clicked()), this, SLOT(printFile()));
   
  
 	QHBoxLayout *horizontalLayout = new QHBoxLayout;	
-	horizontalLayout->addWidget(patchLabel);
-	horizontalLayout->addWidget(patchCombo);
+	horizontalLayout->addWidget(textDialog);
 
 	QHBoxLayout *buttonsLayout = new QHBoxLayout;
 	buttonsLayout->addStretch(1);
+	buttonsLayout->addWidget(printButton);
+	buttonsLayout->addSpacing(12);
 	buttonsLayout->addWidget(cancelButton);
 
 	QVBoxLayout *mainLayout = new QVBoxLayout;
-	mainLayout->addWidget(nameLabel);
 	mainLayout->addLayout(horizontalLayout);
 	mainLayout->addStretch(1);
 	mainLayout->addSpacing(12);
 	mainLayout->addLayout(buttonsLayout);
 	setLayout(mainLayout);
 
-	setWindowTitle(tr("Bulk File Patch Extraction"));
+	setWindowTitle(tr("Patch File Summary"));
 };
 
-void fileDialog::valueChanged(int value)
+void summaryDialog::valueChanged(int value)
 {
-  SysxIO *sysxIO = SysxIO::Instance();
-  sysxIO->patchListValue = value;             
-  this->close();
+  
 }; 
 
- void fileDialog::cancel()
+ void summaryDialog::cancel()
 {
   SysxIO *sysxIO = SysxIO::Instance();
   sysxIO->patchListValue = 0;             
   this->close();
 }; 
 
+ void summaryDialog::printFile()
+ {
+   #ifndef QT_NO_PRINTER
+    
+     QPrinter printer;
+     QPrintDialog *dialog = new QPrintDialog(&printer, this);
+     dialog->setWindowTitle(tr("Print Document"));
+       if (dialog->exec() != QDialog::Accepted)
+         return;
 
+     textDialog->print(&printer);
+ #endif
+ };
 

@@ -1,8 +1,8 @@
 /****************************************************************************
 **
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
-** Copyright (C) 2007, 2008, Colin Willcocks. All rights reserved.
-**
+** Copyright (C) 2007~2010 Colin Willcocks.
+** Copyright (C) 2005~2007 Uco Mesdag. 
+** All rights reserved.
 ** This file is part of "GT-10B Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
@@ -19,6 +19,7 @@
 ** with this program; if not, write to the Free Software Foundation, Inc.,
 ** 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 **
+****************************************************************************/
 ****************************************************************************/
 
 #ifndef FLOORBOARDDISPLAY_H

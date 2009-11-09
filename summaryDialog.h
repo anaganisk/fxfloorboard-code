@@ -21,38 +21,46 @@
 **
 ****************************************************************************/
 
-#ifndef SYSXWRITER_H
-#define SYSXWRITER_H
+#ifndef SUMMARYDIALOG_H
+#define SUMMARYDIALOG_H
 
-#include <QString>
-#include <QList>
-#include "SysxIO.h"	
+#include <QDialog>
+#include <QMainWindow>
+#include <QTextEdit>
+#include <QTextDocument>
+#include <QLabel>
+#include <QPrintDialog>
+#include <QPrinter>
+#include "SysxIO.h" 
 
-class sysxWriter
+class QListWidget;
+class QListWidgetItem;
+class QStackedWidget;
+
+class summaryDialog : public QWidget
 {
+	Q_OBJECT
 
 public:
-	sysxWriter();
-	~sysxWriter();
-	void setFile(QString fileName);
-	bool readFile();
-	SysxData getFileSource();
-	SysxData getSystemSource();
-	void writeFile(QString fileName);
-	void writeSystemFile(QString fileName);
-	void writeSMF(QString fileName);
-	void writeGXB(QString fileName);
-	QString getFileName();
-	int index;
-	
+	summaryDialog(QWidget *parent = 0);
+	QLabel *patchLabel;
+  QLabel *nameLabel; 
+  QTextEdit *textDialog;
+  QTextDocument *document;
+  QPrintDialog *dialog;
+  //int index;
+signals:
+  //void currentIndex(int value);
+  void patchIndex(int value);
+                    
 public slots:
-  void patchIndex(int listIndex);
-  
-private:
-	QString fileName;
-	SysxData fileSource;
-	SysxData systemSource;
-	QList<QString> patchList;	 
+  void valueChanged(int value);
+  void cancel();
+  void printFile();
+   
+private:   
+  QList<QString> patchList;
+	
 };
 
-#endif // SYSXWRITER_H
+#endif // FILEDIALOG_H

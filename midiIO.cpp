@@ -1,8 +1,8 @@
 /****************************************************************************
-** 
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
-** Copyright (C) 2007, 2008 colin Willcocks. All rights reserved.
 **
+** Copyright (C) 2007~2010 Colin Willcocks.
+** Copyright (C) 2005~2007 Uco Mesdag. 
+** All rights reserved.
 ** This file is part of "GT-10B Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
@@ -162,38 +162,40 @@ QList<QString> midiIO::getMidiInDevices()
  *************************************************************************/
 void midiIO::sendSyxMsg(QString sysxOutMsg, int midiOutPort)
 {
-    RtMidiOut *midiMsgOut = 0;
-    const std::string clientName = "FxFloorBoard";
-        midiMsgOut = new RtMidiOut(clientName);
-     int nPorts = midiMsgOut->getPortCount();   // Check available ports.
-    if ( nPorts < 1 ) { goto cleanup; }
-    try {    
-        midiMsgOut->openPort(midiOutPort, clientName);	// Open selected port.         
-		    std::vector<unsigned char> message;	
-        message.reserve(256);
+   RtMidiOut *midiMsgOut = 0;
+	  const std::string clientName = "FxFloorBoard";
+    midiMsgOut = new RtMidiOut(clientName);
+    QString hex;
+    int wait = 0; 
+    int close = 20;
+    std::vector<unsigned char> message;	
+		message.reserve(256);
 		int msgLength = sysxOutMsg.length()/2;
 		char *ptr  = new char[msgLength];		// Convert QString to char* (hex value) 
-		for(int i=0;i<msgLength*2;++i)
-		if (!midi){
-		 {unsigned int n;
-			QString hex = "0x";
-			hex.append(sysxOutMsg.mid(i, 2));
-			bool ok;
-			n = hex.toInt(&ok, 16);
-			*ptr = (char)n;
-			message.push_back(*ptr);		// insert the char* string into a std::vector	
-                        if(hex.contains ("F7")){
-#ifdef Q_OS_WIN
-			           message.push_back(32);
-			           message.push_back(32);
-#endif
+    int nPorts = midiMsgOut->getPortCount();   // Check available ports.
+    if ( nPorts < 1 ) { goto cleanup; };
+    try {    
+        midiMsgOut->openPort(midiOutPort, clientName);	// Open selected port.         		    
+		      for(int i=0;i<msgLength*2;++i)
+		       {
+            unsigned int n;			
+		      	hex = sysxOutMsg.mid(i, 2);
+		      	bool ok;
+		      	n = hex.toInt(&ok, 16);
+			      *ptr = (char)n;
+		      	message.push_back(*ptr);		// insert the char* string into a std::vector
+            wait = wait + 1;	
+			      if(hex == "F7")
+             {
                 midiMsgOut->sendMessage(&message);  // send the midi data as a std::vector
-                SLEEP(20);
-                message.clear();    
-                hex = "0x"; };
-                ptr++; i++; };	
-          };
-	goto cleanup;
+                SLEEP(wait/8);
+                message.clear();  
+                close = wait;
+                wait = 0;                  
+             };
+            ptr++; i++;
+      };	         
+	    goto cleanup;
 	    }
  catch (RtError &error)
    {
@@ -203,9 +205,9 @@ void midiIO::sendSyxMsg(QString sysxOutMsg, int midiOutPort)
     };   
    /* Clean up */
  cleanup:
-	SLEEP(40);						// wait as long as the message is sending.
-  midiMsgOut->closePort();
-  delete midiMsgOut;	
+	SLEEP(close);						// wait as long as the message is sending.
+	midiMsgOut->closePort();
+    delete midiMsgOut;	
 };
 /*********** send midi messages *******************************/
 void midiIO::sendMidiMsg(QString sysxOutMsg, int midiOutPort)
@@ -222,7 +224,7 @@ void midiIO::sendMidiMsg(QString sysxOutMsg, int midiOutPort)
 		char *ptr  = new char[msgLength];		// Convert QString to char* (hex value) 
 		for(int i=0;i<msgLength*2;++i)
         {unsigned int n;
-			   QString hex = "0x";
+			   QString hex;
 			   hex.append(sysxOutMsg.mid(i, 2));
 			   bool ok;
 			   n = hex.toInt(&ok, 16);

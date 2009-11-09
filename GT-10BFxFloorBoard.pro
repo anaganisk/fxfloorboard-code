@@ -1,6 +1,7 @@
 #############################################################################
 ##
-## Copyright (C) 2007, 2008, 2009 Colin Willcocks. All rights reserved.
+## Copyright (C) 2007~2010 Colin Willcocks.
+## All rights reserved.
 ##
 ## This file is part of "GT-10B Fx FloorBoard".
 ##
@@ -40,7 +41,6 @@ DESTDIR = ./packager
     .
 
 TRANSLATIONS = language_fr.ts \
-               language_dk.ts \
                language_ge.ts \
                language_ch.ts
                

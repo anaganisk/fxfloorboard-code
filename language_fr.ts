@@ -54,42 +54,42 @@
         <translation>*Loading ce dossier peut avoir le results* imprévisible.</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="71"/>
+        <location filename="main.cpp" line="80"/>
         <source>Initializing...</source>
         <translation>Initialisation…</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="78"/>
+        <location filename="main.cpp" line="87"/>
         <source>Checking license file...</source>
         <translation>Vérifiant le dossier de permis…</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="81"/>
+        <location filename="main.cpp" line="90"/>
         <source>Loading license file...</source>
         <translation>Dossier de permis de chargement…</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="89"/>
+        <location filename="main.cpp" line="98"/>
         <source>Loading midi mapping...</source>
         <translation>Cartographie du Midi de chargement…</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="95"/>
+        <location filename="main.cpp" line="104"/>
         <source>Initializing main window...</source>
         <translation>Fenêtre principale de initialisation…</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="146"/>
+        <location filename="main.cpp" line="155"/>
         <source>Restoring window position...</source>
         <translation>Reconstituant la position de fenêtre…</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="161"/>
+        <location filename="main.cpp" line="170"/>
         <source>Centering main window...</source>
         <translation>Centrant la fenêtre principale…</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="176"/>
+        <location filename="main.cpp" line="185"/>
         <source>Finished Initializing...</source>
         <translation>Initialisation de finition…</translation>
     </message>
@@ -236,6 +236,13 @@
         <translation>Les changements entrent en vigueur sur le prochain démarrage</translation>
     </message>
     <message>
+        <location filename="sysxWriter.cpp" line="109"/>
+        <location filename="sysxWriter.cpp" line="480"/>
+        <location filename="sysxWriter.cpp" line="563"/>
+        <source>Select Patch</source>
+        <translation>Choisissez la Patch</translation>
+    </message>
+    <message>
         <location filename="sysxWriter.cpp" line="167"/>
         <source>Patch file conversion</source>
         <translation>Conversion de dossier de correction</translation>
@@ -266,9 +273,34 @@
         <translation>Ce dossier n&apos;est pas connu au </translation>
     </message>
     <message>
+        <location filename="sysxWriter.cpp" line="668"/>
+        <source>but appears to be a GT-10 patch&lt;br&gt;</source>
+        <translation>mais semble être une correction GT-10&lt;br&gt;</translation>
+    </message>
+    <message>
+        <location filename="sysxWriter.cpp" line="670"/>
+        <source>but appears to be a GT-8 patch&lt;br&gt;</source>
+        <translation>mais semble être une correction GT-8&lt;br&gt;</translation>
+    </message>
+    <message>
+        <location filename="sysxWriter.cpp" line="672"/>
+        <source>but appears to be a GT-6 patch&lt;br&gt;</source>
+        <translation>mais semble être une Patch GT-6&lt;br&gt;</translation>
+    </message>
+    <message>
+        <location filename="sysxWriter.cpp" line="674"/>
+        <source>but appears to be a GT-3 patch&lt;br&gt;</source>
+        <translation>mais semble être une Patch GT-3&lt;br&gt;</translation>
+    </message>
+    <message>
         <location filename="sysxWriter.cpp" line="675"/>
         <source>Patch size is </source>
         <translation>La taille de correction est </translation>
+    </message>
+    <message>
+        <location filename="sysxWriter.cpp" line="675"/>
+        <source> bytes, please try another file.</source>
+        <translation>les bytes, essayent svp un autre dossier.</translation>
     </message>
 </context>
 <context>
@@ -414,6 +446,11 @@
         <location filename="bankTreeList.cpp" line="712"/>
         <source> is connected correctly and re-try.</source>
         <translation> est relié correctement et tentative.</translation>
+    </message>
+    <message>
+        <location filename="bankTreeList.cpp" line="725"/>
+        <source>{ size =</source>
+        <translation>{ taille=</translation>
     </message>
     <message>
         <location filename="bankTreeList.cpp" line="728"/>
@@ -668,6 +705,21 @@
 <context>
     <name>customRenameDialog</name>
     <message>
+        <location filename="customRenameDialog.cpp" line="46"/>
+        <source>Patch Description</source>
+        <translation>Description de Patch</translation>
+    </message>
+    <message>
+        <location filename="customRenameDialog.cpp" line="52"/>
+        <source>Patch created by</source>
+        <translation>Patch créée près</translation>
+    </message>
+    <message>
+        <location filename="customRenameDialog.cpp" line="57"/>
+        <source>Rename Catagory</source>
+        <translation>Retitrez la catégorie</translation>
+    </message>
+    <message>
         <location filename="customRenameDialog.cpp" line="61"/>
         <source>Name:</source>
         <translation>Nom:</translation>
@@ -696,9 +748,8 @@
         <translation>Choisi</translation>
     </message>
     <message>
-        <location filename="editWindow.cpp" line="58"/>
         <source>Pre A/B swap</source>
-        <translation>Pré échange d&apos;A/B</translation>
+        <translation type="obsolete">Pré échange d&apos;A/B</translation>
     </message>
     <message>
         <location filename="editWindow.cpp" line="64"/>
@@ -1471,6 +1522,7 @@
         <translation>Fichier de données en bloc de GT10B (*.GT10B_system_syx)</translation>
     </message>
     <message>
+        <location filename="mainWindow.cpp" line="86"/>
         <location filename="mainWindow.cpp" line="574"/>
         <source> Fx FloorBoard</source>
         <translation>Planche de Fx</translation>
@@ -1527,22 +1579,22 @@
         <translation>Dossier exclusif de système (*.GT10B_system_syx)</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="805"/>
+        <location filename="mainWindow.cpp" line="811"/>
         <source>GT-10B Fx FloorBoard - About</source>
         <translation>Planche de GT-10B Fx - environ</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="806"/>
+        <location filename="mainWindow.cpp" line="812"/>
         <source>GT-10B Fx FloorBoard, </source>
         <translation>Planche de GT-10B Fx, </translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="806"/>
+        <location filename="mainWindow.cpp" line="812"/>
         <source>version</source>
         <translation>version</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="824"/>
+        <location filename="mainWindow.cpp" line="830"/>
         <source>Print Document</source>
         <translation>Document d&apos;impression</translation>
     </message>
@@ -1684,7 +1736,7 @@
     <message>
         <location filename="midiIO.cpp" line="73"/>
         <location filename="midiIO.cpp" line="82"/>
-        <location filename="midiIO.cpp" line="239"/>
+        <location filename="midiIO.cpp" line="236"/>
         <source>Midi Output Error</source>
         <translation>Erreur de rendement du Midi</translation>
     </message>
@@ -1697,9 +1749,9 @@
     <message>
         <location filename="midiIO.cpp" line="82"/>
         <location filename="midiIO.cpp" line="130"/>
-        <location filename="midiIO.cpp" line="201"/>
-        <location filename="midiIO.cpp" line="239"/>
-        <location filename="midiIO.cpp" line="311"/>
+        <location filename="midiIO.cpp" line="198"/>
+        <location filename="midiIO.cpp" line="236"/>
+        <location filename="midiIO.cpp" line="308"/>
         <source>data error</source>
         <translation>erreur de données</translation>
     </message>
@@ -1718,12 +1770,12 @@
     <message>
         <location filename="midiIO.cpp" line="123"/>
         <location filename="midiIO.cpp" line="130"/>
-        <location filename="midiIO.cpp" line="311"/>
+        <location filename="midiIO.cpp" line="308"/>
         <source>Midi Input Error</source>
         <translation>Erreur d&apos;entrée du Midi</translation>
     </message>
     <message>
-        <location filename="midiIO.cpp" line="201"/>
+        <location filename="midiIO.cpp" line="198"/>
         <source>Syx Output Error</source>
         <translation>Erreur de rendement de Syx</translation>
     </message>
@@ -1743,13 +1795,13 @@
         <translation type="obsolete">Erreur de rendement de Syx</translation>
     </message>
     <message>
-        <location filename="midiIO.cpp" line="404"/>
+        <location filename="midiIO.cpp" line="401"/>
         <source>Sending</source>
         <translation>Envoi</translation>
     </message>
     <message>
-        <location filename="midiIO.cpp" line="470"/>
-        <location filename="midiIO.cpp" line="485"/>
+        <location filename="midiIO.cpp" line="467"/>
+        <location filename="midiIO.cpp" line="482"/>
         <source>no midi device set</source>
         <translation>aucun ensemble de dispositif du Midi</translation>
     </message>
@@ -1940,36 +1992,28 @@
 <context>
     <name>sysxWriter</name>
     <message>
-        <location filename="sysxWriter.cpp" line="109"/>
-        <location filename="sysxWriter.cpp" line="480"/>
-        <location filename="sysxWriter.cpp" line="563"/>
         <source>Select Patch</source>
-        <translation>Choisissez la Patch</translation>
+        <translation type="obsolete">Choisissez la Patch</translation>
     </message>
     <message>
-        <location filename="sysxWriter.cpp" line="668"/>
         <source>but appears to be a GT-10 patch&lt;br&gt;</source>
-        <translation>mais semble être une correction GT-10&lt;br&gt;</translation>
+        <translation type="obsolete">mais semble être une correction GT-10&lt;br&gt;</translation>
     </message>
     <message>
-        <location filename="sysxWriter.cpp" line="670"/>
         <source>but appears to be a GT-8 patch&lt;br&gt;</source>
-        <translation>mais semble être une correction GT-8&lt;br&gt;</translation>
+        <translation type="obsolete">mais semble être une correction GT-8&lt;br&gt;</translation>
     </message>
     <message>
-        <location filename="sysxWriter.cpp" line="672"/>
         <source>but appears to be a GT-6 patch&lt;br&gt;</source>
-        <translation>mais semble être une Patch GT-6&lt;br&gt;</translation>
+        <translation type="obsolete">mais semble être une Patch GT-6&lt;br&gt;</translation>
     </message>
     <message>
-        <location filename="sysxWriter.cpp" line="674"/>
         <source>but appears to be a GT-3 patch&lt;br&gt;</source>
-        <translation>mais semble être une Patch GT-3&lt;br&gt;</translation>
+        <translation type="obsolete">mais semble être une Patch GT-3&lt;br&gt;</translation>
     </message>
     <message>
-        <location filename="sysxWriter.cpp" line="675"/>
         <source> bytes, please try another file.</source>
-        <translation>les bytes, essayent svp un autre dossier.</translation>
+        <translation type="obsolete">les bytes, essayent svp un autre dossier.</translation>
     </message>
 </context>
 </TS>

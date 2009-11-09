@@ -1,7 +1,8 @@
 /****************************************************************************
 **
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
-**
+** Copyright (C) 2007~2010 Colin Willcocks.
+** Copyright (C) 2005~2007 Uco Mesdag. 
+** All rights reserved.
 ** This file is part of "GT-10B Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
@@ -43,18 +44,18 @@ customRenameDialog::customRenameDialog(QWidget *parent, QString hex1, QString he
   {
 	  rx = ra;
      dialogLength = 1000;
-     dialogText = "Patch Description";
+     dialogText = tr("Patch Description");
    } 
   else if (this->length == "20") 
   {
     rx = rb;
      dialogLength = 350;
-     dialogText = "Patch created by";
+     dialogText = tr("Patch created by");
    } else 
    { 
     rx = rc;
      dialogLength = 150;
-     dialogText = "Rename Catagory";
+     dialogText = tr("Rename Catagory");
    };
 	QValidator *validator = new QRegExpValidator(rx, this);
 	
