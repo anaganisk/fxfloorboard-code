@@ -86,34 +86,34 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="bankTreeList.cpp" line="695"/>
+        <location filename="bankTreeList.cpp" line="694"/>
         <source>Warning - Patch data received is incorrect!</source>
         <translation>警告-被接受的补丁数据是不正确的!</translation>
     </message>
     <message>
-        <location filename="bankTreeList.cpp" line="700"/>
+        <location filename="bankTreeList.cpp" line="699"/>
         <source>Patch data transfer wrong size or data error</source>
         <translation>修补数据传送错误大小或数据错误</translation>
     </message>
     <message>
-        <location filename="bankTreeList.cpp" line="702"/>
-        <location filename="bankTreeList.cpp" line="720"/>
+        <location filename="bankTreeList.cpp" line="701"/>
+        <location filename="bankTreeList.cpp" line="719"/>
         <source>Please make sure the </source>
         <translation>请确定 </translation>
     </message>
     <message>
-        <location filename="bankTreeList.cpp" line="702"/>
-        <location filename="bankTreeList.cpp" line="720"/>
+        <location filename="bankTreeList.cpp" line="701"/>
+        <location filename="bankTreeList.cpp" line="719"/>
         <source> is connected correctly and re-try.</source>
         <translation>恰当地被连接和再试。</translation>
     </message>
     <message>
-        <location filename="bankTreeList.cpp" line="713"/>
+        <location filename="bankTreeList.cpp" line="712"/>
         <source>Warning - Patch data not received!</source>
         <translation>警告-没被接受的补丁数据!</translation>
     </message>
     <message>
-        <location filename="bankTreeList.cpp" line="718"/>
+        <location filename="bankTreeList.cpp" line="717"/>
         <source>Patch data transfer failed, are the correct midi ports selected?</source>
         <translation>修补发生故障的数据传送，正确密地口岸被选择?</translation>
     </message>
@@ -383,7 +383,7 @@
         <translation>变动起对下起动的作用</translation>
     </message>
     <message>
-        <location filename="bankTreeList.cpp" line="305"/>
+        <location filename="bankTreeList.cpp" line="303"/>
         <source>Double-click tree item to load patch</source>
         <translation>双击装载补丁的树项目</translation>
     </message>
@@ -556,45 +556,45 @@ If correction was inpossible then some settings might have been reset to zero.</
         <translation type="obsolete">双击装载补丁的树项目</translation>
     </message>
     <message>
-        <location filename="bankTreeList.cpp" line="733"/>
+        <location filename="bankTreeList.cpp" line="732"/>
         <source>{ size=</source>
         <translation>{大小=</translation>
     </message>
     <message>
-        <location filename="bankTreeList.cpp" line="736"/>
+        <location filename="bankTreeList.cpp" line="735"/>
         <source>&lt;br&gt; midi data received</source>
         <translation>&lt;br&gt;被接受的密地数据</translation>
     </message>
     <message>
-        <location filename="bankTreeList.cpp" line="748"/>
+        <location filename="bankTreeList.cpp" line="747"/>
         <source>dBug Result for re-formatted GT-10 patch data</source>
         <translation>调试被重新排版的GT-10补丁数据的结果</translation>
     </message>
     <message>
-        <location filename="bankTreeList.cpp" line="847"/>
+        <location filename="bankTreeList.cpp" line="846"/>
         <source>Reading names</source>
         <translation>读书名字</translation>
     </message>
     <message>
-        <location filename="bankTreeList.cpp" line="493"/>
+        <location filename="bankTreeList.cpp" line="492"/>
         <source>Patch request</source>
         <translation>补丁请求</translation>
     </message>
     <message>
-        <location filename="bankTreeList.cpp" line="553"/>
-        <location filename="bankTreeList.cpp" line="567"/>
+        <location filename="bankTreeList.cpp" line="552"/>
+        <location filename="bankTreeList.cpp" line="566"/>
         <source>Receiving Patch</source>
         <translation>接受补丁</translation>
     </message>
     <message>
-        <location filename="bankTreeList.cpp" line="673"/>
-        <location filename="bankTreeList.cpp" line="858"/>
-        <location filename="bankTreeList.cpp" line="865"/>
+        <location filename="bankTreeList.cpp" line="672"/>
+        <location filename="bankTreeList.cpp" line="857"/>
+        <location filename="bankTreeList.cpp" line="864"/>
         <source>Ready</source>
         <translation>准备好</translation>
     </message>
     <message>
-        <location filename="bankTreeList.cpp" line="677"/>
+        <location filename="bankTreeList.cpp" line="676"/>
         <source>Patch from </source>
         <translation>补丁从 </translation>
     </message>
@@ -1815,13 +1815,79 @@ If correction was inpossible then some settings might have been reset to zero.</
 <context>
     <name>midiIO</name>
     <message>
-        <location filename="midiIO.cpp" line="410"/>
+        <location filename="midiIO.cpp" line="75"/>
+        <location filename="midiIO.cpp" line="84"/>
+        <location filename="midiIO.cpp" line="238"/>
+        <source>Midi Output Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="midiIO.cpp" line="75"/>
+        <location filename="midiIO.cpp" line="125"/>
+        <source>port error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="midiIO.cpp" line="84"/>
+        <location filename="midiIO.cpp" line="132"/>
+        <location filename="midiIO.cpp" line="200"/>
+        <location filename="midiIO.cpp" line="238"/>
+        <location filename="midiIO.cpp" line="313"/>
+        <source>data error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="midiIO.cpp" line="91"/>
+        <location filename="midiIO.cpp" line="138"/>
+        <source>un-named midi device: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="midiIO.cpp" line="100"/>
+        <location filename="midiIO.cpp" line="148"/>
+        <source>no midi device available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="midiIO.cpp" line="125"/>
+        <location filename="midiIO.cpp" line="132"/>
+        <location filename="midiIO.cpp" line="313"/>
+        <source>Midi Input Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="midiIO.cpp" line="200"/>
+        <source>Sysx Output Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="midiIO.cpp" line="407"/>
         <source>Sending</source>
         <translation>送</translation>
     </message>
     <message>
-        <location filename="midiIO.cpp" line="486"/>
-        <location filename="midiIO.cpp" line="503"/>
+        <location filename="midiIO.cpp" line="464"/>
+        <source>identity request</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="midiIO.cpp" line="468"/>
+        <source>patch request</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="midiIO.cpp" line="471"/>
+        <source>name request</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="midiIO.cpp" line="474"/>
+        <source>system request</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="midiIO.cpp" line="483"/>
+        <location filename="midiIO.cpp" line="500"/>
         <source>no midi device set</source>
         <translation>没有密地设备集合</translation>
     </message>
@@ -1988,6 +2054,124 @@ If correction was inpossible then some settings might have been reset to zero.</
         <location filename="stompBox.cpp" line="878"/>
         <source>Chain Merge</source>
         <translation>链合并</translation>
+    </message>
+</context>
+<context>
+    <name>stompbox_ce</name>
+    <message>
+        <location filename="stompbox_ce.cpp" line="51"/>
+        <source>Effect</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="stompbox_ce.cpp" line="56"/>
+        <source>Chorus</source>
+        <translation type="unfinished">合唱</translation>
+    </message>
+    <message>
+        <location filename="stompbox_ce.cpp" line="62"/>
+        <source>Filter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="stompbox_ce.cpp" line="67"/>
+        <source>Level</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>stompbox_ch_a</name>
+    <message>
+        <location filename="stompbox_ch_a.cpp" line="58"/>
+        <source>Channel A</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="stompbox_ch_a.cpp" line="60"/>
+        <source>Pre Amp</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="stompbox_ch_a.cpp" line="75"/>
+        <source>Speaker</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="stompbox_ch_a.cpp" line="86"/>
+        <source>Solo</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="stompbox_ch_a.cpp" line="253"/>
+        <source>Custom PreAmp</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="stompbox_ch_a.cpp" line="281"/>
+        <source>Custom Speaker</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>stompbox_ch_b</name>
+    <message>
+        <location filename="stompbox_ch_b.cpp" line="59"/>
+        <source>Channel B</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="stompbox_ch_b.cpp" line="61"/>
+        <source>Pre Amp</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="stompbox_ch_b.cpp" line="76"/>
+        <source>Speaker</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="stompbox_ch_b.cpp" line="87"/>
+        <source>Solo</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="stompbox_ch_b.cpp" line="257"/>
+        <source>Custom PreAmp</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="stompbox_ch_b.cpp" line="286"/>
+        <source>Custom Speaker</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>stompbox_cn_s</name>
+    <message>
+        <location filename="stompbox_cn_s.cpp" line="49"/>
+        <source>PreAmp Effect</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="stompbox_cn_s.cpp" line="53"/>
+        <source>Channel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="stompbox_cn_s.cpp" line="63"/>
+        <source>Channel select</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="stompbox_cn_s.cpp" line="69"/>
+        <location filename="stompbox_cn_s.cpp" line="75"/>
+        <source>Channel Delay</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="stompbox_cn_s.cpp" line="81"/>
+        <source>Dynamic switching</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

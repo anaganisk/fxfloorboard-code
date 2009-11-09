@@ -1,9 +1,8 @@
 /****************************************************************************
 **
-** Copyright (C) 2007, 2008, 2009 Colin Willcocks.
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
+** Copyright (C) 2007~2010 Colin Willcocks.
+** Copyright (C) 2005~2007 Uco Mesdag. 
 ** All rights reserved.
-**
 ** This file is part of "GT-10 Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
@@ -48,23 +47,23 @@ void stompbox_ce::updateSignal()
 
 void stompbox_ce::setEditPages()
 {
-  editDetails()->page()->newGroupBox("Effect");
+  editDetails()->page()->newGroupBox(tr("Effect"));
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "0A", "00", "20", "middle", Qt::AlignCenter);
 	editDetails()->page()->addComboBox(1, 0, 1, 1, "0A", "00", "21");
 	editDetails()->page()->addGroupBox(0, 0, 2, 1);
 
-	editDetails()->page()->newGroupBox("Chorus");
+	editDetails()->page()->newGroupBox(tr("Chorus"));
 	editDetails()->page()->addKnob(0, 0, 1, 3, "0A", "00", "22", "normal","right", 105);
 	editDetails()->page()->addKnob(1, 0, 1, 1, "0A", "00", "23");
 	editDetails()->page()->addKnob(1, 2, 1, 1, "0A", "00", "24");
 	editDetails()->page()->addGroupBox(0, 1, 2, 1);
 
-	editDetails()->page()->newGroupBox("Filter");
+	editDetails()->page()->newGroupBox(tr("Filter"));
 	editDetails()->page()->addKnob(0, 0, 1, 1, "0A", "00", "25");
 	editDetails()->page()->addKnob(0, 1, 1, 1, "0A", "00", "26");
 	editDetails()->page()->addGroupBox(0, 2, 2, 1);
 
-	editDetails()->page()->newGroupBox("Level");
+	editDetails()->page()->newGroupBox(tr("Level"));
 	editDetails()->page()->addKnob(0, 0, 1, 1, "0A", "00", "27");
 	editDetails()->page()->addGroupBox(0, 3, 2, 1);
 

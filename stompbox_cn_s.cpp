@@ -1,9 +1,8 @@
 /****************************************************************************
 **
-** Copyright (C) 2007, 2008, 2009 Colin Willcocks.
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
+** Copyright (C) 2007~2010 Colin Willcocks.
+** Copyright (C) 2005~2007 Uco Mesdag. 
 ** All rights reserved.
-**
 ** This file is part of "GT-10 Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
@@ -46,11 +45,11 @@ void stompbox_cn_s::updateSignal()
 
 void stompbox_cn_s::setEditPages()
 {
-  editDetails()->page()->newGroupBox("PreAmp Effect");
+  editDetails()->page()->newGroupBox(tr("PreAmp Effect"));
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "00", "middle", Qt::AlignCenter);   // off/on effect
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	
-  editDetails()->page()->newGroupBox("Channel");
+  editDetails()->page()->newGroupBox(tr("Channel"));
 	editDetails()->page()->newStackControl(0);
 	editDetails()->page()->addComboBox(2, 0, 1, 1, "01", "00", "01");   //mode
 	editDetails()->page()->addStackControl();
@@ -60,25 +59,25 @@ void stompbox_cn_s::setEditPages()
 	editDetails()->page()->insertStackField(0, 2, 0, 1, 1);
 
 	editDetails()->page()->newStackField(0);
-	editDetails()->page()->newGroupBox("Channel select");
+	editDetails()->page()->newGroupBox(tr("Channel select"));
 	editDetails()->page()->addComboBox(1, 0, 1, 1, "01", "00", "02"); // channel select
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->page()->addStackField();
 	
 	editDetails()->page()->newStackField(0, Qt::AlignCenter);
-	editDetails()->page()->newGroupBox("Channel Delay");
+	editDetails()->page()->newGroupBox(tr("Channel Delay"));
 	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "03");
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->page()->addStackField();
 
 	editDetails()->page()->newStackField(0, Qt::AlignCenter);
-	editDetails()->page()->newGroupBox("Channel Delay");
+	editDetails()->page()->newGroupBox(tr("Channel Delay"));
 	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "03");
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->page()->addStackField();
 
 	editDetails()->page()->newStackField(0, Qt::AlignCenter);
-	editDetails()->page()->newGroupBox("Dynamic switching");
+	editDetails()->page()->newGroupBox(tr("Dynamic switching"));
 	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "04");
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->page()->addStackField();

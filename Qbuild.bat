@@ -1,18 +1,22 @@
 @echo off
 :CHECK
 cls
-echo ********************************************************************
-echo *                    ___________________________________           *
-echo ***                   Build MENU for GT-10FxFloorBoard           ***
-echo *                    -----------------------------------           *
-echo *                      Press [1] to "Compile"                      *
-echo *                               or                                 *
-echo *                      Press [2] to "Compile and Run"              *
-echo *                               or                                 *
-echo *                      Press [3] for "Run only"                    *
-echo *                               or                                 *
-echo *                      Press [4] for "EXIT"                        *
-echo ********************************************************************
+echo ***********************************************************************
+echo *                    ___________________________________              *
+echo ***                   Build MENU for GT-10FxFloorBoard              ***
+echo *                    -----------------------------------              *
+echo *                      Press [1] to "Compile"                         *
+echo *                               or                                    *
+echo *                      Press [2] to "Compile and Run"                 *
+echo *                               or                                    *
+echo *                      Press [3] for "Run only"                       *
+echo *                               or                                    *
+echo *                      Press [4] for "EXIT"                           *
+echo *                               or                                	   *
+echo *                      Press [5] to "Generate translation ts scripts" *
+echo *                               or                                    *
+echo *                      Press [6] to "Generated translated qm source"  *
+echo ***********************************************************************
 echo .
 choice /c:123456  Choose an option
 if errorlevel 6 goto F-OPTION

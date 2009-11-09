@@ -2,7 +2,7 @@
 <!-- Preferences of the GT-10 Fx FloorBoard application. -->
 <Preferences>
 	<General>
-		<Application version="20090919"/>
+		<Application version="20091029"/>
 		<Donate url="http://gtx.tinfoilmusic.net/donate.html"/>
 		<Files dir=""/>
 		<Help url="GT-10FxFloorBoard_help.html"/>
@@ -25,5 +25,8 @@
     <Size height="" minheight="548" minwidth="1014" width=""/>
     <Splash bool="true"/>
   </Window>
+  <Language>
+    <Locale select="1"/>
+  </Language>
 </Preferences>
  

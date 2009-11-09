@@ -1,9 +1,8 @@
 /****************************************************************************
 **
-** Copyright (C) 2007, 2008, 2009 Colin Willcocks.
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
+** Copyright (C) 2007~2010 Colin Willcocks.
+** Copyright (C) 2005~2007 Uco Mesdag. 
 ** All rights reserved.
-**
 ** This file is part of "GT-10 Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
@@ -56,9 +55,9 @@ void stompbox_ch_b::setEditPages()
 	
 	// CHANNEL B 
 	
-	editDetails()->page()->newGroupBox("Channel B");
+	editDetails()->page()->newGroupBox(tr("Channel B"));
 
-	editDetails()->page()->newGroupBox("Pre Amp");
+	editDetails()->page()->newGroupBox(tr("Pre Amp"));
 	editDetails()->page()->newStackControl(0); 
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "01", "00", "30");  // pre type
 	editDetails()->page()->addStackControl();
@@ -73,7 +72,7 @@ void stompbox_ch_b::setEditPages()
 	
   editDetails()->page()->insertStackField(0, 1, 0, 1, 1);                 // bright switch
   	
-	editDetails()->page()->newGroupBox("Speaker");
+	editDetails()->page()->newGroupBox(tr("Speaker"));
 	editDetails()->page()->newStackControl(1);
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "01", "00", "3B");   // speaker type
 	editDetails()->page()->addStackControl();
@@ -84,7 +83,7 @@ void stompbox_ch_b::setEditPages()
 	editDetails()->page()->addKnob(0, 5, 1, 1, "01", "00", "40");   // direct level
 	editDetails()->page()->addGroupBox(2, 0, 1, 1);
 
-	editDetails()->page()->newGroupBox("Solo");
+	editDetails()->page()->newGroupBox(tr("Solo"));
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "39", "middle", Qt::AlignLeft | Qt::AlignTop);
 	editDetails()->page()->addKnob(1, 0, 1, 1, "01", "00", "3A");
 	editDetails()->page()->addGroupBox(0, 1, 3, 1);
@@ -254,7 +253,7 @@ void stompbox_ch_b::setEditPages()
   editDetails()->page()->addStackField();
   
 	editDetails()->page()->newStackField(0); // custom
-	editDetails()->page()->newGroupBox("Custom PreAmp");
+	editDetails()->page()->newGroupBox(tr("Custom PreAmp"));
 	editDetails()->page()->newStackControl(2);
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "01", "00", "41");
 	editDetails()->page()->addStackControl();
@@ -283,7 +282,7 @@ void stompbox_ch_b::setEditPages()
 	editDetails()->page()->newStackField(1);editDetails()->page()->addStackField();
 	editDetails()->page()->newStackField(1);editDetails()->page()->addStackField();
 	editDetails()->page()->newStackField(1);
-  editDetails()->page()->newGroupBox("Custom Speaker");
+  editDetails()->page()->newGroupBox(tr("Custom Speaker"));
 	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "4A", "normal","right", 40);
 	editDetails()->page()->addKnob(1, 0, 1, 1, "01", "00", "49", "normal","right", 40);
 	editDetails()->page()->addKnob(2, 0, 1, 2, "01", "00", "48", "normal","right", 40);

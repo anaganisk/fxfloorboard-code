@@ -82,34 +82,34 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="bankTreeList.cpp" line="695"/>
+        <location filename="bankTreeList.cpp" line="694"/>
         <source>Warning - Patch data received is incorrect!</source>
         <translation>Avertissement - les données de Patch reçues sont incorrectes !</translation>
     </message>
     <message>
-        <location filename="bankTreeList.cpp" line="700"/>
+        <location filename="bankTreeList.cpp" line="699"/>
         <source>Patch data transfer wrong size or data error</source>
         <translation>&quot; ; Patch&quot; ; taille de mal de transfert de données ou erreur de données</translation>
     </message>
     <message>
-        <location filename="bankTreeList.cpp" line="702"/>
-        <location filename="bankTreeList.cpp" line="720"/>
+        <location filename="bankTreeList.cpp" line="701"/>
+        <location filename="bankTreeList.cpp" line="719"/>
         <source>Please make sure the </source>
         <translation>Veuillez s&apos;assurer </translation>
     </message>
     <message>
-        <location filename="bankTreeList.cpp" line="702"/>
-        <location filename="bankTreeList.cpp" line="720"/>
+        <location filename="bankTreeList.cpp" line="701"/>
+        <location filename="bankTreeList.cpp" line="719"/>
         <source> is connected correctly and re-try.</source>
         <translation> est relié correctement et tentative.</translation>
     </message>
     <message>
-        <location filename="bankTreeList.cpp" line="713"/>
+        <location filename="bankTreeList.cpp" line="712"/>
         <source>Warning - Patch data not received!</source>
         <translation>Avertissement - données de correction non reçues !</translation>
     </message>
     <message>
-        <location filename="bankTreeList.cpp" line="718"/>
+        <location filename="bankTreeList.cpp" line="717"/>
         <source>Patch data transfer failed, are the correct midi ports selected?</source>
         <translation>Le transfert de données échoué, les ports corrects du Midi raccordent-ils sont-ils choisis ?</translation>
     </message>
@@ -380,7 +380,7 @@
         <translation>Les changements entrent en vigueur sur le prochain démarrage</translation>
     </message>
     <message>
-        <location filename="bankTreeList.cpp" line="305"/>
+        <location filename="bankTreeList.cpp" line="303"/>
         <source>Double-click tree item to load patch</source>
         <translation>Article d&apos;arbre de Double-click à la charge</translation>
     </message>
@@ -554,45 +554,45 @@ If correction was inpossible then some settings might have been reset to zero.</
         <translation type="obsolete">Article d&apos;arbre de Double-click à la charge</translation>
     </message>
     <message>
-        <location filename="bankTreeList.cpp" line="733"/>
+        <location filename="bankTreeList.cpp" line="732"/>
         <source>{ size=</source>
         <translation>{ taille=</translation>
     </message>
     <message>
-        <location filename="bankTreeList.cpp" line="736"/>
+        <location filename="bankTreeList.cpp" line="735"/>
         <source>&lt;br&gt; midi data received</source>
         <translation>&lt;br&gt;les données du Midi ont reçu</translation>
     </message>
     <message>
-        <location filename="bankTreeList.cpp" line="748"/>
+        <location filename="bankTreeList.cpp" line="747"/>
         <source>dBug Result for re-formatted GT-10 patch data</source>
         <translation>corrigez le résultat pour des données restructurées de la correction GT-10</translation>
     </message>
     <message>
-        <location filename="bankTreeList.cpp" line="847"/>
+        <location filename="bankTreeList.cpp" line="846"/>
         <source>Reading names</source>
         <translation>Noms de lecture</translation>
     </message>
     <message>
-        <location filename="bankTreeList.cpp" line="493"/>
+        <location filename="bankTreeList.cpp" line="492"/>
         <source>Patch request</source>
         <translation>Demande de correction</translation>
     </message>
     <message>
-        <location filename="bankTreeList.cpp" line="553"/>
-        <location filename="bankTreeList.cpp" line="567"/>
+        <location filename="bankTreeList.cpp" line="552"/>
+        <location filename="bankTreeList.cpp" line="566"/>
         <source>Receiving Patch</source>
         <translation>Réception de la correction</translation>
     </message>
     <message>
-        <location filename="bankTreeList.cpp" line="673"/>
-        <location filename="bankTreeList.cpp" line="858"/>
-        <location filename="bankTreeList.cpp" line="865"/>
+        <location filename="bankTreeList.cpp" line="672"/>
+        <location filename="bankTreeList.cpp" line="857"/>
+        <location filename="bankTreeList.cpp" line="864"/>
         <source>Ready</source>
         <translation>Prêt</translation>
     </message>
     <message>
-        <location filename="bankTreeList.cpp" line="677"/>
+        <location filename="bankTreeList.cpp" line="676"/>
         <source>Patch from </source>
         <translation>Correction de </translation>
     </message>
@@ -1813,13 +1813,79 @@ If correction was inpossible then some settings might have been reset to zero.</
 <context>
     <name>midiIO</name>
     <message>
-        <location filename="midiIO.cpp" line="410"/>
+        <location filename="midiIO.cpp" line="75"/>
+        <location filename="midiIO.cpp" line="84"/>
+        <location filename="midiIO.cpp" line="238"/>
+        <source>Midi Output Error</source>
+        <translation>Erreur de rendement du Midi</translation>
+    </message>
+    <message>
+        <location filename="midiIO.cpp" line="75"/>
+        <location filename="midiIO.cpp" line="125"/>
+        <source>port error</source>
+        <translation>erreur gauche</translation>
+    </message>
+    <message>
+        <location filename="midiIO.cpp" line="84"/>
+        <location filename="midiIO.cpp" line="132"/>
+        <location filename="midiIO.cpp" line="200"/>
+        <location filename="midiIO.cpp" line="238"/>
+        <location filename="midiIO.cpp" line="313"/>
+        <source>data error</source>
+        <translation>erreur de données</translation>
+    </message>
+    <message>
+        <location filename="midiIO.cpp" line="91"/>
+        <location filename="midiIO.cpp" line="138"/>
+        <source>un-named midi device: </source>
+        <translation>dispositif anonyme du Midi : </translation>
+    </message>
+    <message>
+        <location filename="midiIO.cpp" line="100"/>
+        <location filename="midiIO.cpp" line="148"/>
+        <source>no midi device available</source>
+        <translation>aucun dispositif du Midi disponible</translation>
+    </message>
+    <message>
+        <location filename="midiIO.cpp" line="125"/>
+        <location filename="midiIO.cpp" line="132"/>
+        <location filename="midiIO.cpp" line="313"/>
+        <source>Midi Input Error</source>
+        <translation>Erreur d&apos;entrée du Midi</translation>
+    </message>
+    <message>
+        <location filename="midiIO.cpp" line="200"/>
+        <source>Sysx Output Error</source>
+        <translation>Erreur de rendement de Sysx</translation>
+    </message>
+    <message>
+        <location filename="midiIO.cpp" line="407"/>
         <source>Sending</source>
         <translation>Envoi</translation>
     </message>
     <message>
-        <location filename="midiIO.cpp" line="486"/>
-        <location filename="midiIO.cpp" line="503"/>
+        <location filename="midiIO.cpp" line="464"/>
+        <source>identity request</source>
+        <translation>demande d&apos;identité</translation>
+    </message>
+    <message>
+        <location filename="midiIO.cpp" line="468"/>
+        <source>patch request</source>
+        <translation>Demande de correction</translation>
+    </message>
+    <message>
+        <location filename="midiIO.cpp" line="471"/>
+        <source>name request</source>
+        <translation>demande nommée</translation>
+    </message>
+    <message>
+        <location filename="midiIO.cpp" line="474"/>
+        <source>system request</source>
+        <translation>demande de système</translation>
+    </message>
+    <message>
+        <location filename="midiIO.cpp" line="483"/>
+        <location filename="midiIO.cpp" line="500"/>
         <source>no midi device set</source>
         <translation>aucun ensemble de dispositif du Midi</translation>
     </message>
@@ -1986,6 +2052,124 @@ If correction was inpossible then some settings might have been reset to zero.</
         <location filename="stompBox.cpp" line="878"/>
         <source>Chain Merge</source>
         <translation>Fusion à chaînes</translation>
+    </message>
+</context>
+<context>
+    <name>stompbox_ce</name>
+    <message>
+        <location filename="stompbox_ce.cpp" line="51"/>
+        <source>Effect</source>
+        <translation>Effet</translation>
+    </message>
+    <message>
+        <location filename="stompbox_ce.cpp" line="56"/>
+        <source>Chorus</source>
+        <translation>Choeur</translation>
+    </message>
+    <message>
+        <location filename="stompbox_ce.cpp" line="62"/>
+        <source>Filter</source>
+        <translation>Filtre</translation>
+    </message>
+    <message>
+        <location filename="stompbox_ce.cpp" line="67"/>
+        <source>Level</source>
+        <translation>Niveau</translation>
+    </message>
+</context>
+<context>
+    <name>stompbox_ch_a</name>
+    <message>
+        <location filename="stompbox_ch_a.cpp" line="58"/>
+        <source>Channel A</source>
+        <translation>Creusez des rigoles A</translation>
+    </message>
+    <message>
+        <location filename="stompbox_ch_a.cpp" line="60"/>
+        <source>Pre Amp</source>
+        <translation>Pré Amplificateur</translation>
+    </message>
+    <message>
+        <location filename="stompbox_ch_a.cpp" line="75"/>
+        <source>Speaker</source>
+        <translation>Orateur</translation>
+    </message>
+    <message>
+        <location filename="stompbox_ch_a.cpp" line="86"/>
+        <source>Solo</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="stompbox_ch_a.cpp" line="253"/>
+        <source>Custom PreAmp</source>
+        <translation>Préampli fait sur commande</translation>
+    </message>
+    <message>
+        <location filename="stompbox_ch_a.cpp" line="281"/>
+        <source>Custom Speaker</source>
+        <translation>Haut-parleur fait sur commande</translation>
+    </message>
+</context>
+<context>
+    <name>stompbox_ch_b</name>
+    <message>
+        <location filename="stompbox_ch_b.cpp" line="59"/>
+        <source>Channel B</source>
+        <translation>Creusez des rigoles </translation>
+    </message>
+    <message>
+        <location filename="stompbox_ch_b.cpp" line="61"/>
+        <source>Pre Amp</source>
+        <translation>Pré Amplificateur</translation>
+    </message>
+    <message>
+        <location filename="stompbox_ch_b.cpp" line="76"/>
+        <source>Speaker</source>
+        <translation>Orateur</translation>
+    </message>
+    <message>
+        <location filename="stompbox_ch_b.cpp" line="87"/>
+        <source>Solo</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="stompbox_ch_b.cpp" line="257"/>
+        <source>Custom PreAmp</source>
+        <translation>Préampli fait sur commande</translation>
+    </message>
+    <message>
+        <location filename="stompbox_ch_b.cpp" line="286"/>
+        <source>Custom Speaker</source>
+        <translation>Haut-parleur fait sur commande</translation>
+    </message>
+</context>
+<context>
+    <name>stompbox_cn_s</name>
+    <message>
+        <location filename="stompbox_cn_s.cpp" line="49"/>
+        <source>PreAmp Effect</source>
+        <translation>Effet de préampli</translation>
+    </message>
+    <message>
+        <location filename="stompbox_cn_s.cpp" line="53"/>
+        <source>Channel</source>
+        <translation>La Manche</translation>
+    </message>
+    <message>
+        <location filename="stompbox_cn_s.cpp" line="63"/>
+        <source>Channel select</source>
+        <translation>La Manche choisie</translation>
+    </message>
+    <message>
+        <location filename="stompbox_cn_s.cpp" line="69"/>
+        <location filename="stompbox_cn_s.cpp" line="75"/>
+        <source>Channel Delay</source>
+        <translation>Retard de la Manche</translation>
+    </message>
+    <message>
+        <location filename="stompbox_cn_s.cpp" line="81"/>
+        <source>Dynamic switching</source>
+        <translation>Commutation dynamique</translation>
     </message>
 </context>
 </TS>

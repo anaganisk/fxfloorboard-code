@@ -4,7 +4,7 @@ GT-10FxFloorBoard Copyright (C) 2007, 2008, 2009 Colin Willcocks (gumtownbassman
 =======
 
 
-GT-10FxFloorBoard version 20090930: 30 September 2009
+GT-10FxFloorBoard version 20091022: 22 October 2009
 *****************************************************
 PLEASE FEEL FREE TO DONATE, YOU MAY FREELY USE THIS SOFTWARE, 
  JUST KEEP IN MIND THE 7000 HOURS SPENT OVER 4 YEARS GETTING IT HERE,
@@ -13,6 +13,7 @@ but then patches created by you for sharing with all would be nice too.
 you can email patches and custom system settings saved files to the above address.
 ***********************************************************************************
  ********* LATEST FEATURES ADDED****************************************************
+ *Multi Language support for French, German, and Chinese. 
  *Bulk File save/restore in 3 formats *.gxg, *.mid & *.syx so your Boss Librarian can use the Bulk files 
  and the FxFloorBoard can load in Bulk backups of patches, system and Global data. 
  The editor now supports using Boss Librarian *.gxg files.
@@ -137,7 +138,7 @@ LEGAL:
 ------
 
 GT10 FxFloorBoard Copyright (C)2007 2008 2009 Colin Willcocks <gumtownbassman@yahoo.com>.
-based on the GT8 FxFloorBoard Copyright (C)2006 2007 Uco Mesdag <ucomesdag@gmail.com>.
+based on the GT8 FxFloorBoard Copyright (C)2005 2006 2007 Uco Mesdag <ucomesdag@gmail.com>.
 
 Windows(TM), Windows 95(TM), Windows 98(TM), Windows ME(TM), Windows NT(TM), 
 Windows 2000(TM), Windows XP(TM), Windows Vista(TM) and Windows 7(TM) are Copyright (C)Microsoft Corporation. 
