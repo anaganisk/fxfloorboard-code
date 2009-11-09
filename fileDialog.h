@@ -21,45 +21,40 @@
 **
 ****************************************************************************/
 
-#ifndef CUSTOMCONTROLKNOB_H
-#define CUSTOMCONTROLKNOB_H
+#ifndef FILEDIALOG_H
+#define FILEDIALOG_H
 
-#include <QWidget>
-#include <QtGui>
-#include "customKnob.h"
-#include "customControlLabel.h"
+#include <QDialog>
+#include <QComboBox>
+#include <QLabel>
+#include "SysxIO.h" 
 
-class customControlKnob : public QWidget
+class QListWidget;
+class QListWidgetItem;
+class QStackedWidget;
+
+class fileDialog : public QDialog
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    customControlKnob(QWidget *parent = 0, 
-		QString hex1 = "void",
-		QString hex2 = "void",
-		QString hex3 = "void",
-		QString background = "normal", 
-		QString direction = "bottom", 
-		int lenght = 34);
-
-protected:
-	void paintEvent(QPaintEvent *event);
-
-public slots:
-	void dialogUpdateSignal();
-
+	fileDialog(QString fileName, QList<QString> patchList);
+	QLabel *patchLabel;
+  QLabel *nameLabel; 
+  QComboBox *patchCombo;
+  //int index;
 signals:
-	void updateSignal();
-	void updateDisplay(QString text);
-
-private:
-	customControlLabel* label;
-	QLineEdit* display;
-	customKnob* knob;
-	QString hex1;
-	QString hex2;
-	QString hex3;
-	QString area;
+  //void currentIndex(int value);
+  void patchIndex(int value);
+                    
+public slots:
+  void valueChanged(int value);
+  void cancel();
+   
+private:   
+  QList<QString> patchList;
+	QListWidget *contentsWidget;
+	QStackedWidget *pagesWidget;
 };
 
-#endif // CUSTOMCONTROLKNOB_H
+#endif // FILEDIALOG_H

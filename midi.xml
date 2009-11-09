@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <!-- edited with XMLSpy v2009 sp1 (http://www.altova.com) by col (x) -->
-<SysX desc="GT-3 Midi implementation GT3" version="0.2c" customdesc="">
+<SysX desc="GT-3 Midi implementation GT3" version="1.0" customdesc="">
 	<Header>
 		<DATA value="00" abbr="" desc="" customdesc="">
 			<PARAM value="F0" name="SOX" desc="Exclusive Status" customdesc=""/>
