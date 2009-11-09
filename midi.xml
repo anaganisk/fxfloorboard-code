@@ -771,19 +771,19 @@
 					<PARAM value="range" name="00/64/00/100" desc=" %"/>
 				</DATA>
 				<DATA value="02" name="" abbr="" desc="Type" customdesc="type">
-					<PARAM value="00" name="Boss Comp" desc="Boss Comp     "/>
-					<PARAM value="01" name="D-Comp" desc="D-Comp       "/>
-					<PARAM value="02" name="Rack 160D" desc="Rack 160D      "/>
-					<PARAM value="03" name="Vtg Rack U      ." desc="Vtg Rack U      ."/>
+					<PARAM value="00" name="Boss Comp" desc="Boss Comp"/>
+					<PARAM value="01" name="D-Comp  " desc="D-Comp  "/>
+					<PARAM value="02" name="Rack 160D " desc="Rack 160D "/>
+					<PARAM value="03" name="Vtg Rack U " desc="Vtg Rack U "/>
 				</DATA>
 				<DATA value="03" name="" abbr="" desc="Attack" customdesc="attack">
-					<PARAM value="range" name="00/64/00/100" desc=" %"/>
+					<PARAM value="range" name="00/64/00/100" desc=""/>
 				</DATA>
 				<DATA value="04" name="" abbr="" desc="Threshold" customdesc="thresh">
-					<PARAM value="range" name="00/64/00/100" desc=" %"/>
+					<PARAM value="range" name="00/64/00/100" desc=""/>
 				</DATA>
 				<DATA value="05" name="" abbr="" desc="Sustain" customdesc="sustain">
-					<PARAM value="range" name="00/64/00/100" desc=" %"/>
+					<PARAM value="range" name="00/64/00/100" desc=""/>
 				</DATA>
 				<DATA value="06" name="" abbr="" desc="Rack 160D Ratio" customdesc="ratio">
 					<PARAM value="00" name="1:1" desc="1:1"/>
@@ -811,10 +811,10 @@
 					<PARAM value="03" name="20:1" desc="20:1"/>
 				</DATA>
 				<DATA value="08" name="" abbr="" desc="Release" customdesc="release">
-					<PARAM value="range" name="00/64/00/100" desc=" %"/>
+					<PARAM value="range" name="00/64/00/100" desc=" "/>
 				</DATA>
 				<DATA value="09" name="" abbr="" desc="Tone" customdesc="tone">
-					<PARAM value="range" name="00/64/-50/+50" desc=" dB"/>
+					<PARAM value="range" name="00/64/-50/+50" desc=""/>
 				</DATA>
 				<DATA value="0A" name="" abbr="" desc="Level" customdesc="level">
 					<PARAM value="range" name="00/64/00/100" desc=" %"/>
@@ -831,11 +831,11 @@
 					<PARAM value="range" name="00/64/00/100" desc=" %"/>
 				</DATA>
 				<DATA value="02" name="" abbr="" desc="FX1:FX Select" customdesc="">
-					<PARAM value="00" name="OC" desc="Octave" customdesc="Octave"/>
-					<PARAM value="01" name="ENH" desc="Enhancer" customdesc="Enhancer"/>
-					<PARAM value="02" name="SG" desc="Slow Gear" customdesc="Slow Gear"/>
-					<PARAM value="03" name="DF" desc="Defretter" customdesc="Defretter"/>
-					<PARAM value="04" name="RM" desc="Ring Modulator" customdesc="Ring Modulator         "/>
+					<PARAM value="00" name="Octave" desc="Octave" customdesc="Octave"/>
+					<PARAM value="01" name="Enhancer" desc="Enhancer" customdesc="Enhancer"/>
+					<PARAM value="02" name="Slow Gear" desc="Slow Gear" customdesc="Slow Gear"/>
+					<PARAM value="03" name="Defretter" desc="Defretter" customdesc="Defretter"/>
+					<PARAM value="04" name="Ring Modulator" desc="Ring Modulator" customdesc="Ring Modulator"/>
 				</DATA>
 				<DATA value="03" name="" abbr="" desc="OC :Octave Level" customdesc="Effect">
 					<PARAM value="range" name="00/64/00/100" desc=" %" customdesc="Effect"/>
@@ -849,14 +849,14 @@
 					<PARAM value="range" name="00/64/00/100" desc=" %" customdesc="sens"/>
 				</DATA>
 				<DATA value="08" name="" abbr="" desc="ENH :Frequency" customdesc="freq">
-					<PARAM value="00" name="100 Hz" desc="100 Hz"/>
-					<PARAM value="01" name="800 Hz" desc="800 Hz"/>
-					<PARAM value="02" name="1.00 kHz" desc="1.00 kHz"/>
-					<PARAM value="03" name="1.25 kHz" desc="1.25 kHz"/>
-					<PARAM value="04" name="1.60 kHz" desc="1.60 kHz"/>
-					<PARAM value="05" name="2.00 kHz" desc="2.00 kHz"/>
-					<PARAM value="06" name="2.50 kHz" desc="2.50 kHz"/>
-					<PARAM value="07" name="4.00 kHz" desc="4.00 kHz"/>
+					<PARAM value="00" name="100Hz" desc="100Hz"/>
+					<PARAM value="01" name="800Hz" desc="800Hz"/>
+					<PARAM value="02" name="1.0kHz" desc="1.0kHz"/>
+					<PARAM value="03" name="1.25kHz" desc="1.25kHz"/>
+					<PARAM value="04" name="1.6kHz" desc="1.6kHz"/>
+					<PARAM value="05" name="2.0kHz" desc="2.0kHz"/>
+					<PARAM value="06" name="2.5kHz" desc="2.5kHz"/>
+					<PARAM value="07" name="4.0kHz" desc="4.0kHz"/>
 				</DATA>
 				<DATA value="09" name="" abbr="" desc="ENH :Mix Level" customdesc="mix">
 					<PARAM value="range" name="00/64/00/100" desc=" %" customdesc=""/>
@@ -1180,7 +1180,7 @@
 				<DATA value="06" name="" abbr="" desc="Middle Frequency" customdesc="mid freq">
 					<PARAM value="00" name="164Hz" desc="164Hz" customdesc=""/>
 					<PARAM value="01" name="190Hz" desc="190Hz" customdesc=""/>
-					<PARAM value="02" name="7Hz" desc="7Hz" customdesc=""/>
+					<PARAM value="02" name="207Hz" desc="207Hz" customdesc=""/>
 					<PARAM value="03" name="250Hz" desc="250Hz" customdesc=""/>
 					<PARAM value="04" name="287Hz" desc="287Hz" customdesc=""/>
 					<PARAM value="05" name="330Hz" desc="330Hz" customdesc=""/>
@@ -1255,17 +1255,17 @@
 					<PARAM value="00" name="PH" desc="Phaser" customdesc="Phaser"/>
 					<PARAM value="01" name="FL" desc="Flanger" customdesc="Flanger"/>
 					<PARAM value="02" name="HR" desc="Harmonist" customdesc="Harmonist"/>
-					<PARAM value="03" name="PS" desc="Pitch Shifter   " customdesc="Pitch Shifter     .  "/>
+					<PARAM value="03" name="PS" desc="Pitch Shifter   " customdesc="Pitch Shifter"/>
 					<PARAM value="04" name="PB" desc="Pedal Bend" customdesc="Pedal Bend"/>
 					<PARAM value="05" name="2CE" desc="2x2 Chorus" customdesc="2x2 Chorus"/>
 					<PARAM value="06" name="ASL" desc="Auto Slap" customdesc="Auto Slap"/>
 					<PARAM value="07" name="SDD" desc="Short Delay" customdesc="Short Delay"/>
 					<PARAM value="08" name="VB" desc="Vibrato" customdesc="Vibrato"/>
 					<PARAM value="09" name="HU" desc="Humanizer" customdesc="Humanizer"/>
-					<PARAM value="0A" name="T/P" desc="Tremelo/Pan   " customdesc="Tremelo/Pan       "/>
+					<PARAM value="0A" name="T/P" desc="Tremelo/Pan   " customdesc="Tremelo/Pan"/>
 					<PARAM value="0B" name="SYN" desc="Bass Synth" customdesc="Bass Synth"/>
 				</DATA>
-				<DATA value="03" name="" abbr="" desc="PH :Type" customdesc="  phase type">
+				<DATA value="03" name="" abbr="" desc="PH :Type" customdesc="phase type">
 					<PARAM value="00" name="4stage" desc="4stage" customdesc="4stage"/>
 					<PARAM value="01" name="8stage" desc="8stage" customdesc="8stage"/>
 					<PARAM value="02" name="12stage   " desc="12stage   " customdesc="12stage   "/>
@@ -1273,19 +1273,19 @@
 				</DATA>
 				<DATA value="04" name="" abbr="" desc="PH :Rate" customdesc="rate">
 					<PARAM value="range" name="00/64/00/100" desc=" %" customdesc=""/>
-					<PARAM value="65" name="1/4xbpm" desc="1/4xbpm" customdesc="1/4xbpm"/>
-					<PARAM value="66" name="1/3xbpm" desc="1/3xbpm" customdesc="1/3xbpm"/>
-					<PARAM value="67" name="3/8xbpm" desc="3/8xbpm" customdesc="3/8xbpm"/>
-					<PARAM value="68" name="1/2xbpm" desc="1/2xbpm" customdesc="1/2xbpm"/>
-					<PARAM value="69" name="2/3xbpm" desc="2/3xbpm" customdesc="2/3xbpm"/>
-					<PARAM value="6A" name="3/4xbpm" desc="3/4xbpm" customdesc="3/4xbpm"/>
-					<PARAM value="6B" name="1.0xbpm" desc="1.0xbpm" customdesc="1.0xbpm"/>
-					<PARAM value="6C" name="4/3xbpm" desc="4/3xbpm" customdesc="4/3xbpm"/>
-					<PARAM value="6D" name="1.5xbpm" desc="1.5xbpm" customdesc="1.5xbpm"/>
-					<PARAM value="6E" name="2.0xbpm" desc="2.0xbpm" customdesc="2.0xbpm"/>
-					<PARAM value="6F" name="8/3xbpm" desc="8/3xbpm" customdesc="8/3xbpm"/>
-					<PARAM value="70" name="3.0xbpm" desc="3.0xbpm" customdesc="3.0xbpm"/>
-					<PARAM value="71" name="4.0xbpm" desc="4.0xbpm    " customdesc="4.0xbpm    "/>
+					<PARAM value="65" name="1/4bpm" desc="1/4bpm" customdesc="1/4bpm"/>
+					<PARAM value="66" name="1/3bpm" desc="1/3bpm" customdesc="1/3bpm"/>
+					<PARAM value="67" name="3/8bpm" desc="3/8bpm" customdesc="3/8bpm"/>
+					<PARAM value="68" name="1/2bpm" desc="1/2bpm" customdesc="1/2bpm"/>
+					<PARAM value="69" name="2/3bpm" desc="2/3bpm" customdesc="2/3bpm"/>
+					<PARAM value="6A" name="3/4bpm" desc="3/4bpm" customdesc="3/4bpm"/>
+					<PARAM value="6B" name="1.0bpm" desc="1.0bpm" customdesc="1.0bpm"/>
+					<PARAM value="6C" name="4/3bpm" desc="4/3bpm" customdesc="4/3bpm"/>
+					<PARAM value="6D" name="1.5bpm" desc="1.5bpm" customdesc="1.5bpm"/>
+					<PARAM value="6E" name="2.0bpm" desc="2.0bpm" customdesc="2.0bpm"/>
+					<PARAM value="6F" name="8/3bpm" desc="8/3bpm" customdesc="8/3bpm"/>
+					<PARAM value="70" name="3.0bpm" desc="3.0bpm" customdesc="3.0bpm"/>
+					<PARAM value="71" name="4.0bpm" desc="4.0bpm" customdesc="4.0bpm"/>
 				</DATA>
 				<DATA value="05" name="" abbr="" desc="PH :Depth" customdesc="depth">
 					<PARAM value="range" name="00/64/00/100" desc=" %" customdesc=""/>
@@ -1296,44 +1296,44 @@
 				<DATA value="07" name="" abbr="" desc="PH :Resonance" customdesc="reson">
 					<PARAM value="range" name="00/64/00/100 " desc="  " customdesc=""/>
 				</DATA>
-				<DATA value="08" name="" abbr="" desc="PH :Step" customdesc="  step">
+				<DATA value="08" name="" abbr="" desc="PH :Step" customdesc="step">
 					<PARAM value="00" name="Off" desc="Off   " customdesc=" Off   "/>
 					<PARAM value="01" name="On" desc="On   " customdesc=" On       "/>
 				</DATA>
 				<DATA value="09" name="" abbr="" desc="PH :Step Rate" customdesc="step rate">
 					<PARAM value="range" name="01/64/00/100 " desc=" %" customdesc=""/>
-					<PARAM value="65" name="1/4xbpm" desc="1/4xbpm" customdesc="1/4xbpm"/>
-					<PARAM value="66" name="1/3xbpm" desc="1/3xbpm" customdesc="1/3xbpm"/>
-					<PARAM value="67" name="3/8xbpm" desc="3/8xbpm" customdesc="3/8xbpm"/>
-					<PARAM value="68" name="1/2xbpm" desc="1/2xbpm" customdesc="1/2xbpm"/>
-					<PARAM value="69" name="2/3xbpm" desc="2/3xbpm" customdesc="2/3xbpm"/>
-					<PARAM value="6A" name="3/4xbpm" desc="3/4xbpm" customdesc="3/4xbpm"/>
-					<PARAM value="6B" name="1.0xbpm" desc="1.0xbpm" customdesc="1.0xbpm"/>
-					<PARAM value="6C" name="4/3xbpm" desc="4/3xbpm" customdesc="4/3xbpm"/>
-					<PARAM value="6D" name="1.5xbpm" desc="1.5xbpm" customdesc="1.5xbpm"/>
-					<PARAM value="6E" name="2.0xbpm" desc="2.0xbpm" customdesc="2.0xbpm"/>
-					<PARAM value="6F" name="8/3xbpm" desc="8/3xbpm" customdesc="8/3xbpm"/>
-					<PARAM value="70" name="3.0xbpm" desc="3.0xbpm" customdesc="3.0xbpm"/>
-					<PARAM value="71" name="4.0xbpm" desc="4.0xbpm    " customdesc="4.0xbpm    "/>
+					<PARAM value="65" name="1/4bpm" desc="1/4bpm" customdesc="1/4bpm"/>
+					<PARAM value="66" name="1/3bpm" desc="1/3bpm" customdesc="1/3bpm"/>
+					<PARAM value="67" name="3/8bpm" desc="3/8bpm" customdesc="3/8bpm"/>
+					<PARAM value="68" name="1/2bpm" desc="1/2bpm" customdesc="1/2bpm"/>
+					<PARAM value="69" name="2/3bpm" desc="2/3bpm" customdesc="2/3bpm"/>
+					<PARAM value="6A" name="3/4bpm" desc="3/4bpm" customdesc="3/4bpm"/>
+					<PARAM value="6B" name="1.0bpm" desc="1.0bpm" customdesc="1.0bpm"/>
+					<PARAM value="6C" name="4/3bpm" desc="4/3bpm" customdesc="4/3bpm"/>
+					<PARAM value="6D" name="1.5bpm" desc="1.5bpm" customdesc="1.5bpm"/>
+					<PARAM value="6E" name="2.0bpm" desc="2.0bpm" customdesc="2.0bpm"/>
+					<PARAM value="6F" name="8/3bpm" desc="8/3bpm" customdesc="8/3bpm"/>
+					<PARAM value="70" name="3.0bpm" desc="3.0bpm" customdesc="3.0bpm"/>
+					<PARAM value="71" name="4.0bpm" desc="4.0bpm" customdesc="4.0bpm"/>
 				</DATA>
 				<DATA value="0A" name="" abbr="" desc="PH :Effect Level" customdesc="effect">
 					<PARAM value="range" name="00/64/00/100" desc=" %" customdesc=""/>
 				</DATA>
 				<DATA value="0B" name="" abbr="" desc="FL :Rate" customdesc="rate">
 					<PARAM value="range" name="00/64/00/100" desc=" %" customdesc=" %"/>
-					<PARAM value="65" name="1/4xbpm" desc="1/4xbpm" customdesc="1/4xbpm"/>
-					<PARAM value="66" name="1/3xbpm" desc="1/3xbpm" customdesc="1/3xbpm"/>
-					<PARAM value="67" name="3/8xbpm" desc="3/8xbpm" customdesc="3/8xbpm"/>
-					<PARAM value="68" name="1/2xbpm" desc="1/2xbpm" customdesc="1/2xbpm"/>
-					<PARAM value="69" name="2/3xbpm" desc="2/3xbpm" customdesc="2/3xbpm"/>
-					<PARAM value="6A" name="3/4xbpm" desc="3/4xbpm" customdesc="3/4xbpm"/>
-					<PARAM value="6B" name="1.0xbpm" desc="1.0xbpm" customdesc="1.0xbpm"/>
-					<PARAM value="6C" name="4/3xbpm" desc="4/3xbpm" customdesc="4/3xbpm"/>
-					<PARAM value="6D" name="1.5xbpm" desc="1.5xbpm" customdesc="1.5xbpm"/>
-					<PARAM value="6E" name="2.0xbpm" desc="2.0xbpm" customdesc="2.0xbpm"/>
-					<PARAM value="6F" name="8/3xbpm" desc="8/3xbpm" customdesc="8/3xbpm"/>
-					<PARAM value="70" name="3.0xbpm" desc="3.0xbpm" customdesc="3.0xbpm"/>
-					<PARAM value="71" name="4.0xbpm" desc="4.0xbpm" customdesc="4.0xbpm    "/>
+					<PARAM value="65" name="1/4bpm" desc="1/4bpm" customdesc="1/4bpm"/>
+					<PARAM value="66" name="1/3bpm" desc="1/3bpm" customdesc="1/3bpm"/>
+					<PARAM value="67" name="3/8bpm" desc="3/8bpm" customdesc="3/8bpm"/>
+					<PARAM value="68" name="1/2bpm" desc="1/2bpm" customdesc="1/2bpm"/>
+					<PARAM value="69" name="2/3bpm" desc="2/3bpm" customdesc="2/3bpm"/>
+					<PARAM value="6A" name="3/4bpm" desc="3/4bpm" customdesc="3/4bpm"/>
+					<PARAM value="6B" name="1.0bpm" desc="1.0bpm" customdesc="1.0bpm"/>
+					<PARAM value="6C" name="4/3bpm" desc="4/3bpm" customdesc="4/3bpm"/>
+					<PARAM value="6D" name="1.5bpm" desc="1.5bpm" customdesc="1.5bpm"/>
+					<PARAM value="6E" name="2.0bpm" desc="2.0bpm" customdesc="2.0bpm"/>
+					<PARAM value="6F" name="8/3bpm" desc="8/3bpm" customdesc="8/3bpm"/>
+					<PARAM value="70" name="3.0bpm" desc="3.0bpm" customdesc="3.0bpm"/>
+					<PARAM value="71" name="4.0bpm" desc="4.0bpm" customdesc="4.0bpm"/>
 				</DATA>
 				<DATA value="0C" name="" abbr="" desc="FL :Depth" customdesc="depth">
 					<PARAM value="range" name="00/64/00/100" desc=" %" customdesc=""/>
@@ -1350,12 +1350,12 @@
 				<DATA value="10" name="" abbr="" desc="FL :Effect Level" customdesc="effect">
 					<PARAM value="range" name="00/64/00/100" desc=" %" customdesc=""/>
 				</DATA>
-				<DATA value="11" name="" abbr="" desc="HR :Voice" customdesc="    voice">
+				<DATA value="11" name="" abbr="" desc="HR :Voice" customdesc="voice">
 					<PARAM value="00" name="1-Voice" desc="1-Voice" customdesc="1-Voice   "/>
 					<PARAM value="01" name="2-Mono" desc="2-Mono" customdesc="2-Mono    "/>
 					<PARAM value="02" name="2-Stereo" desc="2-Stereo" customdesc="2-Stereo       "/>
 				</DATA>
-				<DATA value="12" name="" abbr="" desc="HR :Voice1:Harmony" customdesc="    harmony">
+				<DATA value="12" name="" abbr="" desc="HR :Voice1:Harmony" customdesc="harmony">
 					<PARAM value="00" name="-2oct" desc="    -2oct    " customdesc="    -2oct    "/>
 					<PARAM value="01" name="-14th" desc="   -14th" customdesc="   -14th"/>
 					<PARAM value="02" name="-13th" desc="   -13th" customdesc="   -13th"/>
@@ -1439,7 +1439,7 @@
 				<DATA value="16" name="" abbr="" desc="HR :Voice1:Level" customdesc="level">
 					<PARAM value="range" name="00/64/00/100" desc=" %" customdesc=""/>
 				</DATA>
-				<DATA value="17" name="" abbr="" desc="HR :Voice2:Harmony" customdesc="    harmony">
+				<DATA value="17" name="" abbr="" desc="HR :Voice2:Harmony" customdesc="harmony">
 					<PARAM value="00" name="-2oct" desc="-2oct" customdesc="-2oct   "/>
 					<PARAM value="01" name="-14th" desc="-14th" customdesc="-14th"/>
 					<PARAM value="02" name="-13th" desc="-13th" customdesc="-13th"/>
@@ -1520,31 +1520,31 @@
 				<DATA value="1A" name="" abbr="" desc="HR :Voice2:Level" customdesc="level">
 					<PARAM value="range" name="00/64/00/100" desc=" %" customdesc=""/>
 				</DATA>
-				<DATA value="1B" name="" abbr="" desc="HR :Key" customdesc="      key">
+				<DATA value="1B" name="" abbr="" desc="HR :Key" customdesc="key">
 					<PARAM value="00" name="C(Am)" desc="C(Am)" customdesc="C(Am)"/>
-					<PARAM value="01" name="C#(A#m)   " desc="C#(A#m)   " customdesc="C#(A#m)   "/>
+					<PARAM value="01" name="C#(A#m)" desc="C#(A#m)" customdesc="C#(A#m)"/>
 					<PARAM value="02" name="D(Bm)" desc="D(Bm)" customdesc="D(Bm)"/>
 					<PARAM value="03" name="D#(Cm)" desc="D#(Cm)" customdesc="D#(Cm)"/>
 					<PARAM value="04" name="E(C#m)" desc="E(C#m)" customdesc="E(C#m)"/>
 					<PARAM value="05" name="F(Dm)" desc="F(Dm)" customdesc="F(Dm)"/>
-					<PARAM value="06" name="F#(D#m)   " desc="F#(D#m)   " customdesc="F#(D#m)   "/>
+					<PARAM value="06" name="F#(D#m)" desc="F#(D#m)" customdesc="F#(D#m)"/>
 					<PARAM value="07" name="G(Em)" desc="G(Em)" customdesc="G(Em)"/>
 					<PARAM value="08" name="G#(Fm)" desc="G#(Fm)" customdesc="G#(Fm)"/>
 					<PARAM value="09" name="A(F#m)" desc="A(F#m)" customdesc="A(F#m)"/>
 					<PARAM value="0A" name="A#(Gm)" desc="A#(Gm)" customdesc="A#(Gm)"/>
-					<PARAM value="0B" name="B(G#m)" desc="B(G#m)" customdesc="B(G#m)      "/>
+					<PARAM value="0B" name="B(G#m) " desc="B(G#m) " customdesc="B(G#m) "/>
 				</DATA>
 				<DATA value="1C" name="" abbr="" desc="HR :Direct Level" customdesc="direct">
 					<PARAM value="range" name="00/64/00/100" desc=" %" customdesc="direct"/>
 				</DATA>
-				<DATA value="1D" name="" abbr="" desc="PS :Voice" customdesc="  voice">
-					<PARAM value="00" name="Voice" desc="1 Voice   " customdesc="1 Voice   "/>
+				<DATA value="1D" name="" abbr="" desc="PS :Voice" customdesc="voice">
+					<PARAM value="00" name="Voice" desc="1 Voice" customdesc="1 Voice"/>
 					<PARAM value="01" name="Mono" desc="2 Mono" customdesc="2 Mono"/>
-					<PARAM value="02" name="Stereo" desc="2 Stereo       " customdesc="2 Stereo       "/>
+					<PARAM value="02" name="Stereo" desc="2 Stereo" customdesc="2 Stereo"/>
 				</DATA>
-				<DATA value="1E" name="" abbr="" desc="PS :PS1 Mode" customdesc="   mode">
+				<DATA value="1E" name="" abbr="" desc="PS :PS1 Mode" customdesc="mode">
 					<PARAM value="00" name="Fast" desc="fast" customdesc="fast"/>
-					<PARAM value="01" name="Medium   " desc="medium   " customdesc="medium       "/>
+					<PARAM value="01" name="Medium" desc="medium" customdesc="medium"/>
 					<PARAM value="02" name="Slow" desc="slow" customdesc="slow"/>
 					<PARAM value="03" name="Mono" desc="mono" customdesc="mono"/>
 				</DATA>
@@ -1578,9 +1578,9 @@
 				<DATA value="24" name="" abbr="" desc="PS :PS1 Level" customdesc="level">
 					<PARAM value="range" name="00/64/00/100" desc=" %" customdesc=""/>
 				</DATA>
-				<DATA value="25" name="" abbr="" desc="PS :Voice2:Mode" customdesc="   mode">
+				<DATA value="25" name="" abbr="" desc="PS :Voice2:Mode" customdesc="mode">
 					<PARAM value="00" name="Fast" desc="Fast" customdesc="Fast"/>
-					<PARAM value="01" name="Medium   " desc="Medium       " customdesc="Medium       "/>
+					<PARAM value="01" name="Medium" desc="Medium" customdesc="Medium"/>
 					<PARAM value="02" name="Slow" desc="Slow" customdesc="Slow"/>
 					<PARAM value="03" name="Mono" desc="Mono" customdesc="Mono"/>
 				</DATA>
@@ -1640,29 +1640,29 @@
 					<PARAM value="07" name="500Hz" desc="500Hz" customdesc="500Hz"/>
 					<PARAM value="08" name="630Hz" desc="630Hz" customdesc="630Hz"/>
 					<PARAM value="09" name="800Hz" desc="800Hz" customdesc="800Hz"/>
-					<PARAM value="0A" name="1.00kHz" desc="1.00kHz" customdesc="1.00kHz"/>
+					<PARAM value="0A" name="1.0kHz" desc="1.0kHz" customdesc="1.0kHz"/>
 					<PARAM value="0B" name="1.25kHz" desc="1.25kHz" customdesc="1.25kHz"/>
-					<PARAM value="0C" name="1.60kHz" desc="1.60kHz" customdesc="1.60kHz"/>
-					<PARAM value="0D" name="2.00kHz" desc="2.00kHz" customdesc="2.00kHz"/>
-					<PARAM value="0E" name="2.50kHz" desc="2.50kHz" customdesc="2.50kHz"/>
+					<PARAM value="0C" name="1.6kHz" desc="1.6kHz" customdesc="1.6kHz"/>
+					<PARAM value="0D" name="2.0kHz" desc="2.0kHz" customdesc="2.0kHz"/>
+					<PARAM value="0E" name="2.5kHz" desc="2.5kHz" customdesc="2.5kHz"/>
 					<PARAM value="0F" name="3.15kHz" desc="3.15kHz" customdesc="3.15kHz"/>
-					<PARAM value="10" name="4.00kHz" desc="4.00kHz" customdesc="4.00kHz"/>
+					<PARAM value="10" name="4.0kHz" desc="4.0kHz" customdesc="4.0kHz"/>
 				</DATA>
 				<DATA value="32" name="" abbr="" desc="2CE:Low Rate" customdesc="rate">
 					<PARAM value="range" name="00/64/00/100" desc=" %" customdesc=""/>
-					<PARAM value="65" name="1/4xbpm" desc="1/4xbpm" customdesc=""/>
-					<PARAM value="66" name="1/3xbpm" desc="1/3xbpm" customdesc=""/>
-					<PARAM value="67" name="3/8xbpm" desc="3/8xbpm" customdesc=""/>
-					<PARAM value="68" name="1/2xbpm" desc="1/2xbpm" customdesc=""/>
-					<PARAM value="69" name="2/3xbpm" desc="2/3xbpm" customdesc=""/>
-					<PARAM value="6A" name="3/4xbpm" desc="3/4xbpm" customdesc=""/>
-					<PARAM value="6B" name="1.0xbpm" desc="1.0xbpm" customdesc=""/>
-					<PARAM value="6C" name="4/3xbpm" desc="4/3xbpm" customdesc=""/>
-					<PARAM value="6D" name="1.5xbpm" desc="1.5xbpm" customdesc=""/>
-					<PARAM value="6E" name="2.0xbpm" desc="2.0xbpm" customdesc=""/>
-					<PARAM value="6F" name="8/3xbpm" desc="8/3xbpm" customdesc=""/>
-					<PARAM value="70" name="3.0xbpm" desc="3.0xbpm" customdesc=""/>
-					<PARAM value="71" name="4.0xbpm" desc="4.0xbpm" customdesc=""/>
+					<PARAM value="65" name="1/4bpm" desc="1/4bpm" customdesc=""/>
+					<PARAM value="66" name="1/3bpm" desc="1/3bpm" customdesc=""/>
+					<PARAM value="67" name="3/8bpm" desc="3/8bpm" customdesc=""/>
+					<PARAM value="68" name="1/2bpm" desc="1/2bpm" customdesc=""/>
+					<PARAM value="69" name="2/3bpm" desc="2/3bpm" customdesc=""/>
+					<PARAM value="6A" name="3/4bpm" desc="3/4bpm" customdesc=""/>
+					<PARAM value="6B" name="1.0bpm" desc="1.0bpm" customdesc=""/>
+					<PARAM value="6C" name="4/3bpm" desc="4/3bpm" customdesc=""/>
+					<PARAM value="6D" name="1.5bpm" desc="1.5bpm" customdesc=""/>
+					<PARAM value="6E" name="2.0bpm" desc="2.0bpm" customdesc=""/>
+					<PARAM value="6F" name="8/3bpm" desc="8/3bpm" customdesc=""/>
+					<PARAM value="70" name="3.0bpm" desc="3.0bpm" customdesc=""/>
+					<PARAM value="71" name="4.0bpm" desc="4.0bpm" customdesc=""/>
 				</DATA>
 				<DATA value="33" name="" abbr="" desc="2CE:Low Depth" customdesc="depth">
 					<PARAM value="range" name="00/64/00/100" desc=" %" customdesc=""/>
@@ -1675,19 +1675,19 @@
 				</DATA>
 				<DATA value="36" name="" abbr="" desc="2CE:High Rate" customdesc="rate">
 					<PARAM value="range" name="00/64/00/100" desc=" %" customdesc=""/>
-					<PARAM value="65" name="1/4xbpm" desc="1/4xbpm" customdesc=""/>
-					<PARAM value="66" name="1/3xbpm" desc="1/3xbpm" customdesc=""/>
-					<PARAM value="67" name="3/8xbpm" desc="3/8xbpm" customdesc=""/>
-					<PARAM value="68" name="1/2xbpm" desc="1/2xbpm" customdesc=""/>
-					<PARAM value="69" name="2/3xbpm" desc="2/3xbpm" customdesc=""/>
-					<PARAM value="6A" name="3/4xbpm" desc="3/4xbpm" customdesc=""/>
-					<PARAM value="6B" name="1.0xbpm" desc="1.0xbpm" customdesc=""/>
-					<PARAM value="6C" name="4/3xbpm" desc="4/3xbpm" customdesc=""/>
-					<PARAM value="6D" name="1.5xbpm" desc="1.5xbpm" customdesc=""/>
-					<PARAM value="6E" name="2.0xbpm" desc="2.0xbpm" customdesc=""/>
-					<PARAM value="6F" name="8/3xbpm" desc="8/3xbpm" customdesc=""/>
-					<PARAM value="70" name="3.0xbpm" desc="3.0xbpm" customdesc=""/>
-					<PARAM value="71" name="4.0xbpm" desc="4.0xbpm" customdesc=""/>
+					<PARAM value="65" name="1/4bpm" desc="1/4bpm" customdesc=""/>
+					<PARAM value="66" name="1/3bpm" desc="1/3bpm" customdesc=""/>
+					<PARAM value="67" name="3/8bpm" desc="3/8bpm" customdesc=""/>
+					<PARAM value="68" name="1/2bpm" desc="1/2bpm" customdesc=""/>
+					<PARAM value="69" name="2/3bpm" desc="2/3bpm" customdesc=""/>
+					<PARAM value="6A" name="3/4bpm" desc="3/4bpm" customdesc=""/>
+					<PARAM value="6B" name="1.0bpm" desc="1.0bpm" customdesc=""/>
+					<PARAM value="6C" name="4/3bpm" desc="4/3bpm" customdesc=""/>
+					<PARAM value="6D" name="1.5bpm" desc="1.5bpm" customdesc=""/>
+					<PARAM value="6E" name="2.0bpm" desc="2.0bpm" customdesc=""/>
+					<PARAM value="6F" name="8/3bpm" desc="8/3bpm" customdesc=""/>
+					<PARAM value="70" name="3.0bpm" desc="3.0bpm" customdesc=""/>
+					<PARAM value="71" name="4.0bpm" desc="4.0bpm" customdesc=""/>
 				</DATA>
 				<DATA value="37" name="" abbr="" desc="2CE:High Depth" customdesc="depth">
 					<PARAM value="range" name="00/64/00/100" desc=" %" customdesc=""/>
@@ -1718,7 +1718,7 @@
 					<PARAM value="10" name="Preset17" desc="Preset17" customdesc="Preset17"/>
 					<PARAM value="11" name="Preset18" desc="Preset18" customdesc="Preset18"/>
 					<PARAM value="12" name="Preset19" desc="Preset19" customdesc="Preset19"/>
-					<PARAM value="13" name="Preset20   " desc="Preset20          " customdesc="Preset20          "/>
+					<PARAM value="13" name="Preset20" desc="Preset20" customdesc="Preset20"/>
 					<PARAM value="14" name="User1" desc="User1" customdesc="User1"/>
 					<PARAM value="15" name="User2" desc="User2" customdesc="User2"/>
 					<PARAM value="16" name="User3" desc="User3" customdesc="User3"/>
@@ -1728,7 +1728,7 @@
 					<PARAM value="1A" name="User7" desc="User7" customdesc="User7"/>
 					<PARAM value="1B" name="User8" desc="User8" customdesc="User8"/>
 					<PARAM value="1C" name="User9" desc="User9" customdesc="User9"/>
-					<PARAM value="1D" name="User10      " desc="User10       " customdesc="User10       "/>
+					<PARAM value="1D" name="User10" desc="User10" customdesc="User10"/>
 				</DATA>
 				<DATA value="3B" name="" abbr="" desc="ASL :Loop" customdesc="loop">
 					<PARAM value="00" name="Off     " desc="Off        " customdesc="Off        "/>
@@ -1736,19 +1736,19 @@
 				</DATA>
 				<DATA value="3C" name="" abbr="" desc="ASL :Tempo" customdesc="tempo">
 					<PARAM value="range" name="00/64/00/100" desc=" %" customdesc=""/>
-					<PARAM value="65" name="1/4xbpm" desc="1/4xbpm" customdesc=""/>
-					<PARAM value="66" name="1/3xbpm" desc="1/3xbpm" customdesc=""/>
-					<PARAM value="67" name="3/8xbpm" desc="3/8xbpm" customdesc=""/>
-					<PARAM value="68" name="1/2xbpm" desc="1/2xbpm" customdesc=""/>
-					<PARAM value="69" name="2/3xbpm" desc="2/3xbpm" customdesc=""/>
-					<PARAM value="6A" name="3/4xbpm" desc="3/4xbpm" customdesc=""/>
-					<PARAM value="6B" name="1.0xbpm" desc="1.0xbpm" customdesc=""/>
-					<PARAM value="6C" name="4/3xbpm" desc="4/3xbpm" customdesc=""/>
-					<PARAM value="6D" name="1.5xbpm" desc="1.5xbpm" customdesc=""/>
-					<PARAM value="6E" name="2.0xbpm" desc="2.0xbpm" customdesc=""/>
-					<PARAM value="6F" name="8/3xbpm" desc="8/3xbpm" customdesc=""/>
-					<PARAM value="70" name="3.0xbpm" desc="3.0xbpm" customdesc=""/>
-					<PARAM value="71" name="4.0xbpm" desc="4.0xbpm" customdesc=""/>
+					<PARAM value="65" name="1/4bpm" desc="1/4bpm" customdesc=""/>
+					<PARAM value="66" name="1/3bpm" desc="1/3bpm" customdesc=""/>
+					<PARAM value="67" name="3/8bpm" desc="3/8bpm" customdesc=""/>
+					<PARAM value="68" name="1/2bpm" desc="1/2bpm" customdesc=""/>
+					<PARAM value="69" name="2/3bpm" desc="2/3bpm" customdesc=""/>
+					<PARAM value="6A" name="3/4bpm" desc="3/4bpm" customdesc=""/>
+					<PARAM value="6B" name="1.0bpm" desc="1.0bpm" customdesc=""/>
+					<PARAM value="6C" name="4/3bpm" desc="4/3bpm" customdesc=""/>
+					<PARAM value="6D" name="1.5bpm" desc="1.5bpm" customdesc=""/>
+					<PARAM value="6E" name="2.0bpm" desc="2.0bpm" customdesc=""/>
+					<PARAM value="6F" name="8/3bpm" desc="8/3bpm" customdesc=""/>
+					<PARAM value="70" name="3.0bpm" desc="3.0bpm" customdesc=""/>
+					<PARAM value="71" name="4.0bpm" desc="4.0bpm" customdesc=""/>
 				</DATA>
 				<DATA value="3D" name="" abbr="" desc="ASL :Sens" customdesc="sens">
 					<PARAM value="range" name="00/64/00/100" desc=" %" customdesc=""/>
@@ -1788,19 +1788,19 @@
 				</DATA>
 				<DATA value="47" name="" abbr="" desc="VIB :rate" customdesc="rate">
 					<PARAM value="range" name="00/64/00/100" desc=" %" customdesc=""/>
-					<PARAM value="65" name="1/4xbpm" desc="1/4xbpm" customdesc=""/>
-					<PARAM value="66" name="1/3xbpm" desc="1/3xbpm" customdesc=""/>
-					<PARAM value="67" name="3/8xbpm" desc="3/8xbpm" customdesc=""/>
-					<PARAM value="68" name="1/2xbpm" desc="1/2xbpm" customdesc=""/>
-					<PARAM value="69" name="2/3xbpm" desc="2/3xbpm" customdesc=""/>
-					<PARAM value="6A" name="3/4xbpm" desc="3/4xbpm" customdesc=""/>
-					<PARAM value="6B" name="1.0xbpm" desc="1.0xbpm" customdesc=""/>
-					<PARAM value="6C" name="4/3xbpm" desc="4/3xbpm" customdesc=""/>
-					<PARAM value="6D" name="1.5xbpm" desc="1.5xbpm" customdesc=""/>
-					<PARAM value="6E" name="2.0xbpm" desc="2.0xbpm" customdesc=""/>
-					<PARAM value="6F" name="8/3xbpm" desc="8/3xbpm" customdesc=""/>
-					<PARAM value="70" name="3.0xbpm" desc="3.0xbpm" customdesc=""/>
-					<PARAM value="71" name="4.0xbpm" desc="4.0xbpm" customdesc=""/>
+					<PARAM value="65" name="1/4bpm" desc="1/4bpm" customdesc=""/>
+					<PARAM value="66" name="1/3bpm" desc="1/3bpm" customdesc=""/>
+					<PARAM value="67" name="3/8bpm" desc="3/8bpm" customdesc=""/>
+					<PARAM value="68" name="1/2bpm" desc="1/2bpm" customdesc=""/>
+					<PARAM value="69" name="2/3bpm" desc="2/3bpm" customdesc=""/>
+					<PARAM value="6A" name="3/4bpm" desc="3/4bpm" customdesc=""/>
+					<PARAM value="6B" name="1.0bpm" desc="1.0bpm" customdesc=""/>
+					<PARAM value="6C" name="4/3bpm" desc="4/3bpm" customdesc=""/>
+					<PARAM value="6D" name="1.5bpm" desc="1.5bpm" customdesc=""/>
+					<PARAM value="6E" name="2.0bpm" desc="2.0bpm" customdesc=""/>
+					<PARAM value="6F" name="8/3bpm" desc="8/3bpm" customdesc=""/>
+					<PARAM value="70" name="3.0bpm" desc="3.0bpm" customdesc=""/>
+					<PARAM value="71" name="4.0bpm" desc="4.0bpm" customdesc=""/>
 				</DATA>
 				<DATA value="48" name="" abbr="" desc="VIB :depth" customdesc="depth">
 					<PARAM value="range" name="00/64/00/100" desc=" %" customdesc=""/>
@@ -1812,24 +1812,24 @@
 				<DATA value="4A" name="" abbr="" desc="VIB : rise time" customdesc="rise">
 					<PARAM value="range" name="00/64/00/100" desc=" %" customdesc=""/>
 				</DATA>
-				<DATA value="4B" name="" abbr="" desc="HMN :Mode" customdesc="   mode">
+				<DATA value="4B" name="" abbr="" desc="HMN :Mode" customdesc="mode">
 					<PARAM value="00" name="1 Shot" desc="1 Shot   " customdesc="1 Shot   "/>
 					<PARAM value="01" name="Auto" desc="Auto    " customdesc="Auto    "/>
 					<PARAM value="02" name="Random   " desc="Random        " customdesc="Random        "/>
 				</DATA>
 				<DATA value="4C" name="" abbr="" desc="HMN :Vowel1" customdesc="vowel 1">
-					<PARAM value="00" name="a" desc="    A        " customdesc="    A        "/>
-					<PARAM value="01" name="e" desc="    E    " customdesc="    E    "/>
-					<PARAM value="02" name="i" desc="    I    " customdesc="    I    "/>
-					<PARAM value="03" name="o" desc="    O    " customdesc="    O    "/>
-					<PARAM value="04" name="u" desc="    U    " customdesc="    U    "/>
+					<PARAM value="00" name="A  " desc="A  " customdesc="A  "/>
+					<PARAM value="01" name="E  " desc="E  " customdesc="E  "/>
+					<PARAM value="02" name="I  " desc="I  " customdesc="I  "/>
+					<PARAM value="03" name="O  " desc="O  " customdesc="O  "/>
+					<PARAM value="04" name="U  " desc="U  " customdesc="U  "/>
 				</DATA>
 				<DATA value="4D" name="" abbr="" desc="HMN :Vowel2" customdesc="vowel 2">
-					<PARAM value="00" name="a" desc="    A        " customdesc="    A        "/>
-					<PARAM value="01" name="e" desc="    E    " customdesc="    E    "/>
-					<PARAM value="02" name="i" desc="    I    " customdesc="    I    "/>
-					<PARAM value="03" name="o" desc="    O    " customdesc="    O    "/>
-					<PARAM value="04" name="u" desc="    U    " customdesc="    U    "/>
+					<PARAM value="00" name="A  " desc="A  " customdesc="A  "/>
+					<PARAM value="01" name="E  " desc="E  " customdesc="E  "/>
+					<PARAM value="02" name="I  " desc="I  " customdesc="I  "/>
+					<PARAM value="03" name="O  " desc="O  " customdesc="O  "/>
+					<PARAM value="04" name="U  " desc="U  " customdesc="U  "/>
 				</DATA>
 				<DATA value="4E" name="" abbr="" desc="HMN :Trigger" customdesc="trigger">
 					<PARAM value="00" name="Off" desc=" Off         " customdesc=" Off         "/>
@@ -1840,19 +1840,19 @@
 				</DATA>
 				<DATA value="50" name="" abbr="" desc="HMN :Rate" customdesc="rate">
 					<PARAM value="range" name="00/64/00/100" desc=" %" customdesc=""/>
-					<PARAM value="65" name="1/4xbpm" desc="1/4xbpm" customdesc=""/>
-					<PARAM value="66" name="1/3xbpm" desc="1/3xbpm" customdesc=""/>
-					<PARAM value="67" name="3/8xbpm" desc="3/8xbpm" customdesc=""/>
-					<PARAM value="68" name="1/2xbpm" desc="1/2xbpm" customdesc=""/>
-					<PARAM value="69" name="2/3xbpm" desc="2/3xbpm" customdesc=""/>
-					<PARAM value="6A" name="3/4xbpm" desc="3/4xbpm" customdesc=""/>
-					<PARAM value="6B" name="1.0xbpm" desc="1.0xbpm" customdesc=""/>
-					<PARAM value="6C" name="4/3xbpm" desc="4/3xbpm" customdesc=""/>
-					<PARAM value="6D" name="1.5xbpm" desc="1.5xbpm" customdesc=""/>
-					<PARAM value="6E" name="2.0xbpm" desc="2.0xbpm" customdesc=""/>
-					<PARAM value="6F" name="8/3xbpm" desc="8/3xbpm" customdesc=""/>
-					<PARAM value="70" name="3.0xbpm" desc="3.0xbpm" customdesc=""/>
-					<PARAM value="71" name="4.0xbpm" desc="4.0xbpm" customdesc=""/>
+					<PARAM value="65" name="1/4bpm" desc="1/4bpm" customdesc=""/>
+					<PARAM value="66" name="1/3bpm" desc="1/3bpm" customdesc=""/>
+					<PARAM value="67" name="3/8bpm" desc="3/8bpm" customdesc=""/>
+					<PARAM value="68" name="1/2bpm" desc="1/2bpm" customdesc=""/>
+					<PARAM value="69" name="2/3bpm" desc="2/3bpm" customdesc=""/>
+					<PARAM value="6A" name="3/4bpm" desc="3/4bpm" customdesc=""/>
+					<PARAM value="6B" name="1.0bpm" desc="1.0bpm" customdesc=""/>
+					<PARAM value="6C" name="4/3bpm" desc="4/3bpm" customdesc=""/>
+					<PARAM value="6D" name="1.5bpm" desc="1.5bpm" customdesc=""/>
+					<PARAM value="6E" name="2.0bpm" desc="2.0bpm" customdesc=""/>
+					<PARAM value="6F" name="8/3bpm" desc="8/3bpm" customdesc=""/>
+					<PARAM value="70" name="3.0bpm" desc="3.0bpm" customdesc=""/>
+					<PARAM value="71" name="4.0bpm" desc="4.0bpm" customdesc=""/>
 				</DATA>
 				<DATA value="51" name="" abbr="" desc="HMN :Depth" customdesc="depth">
 					<PARAM value="range" name="00/64/00/100" desc=" %" customdesc=""/>
@@ -1863,7 +1863,7 @@
 				<DATA value="53" name="" abbr="" desc="HMN :Level" customdesc="level">
 					<PARAM value="range" name="00/64/00/100" desc=" %" customdesc=""/>
 				</DATA>
-				<DATA value="54" name="" abbr="" desc="T/P :Mode" customdesc="   mode">
+				<DATA value="54" name="" abbr="" desc="T/P :Mode" customdesc="mode">
 					<PARAM value="00" name="Tremolo" desc="Tremolo        " customdesc="Tremolo        "/>
 					<PARAM value="01" name="Pan" desc="Pan        " customdesc="Pan        "/>
 				</DATA>
@@ -1872,30 +1872,30 @@
 				</DATA>
 				<DATA value="56" name="" abbr="" desc="TR :Rate" customdesc="rate">
 					<PARAM value="range" name="00/64/00/100" desc=" %" customdesc=""/>
-					<PARAM value="65" name="1/4xbpm" desc="1/4xbpm" customdesc=""/>
-					<PARAM value="66" name="1/3xbpm" desc="1/3xbpm" customdesc=""/>
-					<PARAM value="67" name="3/8xbpm" desc="3/8xbpm" customdesc=""/>
-					<PARAM value="68" name="1/2xbpm" desc="1/2xbpm" customdesc=""/>
-					<PARAM value="69" name="2/3xbpm" desc="2/3xbpm" customdesc=""/>
-					<PARAM value="6A" name="3/4xbpm" desc="3/4xbpm" customdesc=""/>
-					<PARAM value="6B" name="1.0xbpm" desc="1.0xbpm" customdesc=""/>
-					<PARAM value="6C" name="4/3xbpm" desc="4/3xbpm" customdesc=""/>
-					<PARAM value="6D" name="1.5xbpm" desc="1.5xbpm" customdesc=""/>
-					<PARAM value="6E" name="2.0xbpm" desc="2.0xbpm" customdesc=""/>
-					<PARAM value="6F" name="8/3xbpm" desc="8/3xbpm" customdesc=""/>
-					<PARAM value="70" name="3.0xbpm" desc="3.0xbpm" customdesc=""/>
-					<PARAM value="71" name="4.0xbpm" desc="4.0xbpm" customdesc=""/>
+					<PARAM value="65" name="1/4bpm" desc="1/4bpm" customdesc=""/>
+					<PARAM value="66" name="1/3bpm" desc="1/3bpm" customdesc=""/>
+					<PARAM value="67" name="3/8bpm" desc="3/8bpm" customdesc=""/>
+					<PARAM value="68" name="1/2bpm" desc="1/2bpm" customdesc=""/>
+					<PARAM value="69" name="2/3bpm" desc="2/3bpm" customdesc=""/>
+					<PARAM value="6A" name="3/4bpm" desc="3/4bpm" customdesc=""/>
+					<PARAM value="6B" name="1.0bpm" desc="1.0bpm" customdesc=""/>
+					<PARAM value="6C" name="4/3bpm" desc="4/3bpm" customdesc=""/>
+					<PARAM value="6D" name="1.5bpm" desc="1.5bpm" customdesc=""/>
+					<PARAM value="6E" name="2.0bpm" desc="2.0bpm" customdesc=""/>
+					<PARAM value="6F" name="8/3bpm" desc="8/3bpm" customdesc=""/>
+					<PARAM value="70" name="3.0bpm" desc="3.0bpm" customdesc=""/>
+					<PARAM value="71" name="4.0bpm" desc="4.0bpm" customdesc=""/>
 				</DATA>
 				<DATA value="57" name="" abbr="" desc="TR :Depth" customdesc="depth">
 					<PARAM value="range" name="00/64/00/100" desc=" %" customdesc=""/>
 				</DATA>
-				<DATA value="58" name="" abbr="" desc="SYN:Wave" customdesc="   wave">
+				<DATA value="58" name="" abbr="" desc="SYN:Wave" customdesc="wave">
 					<PARAM value="00" name="Square" desc="Square        " customdesc="Square        "/>
 					<PARAM value="01" name="Saw" desc="Saw       " customdesc="Saw       "/>
 					<PARAM value="02" name="Brass" desc="Brass     " customdesc="Brass     "/>
 					<PARAM value="03" name="Bow" desc="Bow      " customdesc="Bow      "/>
 				</DATA>
-				<DATA value="59" name="" abbr="" desc="SYN:Octave Shift" customdesc="  octave">
+				<DATA value="59" name="" abbr="" desc="SYN:Octave Shift" customdesc="octave">
 					<PARAM value="00" name="0" desc="     0     " customdesc="     0     "/>
 					<PARAM value="01" name="-1" desc="    -1    " customdesc="    -1    "/>
 				</DATA>
@@ -1911,11 +1911,11 @@
 				<DATA value="5D" name="" abbr="" desc="SYN:Sensitivity" customdesc="sens">
 					<PARAM value="range" name="00/64/00/100" desc=" %" customdesc=""/>
 				</DATA>
-				<DATA value="5E" name="" abbr="" desc="SYN:Hold" customdesc="  hold">
+				<DATA value="5E" name="" abbr="" desc="SYN:Hold" customdesc="hold">
 					<PARAM value="00" name="Off" desc="Off    " customdesc="Off    "/>
 					<PARAM value="01" name="On" desc="On     " customdesc="On     "/>
 				</DATA>
-				<DATA value="5F" name="" abbr="" desc="SYN:Attack Trigger" customdesc=" attack">
+				<DATA value="5F" name="" abbr="" desc="SYN:Attack Trigger" customdesc="attack">
 					<PARAM value="00" name="Off" desc="Off    " customdesc="Off    "/>
 					<PARAM value="01" name="On" desc="On     " customdesc="On     "/>
 				</DATA>
@@ -1937,7 +1937,7 @@
 				<DATA value="65" name="" abbr="" desc="SYN:Direct Level" customdesc="direct">
 					<PARAM value="range" name="00/64/00/100" desc=" %" customdesc=""/>
 				</DATA>
-				<DATA value="66" name="" abbr="" desc="SYN:Bend" customdesc=" bend">
+				<DATA value="66" name="" abbr="" desc="SYN:Bend" customdesc="bend">
 					<PARAM value="00" name="Off" desc="Off    " customdesc="Off    "/>
 					<PARAM value="01" name="On" desc="On     " customdesc="On     "/>
 				</DATA>
@@ -2011,10 +2011,10 @@
 					<PARAM value="range" name="00/64/00/100" desc=" %" customdesc=""/>
 				</DATA>
 				<DATA value="05" name="" abbr="" desc="Pre Delay" customdesc="pre-delay">
-					<PARAM value="range" name="00/50/0.0/40.0" desc=" mS" customdesc=""/>
+					<PARAM value="range" name="00/50/0.0/40.0" desc="ms" customdesc=""/>
 				</DATA>
 				<DATA value="06" name="" abbr="" desc="Low Cut" customdesc="low cut">
-					<PARAM value="00" name="FLAT " desc="FLAT " customdesc=""/>
+					<PARAM value="00" name="FLAT" desc="FLAT" customdesc=""/>
 					<PARAM value="01" name="55.0Hz" desc="55.0Hz" customdesc=""/>
 					<PARAM value="02" name="110Hz" desc="110Hz" customdesc=""/>
 					<PARAM value="03" name="165Hz" desc="165Hz" customdesc=""/>
@@ -2054,13 +2054,13 @@
 					<PARAM value="04" name="Plate" desc="Plate" customdesc=""/>
 				</DATA>
 				<DATA value="04" name="" abbr="" desc="REV :Reverb Time" customdesc="time">
-					<PARAM value="range" name="00/63/0.1/10.0" desc=" sec" customdesc=" sec"/>
+					<PARAM value="range" name="00/63/0.1/10.0" desc="sec" customdesc="sec"/>
 				</DATA>
 				<DATA value="05" name="" abbr="" desc="REV :Pre Delay" customdesc="pre delay">
-					<PARAM value="range" name="00/64/00/100" desc=" mS" customdesc=""/>
+					<PARAM value="range" name="00/64/00/100" desc="mS" customdesc=""/>
 				</DATA>
 				<DATA value="06" name="" abbr="" desc="REV :Low Cut" customdesc="low cut">
-					<PARAM value="00" name=" Flat" desc=" Flat" customdesc=""/>
+					<PARAM value="00" name=" Flat" desc="Flat" customdesc=""/>
 					<PARAM value="01" name="55.0Hz" desc="55.0Hz" customdesc=""/>
 					<PARAM value="02" name="110Hz" desc="110Hz" customdesc=""/>
 					<PARAM value="03" name="165Hz" desc="165Hz" customdesc=""/>
@@ -2074,15 +2074,15 @@
 				</DATA>
 				<DATA value="07" name="" abbr="" desc="REV :High Cut" customdesc="high cut">
 					<PARAM value="00" name="700Hz" desc="700Hz" customdesc=""/>
-					<PARAM value="01" name="1.00kHz" desc="1.00kHz" customdesc=""/>
-					<PARAM value="02" name="1.40kHz" desc="1.40kHz" customdesc=""/>
-					<PARAM value="03" name="2.00kHz" desc="2.00kHz" customdesc=""/>
-					<PARAM value="04" name="3.00kHz" desc="3.00kHz" customdesc=""/>
-					<PARAM value="05" name="4.00kHz" desc="4.00kHz" customdesc=""/>
-					<PARAM value="06" name="6.00kHz" desc="6.00kHz" customdesc=""/>
-					<PARAM value="07" name="8.00kHz" desc="8.00kHz" customdesc=""/>
-					<PARAM value="08" name="11.0kHz" desc="11.0kHz" customdesc=""/>
-					<PARAM value="09" name="  Flat" desc="  Flat" customdesc=""/>
+					<PARAM value="01" name="1.0kHz" desc="1.0kHz" customdesc=""/>
+					<PARAM value="02" name="1.4kHz" desc="1.4kHz" customdesc=""/>
+					<PARAM value="03" name="2.0kHz" desc="2.0kHz" customdesc=""/>
+					<PARAM value="04" name="3.0kHz" desc="3.0kHz" customdesc=""/>
+					<PARAM value="05" name="4.0kHz" desc="4.0kHz" customdesc=""/>
+					<PARAM value="06" name="6.0kHz" desc="6.0kHz" customdesc=""/>
+					<PARAM value="07" name="8.0kHz" desc="8.0kHz" customdesc=""/>
+					<PARAM value="08" name="11.kHz" desc="11.kHz" customdesc=""/>
+					<PARAM value="09" name="  Flat" desc=" Flat" customdesc=""/>
 				</DATA>
 				<DATA value="08" name="" abbr="" desc="REV :Density" customdesc="density">
 					<PARAM value="range" name="00/0A/00/10" desc="" customdesc=""/>
@@ -2112,7 +2112,7 @@
 					<PARAM value="53" name="1/4*bpm" desc="1/4*bpm" customdesc=""/>
 				</DATA>
 				<DATA value="0D" name="" abbr="" desc="DLY :Delay Time Fine" customdesc="time fine">
-					<PARAM value="range" name="00/14/00/20" desc=" mS" customdesc=""/>
+					<PARAM value="range" name="00/14/00/20" desc="mS" customdesc=""/>
 				</DATA>
 				<DATA value="0E" name="" abbr="" desc="DLY :Tap Time" customdesc="tap time">
 					<PARAM value="range" name="00/64/00/100" desc=" %" customdesc=""/>
@@ -2122,14 +2122,14 @@
 				</DATA>
 				<DATA value="10" name="" abbr="" desc="DLY :High Cut Filter" customdesc="high cut">
 					<PARAM value="00" name="700Hz" desc="700Hz" customdesc=""/>
-					<PARAM value="01" name="1.00kHz" desc="1.00kHz" customdesc=""/>
-					<PARAM value="02" name="1.40kHz" desc="1.40kHz" customdesc=""/>
-					<PARAM value="03" name="2.00kHz" desc="2.00kHz" customdesc=""/>
-					<PARAM value="04" name="3.00kHz" desc="3.00kHz" customdesc=""/>
-					<PARAM value="05" name="4.00kHz" desc="4.00kHz" customdesc=""/>
-					<PARAM value="06" name="6.00kHz" desc="6.00kHz" customdesc=""/>
-					<PARAM value="07" name="8.00kHz" desc="8.00kHz" customdesc=""/>
-					<PARAM value="08" name="11.0kHz" desc="11.0kHz" customdesc=""/>
+					<PARAM value="01" name="1.0kHz" desc="1.0kHz" customdesc=""/>
+					<PARAM value="02" name="1.4kHz" desc="1.4kHz" customdesc=""/>
+					<PARAM value="03" name="2.0kHz" desc="2.0kHz" customdesc=""/>
+					<PARAM value="04" name="3.0kHz" desc="3.0kHz" customdesc=""/>
+					<PARAM value="05" name="4.0kHz" desc="4.0kHz" customdesc=""/>
+					<PARAM value="06" name="6.0kHz" desc="6.0kHz" customdesc=""/>
+					<PARAM value="07" name="8.0kHz" desc="8.0kHz" customdesc=""/>
+					<PARAM value="08" name="11.kHz" desc="11.kHz" customdesc=""/>
 					<PARAM value="09" name="Flat  ." desc="Flat  ." customdesc=""/>
 				</DATA>
 				<DATA value="11" name="" abbr="" desc="DLY :Effect Level" customdesc="level">

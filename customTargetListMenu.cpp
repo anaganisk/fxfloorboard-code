@@ -1,10 +1,9 @@
 /****************************************************************************
 **
-** Copyright (C) 2007, 2008, 2009 Colin Willcocks.
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag. 
+** Copyright (C) 2006~2010 Colin Willcocks.
+** Copyright (C) 2005~2007 Uco Mesdag. 
 ** All rights reserved.
-**
-** This file is part of "GT-Pro Fx FloorBoard".
+** This file is part of "GT-6B Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -31,7 +30,7 @@ customTargetListMenu::customTargetListMenu(QWidget *parent,
 									 QString hexLsb, QString direction)
 	: QWidget(parent)
 {
-	this->label = new customControlLabel(this);
+	//this->label = new customControlLabel(this);
 	this->controlListComboBox = new customComboBox(this);
 
 	this->controlListComboBox->setObjectName("smallcombo");
@@ -52,11 +51,9 @@ customTargetListMenu::customTargetListMenu(QWidget *parent,
 	hex0.remove("System");
   items = midiTable->getMidiMap("System", hex0, hex1, hex2, hex3);
   };
-	QString labeltxt = ""; //items.customdesc;
-	
-	this->label->setUpperCase(true);
-	this->label->setText(labeltxt);
-
+	//QString labeltxt = ""; //items.customdesc;	
+	//this->label->setUpperCase(true);
+	//this->label->setText(labeltxt);
 	setComboBox();
 	
 	QPoint labelPos, comboboxPos;
@@ -74,32 +71,30 @@ customTargetListMenu::customTargetListMenu(QWidget *parent,
 	}
 	else if(direction == "bottom")
 	{
-		this->label->setAlignment(Qt::AlignLeft);
-
+		//this->label->setAlignment(Qt::AlignLeft);
 		QVBoxLayout *mainLayout = new QVBoxLayout;
 		mainLayout->setMargin(0);
 		mainLayout->setSpacing(0);
 		mainLayout->addStretch(0);
-		mainLayout->addWidget(this->label, 0, Qt::AlignLeft);
+		//mainLayout->addWidget(this->label, 0, Qt::AlignLeft);
 		mainLayout->addWidget(this->controlListComboBox, 0, Qt::AlignLeft);
 
 		this->setLayout(mainLayout);
-		this->setFixedHeight(12 + 15);
+		this->setFixedHeight(15);
 		
 	}
   else
 	{
-		this->label->setAlignment(Qt::AlignLeft);
-
+		//this->label->setAlignment(Qt::AlignLeft);
 		QVBoxLayout *mainLayout = new QVBoxLayout;
 		mainLayout->setMargin(0);
 		mainLayout->setSpacing(0);
 		mainLayout->addStretch(0);
-		mainLayout->addWidget(this->label, 0, Qt::AlignLeft);
+		//mainLayout->addWidget(this->label, 0, Qt::AlignLeft);
 		mainLayout->addWidget(this->controlListComboBox, 0, Qt::AlignLeft);
 
 		this->setLayout(mainLayout);
-		this->setFixedHeight(12 + 15);
+		this->setFixedHeight(15);
 		
 	};
 

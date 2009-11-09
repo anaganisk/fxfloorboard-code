@@ -1,8 +1,10 @@
 #############################################################################
 ##
-## Copyright (C) 2005, 2006, 2007 Uco Mesdag. All rights reserved.
+## Copyright (C) 2006~2010 Colin Willcocks.
+## Copyright (C) 2005~2007 Uco Mesdag.
+## All rights reserved.
 ##
-## This file is part of "GT6B Fx FloorBoard".
+## This file is part of "GT-6B Fx FloorBoard".
 ##
 ## This program is free software; you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -26,13 +28,11 @@ CONFIG += static
 CONFIG += embed_manifest_exe
 #ifdef Q_OS_MAC
 CONFIG += release ppc x86
-TARGET = "GT6BFxFloorBoard"
-DESTDIR = ../GT6BFxFloorBoard
 #else
 CONFIG += release
-TARGET = "GT6BFxFloorBoard"
-DESTDIR = ./packager
 #endif
+TARGET = "GT-6BFxFloorBoard"
+DESTDIR = ./packager
 MOC_DIR += ./generatedfiles/release
 OBJECTS_DIR += release
 UI_DIR += ./generatedfiles
