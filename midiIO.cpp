@@ -167,7 +167,9 @@ void midiIO::sendSyxMsg(QString sysxOutMsg, int midiOutPort)
     RtMidiOut *midiMsgOut = 0;
 	  const std::string clientName = "FxFloorBoard";
 	  midiMsgOut = new RtMidiOut(clientName);
-    QString hex; 
+    QString hex;
+    unsigned int n;	 
+    bool ok;
     int nPorts = midiMsgOut->getPortCount();   // Check available ports.
     if ( nPorts < 1 ) { goto cleanup; };
     try {    
@@ -178,9 +180,8 @@ void midiIO::sendSyxMsg(QString sysxOutMsg, int midiOutPort)
 		char *ptr  = new char[msgLength];		// Convert QString to char* (hex value) 
 		for(int i=0;i<msgLength*2;++i)
 		{
-		 {unsigned int n;			
-			   hex = sysxOutMsg.mid(i, 2);
-			   bool ok;
+		 {		
+			   hex = sysxOutMsg.mid(i, 2);			   
 			   n = hex.toInt(&ok, 16);
 			   *ptr = (char)n;
 			   message.push_back(*ptr);		// insert the char* string into a std::vector	
@@ -211,6 +212,9 @@ void midiIO::sendMidiMsg(QString sysxOutMsg, int midiOutPort)
 {
     RtMidiOut *midiMsgOut = 0;
 		const std::string clientName = "FxFloorBoard";
+		QString hex;
+		unsigned int n;
+		bool ok;
 		midiMsgOut = new RtMidiOut(clientName); 
     unsigned int nPorts = midiMsgOut->getPortCount();   // Check available ports.
     if ( nPorts < 1 ) { goto cleanup; };
@@ -220,14 +224,12 @@ void midiIO::sendMidiMsg(QString sysxOutMsg, int midiOutPort)
 		int msgLength = sysxOutMsg.length()/2;
 		char *ptr  = new char[msgLength];		// Convert QString to char* (hex value) 
 		for(int i=0;i<msgLength*2;++i)
-        {unsigned int n;
-			QString hex;
-			hex.append(sysxOutMsg.mid(i, 2));
-			bool ok;
-			n = hex.toInt(&ok, 16);
-			*ptr = (char)n;
-			message.push_back(*ptr);		// insert the char* string into a std::vector	
-            ptr++; i++;
+        {		
+			   hex.append(sysxOutMsg.mid(i, 2));		
+			   n = hex.toInt(&ok, 16);
+			   *ptr = (char)n;
+			   message.push_back(*ptr);		// insert the char* string into a std::vector	
+         ptr++; i++;
         };	
       midiMsgOut->sendMessage(&message);  // send the midi data as a std::vector
 	goto cleanup;

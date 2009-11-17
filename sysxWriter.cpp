@@ -25,7 +25,8 @@
 #include <QDataStream>
 #include <QByteArray>
 #include <QMessageBox>
-#include "sysxWriter.h"	
+#include "sysxWriter.h"
+#include "fileDialog.h"	
 #include "globalVariables.h"
 
 sysxWriter::sysxWriter() 
@@ -98,27 +99,83 @@ bool sysxWriter::readFile()
 		this->fileSource = sysxIO->getFileSource();
 		return true;
 		}
-		else if (data.size() > 650 && isHeader && !isSystem)   // most likely a GT_Manager file
+		else if (data.size() > patchSize && isHeader && !isSystem)   // bulk patch file
     {
-    QByteArray patch_data = data;
-	  QFile file(":default.syx");   // Read the default GT-6 sysx file so we don't start empty handed.
+   /* QByteArray patch_data = data;
+	  QFile file(":default.syx");   // Read the default GT-3 sysx file so we don't start empty handed.
     if (file.open(QIODevice::ReadOnly))
 	  {	data = file.readAll(); };
-	  
-	  QByteArray temp; 
-    temp = patch_data.mid(0, 650);                    
-    temp.append(data.mid(650, 228));           // copy patch description from default.syx  address 00 17 00 00
-     
-    data = temp;
-    
+
+      QByteArray test = default_data.mid(patchSize, 6);     // check for GT-Manager data in the file.
+      test.remove(2, 1);
+     if (data.contains(test))
+     {
+       QMessageBox *msgBox = new QMessageBox();
+	msgBox->setWindowTitle(QObject::tr("File compatibility Error!"));
+	msgBox->setIcon(QMessageBox::Warning);
+	msgBox->setTextFormat(Qt::RichText);
+	QString msgText;
+	msgText.append("<font size='+1'><b>");
+	msgText.append(QObject::tr("This is not recognised as a supported ") + deviceType + QObject::tr(" patch file"));
+	msgText.append("<b></font><br>");
+	msgText.append(QObject::tr("but appears to be a GT-Manager proprietry format<br>"));
+	msgText.append(QObject::tr("please try another file."));
+	msgBox->setText(msgText);
+	msgBox->setStandardButtons(QMessageBox::Ok);
+	msgBox->exec();
+	return false;
+     };       */
+     index = 1;
+  int patchCount = data.size()/patchSize;       // calculate how many patches are in the file.
+  if (patchCount>1)
+  {
+  QString msgText;
+  QString patchText;
+	QString patchNumber;
+	unsigned char r;
+	this->patchList.clear();
+	QString text = QObject::tr("Select Patch");
+	this->patchList.append(text);
+  unsigned int a = sysxNameOffset; // locate patch text start position from the start of the file
+     for (int h=0;h<patchCount;h++)
+       {       
+        for (int b=0;b<nameLength;b++)
+           {
+             r = (char)data[a+b];
+             patchText.append(r);         // extract the text characters from the current patch name.
+           };
+            patchNumber = QString::number(h+1, 10).toUpper();
+            msgText.append(patchNumber + " : ");
+            msgText.append(patchText + "   ");
+            this->patchList.append(msgText);
+            patchText.clear();
+            msgText.clear();
+            a=a+patchSize;                      // offset is set in front of marker
+        };               
+    fileDialog *dialog = new fileDialog(fileName, patchList); 
+    dialog->exec();    
+    patchIndex(this->index);                          
+   };       
+   int a=0;                             
+   if (patchCount>1)
+   {
+    int q=index-1;      // find start of required patch
+    a = q*patchSize;  
+   };    
+   data = data.mid(a, patchSize); 
+   data.append(default_data.mid(patchSize, 228));    
+  if (index>0)
+   { 
     SysxIO *sysxIO = SysxIO::Instance();
-    QString area = "Structure";
+		QString area = "Structure";
 		sysxIO->setFileSource(area, data);
 		sysxIO->setFileName(this->fileName);
 
 		this->fileSource = sysxIO->getFileSource();
 		return true;
-    }
+		} else {return false; }
+     }
+
 		else if (data.size() > 650 && data.size() < 4206 && isSystem)   // most likely an other type file with system data at front
     {
     QByteArray patch_data = data;
@@ -177,6 +234,12 @@ bool sysxWriter::readFile()
 	{
 		return false;
 	};
+};
+
+void sysxWriter::patchIndex(int listIndex)
+{
+  SysxIO *sysxIO = SysxIO::Instance();     
+   this->index=sysxIO->patchListValue;   
 };
 
 void sysxWriter::writeFile(QString fileName)

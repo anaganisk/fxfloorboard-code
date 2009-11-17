@@ -49,6 +49,8 @@ public slots:
 	void saveAs();
 	void systemSave();
 	void systemLoad();
+	void bulkSave();
+	void bulkLoad();
 	void settings();
 	void upload();
 	void help();
@@ -70,6 +72,8 @@ private:
 	QAction *openAct;
 	QAction *saveAct;
 	QAction *saveAsAct;
+	QAction *bulkLoadAct;
+	QAction *bulkSaveAct;
 	QAction *systemLoadAct;
 	QAction *systemSaveAct;
 	QAction *exitAct;

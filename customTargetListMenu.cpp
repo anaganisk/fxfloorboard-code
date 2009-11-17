@@ -87,7 +87,7 @@ customTargetListMenu::customTargetListMenu(QWidget *parent,
 		this->setFixedHeight(15);		
 	};
 
-	QObject::connect(this->parent(), SIGNAL( dialogUpdateSignal() ), this, SLOT( dialogUpdateSignal() ));
+	//QObject::connect(this->parent(), SIGNAL( dialogUpdateSignal() ), this, SLOT( dialogUpdateSignal() ));
 
 	QObject::connect(this, SIGNAL( updateSignal() ), this->parent(), SIGNAL( updateSignal() ));
 

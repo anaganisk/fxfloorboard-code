@@ -28,7 +28,10 @@ HEADERS += ./editPage.h \
     ./globalVariables.h \
     ./mainWindow.h \
     ./bankTreeList.h \
+    ./bulkLoadDialog.h \
+    ./bulkSaveDialog.h \
     ./customButton.h \
+    ./customComboBox.h \
     ./customControlKnob.h \
     ./customControlLabel.h \
     ./customControlListMenu.h \
@@ -51,6 +54,7 @@ HEADERS += ./editPage.h \
     ./customTargetDial.h \
     ./customTargetListMenu.h \
     ./dragBar.h \
+    ./fileDialog.h \
     ./floorBoard.h \
     ./floorBoardDisplay.h \
     ./floorPanelBar.h \
@@ -60,8 +64,17 @@ HEADERS += ./editPage.h \
     ./menuPage_assign.h \
     ./menuPage_midi.h \
     ./menuPage_system.h \
+    ./midiIO.h \
+    ./MidiTable.h \
+    ./MidiTableDestroyer.h \
+    ./Preferences.h \
+    ./PreferencesDestroyer.h \
+    ./preferencesDialog.h \
+    ./preferencesPages.h \
     ./renameDialog.h \
     ./renameWidget.h \
+    ./RtError.h \
+    ./RtMidi.h \
     ./statusBarSymbol.h \
     ./statusBarWidget.h \
     ./stompBox.h \
@@ -76,22 +89,12 @@ HEADERS += ./editPage.h \
     ./stompbox_od.h \
     ./stompbox_pre.h \
     ./stompbox_rv.h \
-    ./stompbox_wah.h \
-    ./midiIO.h \
-    ./MidiTable.h \
-    ./MidiTableDestroyer.h \
-    ./RtError.h \
-    ./RtMidi.h \
+    ./stompbox_wah.h \  
     ./SysxIO.h \
     ./SysxIODestroyer.h \
     ./sysxWriter.h \
     ./xmlwriter/xmlwriter.h \
-    ./xmlwriter/xmlwriter_p.h \
-    ./Preferences.h \
-    ./PreferencesDestroyer.h \
-    ./preferencesDialog.h \
-    ./preferencesPages.h \
-    ./customComboBox.h 
+    ./xmlwriter/xmlwriter_p.h 
   
 #Source files
 SOURCES += ./editPage.cpp \
@@ -99,7 +102,10 @@ SOURCES += ./editPage.cpp \
     ./main.cpp \
     ./mainWindow.cpp \
     ./bankTreeList.cpp \
+    ./bulkLoadDialog.cpp \
+    ./bulkSaveDialog.cpp \
     ./customButton.cpp \
+    ./customComboBox.cpp \
     ./customControlKnob.cpp \
     ./customControlLabel.cpp \
     ./customControlListMenu.cpp \
@@ -122,6 +128,7 @@ SOURCES += ./editPage.cpp \
     ./customTargetDial.cpp \
     ./customTargetListMenu.cpp \
     ./dragBar.cpp \
+    ./fileDialog.cpp \
     ./floorBoard.cpp \
     ./floorBoardDisplay.cpp \
     ./floorPanelBar.cpp \
@@ -131,6 +138,13 @@ SOURCES += ./editPage.cpp \
     ./menuPage_assign.cpp \
     ./menuPage_midi.cpp \
     ./menuPage_system.cpp \
+    ./midiIO.cpp \
+    ./MidiTable.cpp \
+    ./MidiTableDestroyer.cpp \
+    ./Preferences.cpp \
+    ./PreferencesDestroyer.cpp \
+    ./preferencesDialog.cpp \
+    ./preferencesPages.cpp \
     ./renameDialog.cpp \
     ./renameWidget.cpp \
     ./statusBarSymbol.cpp \
@@ -148,18 +162,10 @@ SOURCES += ./editPage.cpp \
     ./stompbox_pre.cpp \
     ./stompbox_rv.cpp \
     ./stompbox_wah.cpp \
-    ./midiIO.cpp \
-    ./MidiTable.cpp \
-    ./MidiTableDestroyer.cpp \
     ./SysxIO.cpp \
     ./SysxIODestroyer.cpp \
     ./sysxWriter.cpp \
-    ./xmlwriter/XMLWriter.cpp \
-    ./Preferences.cpp \
-    ./PreferencesDestroyer.cpp \
-    ./preferencesDialog.cpp \
-    ./preferencesPages.cpp \
-    ./customComboBox.cpp 
+    ./xmlwriter/XMLWriter.cpp 
 
 #Resource file(s)
 RESOURCES += GT-3FxFloorBoard.qrc

@@ -84,7 +84,7 @@ private:
 	int steps;
 	int dataSent;
 	QString fileName;
-	void loadGXB();
+	void loadGTE();
 	void loadSYX();
 	void loadSMF();
 	QByteArray data;
@@ -93,6 +93,7 @@ private:
 	QByteArray sysxPatches;
 	QList<QString> patchList;	 
 	QList<QString> userList;
+	bool failed;
 };
 
 #endif // BULKLOADDIALOG_H

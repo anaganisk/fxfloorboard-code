@@ -45,11 +45,6 @@ bulkSaveDialog::bulkSaveDialog()
   QLabel *startRangeLabel = new QLabel(tr("Start Bank."));
 	QLabel *finishRangeLabel = new QLabel(tr("Finish Bank."));
 	
-  this->gxbButton = new QRadioButton(tr("*.gxb Librarian file"), this );
-  this->syxButton = new QRadioButton(tr("*.syx System Exclusive file"), this );
-  this->midButton = new QRadioButton(tr("*.mid Standard Midi (SMF) file"), this );
-  this->gxbButton->setChecked(true);
-    
 	QCheckBox *systemCheckBox = new QCheckBox(tr("Save System Data"));
 	QSpinBox *startRangeSpinBox = new QSpinBox;
 	QSpinBox *finishRangeSpinBox = new QSpinBox;
@@ -58,14 +53,14 @@ bulkSaveDialog::bulkSaveDialog()
 		
 	this->startRangeSpinBox = startRangeSpinBox;
 	startRangeSpinBox->setValue(1);
-	startRangeSpinBox->setRange(1, 50);
+	startRangeSpinBox->setRange(1, bankTotalUser);
 	startRangeSpinBox->setPrefix("Start at U");
 	startRangeSpinBox->setSuffix("-1");
 
 	this->finishRangeSpinBox = finishRangeSpinBox;
-	finishRangeSpinBox->setValue(50);    
-	finishRangeSpinBox->setRange(1, 50);
-	finishRangeSpinBox->setPrefix("Finish at U");
+	finishRangeSpinBox->setValue(bankTotalUser);    
+	finishRangeSpinBox->setRange(1, bankTotalUser);
+	finishRangeSpinBox->setPrefix(tr("Finish at U"));
 	finishRangeSpinBox->setSuffix("-4");
 
 	QVBoxLayout *rangeLabelLayout = new QVBoxLayout;
@@ -91,20 +86,20 @@ bulkSaveDialog::bulkSaveDialog()
   patchRangeGroup->setLayout(dataRangeLayout);
 
   this->startButton = new QPushButton(this);
-  this->startButton->setText("Start");
+  this->startButton->setText(tr("Start"));
   connect(startButton, SIGNAL(clicked()), this, SLOT(backup()));
   
   this->completedButton = new QPushButton(this);
-  this->completedButton->setText("DATA TRANSFER COMPLETED");
+  this->completedButton->setText(tr("DATA TRANSFER COMPLETED"));
   this->completedButton->hide();
   connect(completedButton, SIGNAL(clicked()), this, SLOT(close()));
   
 	this->cancelButton = new QPushButton(this);
-	this->cancelButton->setText("Cancel");
+	this->cancelButton->setText(tr("Cancel"));
   connect(cancelButton, SIGNAL(clicked()), this, SLOT(close()));
   
   this->progressLabel = new QLabel(this);
-  this->progressLabel->setText("Full Backup may take up to 2 minutes");
+  this->progressLabel->setText(tr("Full Backup may take up to 2 minutes"));
   this->bytesLabel = new QLabel(this);
   this->bytesLabel->setText("");
   
@@ -113,20 +108,6 @@ bulkSaveDialog::bulkSaveDialog()
 	this->progressBar->setRange(0, 100);
 	this->progressBar->setValue(0);  
 	
-	QVBoxLayout *fileFormatLayout = new QVBoxLayout;
-	fileFormatLayout->addStretch(1);
-	fileFormatLayout->addSpacing(6);
-	fileFormatLayout->addWidget(gxbButton);
-	fileFormatLayout->addStretch(1);
-	fileFormatLayout->addSpacing(6);
-	fileFormatLayout->addWidget(syxButton);
-	fileFormatLayout->addStretch(1);
-	fileFormatLayout->addSpacing(6);
-	fileFormatLayout->addWidget(midButton);
-	fileFormatLayout->addSpacing(6);
-	 QGroupBox *fileFormatGroup = new QGroupBox(tr("Select File format to save"));
-  fileFormatGroup->setLayout(fileFormatLayout);
- 
 	QHBoxLayout *buttonsLayout = new QHBoxLayout;
 	buttonsLayout->addSpacing(40);
 	buttonsLayout->addWidget(startButton);
@@ -139,9 +120,6 @@ bulkSaveDialog::bulkSaveDialog()
 	progressBarLayout->addWidget(progressBar);
 	
 	QVBoxLayout *mainLayout = new QVBoxLayout;
-	mainLayout->addWidget(fileFormatGroup);
-	mainLayout->addStretch(1);
-	mainLayout->addSpacing(12);
 	mainLayout->addLayout(buttonsLayout, Qt::AlignCenter);
 	mainLayout->addStretch(1);
 	mainLayout->addSpacing(12);
@@ -176,12 +154,12 @@ void bulkSaveDialog::backup()
   this->cancelButton->hide();
   this->bankStart = this->startRangeSpinBox->value();
   this->bankFinish = this->finishRangeSpinBox->value();
-  this->bank=bankStart*4;
+  this->bank=bankStart*patchPerBank;
 	bulk.clear();
 	this->progress = 0;
 	this->patch = 1;
-	range = 200/(bankFinish-bankStart+1);
-	requestPatch(bank/4, patch);  
+	range = (bankTotalUser*patchPerBank)/(bankFinish-bankStart+1);
+	requestPatch(bank/patchPerBank, patch);  
 };
 
 void bulkSaveDialog::requestPatch(int bank, int patch) 
@@ -201,120 +179,39 @@ void bulkSaveDialog::updatePatch(QString replyMsg)
 	QObject::disconnect(sysxIO, SIGNAL(sysxReply(QString)), this, SLOT(updatePatch(QString)));		
 	sysxIO->setDeviceReady(true); // Free the device after finishing interaction.
 	
-	replyMsg = replyMsg.remove(" ").toUpper();       // TRANSLATE SYSX MESSAGE FORMAT to 128 byte data blocks 
-	if (replyMsg.size()/2 == 1530){              // size of patch sent from GT10B   GT-10=1784
-	QString header = "F0410000003012";
-	QString footer ="00F7";
-	QString addressMsb = replyMsg.mid(14,4);
-	QString part1 = replyMsg.mid(22, 256); 
-  part1.prepend("0000").prepend(addressMsb).prepend(header).append(footer);    
-	QString part2 = replyMsg.mid(278, 228);
-	QString part2B = replyMsg.mid(532, 28);
-	part2.prepend("0100").prepend(addressMsb).prepend(header).append(part2B).append(footer); 
-	QString part3 = replyMsg.mid(560, 256);
-	part3.prepend("0200").prepend(addressMsb).prepend(header).append(footer);
-	QString part4 = replyMsg.mid(816, 200);
-	QString part4B = replyMsg.mid(816, 200);
-	part4.prepend("0300").prepend(addressMsb).prepend(header).append(footer); 
-	QString part6 = replyMsg.mid(1042, 200);   //
-	part6.prepend("00000000000000000000000000000000000000000000000000000000");
-	part6.prepend("0500").prepend(addressMsb).prepend(header).append(footer);   
-	QString part7 = replyMsg.mid(1242, 256);   // 
-	part7.prepend("0600").prepend(addressMsb).prepend(header).append(footer);   
-	QString part8 = replyMsg.mid(1498, 28);  // 
-	QString part8B = replyMsg.mid(1552, 172);   // 
-	part8.prepend("0700").prepend(addressMsb).prepend(header).append(part8B).append(footer); 
-	QString part10 = replyMsg.mid(2062,200);    //
-	part10.prepend("00000000000000000000000000000000000000000000000000000000");
-	part10.prepend("0900").prepend(addressMsb).prepend(header).append(footer);
-	QString part11 = replyMsg.mid(2262, 256);
-	part11.prepend("0A00").prepend(addressMsb).prepend(header).append(footer);
-	QString part12 = replyMsg.mid(2518, 28);   //
-	QString part12B = replyMsg.mid(2572, 228);   //
-	part12.prepend("0B00").prepend(addressMsb).prepend(header).append(part12B).append(footer);
-	QString part13 = replyMsg.mid(2800, 256);
-	part13.prepend("0C00").prepend(addressMsb).prepend(header).append(footer);
-	
-	replyMsg = "";
-	replyMsg.append(part1).append(part2).append(part3).append(part4).append(part6)
-  .append(part7).append(part8).append(part10).append(part11).append(part12).append(part13);
-  QByteArray data;
-  QFile file(":default.syx");   // Read the default GT-10 sysx file so we don't start empty handed.
-    if (file.open(QIODevice::ReadOnly))
-	  {	data = file.readAll(); };
-	  QByteArray temp;                      
-    temp = data.mid(1495, 282);           // copy patch description from default.syx  address 00 0D 00 00   
-	
-	QString sysxBuffer; 
-	for(int i=0;i<temp.size();i++)
-	{
-		unsigned char byte = (char)temp[i];
-		unsigned int n = (int)byte;
-		QString hex = QString::number(n, 16).toUpper();     // convert QByteArray to QString
-		if (hex.length() < 2) hex.prepend("0");
-		sysxBuffer.append(hex);
-  };
-	replyMsg.append(sysxBuffer);
-	
-	QString reBuild = "";       // Add correct checksum to patch strings 
-  QString sysxEOF = "";	
-  QString hex = "";
-  int msgLength = replyMsg.length()/2;
-  for(int i=0;i<msgLength*2;++i) 
-  {
-	hex.append(replyMsg.mid(i*2, 2));
-	sysxEOF = (replyMsg.mid((i*2)+4, 2));
-  if (sysxEOF == "F7")
-    {   
-  	int dataSize = 0; bool ok;
-	  for(int h=checksumOffset;h<hex.size()-1;++h)
-	  { dataSize += hex.mid(h*2, 2).toInt(&ok, 16); };
-	 	QString base = "80";                       // checksum calculate.
-	  unsigned int sum = dataSize % base.toInt(&ok, 16);
-  	if(sum!=0) { sum = base.toInt(&ok, 16) - sum; };
-	  QString checksum = QString::number(sum, 16).toUpper();
-	   if(checksum.length()<2) {checksum.prepend("0");};
-      	hex.append(checksum);
-        hex.append("F7");   
-        reBuild.append(hex);   
-    
-		hex = "";
-		sysxEOF = "";
-		i=i+2;
-    }; 
-  };    
-	replyMsg = reBuild.simplified().toUpper().remove("0X").remove(" ");	
-	bulk.append(replyMsg); 	                                           // add patch to the bulk string.
-	}; 	       
+	replyMsg = replyMsg.simplified().toUpper();      
+	if (replyMsg.size()/2 == patchSize){              // size of patch sent from gt
+	                               bulk.append(replyMsg); 	    // add patch to the bulk string.
+	                             }; 	       
 	      ++patch; 
-        if(patch>4) {patch=1; bank=bank+4;};	                      // increment patch.
+        if(patch>patchPerBank) {patch=1; bank=bank+patchPerBank;};	                      // increment patch.
         progress=progress+range;
         bulkStatusProgress(this->progress);                         // advance the progressbar.
         int bf = (bankFinish+1)*4 -2;
   if (bank >= bf) 
       {                                                            // check if nearly finished.
         this->completedButton->show();        
-        this->progressLabel->setText("Bulk data transfer completed!!");              
+        this->progressLabel->setText(tr("Bulk data transfer completed!!"));              
       };              
-  if (bank<(bankFinish+1)*4 )
+  if (bank<(bankFinish+1)*patchPerBank )
   {      
         bool ok;
         QString patchText;
-        QString name = replyMsg.mid(22, 32);                       // get name from loaded patch. 
+        QString name = replyMsg.mid(sysxNameOffset*2, nameLength*2);         // get name from loaded patch. 
         QList<QString> x;        
-        for (int b=0;b<16;b++)
+        for (int b=0;b<(nameLength*2);b++)
         {
           x.append(name.mid(b*2, 2));       
         };
-        for (int b=0;b<16;b++)
+        for (int b=0;b<(nameLength*2);b++)
         {
         	QString hexStr = x.at(b);			
 		      patchText.append( (char)(hexStr.toInt(&ok, 16)) );      // convert name to readable text characters.
         };
         
-  QString patchNumber = QString::number(bank/4, 10).toUpper();
+  QString patchNumber = QString::number(bank/patchPerBank, 10).toUpper();
   if (patchNumber.size()<2) { patchNumber.prepend("0"); };
-  patchNumber.prepend( "User Patch U" );
+  patchNumber.prepend(tr("User Patch U"));
   patchNumber.append("-");
   patchNumber.append( QString::number(patch, 10).toUpper() );
   patchNumber.append("     ");
@@ -322,21 +219,19 @@ void bulkSaveDialog::updatePatch(QString replyMsg)
   patchText=patchNumber;   
   this->progressLabel->setText(patchText);                        //display the patch number and name.
   
-  patchNumber = "File build size = ";
-  int size = (bulk.size()/2)+1777;
+  patchNumber = tr("File build size = ");
+  int size = (bulk.size()/2)+patchSize;
   patchNumber.append(QString::number(size, 10).toUpper() );
-  patchNumber.append(" bytes");
+  patchNumber.append(tr(" bytes"));
   this->bytesLabel->setText(patchNumber);                         //display the bulk data size.
   
-  setStatusMessage("Bulk Download");  
-  requestPatch(bank/4, patch);                                   //request the next patch.
+  setStatusMessage(tr("Bulk Download"));  
+  requestPatch(bank/patchPerBank, patch);                                   //request the next patch.
   } else {
-  setStatusMessage("Ready");
-  sysxIO->bulk = this->bulk;
-  if (this->gxbButton->isChecked() ) { writeGXB(); };                      // format and write bulk patches.
-  if (this->syxButton->isChecked() ) { writeSYX(); };
-  if (this->midButton->isChecked() ) { writeSMF(); };
-  };  
+          setStatusMessage(tr("Ready"));
+          sysxIO->bulk = this->bulk;
+          writeSYX();
+         };  
 };
 
 void bulkSaveDialog::bulkStatusProgress(int value)
@@ -347,84 +242,6 @@ void bulkSaveDialog::bulkStatusProgress(int value)
 	this->progressBar->setValue(value);
 };
 
-void bulkSaveDialog::writeGXB()         // ************************************ GXB File Format***************************
-{	
-  	Preferences *preferences = Preferences::Instance();
-	          QString dir = preferences->getPreferences("General", "Files", "dir");
-
-          	QString fileName = QFileDialog::getSaveFileName(
-                    this,
-                    "Save Bulk Data",
-                    dir,
-                    "Librarian Backup File (*.gxb)");
-	             if (!fileName.isEmpty())	
-                	{
-	                  if(!fileName.contains(".gxb"))
-	                     	{
-		                    	fileName.append(".gxb");
-	                     	};		
-		
-	QFile file(fileName);
-    if (file.open(QIODevice::WriteOnly))
-	{	
-     bool ok;	
-		QByteArray out;
-		int size = this->bulk.size()/2;
-	  int patchCount = size/1777;
-		for (int x=0;x<size*2;x++)
-		{
-		   QString hexStr = bulk.mid(x, 2);
-		   out.append( (char)(hexStr.toInt(&ok, 16)) );          // convert the bulk QString to a QByteArray.
-		    ++x;
-		};
-		QByteArray bulkFile;
-		QByteArray GXB_default;
-		QByteArray temp;
-		QFile GXBfile(":default.gxb");           // Read the default GT-10B GXB file .
-    if (GXBfile.open(QIODevice::ReadOnly))
-	  {	GXB_default = GXBfile.readAll(); };
-	  bulkFile.append(GXB_default.mid(0, 160));
-	  int b = 0;
-		for (int x=0;x<patchCount;x++)
-		{  
-   int a = 172;    
-   temp = out.mid(b+11, 128);
-   GXB_default.replace(a, 128, temp);         //address "00" +   
-   temp = out.mid(b+152, 128);
-   GXB_default.replace(a+128, 128, temp);     //address "01" +      
-   temp = out.mid(b+293, 128);
-   GXB_default.replace(a+256, 128, temp);     //address "02" +    
-   temp = out.mid(b+434, 100);
-   GXB_default.replace(a+384, 100, temp);     //address "03" +      no "04"     
-   temp = out.mid(b+547, 128);
-   GXB_default.replace(a+640, 128, temp);     //address "05" +           
-   temp = out.mid(b+688, 128);
-   GXB_default.replace(a+768, 128, temp);     //address "06" +       
-   temp = out.mid(b+829, 100);
-   GXB_default.replace(a+896, 100, temp);     //address "07" +      no "08"   
-   temp = out.mid(b+942, 128);
-   GXB_default.replace(a+1152, 128, temp);     //address "09" +   
-   temp = out.mid(b+1083, 128);
-   GXB_default.replace(a+1280, 128, temp);    //address "0A" +        
-   temp = out.mid(b+1224, 128);
-   GXB_default.replace(a+1408, 128, temp);    //address "0B" +       
-   temp = out.mid(b+1365, 128);
-   GXB_default.replace(a+1536, 128, temp);    //address "0C" + 
-   b=b+1777;                                  // increment point to next *.syx patch in bulk.
-   bulkFile.append(GXB_default.mid(160, 1713)); // copy most of the patch + index except for 4 text chars on end.
-   bulkFile.append(GXB_default.mid(80, 4));     // copy 4 bytes of "00" from no-where special.
-    };
-    QString hex = QString::number(patchCount, 16).toUpper();     // convert integer to QString.
-		if (hex.length() < 2) hex.prepend("0");
-    QByteArray count;
-   count.append( (char)(hex.toInt(&ok, 16)) ); 
-   bulkFile.replace(35, 1, count);     //   insert the correct patch count into the GXB file.
-   file.write(bulkFile); 
-	};
- };
-  close();      // close the dialog page after the file has been saved or cancelled.
-};
-
 void bulkSaveDialog::writeSYX()        //********************************* SYX File Format *****************************
 {	
   	Preferences *preferences = Preferences::Instance();
@@ -432,9 +249,9 @@ void bulkSaveDialog::writeSYX()        //********************************* SYX F
 
           	QString fileName = QFileDialog::getSaveFileName(
                     this,
-                    "Save Bulk Data",
+                    tr("Save Bulk Data"),
                     dir,
-                    "System Exclusive Backup File (*.syx)");
+                    tr("System Exclusive Backup File (*.syx)"));
 	             if (!fileName.isEmpty())	
                 	{
 	                  if(!fileName.contains(".syx"))
@@ -447,9 +264,8 @@ void bulkSaveDialog::writeSYX()        //********************************* SYX F
 	{	
      bool ok;	
 		QByteArray out;
-		int size = this->bulk.size()/2;
-	  //int patchCount = size/1777;
-		for (int x=0;x<size*2;x++)
+		int size = this->bulk.size();
+		for (int x=0;x<size;x++)
 		{
 		   QString hexStr = bulk.mid(x, 2);
 		   out.append( (char)(hexStr.toInt(&ok, 16)) );
@@ -463,140 +279,10 @@ void bulkSaveDialog::writeSYX()        //********************************* SYX F
 
 void bulkSaveDialog::writeSMF()    // **************************** SMF FILE FORMAT ***************************
 {	
-  	Preferences *preferences = Preferences::Instance();
-	          QString dir = preferences->getPreferences("General", "Files", "dir");
-
-          	QString fileName = QFileDialog::getSaveFileName(
-                    this,
-                    "Save Bulk Data",
-                    dir,
-                    "Standard Midi Backup File (*.mid)");
-	             if (!fileName.isEmpty())	
-                	{
-	                  if(!fileName.contains(".mid"))
-	                     	{
-		                    	fileName.append(".mid");
-	                     	};		
-	
   
-  	QFile file(fileName);
-    if (file.open(QIODevice::WriteOnly))
-	{
-	   bool ok;	
-		QByteArray out;
-		QByteArray patches;
-		int size = this->bulk.size()/2;
-	  int patchCount = size/1777;
-		for (int x=0;x<size*2;x++)
-		{
-		   QString hexStr = bulk.mid(x, 2);
-		   patches.append( (char)(hexStr.toInt(&ok, 16)) );          // convert the bulk QString to a QByteArray.
-		    ++x;
-		};
-		QByteArray bulkFile;
-		QByteArray temp;                        // TRANSLATION of GT-10B PATCHES, data read from gt10B syx patch **************
-	  QByteArray Qhex;                        // and used to replace gt10B patch SMF data*********************************
-    QFile hexfile(":HexLookupTable.hex");   // use a QByteArray of hex numbers from a lookup table.
-    if (hexfile.open(QIODevice::ReadOnly))
-	{	Qhex = hexfile.readAll(); };             // read the hexlookupTable and call the QByteArray QHex.
-	  bulkFile.append(Qhex.mid((288), 30));   // insert midi timing file header...
-	  int b = 0;
-		for (int x=0;x<patchCount;x++)
-	  {
-	  out.clear();
-	  out.append( patches.mid(b, 1777) );
-    out.remove(1495, 282);	   // remove the user text portion at the end..		
-		out.remove(0, 11);         // remove address "00 00" header...
-		temp = Qhex.mid((320), 13);
-		out.insert(0, temp);       // insert new address "00 00" header...
-		out.remove(141, 13);        // remove address "01 00" header...
-		temp = Qhex.mid((336), 16);
-		out.insert(255, temp);      // insert new address "01 72" header...
-		out.remove(285, 13);        // remove address "02 00" header...
-		out.remove(413, 13);        // remove address "03 00" header...
-		temp = Qhex.mid((352), 16);
-		out.insert(513, temp);      // insert new address "03 64" header...
-		out.remove(529, 13);        // remove address "05 00" header...
-		temp = Qhex.mid((438), 78);
-		temp.append(Qhex.mid((438), 78));
-		out.insert(529, temp);      // insert 156 "0"'s to replace 04 00 00 00...
-		temp = Qhex.mid((368), 16);
-		out.insert(771, temp);      // insert new address "05 56" header...
-		out.remove(829, 13);        // remove address "06 00" header...
-		out.remove(957, 13);        // remove address "07 00" header...
-		temp = Qhex.mid((384), 16);
-		out.insert(1029, temp);      // insert new address "07 48" header...
-		temp = Qhex.mid((438), 78);
-		temp.append(Qhex.mid((438), 78));
-		out.insert(1073, temp);      // insert 156 "0"'s to replace 08 00 00 00...
-		out.remove(1229, 13);        // remove address "09 00" header...
-		temp = Qhex.mid((400), 16);
-		out.insert(1287, temp);      // insert new address "09 3A" header...
-		out.remove(1373, 13);        // remove address "0A 00" header...
-		out.remove(1501, 13);        // remove address "0B 00" header...
-		out.remove(1629, 13);        // remove address "0C 00" header...
-		temp = Qhex.mid((416), 16);
-		out.insert(1545, temp);      // insert new address "0B 2C" header...
-		out.remove(1773, 2);        // remove file footer...
-		temp = Qhex.mid((438), 29);
-		out.append(temp);            // insert 29 "0"'s...
-		temp = Qhex.mid((432), 3);
-		out.insert(1802, temp);      // insert new file footer (part of)...
-		out.append(Qhex.mid((20), 1));           // add last "14" on end.
-    				
-	
-	QByteArray sysxBuffer;
-	int dataSize = 0; int offset = 0;
-	for(int i=0;i<out.size();i++)
-	{
-		unsigned char byte = (char)out[i];
-		unsigned int n = (int)byte;
-		QString hex = QString::number(n, 16).toUpper();
-		if (hex.length() < 2) hex.prepend("0");
-		sysxBuffer.append(hex);
+};
 
-		unsigned char nextbyte = (char)out[i+1];
-		unsigned int nextn = (int)nextbyte;
-		QString nexthex = QString::number(nextn, 16).toUpper();
-		if (nexthex.length() < 2) nexthex.prepend("0");
-		if(offset >= checksumOffset+3 && nexthex != "F7")   // smf offset is 8 bytes + previous byte
-		{		
-			dataSize += n;
-		};
-		if(nexthex == "F7")
-		{		
-			QString checksum;
-					bool ok;
-					int dataSize = 0;
-	        for(int i=checksumOffset+3;i<sysxBuffer.size()-1;++i)
-	         { 
-	         QString hexStr = sysxBuffer.mid(i, 2);
-		       dataSize += ( (char)(hexStr.toInt(&ok, 16)) );  
-           };
-	     QString base = "80";
-	     int sum = dataSize % base.toInt(&ok, 16);
-	     if(sum!=0) sum = base.toInt(&ok, 16) - sum;
-	     checksum = QString::number(sum, 16).toUpper();
-	     if(checksum.length()<2) checksum.prepend("0");
-	     sysxBuffer.replace(sysxBuffer.size() - 1, checksum);
-	
-		};
-		offset++;
-
-		if(hex == "F7") 
-		{	
-		  
-		  sysxBuffer.clear();
-			dataSize = 0;
-			offset = 0;
-		};
-   };
-   b=b+1777;
-   bulkFile.append(out);      // append the bulk file. 
-  };
-   bulkFile.append(Qhex.mid((436), 3));    // add file footer.
-   file.write(bulkFile); 
- };
- close();
- };
+void bulkSaveDialog::writeGTE()    // **************************** GTE File Format****************************
+{	
+  
 };

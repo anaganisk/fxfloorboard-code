@@ -2,7 +2,7 @@
 <!-- Preferences of the GT-3 Fx FloorBoard application. -->
 <Preferences>
 	<General>
-		<Application version="20091029"/>
+		<Application version="20091117"/>
 		<Donate url="http://gtx.tinfoilmusic.net/donate.html"/>
 		<Files dir=""/>
 		<Help url="GT-3EditorManual_E.htm"/>

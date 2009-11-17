@@ -1,10 +1,10 @@
 
-GT-3FxFloorBoard Copyright (C) 2000, 2008, 2009 Colin Willcocks (gumtownbassman@yahoo.com).
+GT-3FxFloorBoard Copyright (C) 2007~2010 Colin Willcocks (gumtownbassman@yahoo.com).
  All rights reserved.
 =======
 
 
-GT-3FxFloorBoard version 20091029: 29 October 2009
+GT-3FxFloorBoard version 20091117: 17 Novemberber 2009
 
 PLEASE FEEL FREE TO DONATE, YOU MAY FREELY USE THIS SOFTWARE, JUST KEEP IN MIND THE 6000 HOURS SPENT OVER 3 YEARS GETTING IT HERE, SO FAR WITH NO REWARD. I WOULD LOVE A BEER!!!.
 
