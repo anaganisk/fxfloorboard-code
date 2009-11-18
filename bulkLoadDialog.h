@@ -3,7 +3,7 @@
 ** Copyright (C) 2007~2010 Colin Willcocks.
 ** Copyright (C) 2005~2007 Uco Mesdag. 
 ** All rights reserved.
-** This file is part of "GT-6 Fx FloorBoard".
+** This file is part of "GT-3 Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -84,7 +84,7 @@ private:
 	int steps;
 	int dataSent;
 	QString fileName;
-	void loadGXB();
+	void loadGTE();
 	void loadSYX();
 	void loadSMF();
 	QByteArray data;
@@ -93,6 +93,7 @@ private:
 	QByteArray sysxPatches;
 	QList<QString> patchList;	 
 	QList<QString> userList;
+	bool failed;
 };
 
 #endif // BULKLOADDIALOG_H

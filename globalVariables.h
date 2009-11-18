@@ -52,6 +52,7 @@ const int bankTotalUser = 35;		// Number of user (editable) banks.
 const int bankTotalAll = 85;		// Number of total banks.
 const int patchPerBank = 4;			// Number of patches in a bank.
 const int bankSize = 100;       // Number of patches in a midi bank before bank change message is required.
+const int bankUserStart = 6;    // Start address of user patch range.
 
 /* Midi Send & Receive */
 const int patchPackets = 22;		// number of sysx packets "F0....F7" which make up a patch.
