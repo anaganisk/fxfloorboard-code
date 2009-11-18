@@ -36,13 +36,13 @@ goto CHECK
 c:\qt\4.5.1\bin\qmake
 c:\MinGW\bin\mingw32-make 
 cd packager
-GT6BFxFloorBoard.exe
+GT-6BFxFloorBoard.exe
 cd ..
 goto CHECK
 
 :C-OPTION
 cd packager
-GT6BFxFloorBoard.exe
+GT-6BFxFloorBoard.exe
 cd ..
 goto CHECK
 

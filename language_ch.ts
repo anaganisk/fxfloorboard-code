@@ -5,22 +5,22 @@
 <context>
     <name>GeneralPage</name>
     <message>
-        <location filename="preferencesPages.cpp" line="35"/>
+        <location filename="preferencesPages.cpp" line="36"/>
         <source>Patch folder</source>
         <translation>补丁文件夹</translation>
     </message>
     <message>
-        <location filename="preferencesPages.cpp" line="37"/>
+        <location filename="preferencesPages.cpp" line="38"/>
         <source>Select the default folder for storing patches.</source>
         <translation>为存放补丁选择缺省文件夹。</translation>
     </message>
     <message>
-        <location filename="preferencesPages.cpp" line="38"/>
+        <location filename="preferencesPages.cpp" line="39"/>
         <source>Default patch folder:</source>
         <translation>缺省补丁文件夹：</translation>
     </message>
     <message>
-        <location filename="preferencesPages.cpp" line="40"/>
+        <location filename="preferencesPages.cpp" line="41"/>
         <source>Browse</source>
         <translation>浏览</translation>
     </message>
@@ -28,225 +28,250 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="bankTreeList.cpp" line="536"/>
+        <location filename="bankTreeList.cpp" line="537"/>
         <source>Warning - Patch data received is incorrect!</source>
         <translation>警告-被接受的补丁数据是不正确的!</translation>
     </message>
     <message>
-        <location filename="bankTreeList.cpp" line="541"/>
+        <location filename="bankTreeList.cpp" line="542"/>
         <source>Patch data transfer wrong size</source>
         <translation>补丁数据传送错误大小</translation>
     </message>
     <message>
-        <location filename="bankTreeList.cpp" line="543"/>
-        <location filename="bankTreeList.cpp" line="561"/>
+        <location filename="bankTreeList.cpp" line="544"/>
+        <location filename="bankTreeList.cpp" line="562"/>
         <source>Please make sure the </source>
         <translation>请确定 </translation>
     </message>
     <message>
-        <location filename="bankTreeList.cpp" line="554"/>
+        <location filename="bankTreeList.cpp" line="555"/>
         <source>Warning - No patch data received!</source>
         <translation>警告-补丁数据没有接受!</translation>
     </message>
     <message>
-        <location filename="bankTreeList.cpp" line="559"/>
+        <location filename="bankTreeList.cpp" line="560"/>
         <source>Patch data transfer failed, are the correct midi ports selected?</source>
         <translation>修补发生故障的数据传送，正确密地口岸被选择？</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="77"/>
+        <location filename="main.cpp" line="78"/>
         <source>Initializing...</source>
         <translation>初始化…</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="84"/>
+        <location filename="main.cpp" line="85"/>
         <source>Checking license file...</source>
         <translation>检查执照文件…</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="87"/>
+        <location filename="main.cpp" line="88"/>
         <source>Loading license file...</source>
         <translation>装货执照文件…</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="95"/>
+        <location filename="main.cpp" line="96"/>
         <source>Loading midi mapping...</source>
         <translation>Loading midi mapping...</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="103"/>
+        <location filename="main.cpp" line="104"/>
         <source>Initializing main window...</source>
         <translation>Initializing main window...</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="148"/>
+        <location filename="main.cpp" line="149"/>
         <source>Restoring window position...</source>
         <translation>恢复窗口位置…</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="163"/>
+        <location filename="main.cpp" line="164"/>
         <source>Centering main window...</source>
         <translation>集中主窗口…</translation>
     </message>
     <message>
-        <location filename="main.cpp" line="178"/>
+        <location filename="main.cpp" line="179"/>
         <source>Finished Initializing...</source>
         <translation>完成初始化…</translation>
     </message>
     <message>
-        <location filename="preferencesPages.cpp" line="83"/>
+        <location filename="preferencesPages.cpp" line="84"/>
         <source>Midi settings</source>
         <translation>密地设置</translation>
     </message>
     <message>
-        <location filename="preferencesPages.cpp" line="85"/>
+        <location filename="preferencesPages.cpp" line="86"/>
         <source>Select your midi in and out device.</source>
         <translation>里里外外选择您的密地设备。</translation>
     </message>
     <message>
-        <location filename="preferencesPages.cpp" line="86"/>
+        <location filename="preferencesPages.cpp" line="87"/>
         <source>Midi in:</source>
         <translation>密地在：</translation>
     </message>
     <message>
-        <location filename="preferencesPages.cpp" line="87"/>
+        <location filename="preferencesPages.cpp" line="88"/>
         <source>Midi out:</source>
         <translation>密地：</translation>
     </message>
     <message>
-        <location filename="preferencesPages.cpp" line="91"/>
+        <location filename="preferencesPages.cpp" line="92"/>
         <source>Select midi-in device</source>
         <translation>选择密地在设备</translation>
     </message>
     <message>
-        <location filename="preferencesPages.cpp" line="106"/>
+        <location filename="preferencesPages.cpp" line="107"/>
         <source>Select midi-out device</source>
         <translation>选择密地设备</translation>
     </message>
     <message>
-        <location filename="preferencesPages.cpp" line="142"/>
+        <location filename="preferencesPages.cpp" line="143"/>
         <source>dBug and timing</source>
         <translation>调试和时间</translation>
     </message>
     <message>
-        <location filename="preferencesPages.cpp" line="144"/>
+        <location filename="preferencesPages.cpp" line="145"/>
         <source>Debug mode &amp; midi settings.</source>
         <translation>调试方式&amp; 密地设置。</translation>
     </message>
     <message>
-        <location filename="preferencesPages.cpp" line="146"/>
+        <location filename="preferencesPages.cpp" line="147"/>
         <source>Realtime edit send rate.</source>
         <translation>实时编辑送率。</translation>
     </message>
     <message>
-        <location filename="preferencesPages.cpp" line="148"/>
+        <location filename="preferencesPages.cpp" line="149"/>
         <source>deBug Mode</source>
         <translation>调试方式</translation>
     </message>
     <message>
-        <location filename="preferencesPages.cpp" line="172"/>
+        <location filename="preferencesPages.cpp" line="173"/>
         <source>= </source>
         <translation>= </translation>
     </message>
     <message>
-        <location filename="preferencesPages.cpp" line="173"/>
+        <location filename="preferencesPages.cpp" line="174"/>
         <source> times/second</source>
         <translation>时期或其次</translation>
     </message>
     <message>
-        <location filename="preferencesPages.cpp" line="214"/>
+        <location filename="preferencesPages.cpp" line="215"/>
         <source>Window settings</source>
         <translation>窗口设置</translation>
     </message>
     <message>
-        <location filename="preferencesPages.cpp" line="216"/>
+        <location filename="preferencesPages.cpp" line="217"/>
         <source>Select if you want the window position to be saved on exit.</source>
         <translation>如果您在出口，要窗口位置被保存选择。</translation>
     </message>
     <message>
-        <location filename="preferencesPages.cpp" line="217"/>
+        <location filename="preferencesPages.cpp" line="218"/>
         <source>Restore window</source>
         <translation>恢复窗口</translation>
     </message>
     <message>
-        <location filename="preferencesPages.cpp" line="218"/>
+        <location filename="preferencesPages.cpp" line="219"/>
         <source>Restore sidepanel</source>
         <translation>恢复侧面板</translation>
     </message>
     <message>
-        <location filename="preferencesPages.cpp" line="241"/>
+        <location filename="preferencesPages.cpp" line="242"/>
         <source>Show splash screen</source>
         <translation>显示飞溅屏幕</translation>
     </message>
     <message>
-        <location filename="preferencesPages.cpp" line="243"/>
+        <location filename="preferencesPages.cpp" line="244"/>
         <source>Disable or enable the splash screen.</source>
         <translation>使或使能飞溅屏幕失去能力。</translation>
     </message>
     <message>
-        <location filename="preferencesPages.cpp" line="244"/>
+        <location filename="preferencesPages.cpp" line="245"/>
         <source>Splash screen</source>
         <translation>飞溅屏幕</translation>
     </message>
     <message>
-        <location filename="preferencesPages.cpp" line="279"/>
+        <location filename="preferencesPages.cpp" line="280"/>
         <source>Language Selection</source>
         <translation>语言选择</translation>
     </message>
     <message>
-        <location filename="preferencesPages.cpp" line="281"/>
+        <location filename="preferencesPages.cpp" line="282"/>
         <source>English</source>
         <translation>英语</translation>
     </message>
     <message>
-        <location filename="preferencesPages.cpp" line="283"/>
+        <location filename="preferencesPages.cpp" line="284"/>
         <source>French</source>
         <translation>法语</translation>
     </message>
     <message>
-        <location filename="preferencesPages.cpp" line="284"/>
+        <location filename="preferencesPages.cpp" line="285"/>
         <source>German</source>
         <translation>德语</translation>
     </message>
     <message>
-        <location filename="preferencesPages.cpp" line="285"/>
+        <location filename="preferencesPages.cpp" line="286"/>
         <source>Chinese (simplified)</source>
         <translation>汉语(被简化)</translation>
     </message>
     <message>
-        <location filename="preferencesPages.cpp" line="299"/>
+        <location filename="preferencesPages.cpp" line="300"/>
         <source>Changes take effect on next startup</source>
         <translation>变动起对下起动的作用</translation>
     </message>
     <message>
-        <location filename="preferencesPages.cpp" line="311"/>
+        <location filename="preferencesPages.cpp" line="312"/>
         <source>Select the default folder for storing patches.</source>
         <translation>为存放补丁选择缺省文件夹。</translation>
     </message>
     <message>
-        <location filename="sysxWriter.cpp" line="161"/>
+        <location filename="sysxWriter.cpp" line="137"/>
+        <source>Select Patch</source>
+        <translation>选择补丁</translation>
+    </message>
+    <message>
+        <location filename="sysxWriter.cpp" line="218"/>
         <source>Patch size Error!</source>
         <translation>补丁长度误差!</translation>
     </message>
     <message>
-        <location filename="sysxWriter.cpp" line="166"/>
+        <location filename="sysxWriter.cpp" line="223"/>
         <source>This is not a known </source>
         <translation>这不是已知的 </translation>
     </message>
     <message>
-        <location filename="sysxWriter.cpp" line="166"/>
+        <location filename="sysxWriter.cpp" line="223"/>
         <source> patch!</source>
         <translation>补丁!</translation>
     </message>
     <message>
-        <location filename="sysxWriter.cpp" line="168"/>
+        <location filename="sysxWriter.cpp" line="225"/>
         <source>Patch file not within allowable parameters or&lt;br&gt;</source>
         <translation>补丁文件不在允许的参量之内或&lt;br&gt;</translation>
     </message>
     <message>
-        <location filename="sysxWriter.cpp" line="169"/>
+        <location filename="sysxWriter.cpp" line="226"/>
         <source>file format unknown, please try another file.</source>
         <translation>文件格式未知数，请尝试另一个文件。</translation>
+    </message>
+    <message>
+        <location filename="bulkLoadDialog.cpp" line="501"/>
+        <source>SMF file import</source>
+        <translation>SMF文件进口</translation>
+    </message>
+    <message>
+        <location filename="bulkLoadDialog.cpp" line="506"/>
+        <source>This is not a GT-3 file!</source>
+        <translation>这不是GT-3文件!</translation>
+    </message>
+    <message>
+        <location filename="bulkLoadDialog.cpp" line="508"/>
+        <source>this file is a GT-10 Guitar version&lt;br&gt;</source>
+        <translation>这个文件是GT-10吉他版本&lt;br&gt;</translation>
+    </message>
+    <message>
+        <location filename="bulkLoadDialog.cpp" line="509"/>
+        <source>*Loading this file may have unpredictable results*.</source>
+        <translation>装载这个文件也许有变化莫测的结果。</translation>
     </message>
 </context>
 <context>
@@ -297,7 +322,6 @@
         <location filename="SysxIO.cpp" line="528"/>
         <location filename="SysxIO.cpp" line="747"/>
         <location filename="SysxIO.cpp" line="1289"/>
-        <location filename="SysxIO.cpp" line="1346"/>
         <source>Ready</source>
         <translation>准备好</translation>
     </message>
@@ -418,78 +442,307 @@
 <context>
     <name>bankTreeList</name>
     <message>
-        <location filename="bankTreeList.cpp" line="297"/>
+        <location filename="bankTreeList.cpp" line="298"/>
         <source>Double-click tree item to load patch</source>
         <translation>双击装载补丁的树项目</translation>
     </message>
     <message>
-        <location filename="bankTreeList.cpp" line="435"/>
+        <location filename="bankTreeList.cpp" line="436"/>
         <source>Patch request</source>
         <translation>补丁请求</translation>
     </message>
     <message>
-        <location filename="bankTreeList.cpp" line="466"/>
-        <location filename="bankTreeList.cpp" line="480"/>
+        <location filename="bankTreeList.cpp" line="467"/>
+        <location filename="bankTreeList.cpp" line="481"/>
         <source>Receiving Patch</source>
         <translation>接受补丁</translation>
     </message>
     <message>
-        <location filename="bankTreeList.cpp" line="522"/>
+        <location filename="bankTreeList.cpp" line="523"/>
         <source>Patch from </source>
         <translation>补丁从 </translation>
     </message>
     <message>
-        <location filename="bankTreeList.cpp" line="543"/>
-        <location filename="bankTreeList.cpp" line="561"/>
+        <location filename="bankTreeList.cpp" line="544"/>
+        <location filename="bankTreeList.cpp" line="562"/>
         <source> is connected correctly and re-try.</source>
         <translation>恰当地被连接和再试。</translation>
     </message>
     <message>
-        <location filename="bankTreeList.cpp" line="658"/>
+        <location filename="bankTreeList.cpp" line="659"/>
         <source>Receiving names</source>
         <translation>接受名字</translation>
     </message>
     <message>
-        <location filename="bankTreeList.cpp" line="669"/>
-        <location filename="bankTreeList.cpp" line="676"/>
+        <location filename="bankTreeList.cpp" line="670"/>
+        <location filename="bankTreeList.cpp" line="677"/>
         <source>Ready</source>
         <translation>准备好</translation>
     </message>
 </context>
 <context>
-    <name>customRenameDialog</name>
+    <name>bulkLoadDialog</name>
     <message>
-        <location filename="customRenameDialog.cpp" line="46"/>
-        <source>Patch Description</source>
-        <translation>补丁描述</translation>
+        <location filename="bulkLoadDialog.cpp" line="47"/>
+        <source>Starting from</source>
+        <translation>从开始</translation>
     </message>
     <message>
-        <location filename="customRenameDialog.cpp" line="52"/>
-        <source>Patch created by</source>
-        <translation>被创造的补丁 </translation>
+        <location filename="bulkLoadDialog.cpp" line="49"/>
+        <source>Finishing at</source>
+        <translation>完成在</translation>
     </message>
     <message>
-        <location filename="customRenameDialog.cpp" line="57"/>
-        <source>Rename Catagory</source>
-        <translation>给类别改名</translation>
+        <location filename="bulkLoadDialog.cpp" line="61"/>
+        <source>Set the Range of Patch data to restore</source>
+        <translation>设置补丁数据的范围对恢复</translation>
     </message>
     <message>
-        <location filename="customRenameDialog.cpp" line="61"/>
-        <source>Name:</source>
-        <translation>名字：</translation>
+        <location filename="bulkLoadDialog.cpp" line="64"/>
+        <source>Start Bank.</source>
+        <translation>开始银行。</translation>
     </message>
     <message>
-        <location filename="customRenameDialog.cpp" line="78"/>
-        <source>Insert :</source>
-        <translation>插入物：</translation>
+        <location filename="bulkLoadDialog.cpp" line="65"/>
+        <source>Finish Bank.</source>
+        <translation>结束银行。</translation>
     </message>
     <message>
-        <location filename="customRenameDialog.cpp" line="81"/>
+        <location filename="bulkLoadDialog.cpp" line="93"/>
+        <source>Set start location of Patch data to restore</source>
+        <translation>补丁数据的集合起动地点恢复的</translation>
+    </message>
+    <message>
+        <location filename="bulkLoadDialog.cpp" line="97"/>
+        <source>Start</source>
+        <translation>开始</translation>
+    </message>
+    <message>
+        <location filename="bulkLoadDialog.cpp" line="101"/>
+        <source>DATA TRANSFER COMPLETED</source>
+        <translation>完成的数据传送</translation>
+    </message>
+    <message>
+        <location filename="bulkLoadDialog.cpp" line="106"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
+        <location filename="bulkLoadDialog.cpp" line="110"/>
+        <source>Full Restoration may take up to 2 minutes</source>
+        <translation>充分的恢复也许花费二分钟</translation>
+    </message>
+    <message>
+        <location filename="bulkLoadDialog.cpp" line="151"/>
+        <source>Bulk File Restoration</source>
+        <translation>大块文件恢复</translation>
+    </message>
+    <message>
+        <location filename="bulkLoadDialog.cpp" line="166"/>
+        <source>Choose a file</source>
+        <translation>选择文件</translation>
+    </message>
+    <message>
+        <location filename="bulkLoadDialog.cpp" line="168"/>
+        <source>GT-3 Bulk Data File (*.gte *.syx *.mid)</source>
+        <translation>GT-3大块数据文件(*.gte *.syx *.mid)</translation>
+    </message>
+    <message>
+        <location filename="bulkLoadDialog.cpp" line="231"/>
+        <location filename="bulkLoadDialog.cpp" line="405"/>
+        <source>Finish at U</source>
+        <translation>在U的结束</translation>
+    </message>
+    <message>
+        <location filename="bulkLoadDialog.cpp" line="345"/>
+        <source>Bulk data transfer completed!!</source>
+        <translation>完成的大块数据传送!!</translation>
+    </message>
+    <message>
+        <location filename="bulkLoadDialog.cpp" line="349"/>
+        <source>User Patch U</source>
+        <translation>用户补丁U</translation>
+    </message>
+    <message>
+        <location filename="bulkLoadDialog.cpp" line="357"/>
+        <source>File transfer size = </source>
+        <translation>文件传输大小= </translation>
+    </message>
+    <message>
+        <location filename="bulkLoadDialog.cpp" line="360"/>
+        <source> bytes</source>
+        <translation>字节</translation>
+    </message>
+    <message>
+        <location filename="bulkLoadDialog.cpp" line="366"/>
+        <source>Sending Data</source>
+        <translation>送数据</translation>
+    </message>
+    <message>
+        <location filename="bulkLoadDialog.cpp" line="370"/>
+        <source>Ready</source>
+        <translation>准备好</translation>
+    </message>
+</context>
+<context>
+    <name>bulkSaveDialog</name>
+    <message>
+        <location filename="bulkSaveDialog.cpp" line="45"/>
+        <source>Start Bank.</source>
+        <translation>开始银行。</translation>
+    </message>
+    <message>
+        <location filename="bulkSaveDialog.cpp" line="46"/>
+        <source>Finish Bank.</source>
+        <translation>结束银行。</translation>
+    </message>
+    <message>
+        <location filename="bulkSaveDialog.cpp" line="48"/>
+        <source>*.gte Librarian file</source>
+        <translation>*.gte图书管理员文件</translation>
+    </message>
+    <message>
+        <location filename="bulkSaveDialog.cpp" line="49"/>
+        <source>*.syx System Exclusive file</source>
+        <translation>*.syx系统独家新闻文件</translation>
+    </message>
+    <message>
+        <location filename="bulkSaveDialog.cpp" line="50"/>
+        <source>*.mid Standard Midi (SMF) file</source>
+        <translation>*.mid标准密地(SMF)文件</translation>
+    </message>
+    <message>
+        <location filename="bulkSaveDialog.cpp" line="53"/>
+        <source>Save System Data</source>
+        <translation>除系统数据之外</translation>
+    </message>
+    <message>
+        <location filename="bulkSaveDialog.cpp" line="68"/>
+        <source>Finish at U</source>
+        <translation>在U的结束</translation>
+    </message>
+    <message>
+        <location filename="bulkSaveDialog.cpp" line="90"/>
+        <source>Set range of Patch data to save</source>
+        <translation>设置补丁数据的范围对除之外</translation>
+    </message>
+    <message>
+        <location filename="bulkSaveDialog.cpp" line="94"/>
+        <source>Start</source>
+        <translation>开始</translation>
+    </message>
+    <message>
+        <location filename="bulkSaveDialog.cpp" line="98"/>
+        <source>DATA TRANSFER COMPLETED</source>
+        <translation>完成的数据传送</translation>
+    </message>
+    <message>
+        <location filename="bulkSaveDialog.cpp" line="103"/>
+        <source>Cancel</source>
+        <translation>取消</translation>
+    </message>
+    <message>
+        <location filename="bulkSaveDialog.cpp" line="107"/>
+        <source>Full Backup may take up to 2 minutes</source>
+        <translation>完全备份也许花费二分钟</translation>
+    </message>
+    <message>
+        <location filename="bulkSaveDialog.cpp" line="127"/>
+        <source>Select File format to save</source>
+        <translation>选择文件格式保存</translation>
+    </message>
+    <message>
+        <location filename="bulkSaveDialog.cpp" line="162"/>
+        <source>Bulk File Backup</source>
+        <translation>大块文件备份</translation>
+    </message>
+    <message>
+        <location filename="bulkSaveDialog.cpp" line="216"/>
+        <source>Bulk data transfer completed!!</source>
+        <translation>完成的大块数据传送!!</translation>
+    </message>
+    <message>
+        <location filename="bulkSaveDialog.cpp" line="236"/>
+        <source>User Patch U</source>
+        <translation>用户补丁U</translation>
+    </message>
+    <message>
+        <location filename="bulkSaveDialog.cpp" line="244"/>
+        <source>File build size = </source>
+        <translation>文件修造大小= </translation>
+    </message>
+    <message>
+        <location filename="bulkSaveDialog.cpp" line="247"/>
+        <source> bytes</source>
+        <translation>字节</translation>
+    </message>
+    <message>
+        <location filename="bulkSaveDialog.cpp" line="250"/>
+        <source>Bulk Download</source>
+        <translation>大块下载</translation>
+    </message>
+    <message>
+        <location filename="bulkSaveDialog.cpp" line="253"/>
+        <source>Ready</source>
+        <translation>准备好</translation>
+    </message>
+    <message>
+        <location filename="bulkSaveDialog.cpp" line="276"/>
+        <location filename="bulkSaveDialog.cpp" line="354"/>
+        <location filename="bulkSaveDialog.cpp" line="390"/>
+        <source>Save Bulk Data</source>
+        <translation>除大块数据之外</translation>
+    </message>
+    <message>
+        <location filename="bulkSaveDialog.cpp" line="278"/>
+        <source>Librarian Backup File (*.gte)</source>
+        <translation>图书管理员备用文件(*.gte)</translation>
+    </message>
+    <message>
+        <location filename="bulkSaveDialog.cpp" line="356"/>
+        <source>System Exclusive Backup File (*.syx)</source>
+        <translation>系统专属备用文件(*.syx)</translation>
+    </message>
+    <message>
+        <location filename="bulkSaveDialog.cpp" line="392"/>
+        <source>Standard Midi Backup File (*.mid)</source>
+        <translation>标准密地备用文件(*.mid)</translation>
+    </message>
+</context>
+<context>
+    <name>customRenameDialog</name>
+    <message>
+        <location filename="customRenameDialog.cpp" line="47"/>
+        <source>Patch Description</source>
+        <translation>补丁描述</translation>
+    </message>
+    <message>
+        <location filename="customRenameDialog.cpp" line="53"/>
+        <source>Patch created by</source>
+        <translation>被创造的补丁 </translation>
+    </message>
+    <message>
+        <location filename="customRenameDialog.cpp" line="58"/>
+        <source>Rename Catagory</source>
+        <translation>给类别改名</translation>
+    </message>
+    <message>
+        <location filename="customRenameDialog.cpp" line="62"/>
+        <source>Name:</source>
+        <translation>名字：</translation>
+    </message>
+    <message>
+        <location filename="customRenameDialog.cpp" line="79"/>
+        <source>Insert :</source>
+        <translation>插入物：</translation>
+    </message>
+    <message>
         <location filename="customRenameDialog.cpp" line="82"/>
+        <source>Cancel</source>
+        <translation>取消</translation>
+    </message>
+    <message>
+        <location filename="customRenameDialog.cpp" line="83"/>
         <source>Apply</source>
         <translation>申请</translation>
     </message>
@@ -497,37 +750,55 @@
 <context>
     <name>editWindow</name>
     <message>
-        <location filename="editWindow.cpp" line="42"/>
+        <location filename="editWindow.cpp" line="43"/>
         <source>Select</source>
         <translation>精选</translation>
     </message>
     <message>
-        <location filename="editWindow.cpp" line="55"/>
+        <location filename="editWindow.cpp" line="56"/>
         <source>Temp 1 Partial</source>
         <translation>部份的临时雇员1</translation>
     </message>
     <message>
-        <location filename="editWindow.cpp" line="61"/>
+        <location filename="editWindow.cpp" line="62"/>
         <source>Temp 2 Partial</source>
         <translation>部份的临时雇员2</translation>
     </message>
     <message>
-        <location filename="editWindow.cpp" line="67"/>
+        <location filename="editWindow.cpp" line="68"/>
         <source>Temp 3 Partial</source>
         <translation>部份的临时雇员3</translation>
     </message>
     <message>
-        <location filename="editWindow.cpp" line="73"/>
+        <location filename="editWindow.cpp" line="74"/>
         <source>Temp 4 Partial</source>
         <translation>部份的临时雇员4</translation>
     </message>
     <message>
-        <location filename="editWindow.cpp" line="323"/>
-        <location filename="editWindow.cpp" line="372"/>
-        <location filename="editWindow.cpp" line="422"/>
-        <location filename="editWindow.cpp" line="471"/>
+        <location filename="editWindow.cpp" line="324"/>
+        <location filename="editWindow.cpp" line="373"/>
+        <location filename="editWindow.cpp" line="423"/>
+        <location filename="editWindow.cpp" line="472"/>
         <source>patch must be copied to clipboard first</source>
         <translation>必须首先复制补丁到剪贴板</translation>
+    </message>
+</context>
+<context>
+    <name>fileDialog</name>
+    <message>
+        <location filename="fileDialog.cpp" line="33"/>
+        <source>Select patch to load</source>
+        <translation>选择补丁装载</translation>
+    </message>
+    <message>
+        <location filename="fileDialog.cpp" line="41"/>
+        <source>Cancel</source>
+        <translation>取消</translation>
+    </message>
+    <message>
+        <location filename="fileDialog.cpp" line="61"/>
+        <source>Bulk File Patch Extraction</source>
+        <translation>大块文件补丁提取</translation>
     </message>
 </context>
 <context>
@@ -537,15 +808,15 @@
         <location filename="floorBoardDisplay.cpp" line="77"/>
         <location filename="floorBoardDisplay.cpp" line="81"/>
         <location filename="floorBoardDisplay.cpp" line="85"/>
-        <location filename="floorBoardDisplay.cpp" line="197"/>
+        <location filename="floorBoardDisplay.cpp" line="198"/>
         <source>Empty</source>
         <translation>空</translation>
     </message>
     <message>
         <location filename="floorBoardDisplay.cpp" line="89"/>
-        <location filename="floorBoardDisplay.cpp" line="207"/>
-        <location filename="floorBoardDisplay.cpp" line="844"/>
-        <location filename="floorBoardDisplay.cpp" line="874"/>
+        <location filename="floorBoardDisplay.cpp" line="208"/>
+        <location filename="floorBoardDisplay.cpp" line="828"/>
+        <location filename="floorBoardDisplay.cpp" line="858"/>
         <source> Fx FloorBoard</source>
         <translation>Fx地板</translation>
     </message>
@@ -680,164 +951,164 @@
         <translation>临时雇员4浆糊</translation>
     </message>
     <message>
-        <location filename="floorBoardDisplay.cpp" line="194"/>
+        <location filename="floorBoardDisplay.cpp" line="195"/>
         <source>init patch</source>
         <translation>初始化补丁</translation>
     </message>
     <message>
-        <location filename="floorBoardDisplay.cpp" line="201"/>
+        <location filename="floorBoardDisplay.cpp" line="202"/>
         <source> patch</source>
         <translation>补丁</translation>
     </message>
     <message>
-        <location filename="floorBoardDisplay.cpp" line="212"/>
+        <location filename="floorBoardDisplay.cpp" line="213"/>
         <source>Error while changing banks.</source>
         <translation>错误，当改变开户时。</translation>
     </message>
     <message>
-        <location filename="floorBoardDisplay.cpp" line="214"/>
+        <location filename="floorBoardDisplay.cpp" line="215"/>
         <source>An incorrect patch has been loaded. Please try to load the patch again.</source>
         <translation>一个不正确补丁被装载了。 请设法再装载补丁。</translation>
     </message>
     <message>
-        <location filename="floorBoardDisplay.cpp" line="374"/>
-        <location filename="floorBoardDisplay.cpp" line="707"/>
+        <location filename="floorBoardDisplay.cpp" line="375"/>
+        <location filename="floorBoardDisplay.cpp" line="691"/>
         <source>Connecting</source>
         <translation>连接</translation>
     </message>
     <message>
-        <location filename="floorBoardDisplay.cpp" line="473"/>
-        <location filename="floorBoardDisplay.cpp" line="539"/>
-        <location filename="floorBoardDisplay.cpp" line="603"/>
-        <location filename="floorBoardDisplay.cpp" line="669"/>
+        <location filename="floorBoardDisplay.cpp" line="468"/>
+        <location filename="floorBoardDisplay.cpp" line="530"/>
+        <location filename="floorBoardDisplay.cpp" line="592"/>
+        <location filename="floorBoardDisplay.cpp" line="653"/>
         <source>in-consistant patch data detected </source>
         <translation>坏补丁数据查出了 </translation>
     </message>
     <message>
-        <location filename="floorBoardDisplay.cpp" line="473"/>
-        <location filename="floorBoardDisplay.cpp" line="539"/>
-        <location filename="floorBoardDisplay.cpp" line="603"/>
-        <location filename="floorBoardDisplay.cpp" line="669"/>
+        <location filename="floorBoardDisplay.cpp" line="468"/>
+        <location filename="floorBoardDisplay.cpp" line="530"/>
+        <location filename="floorBoardDisplay.cpp" line="592"/>
+        <location filename="floorBoardDisplay.cpp" line="653"/>
         <source>bytes: re-save or re-load file to correct</source>
         <translation>字节： 再保存或再装文件改正</translation>
     </message>
     <message>
-        <location filename="floorBoardDisplay.cpp" line="500"/>
+        <location filename="floorBoardDisplay.cpp" line="494"/>
         <source>patch must be copied to Temp-1 clipboard first</source>
         <translation>必须首先复制补丁到临时雇员1剪贴板</translation>
     </message>
     <message>
-        <location filename="floorBoardDisplay.cpp" line="566"/>
+        <location filename="floorBoardDisplay.cpp" line="556"/>
         <source>patch must be copied to Temp-2 clipboard first</source>
         <translation>必须首先复制补丁到临时雇员2剪贴板</translation>
     </message>
     <message>
-        <location filename="floorBoardDisplay.cpp" line="629"/>
+        <location filename="floorBoardDisplay.cpp" line="617"/>
         <source>patch must be copied to Temp-3 clipboard first</source>
         <translation>必须首先复制补丁到临时雇员3剪贴板</translation>
     </message>
     <message>
-        <location filename="floorBoardDisplay.cpp" line="695"/>
+        <location filename="floorBoardDisplay.cpp" line="679"/>
         <source>patch must be copied to Temp-4 clipboard first</source>
         <translation>必须首先复制补丁到临时雇员4剪贴板</translation>
     </message>
     <message>
-        <location filename="floorBoardDisplay.cpp" line="737"/>
-        <location filename="floorBoardDisplay.cpp" line="1009"/>
-        <location filename="floorBoardDisplay.cpp" line="1078"/>
+        <location filename="floorBoardDisplay.cpp" line="721"/>
+        <location filename="floorBoardDisplay.cpp" line="993"/>
+        <location filename="floorBoardDisplay.cpp" line="1062"/>
         <source>Ready</source>
         <translation>准备好</translation>
     </message>
     <message>
-        <location filename="floorBoardDisplay.cpp" line="769"/>
-        <location filename="floorBoardDisplay.cpp" line="795"/>
-        <location filename="floorBoardDisplay.cpp" line="1094"/>
+        <location filename="floorBoardDisplay.cpp" line="753"/>
+        <location filename="floorBoardDisplay.cpp" line="779"/>
+        <location filename="floorBoardDisplay.cpp" line="1078"/>
         <source>Not connected</source>
         <translation>没连接</translation>
     </message>
     <message>
-        <location filename="floorBoardDisplay.cpp" line="774"/>
-        <location filename="floorBoardDisplay.cpp" line="800"/>
+        <location filename="floorBoardDisplay.cpp" line="758"/>
+        <location filename="floorBoardDisplay.cpp" line="784"/>
         <source>BULK MODE connection Required !!</source>
         <translation>需要的大块方式连接!!</translation>
     </message>
     <message>
-        <location filename="floorBoardDisplay.cpp" line="779"/>
+        <location filename="floorBoardDisplay.cpp" line="763"/>
         <source>The device connected is not a Boss </source>
         <translation>被连接的设备不是上司 </translation>
     </message>
     <message>
-        <location filename="floorBoardDisplay.cpp" line="779"/>
+        <location filename="floorBoardDisplay.cpp" line="763"/>
         <source> Effects Processor.</source>
         <translation>作用处理器。</translation>
     </message>
     <message>
-        <location filename="floorBoardDisplay.cpp" line="781"/>
+        <location filename="floorBoardDisplay.cpp" line="765"/>
         <source>&lt;br&gt;Midi loopback detected, ensure midi device &apos;thru&apos; is switched off.</source>
         <translation>&lt;br&gt;检测的密地回环，保证密地设备直通连接关闭。</translation>
     </message>
     <message>
-        <location filename="floorBoardDisplay.cpp" line="805"/>
+        <location filename="floorBoardDisplay.cpp" line="789"/>
         <source>The Boss </source>
         <translation>上司 </translation>
     </message>
     <message>
-        <location filename="floorBoardDisplay.cpp" line="805"/>
+        <location filename="floorBoardDisplay.cpp" line="789"/>
         <source> Effects Processor BULK MODE connection was not found.</source>
         <translation>作用处理器大块未找到方式连接。</translation>
     </message>
     <message>
-        <location filename="floorBoardDisplay.cpp" line="807"/>
+        <location filename="floorBoardDisplay.cpp" line="791"/>
         <source>Ensure the unit is selected to Bulk Load for data retrieval-</source>
         <translation>保证单位被选择变大块数据检索的装载</translation>
     </message>
     <message>
-        <location filename="floorBoardDisplay.cpp" line="809"/>
+        <location filename="floorBoardDisplay.cpp" line="793"/>
         <source>by pressing UTILITY 4 times and left PARAMETER 3 times.</source>
         <translation>通过按公共事业4次和左参量3次。</translation>
     </message>
     <message>
-        <location filename="floorBoardDisplay.cpp" line="811"/>
+        <location filename="floorBoardDisplay.cpp" line="795"/>
         <source>press EXIT on the GT-6B when leaving Bulk Mode.</source>
         <translation>当留下大块方式时，按在GT-6B的出口。</translation>
     </message>
     <message>
-        <location filename="floorBoardDisplay.cpp" line="849"/>
+        <location filename="floorBoardDisplay.cpp" line="833"/>
         <source>You can&apos;t write to the preset banks.</source>
         <translation>您不可能给边框形式银行写。</translation>
     </message>
     <message>
-        <location filename="floorBoardDisplay.cpp" line="851"/>
+        <location filename="floorBoardDisplay.cpp" line="835"/>
         <source>Please select a user bank to write this patch to and try again.</source>
         <translation>请选择一家用户银行写这个补丁对和再试一次。</translation>
     </message>
     <message>
-        <location filename="floorBoardDisplay.cpp" line="879"/>
+        <location filename="floorBoardDisplay.cpp" line="863"/>
         <source>You have chosen to write the patch permanently into </source>
         <translation>您选择永久地写补丁入 </translation>
     </message>
     <message>
-        <location filename="floorBoardDisplay.cpp" line="879"/>
+        <location filename="floorBoardDisplay.cpp" line="863"/>
         <source> memory.</source>
         <translation>记忆。</translation>
     </message>
     <message>
-        <location filename="floorBoardDisplay.cpp" line="881"/>
+        <location filename="floorBoardDisplay.cpp" line="865"/>
         <source>This will overwrite the patch currently stored at patch location&lt;br&gt;</source>
         <translation>这将重写补丁当前被存放在补丁地点&lt;br&gt;</translation>
     </message>
     <message>
-        <location filename="floorBoardDisplay.cpp" line="885"/>
+        <location filename="floorBoardDisplay.cpp" line="869"/>
         <source> and can&apos;t be undone.   Ensure Bulk Load Mode is selected</source>
         <translation>并且不能被取消。 保证大块加载方式被选择</translation>
     </message>
     <message>
-        <location filename="floorBoardDisplay.cpp" line="887"/>
+        <location filename="floorBoardDisplay.cpp" line="871"/>
         <source>Are you sure you want to continue?</source>
         <translation>是否是继续？</translation>
     </message>
     <message>
-        <location filename="floorBoardDisplay.cpp" line="925"/>
+        <location filename="floorBoardDisplay.cpp" line="909"/>
         <source>Writing to Patch</source>
         <translation>写给补丁</translation>
     </message>
@@ -845,17 +1116,17 @@
 <context>
     <name>initPatchListMenu</name>
     <message>
-        <location filename="initPatchListMenu.cpp" line="93"/>
+        <location filename="initPatchListMenu.cpp" line="94"/>
         <source>[ INIT Patches ]</source>
         <translation>[初始化补丁]</translation>
     </message>
     <message>
-        <location filename="initPatchListMenu.cpp" line="105"/>
+        <location filename="initPatchListMenu.cpp" line="106"/>
         <source>(My INIT) </source>
         <translation>(我的初始化) </translation>
     </message>
     <message>
-        <location filename="initPatchListMenu.cpp" line="150"/>
+        <location filename="initPatchListMenu.cpp" line="151"/>
         <source>init patch</source>
         <translation>初始化补丁</translation>
     </message>
@@ -863,299 +1134,345 @@
 <context>
     <name>mainWindow</name>
     <message>
-        <location filename="mainWindow.cpp" line="83"/>
-        <location filename="mainWindow.cpp" line="388"/>
+        <location filename="mainWindow.cpp" line="84"/>
+        <location filename="mainWindow.cpp" line="443"/>
         <source> Fx FloorBoard</source>
         <translation>Fx地板</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="148"/>
+        <location filename="mainWindow.cpp" line="149"/>
         <source>&amp;Open File...</source>
         <translation>&amp;打开文件…</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="149"/>
+        <location filename="mainWindow.cpp" line="150"/>
         <source>Ctrl+O</source>
         <translation>Ctrl+O</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="150"/>
+        <location filename="mainWindow.cpp" line="151"/>
         <source>Open an existing file</source>
         <translation>打开一个现有文件</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="153"/>
+        <location filename="mainWindow.cpp" line="154"/>
         <source>&amp;Save</source>
         <translation>&amp;除之外</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="154"/>
+        <location filename="mainWindow.cpp" line="155"/>
         <source>Ctrl+S</source>
         <translation>Ctrl+S</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="155"/>
+        <location filename="mainWindow.cpp" line="156"/>
         <source>Save the document to disk</source>
         <translation>除对盘的本文之外</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="158"/>
+        <location filename="mainWindow.cpp" line="159"/>
         <source>Save &amp;As...</source>
         <translation>&amp;除之外 …</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="159"/>
+        <location filename="mainWindow.cpp" line="160"/>
         <source>Ctrl+Shift+S</source>
         <translation>Ctrl+Shift+S</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="160"/>
+        <location filename="mainWindow.cpp" line="161"/>
         <source>Save the document under a new name</source>
         <translation>除本文之外以一个新的名字</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="163"/>
+        <location filename="mainWindow.cpp" line="164"/>
+        <source>&amp;Load Bulk Patch File to GT-6B...</source>
+        <translation>&amp;对GT-6B的装载大块补丁文件…</translation>
+    </message>
+    <message>
+        <location filename="mainWindow.cpp" line="165"/>
+        <source>Ctrl+B</source>
+        <translation>Ctrl+B</translation>
+    </message>
+    <message>
+        <location filename="mainWindow.cpp" line="166"/>
+        <source>Load Bulk Data to GT-6B</source>
+        <translation>对GT-6B的装载大块数据</translation>
+    </message>
+    <message>
+        <location filename="mainWindow.cpp" line="169"/>
+        <source>Save Bulk GT-3 Patches to File...</source>
+        <translation>除归档的大块GT-3补丁之外…</translation>
+    </message>
+    <message>
+        <location filename="mainWindow.cpp" line="170"/>
+        <source>Ctrl+G</source>
+        <translation>Ctrl+G</translation>
+    </message>
+    <message>
+        <location filename="mainWindow.cpp" line="171"/>
+        <source>Save Bulk Data to File</source>
+        <translation>除对文件的大块数据之外</translation>
+    </message>
+    <message>
+        <location filename="mainWindow.cpp" line="174"/>
         <source>&amp;Load GT System Data...</source>
         <translation>&amp;装载GT系统数据…</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="164"/>
+        <location filename="mainWindow.cpp" line="175"/>
         <source>Ctrl+L</source>
         <translation>Ctrl+L</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="165"/>
         <source>Load System Data to GT-10</source>
-        <translation>装载对GT-10的系统数据</translation>
+        <translation type="obsolete">装载对GT-10的系统数据</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="168"/>
+        <location filename="mainWindow.cpp" line="176"/>
+        <source>Load System Data to GT-6B</source>
+        <translation>装载对GT-6B的系统数据</translation>
+    </message>
+    <message>
+        <location filename="mainWindow.cpp" line="179"/>
         <source>Save GT System Data...</source>
         <translation>除GT系统数据之外…</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="169"/>
+        <location filename="mainWindow.cpp" line="180"/>
         <source>Ctrl+D</source>
         <translation>Ctrl+D</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="170"/>
+        <location filename="mainWindow.cpp" line="181"/>
         <source>Save System Data to File</source>
         <translation>除对文件的系统数据之外</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="173"/>
+        <location filename="mainWindow.cpp" line="184"/>
         <source>Upload patch to GT-Central</source>
         <translation>对GT中央的加载补丁</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="174"/>
-        <location filename="mainWindow.cpp" line="194"/>
-        <location filename="mainWindow.cpp" line="201"/>
+        <location filename="mainWindow.cpp" line="185"/>
+        <location filename="mainWindow.cpp" line="205"/>
+        <location filename="mainWindow.cpp" line="212"/>
         <source>........</source>
         <translation>........</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="178"/>
+        <location filename="mainWindow.cpp" line="189"/>
         <source>E&amp;xit</source>
         <translation>&amp;出口</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="179"/>
+        <location filename="mainWindow.cpp" line="190"/>
         <source>Ctrl+Q</source>
         <translation>Ctrl+Q</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="180"/>
+        <location filename="mainWindow.cpp" line="191"/>
         <source>Exit the application</source>
         <translation>退出应用</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="183"/>
+        <location filename="mainWindow.cpp" line="194"/>
         <source>&amp;Preferences</source>
         <translation>&amp; 特选</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="184"/>
+        <location filename="mainWindow.cpp" line="195"/>
         <source>Ctrl+P</source>
         <translation>Ctrl+P</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="185"/>
+        <location filename="mainWindow.cpp" line="196"/>
         <source>....</source>
         <translation>....</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="188"/>
+        <location filename="mainWindow.cpp" line="199"/>
         <source> Fx FloorBoard &amp;Help</source>
         <translation>Fx地板&amp; 帮助</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="189"/>
+        <location filename="mainWindow.cpp" line="200"/>
         <source>Ctrl+F1</source>
         <translation>Ctrl+F1</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="190"/>
+        <location filename="mainWindow.cpp" line="201"/>
         <source>.....</source>
         <translation>.....</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="193"/>
+        <location filename="mainWindow.cpp" line="204"/>
         <source> Fx FloorBoard &amp;Webpage</source>
         <translation>Fx地板&amp; 网页</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="197"/>
+        <location filename="mainWindow.cpp" line="208"/>
         <source>Make a &amp;Donation</source>
         <translation>做一&amp; 捐赠</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="200"/>
+        <location filename="mainWindow.cpp" line="211"/>
         <source>&amp;License</source>
         <translation>&amp; 执照</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="204"/>
+        <location filename="mainWindow.cpp" line="215"/>
         <source>&amp;About FxFloorBoard</source>
         <translation>&amp; 关于Fx地板</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="205"/>
+        <location filename="mainWindow.cpp" line="216"/>
         <source>Show the application&apos;s About box</source>
         <translation>显示关于箱子的应用</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="208"/>
+        <location filename="mainWindow.cpp" line="219"/>
         <source>About &amp;Qt</source>
         <translation>关于&amp; Qt</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="209"/>
+        <location filename="mainWindow.cpp" line="220"/>
         <source>Show the Qt library&apos;s About box</source>
         <translation>显示关于箱子的Qt图书馆</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="217"/>
+        <location filename="mainWindow.cpp" line="228"/>
         <source>&amp;File</source>
         <translation>&amp; 文件</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="229"/>
+        <location filename="mainWindow.cpp" line="243"/>
         <source>&amp;Tools</source>
         <translation>&amp; 工具</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="234"/>
+        <location filename="mainWindow.cpp" line="248"/>
         <source>&amp;Help</source>
         <translation>&amp; 帮助</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="252"/>
+        <location filename="mainWindow.cpp" line="266"/>
         <source>Idle</source>
         <translation>懒惰</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="272"/>
-        <location filename="mainWindow.cpp" line="372"/>
+        <location filename="mainWindow.cpp" line="286"/>
+        <location filename="mainWindow.cpp" line="427"/>
         <source>Choose a file</source>
         <translation>选择文件</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="274"/>
-        <location filename="mainWindow.cpp" line="308"/>
-        <location filename="mainWindow.cpp" line="343"/>
+        <location filename="mainWindow.cpp" line="288"/>
+        <location filename="mainWindow.cpp" line="322"/>
+        <location filename="mainWindow.cpp" line="357"/>
         <source>System Exclusive (*.syx)</source>
         <translation>系统独家新闻(*.syx)</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="306"/>
-        <location filename="mainWindow.cpp" line="341"/>
+        <location filename="mainWindow.cpp" line="320"/>
+        <location filename="mainWindow.cpp" line="355"/>
         <source>Save As</source>
         <translation>除之外</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="374"/>
+        <location filename="mainWindow.cpp" line="388"/>
+        <location filename="mainWindow.cpp" line="409"/>
+        <source>Ensure Bulk Mode connection is active and retry</source>
+        <translation>保证大块方式连接是活跃和再试</translation>
+    </message>
+    <message>
+        <location filename="mainWindow.cpp" line="390"/>
+        <location filename="mainWindow.cpp" line="411"/>
+        <source> not connected !!</source>
+        <translation>没连接!!</translation>
+    </message>
+    <message>
+        <location filename="mainWindow.cpp" line="429"/>
         <source>GT6B System Data File (*.GT6B_system_syx)</source>
         <translation>GT6B系统数据文件(*.GT6B_system_syx)</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="393"/>
+        <location filename="mainWindow.cpp" line="448"/>
         <source>You have chosen to load a SYSTEM DATA file.</source>
         <translation>您选择装载系统数据文件。</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="395"/>
+        <location filename="mainWindow.cpp" line="450"/>
         <source>This will overwrite the SYSTEM DATA currently stored in the GT-6B&lt;br&gt;</source>
         <translation>这将重写在GT-6B当前存放的系统数据</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="396"/>
+        <location filename="mainWindow.cpp" line="451"/>
         <source> and can&apos;t be undone.&lt;br&gt;</source>
         <translation>并且不能被取消。&lt;br&gt;</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="397"/>
+        <location filename="mainWindow.cpp" line="452"/>
         <source>Select &apos;NO&apos; to only update the Editor - Select &apos;YES&apos; to update the GT-6B memory&lt;br&gt;</source>
         <translation>只更新编辑的精选的没有-是选择更新GT-6B记忆&lt;br&gt;</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="400"/>
+        <location filename="mainWindow.cpp" line="455"/>
         <source>Are you sure you want to write to the GT-6B?</source>
         <translation>是否是给GT-6B写?</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="411"/>
-        <location filename="mainWindow.cpp" line="462"/>
+        <location filename="mainWindow.cpp" line="466"/>
+        <location filename="mainWindow.cpp" line="517"/>
         <source>DATA TRANSFER REQUIRED&lt;br&gt;</source>
         <translation>数据传送要求&lt;br&gt;</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="412"/>
-        <location filename="mainWindow.cpp" line="463"/>
+        <location filename="mainWindow.cpp" line="467"/>
+        <location filename="mainWindow.cpp" line="518"/>
         <source>Ensure connection is active, and&lt;br&gt;</source>
         <translation>保证连接是活跃的，和&lt;br&gt;</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="413"/>
-        <location filename="mainWindow.cpp" line="464"/>
+        <location filename="mainWindow.cpp" line="468"/>
+        <location filename="mainWindow.cpp" line="519"/>
         <source>Bulk Mode is set on the </source>
         <translation>大块方式在被设置 </translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="414"/>
-        <location filename="mainWindow.cpp" line="465"/>
+        <location filename="mainWindow.cpp" line="469"/>
+        <location filename="mainWindow.cpp" line="520"/>
         <source>and then set Bulk Mode here</source>
         <translation>然后被设置的大块方式这里</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="416"/>
-        <location filename="mainWindow.cpp" line="467"/>
+        <location filename="mainWindow.cpp" line="471"/>
+        <location filename="mainWindow.cpp" line="522"/>
         <source> Bulk Mode connection required!!</source>
         <translation>需要的大块方式连接!!</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="438"/>
+        <location filename="mainWindow.cpp" line="493"/>
         <source>Save System Data</source>
         <translation>除系统数据之外</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="440"/>
+        <location filename="mainWindow.cpp" line="495"/>
         <source>System Exclusive File (*.GT6B_system_syx)</source>
         <translation>系统专属文件(*.GT6B_system_syx)</translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="553"/>
+        <location filename="mainWindow.cpp" line="608"/>
         <source> Fx FloorBoard - About</source>
         <translation>Fx地板- </translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="554"/>
+        <location filename="mainWindow.cpp" line="609"/>
         <source> Fx FloorBoard, </source>
         <translation>Fx地板， </translation>
     </message>
     <message>
-        <location filename="mainWindow.cpp" line="554"/>
+        <location filename="mainWindow.cpp" line="609"/>
         <source>version</source>
         <translation>版本</translation>
     </message>
@@ -1262,69 +1579,69 @@
 <context>
     <name>midiIO</name>
     <message>
-        <location filename="midiIO.cpp" line="76"/>
-        <location filename="midiIO.cpp" line="85"/>
-        <location filename="midiIO.cpp" line="240"/>
+        <location filename="midiIO.cpp" line="75"/>
+        <location filename="midiIO.cpp" line="84"/>
+        <location filename="midiIO.cpp" line="245"/>
         <source>Midi Output Error</source>
         <translation>密地输出错误</translation>
     </message>
     <message>
-        <location filename="midiIO.cpp" line="76"/>
-        <location filename="midiIO.cpp" line="126"/>
+        <location filename="midiIO.cpp" line="75"/>
+        <location filename="midiIO.cpp" line="125"/>
         <source>port error</source>
         <translation>港错误</translation>
     </message>
     <message>
-        <location filename="midiIO.cpp" line="85"/>
-        <location filename="midiIO.cpp" line="133"/>
-        <location filename="midiIO.cpp" line="201"/>
-        <location filename="midiIO.cpp" line="240"/>
-        <location filename="midiIO.cpp" line="314"/>
+        <location filename="midiIO.cpp" line="84"/>
+        <location filename="midiIO.cpp" line="132"/>
+        <location filename="midiIO.cpp" line="206"/>
+        <location filename="midiIO.cpp" line="245"/>
+        <location filename="midiIO.cpp" line="319"/>
         <source>data error</source>
         <translation>数据错误</translation>
     </message>
     <message>
-        <location filename="midiIO.cpp" line="92"/>
-        <location filename="midiIO.cpp" line="139"/>
+        <location filename="midiIO.cpp" line="91"/>
+        <location filename="midiIO.cpp" line="138"/>
         <source>un-named midi device: </source>
         <translation>无提名的密地设备： </translation>
     </message>
     <message>
-        <location filename="midiIO.cpp" line="101"/>
-        <location filename="midiIO.cpp" line="149"/>
+        <location filename="midiIO.cpp" line="100"/>
+        <location filename="midiIO.cpp" line="148"/>
         <source>no midi device available</source>
         <translation>可利用没有密地的设备</translation>
     </message>
     <message>
-        <location filename="midiIO.cpp" line="126"/>
-        <location filename="midiIO.cpp" line="133"/>
-        <location filename="midiIO.cpp" line="314"/>
+        <location filename="midiIO.cpp" line="125"/>
+        <location filename="midiIO.cpp" line="132"/>
+        <location filename="midiIO.cpp" line="319"/>
         <source>Midi Input Error</source>
         <translation>密地输入错误</translation>
     </message>
     <message>
-        <location filename="midiIO.cpp" line="201"/>
+        <location filename="midiIO.cpp" line="206"/>
         <source>Syx Output Error</source>
         <translation>系统专属输出错误</translation>
     </message>
     <message>
-        <location filename="midiIO.cpp" line="464"/>
+        <location filename="midiIO.cpp" line="469"/>
         <source>identity request</source>
         <translation>身分请求</translation>
     </message>
     <message>
-        <location filename="midiIO.cpp" line="467"/>
+        <location filename="midiIO.cpp" line="472"/>
         <source>patch request</source>
         <translation>补丁请求</translation>
     </message>
     <message>
-        <location filename="midiIO.cpp" line="471"/>
+        <location filename="midiIO.cpp" line="476"/>
         <source>system request</source>
         <translation>系统请求</translation>
     </message>
     <message>
-        <location filename="midiIO.cpp" line="481"/>
-        <location filename="midiIO.cpp" line="497"/>
+        <location filename="midiIO.cpp" line="486"/>
+        <location filename="midiIO.cpp" line="502"/>
         <source>no midi device set</source>
         <translation>没有密地设备集合</translation>
     </message>
@@ -1332,37 +1649,37 @@
 <context>
     <name>preferencesDialog</name>
     <message>
-        <location filename="preferencesDialog.cpp" line="58"/>
+        <location filename="preferencesDialog.cpp" line="59"/>
         <source>Ok</source>
         <translation>好</translation>
     </message>
     <message>
-        <location filename="preferencesDialog.cpp" line="59"/>
+        <location filename="preferencesDialog.cpp" line="60"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="preferencesDialog.cpp" line="83"/>
+        <location filename="preferencesDialog.cpp" line="84"/>
         <source>GT-6B Fx FloorBoard - Preferences</source>
         <translation>GT-6B Fx地板-特选</translation>
     </message>
     <message>
-        <location filename="preferencesDialog.cpp" line="90"/>
+        <location filename="preferencesDialog.cpp" line="91"/>
         <source>General</source>
         <translation>一般</translation>
     </message>
     <message>
-        <location filename="preferencesDialog.cpp" line="96"/>
+        <location filename="preferencesDialog.cpp" line="97"/>
         <source>Midi</source>
         <translation>密地</translation>
     </message>
     <message>
-        <location filename="preferencesDialog.cpp" line="102"/>
+        <location filename="preferencesDialog.cpp" line="103"/>
         <source>Window</source>
         <translation>窗口</translation>
     </message>
     <message>
-        <location filename="preferencesDialog.cpp" line="108"/>
+        <location filename="preferencesDialog.cpp" line="109"/>
         <source>Language</source>
         <translation>语言</translation>
     </message>
@@ -1370,27 +1687,27 @@
 <context>
     <name>renameDialog</name>
     <message>
-        <location filename="renameDialog.cpp" line="33"/>
+        <location filename="renameDialog.cpp" line="34"/>
         <source>Name:</source>
         <translation>名字：</translation>
     </message>
     <message>
-        <location filename="renameDialog.cpp" line="46"/>
+        <location filename="renameDialog.cpp" line="47"/>
         <source>Insert :</source>
         <translation>插入物：</translation>
     </message>
     <message>
-        <location filename="renameDialog.cpp" line="52"/>
+        <location filename="renameDialog.cpp" line="53"/>
         <source>Cancel</source>
         <translation>取消</translation>
     </message>
     <message>
-        <location filename="renameDialog.cpp" line="53"/>
+        <location filename="renameDialog.cpp" line="54"/>
         <source>Apply</source>
         <translation>申请</translation>
     </message>
     <message>
-        <location filename="renameDialog.cpp" line="58"/>
+        <location filename="renameDialog.cpp" line="59"/>
         <source>Rename patch</source>
         <translation>给补丁改名</translation>
     </message>
@@ -1398,23 +1715,23 @@
 <context>
     <name>stompBox</name>
     <message>
-        <location filename="stompBox.cpp" line="631"/>
-        <location filename="stompBox.cpp" line="660"/>
+        <location filename="stompBox.cpp" line="632"/>
+        <location filename="stompBox.cpp" line="661"/>
         <source>Noise Suppressor</source>
         <translation>噪声遏抑器</translation>
     </message>
     <message>
-        <location filename="stompBox.cpp" line="664"/>
+        <location filename="stompBox.cpp" line="665"/>
         <source>Foot Volume</source>
         <translation>脚容量</translation>
     </message>
     <message>
-        <location filename="stompBox.cpp" line="678"/>
+        <location filename="stompBox.cpp" line="679"/>
         <source>Speaker Cabinet</source>
         <translation>报告人内阁</translation>
     </message>
     <message>
-        <location filename="stompBox.cpp" line="682"/>
+        <location filename="stompBox.cpp" line="683"/>
         <source>Pre Amplifier</source>
         <translation>前放大器</translation>
     </message>

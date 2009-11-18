@@ -95,10 +95,12 @@ public:
 	QString dBug;
 	void systemWrite();
 	void systemDataRequest();
+	int patchListValue;	
 	QList<QString> temp1_sysxMsg;
 	QList<QString> temp2_sysxMsg;
 	QList<QString> temp3_sysxMsg;
 	QList<QString> temp4_sysxMsg;
+	QString bulk;
 
 public slots:
 	void errorSignal(QString errorType, QString errorMsg);

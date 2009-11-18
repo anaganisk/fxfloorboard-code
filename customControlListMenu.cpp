@@ -49,7 +49,7 @@ customControlListMenu::customControlListMenu(QWidget *parent,
 	hex0.remove("System");
   items = midiTable->getMidiMap("System", hex0, hex1, hex2, hex3);
   };
-	QString labeltxt = items.customdesc;
+	QString labeltxt = items.customdesc;   
 	
 	this->label->setUpperCase(true);
 	this->label->setText(labeltxt);
@@ -140,7 +140,7 @@ void customControlListMenu::setComboBox()
   };
    
     QString longestItem = "";
-	int itemcount;
+	int itemcount = 0;
 	for(itemcount=0;itemcount<items.level.size();itemcount++ )
 	{
 		QString item;
@@ -155,6 +155,7 @@ void customControlListMenu::setComboBox()
 			item = desc;
 		};		
 		if(longestItem.size() < item.size()) longestItem = item; 
+		item = item.simplified().remove("<br>");
 		this->controlListComboBox->addItem(item);
 	};
 	int maxWidth = QFontMetrics( this->font() ).width( longestItem );
@@ -162,7 +163,7 @@ void customControlListMenu::setComboBox()
 #ifdef Q_OS_WIN
  	this->controlListComboBox->setFixedWidth(maxWidth + 30);
 #else
-  this->controlListComboBox->setFixedWidth(maxWidth + 10);
+  this->controlListComboBox->setFixedWidth(maxWidth + 20);
 #endif
   this->controlListComboBox->setFixedHeight(15);
 	this->controlListComboBox->setEditable(false);
