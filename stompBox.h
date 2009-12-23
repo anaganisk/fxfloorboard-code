@@ -119,7 +119,7 @@ signals:
 	void pathSwitchSignal();
 	void pathUpdateSignal();
 	void updateStompBoxes();
-	void updateSignal_2();
+	//void updateSignal_2();
 
 protected:
 	void paintEvent(QPaintEvent *event);

@@ -258,22 +258,18 @@ void mainWindow::createMenus()
   QMenu *fileMenu = new QMenu(tr("&File"), this);
 	fileMenu->addAction(openAct);
 	fileMenu->addSeparator();
-	fileMenu->addAction(saveAct);
-	fileMenu->addAction(saveAsAct);
-	fileMenu->addSeparator();
-	//fileMenu->addAction(importSMFAct);
-	fileMenu->addAction(exportSMFAct);
-	fileMenu->addSeparator();
-	//fileMenu->addAction(openGXBAct);
+        //fileMenu->addAction(saveAct);
+	fileMenu->addAction(saveAsAct);	
+	fileMenu->addAction(exportSMFAct);	
 	fileMenu->addAction(saveGXBAct);
+        fileMenu->addSeparator();
+        fileMenu->addAction(bulkLoadAct);
+        fileMenu->addAction(bulkSaveAct);
 	fileMenu->addSeparator();
 	fileMenu->addAction(systemLoadAct);
 	fileMenu->addAction(systemSaveAct);
-	fileMenu->addSeparator();
-	fileMenu->addAction(bulkLoadAct);
-	fileMenu->addAction(bulkSaveAct);
-	fileMenu->addSeparator();
-  fileMenu->addAction(printAct);
+	//fileMenu->addSeparator();
+  //fileMenu->addAction(printAct);
 	fileMenu->addSeparator();
   fileMenu->addAction(exitAct);
 	menuBar->addMenu(fileMenu);
@@ -785,8 +781,8 @@ void mainWindow::upload()
 
 void mainWindow::summaryPage()
 {
-   summaryDialog *summary = new summaryDialog();
-   summary->show();
+  // summaryDialog *summary = new summaryDialog();
+  // summary->show();
 };
 void mainWindow::donate()
 {
@@ -822,7 +818,7 @@ void mainWindow::closeEvent(QCloseEvent* ce)
 
 void mainWindow::print()
  {
-   #ifndef QT_NO_PRINTER
+  /* #ifndef QT_NO_PRINTER
     
      QPrinter printer;
      QPrintDialog *dialog = new QPrintDialog(&printer, this);
@@ -831,5 +827,5 @@ void mainWindow::print()
          return;
 
      //fxsBoard->print(&printer);
- #endif
+ #endif    */
  };

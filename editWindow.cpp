@@ -25,7 +25,7 @@
 #include "MidiTable.h"
 #include "SysxIO.h"
 #include "globalVariables.h"
-//#include "floorBoardDisplay.h"
+#include "bulkEditDialog.h"
 
 editWindow::editWindow(QWidget *parent)
     : QWidget(parent)
@@ -50,6 +50,12 @@ editWindow::editWindow(QWidget *parent)
 	this->pageComboBox->setEditable(false);
 	this->pageComboBox->setFrame(false);
 	this->pageComboBox->setVisible(false);
+	
+	this->bulkEdit_Button = new customControlLabel;
+	this->bulkEdit_Button->setButton(true);
+	this->bulkEdit_Button->setImage(":/images/pushbutton_dark.png");
+	this->bulkEdit_Button->setText(tr("Bulk Write"));
+	this->bulkEdit_Button->setAlignment(Qt::AlignCenter); 
 
   /*this->swap_Button = new customControlLabel;
 	this->swap_Button->setButton(true);
@@ -92,6 +98,7 @@ editWindow::editWindow(QWidget *parent)
 	this->closeButton->setImage(":/images/closebutton.png");
 	
 	QHBoxLayout *buttonLayout = new QHBoxLayout;
+	buttonLayout->addWidget(this->bulkEdit_Button);
 	//buttonLayout->addWidget(this->swap_Button);
 	buttonLayout->addWidget(this->temp1_Button);
 	buttonLayout->addWidget(this->temp2_Button);
@@ -134,6 +141,7 @@ editWindow::editWindow(QWidget *parent)
 
 	QObject::connect(this->pageComboBox, SIGNAL(activated(int)), this->pagesWidget, SLOT(setCurrentIndex(int)));
 	
+	QObject::connect(this->bulkEdit_Button, SIGNAL(mouseReleased()), this, SLOT(bulkEdit()));
 	//QObject::connect(this->swap_Button, SIGNAL(mouseReleased()), this, SLOT(hide()));
 	QObject::connect(this->temp1_Button, SIGNAL(mouseReleased()), this, SLOT(temp1()));
 	QObject::connect(this->temp2_Button, SIGNAL(mouseReleased()), this, SLOT(temp2()));
@@ -203,6 +211,7 @@ void editWindow::addPage(QString hex1, QString hex2, QString hex3, QString hex4,
    
    if (this->area != "Structure" || this->temp_hex1.isEmpty() || this->temp_hex1.contains("void"))
     {
+      this->bulkEdit_Button->hide();
       this->temp1_Button->hide();
       this->temp2_Button->hide();
       this->temp3_Button->hide();
@@ -300,6 +309,27 @@ void editWindow::hideWindow()
 {
   QApplication::beep();
   emit hide();
+};
+
+void editWindow::bulkEdit()
+{
+     SysxIO *sysxIO = SysxIO::Instance();
+     if (sysxIO->isConnected())
+	       {
+	
+		bulkEditDialog *editDialog = new bulkEditDialog(); 
+            editDialog->exec(); 
+	}
+         else
+             {
+              QString snork = tr("Ensure connection is active and retry");
+              QMessageBox *msgBox = new QMessageBox();
+			        msgBox->setWindowTitle(deviceType + tr(" not connected !!"));
+		        	msgBox->setIcon(QMessageBox::Information);
+		        	msgBox->setText(snork);
+		        	msgBox->setStandardButtons(QMessageBox::Ok);
+		        	msgBox->exec(); 
+              }; 
 };
 
 void editWindow::temp1()

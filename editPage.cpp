@@ -23,6 +23,7 @@
 
 #include "editPage.h"
 #include <QLabel>
+#include "bulkEditDialog.h"
 #include "customSwitch.h"
 #include "customControlKnob.h"
 #include "customControlTarget.h"

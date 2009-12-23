@@ -54,9 +54,9 @@ const int patchPerBank = 4;			// Number of patches in a bank.
 const int bankSize = 100;       // Number of patches in a midi bank before bank change message is required.
 
 /* Midi Send & Receive */
-const int patchPackets = 27;	 // number of sysx packets "F0....F7" which make up a patch.
-const int patchReplySize = 1530;    // size of bytes in a patch before trimming.
 const int patchSize = 1495;    // size of bytes in a patch after trimming.
+const int fullPatchSize = 1777;    // size of bytes in a patch with user text data.
+const int patchReplySize = 1530;    // size of bytes in a patch before trimming.
 const int systemSize = 2261;    // size of bytes for system data.
 const int nameReplySize = 29;    // size of bytes for name data.
 const QString patchRequestDataSize = "00000D64";

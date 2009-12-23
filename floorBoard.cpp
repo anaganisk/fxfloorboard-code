@@ -104,8 +104,8 @@ floorBoard::floorBoard(QWidget *parent,
 	this->editDialog->hide();
 	this->oldDialog = this->editDialog;
 
-	floorBoardDisplay *display2 = new floorBoardDisplay(this);
-	display2->setPos(liberainPos);
+	//floorBoardDisplay *display2 = new floorBoardDisplay(this);
+	//display2->setPos(liberainPos);
   
 	QObject::connect(this, SIGNAL( resizeSignal(QRect) ), bankList, SLOT( updateSize(QRect) ) );
 	QObject::connect(display, SIGNAL(connectedSignal()), bankList, SLOT(connectedSignal()));
@@ -123,7 +123,7 @@ floorBoard::floorBoard(QWidget *parent,
 	QObject::connect(panelBar, SIGNAL(showDragBar(QPoint)), this, SIGNAL(showDragBar(QPoint)));
 	QObject::connect(panelBar, SIGNAL(hideDragBar()), this, SIGNAL(hideDragBar()));
 	
-	QObject::connect( editDialog, SIGNAL(updateSignal_2()), this->parent(), SIGNAL(updateSignal()));
+	//QObject::connect( editDialog, SIGNAL(updateSignal_2()), this->parent(), SIGNAL(updateSignal()));
 
   bool ok;
 	Preferences *preferences = Preferences::Instance();
@@ -247,8 +247,8 @@ void floorBoard::dragEnterEvent(QDragEnterEvent *event)
 	QString uri(data);
 	
 	if (event->mimeData()->hasFormat("application/x-stompbox") ||
-		uri.contains(".syx", Qt::CaseInsensitive) &&
-		event->answerRect().intersects(this->geometry())) 
+                (uri.contains(".syx", Qt::CaseInsensitive) &&
+                event->answerRect().intersects(this->geometry())))
 	{
       if (children().contains(event->source()) ) 
 		  {
@@ -268,8 +268,8 @@ void floorBoard::dragMoveEvent(QDragMoveEvent *event)
 	QString uri(data);
 	
 	if ( event->mimeData()->hasFormat("application/x-stompbox") ||
-		uri.contains(".syx", Qt::CaseInsensitive) &&
-		event->answerRect().intersects(this->geometry()) ) 
+                (uri.contains(".syx", Qt::CaseInsensitive) &&
+                event->answerRect().intersects(this->geometry()) ))
 	{
         if (children().contains(event->source())) 
 		{

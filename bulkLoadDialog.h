@@ -48,6 +48,7 @@ signals:
   void setStatusMessage(QString message);
   void setStatusProgress(int value);
   void setStatusSymbol(int value);
+  void setdeBugStatusMessage(QString message);
                     
 public slots:
   void sendData();
@@ -94,6 +95,7 @@ private:
 	QByteArray sysxPatches;
 	QList<QString> patchList;	 
 	QList<QString> userList;
+	bool failed;
 };
 
 #endif // BULKLOADDIALOG_H

@@ -50,7 +50,7 @@ public:
 signals:
 	void dialogUpdateSignal();
 	void updateSignal();
-	void updateSignal_2();
+	//void updateSignal_2();
 	void updateDisplay(QString text);
 	void closeWindow();
 	
@@ -59,6 +59,7 @@ public slots:
 	void pageUpdateSignal();
 	virtual void closeEvent(QCloseEvent* ce);
 	void hideWindow();
+	void bulkEdit();
 	void temp1();
 	void temp2();
 	void temp3();
@@ -79,6 +80,7 @@ private:
 	QLabel* comboBoxLabel;
 	QStackedWidget* pagesWidget;
 	QComboBox* pageComboBox;
+	customControlLabel* bulkEdit_Button;
 	//customControlLabel* swap_Button;
 	customControlLabel* temp1_Button;
 	customControlLabel* temp2_Button;

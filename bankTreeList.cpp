@@ -57,7 +57,7 @@ bankTreeList::bankTreeList(QWidget *parent)
 	QObject::connect(treeList, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(setItemClicked(QTreeWidgetItem*, int)));
 	
 	QObject::connect(treeList, SIGNAL(itemDoubleClicked(QTreeWidgetItem*, int)), this, SLOT(setItemDoubleClicked(QTreeWidgetItem*, int)));
-
+	
 	QObject::connect(this, SIGNAL(updateSignal()), this->parent(), SIGNAL(updateSignal()));
 	
 	QVBoxLayout *treeListLayout = new QVBoxLayout;
@@ -434,6 +434,7 @@ QTreeWidget* bankTreeList::newTreeList()
  * Expands and colapses on a single click and sets patch sellection.
  ****************************************************************************/
 void bankTreeList::setItemClicked(QTreeWidgetItem *item, int column)
+//void bankTreeList::setItemDoubleClicked(QTreeWidgetItem *item, int column)
 {
 	if(item->childCount() != 0 && item->text(0) != "Temp")
 	{
@@ -477,8 +478,8 @@ void bankTreeList::setItemClicked(QTreeWidgetItem *item, int column)
 			if (item->text(0) != "Temp" && !item->text(0).contains("QFX"))
 			{ sysxIO->requestPatchChange(bank, patch); }; // extra to try patch change
 			sysxIO->setRequestName(item->text(0));	// Set the name of the patch we have sellected in case we load it.
-			sysxIO->setBank(bank);
-			sysxIO->setPatch(patch);
+			//sysxIO->setBank(bank);
+			//sysxIO->setPatch(patch);
 			emit patchSelectSignal(bank, patch);
 		};
 		
@@ -490,6 +491,7 @@ void bankTreeList::setItemClicked(QTreeWidgetItem *item, int column)
  * loaded into the temp buffer and will tell to request the data afterwards.
  ****************************************************************************/
 void bankTreeList::setItemDoubleClicked(QTreeWidgetItem *item, int column)
+//void bankTreeList::setItemClicked(QTreeWidgetItem *item, int column)
 {	
 	int bank = 0;
 	int patch = 0;
@@ -681,7 +683,7 @@ void bankTreeList::updatePatch(QString replyMsg)
 	};
 	if(!replyMsg.isEmpty() && replyMsg.size()/2 != 1777)
 	{
-		emit notConnectedSignal();				// No message returned so connection must be lost.
+		//emit notConnectedSignal();				// No message returned so connection must be lost.
 		/* NO-REPLY WARNING */
 	QMessageBox *msgBox = new QMessageBox();
 	msgBox->setWindowTitle(QObject::tr("Warning - Patch data received is incorrect!"));
