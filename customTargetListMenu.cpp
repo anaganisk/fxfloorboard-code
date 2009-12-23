@@ -4,7 +4,7 @@
 ** Copyright (C) 2005, 2006, 2007 Uco Mesdag. 
 ** All rights reserved.
 **
-** This file is part of "GT-10B Fx FloorBoard".
+** This file is part of "GT-Pro Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -103,7 +103,7 @@ customTargetListMenu::customTargetListMenu(QWidget *parent,
 		
 	};
 
-	QObject::connect(this->parent(), SIGNAL( dialogUpdateSignal() ), this, SLOT( dialogUpdateSignal() ));
+//	QObject::connect(this->parent(), SIGNAL( dialogUpdateSignal() ), this, SLOT( dialogUpdateSignal() ));
 
 	QObject::connect(this, SIGNAL( updateSignal() ), this->parent(), SIGNAL( updateSignal() ));
 
@@ -130,7 +130,7 @@ void customTargetListMenu::paintEvent(QPaintEvent *)
 }
 
 void customTargetListMenu::setComboBox()
-{
+{    
 	this->hex1 = hex1;
 	this->hex2 = hex2;
 	this->hex3 = hex3;
@@ -141,18 +141,15 @@ void customTargetListMenu::setComboBox()
 	Midi item_1;
 	Midi item_2;
 	Midi item_3;
-	Midi item_4;
 	item_0 = midiTable->getMidiMap("Structure", hex1, hex2, hex3, "00");
 	item_1 = midiTable->getMidiMap("Structure", hex1, hex2, hex3, "01");
 	item_2 = midiTable->getMidiMap("Structure", hex1, hex2, hex3, "02");
 	item_3 = midiTable->getMidiMap("Structure", hex1, hex2, hex3, "03");
-	item_4 = midiTable->getMidiMap("Structure", hex1, hex2, hex3, "04");
 	items = item_0;
-	
+	 
   QString longestItem = "";
 	int itemcount;
 	int itemSize = items.level.size();
-	int itemTotal = 0;
 	for(itemcount=0;itemcount<itemSize;itemcount++ )
 	{
 		QString item;
@@ -168,8 +165,6 @@ void customTargetListMenu::setComboBox()
 		if(longestItem.size() < item.size()) longestItem = item; 
 		this->controlListComboBox->addItem(item);
 	};
-	
-	 itemTotal = itemTotal + itemcount;
 	 items = item_1;
 	itemSize = items.level.size();
 	for(itemcount=0;itemcount<itemSize;itemcount++ )
@@ -188,7 +183,6 @@ void customTargetListMenu::setComboBox()
 		this->controlListComboBox->addItem(item);
 	};
 	
-	itemTotal = itemTotal + itemcount;
 	 items = item_2;
 	itemSize = items.level.size();
 	for(itemcount=0;itemcount<itemSize;itemcount++ )
@@ -207,8 +201,7 @@ void customTargetListMenu::setComboBox()
 		this->controlListComboBox->addItem(item);
 	};
 	
-	itemTotal = itemTotal + itemcount;
-	items = item_3;
+	  items = item_3;
 	itemSize = items.level.size();
 	for(itemcount=0;itemcount<itemSize;itemcount++ )
 	{
@@ -224,28 +217,9 @@ void customTargetListMenu::setComboBox()
 		};		
 		if(longestItem.size() < item.size()) longestItem = item; 
 		this->controlListComboBox->addItem(item);
-	};
+	};     
 	
-	itemTotal = itemTotal + itemcount;
-	items = item_4;
-	itemSize = items.level.size();
-	for(itemcount=0;itemcount<itemSize;itemcount++ )
-	{
-		QString item;
-		QString desc = items.level.at(itemcount).name;
-		if(!desc.isEmpty())
-		{
-			item = desc;
-		}
-		else
-		{
-			item = "Out of Range";
-		};		
-		if(longestItem.size() < item.size()) longestItem = item; 
-		this->controlListComboBox->addItem(item);
-	};
 	
-	itemTotal = itemTotal + itemcount;
 	int maxWidth = QFontMetrics( this->font() ).width( longestItem );
 	if(maxWidth < 30) { maxWidth = 30; };
 
@@ -254,11 +228,11 @@ void customTargetListMenu::setComboBox()
   this->controlListComboBox->setFixedHeight(15);
 	this->controlListComboBox->setEditable(false);
 	this->controlListComboBox->setFrame(false);
-	this->controlListComboBox->setMaxVisibleItems(itemTotal);
-}
+	this->controlListComboBox->setMaxVisibleItems(itemcount);         
+};
 
 void customTargetListMenu::valueChanged(int index)
-{
+{   
 	QString valueHex = QString::number(index, 16).toUpper();
 	if(valueHex.length() < 2) valueHex.prepend("0");
 	
@@ -310,8 +284,8 @@ void customTargetListMenu::valueChanged(int index)
   
   emit updateTarget(hexMsb, hex2, hexLsb);                       // hexMsb & hexLsb are lookup address for label value
   emit updateTarget(hexMsb, hex2, hexLsb);
-  emit updateSignal();
-}
+  emit updateSignal();      
+};
 
 void customTargetListMenu::dialogUpdateSignal()
 {
@@ -319,6 +293,6 @@ void customTargetListMenu::dialogUpdateSignal()
 	
 	int index = sysxIO->getSourceValue(this->area, this->hex1, this->hex2, this->hex3);
 	this->controlListComboBox->setCurrentIndex(index);
-	//this->valueChanged(index); 
-}
+	//this->valueChanged(index);      
+};
 

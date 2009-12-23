@@ -1253,7 +1253,7 @@ void SysxIO::systemReply(QString replyMsg)
 		i=i+2;
     }; 
   };    
-	replyMsg = reBuild.simplified().toUpper().remove("0X").remove(" ");
+	replyMsg = reBuild.simplified().toUpper();
 				    
 		QString area = "System";
 		setFileSource(area, replyMsg);		// Set the source to the data received.
@@ -1350,8 +1350,6 @@ void SysxIO::writeToBuffer()
 		SLEEP(150);		
 		emit setStatusProgress(42);
 		SLEEP(150); 
-	emit setStatusMessage(tr("Ready"));
-	setDeviceReady(true);
 };
 
 

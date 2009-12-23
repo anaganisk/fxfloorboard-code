@@ -166,7 +166,7 @@ void menuPage::systemReply(QString replyMsg)
 	{ 
 	if(replyMsg.size()/2 == 4402)
 		{
-		replyMsg.remove(27, 26);
+		replyMsg.remove(54, 26);
   			
   QString reBuild = "";       // Add correct checksum to patch strings 
   QString sysxEOF = "";	

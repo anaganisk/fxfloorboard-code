@@ -2,7 +2,7 @@
 
 ; HM NIS Edit Wizard helper defines
 !define PRODUCT_NAME "GT-8FxFloorBoard"
-!define PRODUCT_VERSION "20091020"
+!define PRODUCT_VERSION "20091224"
 !define PRODUCT_PUBLISHER "Gumtown"
 !define PRODUCT_WEB_SITE "http://gtx.tinfoilmusic.net"
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\gt-8fxfloorboard.exe"
@@ -26,7 +26,7 @@
 ; Instfiles page
 !insertmacro MUI_PAGE_INSTFILES
 ; Finish page
-!define MUI_FINISHPAGE_RUN "$INSTDIR\gt-8fxfloorboard.exe"
+!define MUI_FINISHPAGE_RUN "$INSTDIR\GT-8FxFloorBoard.exe"
 !insertmacro MUI_PAGE_FINISH
 
 ; Uninstaller pages
@@ -304,7 +304,6 @@ Section "MainSection" SEC01
   File "saved patches\Bands\classic maiden2.syx"
   File "saved patches\Bands\Classic Slayer DRV.syx"
   File "saved patches\Bands\classic's pantera edit.syx"
-  File "saved patches\Bands\Classic+Slayer+DRV.syx"
   File "saved patches\Bands\classicbudgie.syx"
   File "saved patches\Bands\classicfamilyghost.syx"
   File "saved patches\Bands\cliffs_of_dover.syx"
@@ -1805,7 +1804,6 @@ Section "MainSection" SEC01
   File "saved patches\Switchfoot.syx"
   File "saved patches\synthswell.syx"
   File "saved patches\TDR_bulk_09-02-2007.syx"
-  File "saved patches\the heroes.syx"
   File "saved patches\the_tripp Auto Solo.syx"
   File "saved patches\the_tripp Bark At The Moon.syx"
   File "saved patches\the_tripp Biwa Lute.syx"

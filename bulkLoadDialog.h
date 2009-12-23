@@ -94,6 +94,7 @@ private:
 	QByteArray sysxPatches;
 	QList<QString> patchList;	 
 	QList<QString> userList;
+	bool failed;
 };
 
 #endif // BULKLOADDIALOG_H

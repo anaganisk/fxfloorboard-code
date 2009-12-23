@@ -312,7 +312,7 @@ void stompbox_fx2::setEditPages()
 	editDetails()->page()->addStackControl();
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 
-	editDetails()->page()->insertStackField(1, 0, 1, 2, 1);
+	editDetails()->page()->insertStackField(1, 0, 1, 2, 1);   
 	editDetails()->page()->addStackField();
 	/* OSC */
 	editDetails()->page()->newStackField(1);
@@ -444,15 +444,15 @@ void stompbox_fx2::setEditPages()
 
 	// HR 
 	editDetails()->page()->newStackField(0);
-	editDetails()->page()->newGroupBox("Effect");
-	editDetails()->page()->addComboBox(1, 0, 1, 1, "0A", "00", "02");	
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
-
+	editDetails()->page()->newGroupBox("Effect"); 
+	editDetails()->page()->addComboBox(1, 0, 1, 1, "0A", "00", "02");	  
+	editDetails()->page()->addGroupBox(0, 0, 1, 1);  
+   
 	editDetails()->page()->newGroupBox("Harmonist");
-	editDetails()->page()->newGroupBox("Voice 1");
+	editDetails()->page()->newGroupBox("Voice 1"); 
 	editDetails()->page()->addKnob(0, 0, 1, 1, "0A", "00", "03", "normal","right", 50);
 	editDetails()->page()->addKnob(1, 0, 1, 1, "0A", "00", "04", "normal","right", 105);
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
+	editDetails()->page()->addGroupBox(0, 0, 1, 1); 
 	
 	editDetails()->page()->newGroupBox("Voice 2");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "0A", "00", "08", "normal","right", 50);
@@ -465,17 +465,17 @@ void stompbox_fx2::setEditPages()
   
   editDetails()->page()->newGroupBox("Harmony");
 	editDetails()->page()->addKnob(1, 2, 1, 1, "0A", "00", "0C", "normal","right", 50);
-	editDetails()->page()->addGroupBox(1, 1, 1, 1);
-	editDetails()->page()->addGroupBox(0, 1, 1, 1);
+	editDetails()->page()->addGroupBox(1, 1, 1, 1);   
+	editDetails()->page()->addGroupBox(0, 1, 1, 1);   
 
 	editDetails()->page()->newGroupBox("Level");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "0A", "00", "07");
 	editDetails()->page()->addKnob(2, 0, 1, 1, "0A", "00", "0B");
 	editDetails()->page()->addKnob(1, 1, 1, 1, "0A", "00", "0D");
-	editDetails()->page()->addGroupBox(0, 2, 2, 1);
-	editDetails()->page()->addStackField();
+	editDetails()->page()->addGroupBox(0, 2, 2, 1);  
+	editDetails()->page()->addStackField();  
 	
-
+  
 	// PS 
 	editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Effect");
@@ -743,5 +743,5 @@ void stompbox_fx2::setEditPages()
 	editDetails()->page()->newGroupBox("Level");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "0A", "00", "5B");
 	editDetails()->page()->addGroupBox(0, 2, 1, 1);
-	editDetails()->page()->addStackField();   
+	editDetails()->page()->addStackField();    
 };
