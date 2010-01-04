@@ -31,19 +31,9 @@
 #include "globalVariables.h"
 
 
-// Platform-dependent sleep routines.
-#ifdef Q_OS_WIN
-  #include <windows.h>
-  #define SLEEP( milliseconds ) Sleep( (DWORD) milliseconds ) 
-#else // Unix variants & Mac
-  #include <unistd.h>
-  #define SLEEP( milliseconds ) usleep( (unsigned long) (milliseconds * 1000.0) )
-#endif
-
 bulkLoadDialog::bulkLoadDialog()
 { 
-
-  //Qt::WindowStaysOnTopHint;
+  failed = true;
   QLabel *startListLabel = new QLabel(tr("Starting from"));
   this->startPatchCombo = new QComboBox(this);
   QLabel *finishListLabel = new QLabel(tr("Finishing at"));
@@ -94,7 +84,7 @@ bulkLoadDialog::bulkLoadDialog()
   patchRangeGroup->setLayout(dataRangeLayout);
 
   this->startButton = new QPushButton(this);
-  this->startButton->setText("Start");
+  this->startButton->setText(tr("Start"));
   connect(startButton, SIGNAL(clicked()), this, SLOT(sendData()));
   
   this->completedButton = new QPushButton(this);
@@ -157,6 +147,7 @@ bulkLoadDialog::bulkLoadDialog()
 	QObject::connect(this, SIGNAL(setStatusSymbol(int)), sysxIO, SIGNAL(setStatusSymbol(int)));
 	QObject::connect(this, SIGNAL(setStatusProgress(int)), sysxIO, SIGNAL(setStatusProgress(int)));
 	QObject::connect(this, SIGNAL(setStatusMessage(QString)), sysxIO, SIGNAL(setStatusMessage(QString)));	
+        QObject::connect(this, SIGNAL(setdeBugStatusMessage(QString)), sysxIO, SIGNAL(setStatusdBugMessage(QString)));
   
   Preferences *preferences = Preferences::Instance();
 	QString dir = preferences->getPreferences("General", "Files", "dir");
@@ -183,7 +174,16 @@ bulkLoadDialog::bulkLoadDialog()
 	  QFile hexfile(":HexLookupTable.hex");           // Read the HexLookupTable for the SMF header file .
     if (hexfile.open(QIODevice::ReadOnly))
 	  {	this->hextable = hexfile.readAll(); };
+	  /*
+	  patchNum = QString::number(r, 16).toUpper().toInt(&ok, 16);
+	  bool isPatch = false;
+	  if (patchNum >= bankUserStart) { isPatch = true; };    // check the sysx file is a valid patch & not system data- patchNum matches patch address.
 	  
+	  r = (char)data[(patchSize)+1];     // find sysx product id number in file roland = 41 	  
+	  patchNum = QString::number(r, 16).toUpper().toInt(&ok, 16);
+	  bool isGTM = false;
+	  if ((patchNum != 65) && (data.size() > patchSize) )  {isGTM = true; }; 
+	   */
 	  QByteArray default_header = default_data.mid(0, 7);           // copy header from default.syx
 	  QByteArray file_header = data.mid(0, 7);                      // copy header from read file.syx
 	  QByteArray GXG_header = GXG_default.mid(3, 20);                // copy header from default.gxg
@@ -206,12 +206,33 @@ bulkLoadDialog::bulkLoadDialog()
 	  if (data.contains(GXG_header)){isGXG = true; };             // see if file is a GXG type and set isGXG flag.
 	  bool isSMF = false;
 	  if (data.contains(SMF_header)) {isSMF = true; };
-	  
-	  if (isHeader == true && isPatch == true) {loadSYX(); }
-	  else if (isGXG == true) { loadGXG(); }
-	  else if (isSMF == true) { loadSMF(); };
+	  failed = false;
+	  if (isHeader == true && isPatch == true) {loadSYX(); setStatusMessage("is a *.syx file type");  }
+	  else if (isGXG == true) { loadGXG(); setStatusMessage("is a *.gxg file type"); }
+	  else if (isSMF == true) { loadSMF(); setStatusMessage("is a *.mid file type"); }
+	    else 
+     {
+         failed = true;  
+         QMessageBox *msgBox = new QMessageBox();
+	       msgBox->setWindowTitle(QObject::tr("File Restore Error"));
+	       msgBox->setIcon(QMessageBox::Warning);
+	       msgBox->setTextFormat(Qt::RichText);
+	       QString msgText;
+	       msgText.append("<font size='+1'><b>");
+	       msgText.append(QObject::tr("This is not a known ") + deviceType + QObject::tr(" file!"));
+	       msgText.append("<b></font><br>");
+	       msgText.append(QObject::tr("Patch file not within allowable parameters or<br>"));
+         msgText.append(QObject::tr("file format unknown, please try another file."));
+	       msgBox->setText(msgText);
+	       msgBox->setStandardButtons(QMessageBox::Ok);
+	       msgBox->exec();          
+     };
 	  };
 	};
+		if (failed == true) 
+	{ 
+	  this->startButton->hide();
+  };
 };
 
 void bulkLoadDialog::comboValueChanged(int value)
@@ -222,14 +243,19 @@ void bulkLoadDialog::comboValueChanged(int value)
   if (startList > finishList) {this->startPatchCombo->setCurrentIndex(finishList); }
   else if (finishList < startList) {this->finishPatchCombo->setCurrentIndex(startList); }; 
   int x = (bankStart+(finishList-startList));
-  if (x<0) {x=0; } else if (x>199) { x=199; bankStart=199-(finishList-startList);  startRangeComboBox->setCurrentIndex(199-(finishList-startList)); };
+    if (x<0) {x=0; } else if (x>((bankTotalUser*patchPerBank)-1))
+              {
+               x=((bankTotalUser*patchPerBank)-1); 
+               bankStart=((bankTotalUser*patchPerBank)-1)-(finishList-startList);  
+               startRangeComboBox->setCurrentIndex(((bankTotalUser*patchPerBank)-1)-(finishList-startList)); 
+              };
   QString text = tr("Finish at U");
-  int y = x/4; y = y*4; y=x-y;
-  text.append(QString::number((x/4)+1, 10).toUpper() );
+  int y = x/patchPerBank; y = y*patchPerBank; y=x-y;
+  text.append(QString::number((x/patchPerBank)+1, 10).toUpper() );
   text.append("-");
   text.append(QString::number(y+1, 10).toUpper() );
   this->finishRange->setText(text); 
-  this->startRangeComboBox->setMaxVisibleItems(200-(finishList-startList));
+  this->startRangeComboBox->setMaxVisibleItems((bankTotalUser*patchPerBank)-(finishList-startList));
 }; 
 
 void bulkLoadDialog::sendData() 
@@ -241,7 +267,7 @@ void bulkLoadDialog::sendData()
   cancelButton->hide();
   progress = 0;
   patch = 1;
-  range = 200/(finishList-startList+1);
+   range = (100)/((finishList-startList)+1);
    
    int z = (this->bankStart);
    QString q;
@@ -255,15 +281,15 @@ void bulkLoadDialog::sendData()
       if (z>128) {z=z-128; addrMSB = "11"; };          // next address range when > 10 7F.
       address = QString::number(z-1, 16).toUpper();
       if (address.size()<2){ address.prepend("0"); };
-      int b = a*2045;                                // multiples of patch size.
-       msg = this->bulk.mid(b*2, 2045*2);             // copy next patch from bulk patch list.
+      int b = a*patchSize;                                // multiples of patch size.
+      msg = this->bulk.mid(b*2, patchSize*2);            // copy next patch from bulk patch list.
            for (int g=0;g<msg.size()/2;g++)
            {
              v = msg.mid(g*2, 2);
-	           if (v == "F0") {msg.replace((g*2)+14, 2, addrMSB); msg.replace((g*2)+16, 2, address); };   // replace the message address
+	            if (v == "F0") {msg.replace((g*2)+(sysxAddressOffset*2), 2, addrMSB); msg.replace((g*2)+((sysxAddressOffset*2)+2), 2, address); };   // replace the message address
            };                            
         replyMsg.append(msg);
-         ++z;          
+         ++z;               
    };
          
    QString reBuild = "";       // Add correct checksum to patch strings 
@@ -292,9 +318,9 @@ void bulkLoadDialog::sendData()
 		i=i+2;
     }; 
   };   
-	this->bulk = reBuild.simplified().toUpper().remove("0X").remove(" ");	
-	bank = (bankStart+3/*+(finishList-startList)/4*/);
-  patch = bank/4; patch = patch*4; patch=bank-patch;
+	this->bulk = reBuild.simplified().toUpper();	
+	bank = (bankStart+(patchPerBank-1));
+  patch = bank/patchPerBank; patch = patch*patchPerBank; patch=bank-patch;
           steps=0;
           dataSent=0;
           sendSequence("");
@@ -312,31 +338,31 @@ void bulkLoadDialog::sendSequence(QString value)
   SysxIO *sysxIO = SysxIO::Instance();
   QObject::disconnect(sysxIO, SIGNAL(sysxReply(QString)), this, SLOT(sendSequence(QString)));
   sysxIO->setDeviceReady(true); // Free the device after finishing interaction.
-     msg=bulk.mid(steps*2045*2, 2045*2);    
+     msg=bulk.mid(steps*(patchSize*2), (patchSize*2));     
         
         progress=progress+range;
         bulkStatusProgress(this->progress);                         // advance the progressbar.
                            
-  if (steps<patchCount+1 )
+  if (steps<((finishList-startList)+2) )
   {      
-        bool ok;
+           bool ok;
         QString patchText;
-        QString name = msg.mid(22, 32);                       // get name from loaded patch. 
+        QString name = msg.mid((sysxNameOffset*2), (nameLength*2));  // get name from loaded patch. 
         QList<QString> x;        
-        for (int b=0;b<16;b++)
+        for (int b=0;b<nameLength;b++)
         {
           x.append(name.mid(b*2, 2));       
         };
-        for (int b=0;b<16;b++)
+        for (int b=0;b<nameLength;b++)
         {
         	QString hexStr = x.at(b);			
 		      patchText.append( (char)(hexStr.toInt(&ok, 16)) );      // convert name to readable text characters.
         };
-        int bf = patchCount-1;
+        int bf = (finishList-startList);
         if(steps>bf) {this->completedButton->show();        
-          this->progressLabel->setText(tr("Bulk data transfer completed!!"));   };
-        
-  QString patchNumber = QString::number(bank/4, 10).toUpper();
+          this->progressLabel->setText(tr("Bulk data transfer completed!!")); 
+          this->progress=100;  };        
+  QString patchNumber = QString::number(bank/patchPerBank, 10).toUpper();
   patchNumber.prepend(tr("User Patch U" ));
   patchNumber.append("-");
   patchNumber.append( QString::number(patch, 10).toUpper() );
@@ -345,20 +371,20 @@ void bulkLoadDialog::sendSequence(QString value)
   patchText=patchNumber;   
   this->progressLabel->setText(patchText);                        //display the patch number and name.
   
-  patchNumber = tr("File build size = ");
+  patchNumber = tr("File transfer size = ");
   dataSent = dataSent+(msg.size()/2);
   patchNumber.append(QString::number(dataSent, 10).toUpper() );
   patchNumber.append(tr(" bytes"));
   this->bytesLabel->setText(patchNumber);                         //display the bulk data size.
         ++steps;
 	      ++patch; 
-        if(patch>4) {patch=1; bank=bank+4;};	                      // increment patch.
-  sendPatch(msg);                                 //request the next patch.  
+        if(patch>patchPerBank) {patch=1; bank=bank+patchPerBank;};	  // increment patch.
+  sendPatch(msg);                                 //request the next patch. 
+  setStatusMessage(tr("Sending Data")); 
   } else {
   QObject::disconnect(sysxIO, SIGNAL(sysxReply(QString)), this, SLOT(sendSequence(QString)));
   sysxIO->setDeviceReady(true); // Free the device after finishing interaction.
   setStatusMessage(tr("Ready"));
-  SLEEP(3000);
   close();  
   };      
 };
@@ -366,16 +392,16 @@ void bulkLoadDialog::sendSequence(QString value)
 
 void bulkLoadDialog::updatePatch()
 {
-  patchCount = sysxPatches.size()/2045;
+  patchCount = sysxPatches.size()/(patchSize);
   QString msgText;
   QString patchText;
 	QString patchNumber;
 	unsigned char r;
 	this->patchList.clear();
-  unsigned int a = 11; // locate patch text start position from the start of the file
+  unsigned int a = sysxNameOffset;             // locate patch text start position from the start of the file
      for (int h=0;h<patchCount;h++)
        {       
-        for (int b=0;b<16;b++)
+        for (int b=0;b<nameLength;b++)
            {
              r = (char)sysxPatches[a+b];
              patchText.append(r);
@@ -386,29 +412,29 @@ void bulkLoadDialog::updatePatch()
             this->patchList.append(msgText);
             patchText.clear();
             msgText.clear();
-            a=a+2045;                      // offset is set in front of marker
+            a=a+patchSize;                                // advance to the next patch in the bulk file.
         }; 
    this->startPatchCombo->addItems(patchList);            // add patch names to the combobox lists.
    this->finishPatchCombo->addItems(patchList);
    this->finishPatchCombo->setCurrentIndex(patchCount-1);     // set the finish combobox index to the end of the list.
    this->startPatchCombo->setCurrentIndex(0);
    QString text = tr("Finish at U");
-   if (patchCount<4) {patchCount=4; };
-   text.append(QString::number(patchCount/4, 10).toUpper() );
+   if (patchCount<patchPerBank) {patchCount=patchPerBank; };
+   text.append(QString::number(patchCount/patchPerBank, 10).toUpper() );
    text.append("-x");
    this->finishRange->setText(text);   
-   
+    QString bnk;
    	QString U = "U";
-	for (int x=0; x<50; x++)
+	for (int x=0; x<bankTotalUser; x++)
 	{
-    QString bnk = "U" + QString::number(x+1, 10).toUpper() + "-1";
+    bnk = "U" + QString::number(x+1, 10).toUpper() + "-1";
     this->startRangeComboBox->addItem(bnk);
     bnk = "U" + QString::number(x+1, 10).toUpper() + "-2";
     this->startRangeComboBox->addItem(bnk);
     bnk = "U" + QString::number(x+1, 10).toUpper() + "-3";
     this->startRangeComboBox->addItem(bnk);
     bnk = "U" + QString::number(x+1, 10).toUpper() + "-4";
-    this->startRangeComboBox->addItem(bnk);      
+    this->startRangeComboBox->addItem(bnk);     
   }; 
     this->startRangeComboBox->setCurrentIndex(0);
         	
@@ -421,12 +447,11 @@ void bulkLoadDialog::updatePatch()
 		if (hex.length() < 2) hex.prepend("0");
 		sysxBuffer.append(hex);
   };
-	bulk.append(sysxBuffer);                                // add patch to the bulk string.
+	bulk.append(sysxBuffer);  
 };
 
 void bulkLoadDialog::bulkStatusProgress(int value)
 {
-   value=value/2;
   if (value >100) {value = 100;};
   if (value<0) {value = 0; };
 	this->progressBar->setValue(value);
@@ -438,8 +463,7 @@ void bulkLoadDialog::loadGXG()         // ************************************ G
 	bool ok;
   int count;
   count = QString::number(r, 16).toUpper().toInt(&ok, 16);
-  QByteArray marker;
-  
+  QByteArray marker;  
   marker = data.mid(170, 2);      //copy marker key to find "06A5" which marks the start of each patch block
 	unsigned int a = data.indexOf(marker, 0); // locate patch start position from the start of the file
    a=a+2;                             // offset is set in front of marker  
@@ -475,7 +499,7 @@ void bulkLoadDialog::loadGXG()         // ************************************ G
             a = data.indexOf(marker, a); // locate patch start position from the start of the file
             a=a+2;                      // offset is set in front of marker
             temp = default_data;
-           this->sysxPatches.append(temp);
+           this->sysxPatches.append(temp.mid(0, patchSize));
         };                               
    updatePatch();   
 };
@@ -542,7 +566,7 @@ void bulkLoadDialog::loadSMF()    // **************************** SMF FILE FORMA
         	default_data.replace(1633,128, temp);            // replace gt10 address "0C"        
           a=a+1806;                      // offset is set in front of marker
           temp = default_data;
-          this->sysxPatches.append(temp);
+          this->sysxPatches.append(temp.mid(0, patchSize));
         }; 
        updatePatch();                	
 };

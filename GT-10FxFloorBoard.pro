@@ -42,7 +42,6 @@ INCLUDEPATH += ./generatedfiles \
     .
     
 TRANSLATIONS = language_fr.ts \
-               language_dk.ts \
                language_ge.ts \
                language_ch.ts
                

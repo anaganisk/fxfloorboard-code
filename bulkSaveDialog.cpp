@@ -161,8 +161,8 @@ bulkSaveDialog::bulkSaveDialog()
 
 	setWindowTitle(tr("Bulk File Backup"));
 	
-	QObject::connect(this, SIGNAL( startRangeSpinBox->valueChanged(int) ), this, SLOT( bankStart(int) ));
-	QObject::connect(this, SIGNAL( finishRangeSpinBox->valueChanged(int) ), this, SLOT( bankFinish(int) ));
+        //QObject::connect(this, SIGNAL( startRangeSpinBox->valueChanged(int) ), this, SLOT( bankStart(int) ));
+        //QObject::connect(this, SIGNAL( finishRangeSpinBox->valueChanged(int) ), this, SLOT( bankFinish(int) ));
 	SysxIO *sysxIO = SysxIO::Instance();
 	QObject::connect(this, SIGNAL(setStatusSymbol(int)), sysxIO, SIGNAL(setStatusSymbol(int)));
 	QObject::connect(this, SIGNAL(setStatusProgress(int)), sysxIO, SIGNAL(setStatusProgress(int)));
@@ -176,6 +176,7 @@ void bulkSaveDialog::backup()
   this->cancelButton->hide();
   this->bankStart = this->startRangeSpinBox->value();
   this->bankFinish = this->finishRangeSpinBox->value();
+  if (bankFinish<bankStart) {bankFinish = bankStart; this->finishRangeSpinBox->setValue(bankStart); };
   this->bank=bankStart*4;
 	bulk.clear();
 	this->progress = 0;
@@ -202,7 +203,7 @@ void bulkSaveDialog::updatePatch(QString replyMsg)
 	sysxIO->setDeviceReady(true); // Free the device after finishing interaction.
 	
 	replyMsg = replyMsg.remove(" ").toUpper();       // TRANSLATE SYSX MESSAGE FORMAT to 128 byte data blocks 
-		if (replyMsg.size()/2 == 1784){
+		if (replyMsg.size()/2 == patchReplySize){
 	QString header = "F0410000002F12";
 	QString footer ="00F7";
 	QString addressMsb = replyMsg.mid(14,4);
@@ -240,7 +241,7 @@ void bulkSaveDialog::updatePatch(QString replyMsg)
 	replyMsg = "";
 	replyMsg.append(part1).append(part2).append(part3).append(part4).append(part5).append(part6)
   .append(part7).append(part8).append(part9).append(part10).append(part11).append(part12).append(part13);
-  QByteArray data;
+  /*QByteArray data;
   QFile file(":default.syx");   // Read the default GT-10 sysx file so we don't start empty handed.
     if (file.open(QIODevice::ReadOnly))
 	  {	data = file.readAll(); };
@@ -256,7 +257,7 @@ void bulkSaveDialog::updatePatch(QString replyMsg)
 		if (hex.length() < 2) hex.prepend("0");
 		sysxBuffer.append(hex);
   };
-	replyMsg.append(sysxBuffer);
+	replyMsg.append(sysxBuffer);   */
 	
 	QString reBuild = "";       // Add correct checksum to patch strings 
   QString sysxEOF = "";	
@@ -285,7 +286,7 @@ void bulkSaveDialog::updatePatch(QString replyMsg)
 		i=i+2;
     }; 
   };    
-	replyMsg = reBuild.simplified().toUpper().remove("0X").remove(" ");	
+	replyMsg = reBuild.simplified().toUpper();	
 	bulk.append(replyMsg); 	                                           // add patch to the bulk string.
 	}; 	       
 	      ++patch; 
@@ -325,7 +326,7 @@ void bulkSaveDialog::updatePatch(QString replyMsg)
   this->progressLabel->setText(patchText);                        //display the patch number and name.
   
   patchNumber = tr("File build size = ");
-  int size = (bulk.size()/2)+2045;
+  int size = (bulk.size()/2)+fullPatchSize;
   patchNumber.append(QString::number(size, 10).toUpper() );
   patchNumber.append(tr(" bytes"));
   this->bytesLabel->setText(patchNumber);                         //display the bulk data size.
@@ -372,7 +373,7 @@ void bulkSaveDialog::writeGXG()         // ************************************ 
      bool ok;	
 		QByteArray out;
 		int size = this->bulk.size()/2;
-	  int patchCount = size/2045;
+	  int patchCount = size/patchSize;
 		for (int x=0;x<size*2;x++)
 		{
 		   QString hexStr = bulk.mid(x, 2);
@@ -416,7 +417,7 @@ void bulkSaveDialog::writeGXG()         // ************************************ 
    GXG_default.replace(a+1408, 128, temp);    //address "0B" +       
    temp = out.mid(b+1633, 128);
    GXG_default.replace(a+1536, 128, temp);    //address "0C" +  
-   b=b+2045;                                  // increment point to next *.syx patch in bulk.
+   b=b+patchSize;                                  // increment point to next *.syx patch in bulk.
    bulkFile.append(GXG_default.mid(160, 1713)); // copy most of the patch + index except for 4 text chars on end.
    bulkFile.append(GXG_default.mid(80, 4));     // copy 4 bytes of "00" from no-where special.
     };
@@ -454,7 +455,7 @@ void bulkSaveDialog::writeSYX()        //********************************* SYX F
      bool ok;	
 		QByteArray out;
 		int size = this->bulk.size()/2;
-	  //int patchCount = size/2045;
+	  //int patchCount = size/fullPatchSize;
 		for (int x=0;x<size*2;x++)
 		{
 		   QString hexStr = bulk.mid(x, 2);
@@ -492,7 +493,7 @@ void bulkSaveDialog::writeSMF()    // **************************** SMF FILE FORM
 		QByteArray out;
 		QByteArray patches;
 		int size = this->bulk.size()/2;
-	  int patchCount = size/2045;
+	  int patchCount = size/patchSize;
 		for (int x=0;x<size*2;x++)
 		{
 		   QString hexStr = bulk.mid(x, 2);
@@ -510,8 +511,8 @@ void bulkSaveDialog::writeSMF()    // **************************** SMF FILE FORM
 		for (int x=0;x<patchCount;x++)
 	  {
 	  out.clear();
-	  out.append( patches.mid(b, 2045) );
-    out.remove(1763, 282);	   // remove the user text portion at the end..		
+	  out.append( patches.mid(b, patchSize) );
+    //out.remove(1763, 282);	   // remove the user text portion at the end..		
 		out.remove(0, 11);         // remove address "00 00" header
 		temp = Qhex.mid((320), 13);
 		out.insert(0, temp);       // insert new address "00 00" header
@@ -597,7 +598,7 @@ void bulkSaveDialog::writeSMF()    // **************************** SMF FILE FORM
 			offset = 0;
 		};
    };
-   b=b+2045;
+   b=b+patchSize;
    bulkFile.append(out);      // append the bulk file. 
   };
    bulkFile.append(Qhex.mid((436), 3));    // add file footer.

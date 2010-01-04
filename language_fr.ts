@@ -84,57 +84,57 @@
     <message>
         <location filename="bankTreeList.cpp" line="694"/>
         <source>Warning - Patch data received is incorrect!</source>
-        <translation>Avertissement - les données de Patch reçues sont incorrectes !</translation>
+        <translation>Avertissement - les données des Patchs sont incorrectes !</translation>
     </message>
     <message>
         <location filename="bankTreeList.cpp" line="699"/>
         <source>Patch data transfer wrong size or data error</source>
-        <translation>&quot; ; Patch&quot; ; taille de mal de transfert de données ou erreur de données</translation>
+        <translation>&quot; Erreur de données ou de tailles des patchs</translation>
     </message>
     <message>
         <location filename="bankTreeList.cpp" line="701"/>
         <location filename="bankTreeList.cpp" line="719"/>
         <source>Please make sure the </source>
-        <translation>Veuillez s&apos;assurer </translation>
+        <translation>Assurez vous que le</translation>
     </message>
     <message>
         <location filename="bankTreeList.cpp" line="701"/>
         <location filename="bankTreeList.cpp" line="719"/>
         <source> is connected correctly and re-try.</source>
-        <translation> est relié correctement et tentative.</translation>
+        <translation> est relié correctement et réessayez.</translation>
     </message>
     <message>
         <location filename="bankTreeList.cpp" line="712"/>
         <source>Warning - Patch data not received!</source>
-        <translation>Avertissement - données de correction non reçues !</translation>
+        <translation>Avertissement - données du patch non reçues !</translation>
     </message>
     <message>
         <location filename="bankTreeList.cpp" line="717"/>
         <source>Patch data transfer failed, are the correct midi ports selected?</source>
-        <translation>Le transfert de données échoué, les ports corrects du Midi raccordent-ils sont-ils choisis ?</translation>
+        <translation>Le transfert de données échoué, les ports Midi choisis sont ils corrects?</translation>
     </message>
     <message>
         <location filename="bulkLoadDialog.cpp" line="496"/>
         <location filename="sysxWriter.cpp" line="404"/>
         <source>SMF file import</source>
-        <translation>Importation de dossier de SMF</translation>
+        <translation>Importation de fichiers SMF</translation>
     </message>
     <message>
         <location filename="bulkLoadDialog.cpp" line="501"/>
         <source>This is not a GT-10 file!</source>
-        <translation>Ce n&apos;est pas un dossier GT-10 !</translation>
+        <translation>Ce n&apos;est pas un fichierGT-10 !</translation>
     </message>
     <message>
         <location filename="bulkLoadDialog.cpp" line="503"/>
         <location filename="sysxWriter.cpp" line="411"/>
         <source>this file is a GT-10B Bass version&lt;br&gt;</source>
-        <translation>ce dossier est une version de basse de GT-10B</translation>
+        <translation>ce fichier est pour leGT-10B (basse) </translation>
     </message>
     <message>
         <location filename="bulkLoadDialog.cpp" line="504"/>
         <location filename="sysxWriter.cpp" line="412"/>
         <source>*Loading this file may have unpredictable results*.</source>
-        <translation>*Loading ce dossier peut avoir le results* imprévisible.</translation>
+        <translation>*Charger ce fichier peut avoir des resultats imprevisibles*</translation>
     </message>
     <message>
         <location filename="main.cpp" line="79"/>
@@ -144,164 +144,164 @@
     <message>
         <location filename="main.cpp" line="86"/>
         <source>Checking license file...</source>
-        <translation>Vérifiant le dossier de permis…</translation>
+        <translation>Vérifiant le fichier de licence</translation>
     </message>
     <message>
         <location filename="main.cpp" line="89"/>
         <source>Loading license file...</source>
-        <translation>Dossier de permis de chargement…</translation>
+        <translation>Chargement du fichierde licence…</translation>
     </message>
     <message>
         <location filename="main.cpp" line="97"/>
         <source>Loading midi mapping...</source>
-        <translation>Cartographie du Midi de chargement…</translation>
+        <translation>Chargment de la cartographie Midi…</translation>
     </message>
     <message>
         <location filename="main.cpp" line="103"/>
         <source>Initializing main window...</source>
-        <translation>Fenêtre principale de initialisation…</translation>
+        <translation>Initialisation de la fenetre principale…</translation>
     </message>
     <message>
         <location filename="main.cpp" line="154"/>
         <source>Restoring window position...</source>
-        <translation>Reconstituant la position de fenêtre…</translation>
+        <translation>Restore  la position de fenêtre…</translation>
     </message>
     <message>
         <location filename="main.cpp" line="169"/>
         <source>Centering main window...</source>
-        <translation>Centrant la fenêtre principale…</translation>
+        <translation>Centrage la fenêtre principale…</translation>
     </message>
     <message>
         <location filename="main.cpp" line="184"/>
         <source>Finished Initializing...</source>
-        <translation>Initialisation de finition…</translation>
+        <translation>Fin de l&apos;initialisation…</translation>
     </message>
     <message>
         <location filename="sysxWriter.cpp" line="140"/>
         <source>Patch file conversion</source>
-        <translation>Conversion de dossier de correction</translation>
+        <translation>Conversion du fichier de patch</translation>
     </message>
     <message>
         <location filename="sysxWriter.cpp" line="145"/>
         <source>This is a GT-8 patch!</source>
-        <translation>C&apos;est une correction GT-8 !</translation>
+        <translation>C&apos;est un patch GT-8 !</translation>
     </message>
     <message>
         <location filename="sysxWriter.cpp" line="147"/>
         <source>*Note that conversions may not be consistant*.</source>
-        <translation>Notez que les conversions peuvent ne pas être consistant.</translation>
+        <translation>Notez que les conversions peuvent ne pas être fideles.</translation>
     </message>
     <message>
         <location filename="sysxWriter.cpp" line="409"/>
         <source>This is not a GT-10 patch!</source>
-        <translation>Ce n&apos;est pas une correction GT-10 !</translation>
+        <translation>Ce n&apos;est pas un patch GT-10 !</translation>
     </message>
     <message>
         <location filename="sysxWriter.cpp" line="427"/>
         <location filename="sysxWriter.cpp" line="512"/>
         <source>Select Patch</source>
-        <translation>Choisissez la Patch</translation>
+        <translation>Choisissez le Patch</translation>
     </message>
     <message>
         <location filename="sysxWriter.cpp" line="613"/>
         <source>Patch size Error!</source>
-        <translation>Erreur de taille de correction !</translation>
+        <translation>Erreur de taille du patch !</translation>
     </message>
     <message>
         <location filename="sysxWriter.cpp" line="618"/>
         <source>This is not a </source>
-        <translation>Ce n&apos;est pas a </translation>
+        <translation>Ce n&apos;est pas un </translation>
     </message>
     <message>
         <location filename="sysxWriter.cpp" line="618"/>
         <source> patch!</source>
-        <translation>correction !</translation>
+        <translation>patch !</translation>
     </message>
     <message>
         <location filename="sysxWriter.cpp" line="621"/>
         <source>but appears to be a GT-6 patch&lt;br&gt;</source>
-        <translation>mais semble être une Patch GT-6&lt;br&gt;</translation>
+        <translation>mais semble être un Patch GT-6&lt;br&gt;</translation>
     </message>
     <message>
         <location filename="sysxWriter.cpp" line="623"/>
         <source>but appears to be a GT-3 patch&lt;br&gt;</source>
-        <translation>mais semble être une Patch GT-3&lt;br&gt;</translation>
+        <translation>mais semble être un Patch GT-3&lt;br&gt;</translation>
     </message>
     <message>
         <location filename="sysxWriter.cpp" line="625"/>
         <source>Patch size is not </source>
-        <translation>La taille de correction n&apos;est pas </translation>
+        <translation>La taille du patch n&apos;est pas </translation>
     </message>
     <message>
         <location filename="sysxWriter.cpp" line="625"/>
         <source> bytes, please try another file.</source>
-        <translation>les bytes, essayent svp un autre dossier.</translation>
+        <translation>Mo, essayez un autre fichier svpr.</translation>
     </message>
     <message>
         <location filename="preferencesPages.cpp" line="37"/>
         <source>Patch folder</source>
-        <translation>Dossier de correction</translation>
+        <translation>Dossier de patch</translation>
     </message>
     <message>
         <location filename="preferencesPages.cpp" line="39"/>
         <location filename="preferencesPages.cpp" line="318"/>
         <source>Select the default folder for storing patches.</source>
-        <translation>Choisissez le dossier de défaut pour stocker des Patches.</translation>
+        <translation>Choisissez le dossier par défaut pour stocker des Patches.</translation>
     </message>
     <message>
         <location filename="preferencesPages.cpp" line="40"/>
         <source>Default patch folder:</source>
-        <translation>Dossier de patch de défaut :</translation>
+        <translation>Dossier de patch par défaut :</translation>
     </message>
     <message>
         <location filename="preferencesPages.cpp" line="42"/>
         <source>Browse</source>
-        <translation>Passez en revue</translation>
+        <translation>Cherchez</translation>
     </message>
     <message>
         <location filename="preferencesPages.cpp" line="85"/>
         <source>Midi settings</source>
-        <translation>Arrangements du Midi</translation>
+        <translation>Reglages du Midi</translation>
     </message>
     <message>
         <location filename="preferencesPages.cpp" line="87"/>
         <source>Select your midi in and out device.</source>
-        <translation>Choisissez le votre Midi dans et dehors dispositif.</translation>
+        <translation>Choisissez les peripheriques Midi In et OUt.</translation>
     </message>
     <message>
         <location filename="preferencesPages.cpp" line="88"/>
         <source>Midi in:</source>
-        <translation>Le Midi dans :</translation>
+        <translation>Le Midi in :</translation>
     </message>
     <message>
         <location filename="preferencesPages.cpp" line="89"/>
         <source>Midi out:</source>
-        <translation>Le Midi dehors :</translation>
+        <translation>Le Midi ot :</translation>
     </message>
     <message>
         <location filename="preferencesPages.cpp" line="93"/>
         <source>Select midi-in device</source>
-        <translation>Choisissez Midi-dans le dispositif</translation>
+        <translation>Choisissez le peripherique Midi-in</translation>
     </message>
     <message>
         <location filename="preferencesPages.cpp" line="113"/>
         <source>Select midi-out device</source>
-        <translation>Choisissez le dispositif du Midi-dehors</translation>
+        <translation>Choisissez le peripherique Midi-out</translation>
     </message>
     <message>
         <location filename="preferencesPages.cpp" line="154"/>
         <source>Advanced settings</source>
-        <translation>Arrangements avancés</translation>
+        <translation>Reglages avancés</translation>
     </message>
     <message>
         <location filename="preferencesPages.cpp" line="156"/>
         <source>Debug mode.</source>
-        <translation>Corrigez le mode.</translation>
+        <translation>le mode.deboguage</translation>
     </message>
     <message>
         <location filename="preferencesPages.cpp" line="160"/>
         <source>deBug Mode</source>
-        <translation>corrigez le mode</translation>
+        <translation>mode deboguage</translation>
     </message>
     <message>
         <location filename="preferencesPages.cpp" line="175"/>
@@ -311,37 +311,37 @@
     <message>
         <location filename="preferencesPages.cpp" line="182"/>
         <source> times/second</source>
-        <translation>périodes/en second lieu</translation>
+        <translation>Temps par secondes</translation>
     </message>
     <message>
         <location filename="preferencesPages.cpp" line="221"/>
         <source>Window settings</source>
-        <translation>Arrangements de fenêtre</translation>
+        <translation>Fenêtre de reglages</translation>
     </message>
     <message>
         <location filename="preferencesPages.cpp" line="223"/>
         <source>Select if you want the window position to be saved on exit.</source>
-        <translation>Choisissez si vous voulez que la position de fenêtre soit sauvée sur la sortie.</translation>
+        <translation>cochez si vous voulez sauvegarder la position de fenêtre en quittant.</translation>
     </message>
     <message>
         <location filename="preferencesPages.cpp" line="224"/>
         <source>Restore window</source>
-        <translation>Fenêtre de restauration</translation>
+        <translation>Restaure la fenetre</translation>
     </message>
     <message>
         <location filename="preferencesPages.cpp" line="225"/>
         <source>Restore sidepanel</source>
-        <translation>Sidepanel de restauration</translation>
+        <translation>Restaoer le panneau lateral</translation>
     </message>
     <message>
         <location filename="preferencesPages.cpp" line="248"/>
         <source>Show splash screen</source>
-        <translation>Montrez l&apos;écran d&apos;éclaboussure</translation>
+        <translation>Montrez l&apos;écran de demarrage</translation>
     </message>
     <message>
         <location filename="preferencesPages.cpp" line="250"/>
         <source>Disable or enable the splash screen.</source>
-        <translation>Désactivez ou permettez l&apos;écran d&apos;éclaboussure.</translation>
+        <translation>Activez ou non l&apos;ecrn de  demarrage</translation>
     </message>
     <message>
         <location filename="preferencesPages.cpp" line="251"/>
@@ -377,12 +377,12 @@
     <message>
         <location filename="preferencesPages.cpp" line="306"/>
         <source>Changes take effect on next startup</source>
-        <translation>Les changements entrent en vigueur sur le prochain démarrage</translation>
+        <translation>Les changements entrent en vigueur au prochain démarrage</translation>
     </message>
     <message>
         <location filename="bankTreeList.cpp" line="303"/>
         <source>Double-click tree item to load patch</source>
-        <translation>Article d&apos;arbre de Double-click à la charge</translation>
+        <translation>Faites un double click dans l&apos;arborescence pour charger un patch</translation>
     </message>
 </context>
 <context>
@@ -390,24 +390,24 @@
     <message>
         <location filename="SysxIO.cpp" line="165"/>
         <source>GT-10 Fx FloorBoard</source>
-        <translation>Planche de GT-10 Fx</translation>
+        <translation>GT-10 Fx FloorBoard</translation>
     </message>
     <message>
         <location filename="SysxIO.cpp" line="170"/>
         <source>The file opened contains one or more incorrect checksums.</source>
-        <translation>Le dossier ouvert contient un ou plusieurs sommes incorrectes.</translation>
+        <translation>Le dossier ouvert contient une ou plusieurs erreurs.</translation>
     </message>
     <message>
         <location filename="SysxIO.cpp" line="172"/>
         <source>The incorrect values have been corrected where possible.&lt;br&gt;If correction was impossible then some settings might have been reset to default.</source>
         <oldsource>The incorrect values have been corrected where possible.
 If correction was inpossible then some settings might have been reset to zero.</oldsource>
-        <translation>Les valeurs incorrectes ont été corrigées si possible. Si la correction était impossible&lt;br&gt; puis quelques arrangements pourraient avoir été remis à zéro au défaut.</translation>
+        <translation>Les valeurs incorrectes ont été corrigées quand c&apos;etait possible. Si la correction était impossible&lt;br&gt; puis quelques reglages pourraient avoir été remis à zéro .</translation>
     </message>
     <message>
         <location filename="SysxIO.cpp" line="175"/>
         <source>Be aware of possible inconsistencies in this patch!</source>
-        <translation>Rendez-vous compte des contradictions possibles dans cette correction !</translation>
+        <translation>Ayez conscience de l&apos;inconsistence possible de ce patch!</translation>
     </message>
     <message>
         <location filename="SysxIO.cpp" line="278"/>
@@ -437,22 +437,22 @@ If correction was inpossible then some settings might have been reset to zero.</
     <message>
         <location filename="SysxIO.cpp" line="951"/>
         <source>&lt;br&gt; midi data received</source>
-        <translation>&lt;br&gt; données du Midi reçues</translation>
+        <translation>&lt;br&gt; données Midi reçues</translation>
     </message>
     <message>
         <location filename="SysxIO.cpp" line="961"/>
         <source>&lt;br&gt; WARNING: midi data received = data sent</source>
-        <translation>&lt;br&gt;AVERTISSEMENT : les données du Midi ont reçu = des données envoyées</translation>
+        <translation>&lt;br&gt;ATTENTION : les données Midi reçues = des données envoyées</translation>
     </message>
     <message>
         <location filename="SysxIO.cpp" line="962"/>
         <source>&lt;br&gt; caused by a midi loopback, port change is required</source>
-        <translation>&lt;br&gt;causé par une réalimentation du Midi, le changement gauche est exigé</translation>
+        <translation>&lt;br&gt;causé par une réalimentation du Midi, le changement de port est exigé</translation>
     </message>
     <message>
         <location filename="SysxIO.cpp" line="966"/>
         <source>dBug Result for received sysx data</source>
-        <translation></translation>
+        <translation>Resultat du debug pour les données sysx recues</translation>
     </message>
     <message>
         <location filename="SysxIO.cpp" line="1028"/>
@@ -472,12 +472,12 @@ If correction was inpossible then some settings might have been reset to zero.</
     <message>
         <location filename="SysxIO.cpp" line="1171"/>
         <source>Ensure connection is active and retry</source>
-        <translation>Assurez que le raccordement est en activité et tentative</translation>
+        <translation>Assurez que le Gt 10 est connecté et réessayez</translation>
     </message>
     <message>
         <location filename="SysxIO.cpp" line="1173"/>
         <source> not connected !!</source>
-        <translation>non relié ! !</translation>
+        <translation>non connecté! !</translation>
     </message>
     <message>
         <location filename="SysxIO.cpp" line="1272"/>
@@ -487,7 +487,7 @@ If correction was inpossible then some settings might have been reset to zero.</
     <message>
         <location filename="SysxIO.cpp" line="1280"/>
         <source> Fx FloorBoard connection Error !!</source>
-        <translation>Erreur de raccordement de planche de Fx ! !</translation>
+        <translation>Erreur de connection de  Fx FloorBoard ! !</translation>
     </message>
     <message>
         <location filename="SysxIO.cpp" line="1285"/>
@@ -502,17 +502,17 @@ If correction was inpossible then some settings might have been reset to zero.</
     <message>
         <location filename="SysxIO.cpp" line="1287"/>
         <source>any saved system data will be as shown on screen&lt;br&gt;</source>
-        <translation>des données de système sauvées en seront comme montrés sur l&apos;écran&lt;br&gt;</translation>
+        <translation>des données de système sauvées  seront celles  montrées sur l&apos;écran&lt;br&gt;</translation>
     </message>
     <message>
         <location filename="SysxIO.cpp" line="1288"/>
         <source>and the GT-10 system data might not be in sync&lt;br&gt;</source>
-        <translation>et les données de système GT-10 ne pourraient pas être dans la synchro&lt;br&gt;</translation>
+        <translation>et les données de système GT-10  pourraient ne  pas être synchronisées&lt;br&gt;</translation>
     </message>
     <message>
         <location filename="SysxIO.cpp" line="1308"/>
         <source>Sync to </source>
-        <translation>Synchro à </translation>
+        <translation>Synchronisée  à </translation>
     </message>
 </context>
 <context>
@@ -561,28 +561,28 @@ If correction was inpossible then some settings might have been reset to zero.</
     <message>
         <location filename="bankTreeList.cpp" line="735"/>
         <source>&lt;br&gt; midi data received</source>
-        <translation>&lt;br&gt;les données du Midi ont reçu</translation>
+        <translation>&lt;br&gt;les données du Midi reçues</translation>
     </message>
     <message>
         <location filename="bankTreeList.cpp" line="747"/>
         <source>dBug Result for re-formatted GT-10 patch data</source>
-        <translation>corrigez le résultat pour des données restructurées de la correction GT-10</translation>
+        <translation>Resultats du Deboguage pour les donnes reformattées des patch du GT-10</translation>
     </message>
     <message>
         <location filename="bankTreeList.cpp" line="846"/>
         <source>Reading names</source>
-        <translation>Noms de lecture</translation>
+        <translation>Lecture des noms</translation>
     </message>
     <message>
         <location filename="bankTreeList.cpp" line="492"/>
         <source>Patch request</source>
-        <translation>Demande de correction</translation>
+        <translation>Demande du patch</translation>
     </message>
     <message>
         <location filename="bankTreeList.cpp" line="552"/>
         <location filename="bankTreeList.cpp" line="566"/>
         <source>Receiving Patch</source>
-        <translation>Réception de la correction</translation>
+        <translation>Réception du patch</translation>
     </message>
     <message>
         <location filename="bankTreeList.cpp" line="672"/>
@@ -594,7 +594,7 @@ If correction was inpossible then some settings might have been reset to zero.</
     <message>
         <location filename="bankTreeList.cpp" line="676"/>
         <source>Patch from </source>
-        <translation>Correction de </translation>
+        <translation>Patch de </translation>
     </message>
 </context>
 <context>
@@ -612,22 +612,22 @@ If correction was inpossible then some settings might have been reset to zero.</
     <message>
         <location filename="bulkLoadDialog.cpp" line="62"/>
         <source>Set the Range of Patch data to restore</source>
-        <translation>Placez la gamme des données de correction à la restauration</translation>
+        <translation>Placez l&apos;etendue des patch à restaurer</translation>
     </message>
     <message>
         <location filename="bulkLoadDialog.cpp" line="65"/>
         <source>Start Bank.</source>
-        <translation>Mettez sur pied la banque.</translation>
+        <translation>Commencer  banque.</translation>
     </message>
     <message>
         <location filename="bulkLoadDialog.cpp" line="66"/>
         <source>Finish Bank.</source>
-        <translation>Banque de finition.</translation>
+        <translation>Finir Banque </translation>
     </message>
     <message>
         <location filename="bulkLoadDialog.cpp" line="94"/>
         <source>Set start location of Patch data to restore</source>
-        <translation>Endroit réglé de début des données de correction à reconstituer</translation>
+        <translation>Regler le point de depart des patchs a restaurer</translation>
     </message>
     <message>
         <location filename="bulkLoadDialog.cpp" line="102"/>
@@ -642,33 +642,33 @@ If correction was inpossible then some settings might have been reset to zero.</
     <message>
         <location filename="bulkLoadDialog.cpp" line="111"/>
         <source>Full Restoration may take up to 2 minutes</source>
-        <translation>La pleine restauration peut prendre à 2 minutes</translation>
+        <translation>La restauration peut durer jusqu&apos; à 2 minutes</translation>
     </message>
     <message>
         <location filename="bulkLoadDialog.cpp" line="152"/>
         <source>Bulk File Restoration</source>
-        <translation>Restauration actualisée de fichier en bloc</translation>
+        <translation>Restauration du fichier Bulk</translation>
     </message>
     <message>
         <location filename="bulkLoadDialog.cpp" line="167"/>
         <source>Choose a file</source>
-        <translation>Choisissez un dossier</translation>
+        <translation>Choisissez un fichier</translation>
     </message>
     <message>
         <location filename="bulkLoadDialog.cpp" line="169"/>
         <source>GT10 Bulk Data File (*.gxg *.syx *.mid)</source>
-        <translation>Fichier des données GT10 en bloc (*.gxg *.syx *.mid)</translation>
+        <translation>Fichier des données GT10 bulk (*.gxg *.syx *.mid)</translation>
     </message>
     <message>
         <location filename="bulkLoadDialog.cpp" line="227"/>
         <location filename="bulkLoadDialog.cpp" line="396"/>
         <source>Finish at U</source>
-        <translation>Finition à U</translation>
+        <translation>Fin à U</translation>
     </message>
     <message>
         <location filename="bulkLoadDialog.cpp" line="338"/>
         <source>Bulk data transfer completed!!</source>
-        <translation>Transfert de données en bloc accompli ! !</translation>
+        <translation>Transfert de données en bulk accompli ! !</translation>
     </message>
     <message>
         <location filename="bulkLoadDialog.cpp" line="341"/>
@@ -678,12 +678,12 @@ If correction was inpossible then some settings might have been reset to zero.</
     <message>
         <location filename="bulkLoadDialog.cpp" line="349"/>
         <source>File build size = </source>
-        <translation>Taille de construction de dossier = </translation>
+        <translation>Taille de construction de fichier= </translation>
     </message>
     <message>
         <location filename="bulkLoadDialog.cpp" line="352"/>
         <source> bytes</source>
-        <translation> bytes</translation>
+        <translation> Mo</translation>
     </message>
     <message>
         <location filename="bulkLoadDialog.cpp" line="361"/>
@@ -696,27 +696,27 @@ If correction was inpossible then some settings might have been reset to zero.</
     <message>
         <location filename="bulkSaveDialog.cpp" line="46"/>
         <source>Start Bank.</source>
-        <translation>Mettez sur pied la banque.</translation>
+        <translation>Commencer  banque.</translation>
     </message>
     <message>
         <location filename="bulkSaveDialog.cpp" line="47"/>
         <source>Finish Bank.</source>
-        <translation>Banque de finition.</translation>
+        <translation>Finir Banque </translation>
     </message>
     <message>
         <location filename="bulkSaveDialog.cpp" line="49"/>
         <source>*.gxg Librarian file</source>
-        <translation>Dossier de bibliothécaire de *.gxg</translation>
+        <translation>Fichier Librairian *.gxg</translation>
     </message>
     <message>
         <location filename="bulkSaveDialog.cpp" line="50"/>
         <source>*.syx System Exclusive file</source>
-        <translation>Dossier d&apos;exclusivité de système de *.syx</translation>
+        <translation>Fichier syteme excusif *.syx</translation>
     </message>
     <message>
         <location filename="bulkSaveDialog.cpp" line="51"/>
         <source>*.mid Standard Midi (SMF) file</source>
-        <translation>Dossier standard de *.mid Midi (SMF)</translation>
+        <translation>Fichier Midi standard *.mid (SMF)</translation>
     </message>
     <message>
         <location filename="bulkSaveDialog.cpp" line="54"/>
@@ -731,12 +731,12 @@ If correction was inpossible then some settings might have been reset to zero.</
     <message>
         <location filename="bulkSaveDialog.cpp" line="69"/>
         <source>Finish at U</source>
-        <translation>Finition à U</translation>
+        <translation>Fin à U</translation>
     </message>
     <message>
         <location filename="bulkSaveDialog.cpp" line="91"/>
         <source>Set range of Patch data to save</source>
-        <translation>Placez la gamme des données de correction à sauf</translation>
+        <translation>Reglez l&apos;etendue des partchs a sauvegarder</translation>
     </message>
     <message>
         <location filename="bulkSaveDialog.cpp" line="95"/>
@@ -756,7 +756,7 @@ If correction was inpossible then some settings might have been reset to zero.</
     <message>
         <location filename="bulkSaveDialog.cpp" line="108"/>
         <source>Full Backup may take up to 2 minutes</source>
-        <translation>Le plein support peut prendre à 2 minutes</translation>
+        <translation>La restauration peut durer jusqu&apos; à 2 minutes</translation>
     </message>
     <message>
         <location filename="bulkSaveDialog.cpp" line="128"/>
@@ -766,32 +766,32 @@ If correction was inpossible then some settings might have been reset to zero.</
     <message>
         <location filename="bulkSaveDialog.cpp" line="163"/>
         <source>Bulk File Backup</source>
-        <translation>Support de dossier en bloc</translation>
+        <translation>Backup du fichier Bulk</translation>
     </message>
     <message>
         <location filename="bulkSaveDialog.cpp" line="300"/>
         <source>Bulk data transfer completed!!</source>
-        <translation>Transfert de données en bloc accompli ! !</translation>
+        <translation>Transfert de données Bulk accompli ! !</translation>
     </message>
     <message>
         <location filename="bulkSaveDialog.cpp" line="320"/>
         <source>User Patch U</source>
-        <translation>User Patch U</translation>
+        <translation>Patch Utilisateur U</translation>
     </message>
     <message>
         <location filename="bulkSaveDialog.cpp" line="328"/>
         <source>File build size = </source>
-        <translation>Taille de construction de dossier = </translation>
+        <translation>Taille du fichier = </translation>
     </message>
     <message>
         <location filename="bulkSaveDialog.cpp" line="331"/>
         <source> bytes</source>
-        <translation> bytes</translation>
+        <translation>Mo</translation>
     </message>
     <message>
         <location filename="bulkSaveDialog.cpp" line="334"/>
         <source>Bulk Download</source>
-        <translation>Téléchargement en bloc</translation>
+        <translation>Téléchargement Bulk</translation>
     </message>
     <message>
         <location filename="bulkSaveDialog.cpp" line="337"/>
@@ -803,22 +803,22 @@ If correction was inpossible then some settings might have been reset to zero.</
         <location filename="bulkSaveDialog.cpp" line="442"/>
         <location filename="bulkSaveDialog.cpp" line="478"/>
         <source>Save Bulk Data</source>
-        <translation>Sauf des données en bloc</translation>
+        <translation>Sauf des données Bulk</translation>
     </message>
     <message>
         <location filename="bulkSaveDialog.cpp" line="362"/>
         <source>Librarian Backup File (*.gxg)</source>
-        <translation>Dossier de secours de bibliothécaire (*.gxg)</translation>
+        <translation>Fichier de backup Librarian(*.gxg)</translation>
     </message>
     <message>
         <location filename="bulkSaveDialog.cpp" line="444"/>
         <source>System Exclusive Backup File (*.syx)</source>
-        <translation>Dossier de secours exclusif de système (*.syx)</translation>
+        <translation>Fichier de backup de système  exclusif(*.syx)</translation>
     </message>
     <message>
         <location filename="bulkSaveDialog.cpp" line="480"/>
         <source>Standard Midi Backup File (*.mid)</source>
-        <translation>Dossier de secours standard du Midi (*.mid)</translation>
+        <translation>fichier de backup de fichiers standar midi (*.mid)</translation>
     </message>
 </context>
 <context>
@@ -831,12 +831,12 @@ If correction was inpossible then some settings might have been reset to zero.</
     <message>
         <location filename="customRenameDialog.cpp" line="52"/>
         <source>Patch created by</source>
-        <translation>Patch créée près</translation>
+        <translation>Patch créée par</translation>
     </message>
     <message>
         <location filename="customRenameDialog.cpp" line="57"/>
         <source>Rename Catagory</source>
-        <translation>Retitrez la catégorie</translation>
+        <translation>Renommez la catégorie</translation>
     </message>
     <message>
         <location filename="customRenameDialog.cpp" line="61"/>
@@ -864,12 +864,12 @@ If correction was inpossible then some settings might have been reset to zero.</
     <message>
         <location filename="editWindow.cpp" line="45"/>
         <source>Select</source>
-        <translation>Choisi</translation>
+        <translation>Selectionnez</translation>
     </message>
     <message>
         <location filename="editWindow.cpp" line="58"/>
         <source>Pre A/B swap</source>
-        <translation>Pré échange d&apos;A/B</translation>
+        <translation>Echange preamp &apos;A/B</translation>
     </message>
     <message>
         <location filename="editWindow.cpp" line="64"/>
@@ -903,7 +903,7 @@ If correction was inpossible then some settings might have been reset to zero.</
         <location filename="editWindow.cpp" line="467"/>
         <location filename="editWindow.cpp" line="507"/>
         <source>patch must be copied to clipboard first</source>
-        <translation>la Patch doit être copiée au presse-papiers d&apos;abord</translation>
+        <translation>la Patch doit être copiéedans le presse-papiers d&apos;abord</translation>
     </message>
 </context>
 <context>
@@ -911,7 +911,7 @@ If correction was inpossible then some settings might have been reset to zero.</
     <message>
         <location filename="fileDialog.cpp" line="34"/>
         <source>Select patch to load</source>
-        <translation>Choisissez la correction pour charger</translation>
+        <translation>Choisissez un patch a  charger</translation>
     </message>
     <message>
         <location filename="fileDialog.cpp" line="42"/>
@@ -921,7 +921,7 @@ If correction was inpossible then some settings might have been reset to zero.</
     <message>
         <location filename="fileDialog.cpp" line="62"/>
         <source>Bulk File Patch Extraction</source>
-        <translation>Extraction en bloc de correction de dossier</translation>
+        <translation>Extraction d&apos;un patch du Bulk</translation>
     </message>
 </context>
 <context>
@@ -969,7 +969,7 @@ If correction was inpossible then some settings might have been reset to zero.</
     <message>
         <location filename="floorBoardDisplay.cpp" line="118"/>
         <source>Channel Mode</source>
-        <translation>Mode de la Manche</translation>
+        <translation>Mode Manche</translation>
     </message>
     <message>
         <location filename="floorBoardDisplay.cpp" line="119"/>
@@ -1281,17 +1281,17 @@ If correction was inpossible then some settings might have been reset to zero.</
     <message>
         <location filename="initPatchListMenu.cpp" line="93"/>
         <source>[ INIT Patches ]</source>
-        <translation>Patches d&apos;INIT</translation>
+        <translation>Patches INIT</translation>
     </message>
     <message>
         <location filename="initPatchListMenu.cpp" line="105"/>
         <source>(My INIT) </source>
-        <translation>(Mon INIT) </translation>
+        <translation>(Mes INIT) </translation>
     </message>
     <message>
         <location filename="initPatchListMenu.cpp" line="150"/>
         <source>init patch</source>
-        <translation>correction d&apos;init</translation>
+        <translation>patchs init</translation>
     </message>
 </context>
 <context>
@@ -1299,7 +1299,7 @@ If correction was inpossible then some settings might have been reset to zero.</
     <message>
         <location filename="mainWindow.cpp" line="150"/>
         <source>&amp;Load Patch File... (*.syx, *.mid, *.gxg *.gxb)</source>
-        <translation>&amp;Dossier de correction de charge… (*.syx, *.mid, *.gxg *.gxb)</translation>
+        <translation>&amp;Charger un fichier de patch… (*.syx, *.mid, *.gxg *.gxb)</translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="151"/>
@@ -1309,12 +1309,12 @@ If correction was inpossible then some settings might have been reset to zero.</
     <message>
         <location filename="mainWindow.cpp" line="152"/>
         <source>Open an existing file</source>
-        <translation>Ouvrez un dossier existant</translation>
+        <translation>Ouvrez un fichier existant</translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="155"/>
         <source>&amp;Save Patch...       (*.syx)</source>
-        <translation>&amp;Sauf la correction… (*.syx)</translation>
+        <translation>En&amp;registrer le Patch… (*.syx)</translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="156"/>
@@ -1324,12 +1324,12 @@ If correction was inpossible then some settings might have been reset to zero.</
     <message>
         <location filename="mainWindow.cpp" line="157"/>
         <source>Save the document to disk</source>
-        <translation>Sauf le document au disque</translation>
+        <translation>Sauf le document dans le  disque</translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="160"/>
         <source>Save &amp;As Patch...  (*.syx)</source>
-        <translation>&amp;Sauf comme la correction… (*.syx)</translation>
+        <translation>&amp;Enregistrer comme la correction… (*.syx)</translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="161"/>
@@ -1339,7 +1339,7 @@ If correction was inpossible then some settings might have been reset to zero.</
     <message>
         <location filename="mainWindow.cpp" line="162"/>
         <source>Save the document under a new name</source>
-        <translation>Sauf le document sous un nouveau nom</translation>
+        <translation>Sauver  le document sous un nouveau nom</translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="165"/>
@@ -1359,7 +1359,7 @@ If correction was inpossible then some settings might have been reset to zero.</
     <message>
         <location filename="mainWindow.cpp" line="170"/>
         <source>Save As &amp;SMF Patch... (*.mid)</source>
-        <translation>Sauf comme le &amp;Correction de SMF… (*.mid)</translation>
+        <translation>Sauver comme le &amp;Patch de SMF… (*.mid)</translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="171"/>
@@ -1369,7 +1369,7 @@ If correction was inpossible then some settings might have been reset to zero.</
     <message>
         <location filename="mainWindow.cpp" line="172"/>
         <source>Export as a Standard Midi File</source>
-        <translation>Exportation comme dossier standard du Midi</translation>
+        <translation>Exportation comme FichierMidi standard </translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="175"/>
@@ -1384,12 +1384,12 @@ If correction was inpossible then some settings might have been reset to zero.</
     <message>
         <location filename="mainWindow.cpp" line="177"/>
         <source>Import a Boss Librarian File</source>
-        <translation>Importez un dossier de bibliothécaire de patron </translation>
+        <translation>Importez un fichier Boss Librarian</translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="180"/>
         <source>Save As GXG Patch... (*.gxg)</source>
-        <translation>Sauf comme la correction de GXG… (*.gxg)</translation>
+        <translation>Sauf comme lun patch de GXG… (*.gxg)</translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="181"/>
@@ -1399,12 +1399,12 @@ If correction was inpossible then some settings might have been reset to zero.</
     <message>
         <location filename="mainWindow.cpp" line="182"/>
         <source>Export as a Boss Librarian File</source>
-        <translation>Exportation comme dossier de bibliothécaire de patron\</translation>
+        <translation>Exportation comme un fichier Boss Librarian</translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="185"/>
         <source>&amp;Load System and Global Data...</source>
-        <translation>&amp;Système de charge et données globales...</translation>
+        <translation>&amp;Charger les donnees systemes et globales...</translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="186"/>
@@ -1414,12 +1414,12 @@ If correction was inpossible then some settings might have been reset to zero.</
     <message>
         <location filename="mainWindow.cpp" line="187"/>
         <source>Load System Data to GT-10</source>
-        <translation>Données de système de charge à GT-10</translation>
+        <translation>Charger les données de système GT-10</translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="190"/>
         <source>Save System and Global Data to File...</source>
-        <translation>Sauf le système et les données globales au dossier…</translation>
+        <translation>Enregistrer les donnees systemes et globales dans le fichier</translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="191"/>
@@ -1429,12 +1429,12 @@ If correction was inpossible then some settings might have been reset to zero.</
     <message>
         <location filename="mainWindow.cpp" line="192"/>
         <source>Save System Data to File</source>
-        <translation>Sauf des données de système au dossier</translation>
+        <translation>Enregistrer des données de systèmeau fichier</translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="195"/>
         <source>&amp;Load Bulk Patch File to GT-10...</source>
-        <translation>&amp;Dossier de correction en bloc de charge à GT-10…</translation>
+        <translation>&amp;Charger le fichier Bulk sur le GT-10…</translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="196"/>
@@ -1444,12 +1444,12 @@ If correction was inpossible then some settings might have been reset to zero.</
     <message>
         <location filename="mainWindow.cpp" line="197"/>
         <source>Load Bulk Data to GT-10B</source>
-        <translation>Données en bloc de charge à GT-10</translation>
+        <translation>Charger les Données Bulk pour le GT-10B</translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="200"/>
         <source>Save Bulk GT-10 Patches to File...</source>
-        <translation>Sauf les corrections GT-10 en bloc à classer…</translation>
+        <translation>Sauf les pachs  GT-10 en fichier Bulk</translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="201"/>
@@ -1459,7 +1459,7 @@ If correction was inpossible then some settings might have been reset to zero.</
     <message>
         <location filename="mainWindow.cpp" line="202"/>
         <source>Save Bulk Data to File</source>
-        <translation>Sauf des données en bloc au dossier</translation>
+        <translation>Sauf des données Bulk dans le fichier</translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="205"/>
@@ -1474,7 +1474,7 @@ If correction was inpossible then some settings might have been reset to zero.</
     <message>
         <location filename="mainWindow.cpp" line="207"/>
         <source>Exit the application</source>
-        <translation>Sortez l&apos;application</translation>
+        <translation>Quittez l&apos;application</translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="210"/>
@@ -1494,7 +1494,7 @@ If correction was inpossible then some settings might have been reset to zero.</
     <message>
         <location filename="mainWindow.cpp" line="215"/>
         <source>Upload patch to GT-Central</source>
-        <translation>Correction de téléchargement à GT-Central</translation>
+        <translation>Upload du patch sur  GT-Central</translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="216"/>
@@ -1508,7 +1508,7 @@ If correction was inpossible then some settings might have been reset to zero.</
     <message>
         <location filename="mainWindow.cpp" line="219"/>
         <source>GT-10 Fx FloorBoard &amp;Help</source>
-        <translation>de planche de GT-10 Fx &amp;Aide</translation>
+        <translation> &amp;Aide de GT-10 Fx FloorBoar</translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="220"/>
@@ -1523,7 +1523,7 @@ If correction was inpossible then some settings might have been reset to zero.</
     <message>
         <location filename="mainWindow.cpp" line="224"/>
         <source>GT-10 Fx FloorBoard &amp;Webpage</source>
-        <translation>de planche de GT-10 Fx &amp;Page Web</translation>
+        <translation>&amp;Site Web de GT-10 Fx FloorBoard</translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="228"/>
@@ -1538,32 +1538,32 @@ If correction was inpossible then some settings might have been reset to zero.</
     <message>
         <location filename="mainWindow.cpp" line="236"/>
         <source>&amp;License</source>
-        <translation>&amp;Permis</translation>
+        <translation>&amp;Licence</translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="240"/>
         <source>&amp;About FxFloorBoard</source>
-        <translation>&amp;Au sujet de la planche de Fx</translation>
+        <translation>&amp;Au sujet de FxFloorBoard</translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="241"/>
         <source>Show the application&apos;s About box</source>
-        <translation>Montrez l&apos;application&apos;s au sujet de boîte</translation>
+        <translation>Montrez la boite d&apos;information du logiciel</translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="244"/>
         <source>About &amp;Qt</source>
-        <translation>Au sujet du &amp;Qt</translation>
+        <translation>A propos de &amp;Qt</translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="245"/>
         <source>Show the Qt library&apos;s About box</source>
-        <translation>Montrez la bibliothèque de quart au sujet de la boîte</translation>
+        <translation>Montrez la boite deQt Library</translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="253"/>
         <source>&amp;File</source>
-        <translation>&amp;Dossier</translation>
+        <translation>&amp;Fichier</translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="275"/>
@@ -1583,13 +1583,13 @@ If correction was inpossible then some settings might have been reset to zero.</
     <message>
         <location filename="mainWindow.cpp" line="771"/>
         <source>GT-10 Fx FloorBoard, </source>
-        <translation>Planche de GT-10 Fx, </translation>
+        <translation>GT-10 Fx FloorBoard, </translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="85"/>
         <location filename="mainWindow.cpp" line="564"/>
         <source> Fx FloorBoard</source>
-        <translation>Planche de Fx</translation>
+        <translation>Fx FloorBoard</translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="322"/>
@@ -1597,7 +1597,7 @@ If correction was inpossible then some settings might have been reset to zero.</
         <location filename="mainWindow.cpp" line="483"/>
         <location filename="mainWindow.cpp" line="547"/>
         <source>Choose a file</source>
-        <translation>Choisissez un dossier</translation>
+        <translation>Choisissez un fichier</translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="324"/>
@@ -1608,19 +1608,19 @@ If correction was inpossible then some settings might have been reset to zero.</
         <location filename="mainWindow.cpp" line="356"/>
         <location filename="mainWindow.cpp" line="391"/>
         <source>Save As</source>
-        <translation>Sauf As</translation>
+        <translation>Enregistrer sous</translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="358"/>
         <location filename="mainWindow.cpp" line="393"/>
         <source>System Exclusive (*.syx)</source>
-        <translation>Exclusivité de système (*.syx)</translation>
+        <translation>Système exclusivif(*.syx)</translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="425"/>
         <location filename="mainWindow.cpp" line="454"/>
         <source>Standard Midi File (*.mid)</source>
-        <translation>Dossier standard du Midi (*.mid)</translation>
+        <translation>Dossier Midi standard (*.mid)</translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="452"/>
@@ -1630,7 +1630,7 @@ If correction was inpossible then some settings might have been reset to zero.</
     <message>
         <location filename="mainWindow.cpp" line="485"/>
         <source>Boss Librarian File (*.gxg *.gxb)</source>
-        <translation>Dossier de bibliothécaire de patron (*.gxg *.gxb)</translation>
+        <translation>Fichier Boss Librarian  (*.gxg *.gxb)</translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="513"/>
@@ -1640,7 +1640,7 @@ If correction was inpossible then some settings might have been reset to zero.</
     <message>
         <location filename="mainWindow.cpp" line="515"/>
         <source>Boss Librarian File (*.gxg)</source>
-        <translation>Dossier de bibliothécaire de patron (*.gxg)</translation>
+        <translation>Fichier Boss Librarian (*.gxg)</translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="549"/>
@@ -1665,19 +1665,19 @@ If correction was inpossible then some settings might have been reset to zero.</
     <message>
         <location filename="mainWindow.cpp" line="573"/>
         <source>Select &apos;NO&apos; to only update the Editor - Select &apos;YES&apos; to update the GT-10 memory&lt;br&gt;</source>
-        <translation>NON choisi pour mettre à jour seulement le rédacteur - choisissez OUI pour mettre à jour la mémoire GT-10&lt;br&gt;</translation>
+        <translation>NON choisi pour mettre à jour seulement ll&apos;éditeur - choisissez OUI pour mettre à jour la mémoire GT-10&lt;br&gt;</translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="576"/>
         <source>Are you sure you want to write to the GT-10?</source>
-        <translation>Êtes-vous sûr vous voulez-vous écrire au GT-10 ?</translation>
+        <translation>Êtes-vous sûr vous voulez-vous écrire dans le  GT-10 ?</translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="589"/>
         <location filename="mainWindow.cpp" line="656"/>
         <location filename="mainWindow.cpp" line="677"/>
         <source>Ensure connection is active and retry</source>
-        <translation>Assurez que le raccordement est en activité et tentative</translation>
+        <translation>Assurez vous que la connection est active et réessayez</translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="591"/>
@@ -1690,22 +1690,22 @@ If correction was inpossible then some settings might have been reset to zero.</
     <message>
         <location filename="mainWindow.cpp" line="612"/>
         <source>Save System Data</source>
-        <translation>Sauf des données de système</translation>
+        <translation>Sauvegarde des données de système</translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="614"/>
         <source>System Exclusive File (*.GT10_system_syx)</source>
-        <translation>Dossier exclusif de système (*.GT10_system_syx)</translation>
+        <translation>Dossier de système exclusif (*.GT10_system_syx)</translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="636"/>
         <source>Ensure connection is active and retry&lt;br&gt;</source>
-        <translation>Assurez que le raccordement est en activité et tentative&lt;br&gt;</translation>
+        <translation>Assurez vous que la connection est active et réessayez</translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="770"/>
         <source>GT-10 Fx FloorBoard - About</source>
-        <translation>Planche de GT-10 Fx - environ</translation>
+        <translation>GT-10 Fx FloorBoard - a propos</translation>
     </message>
     <message>
         <location filename="mainWindow.cpp" line="771"/>
@@ -1719,7 +1719,7 @@ If correction was inpossible then some settings might have been reset to zero.</
         <location filename="menuPage.cpp" line="108"/>
         <location filename="menuPage.cpp" line="413"/>
         <source>Master</source>
-        <translation>Maître</translation>
+        <translation>Master</translation>
     </message>
     <message>
         <location filename="menuPage.cpp" line="118"/>
@@ -1739,7 +1739,7 @@ If correction was inpossible then some settings might have been reset to zero.</
     <message>
         <location filename="menuPage.cpp" line="163"/>
         <source>Ensure connection is active and retry</source>
-        <translation>Assurez que le raccordement est en activité et tentative</translation>
+        <translation>Assurez que la connectionest active et réessayez</translation>
     </message>
     <message>
         <location filename="menuPage.cpp" line="165"/>
@@ -1754,7 +1754,7 @@ If correction was inpossible then some settings might have been reset to zero.</
     <message>
         <location filename="menuPage.cpp" line="286"/>
         <source> Fx FloorBoard connection Error !!</source>
-        <translation>Erreur de raccordement de planche de Fx ! !</translation>
+        <translation>Erreur de raccordement  Fx FloorBoard ! !</translation>
     </message>
     <message>
         <location filename="menuPage.cpp" line="291"/>
@@ -1774,7 +1774,7 @@ If correction was inpossible then some settings might have been reset to zero.</
     <message>
         <location filename="menuPage.cpp" line="408"/>
         <source>System settings</source>
-        <translation>système</translation>
+        <translation>Reglages du systeme</translation>
     </message>
     <message>
         <location filename="menuPage.cpp" line="409"/>
@@ -1784,7 +1784,7 @@ If correction was inpossible then some settings might have been reset to zero.</
     <message>
         <location filename="menuPage.cpp" line="410"/>
         <source>Assigns</source>
-        <translation>Assigne</translation>
+        <translation>Assigns</translation>
     </message>
     <message>
         <location filename="menuPage.cpp" line="411"/>
@@ -1802,12 +1802,12 @@ If correction was inpossible then some settings might have been reset to zero.</
     <message>
         <location filename="menuPage_assign.cpp" line="43"/>
         <source>Assigns</source>
-        <translation>Assigne</translation>
+        <translation>Assigns</translation>
     </message>
     <message>
         <location filename="menuPage_assign.cpp" line="44"/>
         <source>Assign 1-8</source>
-        <translation>Assignez 1-8</translation>
+        <translation>Assigns 1-8</translation>
     </message>
 </context>
 <context>
@@ -1817,13 +1817,13 @@ If correction was inpossible then some settings might have been reset to zero.</
         <location filename="midiIO.cpp" line="84"/>
         <location filename="midiIO.cpp" line="238"/>
         <source>Midi Output Error</source>
-        <translation>Erreur de rendement du Midi</translation>
+        <translation>Erreur sortie Midi</translation>
     </message>
     <message>
         <location filename="midiIO.cpp" line="75"/>
         <location filename="midiIO.cpp" line="125"/>
         <source>port error</source>
-        <translation>erreur gauche</translation>
+        <translation>erreur de port</translation>
     </message>
     <message>
         <location filename="midiIO.cpp" line="84"/>
@@ -1838,25 +1838,25 @@ If correction was inpossible then some settings might have been reset to zero.</
         <location filename="midiIO.cpp" line="91"/>
         <location filename="midiIO.cpp" line="138"/>
         <source>un-named midi device: </source>
-        <translation>dispositif anonyme du Midi : </translation>
+        <translation>dispositif de Midi  anonyme : </translation>
     </message>
     <message>
         <location filename="midiIO.cpp" line="100"/>
         <location filename="midiIO.cpp" line="148"/>
         <source>no midi device available</source>
-        <translation>aucun dispositif du Midi disponible</translation>
+        <translation>aucun dispositif Midi disponible</translation>
     </message>
     <message>
         <location filename="midiIO.cpp" line="125"/>
         <location filename="midiIO.cpp" line="132"/>
         <location filename="midiIO.cpp" line="313"/>
         <source>Midi Input Error</source>
-        <translation>Erreur d&apos;entrée du Midi</translation>
+        <translation>Erreur d&apos;entrée Midi</translation>
     </message>
     <message>
         <location filename="midiIO.cpp" line="200"/>
         <source>Sysx Output Error</source>
-        <translation>Erreur de rendement de Sysx</translation>
+        <translation>Erreur de sortie de Sysx</translation>
     </message>
     <message>
         <location filename="midiIO.cpp" line="407"/>
@@ -1871,12 +1871,12 @@ If correction was inpossible then some settings might have been reset to zero.</
     <message>
         <location filename="midiIO.cpp" line="468"/>
         <source>patch request</source>
-        <translation>Demande de correction</translation>
+        <translation>Demande de patch</translation>
     </message>
     <message>
         <location filename="midiIO.cpp" line="471"/>
         <source>name request</source>
-        <translation>demande nommée</translation>
+        <translation>demande de nom</translation>
     </message>
     <message>
         <location filename="midiIO.cpp" line="474"/>
@@ -1887,7 +1887,7 @@ If correction was inpossible then some settings might have been reset to zero.</
         <location filename="midiIO.cpp" line="483"/>
         <location filename="midiIO.cpp" line="500"/>
         <source>no midi device set</source>
-        <translation>aucun ensemble de dispositif du Midi</translation>
+        <translation>aucun peripherique Midi</translation>
     </message>
 </context>
 <context>
@@ -1905,12 +1905,12 @@ If correction was inpossible then some settings might have been reset to zero.</
     <message>
         <location filename="preferencesDialog.cpp" line="84"/>
         <source>GT-10 Fx FloorBoard - Preferences</source>
-        <translation>Planche de GT-10 Fx - préférences</translation>
+        <translation>GT-10 Fx FloorBoard- préférences</translation>
     </message>
     <message>
         <location filename="preferencesDialog.cpp" line="91"/>
         <source>General</source>
-        <translation>Généralités</translation>
+        <translation>Général</translation>
     </message>
     <message>
         <location filename="preferencesDialog.cpp" line="97"/>
@@ -1938,7 +1938,7 @@ If correction was inpossible then some settings might have been reset to zero.</
     <message>
         <location filename="renameDialog.cpp" line="49"/>
         <source>Insert :</source>
-        <translation>Insertion :</translation>
+        <translation>Inserez :</translation>
     </message>
     <message>
         <location filename="renameDialog.cpp" line="55"/>
@@ -1953,7 +1953,7 @@ If correction was inpossible then some settings might have been reset to zero.</
     <message>
         <location filename="renameDialog.cpp" line="61"/>
         <source>Rename patch</source>
-        <translation>Retitrez la correction</translation>
+        <translation>Renommez le âtch</translation>
     </message>
 </context>
 <context>
@@ -1961,7 +1961,7 @@ If correction was inpossible then some settings might have been reset to zero.</
     <message>
         <location filename="stompBox.cpp" line="217"/>
         <source>Channel Mode</source>
-        <translation>Mode de la Manche</translation>
+        <translation>Mode des canaux</translation>
     </message>
     <message>
         <location filename="stompBox.cpp" line="861"/>
@@ -1971,7 +1971,7 @@ If correction was inpossible then some settings might have been reset to zero.</
     <message>
         <location filename="stompBox.cpp" line="862"/>
         <source>Distortion</source>
-        <translation>Déformation</translation>
+        <translation>Distortion</translation>
     </message>
     <message>
         <location filename="stompBox.cpp" line="863"/>
@@ -2001,12 +2001,12 @@ If correction was inpossible then some settings might have been reset to zero.</
     <message>
         <location filename="stompBox.cpp" line="868"/>
         <source>Delay</source>
-        <translation>Retard</translation>
+        <translation>Delay</translation>
     </message>
     <message>
         <location filename="stompBox.cpp" line="869"/>
         <source>Chorus</source>
-        <translation>Choeur</translation>
+        <translation>Chorus</translation>
     </message>
     <message>
         <location filename="stompBox.cpp" line="870"/>
@@ -2026,32 +2026,32 @@ If correction was inpossible then some settings might have been reset to zero.</
     <message>
         <location filename="stompBox.cpp" line="873"/>
         <source>Noise Suppressor 1</source>
-        <translation>Dispositif antiparasite 1</translation>
+        <translation>Noise gate 1</translation>
     </message>
     <message>
         <location filename="stompBox.cpp" line="874"/>
         <source>Noise Suppressor 2</source>
-        <translation>Dispositif antiparasite 2</translation>
+        <translation>Noise gate  2</translation>
     </message>
     <message>
         <location filename="stompBox.cpp" line="875"/>
         <source>Send/Return</source>
-        <translation>Envoyez/Retour</translation>
+        <translation>Send/Return</translation>
     </message>
     <message>
         <location filename="stompBox.cpp" line="876"/>
         <source>Digital Out</source>
-        <translation>Digitals dehors</translation>
+        <translation>Digitals out</translation>
     </message>
     <message>
         <location filename="stompBox.cpp" line="877"/>
         <source>PreAmp CH Mode</source>
-        <translation>Mode du préampli ch</translation>
+        <translation>PreAmp CH Mode</translation>
     </message>
     <message>
         <location filename="stompBox.cpp" line="878"/>
         <source>Chain Merge</source>
-        <translation>Fusion à chaînes</translation>
+        <translation>Fusion des chaines</translation>
     </message>
 </context>
 <context>
@@ -2064,7 +2064,7 @@ If correction was inpossible then some settings might have been reset to zero.</
     <message>
         <location filename="stompbox_ce.cpp" line="56"/>
         <source>Chorus</source>
-        <translation>Choeur</translation>
+        <translation>Chorus</translation>
     </message>
     <message>
         <location filename="stompbox_ce.cpp" line="62"/>
@@ -2082,32 +2082,32 @@ If correction was inpossible then some settings might have been reset to zero.</
     <message>
         <location filename="stompbox_ch_a.cpp" line="58"/>
         <source>Channel A</source>
-        <translation>Creusez des rigoles A</translation>
+        <translation>Canal A</translation>
     </message>
     <message>
         <location filename="stompbox_ch_a.cpp" line="60"/>
         <source>Pre Amp</source>
-        <translation>Pré Amplificateur</translation>
+        <translation>Préampli</translation>
     </message>
     <message>
         <location filename="stompbox_ch_a.cpp" line="75"/>
         <source>Speaker</source>
-        <translation>Orateur</translation>
+        <translation>Haut parleur </translation>
     </message>
     <message>
         <location filename="stompbox_ch_a.cpp" line="86"/>
         <source>Solo</source>
-        <translation></translation>
+        <translation>Solo</translation>
     </message>
     <message>
         <location filename="stompbox_ch_a.cpp" line="253"/>
         <source>Custom PreAmp</source>
-        <translation>Préampli fait sur commande</translation>
+        <translation>Préampli custom</translation>
     </message>
     <message>
         <location filename="stompbox_ch_a.cpp" line="281"/>
         <source>Custom Speaker</source>
-        <translation>Haut-parleur fait sur commande</translation>
+        <translation>Haut-parleur custom </translation>
     </message>
 </context>
 <context>
@@ -2115,32 +2115,32 @@ If correction was inpossible then some settings might have been reset to zero.</
     <message>
         <location filename="stompbox_ch_b.cpp" line="59"/>
         <source>Channel B</source>
-        <translation>Creusez des rigoles </translation>
+        <translation>Canal B </translation>
     </message>
     <message>
         <location filename="stompbox_ch_b.cpp" line="61"/>
         <source>Pre Amp</source>
-        <translation>Pré Amplificateur</translation>
+        <translation>Préampli</translation>
     </message>
     <message>
         <location filename="stompbox_ch_b.cpp" line="76"/>
         <source>Speaker</source>
-        <translation>Orateur</translation>
+        <translation>Haut parleur</translation>
     </message>
     <message>
         <location filename="stompbox_ch_b.cpp" line="87"/>
         <source>Solo</source>
-        <translation></translation>
+        <translation>Solo</translation>
     </message>
     <message>
         <location filename="stompbox_ch_b.cpp" line="257"/>
         <source>Custom PreAmp</source>
-        <translation>Préampli fait sur commande</translation>
+        <translation>Préampli custom</translation>
     </message>
     <message>
         <location filename="stompbox_ch_b.cpp" line="286"/>
         <source>Custom Speaker</source>
-        <translation>Haut-parleur fait sur commande</translation>
+        <translation>Haut-parleur custom </translation>
     </message>
 </context>
 <context>
@@ -2148,23 +2148,23 @@ If correction was inpossible then some settings might have been reset to zero.</
     <message>
         <location filename="stompbox_cn_s.cpp" line="49"/>
         <source>PreAmp Effect</source>
-        <translation>Effet de préampli</translation>
+        <translation>Préampli</translation>
     </message>
     <message>
         <location filename="stompbox_cn_s.cpp" line="53"/>
         <source>Channel</source>
-        <translation>La Manche</translation>
+        <translation>Canal </translation>
     </message>
     <message>
         <location filename="stompbox_cn_s.cpp" line="63"/>
         <source>Channel select</source>
-        <translation>La Manche choisie</translation>
+        <translation>Canal choisi</translation>
     </message>
     <message>
         <location filename="stompbox_cn_s.cpp" line="69"/>
         <location filename="stompbox_cn_s.cpp" line="75"/>
         <source>Channel Delay</source>
-        <translation>Retard de la Manche</translation>
+        <translation>Delay du canal</translation>
     </message>
     <message>
         <location filename="stompbox_cn_s.cpp" line="81"/>

@@ -252,20 +252,20 @@ void mainWindow::createMenus()
   QMenu *fileMenu = new QMenu(tr("&File"), this);
 	fileMenu->addAction(openAct);
 	fileMenu->addSeparator();
-	fileMenu->addAction(saveAct);
+	//fileMenu->addAction(saveAct);
 	fileMenu->addAction(saveAsAct);
-	fileMenu->addSeparator();
+	//fileMenu->addSeparator();
 	//fileMenu->addAction(importSMFAct);
 	fileMenu->addAction(exportSMFAct);
-	fileMenu->addSeparator();
+	//fileMenu->addSeparator();
 	//fileMenu->addAction(openGXGAct);
 	fileMenu->addAction(saveGXGAct);
 	fileMenu->addSeparator();
-  fileMenu->addAction(systemLoadAct);
-	fileMenu->addAction(systemSaveAct);
-	fileMenu->addSeparator();
 	fileMenu->addAction(bulkLoadAct);
 	fileMenu->addAction(bulkSaveAct);
+	fileMenu->addSeparator();
+  fileMenu->addAction(systemLoadAct);
+	fileMenu->addAction(systemSaveAct);
 	fileMenu->addSeparator();
   fileMenu->addAction(exitAct);
 	menuBar->addMenu(fileMenu);
@@ -767,7 +767,7 @@ void mainWindow::about()
 	if(file.open(QIODevice::ReadOnly))
 	{	
 		QMessageBox::about(this, tr("GT-10 Fx FloorBoard - About"), 
-			tr("GT-10 Fx FloorBoard, ") + tr("version") + " " + version + "<br>" + file.readAll());
+			tr("GT-10 Fx FloorBoard - ") + tr("version") + " " + version + "<br>" + file.readAll());
 	};
 };
 

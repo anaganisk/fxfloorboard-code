@@ -791,10 +791,10 @@ void SysxIO::sendMidi(QString midiMsg)
 		
 		midiIO *midi = new midiIO();
 		QList<QString> midiOutDevices = midi->getMidiOutDevices();
-	  if ( midiOutDevices.contains("BOSS GT-10") )
+	 /* if ( midiOutDevices.contains("BOSS GT-10") )
     {
       midiOutPort = midiOutDevices.indexOf("BOSS GT-10");
-    };
+    }; */
 
 		midi->sendMidi(midiMsg, midiOutPort);
 			 /*DeBugGING OUTPUT */
@@ -914,14 +914,14 @@ void SysxIO::sendSysx(QString sysxMsg)
 	midiIO *midi = new midiIO();
     QList<QString> midiInDevices = midi->getMidiInDevices();
 	  QList<QString> midiOutDevices = midi->getMidiOutDevices();
-	  if ( midiInDevices.contains("BOSS GT-10") )
+	 /* if ( midiInDevices.contains("BOSS GT-10") )
     {
       midiInPort = midiInDevices.indexOf("BOSS GT-10");
     };
 	  if ( midiOutDevices.contains("BOSS GT-10") )
     {
       midiOutPort = midiOutDevices.indexOf("BOSS GT-10");
-    };
+    };  */
 	midi->sendSysxMsg(sysxMsg, midiOutPort, midiInPort);
 			 /*DeBugGING OUTPUT */
 	if(preferences->getPreferences("Midi", "DBug", "bool")=="true")
@@ -1347,6 +1347,4 @@ void SysxIO::writeToBuffer()
 		SLEEP(150);		
 		emit setStatusProgress(42);
 		SLEEP(150); 
-	emit setStatusMessage(tr("Ready"));
-	setDeviceReady(true);
 };

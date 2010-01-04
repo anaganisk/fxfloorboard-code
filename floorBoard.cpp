@@ -247,9 +247,9 @@ void floorBoard::dragEnterEvent(QDragEnterEvent *event)
 	QByteArray data = event->mimeData()->data("text/uri-list");
 	QString uri(data);
 	
-	if (event->mimeData()->hasFormat("application/x-stompbox") ||
-		uri.contains(".syx", Qt::CaseInsensitive) &&
-		event->answerRect().intersects(this->geometry())) 
+        if ((event->mimeData()->hasFormat("application/x-stompbox")) ||
+                (uri.contains(".syx", Qt::CaseInsensitive) &&
+                event->answerRect().intersects(this->geometry())))
 	{
         if (children().contains(event->source())) 
 		{
@@ -268,9 +268,9 @@ void floorBoard::dragMoveEvent(QDragMoveEvent *event)
 	QByteArray data = event->mimeData()->data("text/uri-list");
 	QString uri(data);
 	
-	if ( event->mimeData()->hasFormat("application/x-stompbox") ||
-		uri.contains(".syx", Qt::CaseInsensitive) &&
-		event->answerRect().intersects(this->geometry()) ) 
+        if (( event->mimeData()->hasFormat("application/x-stompbox")) ||
+                (uri.contains(".syx", Qt::CaseInsensitive) &&
+                event->answerRect().intersects(this->geometry())))
 	{
         if (children().contains(event->source())) 
 		{

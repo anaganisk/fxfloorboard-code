@@ -685,9 +685,9 @@ void bankTreeList::updatePatch(QString replyMsg)
 
 
 	};
-	if(replyMsg != "" && replyMsg.size()/2 != 2045) // cjw
+	if(replyMsg != "" && replyMsg.size()/2 != fullPatchSize) // cjw
 	{
-		emit notConnectedSignal();				// No message returned so connection must be lost.
+		//emit notConnectedSignal();				// No message returned so connection must be lost.
 		/* NO-REPLY WARNING */
 	QMessageBox *msgBox = new QMessageBox();
 	msgBox->setWindowTitle(QObject::tr("Warning - Patch data received is incorrect!")+(QString::number(replyMsg.size()/2, 10)));
@@ -705,7 +705,7 @@ void bankTreeList::updatePatch(QString replyMsg)
 	};
 		if(replyMsg == "") // cjw
 	{
-		emit notConnectedSignal();				// No message returned so connection must be lost.
+		//emit notConnectedSignal();				// No message returned so connection must be lost.
 		/* NO-REPLY WARNING */
 	QMessageBox *msgBox = new QMessageBox();
 	msgBox->setWindowTitle(QObject::tr("Warning - Patch data not received!"));
@@ -758,6 +758,7 @@ void bankTreeList::updatePatch(QString replyMsg)
 *********************************************************************************/
 void bankTreeList::connectedSignal()
 {	
+  requestPatch(); //load the current temp buffer 
 	SysxIO *sysxIO = SysxIO::Instance();
 	if(this->openPatchTreeItems.size() != 0 && sysxIO->deviceReady() && sysxIO->isConnected())
 	{
@@ -776,7 +777,7 @@ void bankTreeList::connectedSignal()
 		qSort(this->currentPatchTreeItems);
 
 		this->updatePatchNames("");
-	};  
+	}; 
 };
 
 /********************************** updateTree() ********************************

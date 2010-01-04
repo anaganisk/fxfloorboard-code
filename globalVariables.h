@@ -51,11 +51,12 @@ const int nameLength = 16;        // length of name string
 const int bankTotalUser = 50;		// Number of user (editable) banks.
 const int bankTotalAll = 100;		// Number of total banks.
 const int patchPerBank = 4;			// Number of patches in a bank.
-const int bankSize = 100;       // Number of patches in a midi bank before bank change message is required.
+const int bankSize = 100;       // Number of patches in a midi bank before bank change message is required. 
 
 /* Midi Send & Receive */
 const int patchReplySize = 1784;    // size of bytes in a patch before trimming.
 const int patchSize = 1763;    // size of bytes in a patch after trimming.
+const int fullPatchSize = 2045;    // size of bytes in a patch with user text data.
 const int systemSize = 2236;    // size of bytes for system data.
 const int nameReplySize = 29;    // size of bytes for name data.
 const QString patchRequestDataSize = "00000D63";

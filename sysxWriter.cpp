@@ -88,7 +88,7 @@ bool sysxWriter::readFile()
 		this->systemSource = sysxIO->getSystemSource();
 		return true;
 		}
-		else if(data.size() == 2045 && isHeader == true){         //2045 if GT-10 patch file size is correct- load file >>>  currently at 1763 bytes standard or 1904 with text.
+		else if(data.size() == fullPatchSize && isHeader == true){         //2045 if GT-10 patch file size is correct- load file >>>  currently at 1763 bytes standard or 1904 with text.
 		SysxIO *sysxIO = SysxIO::Instance();
 		QString area = "Structure";
 		sysxIO->setFileSource(area, data);
