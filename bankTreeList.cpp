@@ -532,10 +532,10 @@ void bankTreeList::updatePatch(QString replyMsg)
 	}
 	else if(!replyMsg.isEmpty() && replyMsg.size()/2 != patchSize) // cjw
 	{
-		emit notConnectedSignal();				// No message returned so connection must be lost.
+		//emit notConnectedSignal();				// No message returned so connection must be lost.
 	
 		QMessageBox *msgBox = new QMessageBox();
-	msgBox->setWindowTitle(QObject::tr("Warning - Patch data received is incorrect!"));
+	msgBox->setWindowTitle(QObject::tr("Warning - Patch data received is incomplete!"));
 	msgBox->setIcon(QMessageBox::Warning);
 	msgBox->setTextFormat(Qt::RichText);
 	QString msgText;
@@ -550,7 +550,7 @@ void bankTreeList::updatePatch(QString replyMsg)
 	}
 	else if(replyMsg.isEmpty()) // cjw
 	{
-		emit notConnectedSignal();				// No message returned so connection must be lost.
+		//emit notConnectedSignal();				// No message returned so connection must be lost.
 		/* NO-REPLY WARNING */
 	QMessageBox *msgBox = new QMessageBox();
 	msgBox->setWindowTitle(QObject::tr("Warning - No patch data received!"));

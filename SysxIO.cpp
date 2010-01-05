@@ -315,7 +315,7 @@ void SysxIO::setFileSource(QString area, QString hex1, QString hex2, QString hex
 		
 		this->sendSysx(sysxMsg);  
 	}
-	else if(this->isConnected())
+	else //if(this->isConnected())
 	{
 		this->sendSpooler.append(sysxMsg);
 	}; 
@@ -1128,7 +1128,7 @@ void SysxIO::requestPatch(int bank, int patch)
 void SysxIO::errorSignal(QString errorType, QString errorMsg)
 {
     setNoError(false);
-		emit setStatusdBugMessage(this->errorType + "  " + this->errorMsg);
+		emit setStatusdBugMessage(errorType + "  " + errorMsg);
 		this->errorType = "";
 		this->errorMsg = "";
 };
@@ -1348,8 +1348,6 @@ void SysxIO::writeToBuffer()
 		SLEEP(150);		
 		emit setStatusProgress(42);
 		SLEEP(150); 
-	emit setStatusMessage(tr("Ready"));
-	setDeviceReady(true);
 };
 
 

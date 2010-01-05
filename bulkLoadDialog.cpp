@@ -240,7 +240,7 @@ void bulkLoadDialog::sendData()
   cancelButton->hide();
   progress = 0;
   patch = 1;
-  range = (100)/((finishList-startList)+1);
+  range = (1000)/(((finishList-startList)+1)*10);
    
    int z = (this->bankStart);
    QString q;
