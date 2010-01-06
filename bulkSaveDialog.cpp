@@ -54,7 +54,7 @@ bulkSaveDialog::bulkSaveDialog()
 	this->startRangeSpinBox = startRangeSpinBox;
 	startRangeSpinBox->setValue(1);
 	startRangeSpinBox->setRange(1, bankTotalUser);
-	startRangeSpinBox->setPrefix("Start at U");
+	startRangeSpinBox->setPrefix(tr("Start at U"));
 	startRangeSpinBox->setSuffix("-1");
 
 	this->finishRangeSpinBox = finishRangeSpinBox;
@@ -99,7 +99,7 @@ bulkSaveDialog::bulkSaveDialog()
   connect(cancelButton, SIGNAL(clicked()), this, SLOT(close()));
   
   this->progressLabel = new QLabel(this);
-  this->progressLabel->setText(tr("Full Backup may take up to 2 minutes"));
+  this->progressLabel->setText(tr("Full Backup may take up to 4 minutes"));
   this->bytesLabel = new QLabel(this);
   this->bytesLabel->setText("");
   
@@ -139,8 +139,8 @@ bulkSaveDialog::bulkSaveDialog()
 
 	setWindowTitle(tr("Bulk File Backup"));
 	
-	QObject::connect(this, SIGNAL( startRangeSpinBox->valueChanged(int) ), this, SLOT( bankStart(int) ));
-	QObject::connect(this, SIGNAL( finishRangeSpinBox->valueChanged(int) ), this, SLOT( bankFinish(int) ));
+	//QObject::connect(this, SIGNAL( startRangeSpinBox->valueChanged(int) ), this, SLOT( bankStart(int) ));
+	//QObject::connect(this, SIGNAL( finishRangeSpinBox->valueChanged(int) ), this, SLOT( bankFinish(int) ));
 	SysxIO *sysxIO = SysxIO::Instance();
 	QObject::connect(this, SIGNAL(setStatusSymbol(int)), sysxIO, SIGNAL(setStatusSymbol(int)));
 	QObject::connect(this, SIGNAL(setStatusProgress(int)), sysxIO, SIGNAL(setStatusProgress(int)));
@@ -154,6 +154,7 @@ void bulkSaveDialog::backup()
   this->cancelButton->hide();
   this->bankStart = this->startRangeSpinBox->value();
   this->bankFinish = this->finishRangeSpinBox->value();
+  if (bankFinish<bankStart) {bankFinish = bankStart; this->finishRangeSpinBox->setValue(bankStart); };
   this->bank=bankStart*patchPerBank;
 	bulk.clear();
 	this->progress = 0;

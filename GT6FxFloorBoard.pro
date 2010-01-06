@@ -28,13 +28,11 @@ CONFIG += static
 CONFIG += embed_manifest_exe
 #ifdef Q_OS_MAC
 CONFIG += release ppc x86
-TARGET = "GT6FxFloorBoard"
-DESTDIR = ../GT6FxFloorBoard
 #else
 CONFIG += release
+#endif
 TARGET = "GT6FxFloorBoard"
 DESTDIR = ./packager
-#endif
 MOC_DIR += ./generatedfiles/release
 OBJECTS_DIR += release
 UI_DIR += ./generatedfiles

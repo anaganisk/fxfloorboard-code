@@ -502,7 +502,7 @@ void bankTreeList::updatePatch(QString replyMsg)
 	if(replyMsg.size()/2 == patchSize) // cjw
 	{
 	 QByteArray data;
-   QFile file(":default.syx");   // Read the default GT-10 sysx file so we don't start empty handed.
+   QFile file(":default.syx");   // Read the default GT-6 sysx file so we don't start empty handed.
     if (file.open(QIODevice::ReadOnly))
 	  {	data = file.readAll(); };
 	  QByteArray temp;                      
@@ -535,7 +535,7 @@ void bankTreeList::updatePatch(QString replyMsg)
 	}
 	else if(!replyMsg.isEmpty() && replyMsg.size()/2 != patchSize) // cjw
 	{
-		emit notConnectedSignal();				// No message returned so connection must be lost.
+		//emit notConnectedSignal();				// No message returned so connection must be lost.
 	
 		QMessageBox *msgBox = new QMessageBox();
 	msgBox->setWindowTitle(QObject::tr("Warning - Patch data received is incorrect!"));
@@ -553,7 +553,7 @@ void bankTreeList::updatePatch(QString replyMsg)
 	}
 	else if(replyMsg.isEmpty()) // cjw
 	{
-		emit notConnectedSignal();				// No message returned so connection must be lost.
+		//emit notConnectedSignal();				// No message returned so connection must be lost.
 		/* NO-REPLY WARNING */
 	QMessageBox *msgBox = new QMessageBox();
 	msgBox->setWindowTitle(QObject::tr("Warning - No patch data received!"));

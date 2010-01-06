@@ -76,10 +76,6 @@ MidiPage::MidiPage(QWidget *parent)
 
 	QString midiDelaySet = preferences->getPreferences("Midi", "Delay", "set");
 
-
-
-
- 
 	int midiInDeviceID = midiInDevice.toInt(&ok, 10);
 	int midiOutDeviceID = midiOutDevice.toInt(&ok, 10);
 	QList<QString> midiInDevices = midi->getMidiInDevices();
@@ -142,20 +138,13 @@ MidiPage::MidiPage(QWidget *parent)
 	midiLayout->addLayout(midiDevLayout);
 	midiGroup->setLayout(midiLayout);
 
-
-
 	QGroupBox *dBugScreenGroup = new QGroupBox(QObject::tr("dBug and timing"));
 
-	QLabel *dBugDescriptionLabel = new QLabel(QObject::tr("Debug mode & midi settings."));
+	QLabel *dBugDescriptionLabel = new QLabel(QObject::tr("Debug mode & Advanced midi settings."));
 	//QLabel *midiTimeDescriptionLabel = new QLabel(QObject::tr("System data request size."));
-	QLabel *midiDelayDescriptionLabel = new QLabel(QObject::tr("Realtime edit send rate."));
+	QLabel *midiDelayDescriptionLabel = new QLabel(QObject::tr("Slow Midi device compensation."));
 
-	QCheckBox *dBugCheckBox = new QCheckBox(QObject::tr("deBug Mode"));
-
-
-
-
-	
+	QCheckBox *dBugCheckBox = new QCheckBox(QObject::tr("deBug Mode"));	
 	this->dBugCheckBox = dBugCheckBox;
 	if(dBugScreen=="true")
 	{
@@ -166,14 +155,9 @@ MidiPage::MidiPage(QWidget *parent)
 	this->midiDelaySpinBox = midiDelaySpinBox;
 	const int minWait = preferences->getPreferences("Midi", "Delay", "set").toInt(&ok, 10);
 	midiDelaySpinBox->setValue(minWait);
-	midiDelaySpinBox->setRange(1, 30);
+	midiDelaySpinBox->setRange(0, 99);
 	midiDelaySpinBox->setPrefix(QObject::tr("= "));
-	midiDelaySpinBox->setSuffix(QObject::tr(" times/second"));
-
-
-
-
-
+	midiDelaySpinBox->setSuffix(QObject::tr(" milliseconds"));
 
 	QVBoxLayout *dBugLabelLayout = new QVBoxLayout;
 	dBugLabelLayout->addWidget(dBugDescriptionLabel);
@@ -182,6 +166,7 @@ MidiPage::MidiPage(QWidget *parent)
 	
 	QVBoxLayout *dBugTimeBoxLayout = new QVBoxLayout;
 	dBugTimeBoxLayout->addWidget(dBugCheckBox);
+	dBugTimeBoxLayout->addWidget(midiDelaySpinBox);
 	//dBugTimeBoxLayout->addLayout(dataSizeSelect);
 	
 	QHBoxLayout *dBugSelectLayout = new QHBoxLayout;
@@ -194,8 +179,6 @@ MidiPage::MidiPage(QWidget *parent)
 	dBugScreenLayout->addLayout(dBugSelectLayout);
 
 	dBugScreenGroup->setLayout(dBugScreenLayout);
-
-
 	
 	QVBoxLayout *mainLayout = new QVBoxLayout;
 	mainLayout->addWidget(midiGroup);
@@ -212,12 +195,7 @@ WindowPage::WindowPage(QWidget *parent)
 	QString sidepanelRestore = preferences->getPreferences("Window", "Restore", "sidepanel");
 	QString splashScreen = preferences->getPreferences("Window", "Splash", "bool");
 
-
-
-
 	QGroupBox *windowGroup = new QGroupBox(QObject::tr("Window settings"));
-
-
 
 	QLabel *restoreDescriptionLabel = new QLabel(QObject::tr("Select if you want the window position to be saved on exit."));
 	QCheckBox *windowCheckBox = new QCheckBox(QObject::tr("Restore window"));
@@ -250,8 +228,6 @@ WindowPage::WindowPage(QWidget *parent)
 	QCheckBox *splashCheckBox = new QCheckBox(QObject::tr("Splash screen"));
 	this->splashCheckBox = splashCheckBox;
 
-
-
 	if(splashScreen=="true")
 	{
 		splashCheckBox->setChecked(true);
@@ -265,8 +241,6 @@ WindowPage::WindowPage(QWidget *parent)
 	QVBoxLayout *splashScreenLayout = new QVBoxLayout;
 	splashScreenLayout->addLayout(splashLayout);
 	splashScreenGroup->setLayout(splashScreenLayout);
-
-	
 
 	QVBoxLayout *mainLayout = new QVBoxLayout;
 	mainLayout->addWidget(windowGroup);

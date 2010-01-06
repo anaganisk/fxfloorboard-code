@@ -152,7 +152,7 @@ bulkLoadDialog::bulkLoadDialog()
                 this,
                 tr("Choose a file"),
                 dir,
-                tr("GT-3 Bulk Data File (*.syx)"));
+                tr("GT-6 Bulk Data File (*.syx)"));
 	if (!fileName.isEmpty())	
 	{
 	
@@ -296,7 +296,7 @@ void bulkLoadDialog::sendData()
 		i=i+2;
     }; 
   };   
-	this->bulk = reBuild.simplified().toUpper().remove("0X").remove(" ");	
+	this->bulk = reBuild.simplified().toUpper();	
 	bank = (bankStart+(patchPerBank-1));
   patch = bank/patchPerBank; patch = patch*patchPerBank; patch=bank-patch;
           steps=0;
@@ -341,7 +341,7 @@ void bulkLoadDialog::sendSequence(QString value)
           this->progressLabel->setText(tr("Bulk data transfer completed!!")); 
           this->progress=100;  };
         
-  QString patchNumber = QString::number(bank/4, 10).toUpper();
+  QString patchNumber = QString::number(bank/patchPerBank, 10).toUpper();
   patchNumber.prepend(tr("User Patch U" ));
   patchNumber.append("-");
   patchNumber.append( QString::number(patch, 10).toUpper() );
@@ -398,8 +398,8 @@ void bulkLoadDialog::updatePatch()
    this->finishPatchCombo->setCurrentIndex(patchCount-1);     // set the finish combobox index to the end of the list.
    this->startPatchCombo->setCurrentIndex(0);
    QString text = tr("Finish at U");
-   if (patchCount<4) {patchCount=4; };
-   text.append(QString::number(patchCount/4, 10).toUpper() );
+   if (patchCount<patchPerBank) {patchCount=patchPerBank; };
+   text.append(QString::number(patchCount/patchPerBank, 10).toUpper() );
    text.append("-x");
    this->finishRange->setText(text);   
    
