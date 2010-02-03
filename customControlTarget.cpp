@@ -85,8 +85,8 @@ customControlTarget::customControlTarget(QWidget *parent,
 	this->knobTarget = new customKnobTarget(this, hex1, hex2, hex3, hexMsb, hexLsb, "target");                // create knob with target address
 	this->display->setObjectName("editdisplay");
 	this->display->setFixedWidth(lenght);
-	this->display->setFixedHeight(15);
-	this->display->setAlignment(Qt::AlignLeft);
+	this->display->setFixedHeight(14);
+	this->display->setAlignment(Qt::AlignCenter);
 	this->display->setDisabled(true);	
 	this->display->hide();  // hide the display dialog
 	this->label->setText("TARGET");

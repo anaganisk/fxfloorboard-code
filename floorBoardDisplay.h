@@ -67,7 +67,6 @@ public slots:
 	void blinkSellectedPatch(bool active = true);
 	void patchLoadSignal(int bank, int patch);
 	void notConnected();
-
 	void patchChangeFailed();
 	void writeToBuffer();
 	void writeToMemory();

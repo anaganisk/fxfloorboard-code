@@ -40,7 +40,7 @@ mainWindow::mainWindow(QWidget *parent)
 mainWindow::mainWindow(QWidget *parent)
 	: QMainWindow(parent) */
 {
-	fxsBoard = new floorBoard(this);
+	floorBoard *fxsBoard = new floorBoard(this);
 
 	
 
@@ -301,7 +301,7 @@ void mainWindow::createStatusBar()
 	statusInfo->setStatusMessage(tr("Not connected"));
 
 	QObject::connect(sysxIO, SIGNAL(setStatusSymbol(int)), statusInfo, SLOT(setStatusSymbol(int)));
-	QObject::connect(sysxIO, SIGNAL(setStatusProgress(int)), statusInfo, SLOT(setStatusProgress(int)));;
+	QObject::connect(sysxIO, SIGNAL(setStatusProgress(int)), statusInfo, SLOT(setStatusProgress(int)));
 	QObject::connect(sysxIO, SIGNAL(setStatusMessage(QString)), statusInfo, SLOT(setStatusMessage(QString)));
   QObject::connect(sysxIO, SIGNAL(setStatusdBugMessage(QString)), statusInfo, SLOT(setStatusdBugMessage(QString)));
 
@@ -704,7 +704,7 @@ void mainWindow::settings()
     if (dialog->languageSettings->chineseButton->isChecked() ) {lang="3"; }
     else if (dialog->languageSettings->germanButton->isChecked() ) {lang="2"; }
     else if (dialog->languageSettings->frenchButton->isChecked() ) {lang="1"; }
-    else /*if (dialog->languageSettings->englishButton->isChecked() )*/ {lang="0"; };
+    else {lang="0"; };
     preferences->setPreferences("Language", "Locale", "select", lang);
 
 		if(midiIn=="-1") { midiIn = ""; };
@@ -719,6 +719,7 @@ void mainWindow::settings()
 		preferences->setPreferences("Window", "Restore", "sidepanel", sidepanel);
 		preferences->setPreferences("Window", "Restore", "window", window);
 		preferences->setPreferences("Window", "Splash", "bool", splash);
+		preferences->savePreferences();
 	};
 };
 

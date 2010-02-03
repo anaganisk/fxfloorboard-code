@@ -88,8 +88,8 @@ signals:
 protected:
 	void paintEvent(QPaintEvent *event);
 	void dragEnterEvent(QDragEnterEvent *event);
-        void dragMoveEvent(QDragMoveEvent *event);
-        void dropEvent(QDropEvent *event);
+  void dragMoveEvent(QDragMoveEvent *event);
+  void dropEvent(QDropEvent *event);
 
 private:
 	void initSize(QSize floorSize);
@@ -101,11 +101,9 @@ private:
 	void setStompPos(QString name, int order);
 	void setStompPos(int index, int order);
 	void centerEditDialog();
-
 	QString imagePathFloor;
 	QString imagePathStompBG;
 	QString imagePathInfoBar;
-
 	unsigned int offset;
 	unsigned int infoBarWidth;
 	unsigned int infoBarHeight;
@@ -116,25 +114,20 @@ private:
 	QSize maxSize;
 	QSize l_floorSize;
 	QSize floorSize;
-
 	unsigned int marginStompBoxesTop;
 	unsigned int marginStompBoxesBottom;
 	unsigned int marginStompBoxesWidth;
-
 	QSize stompSize;
 	QPixmap baseImage;
-	QPixmap image;
-	
+	QPixmap image;	
 	QPoint pos;
 	QPoint displayPos;
 	QPoint liberainPos;
 	QPoint panelBarPos;
-
 	QList<QPoint> fxPos;
 	QList<int> fx;
 	bool colapseState;
-
-        QList<menuPage*> menuPages;
+  QList<menuPage*> menuPages;
 	QList<stompBox*> stompBoxes;
 	QList<QString> stompNames;
 	editWindow* editDialog;

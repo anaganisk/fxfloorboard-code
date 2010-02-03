@@ -596,25 +596,27 @@ QString MidiTable::nameRequest(int bank, int patch)
 		}else{
 		addr1 = QString::number(16 + n, 16).toUpper();
 		addr2 = QString::number(patchOffset - (addrMaxSize * n), 16).toUpper();
+		if (addr1.length() < 2) addr1.prepend("0");
+		if (addr2.length() < 2) addr2.prepend("0");
     };
 	}
 	else if ( bank == 101 )
 	{
 	addr1 = "30";
 	addr2 = QString::number(patch - 1 , 16).toUpper();
+	if (addr2.length() < 2) addr2.prepend("0");
   }
   else if ( bank == 105 )
 	{
 	addr1 = "40";
 	addr2 = QString::number(patch - 1, 16).toUpper();
+	if (addr2.length() < 2) addr2.prepend("0");
   }
 	else
 	{
 	addr1 = "60";//tempDataWrite;
 	addr2 = "00";
 	};
-  if (addr1.length() < 2) addr1.prepend("0");
-	if (addr2.length() < 2) addr2.prepend("0");
 	QString hex1 = "00";
 	QString hex2 = "00";
 

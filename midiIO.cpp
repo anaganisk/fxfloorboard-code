@@ -473,10 +473,10 @@ void midiIO::sendSysxMsg(QString sysxOutMsg, int midiOutPort, int midiInPort)
 		i=i+2;
     }; 
   };  
-  msgType = "";
+  
   if (sysxOutMsg == idRequestString)
    {reBuild = sysxOutMsg;  msgType = "identity";  emit setStatusdBugMessage(tr("identity request")); };  // identity request not require checksum
-	this->sysxOutMsg = reBuild.simplified().toUpper().remove("0X").remove(" ");
+	this->sysxOutMsg = reBuild.simplified().toUpper();
 
   if((sysxOutMsg.size() == (sysxDataOffset*2 + 12)) && (sysxOutMsg.mid(sysxOutMsg.size()-12, 8) == patchRequestDataSize) && (sysxOutMsg.mid((sysxAddressOffset*2-2), 2) == "11") )
    { msgType = "patch"; emit setStatusdBugMessage(tr("patch request")); };

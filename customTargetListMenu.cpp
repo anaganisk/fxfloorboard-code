@@ -71,7 +71,7 @@ customTargetListMenu::customTargetListMenu(QWidget *parent,
 		mainLayout->setMargin(0);
 		mainLayout->setSpacing(0);
 		mainLayout->addStretch(0);
-		mainLayout->addWidget(this->controlListComboBox, 0, Qt::AlignLeft);
+		mainLayout->addWidget(this->controlListComboBox, 0, Qt::AlignCenter);
 
 		this->setLayout(mainLayout);
 		this->setFixedHeight(12 + 15);
@@ -83,7 +83,7 @@ customTargetListMenu::customTargetListMenu(QWidget *parent,
 		mainLayout->setMargin(0);
 		mainLayout->setSpacing(0);
 		mainLayout->addStretch(0);
-		mainLayout->addWidget(this->controlListComboBox, 0, Qt::AlignLeft);
+		mainLayout->addWidget(this->controlListComboBox, 0, Qt::AlignCenter);
 
 		this->setLayout(mainLayout);
 		this->setFixedHeight(12 + 15);

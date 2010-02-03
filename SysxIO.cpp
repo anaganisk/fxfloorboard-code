@@ -791,10 +791,10 @@ void SysxIO::sendMidi(QString midiMsg)
 		
 		midiIO *midi = new midiIO();
 		QList<QString> midiOutDevices = midi->getMidiOutDevices();
-	 /* if ( midiOutDevices.contains("BOSS GT-10") )
+	  if ( midiOutDevices.contains("BOSS GT-10") )
     {
       midiOutPort = midiOutDevices.indexOf("BOSS GT-10");
-    }; */
+    }; 
 
 		midi->sendMidi(midiMsg, midiOutPort);
 			 /*DeBugGING OUTPUT */
@@ -914,14 +914,14 @@ void SysxIO::sendSysx(QString sysxMsg)
 	midiIO *midi = new midiIO();
     QList<QString> midiInDevices = midi->getMidiInDevices();
 	  QList<QString> midiOutDevices = midi->getMidiOutDevices();
-	 /* if ( midiInDevices.contains("BOSS GT-10") )
+	  if ( midiInDevices.contains("BOSS GT-10") )
     {
       midiInPort = midiInDevices.indexOf("BOSS GT-10");
     };
 	  if ( midiOutDevices.contains("BOSS GT-10") )
     {
       midiOutPort = midiOutDevices.indexOf("BOSS GT-10");
-    };  */
+    };  
 	midi->sendSysxMsg(sysxMsg, midiOutPort, midiInPort);
 			 /*DeBugGING OUTPUT */
 	if(preferences->getPreferences("Midi", "DBug", "bool")=="true")
@@ -943,8 +943,8 @@ void SysxIO::receiveSysx(QString sysxMsg)
 	{
 	if (sysxMsg.size() > 0){
 			QString snork;
-			snork.append(tr("<font size='-1'>"));
-			snork.append("{ size=");
+			snork.append("<font size='-1'>");
+			snork.append(tr("{ size="));
 			snork.append(QString::number(sysxMsg.size()/2, 10));
 			snork.append("}");	
 			snork.append(tr("<br> midi data received"));
@@ -1052,6 +1052,14 @@ void SysxIO::errorSignal(QString errorType, QString errorMsg)
 		this->errorMsg = "";
 };
 
+void SysxIO::errorReturn(QString errorType, QString errorMsg)
+{
+  	setNoError(false);
+		emit setStatusdBugMessage(this->errorType + "  " + this->errorMsg);
+		this->errorType = "";
+		this->errorMsg = "";
+};
+
 /***************************** noError() ******************************
 * Error flag set on midi error to prevent (double) connexion faillure 
 * messages and a midi messages.
@@ -1103,18 +1111,10 @@ void SysxIO::emitStatusdBugMessage(QString dBug)
 {
 	emit setStatusdBugMessage(dBug);
 };
-void SysxIO::errorReturn(QString errorType, QString errorMsg)
-{
-  
-    this->errorType = errorType;
-    this->errorMsg = errorMsg;
-   
-};
 
 void SysxIO::systemWrite()
 {
-  
-	setDeviceReady(false);			// Reserve the device for interaction.
+ 	setDeviceReady(false);			// Reserve the device for interaction.
 	
 	QString sysxMsg;
 	QList< QList<QString> > systemData = getSystemSource().hex; // Get the loaded system data.
@@ -1347,4 +1347,6 @@ void SysxIO::writeToBuffer()
 		SLEEP(150);		
 		emit setStatusProgress(42);
 		SLEEP(150); 
+		emit setStatusMessage(tr("Ready"));
+	  setDeviceReady(true);
 };

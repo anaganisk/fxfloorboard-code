@@ -40,17 +40,15 @@ bankTreeList::bankTreeList(QWidget *parent)
 
 	this->treeList = newTreeList();
 	this->treeList->setObjectName("banklist");
-  	QObject::connect(treeList, SIGNAL(itemExpanded(QTreeWidgetItem*)), 
-			this, SLOT(setOpenItems(QTreeWidgetItem*)));
-	QObject::connect(treeList, SIGNAL(itemCollapsed(QTreeWidgetItem*)), 
-			this, SLOT(setClosedItems(QTreeWidgetItem*)));
-	QObject::connect(treeList, SIGNAL(itemClicked(QTreeWidgetItem*, int)), 
-			this, SLOT(setItemClicked(QTreeWidgetItem*, int)));
-	QObject::connect(treeList, SIGNAL(itemDoubleClicked(QTreeWidgetItem*, int)), 
-			this, SLOT(setItemDoubleClicked(QTreeWidgetItem*, int)));
+  QObject::connect(treeList, SIGNAL(itemExpanded(QTreeWidgetItem*)), this, SLOT(setOpenItems(QTreeWidgetItem*)));
+	
+  QObject::connect(treeList, SIGNAL(itemCollapsed(QTreeWidgetItem*)), this, SLOT(setClosedItems(QTreeWidgetItem*)));
+	
+  QObject::connect(treeList, SIGNAL(itemClicked(QTreeWidgetItem*, int)), this, SLOT(setItemClicked(QTreeWidgetItem*, int)));
+	
+  QObject::connect(treeList, SIGNAL(itemDoubleClicked(QTreeWidgetItem*, int)), this, SLOT(setItemDoubleClicked(QTreeWidgetItem*, int)));
 
-	QObject::connect(this, SIGNAL(updateSignal()), 
-			this->parent(), SIGNAL(updateSignal()));
+	QObject::connect(this, SIGNAL(updateSignal()), this->parent(), SIGNAL(updateSignal()));
 	
 	QVBoxLayout *treeListLayout = new QVBoxLayout;
 	treeListLayout->addWidget(treeList);
@@ -59,15 +57,13 @@ bankTreeList::bankTreeList(QWidget *parent)
 	setLayout(treeListLayout);
 
 	SysxIO *sysxIO = SysxIO::Instance();
-	QObject::connect(this, SIGNAL(setStatusSymbol(int)),
-                sysxIO, SIGNAL(setStatusSymbol(int)));
-	QObject::connect(this, SIGNAL(setStatusProgress(int)),
-                sysxIO, SIGNAL(setStatusProgress(int)));
-	QObject::connect(this, SIGNAL(setStatusMessage(QString)),
-                sysxIO, SIGNAL(setStatusMessage(QString)));
+	QObject::connect(this, SIGNAL(setStatusSymbol(int)), sysxIO, SIGNAL(setStatusSymbol(int)));
+	
+	QObject::connect(this, SIGNAL(setStatusProgress(int)), sysxIO, SIGNAL(setStatusProgress(int)));
+	
+	QObject::connect(this, SIGNAL(setStatusMessage(QString)), sysxIO, SIGNAL(setStatusMessage(QString)));
 
-	QObject::connect(this, SIGNAL(notConnectedSignal()),
-                sysxIO, SIGNAL(notConnectedSignal()));
+	QObject::connect(this, SIGNAL(notConnectedSignal()), sysxIO, SIGNAL(notConnectedSignal()));
 };
 
 void bankTreeList::updateSize(QRect newrect)
@@ -499,22 +495,9 @@ void bankTreeList::setItemDoubleClicked(QTreeWidgetItem *item, int column)
 		patch = item->parent()->indexOfChild(item) + 1;								// and the patch number.
 		QString preset = item->parent()->parent()->text(0);
 		if (preset.contains("P")) { bank = bank + 50; };
-	//	if(bank == sysxIO->getLoadedBank() && patch == sysxIO->getLoadedPatch())
-	//	{ 
+	
 			requestPatch(bank, patch); // use
-	/*	}
-		else
-		{
-			emit patchLoadSignal(bank, patch); // Tell to stop blinking a sellected patch and prepare to load this one instead.
-			
-			QObject::disconnect(sysxIO, SIGNAL(isChanged()),	
-				this, SLOT(requestPatch()));
-			QObject::connect(sysxIO, SIGNAL(isChanged()),	// Connect the isChanged message
-				this, SLOT(requestPatch()));				// to requestPatch.
-
-			sysxIO->requestPatchChange(bank, patch);
-		}; */
-		
+	
 		}
 		else if(item->text(0) == "Temp")
 	{  
@@ -618,6 +601,10 @@ void bankTreeList::updatePatch(QString replyMsg)
 	QString part13 = replyMsg.mid(3110, 256);
 	part13.prepend("0C00").prepend(addressMsb).prepend(header).append(footer);
 	
+	QString QFX = "false";
+	if (replyMsg.contains("F0410000002F1230") || replyMsg.contains("F0410000002F1240")) // if a QFX patch
+	  {QFX = "true"; };                                                     // update the temp buffer
+	
 	replyMsg = "";
 	replyMsg.append(part1).append(part2).append(part3).append(part4).append(part5).append(part6)
   .append(part7).append(part8).append(part9).append(part10).append(part11).append(part12).append(part13);
@@ -681,11 +668,9 @@ void bankTreeList::updatePatch(QString replyMsg)
 
 		emit updateSignal();
 		emit setStatusProgress(0);
-
-
-
+    if (QFX == "true") { sysxIO->writeToBuffer(); };
 	};
-	if(replyMsg != "" && replyMsg.size()/2 != fullPatchSize) // cjw
+	if(!replyMsg.isEmpty() && replyMsg.size()/2 != fullPatchSize) 
 	{
 		//emit notConnectedSignal();				// No message returned so connection must be lost.
 		/* NO-REPLY WARNING */
@@ -703,7 +688,7 @@ void bankTreeList::updatePatch(QString replyMsg)
 	msgBox->exec();
 	/* END WARNING */
 	};
-		if(replyMsg == "") // cjw
+		if(replyMsg.isEmpty())
 	{
 		//emit notConnectedSignal();				// No message returned so connection must be lost.
 		/* NO-REPLY WARNING */
@@ -758,7 +743,7 @@ void bankTreeList::updatePatch(QString replyMsg)
 *********************************************************************************/
 void bankTreeList::connectedSignal()
 {	
-  requestPatch(); //load the current temp buffer 
+  //requestPatch(); //load the current temp buffer 
 	SysxIO *sysxIO = SysxIO::Instance();
 	if(this->openPatchTreeItems.size() != 0 && sysxIO->deviceReady() && sysxIO->isConnected())
 	{
@@ -807,7 +792,7 @@ void bankTreeList::updateTree(QTreeWidgetItem *item)
 	}
 	else
 	{
-		this->currentPatchTreeItems.append(item);
+		//this->currentPatchTreeItems.append(item);
 	};
 };
 
