@@ -42,7 +42,7 @@ public:
 		QString hex3 = "void",
 		QString background = "normal", 
 		QString hexMin = "04", 
-		QString hexMin = "06");
+		QString hexMax = "06");
 
 protected:
 	void paintEvent(QPaintEvent *event);

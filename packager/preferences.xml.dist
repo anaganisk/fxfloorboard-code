@@ -2,7 +2,7 @@
 <!-- Preferences of the GT-Pro Fx FloorBoard application. -->
 <Preferences>
 	<General>
-		<Application version="20090920"/>
+		<Application version="20100203"/>
 		<Donate url="http://gtx.tinfoilmusic.net/donate.html"/>
 		<Files dir=""/>
 		<Help url="GT-ProEditorManual_E.htm"/>
@@ -10,6 +10,9 @@
 		<Upload url="http://www.bossgtcentral.com/dm"/>
 		<Webpage url="http://gtx.tinfoilmusic.net/"/>
 	</General>
+	<Language>
+    <Locale select="0"/>
+  </Language>
 	<Midi>
 		<MidiIn device=""/>
 		<MidiOut device=""/>

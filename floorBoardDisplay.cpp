@@ -446,7 +446,7 @@ void floorBoardDisplay::temp1_copy(bool value)
 			sysxMsg.append(hex);
 		}; 
 	}; 
-	if( sysxMsg.size() == patchSize)
+	if( sysxMsg.size() == fullPatchSize)
 	{
 	this->patchName = sysxIO->getCurrentPatchName();
   this->temp1Display->setMainText(patchName, Qt::AlignCenter);  
@@ -511,7 +511,7 @@ void floorBoardDisplay::temp2_copy(bool value)
 
 		}; 
 	}; 
-	if( sysxMsg.size() == patchSize)
+	if( sysxMsg.size() == fullPatchSize)
 
 	{
 	this->patchName = sysxIO->getCurrentPatchName();
@@ -584,7 +584,7 @@ void floorBoardDisplay::temp3_copy(bool value)
 			sysxMsg.append(hex);
 		}; 
 	}; 
-	if( sysxMsg.size() == patchSize)
+	if( sysxMsg.size() == fullPatchSize)
 
 
 	{
@@ -654,7 +654,7 @@ void floorBoardDisplay::temp4_copy(bool value)
 			sysxMsg.append(hex);
 		}; 
 	}; 
-	if( sysxMsg.size() == patchSize)
+	if( sysxMsg.size() == fullPatchSize)
 	{
 	this->patchName = sysxIO->getCurrentPatchName();
   this->temp4Display->setMainText(patchName, Qt::AlignCenter);  

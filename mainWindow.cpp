@@ -28,6 +28,8 @@
 #include "preferencesDialog.h"
 #include "statusBarWidget.h"
 #include "SysxIO.h"
+#include "bulkSaveDialog.h"
+#include "bulkLoadDialog.h"
 #include "globalVariables.h"
 
 mainWindow::mainWindow(QWidget *parent)
@@ -94,7 +96,7 @@ mainWindow::mainWindow(QWidget *parent)
 	mainLayout->addWidget(statusBar);
 	mainLayout->setMargin(0);
 	mainLayout->setSpacing(0);
-	//mainLayout->setSizeConstraint(QLayout::SetFixedSize);
+	mainLayout->setSizeConstraint(QLayout::SetFixedSize);
 	setLayout(mainLayout);
 
   //this->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
@@ -170,10 +172,20 @@ void mainWindow::createActions()
 	saveGTEAct->setShortcut(tr("Ctrl+Shift+G"));
 	saveGTEAct->setStatusTip(tr("Export as a Boss Librarian File"));
 	connect(saveGTEAct, SIGNAL(triggered()), this, SLOT(saveGTE()));	
-		
+
+	bulkLoadAct = new QAction(QIcon(":/images/fileopen.png"), tr("&Load Bulk Patch File to GT-Pro..."), this);
+	bulkLoadAct->setShortcut(tr("Ctrl+B"));
+	bulkLoadAct->setStatusTip(tr("Load Bulk Data to GT-Pro"));
+	connect(bulkLoadAct, SIGNAL(triggered()), this, SLOT(bulkLoad()));
+
+	bulkSaveAct = new QAction(QIcon(":/images/filesave.png"), tr("Save Bulk GT-Pro Patches to File..."), this);
+	bulkSaveAct->setShortcut(tr("Ctrl+G"));
+	bulkSaveAct->setStatusTip(tr("Save Bulk Data to File"));
+	connect(bulkSaveAct, SIGNAL(triggered()), this, SLOT(bulkSave()));
+	
 	systemLoadAct = new QAction(QIcon(":/images/fileopen.png"), tr("&Load GT System Data..."), this);
 	systemLoadAct->setShortcut(tr("Ctrl+L"));
-	systemLoadAct->setStatusTip(tr("Load System Data to GT-10"));
+	systemLoadAct->setStatusTip(tr("Load System Data to GT-Pro"));
 	connect(systemLoadAct, SIGNAL(triggered()), this, SLOT(systemLoad()));
 
 	systemSaveAct = new QAction(QIcon(":/images/filesave.png"), tr("Save GT System Data..."), this);
@@ -226,12 +238,12 @@ void mainWindow::createMenus()
 
     QMenu *fileMenu = new QMenu(tr("&File"), this);
 	fileMenu->addAction(openAct);
-	fileMenu->addAction(saveAct);
+	//fileMenu->addAction(saveAct);
 	fileMenu->addAction(saveAsAct);
-	fileMenu->addSeparator();
-	fileMenu->addSeparator();
-	//fileMenu->addAction(openGTEAct);
 	fileMenu->addAction(saveGTEAct);
+	fileMenu->addSeparator();
+	fileMenu->addAction(bulkLoadAct);
+	fileMenu->addAction(bulkSaveAct);
 	fileMenu->addSeparator();
 	fileMenu->addAction(systemLoadAct);
 	fileMenu->addAction(systemSaveAct);
@@ -433,6 +445,46 @@ void mainWindow::saveGTE()
 			emit updateSignal();
 		};
 	};
+};
+
+void mainWindow::bulkLoad()
+{
+   SysxIO *sysxIO = SysxIO::Instance();
+     if (sysxIO->isConnected())
+	       {	
+		bulkLoadDialog *loadDialog = new bulkLoadDialog(); 
+            loadDialog->exec(); 
+	}
+         else
+             {
+              QString snork = tr("Ensure Bulk Mode connection is active and retry");
+              QMessageBox *msgBox = new QMessageBox();
+			        msgBox->setWindowTitle(deviceType + tr(" not connected !!"));
+		        	msgBox->setIcon(QMessageBox::Information);
+		        	msgBox->setText(snork);
+		        	msgBox->setStandardButtons(QMessageBox::Ok);
+		        	msgBox->exec(); 
+              };  
+};
+
+void mainWindow::bulkSave()
+{      
+ SysxIO *sysxIO = SysxIO::Instance();
+     if (sysxIO->isConnected())
+	       {
+            bulkSaveDialog *bulkDialog = new bulkSaveDialog(); 
+            bulkDialog->exec(); 
+	        }
+           else
+             { 
+              QString snork = tr("Ensure Bulk Mode connection is active and retry");
+              QMessageBox *msgBox = new QMessageBox();
+			        msgBox->setWindowTitle(deviceType + tr(" not connected !!"));
+		        	msgBox->setIcon(QMessageBox::Information);
+		        	msgBox->setText(snork);
+		        	msgBox->setStandardButtons(QMessageBox::Ok);
+		        	msgBox->exec(); 
+              };     
 };
 
 void mainWindow::systemLoad()

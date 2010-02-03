@@ -1086,7 +1086,7 @@ void SysxIO::errorSignal(QString errorType, QString errorMsg)
 {
     QApplication::beep();
     setNoError(false);
-		emit setStatusdBugMessage(this->errorType + "  " + this->errorMsg);
+		emit setStatusdBugMessage(errorType + "  " + errorMsg);
     this->errorType = "";
 		this->errorMsg = "";
 };
@@ -1332,8 +1332,6 @@ void SysxIO::writeToBuffer()
 		SLEEP(150);		
 		emit setStatusProgress(42);
 		SLEEP(150); 
-	emit setStatusMessage(tr("Ready"));
-	setDeviceReady(true);
 };
 
 

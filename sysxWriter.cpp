@@ -70,7 +70,7 @@ bool sysxWriter::readFile()
 	   bool isGTE = false;
 	  if (data.contains(GTE_header)){isGTE = true; }; 
 
-		if(data.size() == patchSize){  // if the data is a syx GT-Pro patch ******************************
+		if(data.size() == fullPatchSize){  // if the data is a syx GT-Pro patch ******************************
 		SysxIO *sysxIO = SysxIO::Instance();
 		QString area = "Structure";
 		sysxIO->setFileSource(area, data);
@@ -152,12 +152,13 @@ bool sysxWriter::readFile()
 	  QFile fileHex(":HexLookupTable.hex");   // Read the HexLookupTable.hex file.
     if (fileHex.open(QIODevice::ReadOnly))
 	  {	hex = fileHex.readAll(); };
+	  
     temp = gt10_data.mid(11, 16);        // copy gt10 patch name data
     default_data.replace(729, 16, temp);      // replace  gtpro name data    address 00 12 00 
     
     temp = gt10_data.mid(293, 1);        // copy gt10 patch fx1 sw
     default_data.replace(11, 1, temp);      // replace  gtpro fx1 sw    address 00 00 00 
-    char r = gt10_data.at(294);            // copy gt10 patch fx1 type
+    unsigned char r = gt10_data.at(294);            // copy gt10 patch fx1 type
     temp = hex.mid((76+r), 1);             // convert FX1 types from HexLookupTable
     default_data.replace(13, 1, temp);      // replace  gtpro fx1 type    address 00 00 00 
     
@@ -169,7 +170,7 @@ bool sysxWriter::readFile()
     default_data.replace(176, 1, temp);      // replace  gtpro wha sw    address 00 03 00 
     temp = gt10_data.mid(1424, 2);        // copy gt10 patch wha data
     default_data.replace(178, 2, temp);      // replace  gtpro wha data    address 00 03 00 
-     temp = gt10_data.mid(1428, 1);        // copy gt10 patch wha data
+    temp = gt10_data.mid(1428, 1);        // copy gt10 patch wha data
     default_data.replace(180, 1, temp);      // replace  gtpro wha data    address 00 03 00 
     temp = gt10_data.mid(1472, 1);        // copy gt10 patch loop sw
     default_data.replace(194, 1, temp);      // replace  gtpro loop sw    address 00 04 00 
@@ -177,9 +178,9 @@ bool sysxWriter::readFile()
     default_data.replace(196, 3, temp);      // replace  gtpro loop data    address 00 04 00 
     temp = gt10_data.mid(123, 1);        // copy gt10 patch od/ds sw
     default_data.replace(234, 1, temp);      // replace  gtpro od/ds sw    address 00 06 00 
-    temp = gt10_data.mid(124, 6);        // copy gt10 patch od/ds data
-    default_data.replace(236, 6, temp);      // replace  gtpro od/ds data    address 00 06 00 
-    r = data.at(236);
+    temp = gt10_data.mid(125, 5);        // copy gt10 patch od/ds data
+    default_data.replace(237, 5, temp);      // replace  gtpro od/ds data    address 00 06 00 
+    r = gt10_data.at(124);
     temp = hex.mid((125+r), 1);             // convert DISTORTION types from HexLookupTable
     default_data.replace(236, 1, temp);      // replace  gtpro od/ds type
     temp = gt10_data.mid(152, 1);        // copy gt10 patch preamp sw
@@ -194,10 +195,10 @@ bool sysxWriter::readFile()
     default_data.replace(261, 17, temp);      // replace  gtpro preamp A data    address 00 07 00 
     temp = gt10_data.mid(200, 17);        // copy gt10 patch preamp B data
     default_data.replace(278, 17, temp);      // replace  gtpro preamp B data    address 00 07 00 
-    r = data.at(261);
+    r = gt10_data.at(168);
     temp = hex.mid((172+r), 1);             // convert PREAMP  types from HexLookupTable
     default_data.replace(261, 1, temp);      // replace  gtpro preamp A type
-    r = data.at(278);
+    r = gt10_data.at(200);
     temp = hex.mid((172+r), 1);             // convert PREAMP  types from HexLookupTable
     default_data.replace(278, 1, temp);      // replace  gtpro preamp B type
     
@@ -240,24 +241,24 @@ bool sysxWriter::readFile()
                 default_data.replace(k, 1, temp);      // replace gtpro chain 
                 k=k+1;  
               };
-      }; 
+      };            
     temp = gt10_data.mid(1524, 1);        // copy gt10 patch assign1 sw
     default_data.replace(772, 1, temp);      // replace  gtpro assign1 sw    address 00 20 00 
     temp = gt10_data.mid(1525, 2);        // copy gt10 patch assign1 target
     //default_data.replace(774, 2, temp);      // replace  gtpro assign1 target    address 00 20 00 
     temp = gt10_data.mid(1527, 13);        // copy gt10 patch assign1 data
     default_data.replace(776, 13, temp);      // replace  gtpro assign1 data    address 00 20 00 
-    r = gt10_data.at(1531);            // copy gt10 patch source type
-    temp = hex.mid((383+r), 1);             // convert source types from HexLookupTable 
-    default_data.replace(780, 1, temp);      // replace  gtpro source type    
-    
+    //r = gt10_data.at(1531);            // copy gt10 patch source type
+    //temp = hex.mid((383+r), 1);             // convert source types from HexLookupTable 
+    //default_data.replace(780, 1, temp);      // replace  gtpro source type    
+       
     temp = gt10_data.mid(1540, 1);        // copy gt10 patch assign2 sw
     default_data.replace(802, 1, temp);      // replace  gtpro assign2 sw    address 00 21 00 
-    //temp = gt10_data.mid(1541, 2);        // copy gt10 patch assign2 target
-    default_data.replace(804, 2, temp);      // replace  gtpro assign2 target    address 00 21 00 
+    temp = gt10_data.mid(1541, 2);        // copy gt10 patch assign2 target
+    //default_data.replace(804, 2, temp);      // replace  gtpro assign2 target    address 00 21 00 
     temp = gt10_data.mid(1543, 13);        // copy gt10 patch assign2 data
     default_data.replace(806, 13, temp);      // replace  gtpro assign2 data    address 00 21 00 
- 
+        
     temp = gt10_data.mid(1556, 1);        // copy gt10 patch assign3 sw
     default_data.replace(832, 1, temp);      // replace  gtpro assign1 sw    address 00 22 00 
     temp = gt10_data.mid(1557, 2);        // copy gt10 patch assign3 target
@@ -300,9 +301,9 @@ bool sysxWriter::readFile()
     temp = gt10_data.mid(1652, 13);        // copy gt10 patch assign8 data
     default_data.replace(986, 13, temp);      // replace  gtpro assign1 data    address 00 27 00 
     
- 
+      
     temp = hex.mid(0, 32);        // copy "gt10 conversion" text
-    default_data.replace(1305, 32, temp);      // replace  gtpro user name text
+    default_data.replace(1305, 32, temp);      // replace  gtpro user name text        
     if ( gt10_data.size() == 2045) 
            {
             temp = gt10_data.mid(1774, 128);        // copy user dialog text if file is an extended type.
@@ -311,7 +312,7 @@ bool sysxWriter::readFile()
     
     SysxIO *sysxIO = SysxIO::Instance();
 		QString area = "Structure";
-		sysxIO->setFileSource(area, data);
+		sysxIO->setFileSource(area, default_data);
 		sysxIO->setFileName(this->fileName);
 		this->fileSource = sysxIO->getFileSource();
 		return true;
@@ -337,7 +338,7 @@ bool sysxWriter::readFile()
   QString patchText;
 	QString patchNumber;
 	this->patchList.clear();
-	this->patchList.append("Select Patch");
+	this->patchList.append(QObject::tr("Select Patch"));
   unsigned int a = 742; // locate patch start position from the start of the file                    
      for (int h=0;h<patchCount;h++)
        {
@@ -479,13 +480,13 @@ bool sysxWriter::readFile()
 	msgBox->setTextFormat(Qt::RichText);
 	QString msgText;
 	msgText.append("<font size='+1'><b>");
-	msgText.append(QObject::tr("This is not a known ") + deviceType + (" patch!"));
+	msgText.append(QObject::tr("This is not a known ") + deviceType + QObject::tr(" patch!"));
 	msgText.append("<b></font><br>");
 	if (data.size() == 670){
-  msgText.append("but appears to be a GT-6 patch<br>");};
+  msgText.append(QObject::tr("but appears to be a GT-6 patch<br>"));};
   if (data.size() == 650){
-  msgText.append("but appears to be a GT-3 patch<br>");};
-	msgText.append(QObject::tr("Patch size is ") + (QString::number(data.size(), 10)) + (" bytes, please try another file."));
+  msgText.append(QObject::tr("but appears to be a GT-3 patch<br>"));};
+	msgText.append(QObject::tr("Patch size is ") + (QString::number(data.size(), 10)) + QObject::tr(" bytes, please try another file."));
 	msgBox->setText(msgText);
 	msgBox->setStandardButtons(QMessageBox::Ok);
 	msgBox->exec();

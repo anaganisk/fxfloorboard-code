@@ -45,7 +45,7 @@ const int buttonBlinkInterval = 250;				// The interval (ms) the led on buttons 
 const int sysxAddressOffset = 7;	// Offset (starts at 0) where the address information starts in a sysx message.
 const int sysxDataOffset = 11;		// Offset (starts at 0) where the data starts in a sysx message.
 const int checksumOffset = 7;		  // Offset (starts at 0) where we start calculating the checksum (Normally this is the address offset).
-const int sysxNameOffset = 11;		// Offset (starts at 0) where the data starts in a sysx message. ///was 365?
+const int sysxNameOffset = 729;		// Offset (starts at 0) where the data starts in a sysx message.
 const int nameLength = 16;        // length of name string
 
 /* Patches and Banks */
@@ -56,7 +56,8 @@ const int bankSize = 100;       // Number of patches in a midi bank before bank 
 
 /* Midi Send & Receive */
 const int patchPackets = 27;	 // number of sysx packets "F0....F7" which make up a patch.
-const int patchSize = 1384;//1153;    // size of bytes in a patch.
+const int patchSize = 1153;    // size of bytes in a patch.
+const int fullPatchSize = 1384;    // size of bytes in a patch with user text data.
 const int systemDataSize = 4313;  // size of bytes in a patch.
 const int nameReplySize = 29;    // size of bytes in a name reply.
 const QString patchRequestSize = "00002E00";  // size of data required for patch request

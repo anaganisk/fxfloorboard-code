@@ -1,18 +1,18 @@
 @echo off
 :CHECK
 cls
-echo ********************************************************************
-echo *                    ___________________________________           *
-echo ***                   Build MENU for GT-ProFxFloorBoard          ***
-echo *                    ******* EXPERIMENTAL VERSION ******           *
-echo *                    -----------------------------------           *
-echo *                      Press [1] to "Compile"                      *
-echo *                               or                                 *
-echo *                      Press [2] to "Compile and Run"              *
-echo *                               or                                 *
-echo *                      Press [3] for "Run only"                    *
-echo *                               or                                 *
-echo *                      Press [4] for "EXIT"                        *
+echo ***********************************************************************
+echo *                    ___________________________________              *
+echo ***                   Build MENU for GT-ProFxFloorBoard             ***
+echo *                    ******* EXPERIMENTAL VERSION ******              *
+echo *                    -----------------------------------              *
+echo *                      Press [1] to "Compile"                         *
+echo *                               or                                    *
+echo *                      Press [2] to "Compile and Run"                 *
+echo *                               or                                    *
+echo *                      Press [3] for "Run only"                       *
+echo *                               or                                    *
+echo *                      Press [4] for "EXIT"                           *
 echo *                               or                                	   *
 echo *                      Press [5] to "Generate translation ts scripts" *
 echo *                               or                                    *
@@ -27,13 +27,13 @@ if errorlevel 2 goto B-OPTION
 if errorlevel 1 goto A-OPTION
 
 :A-OPTION
-c:\Qt\4.5.1\bin\qmake.exe
+c:\Qt\4.6.0\bin\qmake.exe
 c:\MinGW\bin\mingw32-make 
 pause
 goto CHECK
 
 :B-OPTION
-c:\Qt\4.5.1\bin\qmake.exe
+c:\Qt\4.6.0\bin\qmake.exe
 c:\MinGW\bin\mingw32-make 
 cd packager
 GT-ProFxFloorBoard.exe
@@ -50,12 +50,12 @@ goto CHECK
 goto END
 
 :E-OPTION
-c:\qt\4.5.1\bin\lupdate.exe GT-ProFxFloorBoard.pro
+c:\qt\4.6.0\bin\lupdate.exe GT-ProFxFloorBoard.pro
 pause
 goto CHECK
 
 :F-OPTION
-c:\qt\4.5.1\bin\lrelease.exe GT-ProFxFloorBoard.pro
+c:\qt\4.6.0\bin\lrelease.exe GT-ProFxFloorBoard.pro
 pause
 goto CHECK
 

@@ -51,6 +51,8 @@ public slots:
 	void saveAs();
 	void openGTE();
 	void saveGTE();
+	void bulkSave();
+	void bulkLoad();
 	void systemSave();
 	void systemLoad();
 	void settings();
@@ -76,6 +78,8 @@ private:
 	QAction *saveAsAct;
 	QAction *openGTEAct;
 	QAction *saveGTEAct;
+	QAction *bulkLoadAct;
+	QAction *bulkSaveAct;
 	QAction *systemLoadAct;
 	QAction *systemSaveAct;
 	QAction *exitAct;
