@@ -2,10 +2,10 @@
 
 ; HM NIS Edit Wizard helper defines
 !define PRODUCT_NAME "GT-6BFxFloorBoard"
-!define PRODUCT_VERSION "20091031"
+!define PRODUCT_VERSION "20100204"
 !define PRODUCT_PUBLISHER "gumtown"
 !define PRODUCT_WEB_SITE "http://gtx.tinfoilmusic.net"
-!define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\gt6bfxfloorboard.exe"
+!define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\GT-6BFxFloorBoard.exe"
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
 !define PRODUCT_UNINST_ROOT_KEY "HKLM"
 
@@ -33,7 +33,7 @@ SetCompressor lzma
 ; Instfiles page
 !insertmacro MUI_PAGE_INSTFILES
 ; Finish page
-!define MUI_FINISHPAGE_RUN "$INSTDIR\gt6bfxfloorboard.exe"
+!define MUI_FINISHPAGE_RUN "$INSTDIR\GT-6BFxFloorBoard.exe"
 !define MUI_FINISHPAGE_SHOWREADME "$INSTDIR\init patches\readme.txt"
 !insertmacro MUI_PAGE_FINISH
 
@@ -68,10 +68,10 @@ Section "MainSection" SEC01
   File "preferences.xml.dist"
   File "mingwm10.dll"
   File "license.txt"
-  File "gt6bfxfloorboard.exe"
+  File "GT-6BFxFloorBoard.exe"
   CreateDirectory "$SMPROGRAMS\GT-6BFxFloorBoard"
-  CreateShortCut "$SMPROGRAMS\GT-6BFxFloorBoard\GT-6BFxFloorBoard.lnk" "$INSTDIR\gt6bfxfloorboard.exe"
-  CreateShortCut "$DESKTOP\GT-6BFxFloorBoard.lnk" "$INSTDIR\gt6bfxfloorboard.exe"
+  CreateShortCut "$SMPROGRAMS\GT-6BFxFloorBoard\GT-6BFxFloorBoard.lnk" "$INSTDIR\GT-6BFxFloorBoard.exe"
+  CreateShortCut "$DESKTOP\GT-6BFxFloorBoard.lnk" "$INSTDIR\GT-6BFxFloorBoard.exe"
   File "GT-6BEditorManual_E.htm"
   SetOutPath "$INSTDIR\init patches"
   SetOverwrite try
@@ -137,10 +137,10 @@ SectionEnd
 
 Section -Post
   WriteUninstaller "$INSTDIR\uninst.exe"
-  WriteRegStr HKLM "${PRODUCT_DIR_REGKEY}" "" "$INSTDIR\gt6bfxfloorboard.exe"
+  WriteRegStr HKLM "${PRODUCT_DIR_REGKEY}" "" "$INSTDIR\GT-6BFxFloorBoard.exe"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayName" "$(^Name)"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "UninstallString" "$INSTDIR\uninst.exe"
-  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayIcon" "$INSTDIR\gt6bfxfloorboard.exe"
+  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayIcon" "$INSTDIR\GT-6BFxFloorBoard.exe"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayVersion" "${PRODUCT_VERSION}"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "URLInfoAbout" "${PRODUCT_WEB_SITE}"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "Publisher" "${PRODUCT_PUBLISHER}"
@@ -212,7 +212,7 @@ Section Uninstall
   Delete "$INSTDIR\init patches\01_Compressor.syx"
   Delete "$INSTDIR\init patches\$$$$Moneymaker$$.syx"
   Delete "$INSTDIR\GT-6BEditorManual_E.htm"
-  Delete "$INSTDIR\gt6bfxfloorboard.exe"
+  Delete "$INSTDIR\GT-6BFxFloorBoard.exe"
   Delete "$INSTDIR\license.txt"
   Delete "$INSTDIR\mingwm10.dll"
   Delete "$INSTDIR\preferences.xml.dist"

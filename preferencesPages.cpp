@@ -144,7 +144,7 @@ MidiPage::MidiPage(QWidget *parent)
 
 	QLabel *dBugDescriptionLabel = new QLabel(QObject::tr("Debug mode & midi settings."));
 	//QLabel *midiTimeDescriptionLabel = new QLabel(QObject::tr("System data request size."));
-	QLabel *midiDelayDescriptionLabel = new QLabel(QObject::tr("Realtime edit send rate."));
+	//QLabel *midiDelayDescriptionLabel = new QLabel(QObject::tr("Realtime edit send rate."));
 
 	QCheckBox *dBugCheckBox = new QCheckBox(QObject::tr("deBug Mode"));
 
@@ -178,7 +178,7 @@ MidiPage::MidiPage(QWidget *parent)
 	QVBoxLayout *dBugLabelLayout = new QVBoxLayout;
 	dBugLabelLayout->addWidget(dBugDescriptionLabel);
 	//dBugLabelLayout->addWidget(midiTimeDescriptionLabel);
-	dBugLabelLayout->addWidget(midiDelayDescriptionLabel);
+	//dBugLabelLayout->addWidget(midiDelayDescriptionLabel);
 	
 	QVBoxLayout *dBugTimeBoxLayout = new QVBoxLayout;
 	dBugTimeBoxLayout->addWidget(dBugCheckBox);

@@ -381,7 +381,7 @@ void floorBoardDisplay::autoconnect()
 		QObject::connect(sysxIO, SIGNAL(sysxReply(QString)), 
 			this, SLOT(autoConnectionResult(QString)));
 
-		sysxIO->sendSysx(idRequestString); // GT-Pro Identity Request.
+		sysxIO->sendSysx(idRequestString); // GT-6B Identity Request.
 	}
 	else
 	{
@@ -409,18 +409,13 @@ void floorBoardDisplay::autoConnectionResult(QString sysxMsg)
 			sysxIO->setConnected(true);
 			emit connectedSignal();
 
-
 			if(sysxIO->getBank() != 0)
 			{
 				this->writeButton->setBlink(true);
 				this->writeButton->setValue(false);
 			};
 		}else
-
-
     {
-
-
      this->connectButton->setBlink(false);
 		 this->connectButton->setValue(false);
 		 sysxIO->setConnected(false);	
@@ -726,7 +721,6 @@ void floorBoardDisplay::connectionResult(QString sysxMsg)
 				this->writeButton->setValue(false);
 			};
 	}
-
 	else if(sysxIO->noError())
 	{
 		if(sysxMsg.contains(idReplyPatern) && connectButtonActive == true)
@@ -860,7 +854,7 @@ void floorBoardDisplay::writeSignal(bool)
 					msgBox->setTextFormat(Qt::RichText);
 					QString msgText;
 					msgText.append("<font size='+1'><b>");
-					msgText.append(tr("You have chosen to write the patch permanently into ") + deviceType + tr(" memory."));
+					msgText.append(tr("You have chosen to write the patch into ") + deviceType + tr(" memory."));
 					msgText.append("<b></font><br>");
 					msgText.append(tr("This will overwrite the patch currently stored at patch location<br>"));
 					msgText.append("<font size='+3'><b>");

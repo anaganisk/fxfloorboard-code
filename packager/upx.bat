@@ -1,2 +1,2 @@
-upx  gt6bfxfloorboard.exe
+upx  GT-6BFxFloorBoard.exe
 pause
