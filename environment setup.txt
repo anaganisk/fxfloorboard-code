@@ -1,0 +1,17 @@
+**********mac Osx ************
+
+install x-code extras and GCC 4.01 
+
+qt setup
+./configure -static -release -fast -universal -sdk /developer/SDKs/macosx10.4.u.sdk
+
+make
+
+make configure install or something
+
+then set path log as superuser 
+sudo su
+
+then type
+vi profile
+and enter path to usr/local/Trolltech/qt-xxx/bin
