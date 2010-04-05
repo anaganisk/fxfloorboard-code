@@ -233,7 +233,7 @@ void floorBoardDisplay::setPatchNumDisplay(int bank, int patch)
 	{
 			if(bank <= bankTotalUser)
 		{
-		 this->patchNumDisplay->resetAllColor();
+		 this->patchNumDisplay->setAllColor(QColor(0,255,204));
      this->patchNumDisplay->setSubText(tr("User"));
 		}
 		else
@@ -748,7 +748,8 @@ void floorBoardDisplay::connectionResult(QString sysxMsg)
 			msgBox->setTextFormat(Qt::RichText);
 			QString msgText;
 			msgText.append("<font size='+1'><b>");
-			msgText.append(tr("The device connected is not a Boss ") + deviceType + (" Effects Processor."));
+			msgText.append(tr("The device connected is either not a Boss ") + deviceType + (" Effects Processor.<br>"));
+			msgText.append(tr("or the GT-8 device ID is not set to [1]"));
 			if (sysxMsg.contains(idRequestString))
 			{msgText.append(tr("<br>Midi loopback detected, ensure midi device 'thru' is switched off.")); };
 			msgText.append("<b></font>");
@@ -1082,4 +1083,4 @@ void floorBoardDisplay::valueChanged(bool value, QString hex1, QString hex2, QSt
   hex1 = hex1;
   hex2 = hex2;
   hex3 = hex3;
-}; 
+};   

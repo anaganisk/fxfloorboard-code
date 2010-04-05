@@ -153,10 +153,10 @@ void bankTreeList::setOpenItems(QTreeWidgetItem *item)
 			};
 			switch(c)
 			{
-				case 0: maxExpandedItems = 3; break;
-				case 1: maxExpandedItems = 2; break;
-				case 2: maxExpandedItems = 1; break;
-				case 3: maxExpandedItems = 1; break;
+				case 0: maxExpandedItems = 30; break;
+				case 1: maxExpandedItems = 20; break;
+				case 2: maxExpandedItems = 10; break;
+				case 3: maxExpandedItems = 10; break;
 			};
 			
 			while(b > maxExpandedItems)
@@ -173,10 +173,10 @@ void bankTreeList::setOpenItems(QTreeWidgetItem *item)
 		{	
 			switch(c)
 			{
-				case 0: maxExpandedItems = 3; break;
-				case 1: maxExpandedItems = 2; break;
-				case 2: maxExpandedItems = 1; break;
-				case 3: maxExpandedItems = 1; break;
+				case 0: maxExpandedItems = 30; break;
+				case 1: maxExpandedItems = 20; break;
+				case 2: maxExpandedItems = 10; break;
+				case 3: maxExpandedItems = 10; break;
 			};
 		}
 		else
@@ -185,24 +185,24 @@ void bankTreeList::setOpenItems(QTreeWidgetItem *item)
 			{
 				switch(c)
 				{
-					case 0: maxExpandedItems = 5; break;	
-					case 1: maxExpandedItems = 4; break;
-					case 2: maxExpandedItems = 3; break;
-					case 3: maxExpandedItems = 3; break;
-					case 4: maxExpandedItems = 2; break;
-					case 5: maxExpandedItems = 1; break;
+					case 0: maxExpandedItems = 50; break;	
+					case 1: maxExpandedItems = 40; break;
+					case 2: maxExpandedItems = 30; break;
+					case 3: maxExpandedItems = 30; break;
+					case 4: maxExpandedItems = 20; break;
+					case 5: maxExpandedItems = 10; break;
 				};
 			}
 			else
 			{
 				switch(c)
 				{
-					case 0: maxExpandedItems = 4; break;	
-					case 1: maxExpandedItems = 4; break;
-					case 2: maxExpandedItems = 3; break;
-					case 3: maxExpandedItems = 3; break;
-					case 4: maxExpandedItems = 1; break;
-					case 5: maxExpandedItems = 1; break;
+					case 0: maxExpandedItems = 40; break;	
+					case 1: maxExpandedItems = 40; break;
+					case 2: maxExpandedItems = 30; break;
+					case 3: maxExpandedItems = 30; break;
+					case 4: maxExpandedItems = 10; break;
+					case 5: maxExpandedItems = 10; break;
 				};
 			};
 		};
@@ -246,8 +246,8 @@ void bankTreeList::setOpenItems(QTreeWidgetItem *item)
 		{	
 			switch(b)
 			{
-				case 1: maxExpandedItems = 3; break;
-				case 2: maxExpandedItems = 1; break;
+				case 1: maxExpandedItems = 30; break;
+				case 2: maxExpandedItems = 10; break;
 				case 3: maxExpandedItems = 0; break;
 			};
 		}
@@ -257,20 +257,20 @@ void bankTreeList::setOpenItems(QTreeWidgetItem *item)
 			{
 				switch(b)
 				{
-					case 1: maxExpandedItems = 5; break;
-					case 2: maxExpandedItems = 4; break;
-					case 3: maxExpandedItems = 3; break;
-					case 4: maxExpandedItems = 1; break;
+					case 1: maxExpandedItems = 50; break;
+					case 2: maxExpandedItems = 40; break;
+					case 3: maxExpandedItems = 30; break;
+					case 4: maxExpandedItems = 10; break;
 				};
 			}
 			else
 			{
 				switch(b)
 				{
-					case 1: maxExpandedItems = 4; break;
-					case 2: maxExpandedItems = 3; break;
-					case 3: maxExpandedItems = 3; break;
-					case 4: maxExpandedItems = 1; break;
+					case 1: maxExpandedItems = 40; break;
+					case 2: maxExpandedItems = 30; break;
+					case 3: maxExpandedItems = 30; break;
+					case 4: maxExpandedItems = 10; break;
 				};
 			};
 		};
@@ -347,14 +347,14 @@ QTreeWidget* bankTreeList::newTreeList()
     for (int a=(bankTotalUser+1); a<=bankTotalAll; a++)
 	{
 		QTreeWidgetItem* bankRange = new QTreeWidgetItem; // don't pass a parent here!
-		bankRange->setText(0, QString::QString("Bank P").append(QString::number(a-35, 10)).append("-P").append(QString::number(a-31, 10)) );
+		bankRange->setText(0, QString::QString("Bank P").append(QString::number(a, 10)).append("-P").append(QString::number(a+4, 10)) );
 		bankRange->setWhatsThis(0, "");
 		//bankRange->setIcon(...);
 
 		for (int b=a; b<=(a+4); b++)
 		{
 			QTreeWidgetItem* bank = new QTreeWidgetItem(bankRange);
-			bank->setText(0, QString::QString("Bank ").append(QString::number(b-35, 10)));
+			bank->setText(0, QString::QString("Bank ").append(QString::number(b, 10)));
 			bank->setWhatsThis(0, "");
 			//bank->setIcon(...);
 

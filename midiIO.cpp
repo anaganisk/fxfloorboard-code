@@ -52,6 +52,7 @@ midiIO::midiIO()
 	QObject::connect(this, SIGNAL(setStatusSymbol(int)), sysxIO, SIGNAL(setStatusSymbol(int)));
 	QObject::connect(this, SIGNAL(setStatusProgress(int)), sysxIO, SIGNAL(setStatusProgress(int)));
 	QObject::connect(this, SIGNAL(setStatusMessage(QString)), sysxIO, SIGNAL(setStatusMessage(QString)));
+	QObject::connect(this, SIGNAL(setStatusdBugMessage(QString)), sysxIO, SIGNAL(setStatusdBugMessage(QString)));
 	QObject::connect(this, SIGNAL(errorSignal(QString, QString)), sysxIO, SLOT(errorSignal(QString, QString)));
 	QObject::connect(this, SIGNAL(replyMsg(QString)), sysxIO, SLOT(receiveSysx(QString)));
 	QObject::connect(this, SIGNAL(midiFinished()), sysxIO, SLOT(finishedSending()));
@@ -404,6 +405,7 @@ void midiIO::run()
 					receiveMsg(sysxInMsg, midiInPort);
 			if((this->sysxBuffer.size()/2 != count) && (repeat<7))
       {
+        emit setStatusdBugMessage(tr("re-trying data request"));
         repeat = repeat+1;
         goto RECEIVE;
       };
