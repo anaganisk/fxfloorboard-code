@@ -584,9 +584,9 @@ void bankTreeList::connectedSignal()
 		this->currentPatchTreeItems.clear();
 		this->currentPatchTreeItems = this->openPatchTreeItems;
 		//qSort(this->currentPatchTreeItems);
-
 		this->updatePatchNames("");
-	};  
+	}; 
+  requestPatch(); 
 };
 
 /********************************** updateTree() ********************************
