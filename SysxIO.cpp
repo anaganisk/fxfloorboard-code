@@ -426,6 +426,7 @@ void SysxIO::setFileSource(QString area, QString hex1, QString hex2, QString hex
 		sysxList.replace(sysxList.size() - 2, getCheckSum(dataSize));
 
 		this->fileSource.hex.replace(this->fileSource.address.indexOf(address), sysxList);
+    };
     } else {
     QList<QString> sysxList = this->systemSource.hex.at(this->systemSource.address.indexOf(address));
 	if(hexData.size() + sysxDataOffset + 2 == sysxList.size())
@@ -468,7 +469,6 @@ void SysxIO::setFileSource(QString area, QString hex1, QString hex2, QString hex
 		{
 			this->sendSpooler.append(sysxMsg);
 		};
-	};
 };
 
 QList<QString> SysxIO::getSourceItems(QString area, QString hex1, QString hex2)

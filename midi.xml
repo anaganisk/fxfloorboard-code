@@ -1045,8 +1045,8 @@
 					<PARAM value="00" name="fast" desc="fast" customdesc="fast"/>
 					<PARAM value="01" name="medium" desc="medium" customdesc="medium"/>
 					<PARAM value="02" name="slow" desc="slow" customdesc="slow"/>
-					<PARAM value="02" name="mono" desc="mono" customdesc="mono"/>
-					<PARAM value="03" name="harmony" desc="harmony" customdesc="harmony "/>
+					<PARAM value="03" name="mono" desc="mono" customdesc="mono"/>
+					<PARAM value="04" name="harmony" desc="harmony" customdesc="harmony "/>
 				</DATA>
 				<DATA value="04" name="" abbr="" desc="HR :Voice1:pitch" customdesc="HR1 pitch">
 					<PARAM value="range" name="00/30/-24/+24" desc="" customdesc=""/>
@@ -1142,8 +1142,8 @@
 					<PARAM value="00" name="fast" desc="fast"/>
 					<PARAM value="01" name="medium" desc="medium"/>
 					<PARAM value="02" name="slow" desc="slow"/>
-					<PARAM value="02" name="mono" desc="mono"/>
-					<PARAM value="03" name="harmony" desc="harmony  "/>
+					<PARAM value="03" name="mono" desc="mono"/>
+					<PARAM value="04" name="harmony" desc="harmony  "/>
 				</DATA>
 				<DATA value="0C" name="" abbr="" desc="HR :Voice1:pitch" customdesc="HR2 pitch">
 					<PARAM value="range" name="00/30/-24/+24" desc="" customdesc=""/>
@@ -1729,13 +1729,13 @@
 					<PARAM value="00" name="Decay" desc="" customdesc=""/>
 					<PARAM value="range" name="01/65/00/100" desc=" %" customdesc=""/>
 				</DATA>
-				<DATA value="59" name="" abbr="" desc="SYN :Noise Level" customdesc="Release">
+				<DATA value="59" name="" abbr="" desc="SYN :Release" customdesc="Release">
 					<PARAM value="range" name="00/64/00/100" desc=" %" customdesc=""/>
 				</DATA>
-				<DATA value="5A" name="" abbr="" desc="SYN:Hold" customdesc="Velocity">
+				<DATA value="5A" name="" abbr="" desc="SYN:Velocity" customdesc="Velocity">
 					<PARAM value="range" name="00/64/00/100" desc=" %" customdesc=""/>
 				</DATA>
-				<DATA value="5B" name="" abbr="" desc="SYN:Attack Trigger" customdesc="Hold">
+				<DATA value="5B" name="" abbr="" desc="SYN:Hold" customdesc="Hold">
 					<PARAM value="00" name="Off" desc="Off       "/>
 					<PARAM value="01" name="On" desc="On"/>
 				</DATA>

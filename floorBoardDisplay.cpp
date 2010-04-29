@@ -314,7 +314,7 @@ void floorBoardDisplay::temp1_copy(bool value)
 void floorBoardDisplay::temp1_paste(bool value)
 {
   SysxIO *sysxIO = SysxIO::Instance();
-  if (!sysxIO->temp1_sysxMsg.isEmpty() )
+  if (!sysxIO->temp1_sysxMsg.isEmpty() && sysxIO->deviceReady() )
   {
   SysxIO *sysxIO = SysxIO::Instance();
   QList<QString> temp = sysxIO->temp1_sysxMsg;
@@ -377,7 +377,7 @@ void floorBoardDisplay::temp2_copy(bool value)
 void floorBoardDisplay::temp2_paste(bool value)
 {
   SysxIO *sysxIO = SysxIO::Instance();
-  if (!sysxIO->temp2_sysxMsg.isEmpty() )
+  if (!sysxIO->temp2_sysxMsg.isEmpty() && sysxIO->deviceReady() )
   {
   SysxIO *sysxIO = SysxIO::Instance();
   QList<QString> temp = sysxIO->temp2_sysxMsg;
@@ -441,7 +441,7 @@ void floorBoardDisplay::temp3_copy(bool value)
 void floorBoardDisplay::temp3_paste(bool value)
 {
   SysxIO *sysxIO = SysxIO::Instance();
-  if (!sysxIO->temp3_sysxMsg.isEmpty() )
+  if (!sysxIO->temp3_sysxMsg.isEmpty() && sysxIO->deviceReady() )
   {
   SysxIO *sysxIO = SysxIO::Instance();
   QList<QString> temp = sysxIO->temp3_sysxMsg;
@@ -504,7 +504,7 @@ void floorBoardDisplay::temp4_copy(bool value)
 void floorBoardDisplay::temp4_paste(bool value)
 {
   SysxIO *sysxIO = SysxIO::Instance();
-  if (!sysxIO->temp4_sysxMsg.isEmpty() )
+  if (!sysxIO->temp4_sysxMsg.isEmpty() && sysxIO->deviceReady() )
   {
   SysxIO *sysxIO = SysxIO::Instance();
   QList<QString> temp = sysxIO->temp4_sysxMsg;
