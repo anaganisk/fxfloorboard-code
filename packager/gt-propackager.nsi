@@ -2,7 +2,7 @@
 
 ; HM NIS Edit Wizard helper defines
 !define PRODUCT_NAME "GT-ProFxFloorBoard"
-!define PRODUCT_VERSION "20100203"
+!define PRODUCT_VERSION "20100427"
 !define PRODUCT_PUBLISHER "gumtown"
 !define PRODUCT_WEB_SITE "http://gtx.tinfoilmusic.net"
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\GT-ProFxFloorBoard.exe"

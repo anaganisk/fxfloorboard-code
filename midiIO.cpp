@@ -54,7 +54,7 @@ midiIO::midiIO()
 	QObject::connect(this, SIGNAL(setStatusSymbol(int)), sysxIO, SIGNAL(setStatusSymbol(int)));
 	QObject::connect(this, SIGNAL(setStatusProgress(int)), sysxIO, SIGNAL(setStatusProgress(int)));
 	QObject::connect(this, SIGNAL(setStatusMessage(QString)), sysxIO, SIGNAL(setStatusMessage(QString)));
-	QObject::connect(this, SIGNAL(setStatusdBugMessage(QString)), sysxIO, SIGNAL(setStatusdBugMessage(QString)));
+	//QObject::connect(this, SIGNAL(setStatusdBugMessage(QString)), sysxIO, SIGNAL(setStatusdBugMessage(QString)));
 	QObject::connect(this, SIGNAL(errorSignal(QString, QString)), sysxIO, SLOT(errorSignal(QString, QString)));
 
 	QObject::connect(this, SIGNAL(replyMsg(QString)), sysxIO, SLOT(receiveSysx(QString)));
@@ -166,22 +166,20 @@ QList<QString> midiIO::getMidiInDevices()
  *************************************************************************/
 void midiIO::sendSyxMsg(QString sysxOutMsg, int midiOutPort)
 {
-   RtMidiOut *midiMsgOut = 0;
-
-
-
+    RtMidiOut *midiMsgOut = 0;
 	  const std::string clientName = "FxFloorBoard";
     midiMsgOut = new RtMidiOut(clientName);
     QString hex;
     int wait = 0; 
     int close = 20;
-
+    int retryCount = 0;
     std::vector<unsigned char> message;	
-		message.reserve(256);
+		//message.reserve(256);
 		int msgLength = sysxOutMsg.length()/2;
 		char *ptr  = new char[msgLength];		// Convert QString to char* (hex value) 
     int nPorts = midiMsgOut->getPortCount();   // Check available ports.
     if ( nPorts < 1 ) { goto cleanup; };
+RETRY:
     try {    
         midiMsgOut->openPort(midiOutPort, clientName);	// Open selected port.         		    
 		      for(int i=0;i<msgLength*2;++i)
@@ -207,6 +205,9 @@ void midiIO::sendSyxMsg(QString sysxOutMsg, int midiOutPort)
 	    }
  catch (RtError &error)
    {
+   SLEEP(100);
+    retryCount = retryCount + 1;
+    if (retryCount < 10) { goto RETRY; };
 	  error.printMessage();
 	  emit errorSignal(tr("Syx Output Error"), tr("data error"));
 	  goto cleanup;
@@ -273,7 +274,7 @@ void midicallback(double deltatime, std::vector<unsigned char> *message, void *u
 					 if (hex.length() < 2) hex.prepend("0");
 					 rxData.append(hex);         			
         };
-		if (rxData.contains("F0") || rxData.contains("F7"))
+		if ((rxData.contains("F0") || rxData.contains("F7")) && !rxData.contains("F0410000000B11"))
 		{ midi->callbackMsg(rxData); };         
 };
 void midiIO::callbackMsg(QString rxData)
@@ -283,7 +284,7 @@ void midiIO::callbackMsg(QString rxData)
 
 void midiIO::receiveMsg(QString sysxInMsg, int midiInPort)
 {
-  int count = 0;
+  count = 0;
 	emit setStatusSymbol(3);
 #ifdef Q_OS_WIN
         int x = 1;
@@ -332,7 +333,7 @@ cleanup:
 		dataReceive = true;
 		midiin->closePort();             // close the midi in port	
 		delete midiin;	
-    emit setStatusdBugMessage("");	
+    //emit setStatusdBugMessage("");	
 };
 
 /**************************** run() **************************************
@@ -342,6 +343,7 @@ cleanup:
  *************************************************************************/
 void midiIO::run()
 {
+  int repeat = 0;
 	if(midi && midiMsg.size() > 1)	// Check if we are going to send sysx or midi data & have an actual midi message to send.
 	{
 	 
@@ -385,6 +387,7 @@ void midiIO::run()
 	}
 	else   // if not a midi message, then it must be a sysx message
 	{
+	RECEIVE:
 		this->dataReceive = false;
 		this->sysxBuffer.clear();
 		this->sysxInMsg.clear();
@@ -410,6 +413,12 @@ void midiIO::run()
 			};
 					dataReceive = true;
 					receiveMsg(sysxInMsg, midiInPort);
+			if((this->sysxBuffer.size()/2 != count) && (repeat<4))
+      {
+        repeat = repeat+1;
+        goto RECEIVE;
+      };
+      emit midiFinished(); 
 		 }
 		else 
 		{
@@ -468,7 +477,7 @@ void midiIO::sendSysxMsg(QString sysxOutMsg, int midiOutPort, int midiInPort)
     }; 
   }; 
   msgType = ""; 
-  emit setStatusdBugMessage("");  
+  //emit setStatusdBugMessage("");  
   if (sysxOutMsg == idRequestString){reBuild = sysxOutMsg;  msgType = "id_request";  emit setStatusdBugMessage("identity request"); };  // identity request not require checksum
 	this->sysxOutMsg = reBuild.simplified().toUpper().remove("0X").remove(" ");
 

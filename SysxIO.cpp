@@ -1040,9 +1040,8 @@ void SysxIO::returnPatchName(QString sysxMsg)
 	QString name; 
 	if(sysxMsg.size()/2 == 29)
 	{		
-		int dataStartOffset = sysxNameOffset;
-		QString hex1, hex2, hex3, hex4;
-		for(int i=dataStartOffset*2; i<(dataStartOffset*2)+(nameLength*2);++i)   //read the length of name string.
+		//for(int i=sysxNameOffset*2; i<(sysxNameOffset*2)+(nameLength*2);++i)   //read the length of name string.
+		for(int i=22; i<54;++i) 
 		{
 			QString hexStr = sysxMsg.mid(i, 2);
 			if(hexStr == "7E")

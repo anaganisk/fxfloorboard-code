@@ -79,6 +79,7 @@ private:
 	QString reBuild;
 	QString hex;
 	bool midi;
+	int count;
 };
 
 #endif // MIDIIO_H
