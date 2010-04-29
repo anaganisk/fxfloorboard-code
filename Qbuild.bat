@@ -1,17 +1,17 @@
 @echo off
 :CHECK
 cls
-echo ********************************************************************
-echo *                    ___________________________________           *
-echo ***                   Build MENU for GT-6FxFloorBoard            ***
-echo *                    -----------------------------------           *
-echo *                      Press [1] to "Compile"                      *
-echo *                               or                                 *
-echo *                      Press [2] to "Compile and Run"              *
-echo *                               or                                 *
-echo *                      Press [3] for "Run only"                    *
-echo *                               or                                 *
-echo *                      Press [4] for "EXIT"                        *
+echo ***********************************************************************
+echo *                    ___________________________________              *
+echo ***                   Build MENU for GT-6FxFloorBoard               ***
+echo *                    -----------------------------------              *
+echo *                      Press [1] to "Compile"                         *
+echo *                               or                                    *
+echo *                      Press [2] to "Compile and Run"                 *
+echo *                               or                                    *
+echo *                      Press [3] for "Run only"                       *
+echo *                               or                                    *
+echo *                      Press [4] for "EXIT"                           *
 echo *                               or                                	   *
 echo *                      Press [5] to "Generate translation ts scripts" *
 echo *                               or                                    *
@@ -27,13 +27,13 @@ if errorlevel 2 goto B-OPTION
 if errorlevel 1 goto A-OPTION
 
 :A-OPTION
-c:\qt\4.5.1\bin\qmake
+c:\qt\4.6.0\bin\qmake
 c:\MinGW\bin\mingw32-make 
 pause
 goto CHECK
 
 :B-OPTION
-c:\qt\4.5.1\bin\qmake
+c:\qt\4.6.0\bin\qmake
 c:\MinGW\bin\mingw32-make 
 cd packager
 GT6FxFloorBoard.exe
@@ -50,12 +50,12 @@ goto CHECK
 goto END
 
 :E-OPTION
-c:\qt\4.5.1\bin\lupdate.exe GT6FxFloorBoard.pro
+c:\qt\4.6.0\bin\lupdate.exe GT6FxFloorBoard.pro
 pause
 goto CHECK
 
 :F-OPTION
-c:\qt\4.5.1\bin\lrelease.exe GT6FxFloorBoard.pro
+c:\qt\4.6.0\bin\lrelease.exe GT6FxFloorBoard.pro
 pause
 goto CHECK
 

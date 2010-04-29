@@ -101,6 +101,38 @@ bool sysxWriter::readFile()
 		}
 			else if (data.size() > patchSize && isHeader && !isSystem)   // bulk patch file
     {
+    
+  QByteArray filteredData;  
+  QByteArray sysxBuffer;
+  QString temp; 
+	int dataSize = 0; int offset = 0;
+	for(int i=0;i<data.size();i++)
+	{
+		unsigned char byte = (char)data[i];
+		unsigned int n = (int)byte;
+		QString hex = QString::number(n, 16).toUpper();
+		if (hex.length() < 2) hex.prepend("0");
+		sysxBuffer.append(data[i]);
+		temp.append(hex);
+
+		unsigned char nextbyte = (char)data[i+1];
+		unsigned int nextn = (int)nextbyte;
+		QString nexthex = QString::number(nextn, 16).toUpper();
+		if (nexthex.length() < 2) nexthex.prepend("0");
+
+		offset++;
+
+		if(hex == "F7") 
+		{	
+			if (temp.contains("F0410000461206")) {filteredData.append(sysxBuffer); };
+			sysxBuffer.clear();
+			dataSize = 0;
+			offset = 0;
+			temp.clear();
+		};
+	};
+	
+  data = filteredData;  
    /* QByteArray patch_data = data;
 	  QFile file(":default.syx");   // Read the default GT-3 sysx file so we don't start empty handed.
     if (file.open(QIODevice::ReadOnly))
