@@ -47,7 +47,7 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
     : QWidget(parent)
 {
 	this->pos = pos;
-  this->timer = new QTimer(this);
+        this->timer = new QTimer(this);
 	this->patchLoadError = false;
 	this->blinkCount = 0;
 	
@@ -55,14 +55,14 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
 	int editButtonRowOffset = 45;
 	int tempRowOffset = 499;
 	int bottomOffset = 544;
-	this->patchNumDisplay = new customDisplay(QRect(25, patchDisplayRowOffset, 50, 34), this);
+        this->patchNumDisplay = new customDisplay(QRect(15, patchDisplayRowOffset, 70, 34), this);
 	this->patchNumDisplay->setLabelPosition(true);
 	this->patchNumDisplay->setMainObjectName("bankMain");
 	this->patchNumDisplay->setSubObjectName("bankSub");
-	this->patchDisplay = new customDisplay(QRect(85, patchDisplayRowOffset, 150, 34), this);
+        this->patchDisplay = new customDisplay(QRect(115, patchDisplayRowOffset, 150, 34), this);
 	this->patchDisplay->setMainObjectName("nameMain");
 	this->patchDisplay->setSubObjectName("nameSub");
-	this->valueDisplay = new customDisplay(QRect(245, patchDisplayRowOffset, 150, 34), this);
+        this->valueDisplay = new customDisplay(QRect(295, patchDisplayRowOffset, 150, 34), this);
 	this->valueDisplay->setMainObjectName("valueMain");
 	this->valueDisplay->setSubObjectName("valueSub");
 	
@@ -92,19 +92,19 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
 	this->patchDisplay->setMainText(deviceType + (tr(" Fx FloorBoard")));
 	this->patchDisplay->setSubText(tr("version"), version);
 
-	initPatch = new initPatchListMenu(QRect(405, patchDisplayRowOffset+19, 168, 15), this);
-  renameWidget *nameEdit = new renameWidget(this); 
-  nameEdit->setGeometry(85, patchDisplayRowOffset, 150, 34); 
-  customRenameWidget *userDialog = new customRenameWidget(this, "18", "00", "00", "Structure", "20");
-  userDialog->setGeometry(680, editButtonRowOffset+5, 262, 25); 
-  customRenameWidget *patchDialog = new customRenameWidget(this, "17", "00", "00", "Structure", "80");
-  patchDialog->setGeometry(10, bottomOffset, 950, 25);
+        initPatch = new initPatchListMenu(QRect(505, patchDisplayRowOffset+19, 168, 15), this);
+        renameWidget *nameEdit = new renameWidget(this);
+        nameEdit->setGeometry(115, patchDisplayRowOffset, 150, 34);
+        customRenameWidget *userDialog = new customRenameWidget(this, "18", "00", "00", "Structure", "20");
+        userDialog->setGeometry(680, editButtonRowOffset+5, 262, 25);
+        customRenameWidget *patchDialog = new customRenameWidget(this, "17", "00", "00", "Structure", "80");
+        patchDialog->setGeometry(10, bottomOffset, 950, 25);
 
- 	this->connectButton = new customButton(tr("Bulk Mode"), false, QPoint(405, patchDisplayRowOffset), this, ":/images/greenledbutton.png");
-	this->writeButton = new customButton(tr("Write/Sync"), false, QPoint(494, patchDisplayRowOffset), this, ":/images/ledbutton.png");
-	this->assign_Button = new customButton(tr("Assigns"), false, QPoint(584, patchDisplayRowOffset), this, ":/images/pushbutton.png");	
-	this->system_Button = new customButton(tr("System Settings"), false, QPoint(673, patchDisplayRowOffset), this, ":/images/pushbutton.png");
-	this->fv_Button = new customButton(tr("FV/PDL/Master"), false, QPoint(762, patchDisplayRowOffset), this, ":/images/pushbutton.png");
+        this->connectButton = new customButton(tr("Bulk Mode"), false, QPoint(505, patchDisplayRowOffset), this, ":/images/greenledbutton.png");
+        this->writeButton = new customButton(tr("Write/Sync"), false, QPoint(594, patchDisplayRowOffset), this, ":/images/ledbutton.png");
+        this->assign_Button = new customButton(tr("Assigns"), false, QPoint(684, patchDisplayRowOffset), this, ":/images/pushbutton.png");
+        this->system_Button = new customButton(tr("System Settings"), false, QPoint(773, patchDisplayRowOffset), this, ":/images/pushbutton.png");
+        this->fv_Button = new customButton(tr("FV/PDL/Master"), false, QPoint(862, patchDisplayRowOffset), this, ":/images/pushbutton.png");
 	
 	this->preamp1_Button = new customButton(tr("PreAmp"), false, QPoint(10, editButtonRowOffset), this, ":/images/pushbutton.png");
 	this->pedal_Button = new customButton(tr("Wah"), false, QPoint(10, editButtonRowOffset+18), this, ":/images/pushbutton.png");
@@ -124,13 +124,13 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
 	this->temp1_copy_Button = new customButton(tr("Patch-1 Copy"), false, QPoint(10, tempRowOffset), this, ":/images/pushbutton.png");
 	this->temp1_paste_Button = new customButton(tr("Patch-1 Paste"), false, QPoint(100, tempRowOffset), this, ":/images/pushbutton.png");
 	this->temp2_copy_Button = new customButton(tr("Patch-2 Copy"), false, QPoint(190, tempRowOffset), this, ":/images/pushbutton.png");
-  this->temp2_paste_Button = new customButton(tr("Patch-2 Paste"), false, QPoint(280, tempRowOffset), this, ":/images/pushbutton.png");
-  this->temp3_copy_Button = new customButton(tr("Patch-3 Copy"), false, QPoint(370, tempRowOffset), this, ":/images/pushbutton.png");
-  this->temp3_paste_Button = new customButton(tr("Patch-3 Paste"), false, QPoint(460, tempRowOffset), this, ":/images/pushbutton.png");
-  this->temp4_copy_Button = new customButton(tr("Patch-4 Copy"), false, QPoint(550, tempRowOffset), this, ":/images/pushbutton.png");
-  this->temp4_paste_Button = new customButton(tr("Patch-4 Paste"), false, QPoint(640, tempRowOffset), this, ":/images/pushbutton.png");
-  this->temp5_copy_Button = new customButton(tr("Patch-5 Copy"), false, QPoint(730, tempRowOffset), this, ":/images/pushbutton.png");
-  this->temp5_paste_Button = new customButton(tr("Patch-5 Paste"), false, QPoint(820, tempRowOffset), this, ":/images/pushbutton.png");
+        this->temp2_paste_Button = new customButton(tr("Patch-2 Paste"), false, QPoint(280, tempRowOffset), this, ":/images/pushbutton.png");
+        this->temp3_copy_Button = new customButton(tr("Patch-3 Copy"), false, QPoint(370, tempRowOffset), this, ":/images/pushbutton.png");
+        this->temp3_paste_Button = new customButton(tr("Patch-3 Paste"), false, QPoint(460, tempRowOffset), this, ":/images/pushbutton.png");
+        this->temp4_copy_Button = new customButton(tr("Patch-4 Copy"), false, QPoint(550, tempRowOffset), this, ":/images/pushbutton.png");
+        this->temp4_paste_Button = new customButton(tr("Patch-4 Paste"), false, QPoint(640, tempRowOffset), this, ":/images/pushbutton.png");
+        this->temp5_copy_Button = new customButton(tr("Patch-5 Copy"), false, QPoint(730, tempRowOffset), this, ":/images/pushbutton.png");
+        this->temp5_paste_Button = new customButton(tr("Patch-5 Paste"), false, QPoint(820, tempRowOffset), this, ":/images/pushbutton.png");
 
 	
 	SysxIO *sysxIO = SysxIO::Instance();
@@ -138,7 +138,7 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
 	QObject::connect(this, SIGNAL(setStatusProgress(int)), sysxIO, SIGNAL(setStatusProgress(int)));
 	QObject::connect(this, SIGNAL(setStatusMessage(QString)), sysxIO, SIGNAL(setStatusMessage(QString)));
 
-  QObject::connect(sysxIO, SIGNAL(notConnectedSignal()), this, SLOT(notConnected()));
+        QObject::connect(sysxIO, SIGNAL(notConnectedSignal()), this, SLOT(notConnected()));
 	QObject::connect(this, SIGNAL(notConnectedSignal()), this, SLOT(notConnected()));
 
 	QObject::connect(this->parent(), SIGNAL(updateSignal()), this, SLOT(updateDisplay()));
@@ -173,7 +173,7 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
 	QObject::connect(this->temp5_copy_Button, SIGNAL(valueChanged(bool)),  this, SLOT(temp5_copy(bool)));
 	QObject::connect(this->temp5_paste_Button, SIGNAL(valueChanged(bool)), this, SLOT(temp5_paste(bool)));
 
-  QString midiIn = preferences->getPreferences("Midi", "MidiIn", "device");
+        QString midiIn = preferences->getPreferences("Midi", "MidiIn", "device");
 	QString midiOut = preferences->getPreferences("Midi", "MidiOut", "device");
 	if(midiIn!="" && midiOut!="") {autoconnect(); };
   };
@@ -240,48 +240,40 @@ void floorBoardDisplay::setPatchDisplay(QString patchName)
 
 void floorBoardDisplay::setPatchNumDisplay(int bank, int patch)
 {
+    QString str;
 	if(bank > 0)
 	{
-			if(bank <= bankTotalUser)
+                if(bank <= bankTotalUser)
 		{
-		 this->patchNumDisplay->resetAllColor();
-     this->patchNumDisplay->setSubText(tr("User"));
+                 this->patchNumDisplay->setAllColor(QColor(0,255,204));
+                 this->patchNumDisplay->setSubText(tr("User"));
 		}
 		else
 		{
-			this->patchNumDisplay->setAllColor(QColor(255,0,0));
-      this->patchNumDisplay->setSubText(tr("Preset"));
+                 this->patchNumDisplay->setAllColor(QColor(255,0,0));
+                 this->patchNumDisplay->setSubText(tr("Preset"));
 		};
-		QString str;
-		if (deviceType == "GT-6B"){
-		if(bank < 11)
-		{ str.append("U"); }
-		else if(bank < 21)
-		{ str.append("u"); }
-		else 
-		{ str.append("P"); };
-		if (bank < 10)
-		{str.append(QString::number(bank, 10));}
-		else if (bank < 20)
-		{str.append(QString::number(bank-10, 10));}
-	    else if (bank < 30)
-		{str.append(QString::number(bank-20, 10));}
-		else 
-		{str.append(QString::number(bank-30, 10));};
-		} else {
-    		if(bank < 10)
-		{
-			str.append("0");
-		};
-		str.append(QString::number(bank, 10));  
-    };
-		str.append(":");
+
+                if(bank < 6)        { str.append("UG:1-"); }
+                else if(bank < 11)  { str.append("UG:2-"); bank -= 5;}
+                else if(bank < 16)  { str.append("UG:3-"); bank -= 10;}
+                else if(bank < 21)  { str.append("UG:4-"); bank -= 15;}
+                else if(bank < 26)  { str.append("PG:1-"); bank -= 20;}
+                else if(bank < 31)  { str.append("PG:2-"); bank -= 25;}
+                else if(bank < 36)  { str.append("PG:3-"); bank -= 30;}
+                else if(bank < 41)  { str.append("PG:4-"); bank -= 35;}
+                else if(bank < 46)  { str.append("PG:5-"); bank -= 40;}
+                else if(bank < 51)  { str.append("PG:6-"); bank -= 45;};
+
+                str.append(QString::number(bank, 10));
+                str.append("-");
 		str.append(QString::number(patch, 10));
-	  this->patchNumDisplay->setMainText(str, Qt::AlignCenter);
+                this->patchNumDisplay->setMainText(str, Qt::AlignCenter);
 	}
 	else
 	{
 		//this->patchNumDisplay->clearAll();
+                this->patchNumDisplay->setAllColor(QColor(0,255,204));
 		this->patchNumDisplay->setSubText(tr("Temp"));
 		QString str = tr("Buffer");
 		this->patchNumDisplay->setMainText(str, Qt::AlignCenter);
@@ -328,7 +320,7 @@ void floorBoardDisplay::temp1_copy(bool value)
 void floorBoardDisplay::temp1_paste(bool value)
 {
   SysxIO *sysxIO = SysxIO::Instance();
-  if (!sysxIO->temp1_sysxMsg.isEmpty() )
+  if (!sysxIO->temp1_sysxMsg.isEmpty() && sysxIO->deviceReady() )
   {
   SysxIO *sysxIO = SysxIO::Instance();
   QList<QString> temp = sysxIO->temp1_sysxMsg;
@@ -391,7 +383,7 @@ void floorBoardDisplay::temp2_copy(bool value)
 void floorBoardDisplay::temp2_paste(bool value)
 {
   SysxIO *sysxIO = SysxIO::Instance();
-  if (!sysxIO->temp2_sysxMsg.isEmpty() )
+  if (!sysxIO->temp2_sysxMsg.isEmpty() && sysxIO->deviceReady() )
   {
   SysxIO *sysxIO = SysxIO::Instance();
   QList<QString> temp = sysxIO->temp2_sysxMsg;
@@ -455,7 +447,7 @@ void floorBoardDisplay::temp3_copy(bool value)
 void floorBoardDisplay::temp3_paste(bool value)
 {
   SysxIO *sysxIO = SysxIO::Instance();
-  if (!sysxIO->temp3_sysxMsg.isEmpty() )
+  if (!sysxIO->temp3_sysxMsg.isEmpty() && sysxIO->deviceReady() )
   {
   SysxIO *sysxIO = SysxIO::Instance();
   QList<QString> temp = sysxIO->temp3_sysxMsg;
@@ -518,7 +510,7 @@ void floorBoardDisplay::temp4_copy(bool value)
 void floorBoardDisplay::temp4_paste(bool value)
 {
   SysxIO *sysxIO = SysxIO::Instance();
-  if (!sysxIO->temp4_sysxMsg.isEmpty() )
+  if (!sysxIO->temp4_sysxMsg.isEmpty() && sysxIO->deviceReady() )
   {
   SysxIO *sysxIO = SysxIO::Instance();
   QList<QString> temp = sysxIO->temp4_sysxMsg;
@@ -581,7 +573,7 @@ void floorBoardDisplay::temp5_copy(bool value)
 void floorBoardDisplay::temp5_paste(bool value)
 {
   SysxIO *sysxIO = SysxIO::Instance();
-  if (!sysxIO->temp5_sysxMsg.isEmpty() )
+  if (!sysxIO->temp5_sysxMsg.isEmpty() && sysxIO->deviceReady() )
   {
   SysxIO *sysxIO = SysxIO::Instance();
   QList<QString> temp = sysxIO->temp5_sysxMsg;

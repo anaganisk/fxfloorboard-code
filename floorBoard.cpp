@@ -704,13 +704,13 @@ void floorBoard::initMenuPages()
 	/* EDITPAGES */
 	menuPage *assign = new menuPage_assign(this);
 	assign->setId(20);
-        assign->setPos(QPoint(1083, 5));
+        assign->setPos(QPoint(1183, 5));
 	/*menuPage *midi = new menuPage_midi(this);
 	midi->setId(19);
 	midi->setPos(QPoint(1034, 5));*/
 	menuPage *system = new menuPage_system(this);
 	system->setId(18);
-        system->setPos(QPoint(1174, 5));
+        system->setPos(QPoint(1274, 5));
 	
 	};
 

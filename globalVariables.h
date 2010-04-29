@@ -50,7 +50,7 @@ const int checksumOffset = 6;		// Offset (starts at 0) where we start calculatin
 /* Patches and Banks */
 const int bankTotalUser = 20;		// Number of user (editable) banks.
 const int bankTotalAll = 50;		// Number of total banks.
-const int patchPerBank = 5;			// Number of patches in a bank.
+const int patchPerBank = 5;             // Number of patches in a bank.
 const int bankSize = 100;       // Number of patches in a midi bank before bank change message is required.
 const int bankUserStart = 7;    // Start address of user patch range.
 
@@ -59,7 +59,7 @@ const int patchPackets = 5;		// number of sysx packets "F0....F7" which make up 
 const int patchSize = 426;          // size of bytes in a patch.
 const QString patchRequestSize = "00000001";
 const int maxRetry = 2;			// Maximum times we retry to load a patch in case of a transfer error .
-const QString systemRequest = "F0410000041100000000020000017DF7";
+const QString systemRequest = "F0410000041100000000010401067DF7";
 
 /* Patch Sellection (Used when copying patches) */
 const int sellectionBlinks = 5;				// Times we blink to indicate we have sellected a patch before returning.
