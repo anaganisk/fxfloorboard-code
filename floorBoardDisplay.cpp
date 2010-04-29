@@ -477,7 +477,7 @@ void floorBoardDisplay::temp1_paste(bool value)
 { 
   SysxIO *sysxIO = SysxIO::Instance();
   this->temp1_sysxMsg = sysxIO->temp1_sysxMsg;
-  if (!temp1_sysxMsg.isEmpty() )
+  if (!temp1_sysxMsg.isEmpty() && sysxIO->deviceReady() )
   {
   SysxIO *sysxIO = SysxIO::Instance();
   sysxIO->setFileSource("patch", temp1_sysxMsg);
@@ -526,7 +526,7 @@ void floorBoardDisplay::temp2_paste(bool value)
 {
   SysxIO *sysxIO = SysxIO::Instance();
   this->temp2_sysxMsg = sysxIO->temp2_sysxMsg;
-  if (!temp2_sysxMsg.isEmpty() )
+  if (!temp2_sysxMsg.isEmpty() && sysxIO->deviceReady() )
   {
   SysxIO *sysxIO = SysxIO::Instance();
   sysxIO->setFileSource("patch", temp2_sysxMsg);
@@ -574,7 +574,7 @@ void floorBoardDisplay::temp3_paste(bool value)
 {
   SysxIO *sysxIO = SysxIO::Instance();
   this->temp3_sysxMsg = sysxIO->temp3_sysxMsg;
-  if (!temp3_sysxMsg.isEmpty() )
+  if (!temp3_sysxMsg.isEmpty() && sysxIO->deviceReady() )
   {
   SysxIO *sysxIO = SysxIO::Instance();
   sysxIO->setFileSource("patch", temp3_sysxMsg);
@@ -622,7 +622,7 @@ void floorBoardDisplay::temp4_paste(bool value)
 {
   SysxIO *sysxIO = SysxIO::Instance();
   this->temp4_sysxMsg = sysxIO->temp4_sysxMsg;
-  if (!temp4_sysxMsg.isEmpty() )
+  if (!temp4_sysxMsg.isEmpty() && sysxIO->deviceReady() )
   {
   SysxIO *sysxIO = SysxIO::Instance();
   sysxIO->setFileSource("patch", temp4_sysxMsg);
@@ -670,7 +670,7 @@ void floorBoardDisplay::temp5_paste(bool value)
 {
   SysxIO *sysxIO = SysxIO::Instance();
   this->temp5_sysxMsg = sysxIO->temp5_sysxMsg;
-  if (!temp5_sysxMsg.isEmpty() )
+  if (!temp5_sysxMsg.isEmpty() && sysxIO->deviceReady() )
   {
   SysxIO *sysxIO = SysxIO::Instance();
   sysxIO->setFileSource("patch", temp5_sysxMsg);

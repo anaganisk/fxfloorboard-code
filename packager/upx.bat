@@ -1,2 +1,2 @@
-upx  GT-10fxfloorboard.exe
+upx  GT-10FxFloorBoard.exe
 pause

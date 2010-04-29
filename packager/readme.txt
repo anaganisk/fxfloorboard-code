@@ -4,7 +4,7 @@ GT-10FxFloorBoard Copyright (C) 2007~2010 Colin Willcocks (gumtownbassman@yahoo.
 =======
 
 
-GT-10FxFloorBoard version 20100105: 05 January 2010
+GT-10FxFloorBoard version 20100428: 28 April 2010
 *****************************************************
 PLEASE FEEL FREE TO DONATE, YOU MAY FREELY USE THIS SOFTWARE, 
  JUST KEEP IN MIND THE 7000 HOURS SPENT OVER 4 YEARS GETTING IT HERE,
@@ -13,7 +13,7 @@ but then patches created by you for sharing with all would be nice too.
 you can email patches and custom system settings saved files to the above address.
 ***********************************************************************************
  ********* LATEST FEATURES ADDED****************************************************
- *New Framework with better Windows 7 support, auto temp buffer request on connect. 
+ *New Framework with better Windows 7 and Mac Snow Leopard support, auto temp buffer request on connect. 
  *Multi Language support for French, German, and Chinese. 
  *Bulk File save/restore in 3 formats *.gxg, *.mid & *.syx so your Boss Librarian can use the Bulk files 
  and the FxFloorBoard can load in Bulk backups of patches, system and Global data. 
