@@ -8,7 +8,6 @@ based on the original fxfloorboard source written by <br>
 RtMidi: realtime MIDI i/o C++ classes <br>
 Copyright (c) 2003~2009 Gary P. Scavone	<br>	
 this software is built on open-source Qt Framework by http://trolltech.com <br>
-Qt build version 4.5.1<br>
 <br>
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

@@ -168,12 +168,14 @@ void midiIO::sendSyxMsg(QString sysxOutMsg, int midiOutPort)
     QString hex;
     int wait = 0; 
     int close = 20;
+    int retryCount = 0;
     std::vector<unsigned char> message;	
 		message.reserve(256);
 		int msgLength = sysxOutMsg.length()/2;
 		char *ptr  = new char[msgLength];		// Convert QString to char* (hex value) 
     int nPorts = midiMsgOut->getPortCount();   // Check available ports.
     if ( nPorts < 1 ) { goto cleanup; };
+RETRY:
     try {    
         midiMsgOut->openPort(midiOutPort, clientName);	// Open selected port.         		    
 		      for(int i=0;i<msgLength*2;++i)
@@ -199,6 +201,9 @@ void midiIO::sendSyxMsg(QString sysxOutMsg, int midiOutPort)
 	    }
  catch (RtError &error)
    {
+    SLEEP(100);
+    retryCount = retryCount + 1;
+    if (retryCount < 5) { goto RETRY; };
 	  error.printMessage();
 	  emit errorSignal(tr("Syx Output Error"), tr("data error"));
 	  goto cleanup;

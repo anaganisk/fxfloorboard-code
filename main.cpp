@@ -76,7 +76,7 @@ int main(int argc, char **argv)
 	has started running, it is necessary to periodically call. */
 	app.processEvents();
 
-	splash->showStatusMessage(QObject::tr("Initializing..."));
+	splash->showStatusMessage(QObject::tr("Initializing...Please wait..."));
 	mainWindow window;// = new mainWindow;
 
 	QObject::connect( &window, SIGNAL(closed()), &app, SLOT(quit()) );
@@ -101,9 +101,11 @@ int main(int argc, char **argv)
 	app.processEvents(); 
 
 	splash->showStatusMessage(QObject::tr("Initializing main window..."));
-	window.setWindowFlags( Qt::WindowTitleHint 
+	window.setWindowFlags( Qt::WindowTitleHint
 		| Qt::WindowMinimizeButtonHint 
-		| Qt::MSWindowsFixedSizeDialogHint );
+		| Qt::MSWindowsFixedSizeDialogHint
+    | Qt::WindowCloseButtonHint
+    | Qt::CustomizeWindowHint );
 	window.setWindowIcon(QIcon::QIcon(":/images/windowicon.png"));
 
 	app.processEvents(); 

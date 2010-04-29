@@ -47,7 +47,8 @@ bankTreeList::bankTreeList(QWidget *parent)
 {
 	QFont font;
 	font.setStretch(85);
-
+  this->timer = new QTimer(this);
+  
 	this->treeList = newTreeList();
 	this->treeList->setObjectName("banklist");
   	QObject::connect(treeList, SIGNAL(itemExpanded(QTreeWidgetItem*)), this, SLOT(setOpenItems(QTreeWidgetItem*)));
@@ -74,6 +75,11 @@ bankTreeList::bankTreeList(QWidget *parent)
 	QObject::connect(this, SIGNAL(setStatusMessage(QString)), sysxIO, SIGNAL(setStatusMessage(QString)));
 
 	QObject::connect(this, SIGNAL(notConnectedSignal()), sysxIO, SIGNAL(notConnectedSignal()));
+	
+	
+	QObject::connect(timer, SIGNAL(timeout()), this, SLOT(getTemp()));
+	timer->start(2000);
+	
 };
 
 void bankTreeList::updateSize(QRect newrect)
@@ -529,6 +535,20 @@ void bankTreeList::setItemDoubleClicked(QTreeWidgetItem *item, int column)
 	 emit patchSelectSignal(bank, patch);
 	};
 };
+
+/*********************** requestTemp() *******************************
+ * Does the repeated requesting of the temp patch data and hands the 
+ * reception over to updatePatch function.
+ **********************************************************************/
+void bankTreeList::requestTemp() 
+{
+SysxIO *sysxIO = SysxIO::Instance();
+ if(sysxIO->deviceReady() && sysxIO->isConnected())
+ {
+   requestPatch();
+ };
+};
+
 /*********************** requestPatch() *******************************
  * Does the actual requesting of the patch data and hands the 
  * reception over to updatePatch function.
@@ -753,10 +773,10 @@ void bankTreeList::updatePatch(QString replyMsg)
 *********************************************************************************/
 void bankTreeList::connectedSignal()
 {	
-	SysxIO *sysxIO = SysxIO::Instance();
+ 	SysxIO *sysxIO = SysxIO::Instance();
 	if(this->openPatchTreeItems.size() != 0 && sysxIO->deviceReady() && sysxIO->isConnected())
 	{
-		 sysxIO->setDeviceReady(false);
+		 sysxIO->setDeviceReady(false); 
 
 		this->listIndex = 0;
 		this->itemIndex = 0;
@@ -772,6 +792,7 @@ void bankTreeList::connectedSignal()
 
 		this->updatePatchNames("");
 	};  
+	requestTemp();
 };
 
 /********************************** updateTree() ********************************
@@ -856,4 +877,23 @@ void bankTreeList::updatePatchNames(QString name)
         emit setStatusSymbol(1);
         emit setStatusMessage(tr("Ready"));
         };
+};
+
+void bankTreeList::getTemp(bool active)
+{
+	SysxIO *sysxIO = SysxIO::Instance();
+if(sysxIO->deviceReady() && sysxIO->isConnected()) 
+	{
+		emit setStatusSymbol(2);
+		emit setStatusMessage(tr("Patch request"));
+		sysxIO->setDeviceReady(false);
+		requestPatch(); 
+	}
+	else
+	{
+		//QObject::disconnect(timer, SIGNAL(timeout()), this, SLOT(getTemp()));
+		//timer->stop();
+	};
+	emit setStatusSymbol(1);
+	emit setStatusMessage(tr("Ready"));
 };

@@ -44,8 +44,9 @@ void menuPage_midi::setEditPages()
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "02", "00", "00", "System"); // omni mode
 	editDetails()->page()->addComboBox(0, 1, 1, 1, "02", "00", "01", "System"); // rx channel
 	editDetails()->page()->addComboBox(0, 2, 1, 1, "02", "00", "02", "System"); // tx channel
-	editDetails()->page()->addComboBox(0, 3, 1, 1, "02", "00", "04", "System"); // sync clock
-	editDetails()->page()->addComboBox(0, 4, 1, 1, "02", "00", "05", "System"); // pc out
+	//editDetails()->page()->addComboBox(0, 3, 1, 1, "02", "00", "03", "System"); // device ID
+	editDetails()->page()->addComboBox(0, 4, 1, 1, "02", "00", "04", "System"); // sync clock
+	editDetails()->page()->addComboBox(0, 5, 1, 1, "02", "00", "05", "System"); // pc out
 	
 	
 	editDetails()->page()->addComboBox(1, 0, 1, 1, "02", "00", "06", "System"); // exp1 out

@@ -27,6 +27,7 @@
 #include <QWidget>
 #include <QList>
 #include <QTreeWidget>
+#include <QTimer>
 
 class bankTreeList : public QWidget
 {
@@ -42,10 +43,12 @@ public slots:
 	void setClosedItems(QTreeWidgetItem *item);
 	void setOpenItems(QTreeWidgetItem *item);
 	void connectedSignal();
+	void requestTemp();
 	void requestPatch();
 	void requestPatch(int bank, int patch);
 	void setItemClicked(QTreeWidgetItem *item, int column);
 	void setItemDoubleClicked(QTreeWidgetItem *item, int column);
+	void getTemp(bool active);
 
 signals:
 	void itemExpanded(QTreeWidgetItem *item);
@@ -72,6 +75,7 @@ private:
 	QTreeWidget* treeList;
 	int itemIndex;
 	int listIndex;
+	QTimer* timer;
 };
 
 #endif // BANKTREELIST_H
