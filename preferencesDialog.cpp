@@ -34,7 +34,7 @@ preferencesDialog::preferencesDialog()
 	contentsWidget->setMovement(QListView::Static);
 	contentsWidget->setSpacing(10);
 	contentsWidget->setFixedHeight(330);
-	contentsWidget->setFixedWidth(85); // 70 to 75 for OS X.
+	contentsWidget->setFixedWidth(85); 
 
 	GeneralPage *generalSettings = new GeneralPage;
 	MidiPage *midiSettings = new MidiPage;
@@ -93,7 +93,7 @@ void preferencesDialog::createIcons()
 
 	QListWidgetItem *midiButton = new QListWidgetItem(contentsWidget);
 	midiButton->setIcon(QIcon(":images/midi.png"));
-	midiButton->setText(tr("Midi"));
+	midiButton->setText(tr("USB/Midi"));
 	midiButton->setTextAlignment(Qt::AlignHCenter);
 	midiButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 

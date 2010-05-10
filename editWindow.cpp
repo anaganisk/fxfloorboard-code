@@ -98,7 +98,7 @@ editWindow::editWindow(QWidget *parent)
 	this->closeButton->setImage(":/images/closebutton.png");
 	
 	QHBoxLayout *buttonLayout = new QHBoxLayout;
-	buttonLayout->addWidget(this->bulkEdit_Button);
+        //buttonLayout->addWidget(this->bulkEdit_Button);
 	//buttonLayout->addWidget(this->swap_Button);
 	buttonLayout->addWidget(this->temp1_Button);
 	buttonLayout->addWidget(this->temp2_Button);

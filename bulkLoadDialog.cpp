@@ -36,8 +36,10 @@ bulkLoadDialog::bulkLoadDialog()
   failed = true;
   QLabel *startListLabel = new QLabel(tr("Starting from"));
   this->startPatchCombo = new QComboBox(this);
+  startPatchCombo->setMaxVisibleItems(200);
   QLabel *finishListLabel = new QLabel(tr("Finishing at"));
 	this->finishPatchCombo = new QComboBox(this);
+	finishPatchCombo->setMaxVisibleItems(200);
   QObject::connect(startPatchCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(comboValueChanged(int)));
   QObject::connect(finishPatchCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(comboValueChanged(int)));	
 	QVBoxLayout *comboBoxLayout = new QVBoxLayout;
@@ -55,6 +57,7 @@ bulkLoadDialog::bulkLoadDialog()
 	QLabel *finishRangeLabel = new QLabel(tr("Finish Bank."));
 
 	this->startRangeComboBox = new QComboBox(this);
+	startRangeComboBox->setMaxVisibleItems(200);
 	QObject::connect(startRangeComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(comboValueChanged(int)));
 	this->finishRange = new QLineEdit(this);
 	this->finishRange->setReadOnly(true);
@@ -228,17 +231,20 @@ bulkLoadDialog::bulkLoadDialog()
 
 void bulkLoadDialog::comboValueChanged(int value)
 {
-  this->bankStart = this->startRangeComboBox->currentIndex();
+    this->bankStart = this->startRangeComboBox->currentIndex();
   this->startList = this->startPatchCombo->currentIndex();
   this->finishList = this->finishPatchCombo->currentIndex();
-  if (startList > finishList) {this->startPatchCombo->setCurrentIndex(finishList); }
-  else if (finishList < startList) {this->finishPatchCombo->setCurrentIndex(startList); }; 
-  int x = (bankStart+(finishList-startList));
-   if (x<0) {x=0; } else if (x>((bankTotalUser*patchPerBank)-1))
+  if ((this->finishList-this->startList)>(this->bankStart+(bankTotalUser*patchPerBank)))
+  {this->startPatchCombo->setCurrentIndex(this->finishList-(bankTotalUser*patchPerBank)+1);
+   /*this->startRangeComboBox->setCurrentIndex(1);*/ };
+  if (this->startList > this->finishList) {this->startPatchCombo->setCurrentIndex(finishList); }
+  else if (this->finishList < this->startList) {this->finishPatchCombo->setCurrentIndex(startList); };
+  int x = (this->bankStart+(this->finishList-this->startList));
+    if (x<0) {x=0; } else if (x>((bankTotalUser*patchPerBank)-1))
               {
                x=((bankTotalUser*patchPerBank)-1); 
-               bankStart=((bankTotalUser*patchPerBank)-1)-(finishList-startList);  
-               startRangeComboBox->setCurrentIndex(((bankTotalUser*patchPerBank)-1)-(finishList-startList)); 
+               this->bankStart=((bankTotalUser*patchPerBank)-1)-(this->finishList-this->startList);
+               this->startRangeComboBox->setCurrentIndex(((bankTotalUser*patchPerBank)-1)-(this->finishList-this->startList));
               };
   QString text = tr("Finish at U");
   int y = x/patchPerBank; y = y*patchPerBank; y=x-y;
@@ -246,7 +252,7 @@ void bulkLoadDialog::comboValueChanged(int value)
   text.append("-");
   text.append(QString::number(y+1, 10).toUpper() );
   this->finishRange->setText(text); 
-  this->startRangeComboBox->setMaxVisibleItems((bankTotalUser*patchPerBank)-(finishList-startList));
+  //this->startRangeComboBox->setMaxVisibleItems((bankTotalUser*patchPerBank)-(finishList-startList));
 }; 
 
 void bulkLoadDialog::sendData() 
@@ -451,10 +457,11 @@ void bulkLoadDialog::bulkStatusProgress(int value)
 
 void bulkLoadDialog::loadGXB()         // ************************************ GXB File Format***************************
 {	
-  unsigned char r = (char)data[35];     // find patch count in GXB file at byte 35, 1~200
+  unsigned char msb = (char)data[34];     // find patch count msb bit in GXB file at byte 34
+  unsigned char lsb = (char)data[35];     // find patch count lsb bit in GXB file at byte 35
 	bool ok;
   int count;
-  count = QString::number(r, 16).toUpper().toInt(&ok, 16);
+  count = (256*QString::number(msb, 16).toUpper().toInt(&ok, 16)) + (QString::number(lsb, 16).toUpper().toInt(&ok, 16));
   QByteArray marker;
   
   marker = data.mid(170, 2);      //copy marker key to find "06A5" which marks the start of each patch block

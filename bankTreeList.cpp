@@ -77,8 +77,8 @@ bankTreeList::bankTreeList(QWidget *parent)
 	QObject::connect(this, SIGNAL(notConnectedSignal()), sysxIO, SIGNAL(notConnectedSignal()));
 	
 	
-	QObject::connect(timer, SIGNAL(timeout()), this, SLOT(getTemp()));
-	timer->start(2000);
+       // QObject::connect(timer, SIGNAL(timeout()), this, SLOT(getTemp()));
+        timer->start(2000);
 	
 };
 
@@ -656,9 +656,7 @@ void bankTreeList::updatePatch(QString replyMsg)
 		if (hex.length() < 2) hex.prepend("0");
 		sysxBuffer.append(hex);
   };
-	replyMsg.append(sysxBuffer);
-	
-	
+	replyMsg.append(sysxBuffer);	
 	QString reBuild = "";       /* Add correct checksum to patch strings */
   QString sysxEOF = "";	
   QString hex = "";
@@ -721,7 +719,7 @@ void bankTreeList::updatePatch(QString replyMsg)
 	};
 		if(replyMsg.isEmpty()) 
 	{
-		emit notConnectedSignal();				// No message returned so connection must be lost.
+	//	emit notConnectedSignal();				// No message returned so connection must be lost.
 		/* NO-REPLY WARNING */
 	QMessageBox *msgBox = new QMessageBox();
 	msgBox->setWindowTitle(QObject::tr("Warning - Patch data not received!"));
@@ -879,7 +877,7 @@ void bankTreeList::updatePatchNames(QString name)
         };
 };
 
-void bankTreeList::getTemp(bool active)
+void bankTreeList::getTemp()
 {
 	SysxIO *sysxIO = SysxIO::Instance();
 if(sysxIO->deviceReady() && sysxIO->isConnected()) 

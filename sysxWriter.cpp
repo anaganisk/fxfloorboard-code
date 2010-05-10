@@ -124,7 +124,8 @@ bool sysxWriter::readFile()
             a=a+1777;                      // offset is set in front of marker
         }; 
               
-    fileDialog *dialog = new fileDialog(fileName, patchList); 
+    QString type = "syx";
+    fileDialog *dialog = new fileDialog(fileName, patchList, data, default_data, type);
     dialog->exec();    
     patchIndex(this->index);                          
    };   
@@ -495,8 +496,9 @@ bool sysxWriter::readFile()
             a=a+1806;                      // offset is set in front of marker
         }; 
               
-    fileDialog *dialog = new fileDialog(fileName, patchList); 
-    dialog->exec();    
+    QString type = "smf";
+    fileDialog *dialog = new fileDialog(fileName, patchList, data, default_data, type);
+    dialog->exec();     
     patchIndex(this->index);                          
    };   
      
@@ -548,10 +550,11 @@ bool sysxWriter::readFile()
   else if (isGXB)      // if the read file is a Boss Librarian type. ***************************************
   {
   index=1;
-  unsigned char r = (char)data[35];     // find patch count in GXB file at byte 35, 1~200
-	bool ok;
+  unsigned char msb = (char)data[34];     // find patch count msb bit in GXG file at byte 34
+  unsigned char lsb = (char)data[35];     // find patch count lsb bit in GXG file at byte 35
+  bool ok;
   int patchCount;
-  patchCount = QString::number(r, 16).toUpper().toInt(&ok, 16);
+  patchCount = (256*QString::number(msb, 16).toUpper().toInt(&ok, 16)) + (QString::number(lsb, 16).toUpper().toInt(&ok, 16));
   QByteArray marker;
   if (patchCount>1)
   {
@@ -580,7 +583,8 @@ bool sysxWriter::readFile()
         a=a+2;                      // offset is set in front of marker
         }; 
               
-    fileDialog *dialog = new fileDialog(fileName, patchList); 
+    QString type = "gxb";
+    fileDialog *dialog = new fileDialog(fileName, patchList, data, default_data, type);
     dialog->exec();    
     patchIndex(this->index);                          
    };   

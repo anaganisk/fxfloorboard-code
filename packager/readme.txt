@@ -1,16 +1,18 @@
 
-GT-10BFxFloorBoard Copyright (C) 2007, 2008, 2009 Colin Willcocks (gumtownbassman@yahoo.com).
+GT-10BFxFloorBoard Copyright (C) 2007~2010 Colin Willcocks (gumtownbassman@yahoo.com).
  All rights reserved.
 =======
 
 
-GT-10BFxFloorBoard version 20090929: 29 September 2009
+GT-10BFxFloorBoard version 20100510: 10 May 2010
 
 PLEASE FEEL FREE TO DONATE, YOU MAY FREELY USE THIS SOFTWARE, 
  JUST KEEP IN MIND THE 7000 HOURS SPENT OVER 4 YEARS GETTING IT HERE,
  SO FAR WITH LITTLE REWARD. I WOULD LOVE A BEER!!!. :-)
  
  ******************LATEST FEATURE***********************
+ *Patch auditioning of Bulk *.GXB format files.
+ *Revised midi I/O system.  
  *Added Bulk File support for saving and loading, complete patch and system & global data backups and restoration now possible. 
  *5 way clipboard added for patch storage and partial patch pasting of individual effects. 
 
@@ -109,8 +111,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 LEGAL:
 ------
 
-GT-10B FxFloorBoard Copyright (C)2007, 2008, 2009 Colin Willcocks <gumtownbassman@yahoo.com>.
-based on the GT-8 FxFloorBoard Copyright (C)2006, 2007 Uco Mesdag <ucomesdag@gmail.com>.
+GT-10B FxFloorBoard Copyright (C)2007~2010 Colin Willcocks <gumtownbassman@yahoo.com>.
+based on the GT-8 FxFloorBoard Copyright (C)2006~2007 Uco Mesdag <ucomesdag@gmail.com>.
 
 Windows(TM), Windows 95(TM), Windows 98(TM), Windows ME(TM), Windows NT(TM), 
 Windows 2000(TM), Windows XP(TM), Windows Vista(TM) and Windows 7(TM) are Copyright (C)Microsoft Corporation. 

@@ -1,7 +1,7 @@
 /****************************************************************************
 **
 ** Copyright (C) 2007~2010 Colin Willcocks.
-** Copyright (C) 2005~2007 Uco Mesdag. 
+** Copyright (C) 2005~2007 Uco Mesdag.
 ** All rights reserved.
 ** This file is part of "GT-10B Fx FloorBoard".
 **
@@ -27,7 +27,7 @@
 #include <QDialog>
 #include <QComboBox>
 #include <QLabel>
-#include "SysxIO.h" 
+#include "SysxIO.h"
 
 class QListWidget;
 class QListWidgetItem;
@@ -35,26 +35,30 @@ class QStackedWidget;
 
 class fileDialog : public QDialog
 {
-	Q_OBJECT
+        Q_OBJECT
 
 public:
-	fileDialog(QString fileName, QList<QString> patchList);
-	QLabel *patchLabel;
-  QLabel *nameLabel; 
+  fileDialog(QString fileName, QList<QString> patchList, QByteArray fileData, QByteArray default_data, QString type);
+  QLabel *patchLabel;
+  QLabel *nameLabel;
   QComboBox *patchCombo;
   //int index;
 signals:
   //void currentIndex(int value);
   void patchIndex(int value);
-                    
+
 public slots:
   void valueChanged(int value);
+  void highlighted(int value);
   void cancel();
-   
-private:   
+
+private:
   QList<QString> patchList;
-	QListWidget *contentsWidget;
-	QStackedWidget *pagesWidget;
+  QListWidget *contentsWidget;
+  QStackedWidget *pagesWidget;
+  QByteArray fileData;
+  QByteArray default_data;
+  QString type;
 };
 
 #endif // FILEDIALOG_H
