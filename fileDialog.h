@@ -38,8 +38,8 @@ class fileDialog : public QDialog
 	Q_OBJECT
 
 public:
-	fileDialog(QString fileName, QList<QString> patchList);
-	QLabel *patchLabel;
+  fileDialog(QString fileName, QList<QString> patchList, QByteArray fileData, QByteArray default_data, QString type);
+  QLabel *patchLabel;
   QLabel *nameLabel; 
   QComboBox *patchCombo;
   //int index;
@@ -49,11 +49,14 @@ signals:
                     
 public slots:
   void valueChanged(int value);
+  void highlighted(int value);
    
 private:   
   QList<QString> patchList;
-	QListWidget *contentsWidget;
-	QStackedWidget *pagesWidget;
+  QListWidget *contentsWidget;
+  QStackedWidget *pagesWidget;
+  QByteArray fileData;
+  QByteArray default_data;
 };
 
 #endif // FILEDIALOG_H

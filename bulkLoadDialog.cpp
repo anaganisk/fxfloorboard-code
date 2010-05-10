@@ -36,25 +36,28 @@ bulkLoadDialog::bulkLoadDialog()
   failed = true;
   QLabel *startListLabel = new QLabel(tr("Starting from"));
   this->startPatchCombo = new QComboBox(this);
+  startPatchCombo->setMaxVisibleItems(200);
   QLabel *finishListLabel = new QLabel(tr("Finishing at"));
-	this->finishPatchCombo = new QComboBox(this);
+  this->finishPatchCombo = new QComboBox(this);
+  finishPatchCombo->setMaxVisibleItems(200);
   QObject::connect(startPatchCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(comboValueChanged(int)));
   QObject::connect(finishPatchCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(comboValueChanged(int)));	
-	QVBoxLayout *comboBoxLayout = new QVBoxLayout;
-	comboBoxLayout->addWidget(startListLabel);
-	comboBoxLayout->addWidget(startPatchCombo);
+  QVBoxLayout *comboBoxLayout = new QVBoxLayout;
+  comboBoxLayout->addWidget(startListLabel);
+  comboBoxLayout->addWidget(startPatchCombo);
   comboBoxLayout->addStretch(1);
-	comboBoxLayout->addSpacing(12);
-	comboBoxLayout->addWidget(finishListLabel);
+  comboBoxLayout->addSpacing(12);
+  comboBoxLayout->addWidget(finishListLabel);
   comboBoxLayout->addWidget(finishPatchCombo);
 	
-	QGroupBox *patchListGroup = new QGroupBox(tr("Set the Range of Patch data to restore"));
+  QGroupBox *patchListGroup = new QGroupBox(tr("Set the Range of Patch data to restore"));
   patchListGroup->setLayout(comboBoxLayout);
 
   QLabel *startRangeLabel = new QLabel(tr("Start Bank."));
-	QLabel *finishRangeLabel = new QLabel(tr("Finish Bank."));
+  QLabel *finishRangeLabel = new QLabel(tr("Finish Bank."));
 
 	this->startRangeComboBox = new QComboBox(this);
+        startRangeComboBox->setMaxVisibleItems(200);
 	QObject::connect(startRangeComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(comboValueChanged(int)));
 	this->finishRange = new QLineEdit(this);
 	this->finishRange->setReadOnly(true);
@@ -240,14 +243,17 @@ void bulkLoadDialog::comboValueChanged(int value)
   this->bankStart = this->startRangeComboBox->currentIndex();
   this->startList = this->startPatchCombo->currentIndex();
   this->finishList = this->finishPatchCombo->currentIndex();
-  if (startList > finishList) {this->startPatchCombo->setCurrentIndex(finishList); }
-  else if (finishList < startList) {this->finishPatchCombo->setCurrentIndex(startList); }; 
-  int x = (bankStart+(finishList-startList));
+  if ((this->finishList-this->startList)>(this->bankStart+(bankTotalUser*patchPerBank)))
+  {this->startPatchCombo->setCurrentIndex(this->finishList-(bankTotalUser*patchPerBank)+1);
+   /*this->startRangeComboBox->setCurrentIndex(1);*/ };
+  if (this->startList > this->finishList) {this->startPatchCombo->setCurrentIndex(finishList); }
+  else if (this->finishList < this->startList) {this->finishPatchCombo->setCurrentIndex(startList); };
+  int x = (this->bankStart+(this->finishList-this->startList));
     if (x<0) {x=0; } else if (x>((bankTotalUser*patchPerBank)-1))
               {
                x=((bankTotalUser*patchPerBank)-1); 
-               bankStart=((bankTotalUser*patchPerBank)-1)-(finishList-startList);  
-               startRangeComboBox->setCurrentIndex(((bankTotalUser*patchPerBank)-1)-(finishList-startList)); 
+               this->bankStart=((bankTotalUser*patchPerBank)-1)-(this->finishList-this->startList);
+               this->startRangeComboBox->setCurrentIndex(((bankTotalUser*patchPerBank)-1)-(this->finishList-this->startList));
               };
   QString text = tr("Finish at U");
   int y = x/patchPerBank; y = y*patchPerBank; y=x-y;
@@ -255,7 +261,7 @@ void bulkLoadDialog::comboValueChanged(int value)
   text.append("-");
   text.append(QString::number(y+1, 10).toUpper() );
   this->finishRange->setText(text); 
-  this->startRangeComboBox->setMaxVisibleItems((bankTotalUser*patchPerBank)-(finishList-startList));
+  //this->startRangeComboBox->setMaxVisibleItems((bankTotalUser*patchPerBank)-(finishList-startList));
 }; 
 
 void bulkLoadDialog::sendData() 
@@ -454,19 +460,20 @@ void bulkLoadDialog::bulkStatusProgress(int value)
 {
   if (value >100) {value = 100;};
   if (value<0) {value = 0; };
-	this->progressBar->setValue(value);
+  this->progressBar->setValue(value);
 };
 
 void bulkLoadDialog::loadGXG()         // ************************************ GXG File Format***************************
 {	
-  unsigned char r = (char)data[35];     // find patch count in GXG file at byte 35, 1~200
-	bool ok;
+  unsigned char msb = (char)data[34];     // find patch count msb bit in GXG file at byte 34
+  unsigned char lsb = (char)data[35];     // find patch count lsb bit in GXG file at byte 35
+  bool ok;
   int count;
-  count = QString::number(r, 16).toUpper().toInt(&ok, 16);
+  count = (256*QString::number(msb, 16).toUpper().toInt(&ok, 16)) + (QString::number(lsb, 16).toUpper().toInt(&ok, 16));
   QByteArray marker;  
   marker = data.mid(170, 2);      //copy marker key to find "06A5" which marks the start of each patch block
-	unsigned int a = data.indexOf(marker, 0); // locate patch start position from the start of the file
-   a=a+2;                             // offset is set in front of marker  
+  unsigned int a = data.indexOf(marker, 0); // locate patch start position from the start of the file
+  a=a+2;                             // offset is set in front of marker
      for (int h=0;h<count;h++)
        {
            QByteArray temp;

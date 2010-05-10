@@ -93,7 +93,7 @@ void preferencesDialog::createIcons()
 
 	QListWidgetItem *midiButton = new QListWidgetItem(contentsWidget);
 	midiButton->setIcon(QIcon(":images/midi.png"));
-	midiButton->setText(tr("Midi"));
+        midiButton->setText(tr("USB/Midi"));
 	midiButton->setTextAlignment(Qt::AlignHCenter);
 	midiButton->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 
