@@ -172,7 +172,7 @@ void mainWindow::createActions()
         exportSMFAct->setStatusTip(tr("Export as a Standard Midi File"));
         connect(exportSMFAct, SIGNAL(triggered()), this, SLOT(exportSMF()));
 
-  openGXBAct = new QAction(QIcon(":/images/fileopen.png"), tr("&Open GXB... (*.gxb *.gxg)"), this);
+        openGXBAct = new QAction(QIcon(":/images/fileopen.png"), tr("&Open GXB... (*.gxb *.gxg)"), this);
         openGXBAct->setShortcut(tr("Ctrl+K"));
         openGXBAct->setStatusTip(tr("Import a Boss Librarian File"));
         connect(openGXBAct, SIGNAL(triggered()), this, SLOT(openGXB()));
@@ -221,7 +221,7 @@ void mainWindow::createActions()
         uploadAct->setStatusTip(tr("........"));
         connect(uploadAct, SIGNAL(triggered()), this, SLOT(upload()));
 
-        summaryAct = new QAction(QIcon(":/images/upload.png"), tr("Summary Page & Print"), this);
+        summaryAct = new QAction(QIcon(":/images/copy.png"), tr("Summary Page & Print"), this);
         summaryAct->setStatusTip(tr("........"));
         connect(summaryAct, SIGNAL(triggered()), this, SLOT(summaryPage()));
 
@@ -234,7 +234,7 @@ void mainWindow::createActions()
         homepageAct->setStatusTip(tr("........"));
         connect(homepageAct, SIGNAL(triggered()), this, SLOT(homepage()));
 
-        donationAct = new QAction(QIcon(":/images/donate.png"), tr("Donate towards GT test equipment for Gumtown"), this);
+        donationAct = new QAction(QIcon(":/images/donate.png"), tr("Donate towards GT test equipment"), this);
         donationAct->setStatusTip(tr("........"));
         connect(donationAct, SIGNAL(triggered()), this, SLOT(donate()));
 
@@ -255,7 +255,7 @@ void mainWindow::createMenus()
 {
     menuBar = new QMenuBar;
 
-  QMenu *fileMenu = new QMenu(tr("&File"), this);
+        QMenu *fileMenu = new QMenu(tr("&File"), this);
         fileMenu->addAction(openAct);
         fileMenu->addSeparator();
         //fileMenu->addAction(saveAct);
@@ -268,10 +268,8 @@ void mainWindow::createMenus()
         fileMenu->addSeparator();
         fileMenu->addAction(systemLoadAct);
         fileMenu->addAction(systemSaveAct);
-        //fileMenu->addSeparator();
-  //fileMenu->addAction(printAct);
         fileMenu->addSeparator();
-  fileMenu->addAction(exitAct);
+        fileMenu->addAction(exitAct);
         menuBar->addMenu(fileMenu);
 
 
@@ -279,8 +277,8 @@ void mainWindow::createMenus()
         toolsMenu->addAction(settingsAct);
         fileMenu->addSeparator();
         toolsMenu->addAction(uploadAct);
-        //fileMenu->addSeparator();
-        //toolsMenu->addAction(summaryAct);
+        fileMenu->addSeparator();
+        toolsMenu->addAction(summaryAct);
         menuBar->addMenu(toolsMenu);
 
         QMenu *helpMenu = new QMenu(tr("&Help"), this);
@@ -293,7 +291,6 @@ void mainWindow::createMenus()
         helpMenu->addAction(aboutAct);
         helpMenu->addAction(aboutQtAct);
         menuBar->addMenu(helpMenu);
-    //menuBar()->addMenu(helpMenu);
 };
 
 void mainWindow::createStatusBar()
@@ -307,7 +304,7 @@ void mainWindow::createStatusBar()
         QObject::connect(sysxIO, SIGNAL(setStatusSymbol(int)), statusInfo, SLOT(setStatusSymbol(int)));
         QObject::connect(sysxIO, SIGNAL(setStatusProgress(int)), statusInfo, SLOT(setStatusProgress(int)));
         QObject::connect(sysxIO, SIGNAL(setStatusMessage(QString)), statusInfo, SLOT(setStatusMessage(QString)));
-  QObject::connect(sysxIO, SIGNAL(setStatusdBugMessage(QString)), statusInfo, SLOT(setStatusdBugMessage(QString)));
+        QObject::connect(sysxIO, SIGNAL(setStatusdBugMessage(QString)), statusInfo, SLOT(setStatusdBugMessage(QString)));
 
 
 
@@ -781,8 +778,10 @@ void mainWindow::upload()
 
 void mainWindow::summaryPage()
 {
-  // summaryDialog *summary = new summaryDialog();
-  // summary->show();
+   summaryDialog *summary = new summaryDialog();
+   //summary->setFixedWidth(900);
+
+   summary->show();
 };
 void mainWindow::donate()
 {
@@ -818,7 +817,7 @@ void mainWindow::closeEvent(QCloseEvent* ce)
 
 void mainWindow::print()
  {
-  /* #ifndef QT_NO_PRINTER
+   /*#ifndef QT_NO_PRINTER
 
      QPrinter printer;
      QPrintDialog *dialog = new QPrintDialog(&printer, this);
@@ -827,5 +826,5 @@ void mainWindow::print()
          return;
 
      //fxsBoard->print(&printer);
- #endif    */
+ #endif   */
  };

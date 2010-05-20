@@ -1,7 +1,7 @@
 /****************************************************************************
 **
 ** Copyright (C) 2007~2010 Colin Willcocks.
-** Copyright (C) 2005~2007 Uco Mesdag. 
+** Copyright (C) 2005~2007 Uco Mesdag.
 ** All rights reserved.
 ** This file is part of "GT-10B Fx FloorBoard".
 **
@@ -31,7 +31,7 @@
 #include <QLabel>
 #include <QPrintDialog>
 #include <QPrinter>
-#include "SysxIO.h" 
+#include "SysxIO.h"
 
 class QListWidget;
 class QListWidgetItem;
@@ -39,28 +39,27 @@ class QStackedWidget;
 
 class summaryDialog : public QWidget
 {
-	Q_OBJECT
+        Q_OBJECT
 
 public:
-	summaryDialog(QWidget *parent = 0);
-	QLabel *patchLabel;
-  QLabel *nameLabel; 
+  summaryDialog(QWidget *parent = 0);
   QTextEdit *textDialog;
   QTextDocument *document;
   QPrintDialog *dialog;
-  //int index;
-signals:
-  //void currentIndex(int value);
-  void patchIndex(int value);
-                    
+
+
 public slots:
   void valueChanged(int value);
   void cancel();
   void printFile();
-   
-private:   
-  QList<QString> patchList;
-	
+  void saveAs();
+
+private:
+void makeList();
+QString text;
+QString address;
+int start;
+int finish;
 };
 
 #endif // FILEDIALOG_H
