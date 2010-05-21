@@ -51,6 +51,9 @@ void stompbox_pdl::setEditPages()
 	editDetails()->page()->addComboBox(2, 0, 1, 1, "0A", "00", "46");
 	editDetails()->page()->addComboBox(3, 0, 1, 1, "0A", "00", "47");
 	editDetails()->page()->addComboBox(4, 0, 1, 1, "0A", "00", "48");
+	editDetails()->page()->addSwitch(3, 1, 1, 1, "0C", "00", "21", "middle", Qt::AlignCenter);
+  editDetails()->page()->addSwitch(4, 1, 1, 1, "0C", "00", "22", "middle", Qt::AlignCenter);
+
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 
   editDetails()->page()->insertStackField(0, 0, 1, 1, 1);

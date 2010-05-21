@@ -95,6 +95,7 @@ HEADERS += ./editPage.h \
     ./MidiTableDestroyer.h \
     ./RtError.h \
     ./RtMidi.h \
+    ./summaryDialog.h \
     ./SysxIO.h \
     ./SysxIODestroyer.h \
     ./sysxWriter.h \
@@ -173,6 +174,7 @@ SOURCES += ./editPage.cpp \
     ./stompbox_od.cpp \
     ./stompbox_pdl.cpp \
     ./stompbox_rv.cpp \ 
+    ./summaryDialog.cpp \
     ./midiIO.cpp \
     ./MidiTable.cpp \
     ./MidiTableDestroyer.cpp \

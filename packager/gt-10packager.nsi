@@ -2,7 +2,7 @@
 
 ; HM NIS Edit Wizard helper defines
 !define PRODUCT_NAME "GT-10FxFloorBoard"
-!define PRODUCT_VERSION "20100507"
+!define PRODUCT_VERSION "20100521"
 !define PRODUCT_PUBLISHER "gumtown"
 !define PRODUCT_WEB_SITE "http://gtx.tinfoilmusic.net"
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\GT-10fxfloorboard.exe"
@@ -105,10 +105,6 @@ Section "MainSection" SEC01
   File "GT-10FxFloorBoard_help_files\image022.gif"
   File "GT-10FxFloorBoard_help_files\image024.jpg"
   SetOutPath "$INSTDIR\patches"
-  File "patches\04.mid"
-  File "patches\10_2_pro.syx"
-  File "patches\12 String Acoustic - Yes And You &  I.syx"
-  File "patches\12_String_Acoustic_-_Yes_And_You_&__I.syx"
   File "patches\13-4_SIGNALS.mid"
   File "patches\3407.gxg"
   File "patches\3407.mid"
