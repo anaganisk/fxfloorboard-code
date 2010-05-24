@@ -47,6 +47,7 @@ public slots:
 	void setPatchNumDisplay(int bank, int patch);
 	void setPos(QPoint newPos);
 	void updateDisplay();
+	void set_temp();
 	void temp1_copy(bool value);
 	void temp1_paste(bool value);
 	void temp2_copy(bool value);
@@ -57,6 +58,7 @@ public slots:
 	void temp4_paste(bool value);
 	void temp5_copy(bool value);
 	void temp5_paste(bool value);
+	void save_temp(QString fileName, QString sysxMsg);
 	void autoconnect();   
 	void connectSignal(bool value);
 	void writeSignal(bool value);

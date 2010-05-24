@@ -596,9 +596,9 @@ QString MidiTable::nameRequest(int bank, int patch)
 		}else{
 		addr1 = QString::number(16 + n, 16).toUpper();
 		addr2 = QString::number(patchOffset - (addrMaxSize * n), 16).toUpper();
-		if (addr1.length() < 2) addr1.prepend("0");
-		if (addr2.length() < 2) addr2.prepend("0");
     };
+    if (addr1.length() < 2) addr1.prepend("0");
+		if (addr2.length() < 2) addr2.prepend("0");
 	}
 	else if ( bank == 101 )
 	{

@@ -58,9 +58,15 @@ summaryDialog::summaryDialog(QWidget *parent)
   ******QString "sysxMsg" contains current patch data *****
   ******************************************************/
   MidiTable *midiTable = MidiTable::Instance();
+  text = "<b>Boss GT-10 Patch Summary</b>    ";
+  QDateTime dateTime = QDateTime::currentDateTime();
+  QString dateTimeString = dateTime.toString();
+  text.append(dateTimeString);
+
   QString patchName = sysxIO->getCurrentPatchName();
-  text = "<b>Patch name: </b>" + patchName;
-  text.append("........<b>Output Select = </b>");
+  text.append("<br><br><b>Patch name: " + patchName + "</b>");
+
+  text.append("<br><br><b>Patch Mode Output Select = </b>");
   int value = sysxIO->getSourceValue("Structure", "00", "00", "11");
   QString valueHex = QString::number(value, 16).toUpper();
   if(valueHex.length() < 2) {valueHex.prepend("0"); };
@@ -70,7 +76,7 @@ summaryDialog::summaryDialog(QWidget *parent)
 
   QList<QString> fxChain = sysxIO->getFileSource("Structure", "0B", "00");
 
-  QString chain = "<br><br><b>FX Chain =</b>";
+  QString chain = "<br><br><b>Signal Chain =</b>";
 for(int i= sysxDataOffset;i< (sysxDataOffset + 18);i++ )
   {
      chain.append(" [");
@@ -81,96 +87,99 @@ for(int i= sysxDataOffset;i< (sysxDataOffset + 18);i++ )
   chain.replace("CN_M", "A/B Merge");
   chain.replace("CH_A", "PreAmp A");
   chain.replace("CH_B", "PreAmp B");
-
   text.append(chain);
-  text.append("<br>");
-  text.append("<br>");
 
-  text.append("<b><u>**********Channel Control***********</b></u><br>");
+  text.append("<br><br><b><u>**********PreAmp/Channel Control***********</b></u>");
   address= "01";
   start = 0;
   finish = 5;
   makeList();
 
-  text.append("<b><u>**********Pre Amp A***********</b></u><br>");
+  text.append("<br><br><b><u>**********Pre Amp A***********</b></u>");
   address= "01";
   start = 16;
   finish = 45;
   makeList();
 
-  text.append("<b><u>**********Pre Amp B***********</b></u><br>");
+  text.append("<br><br><b><u>**********Pre Amp B***********</b></u>");
   address= "01";
   start = 48;
   finish = 77;
   makeList();
 
-  text.append("<b><u>**********Compressor***********</b></u><br>");
+  text.append("<br><br><b><u>**********Compressor***********</b></u>");
   address= "00";
   start = 64;
   finish = 72;
   makeList();
 
-  text.append("<b><u>**********Distortion***********</b></u><br>");
+  text.append("<br><br><b><u>**********Distortion***********</b></u>");
   address= "00";
   start = 112;
   finish = 126;
   makeList();
 
-  text.append("<b><u>**********Equalizer***********</b></u><br>");
+  text.append("<br><br><b><u>**********Equalizer***********</b></u>");
   address= "01";
   start = 112;
   finish = 124;
   makeList();
 
-  text.append("<b><u>**********Delay***********</b></u><br>");
+  text.append("<br><br><b><u>**********Delay***********</b></u>");
   address= "0A";
   start = 0;
   finish = 25;
   makeList();
 
-  text.append("<b><u>**********Chorus***********</b></u><br>");
+  text.append("<br><br><b><u>**********Chorus***********</b></u>");
   address= "0A";
   start = 32;
   finish = 40;
   makeList();
 
-  text.append("<b><u>**********Reverb***********</b></u><br>");
+  text.append("<br><br><b><u>**********Reverb***********</b></u>");
   address= "0A";
   start = 48;
   finish = 60;
   makeList();
 
-  text.append("<b><u>**********Pedal FX***********</b></u><br>");
+  text.append("<br><br><b><u>**********Pedal FX***********</b></u>");
   address= "0A";
   start = 64;
   finish = 94;
   makeList();
 
-  text.append("<b><u>**********Master***********</b></u><br>");
+  text.append("<br><br><b><u>**********Misc Settings***********</b></u>");
+  address= "0C";
+  start = 32;
+  finish = 35;
+  makeList();
+
+  text.append("<br><br><b><u>**********Master***********</b></u>");
   address= "0A";
   start = 96;
   finish = 106;
   makeList();
 
-  text.append("<b><u>**********Noise Suppressor 1***********</b></u><br>");
+  text.append("<br><br><b><u>**********Noise Suppressor 1***********</b></u>");
   address= "0A";
   start = 113;
   finish = 117;
   makeList();
 
-  text.append("<b><u>**********Noise Suppressor 2***********</b></u><br>");
+  text.append("<br><br><b><u>**********Noise Suppressor 2***********</b></u>");
   address= "0A";
   start = 117;
   finish = 121;
   makeList();
 
-  text.append("<b><u>**********Send/Return***********</b></u><br>");
+  text.append("<br><br><b><u>**********Send/Return***********</b></u>");
   address= "0A";
   start = 121;
   finish = 125;
   makeList();
 
-  text.append("<b><u>**********FX-1***********</b></u><br>");
+  text.append("<br><br><b><u>**********FX-1***********</b></u>");
   address= "02";
   start = 0;
   finish = 110;
@@ -184,7 +193,7 @@ for(int i= sysxDataOffset;i< (sysxDataOffset + 18);i++ )
   finish = 65;
   makeList();
 
-  text.append("<b><u>**********FX-2***********</b></u><br>");
+  text.append("<br><br><b><u>**********FX-2***********</b></u>");
   address= "06";
   start = 0;
   finish = 110;
@@ -198,61 +207,103 @@ for(int i= sysxDataOffset;i< (sysxDataOffset + 18);i++ )
   finish = 65;
   makeList();
 
-  text.append("<b><u>**********Assign 1***********</b></u><br>");
+  text.append("<br><br><b><u>**********Assign 1***********</b></u>");
   address= "0B";
   start = 32;
   finish = 48;
   makeList();
 
-  text.append("<b><u>**********Assign 2***********</b></u><br>");
+  text.append("<br><br><b><u>**********Assign 2***********</b></u>");
   address= "0B";
   start = 48;
   finish = 64;
   makeList();
 
-  text.append("<b><u>**********Assign 3***********</b></u><br>");
+  text.append("<br><br><b><u>**********Assign 3***********</b></u>");
   address= "0B";
   start = 64;
   finish = 80;
   makeList();
 
-  text.append("<b><u>**********Assign 4***********</b></u><br>");
+  text.append("<br><br><b><u>**********Assign 4***********</b></u>");
   address= "0B";
   start = 80;
   finish = 96;
   makeList();
 
-  text.append("<b><u>**********Assign 5***********</b></u><br>");
+  text.append("<br><br><b><u>**********Assign 5***********</b></u>");
   address= "0B";
   start = 96;
   finish = 112;
   makeList();
 
-  text.append("<b><u>**********Assign 6***********</b></u><br>");
+  text.append("<br><br><b><u>**********Assign 6***********</b></u>");
   address= "0B";
   start = 112;
   finish = 128;
   makeList();
 
-  text.append("<b><u>**********Assign 7***********</b></u><br>");
+  text.append("<br><br><b><u>**********Assign 7***********</b></u>");
   address= "0C";
   start = 0;
   finish = 16;
   makeList();
 
-  text.append("<b><u>**********Assign 8***********</b></u><br>");
+  text.append("<br><br><b><u>**********Assign 8***********</b></u>");
   address= "0C";
   start = 16;
   finish = 32;
   makeList();
 
-  text.append("<b><u>**********Misc Settings***********</b></u><br>");
-  address= "0C";
-  start = 32;
-  finish = 35;
+  text.append("<br><br><b><u>**********FX-1 Harmonist User***********</b></u>");
+  address= "02";
+  start = 110;
+  finish = 128;
+  makeList();
+  address= "03";
+  start = 0;
+  finish = 6;
   makeList();
 
-  text.append("<b><u>**********Patch Data***********</b></u><br>");
+  text.append("<br><br><b><u>**********FX-2 Harmonist User***********</b></u>");
+  address= "06";
+  start = 110;
+  finish = 128;
+  makeList();
+  address= "07";
+  start = 0;
+  finish = 6;
+  makeList();
+
+  text.append("<br><br><b><u>**********FX-1 AutoRiff User Scales***********</b></u>");
+  address= "03";
+  start = 92;
+  finish = 128;
+  makeList();
+  address= "04";
+  start = 0;
+  finish = 128;
+  makeList();
+  address= "05";
+  start = 0;
+  finish = 28;
+  makeList();
+
+  text.append("<br><br><b><u>**********FX-2 AutoRiff User Scales***********</b></u>");
+  address= "07";
+  start = 92;
+  finish = 128;
+  makeList();
+  address= "08";
+  start = 0;
+  finish = 128;
+  makeList();
+  address= "09";
+  start = 0;
+  finish = 28;
+  makeList();
+
+  text.append("<br><br><b><u>**********Patch Data***********</b></u><br>");
   text.append(sysxMsg);
 
   textDialog->setText(text);
@@ -287,7 +338,7 @@ for(int i= sysxDataOffset;i< (sysxDataOffset + 18);i++ )
         mainLayout->addLayout(buttonsLayout);
         setLayout(mainLayout);
 
-        setWindowTitle(tr("GT-10 Patch Summary"));
+        setWindowTitle(tr("GT-10 Patch Summary of ")+ patchName);
 };
 
 void summaryDialog::makeList()
@@ -304,15 +355,15 @@ void summaryDialog::makeList()
         int value = sysxIO->getSourceValue("Structure", address, "00", pos);
         QString valueHex = QString::number(value, 16).toUpper();
         if(valueHex.length() < 2) {valueHex.prepend("0"); };
-
+         text.append("<br>");
          text.append("[");
          text.append(txt);
          text.append("] = ");
          text.append(midiTable->getValue("Structure", address, "00", pos, valueHex) );
-         text.append("<br>");
+
         };
       };
-      text.append("<br>");
+      //text.append("<br>");
 };
 
 void summaryDialog::valueChanged(int value)
@@ -353,7 +404,7 @@ void summaryDialog::valueChanged(int value)
          {
                  if(!fileName.contains(".txt"))
                  {
-                         fileName.append(".txt");
+                   fileName.append(".txt");
                  };
                  QFile file(fileName);
 
@@ -371,19 +422,13 @@ void summaryDialog::valueChanged(int value)
 
                          for (unsigned int x=0; x<size; x++)
                          {
-
-                                 QString str(text.at(x));
-                                 //bool ok;
-                                 //unsigned int n = str.toInt(&ok, 16);
-                                 //out[count] = (char)n;
-                                 out.append(str);
-
+                           QString str(text.at(x));
+                           out.append(str);
                          };
 
              if (file.open(QIODevice::WriteOnly))
                  {
-
-                         file.write(out);
+                   file.write(out);
                  };
 
          };

@@ -747,7 +747,7 @@ void mainWindow::summaryPage()
 {
    summaryDialog *summary = new summaryDialog();
    summary->setMinimumWidth(800);
-   summary->setMinimumHeight(500);
+   summary->setMinimumHeight(650);
    summary->show();
 };
 

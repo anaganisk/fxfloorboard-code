@@ -1,7 +1,7 @@
 /****************************************************************************
 **
 ** Copyright (C) 2007~2010 Colin Willcocks.
-** Copyright (C) 2005~2007 Uco Mesdag. 
+** Copyright (C) 2005~2007 Uco Mesdag.
 ** All rights reserved.
 ** This file is part of "GT-10 Fx FloorBoard".
 **
@@ -24,11 +24,20 @@
 #include <QtGui>
 #include "fileDialog.h"
 
+// Platform-dependent sleep routines.
+#ifdef Q_OS_WIN
+  #include <windows.h>
+  #define SLEEP( milliseconds ) Sleep( (DWORD) milliseconds )
+#else // Unix variants
+  #include <unistd.h>
+  #define SLEEP( milliseconds ) usleep( (unsigned long) (milliseconds * 1000.0) )
+#endif
 
 fileDialog::fileDialog(QString fileName, QList<QString> patchList, QByteArray fileData, QByteArray default_data, QString type)
 {
     //QObject::connect(this, SIGNAL(patchIndex(int)),
                 //this->parent(), SLOT(patchIndex(int)));
+  this->file_format = type;
   this->fileData = fileData;
   this->default_data = default_data;
   QLabel *patchLabel = new QLabel(tr("Select patch to load"));
@@ -36,34 +45,34 @@ fileDialog::fileDialog(QString fileName, QList<QString> patchList, QByteArray fi
   QComboBox *patchCombo = new QComboBox;
   patchCombo->setMaxVisibleItems(200);
   patchCombo->addItems(patchList);
-	
+
   QObject::connect(patchCombo, SIGNAL(currentIndexChanged(int)),
                 this, SLOT(valueChanged(int)));
 
   QObject::connect(patchCombo, SIGNAL(highlighted(int)),
                 this, SLOT(highlighted(int)));
-  
+
   QPushButton *cancelButton = new QPushButton(tr("Cancel"));
-  connect(cancelButton, SIGNAL(clicked()), this, SLOT(close()));
-  
- 
-	QHBoxLayout *horizontalLayout = new QHBoxLayout;	
-	horizontalLayout->addWidget(patchLabel);
-	horizontalLayout->addWidget(patchCombo);
+  connect(cancelButton, SIGNAL(clicked()), this, SLOT(cancel()));
 
-	QHBoxLayout *buttonsLayout = new QHBoxLayout;
-	buttonsLayout->addStretch(1);
-	buttonsLayout->addWidget(cancelButton);
 
-	QVBoxLayout *mainLayout = new QVBoxLayout;
-	mainLayout->addWidget(nameLabel);
-	mainLayout->addLayout(horizontalLayout);
-	mainLayout->addStretch(1);
-	mainLayout->addSpacing(12);
-	mainLayout->addLayout(buttonsLayout);
-	setLayout(mainLayout);
+        QHBoxLayout *horizontalLayout = new QHBoxLayout;
+        horizontalLayout->addWidget(patchLabel);
+        horizontalLayout->addWidget(patchCombo);
 
-	setWindowTitle(tr("Bulk File Patch Extraction"));
+        QHBoxLayout *buttonsLayout = new QHBoxLayout;
+        buttonsLayout->addStretch(1);
+        buttonsLayout->addWidget(cancelButton);
+
+        QVBoxLayout *mainLayout = new QVBoxLayout;
+        mainLayout->addWidget(nameLabel);
+        mainLayout->addLayout(horizontalLayout);
+        mainLayout->addStretch(1);
+        mainLayout->addSpacing(12);
+        mainLayout->addLayout(buttonsLayout);
+        setLayout(mainLayout);
+
+        setWindowTitle(tr("Bulk File Patch Extraction"));
 };
 
 void fileDialog::valueChanged(int value)
@@ -71,13 +80,22 @@ void fileDialog::valueChanged(int value)
   SysxIO *sysxIO = SysxIO::Instance();
   sysxIO->patchListValue = value;
   this->close();
-}; 
+};
+
+void fileDialog::cancel()
+{
+  SysxIO *sysxIO = SysxIO::Instance();
+  sysxIO->patchListValue = 0;
+  sysxIO->writeToBuffer();
+  this->close();
+};
 
 void fileDialog::highlighted(int value)
 {
 
- //if (type == gxg)
-  //  {
+
+ if (file_format == "gxg")
+    {
     QByteArray marker = fileData.mid(170, 2);      //copy marker key to find "06A5" which marks the start of each patch block
     unsigned int a = fileData.indexOf(marker, 0); // locate patch start position from the start of the file
     a=a+2;                             // offset is set in front of marker
@@ -151,7 +169,7 @@ void fileDialog::highlighted(int value)
      sysxIO->writeToBuffer();
      // QApplication::beep();
      };
-// };
+ };
 };
 
 
