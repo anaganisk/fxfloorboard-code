@@ -1,7 +1,7 @@
 /****************************************************************************
 **
 ** Copyright (C) 2007~2010 Colin Willcocks.
-** Copyright (C) 2005~2007 Uco Mesdag. 
+** Copyright (C) 2005~2007 Uco Mesdag.
 ** All rights reserved.
 ** This file is part of "GT-10 Fx FloorBoard".
 **
@@ -38,71 +38,73 @@ class mainWindow : public QWidget
 
 public:
     mainWindow(QWidget *parent = 0);
-	~mainWindow();
-	void closeEvent(QCloseEvent* ce);
+        ~mainWindow();
+        void closeEvent(QCloseEvent* ce);
 
 signals:
-	void updateSignal();
-	void closed();
+        void updateSignal();
+        void closed();
 
 public slots:
-	void updateSize(QSize floorSize, QSize oldFloorSize);
-	void open();
-	void save();
-	void saveAs();
-	void importSMF();
-	void exportSMF();
-	void openGXG();
-	void saveGXG();
-	void systemSave();
-	void systemLoad();
-	void bulkSave();
-	void bulkLoad();
-	void settings();
-	void upload();
-	void summaryPage();
-	void help();
-	void homepage();
-	void donate();
-	void manual();
-	void license();
-	void about();
+        void updateSize(QSize floorSize, QSize oldFloorSize);
+        void open();
+        void save();
+        void saveAs();
+        void importSMF();
+        void exportSMF();
+        void openGXG();
+        void saveGXG();
+        void systemSave();
+        void systemLoad();
+        void bulkSave();
+        void bulkLoad();
+        void settings();
+        void upload();
+        void summaryPage();
+        void help();
+        void whatsThis();
+        void homepage();
+        void donate();
+        void manual();
+        void license();
+        void about();
 
 private:
-	void createActions();
-	void createMenus();
-	void createStatusBar();
+        void createActions();
+        void createMenus();
+        void createStatusBar();
 
-	QMenuBar *menuBar;
-	QStatusBar *statusBar;
-	QMenu *fileMenu;
-	QMenu *toolsMenu;
-	QMenu *helpMenu;
-	QAction *openAct;
-	QAction *saveAct;
-	QAction *saveAsAct;
-	QAction *importSMFAct;
-	QAction *exportSMFAct;
-	QAction *openGXGAct;
-	QAction *saveGXGAct;
-	QAction *systemLoadAct;
-	QAction *systemSaveAct;
-	QAction *bulkLoadAct;
-	QAction *bulkSaveAct;
-	QAction *exitAct;
-	QAction *settingsAct;
-	QAction *uploadAct;
-	QAction *summaryAct;
-	QAction *helpAct;
-	QAction *homepageAct;
-	QAction *donationAct;
-	QAction *manualAct;
-	QAction *licenseAct;
-	QAction *aboutAct;
-	QAction *aboutQtAct;
+        QMenuBar *menuBar;
+        QStatusBar *statusBar;
+        QMenu *fileMenu;
+        QMenu *toolsMenu;
+        QMenu *helpMenu;
+        QAction *openAct;
+        QAction *saveAct;
+        QAction *saveAsAct;
+        QAction *importSMFAct;
+        QAction *exportSMFAct;
+        QAction *openGXGAct;
+        QAction *saveGXGAct;
+        QAction *systemLoadAct;
+        QAction *systemSaveAct;
+        QAction *bulkLoadAct;
+        QAction *bulkSaveAct;
+        QAction *exitAct;
+        QAction *settingsAct;
+        QAction *uploadAct;
+        QAction *summaryAct;
+        QAction *helpAct;
+        QAction *whatsThisAct;
+        QAction *homepageAct;
+        QAction *donationAct;
+        QAction *manualAct;
+        QAction *licenseAct;
+        QAction *aboutAct;
+        QAction *aboutQtAct;
 
-	sysxWriter file;
-	floorBoard *fxsBoard;
+        sysxWriter file;
+        floorBoard *fxsBoard;
 };
 
 #endif // MAINWINDOW_H

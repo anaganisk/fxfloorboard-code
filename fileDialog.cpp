@@ -24,14 +24,6 @@
 #include <QtGui>
 #include "fileDialog.h"
 
-// Platform-dependent sleep routines.
-#ifdef Q_OS_WIN
-  #include <windows.h>
-  #define SLEEP( milliseconds ) Sleep( (DWORD) milliseconds )
-#else // Unix variants
-  #include <unistd.h>
-  #define SLEEP( milliseconds ) usleep( (unsigned long) (milliseconds * 1000.0) )
-#endif
 
 fileDialog::fileDialog(QString fileName, QList<QString> patchList, QByteArray fileData, QByteArray default_data, QString type)
 {
@@ -45,6 +37,9 @@ fileDialog::fileDialog(QString fileName, QList<QString> patchList, QByteArray fi
   QComboBox *patchCombo = new QComboBox;
   patchCombo->setMaxVisibleItems(200);
   patchCombo->addItems(patchList);
+  patchCombo->setWhatsThis(tr("To auditon a multi-patch *.gxg file, hover the mouse cursor over a patch and the patch data will be loaded into the GT temporary buffer"
+                              "<br>a click on the patch will load it into the editor."));
+
 
   QObject::connect(patchCombo, SIGNAL(currentIndexChanged(int)),
                 this, SLOT(valueChanged(int)));
@@ -54,6 +49,8 @@ fileDialog::fileDialog(QString fileName, QList<QString> patchList, QByteArray fi
 
   QPushButton *cancelButton = new QPushButton(tr("Cancel"));
   connect(cancelButton, SIGNAL(clicked()), this, SLOT(cancel()));
+  cancelButton->setWhatsThis(tr("Selecting this will close the patch load window and reset the GT back to the current editor patch."));
+
 
 
         QHBoxLayout *horizontalLayout = new QHBoxLayout;

@@ -4,7 +4,7 @@ GT-10FxFloorBoard Copyright (C) 2007~2010 Colin Willcocks (gumtownbassman@yahoo.
 =======
 
 
-GT-10FxFloorBoard version 20100523: 23 May 2010
+GT-10FxFloorBoard version 20100524: 24 May 2010
 *****************************************************
 PLEASE FEEL FREE TO DONATE, YOU MAY FREELY USE THIS SOFTWARE, 
  JUST KEEP IN MIND THE 7000 HOURS SPENT OVER 4 YEARS GETTING IT HERE,
@@ -13,9 +13,10 @@ but then patches created by you for sharing with all would be nice too.
 you can email patches and custom system settings saved files to the above address.
 ***********************************************************************************
  ********* LATEST FEATURES ADDED****************************************************
+ *Whats This Help dialog added, with the press of the [F1] button. 
  *Auditioning of Patches within Bulk Files, high-lighted file is sent to the GT-10 for instant auditioning before loading. 
  *Temp Clipboard copied events are saved to file and are re-loaded on FxFloorbOard startup. 
- * Text Dialog for Printing or Saving to File complete patch settings list.
+ *Text Dialog for Printing or Saving to File complete patch settings list.
  *New Framework with better Windows 7 and Mac Snow Leopard support, auto temp buffer request on connect. 
  *Multi Language support for French, German, and Chinese. 
  *Bulk File save/restore in 3 formats *.gxg, *.mid & *.syx so your Boss Librarian can use the Bulk files 

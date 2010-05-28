@@ -3,7 +3,7 @@
 ** Copyright (C) 2007~2010 Colin Willcocks.
 ** Copyright (C) 2005~2007 Uco Mesdag.
 ** All rights reserved.
-** This file is part of "GT-10B Fx FloorBoard".
+** This file is part of "GT-10 Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@
 #include "summaryDialog.h"
 #include "Preferences.h"
 #include "SysxIO.h"
-#include "midiTable.h"
+#include "MidiTable.h"
 #include "globalVariables.h"
 
 summaryDialog::summaryDialog(QWidget *parent)
@@ -312,12 +312,15 @@ for(int i= sysxDataOffset;i< (sysxDataOffset + 18);i++ )
 
   QPushButton *cancelButton = new QPushButton(tr("Close"));
   connect(cancelButton, SIGNAL(clicked()), this, SLOT(cancel()));
+  cancelButton->setWhatsThis(tr("Will close the currently open Dialog page."));
 
   QPushButton *printButton = new QPushButton(tr("Print"));
   connect(printButton, SIGNAL(clicked()), this, SLOT(printFile()));
+  printButton->setWhatsThis(tr("Will Print the current Dialog to the prefered printer<br>printed text will be simular to the screen layout."));
 
   QPushButton *saveAsButton = new QPushButton(tr("Save As"));
   connect(saveAsButton, SIGNAL(clicked()), this, SLOT(saveAs()));
+  saveAsButton->setWhatsThis(tr("Will save the current dialog page to file in a *.txt format."));
 
 
         QHBoxLayout *horizontalLayout = new QHBoxLayout;

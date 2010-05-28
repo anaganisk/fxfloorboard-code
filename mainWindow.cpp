@@ -22,6 +22,7 @@
 ****************************************************************************/
 
 #include <QtGui>
+#include <QWhatsThis>
 #include "mainWindow.h"
 #include "Preferences.h"
 #include "preferencesDialog.h"
@@ -97,7 +98,8 @@ mainWindow::mainWindow(QWidget *parent)
         mainLayout->setSpacing(0);
         //mainLayout->setSizeConstraint(QLayout::SetFixedSize);
         setLayout(mainLayout);
-
+        this->statusBar->setWhatsThis("StatusBar<br>midi activity is displayed here<br>and some status messages are displayed.");
+        //QWhatsThis::enterWhatsThisMode();
         //this->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 
         QObject::connect(fxsBoard, SIGNAL( sizeChanged(QSize, QSize) ),
@@ -149,104 +151,110 @@ void mainWindow::createActions()
 {
         openAct = new QAction(QIcon(":/images/fileopen.png"), tr("&Load Patch File... (*.syx, *.mid, *.gxg *.gxb)"), this);
         openAct->setShortcut(tr("Ctrl+O"));
-        openAct->setStatusTip(tr("Open an existing file"));
+        openAct->setWhatsThis(tr("Open an existing file"));
         connect(openAct, SIGNAL(triggered()), this, SLOT(open()));
 
         saveAct = new QAction(QIcon(":/images/filesave.png"), tr("&Save Patch...       (*.syx)"), this);
         saveAct->setShortcut(tr("Ctrl+S"));
         saveAct->setStatusTip(tr("Save the document to disk"));
+        saveAct->setWhatsThis(tr("Save the document to disk"));
         connect(saveAct, SIGNAL(triggered()), this, SLOT(save()));
 
         saveAsAct = new QAction(QIcon(":/images/filesave.png"), tr("Save &As Patch...  (*.syx)"), this);
         saveAsAct->setShortcut(tr("Ctrl+Shift+S"));
-        saveAsAct->setStatusTip(tr("Save the document under a new name"));
+        saveAsAct->setWhatsThis(tr("Save the document under a new name"));
         connect(saveAsAct, SIGNAL(triggered()), this, SLOT(saveAs()));
 
-        importSMFAct = new QAction(QIcon(":/images/fileopen.png"), tr("&Import SMF... (*.mid)"), this);
+        /*importSMFAct = new QAction(QIcon(":/images/fileopen.png"), tr("&Import SMF... (*.mid)"), this);
         importSMFAct->setShortcut(tr("Ctrl+I"));
         importSMFAct->setStatusTip(tr("Import an existing SMF"));
-        connect(importSMFAct, SIGNAL(triggered()), this, SLOT(importSMF()));
+        connect(importSMFAct, SIGNAL(triggered()), this, SLOT(importSMF()));*/
 
         exportSMFAct = new QAction(QIcon(":/images/filesave.png"), tr("Save As &SMF Patch... (*.mid)"), this);
         exportSMFAct->setShortcut(tr("Ctrl+Shift+E"));
-        exportSMFAct->setStatusTip(tr("Export as a Standard Midi File"));
+        exportSMFAct->setWhatsThis(tr("Export as a Standard Midi File"));
         connect(exportSMFAct, SIGNAL(triggered()), this, SLOT(exportSMF()));
 
-  openGXGAct = new QAction(QIcon(":/images/fileopen.png"), tr("&Open GXG... (*.gxg *.gxb)"), this);
+        /*openGXGAct = new QAction(QIcon(":/images/fileopen.png"), tr("&Open GXG... (*.gxg *.gxb)"), this);
         openGXGAct->setShortcut(tr("Ctrl+K"));
         openGXGAct->setStatusTip(tr("Import a Boss Librarian File"));
-        connect(openGXGAct, SIGNAL(triggered()), this, SLOT(openGXG()));
+        connect(openGXGAct, SIGNAL(triggered()), this, SLOT(openGXG()));*/
 
         saveGXGAct = new QAction(QIcon(":/images/filesave.png"), tr("Save As GXG Patch... (*.gxg)"), this);
         saveGXGAct->setShortcut(tr("Ctrl+Shift+G"));
-        saveGXGAct->setStatusTip(tr("Export as a Boss Librarian File"));
+        saveGXGAct->setWhatsThis(tr("Export as a Boss Librarian File"));
         connect(saveGXGAct, SIGNAL(triggered()), this, SLOT(saveGXG()));
 
-  systemLoadAct = new QAction(QIcon(":/images/fileopen.png"), tr("&Load System and Global Data..."), this);
+        systemLoadAct = new QAction(QIcon(":/images/fileopen.png"), tr("&Load System and Global Data..."), this);
         systemLoadAct->setShortcut(tr("Ctrl+L"));
-        systemLoadAct->setStatusTip(tr("Load System Data to GT-10"));
+        systemLoadAct->setWhatsThis(tr("Load System Data to GT-10"));
         connect(systemLoadAct, SIGNAL(triggered()), this, SLOT(systemLoad()));
 
         systemSaveAct = new QAction(QIcon(":/images/filesave.png"), tr("Save System and Global Data to File..."), this);
         systemSaveAct->setShortcut(tr("Ctrl+D"));
-        systemSaveAct->setStatusTip(tr("Save System Data to File"));
+        systemSaveAct->setWhatsThis(tr("Save System Data to File"));
         connect(systemSaveAct, SIGNAL(triggered()), this, SLOT(systemSave()));
 
         bulkLoadAct = new QAction(QIcon(":/images/fileopen.png"), tr("&Load Bulk Patch File to GT-10..."), this);
         bulkLoadAct->setShortcut(tr("Ctrl+B"));
-        bulkLoadAct->setStatusTip(tr("Load Bulk Data to GT-10B"));
+        bulkLoadAct->setWhatsThis(tr("Load Bulk Data to GT-10B"));
         connect(bulkLoadAct, SIGNAL(triggered()), this, SLOT(bulkLoad()));
 
         bulkSaveAct = new QAction(QIcon(":/images/filesave.png"), tr("Save Bulk GT-10 Patches to File..."), this);
         bulkSaveAct->setShortcut(tr("Ctrl+G"));
-        bulkSaveAct->setStatusTip(tr("Save Bulk Data to File"));
+        bulkSaveAct->setWhatsThis(tr("Save Bulk Data to File"));
         connect(bulkSaveAct, SIGNAL(triggered()), this, SLOT(bulkSave()));
 
         exitAct = new QAction(QIcon(":/images/exit.png"),tr("E&xit"), this);
         exitAct->setShortcut(tr("Ctrl+Q"));
-        exitAct->setStatusTip(tr("Exit the application"));
+        exitAct->setWhatsThis(tr("Exit the application"));
         connect(exitAct, SIGNAL(triggered()), this, SLOT(close()));
 
         settingsAct = new QAction(QIcon(":/images/preferences.png"), tr("&Preferences"), this);
         settingsAct->setShortcut(tr("Ctrl+P"));
-        settingsAct->setStatusTip(tr("...."));
+        settingsAct->setWhatsThis(tr("FxFloorBoard Preferences<br>Select midi device, language,splash, directories"));
         connect(settingsAct, SIGNAL(triggered()), this, SLOT(settings()));
 
         uploadAct = new QAction(QIcon(":/images/upload.png"), tr("Upload patch to GT-Central"), this);
-        uploadAct->setStatusTip(tr("........"));
+        uploadAct->setWhatsThis(tr("Upload any saved patch file to a shared patch library<br>via the internet."));
         connect(uploadAct, SIGNAL(triggered()), this, SLOT(upload()));
 
         summaryAct = new QAction(QIcon(":/images/copy.png"), tr("Summary Page Text"), this);
-  summaryAct->setStatusTip(tr("........"));
-  connect(summaryAct, SIGNAL(triggered()), this, SLOT(summaryPage()));
+        summaryAct->setWhatsThis(tr("Display the current patch parameters<br>in a readable text format, which<br>can be printed or saved to file."));
+        connect(summaryAct, SIGNAL(triggered()), this, SLOT(summaryPage()));
 
         helpAct = new QAction(QIcon(":/images/help.png"), tr("GT-10 Fx FloorBoard &Help"), this);
         helpAct->setShortcut(tr("Ctrl+F1"));
-        helpAct->setStatusTip(tr("....."));
+        helpAct->setWhatsThis(tr("Help page to assist with FxFloorBoard functions."));
         connect(helpAct, SIGNAL(triggered()), this, SLOT(help()));
 
+        whatsThisAct = new QAction(QIcon(":/images/help.png"), tr("Whats This? description of items under the mouse cursor"), this);
+        whatsThisAct->setShortcut(tr("F1"));
+        whatsThisAct->setWhatsThis(tr("ha..ha..ha..!!"));
+        connect(whatsThisAct, SIGNAL(triggered()), this, SLOT(whatsThis()));
+
         homepageAct = new QAction(QIcon(":/images/GT-10FxFloorBoard.png"), tr("GT-10 Fx FloorBoard &Webpage"), this);
-        homepageAct->setStatusTip(tr("........"));
+        homepageAct->setWhatsThis(tr("download Webpage for FxFloorBoard<br>find if the latest version is available."));
         connect(homepageAct, SIGNAL(triggered()), this, SLOT(homepage()));
 
         donationAct = new QAction(QIcon(":/images/donate.png"), tr("Donate towards GT test equipment for Gumtown"), this);
-        donationAct->setStatusTip(tr("........"));
+        donationAct->setWhatsThis(tr("Even though the software is free,<br>an occassional donation is very much appreciated<br>i am not paid for this work."));
         connect(donationAct, SIGNAL(triggered()), this, SLOT(donate()));
 
         manualAct = new QAction(QIcon(":/images/manual.png"), tr("User Manual PDF"), this);
-        manualAct->setStatusTip(tr("........"));
+        manualAct->setWhatsThis(tr("........"));
         connect(manualAct, SIGNAL(triggered()), this, SLOT(manual()));
 
         licenseAct = new QAction(QIcon(":/images/licence.png"), tr("&License"), this);
-        licenseAct->setStatusTip(tr("........"));
+        licenseAct->setWhatsThis(tr("licence agreement which you<br>have accepted by installing this software."));
         connect(licenseAct, SIGNAL(triggered()), this, SLOT(license()));
 
         aboutAct = new QAction(QIcon(":/images/GT-10FxFloorBoard.png"), tr("&About FxFloorBoard"), this);
-        aboutAct->setStatusTip(tr("Show the application's About box"));
+        aboutAct->setWhatsThis(tr("Show the application's About box"));
         connect(aboutAct, SIGNAL(triggered()), this, SLOT(about()));
 
         aboutQtAct = new QAction(QIcon(":/images/qt-logo.png"),tr("About &Qt"), this);
-        aboutQtAct->setStatusTip(tr("Show the Qt library's About box"));
+        aboutQtAct->setWhatsThis(tr("Show the Qt library's About box"));
         connect(aboutQtAct, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
 };
 
@@ -269,23 +277,25 @@ void mainWindow::createMenus()
         fileMenu->addAction(bulkLoadAct);
         fileMenu->addAction(bulkSaveAct);
         fileMenu->addSeparator();
-  fileMenu->addAction(systemLoadAct);
+        fileMenu->addAction(systemLoadAct);
         fileMenu->addAction(systemSaveAct);
         fileMenu->addSeparator();
-  fileMenu->addAction(exitAct);
+        fileMenu->addAction(exitAct);
         menuBar->addMenu(fileMenu);
+        fileMenu->setWhatsThis(tr("File Saving and Loading,<br> and application Exit."));
 
 
         QMenu *toolsMenu = new QMenu(tr("&Tools"), this);
         toolsMenu->addAction(settingsAct);
         toolsMenu->addAction(uploadAct);
         fileMenu->addSeparator();
-  toolsMenu->addAction(summaryAct);
+        toolsMenu->addAction(summaryAct);
         menuBar->addMenu(toolsMenu);
 
 
         QMenu *helpMenu = new QMenu(tr("&Help"), this);
         helpMenu->addAction(helpAct);
+        helpMenu->addAction(whatsThisAct);
         helpMenu->addAction(homepageAct);
         helpMenu->addSeparator();
         helpMenu->addAction(donationAct);
@@ -310,7 +320,7 @@ void mainWindow::createStatusBar()
         QObject::connect(sysxIO, SIGNAL(setStatusSymbol(int)), statusInfo, SLOT(setStatusSymbol(int)));
         QObject::connect(sysxIO, SIGNAL(setStatusProgress(int)), statusInfo, SLOT(setStatusProgress(int)));
         QObject::connect(sysxIO, SIGNAL(setStatusMessage(QString)), statusInfo, SLOT(setStatusMessage(QString)));
-  QObject::connect(sysxIO, SIGNAL(setStatusdBugMessage(QString)), statusInfo, SLOT(setStatusdBugMessage(QString)));
+        QObject::connect(sysxIO, SIGNAL(setStatusdBugMessage(QString)), statusInfo, SLOT(setStatusdBugMessage(QString)));
 
         statusBar = new QStatusBar;
         statusBar->addWidget(statusInfo);
@@ -736,6 +746,12 @@ void mainWindow::help()
         Preferences *preferences = Preferences::Instance();
         QDesktopServices::openUrl(QUrl( preferences->getPreferences("General", "Help", "url") ));
 };
+
+void mainWindow::whatsThis()
+{
+    QWhatsThis::enterWhatsThisMode();
+};
+
 
 void mainWindow::upload()
 {
