@@ -2,10 +2,10 @@
 
 ; HM NIS Edit Wizard helper defines
 !define PRODUCT_NAME "GT-8FxFloorBoard"
-!define PRODUCT_VERSION "20100405"
-!define PRODUCT_PUBLISHER "Gumtownbassman"
+!define PRODUCT_VERSION "20100527"
+!define PRODUCT_PUBLISHER "gumtownbassman"
 !define PRODUCT_WEB_SITE "http://gtx.tinfoilmusic.net"
-!define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\gt-8fxfloorboard.exe"
+!define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\GT-8FxFloorBoard.exe"
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
 !define PRODUCT_UNINST_ROOT_KEY "HKLM"
 
@@ -17,6 +17,11 @@
 !define MUI_ICON "${NSISDIR}\Contrib\Graphics\Icons\modern-install.ico"
 !define MUI_UNICON "${NSISDIR}\Contrib\Graphics\Icons\modern-uninstall.ico"
 
+; Language Selection Dialog Settings
+!define MUI_LANGDLL_REGISTRY_ROOT "${PRODUCT_UNINST_ROOT_KEY}"
+!define MUI_LANGDLL_REGISTRY_KEY "${PRODUCT_UNINST_KEY}"
+!define MUI_LANGDLL_REGISTRY_VALUENAME "NSIS:Language"
+
 ; Welcome page
 !insertmacro MUI_PAGE_WELCOME
 ; License page
@@ -27,6 +32,7 @@
 !insertmacro MUI_PAGE_INSTFILES
 ; Finish page
 !define MUI_FINISHPAGE_RUN "$INSTDIR\GT-8FxFloorBoard.exe"
+!define MUI_FINISHPAGE_SHOWREADME "$INSTDIR\readme.txt"
 !insertmacro MUI_PAGE_FINISH
 
 ; Uninstaller pages
@@ -34,15 +40,23 @@
 
 ; Language files
 !insertmacro MUI_LANGUAGE "English"
+!insertmacro MUI_LANGUAGE "French"
+!insertmacro MUI_LANGUAGE "German"
+!insertmacro MUI_LANGUAGE "Russian"
+!insertmacro MUI_LANGUAGE "SimpChinese"
 
 ; MUI end ------
 
 Name "${PRODUCT_NAME} ${PRODUCT_VERSION}"
-OutFile "GT-8FxFloorBoard_Setup.exe"
+OutFile "Setup.exe"
 InstallDir "$PROGRAMFILES\GT-8FxFloorBoard"
 InstallDirRegKey HKLM "${PRODUCT_DIR_REGKEY}" ""
 ShowInstDetails show
 ShowUnInstDetails show
+
+Function .onInit
+  !insertmacro MUI_LANGDLL_DISPLAY
+FunctionEnd
 
 Section "MainSection" SEC01
   SetOutPath "$INSTDIR"
@@ -50,10 +64,10 @@ Section "MainSection" SEC01
   File "preferences.xml.dist"
   File "mingwm10.dll"
   File "license.txt"
-  File "gt-8fxfloorboard.exe"
+  File "GT-8FxFloorBoard.exe"
   CreateDirectory "$SMPROGRAMS\GT-8FxFloorBoard"
-  CreateShortCut "$SMPROGRAMS\GT-8FxFloorBoard\GT-8FxFloorBoard.lnk" "$INSTDIR\gt-8fxfloorboard.exe"
-  CreateShortCut "$DESKTOP\GT-8FxFloorBoard.lnk" "$INSTDIR\gt-8fxfloorboard.exe"
+  CreateShortCut "$SMPROGRAMS\GT-8FxFloorBoard\GT-8FxFloorBoard.lnk" "$INSTDIR\GT-8FxFloorBoard.exe"
+  CreateShortCut "$DESKTOP\GT-8FxFloorBoard.lnk" "$INSTDIR\GT-8FxFloorBoard.exe"
   File "GT-8EditorManual_E.htm"
   SetOutPath "$INSTDIR\Init Patches"
   SetOverwrite try
@@ -129,6 +143,30 @@ Section "MainSection" SEC01
   File "Init Patches\9_EZ_CRUNCH4.syx"
   File "Init Patches\KPMesaDynaBluz.syx"
   File "Init Patches\readme.txt"
+  SetOutPath "$INSTDIR\GT-8EditorManual_E_files"
+  File "GT-8EditorManual_E_files\colorschememapping.xml"
+  File "GT-8EditorManual_E_files\filelist.xml"
+  File "GT-8EditorManual_E_files\image001.gif"
+  File "GT-8EditorManual_E_files\image002.gif"
+  File "GT-8EditorManual_E_files\image003.gif"
+  File "GT-8EditorManual_E_files\image004.gif"
+  File "GT-8EditorManual_E_files\image005.gif"
+  File "GT-8EditorManual_E_files\image006.gif"
+  File "GT-8EditorManual_E_files\image007.gif"
+  File "GT-8EditorManual_E_files\image008.gif"
+  File "GT-8EditorManual_E_files\image009.gif"
+  File "GT-8EditorManual_E_files\image010.png"
+  File "GT-8EditorManual_E_files\image011.jpg"
+  File "GT-8EditorManual_E_files\image012.png"
+  File "GT-8EditorManual_E_files\image013.jpg"
+  File "GT-8EditorManual_E_files\image014.png"
+  File "GT-8EditorManual_E_files\image015.jpg"
+  File "GT-8EditorManual_E_files\image016.png"
+  File "GT-8EditorManual_E_files\image017.jpg"
+  File "GT-8EditorManual_E_files\image018.png"
+  File "GT-8EditorManual_E_files\image019.jpg"
+  File "GT-8EditorManual_E_files\image020.jpg"
+  File "GT-8EditorManual_E_files\themedata.thmx"
   SetOutPath "$INSTDIR\saved patches"
   File "saved patches\(30-4)TDR LEAD 1.syx"
   File "saved patches\(31-4)TDR LEAD 2.syx"
@@ -2033,10 +2071,12 @@ Section "MainSection" SEC01
   File "saved patches\with.syx"
   File "saved patches\WWdualrecto.syx"
   File "saved patches\zappa.syx"
+  SetOutPath "$INSTDIR"
+  SetOverwrite ifnewer
+  File "readme.txt"
 SectionEnd
 
 Section -AdditionalIcons
-  SetOutPath $INSTDIR
   WriteIniStr "$INSTDIR\${PRODUCT_NAME}.url" "InternetShortcut" "URL" "${PRODUCT_WEB_SITE}"
   CreateShortCut "$SMPROGRAMS\GT-8FxFloorBoard\Website.lnk" "$INSTDIR\${PRODUCT_NAME}.url"
   CreateShortCut "$SMPROGRAMS\GT-8FxFloorBoard\Uninstall.lnk" "$INSTDIR\uninst.exe"
@@ -2044,10 +2084,10 @@ SectionEnd
 
 Section -Post
   WriteUninstaller "$INSTDIR\uninst.exe"
-  WriteRegStr HKLM "${PRODUCT_DIR_REGKEY}" "" "$INSTDIR\gt-8fxfloorboard.exe"
+  WriteRegStr HKLM "${PRODUCT_DIR_REGKEY}" "" "$INSTDIR\GT-8FxFloorBoard.exe"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayName" "$(^Name)"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "UninstallString" "$INSTDIR\uninst.exe"
-  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayIcon" "$INSTDIR\gt-8fxfloorboard.exe"
+  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayIcon" "$INSTDIR\GT-8FxFloorBoard.exe"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayVersion" "${PRODUCT_VERSION}"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "URLInfoAbout" "${PRODUCT_WEB_SITE}"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "Publisher" "${PRODUCT_PUBLISHER}"
@@ -2060,6 +2100,7 @@ Function un.onUninstSuccess
 FunctionEnd
 
 Function un.onInit
+!insertmacro MUI_UNGETLANGUAGE
   MessageBox MB_ICONQUESTION|MB_YESNO|MB_DEFBUTTON2 "Are you sure you want to completely remove $(^Name) and all of its components?" IDYES +2
   Abort
 FunctionEnd
@@ -2067,6 +2108,7 @@ FunctionEnd
 Section Uninstall
   Delete "$INSTDIR\${PRODUCT_NAME}.url"
   Delete "$INSTDIR\uninst.exe"
+  Delete "$INSTDIR\readme.txt"
   Delete "$INSTDIR\saved patches\zappa.syx"
   Delete "$INSTDIR\saved patches\WWdualrecto.syx"
   Delete "$INSTDIR\saved patches\with.syx"
@@ -2281,7 +2323,6 @@ Section Uninstall
   Delete "$INSTDIR\saved patches\the_tripp Biwa Lute.syx"
   Delete "$INSTDIR\saved patches\the_tripp Bark At The Moon.syx"
   Delete "$INSTDIR\saved patches\the_tripp Auto Solo.syx"
-  Delete "$INSTDIR\saved patches\the heroes.syx"
   Delete "$INSTDIR\saved patches\TDR_bulk_09-02-2007.syx"
   Delete "$INSTDIR\saved patches\synthswell.syx"
   Delete "$INSTDIR\saved patches\Switchfoot.syx"
@@ -3712,7 +3753,6 @@ Section Uninstall
   Delete "$INSTDIR\saved patches\Bands\cliffs_of_dover.syx"
   Delete "$INSTDIR\saved patches\Bands\classicfamilyghost.syx"
   Delete "$INSTDIR\saved patches\Bands\classicbudgie.syx"
-  Delete "$INSTDIR\saved patches\Bands\Classic+Slayer+DRV.syx"
   Delete "$INSTDIR\saved patches\Bands\classic's pantera edit.syx"
   Delete "$INSTDIR\saved patches\Bands\Classic Slayer DRV.syx"
   Delete "$INSTDIR\saved patches\Bands\classic maiden2.syx"
@@ -3881,6 +3921,29 @@ Section Uninstall
   Delete "$INSTDIR\saved patches\(32-4)TDR LEAD 3.syx"
   Delete "$INSTDIR\saved patches\(31-4)TDR LEAD 2.syx"
   Delete "$INSTDIR\saved patches\(30-4)TDR LEAD 1.syx"
+  Delete "$INSTDIR\GT-8EditorManual_E_files\themedata.thmx"
+  Delete "$INSTDIR\GT-8EditorManual_E_files\image020.jpg"
+  Delete "$INSTDIR\GT-8EditorManual_E_files\image019.jpg"
+  Delete "$INSTDIR\GT-8EditorManual_E_files\image018.png"
+  Delete "$INSTDIR\GT-8EditorManual_E_files\image017.jpg"
+  Delete "$INSTDIR\GT-8EditorManual_E_files\image016.png"
+  Delete "$INSTDIR\GT-8EditorManual_E_files\image015.jpg"
+  Delete "$INSTDIR\GT-8EditorManual_E_files\image014.png"
+  Delete "$INSTDIR\GT-8EditorManual_E_files\image013.jpg"
+  Delete "$INSTDIR\GT-8EditorManual_E_files\image012.png"
+  Delete "$INSTDIR\GT-8EditorManual_E_files\image011.jpg"
+  Delete "$INSTDIR\GT-8EditorManual_E_files\image010.png"
+  Delete "$INSTDIR\GT-8EditorManual_E_files\image009.gif"
+  Delete "$INSTDIR\GT-8EditorManual_E_files\image008.gif"
+  Delete "$INSTDIR\GT-8EditorManual_E_files\image007.gif"
+  Delete "$INSTDIR\GT-8EditorManual_E_files\image006.gif"
+  Delete "$INSTDIR\GT-8EditorManual_E_files\image005.gif"
+  Delete "$INSTDIR\GT-8EditorManual_E_files\image004.gif"
+  Delete "$INSTDIR\GT-8EditorManual_E_files\image003.gif"
+  Delete "$INSTDIR\GT-8EditorManual_E_files\image002.gif"
+  Delete "$INSTDIR\GT-8EditorManual_E_files\image001.gif"
+  Delete "$INSTDIR\GT-8EditorManual_E_files\filelist.xml"
+  Delete "$INSTDIR\GT-8EditorManual_E_files\colorschememapping.xml"
   Delete "$INSTDIR\Init Patches\readme.txt"
   Delete "$INSTDIR\Init Patches\KPMesaDynaBluz.syx"
   Delete "$INSTDIR\Init Patches\9_EZ_CRUNCH4.syx"
@@ -3954,7 +4017,7 @@ Section Uninstall
   Delete "$INSTDIR\Init Patches\001_INIT_(JC_Clean)_Roland_JC120.syx"
   Delete "$INSTDIR\Init Patches\000_INIT_Empty.syx"
   Delete "$INSTDIR\GT-8EditorManual_E.htm"
-  Delete "$INSTDIR\gt-8fxfloorboard.exe"
+  Delete "$INSTDIR\GT-8FxFloorBoard.exe"
   Delete "$INSTDIR\license.txt"
   Delete "$INSTDIR\mingwm10.dll"
   Delete "$INSTDIR\preferences.xml.dist"
@@ -4022,6 +4085,7 @@ Section Uninstall
   RMDir "$INSTDIR\saved patches\Accoustic patches"
   RMDir "$INSTDIR\saved patches"
   RMDir "$INSTDIR\Init Patches"
+  RMDir "$INSTDIR\GT-8EditorManual_E_files"
   RMDir "$INSTDIR"
 
   DeleteRegKey ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}"

@@ -1,7 +1,7 @@
 /****************************************************************************
 **  
-** Copyright (C) 2007, 2008, 2009 Colin Willcocks. 
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
+** Copyright (C) 2007~2010 Colin Willcocks. 
+** Copyright (C) 2005~2007 Uco Mesdag.
 ** All rights reserved.
 ** This file is part of "GT-8 Fx FloorBoard".
 **
@@ -35,10 +35,9 @@ stompBox::stompBox(QWidget *parent, unsigned int id, QString imagePath, QPoint s
 	this->imagePath = imagePath;
 	this->stompSize = QPixmap(imagePath).size();
 	this->stompPos = stompPos;	
-
 	this->setFixedSize(stompSize);
-
 	this->editDialog = new editWindow();
+	this->setWhatsThis(tr("StompBox effect<br>most can be dragged to a new chain position by holding down the mouse button while dragging the stompbox,<br>release the mouse button over the new location.<br>a double mouse click will open the effect edit page."));
 
 	QObject::connect(this, SIGNAL( valueChanged(QString, QString, QString) ), this->parent(), SIGNAL( valueChanged(QString, QString, QString) ));
 	

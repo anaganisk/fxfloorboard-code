@@ -1,7 +1,7 @@
 /****************************************************************************
 **  
-** Copyright (C) 2007, 2008, 2009 Colin Willcocks. 
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
+** Copyright (C) 2007~2010 Colin Willcocks. 
+** Copyright (C) 2005~2007 Uco Mesdag.
 ** All rights reserved.
 ** This file is part of "GT-8 Fx FloorBoard".
 **
@@ -29,6 +29,7 @@
 #include "SysxIO.h"
 #include "bulkSaveDialog.h"
 #include "bulkLoadDialog.h"
+#include "summaryDialog.h"
 #include "globalVariables.h"
 
 mainWindow::mainWindow(QWidget *parent)
@@ -45,7 +46,7 @@ mainWindow::mainWindow(QWidget *parent)
 #ifdef Q_OS_WIN
 		/* This set the floorboard default style to the "plastique" style, 
 	   as it comes the nearest what the stylesheet uses. */
-	fxsBoard->setStyle(QStyleFactory::create("plastique"));
+	//fxsBoard->setStyle(QStyleFactory::create("plastique"));
 		if(QFile(":qss/windows.qss").exists())
 		{
                         QFile file(":qss/windows.qss");
@@ -91,11 +92,12 @@ mainWindow::mainWindow(QWidget *parent)
 
 	QVBoxLayout *mainLayout = new QVBoxLayout;
 	mainLayout->setMenuBar(menuBar);
-        mainLayout->addWidget(fxsBoard);
+  mainLayout->addWidget(fxsBoard);
 	mainLayout->addWidget(statusBar);
 	mainLayout->setMargin(0);
 	mainLayout->setSpacing(0);
 	mainLayout->setSizeConstraint(QLayout::SetFixedSize);
+	this->statusBar->setWhatsThis("StatusBar<br>midi activity is displayed here<br>and some status messages are displayed.");
 	setLayout(mainLayout);
 
   this->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
@@ -150,74 +152,100 @@ void mainWindow::createActions()
 	openAct = new QAction(QIcon(":/images/fileopen.png"), tr("&Load Patch File... *.syx *.gte *.mid"), this);
 	openAct->setShortcut(tr("Ctrl+O"));
 	openAct->setStatusTip(tr("Open an existing file"));
+	openAct->setWhatsThis(tr("Open an existing file"));
 	connect(openAct, SIGNAL(triggered()), this, SLOT(open()));
 
 	saveAct = new QAction(QIcon(":/images/filesave.png"), tr("&Save Patch..."), this);
 	saveAct->setShortcut(tr("Ctrl+S"));
 	saveAct->setStatusTip(tr("Save the document to disk"));
+	saveAct->setWhatsThis(tr("Save the document to disk"));
 	connect(saveAct, SIGNAL(triggered()), this, SLOT(save()));
 
 	saveAsAct = new QAction(QIcon(":/images/filesave.png"), tr("Save &As Patch..."), this);
 	saveAsAct->setShortcut(tr("Ctrl+Shift+S"));
 	saveAsAct->setStatusTip(tr("Save the document under a new name"));
+	saveAsAct->setWhatsThis(tr("Save the document under a new name"));
 	connect(saveAsAct, SIGNAL(triggered()), this, SLOT(saveAs()));
 	
 	systemLoadAct = new QAction(QIcon(":/images/fileopen.png"), tr("&Load System and Global Data..."), this);
 	systemLoadAct->setShortcut(tr("Ctrl+L"));
-	systemLoadAct->setStatusTip(tr("Load System Data to GT-8"));
-	connect(systemLoadAct, SIGNAL(triggered()), this, SLOT(systemLoad()));
+	systemLoadAct->setStatusTip(tr("Load System Data to ")+deviceType);
+	systemLoadAct->setWhatsThis(tr("Load System Data to ")+deviceType);
+  connect(systemLoadAct, SIGNAL(triggered()), this, SLOT(systemLoad()));
 
 	systemSaveAct = new QAction(QIcon(":/images/filesave.png"), tr("Save System and Global Data..."), this);
 	systemSaveAct->setShortcut(tr("Ctrl+D"));
 	systemSaveAct->setStatusTip(tr("Save System Data to File"));
+	systemSaveAct->setWhatsThis(tr("Save System Data to File"));
 	connect(systemSaveAct, SIGNAL(triggered()), this, SLOT(systemSave()));
 			
 	bulkLoadAct = new QAction(QIcon(":/images/fileopen.png"), tr("&Load Bulk Patch File to GT-8..."), this);
 	bulkLoadAct->setShortcut(tr("Ctrl+B"));
-	bulkLoadAct->setStatusTip(tr("Load Bulk Data to GT-10B"));
+	bulkLoadAct->setStatusTip(tr("Load Bulk Data to ")+ deviceType);
+	bulkLoadAct->setWhatsThis(tr("Load Bulk Data to ")+ deviceType);
 	connect(bulkLoadAct, SIGNAL(triggered()), this, SLOT(bulkLoad()));
 
 	bulkSaveAct = new QAction(QIcon(":/images/filesave.png"), tr("Save Bulk GT-8 Patches to File..."), this);
 	bulkSaveAct->setShortcut(tr("Ctrl+G"));
 	bulkSaveAct->setStatusTip(tr("Save Bulk Data to File"));
+	bulkSaveAct->setWhatsThis(tr("Save Bulk Data to File"));
 	connect(bulkSaveAct, SIGNAL(triggered()), this, SLOT(bulkSave()));
 
 	exitAct = new QAction(QIcon(":/images/exit.png"),tr("E&xit"), this);
 	exitAct->setShortcut(tr("Ctrl+Q"));
 	exitAct->setStatusTip(tr("Exit the application"));
+	exitAct->setWhatsThis(tr("Exit the application"));
 	connect(exitAct, SIGNAL(triggered()), this, SLOT(close()));
 
 	settingsAct = new QAction(QIcon(":/images/preferences.png"), tr("&Preferences"), this);
 	settingsAct->setShortcut(tr("Ctrl+P"));
-	settingsAct->setStatusTip(tr("...."));
+	settingsAct->setStatusTip(tr("FxFloorBoard Preferences<br>Select midi device, language,splash, directories"));
+	settingsAct->setWhatsThis(tr("FxFloorBoard Preferences<br>Select midi device, language,splash, directories"));
 	connect(settingsAct, SIGNAL(triggered()), this, SLOT(settings()));
 		                                
 	uploadAct = new QAction(QIcon(":/images/upload.png"), tr("Upload patch to GT-Central"), this);
-	uploadAct->setStatusTip(tr("........"));
+	uploadAct->setStatusTip(tr("Upload any saved patch file to a shared patch library<br>via the internet."));
+	uploadAct->setWhatsThis(tr("Upload any saved patch file to a shared patch library<br>via the internet."));
 	connect(uploadAct, SIGNAL(triggered()), this, SLOT(upload()));
+	
+	summaryAct = new QAction(QIcon(":/images/copy.png"), tr("Summary Page Text"), this);
+  summaryAct->setWhatsThis(tr("Display the current patch parameters<br>in a readable text format, which<br>can be printed or saved to file."));
+  connect(summaryAct, SIGNAL(triggered()), this, SLOT(summaryPage()));
 
 	helpAct = new QAction(QIcon(":/images/help.png"), deviceType + tr(" Fx FloorBoard &Help"), this);
 	helpAct->setShortcut(tr("Ctrl+F1"));
-	helpAct->setStatusTip(tr("....."));
+	helpAct->setStatusTip(tr("Help page to assist with FxFloorBoard functions."));
+	helpAct->setWhatsThis(tr("Help page to assist with FxFloorBoard functions."));
 	connect(helpAct, SIGNAL(triggered()), this, SLOT(help()));
+	
+	whatsThisAct = new QAction(QIcon(":/images/help.png"), tr("Whats This? description of items under the mouse cursor"), this);
+  whatsThisAct->setShortcut(tr("F1"));
+  whatsThisAct->setWhatsThis(tr("ha..ha..ha..!!"));
+  connect(whatsThisAct, SIGNAL(triggered()), this, SLOT(whatsThis()));
 
 	homepageAct = new QAction(QIcon(":/images/upload.png"),deviceType + tr(" Fx FloorBoard &Webpage"), this);
-	homepageAct->setStatusTip(tr("........"));
+	homepageAct->setStatusTip(tr("download Webpage for FxFloorBoard<br>find if the latest version is available."));
+	homepageAct->setWhatsThis(tr("download Webpage for FxFloorBoard<br>find if the latest version is available."));
 	connect(homepageAct, SIGNAL(triggered()), this, SLOT(homepage()));
 
 	donationAct = new QAction(QIcon(":/images/donate.png"), tr("Make a &Donation"), this);
+	donationAct->setStatusTip(tr("Even though the software is free,<br>an occassional donation is very much appreciated<br>i am not paid for this work."));
+	donationAct->setWhatsThis(tr("Even though the software is free,<br>an occassional donation is very much appreciated<br>i am not paid for this work."));
 	connect(donationAct, SIGNAL(triggered()), this, SLOT(donate()));
 
 	licenseAct = new QAction(QIcon(":/images/licence.png"), tr("&License"), this);
-	licenseAct->setStatusTip(tr("........"));
+	licenseAct->setStatusTip(tr("licence agreement which you<br>have accepted by installing this software."));
+	licenseAct->setWhatsThis(tr("licence agreement which you<br>have accepted by installing this software."));
 	connect(licenseAct, SIGNAL(triggered()), this, SLOT(license()));
 
 	aboutAct = new QAction(QIcon(":/images/GT-8FxFloorBoard.png"),tr("&About FxFloorBoard"), this);
 	aboutAct->setStatusTip(tr("Show the application's About box"));
+	aboutAct->setWhatsThis(tr("Show the application's About box"));
 	connect(aboutAct, SIGNAL(triggered()), this, SLOT(about()));
 
 	aboutQtAct = new QAction(QIcon(":/images/qt-logo.png"),tr("About &Qt"), this);
 	aboutQtAct->setStatusTip(tr("Show the Qt library's About box"));
+	aboutQtAct->setWhatsThis(tr("Show the Qt library's About box"));
 	connect(aboutQtAct, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
 };
 
@@ -238,16 +266,20 @@ void mainWindow::createMenus()
 	fileMenu->addAction(systemSaveAct);
 	fileMenu->addSeparator();
   fileMenu->addAction(exitAct);
+  fileMenu->setWhatsThis(tr("File Saving and Loading,<br> and application Exit."));
 	menuBar->addMenu(fileMenu);
 
 	QMenu *toolsMenu = new QMenu(tr("&Tools"), this);
 	toolsMenu->addAction(settingsAct);
 	toolsMenu->addAction(uploadAct);
+	fileMenu->addSeparator();
+  toolsMenu->addAction(summaryAct);
 	menuBar->addMenu(toolsMenu);
 
   
 	QMenu *helpMenu = new QMenu(tr("&Help"), this);
 	helpMenu->addAction(helpAct);
+	helpMenu->addAction(whatsThisAct);
 	helpMenu->addAction(homepageAct);
 	helpMenu->addSeparator();
 	helpMenu->addAction(donationAct);
@@ -317,7 +349,7 @@ void mainWindow::save()
 	{
 		QString fileName = QFileDialog::getSaveFileName(
 						this,
-						"Save As",
+						tr("Save As"),
 						dir,
 						tr("System Exclusive (*.syx)"));
 		if (!fileName.isEmpty())	
@@ -352,7 +384,7 @@ void mainWindow::saveAs()
 
 	QString fileName = QFileDialog::getSaveFileName(
                     this,
-                    "Save As",
+                    tr("Save As"),
                     dir,
                     tr("System Exclusive (*.syx)"));
 	if (!fileName.isEmpty())	
@@ -384,7 +416,7 @@ void mainWindow::systemLoad()
 
 	QString fileName = QFileDialog::getOpenFileName(
                 this,
-                "Choose a file",
+                tr("Choose a file"),
                 dir,
                 tr("GT-8 System Data File (*.GT8_system_syx)"));
 	if (!fileName.isEmpty())	
@@ -408,12 +440,12 @@ void mainWindow::systemLoad()
 					msgText.append("<font size='+1'><b>");
 					msgText.append(tr("You have chosen to load a SYSTEM DATA file."));
 					msgText.append("<b></font><br>");
-					msgText.append(tr("This will overwrite the SYSTEM DATA currently stored in the GT-8<br>"));
-					msgText.append(tr (" and can't be undone.<br>"));
-					msgText.append(tr("Select 'NO' to only update the Editor - Select 'YES' to update the GT-8 memory<br>"));
+					msgText.append(tr("This will overwrite the SYSTEM DATA currently stored in the ")+ deviceType);
+					msgText.append(tr (" <br> and can't be undone.<br>"));
+					msgText.append(tr("Select 'NO' to only update the Editor - Select 'YES' to update the ")+ deviceType +tr(" memory<br>"));
           
 
-					msgBox->setInformativeText(tr("Are you sure you want to write to the GT-8?"));
+					msgBox->setInformativeText(tr("Are you sure you want to write to the ")+ deviceType + "?");
 					msgBox->setText(msgText);
 					msgBox->setStandardButtons(QMessageBox::Yes | QMessageBox::No);
 
@@ -449,7 +481,7 @@ SysxIO *sysxIO = SysxIO::Instance();
 
 	QString fileName = QFileDialog::getSaveFileName(
                     this,
-                    "Save System Data",
+                    tr("Save System Data"),
                     dir,
                     tr("System Exclusive File (*.GT8_system_syx)"));
 	if (!fileName.isEmpty())	
@@ -582,10 +614,23 @@ void mainWindow::help()
 	QDesktopServices::openUrl(QUrl( preferences->getPreferences("General", "Help", "url") ));
 };
 
+void mainWindow::whatsThis()
+{
+    QWhatsThis::enterWhatsThisMode();
+};
+
 void mainWindow::upload()
 {
 	Preferences *preferences = Preferences::Instance();
 	QDesktopServices::openUrl(QUrl( preferences->getPreferences("General", "Upload", "url") ));
+};
+
+void mainWindow::summaryPage()
+{
+   summaryDialog *summary = new summaryDialog();
+   summary->setMinimumWidth(800);
+   summary->setMinimumHeight(650);
+   summary->show();
 };
 
 void mainWindow::homepage()

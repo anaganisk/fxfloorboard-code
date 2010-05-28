@@ -1,7 +1,7 @@
 #############################################################################
 ##
-## Copyright (C) 2007, 2008, 2009 Colin Willcocks.
-## Copyright (C) 2005, 2006, 2007 Uco Mesdag.
+## Copyright (C) 2007~2010 Colin Willcocks.
+## Copyright (C) 2005~2007 Uco Mesdag.
 ## All rights reserved.
 ##
 ## This file is part of "GT-8 Fx FloorBoard".
@@ -23,14 +23,12 @@
 #############################################################################
 
 #Header files
-HEADERS += ./editPage.h \
-    ./editWindow.h \
-    ./globalVariables.h \
-    ./mainWindow.h \
+HEADERS += ./mainWindow.h \
     ./bankTreeList.h \
     ./bulkLoadDialog.h \
     ./bulkSaveDialog.h \
     ./customButton.h \
+    ./customComboBox.h \
     ./customControlKnob.h \
     ./customControlLabel.h \
     ./customControlListMenu.h \
@@ -53,18 +51,30 @@ HEADERS += ./editPage.h \
     ./customTargetDial.h \
     ./customTargetListMenu.h \
     ./dragBar.h \
+    ./editPage.h \
+    ./editWindow.h \
     ./fileDialog.h \
     ./floorBoard.h \
     ./floorBoardDisplay.h \
     ./floorPanelBar.h \
     ./floorPanelBarButton.h \
+    ./globalVariables.h \
     ./initPatchListMenu.h \
     ./menuPage.h \
     ./menuPage_assign.h \
     ./menuPage_midi.h \
     ./menuPage_system.h \
+    ./midiIO.h \
+    ./MidiTable.h \
+    ./MidiTableDestroyer.h \
+    ./Preferences.h \
+    ./PreferencesDestroyer.h \
+    ./preferencesDialog.h \
+    ./preferencesPages.h \
     ./renameDialog.h \
     ./renameWidget.h \
+    ./RtError.h \
+    ./RtMidi.h \
     ./statusBarSymbol.h \
     ./statusBarWidget.h \
     ./stompBox.h \
@@ -82,31 +92,22 @@ HEADERS += ./editPage.h \
     ./stompbox_pre.h \
     ./stompbox_rv.h \
     ./stompbox_wah.h \
-    ./midiIO.h \
-    ./MidiTable.h \
-    ./MidiTableDestroyer.h \
-    ./RtError.h \
-    ./RtMidi.h \
+    ./summaryDialog.h \
     ./SysxIO.h \
     ./SysxIODestroyer.h \
     ./sysxWriter.h \
     ./xmlwriter/xmlwriter.h \
-    ./xmlwriter/xmlwriter_p.h \
-    ./Preferences.h \
-    ./PreferencesDestroyer.h \
-    ./preferencesDialog.h \
-    ./preferencesPages.h \
-    ./customComboBox.h
+    ./xmlwriter/xmlwriter_p.h 
+        
 
 #Source files
-SOURCES += ./editPage.cpp \
-    ./editWindow.cpp \
-    ./main.cpp \
+SOURCES += ./main.cpp \
     ./mainWindow.cpp \
     ./bankTreeList.cpp \
     ./bulkLoadDialog.cpp \
     ./bulkSaveDialog.cpp \
     ./customButton.cpp \
+    ./customComboBox.cpp \
     ./customControlKnob.cpp \
     ./customControlLabel.cpp \
     ./customControlListMenu.cpp \
@@ -129,6 +130,8 @@ SOURCES += ./editPage.cpp \
     ./customTargetListMenu.cpp \
     ./customLabelDisplay.cpp \
     ./dragBar.cpp \
+    ./editPage.cpp \
+    ./editWindow.cpp \
     ./fileDialog.cpp \
     ./floorBoard.cpp \
     ./floorBoardDisplay.cpp \
@@ -139,6 +142,13 @@ SOURCES += ./editPage.cpp \
     ./menuPage_assign.cpp \
     ./menuPage_midi.cpp \
     ./menuPage_system.cpp \
+    ./midiIO.cpp \
+    ./MidiTable.cpp \
+    ./MidiTableDestroyer.cpp \
+    ./Preferences.cpp \
+    ./PreferencesDestroyer.cpp \
+    ./preferencesDialog.cpp \
+    ./preferencesPages.cpp \
     ./renameDialog.cpp \
     ./renameWidget.cpp \
     ./statusBarSymbol.cpp \
@@ -158,18 +168,13 @@ SOURCES += ./editPage.cpp \
     ./stompbox_pre.cpp \
     ./stompbox_rv.cpp \
     ./stompbox_wah.cpp \
-    ./midiIO.cpp \
-    ./MidiTable.cpp \
-    ./MidiTableDestroyer.cpp \
+    ./summaryDialog.cpp \
     ./SysxIO.cpp \
     ./SysxIODestroyer.cpp \
     ./sysxWriter.cpp \
     ./xmlwriter/xmlwriter.cpp \
-    ./Preferences.cpp \
-    ./PreferencesDestroyer.cpp \
-    ./preferencesDialog.cpp \
-    ./preferencesPages.cpp \
-    ./customComboBox.cpp
+    
+    
 
 #Resource file(s)
 RESOURCES += GT-8FxFloorBoard.qrc

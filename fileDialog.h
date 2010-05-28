@@ -1,10 +1,9 @@
 /****************************************************************************
-**
-** Copyright (C) 2007, 2008, 2009 Colin Willcocks. 
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
+**  
+** Copyright (C) 2007~2010 Colin Willcocks. 
+** Copyright (C) 2005~2007 Uco Mesdag.
 ** All rights reserved.
-**
-** This file is part of "GT-10B Fx FloorBoard".
+** This file is part of "GT-8 Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -39,7 +38,7 @@ class fileDialog : public QDialog
 	Q_OBJECT
 
 public:
-	fileDialog(QString fileName, QList<QString> patchList);
+	fileDialog(QString fileName, QList<QString> patchList, QByteArray fileData, QByteArray default_data, QString type);
 	QLabel *patchLabel;
   QLabel *nameLabel; 
   QComboBox *patchCombo;
@@ -50,12 +49,16 @@ signals:
                     
 public slots:
   void valueChanged(int value);
+  void highlighted(int value);
   void cancel();
    
 private:   
   QList<QString> patchList;
 	QListWidget *contentsWidget;
 	QStackedWidget *pagesWidget;
+	QByteArray fileData;
+  QByteArray default_data;
+  QString file_format;
 };
 
 #endif // FILEDIALOG_H

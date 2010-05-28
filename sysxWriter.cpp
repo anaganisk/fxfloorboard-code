@@ -1,8 +1,8 @@
 /****************************************************************************
 **  
-** Copyright (C) 2007, 2008, 2009 Colin Willcocks. 
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
-** All rights reserved.   
+** Copyright (C) 2007~2010 Colin Willcocks. 
+** Copyright (C) 2005~2007 Uco Mesdag.
+** All rights reserved.
 ** This file is part of "GT-8 Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
@@ -136,8 +136,9 @@ bool sysxWriter::readFile()
             patchText.clear();
             msgText.clear();
             a=a+1010;                      // offset is set in front of marker
-        };               
-    fileDialog *dialog = new fileDialog(fileName, patchList); 
+        };
+    QString type = "syx";               
+    fileDialog *dialog = new fileDialog(fileName, patchList, data, default_data, type); 
     dialog->exec();    
     patchIndex(this->index);                          
    };       
@@ -296,8 +297,9 @@ bool sysxWriter::readFile()
             patchText.clear();
             msgText.clear();
             a=a+1010;                      // offset is set in front of marker
-        };               
-    fileDialog *dialog = new fileDialog(fileName, patchList); 
+        };
+    QString type = "gte";               
+    fileDialog *dialog = new fileDialog(fileName, patchList, data, default_data, type); 
     dialog->exec();    
     patchIndex(this->index);                          
    };       

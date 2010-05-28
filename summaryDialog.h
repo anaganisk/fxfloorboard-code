@@ -1,7 +1,7 @@
 /****************************************************************************
 **  
-** Copyright (C) 2007, 2008, 2009 Colin Willcocks. 
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
+** Copyright (C) 2007~2010 Colin Willcocks. 
+** Copyright (C) 2005~2007 Uco Mesdag.
 ** All rights reserved.
 ** This file is part of "GT-8 Fx FloorBoard".
 **
@@ -21,31 +21,45 @@
 **
 ****************************************************************************/
 
-#include "manual.h"
+#ifndef SUMMARYDIALOG_H
+#define SUMMARYDIALOG_H
 
-manual::manual(QWidget *parent)
-    : stompBox(parent)
+#include <QDialog>
+#include <QMainWindow>
+#include <QTextEdit>
+#include <QTextDocument>
+#include <QLabel>
+#include <QPrintDialog>
+#include <QPrinter>
+#include "SysxIO.h"
+
+class QListWidget;
+class QListWidgetItem;
+class QStackedWidget;
+
+class summaryDialog : public QWidget
 {
-	/* MANUAL */
-	//setImage(":/images/fv.png");
-	setLSB("0F", "00");
-//	setButton("0C", "00", "00", QPoint::QPoint(0, 109), ":/images/pedal.png");
-	setEditPages();
+        Q_OBJECT
+
+public:
+  summaryDialog(QWidget *parent = 0);
+  QTextEdit *textDialog;
+  QTextDocument *document;
+  QPrintDialog *dialog;
+
+
+public slots:
+  void valueChanged(int value);
+  void cancel();
+  void printFile();
+  void saveAs();
+
+private:
+void makeList();
+QString text;
+QString address;
+int start;
+int finish;
 };
 
-void manual::updateSignal()
-{
-//	updateButton("0C", "00", "00");
-};
-
-void manual::setEditPages()
-{
-    editDetails()->page()->newGroupBox("Manual");
-	editDetails()->page()->addComboBox(0, 0, 1, 1, "0F", "00", "00");         // source mode
-	editDetails()->page()->addComboBox(0, 1, 1, 1, "0F", "00", "01");         // source mode
-	editDetails()->page()->addComboBox(0, 2, 1, 1, "0F", "00", "02");         // source mode
-	editDetails()->page()->addComboBox(0, 3, 1, 1, "0F", "00", "03");         // source mode
-	editDetails()->page()->addGroupBox(0, 4, 1, 4);
-	editDetails()->addPage();  // PAGE ABOVE   
-	
-};
+#endif // FILEDIALOG_H

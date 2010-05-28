@@ -1,7 +1,7 @@
 /****************************************************************************
 **  
-** Copyright (C) 2007, 2008, 2009 Colin Willcocks. 
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
+** Copyright (C) 2007~2010 Colin Willcocks. 
+** Copyright (C) 2005~2007 Uco Mesdag.
 ** All rights reserved.
 ** This file is part of "GT-8 Fx FloorBoard".
 **
@@ -168,10 +168,13 @@ void midiIO::sendSyxMsg(QString sysxOutMsg, int midiOutPort)
     QString hex;
     int wait = 0; 
     int close = 20;
+    int s = sysxOutMsg.size()/100;
+    int p=0;
     int retryCount = 0;
     std::vector<unsigned char> message;	
 		message.reserve(256);
-		int msgLength = sysxOutMsg.length()/2;
+		int msgLength = 0;
+    msgLength = sysxOutMsg.length()/2;
 		char *ptr  = new char[msgLength];		// Convert QString to char* (hex value) 
     int nPorts = midiMsgOut->getPortCount();   // Check available ports.
     if ( nPorts < 1 ) { goto cleanup; };
@@ -186,7 +189,9 @@ RETRY:
 		      	n = hex.toInt(&ok, 16);
 			      *ptr = (char)n;
 		      	message.push_back(*ptr);		// insert the char* string into a std::vector
-            wait = wait + 1;	
+            wait = wait + 1;
+            p=p+s;
+            emit setStatusProgress(wait);	
 			      if(hex == "F7")
              {
                 midiMsgOut->sendMessage(&message);  // send the midi data as a std::vector
@@ -282,14 +287,14 @@ void midiIO::receiveMsg(QString sysxInMsg, int midiInPort)
 {
   count = 0;
 	emit setStatusSymbol(3);
-#ifdef Q_OS_WIN
-        int x = 1;
+#ifdef Q_OS_MAC
+        int x = 2;
 #else
-        int x = 3;
+        int x = 1;
 #endif
 	if (msgType == "patch")         {loopCount = x*300; count = 1010;}
   else if(msgType == "system")    {loopCount = x*450; count = 4402;} // native gt-8 system size, then trimmed to 4389 later.
-  else if (msgType == "name")     {loopCount = x*15;  count = 29; }
+  else if (msgType == "name")     {loopCount = x*20;  count = 29; }
   else if (msgType == "identity") {loopCount = x*100;  count = 15; }
                              else {loopCount = x*60; count = 15; };
 		RtMidiIn *midiin = 0;
@@ -298,18 +303,21 @@ void midiIO::receiveMsg(QString sysxInMsg, int midiInPort)
 	unsigned int nPorts = midiin->getPortCount();	   // check we have a midiIn port
     if ( nPorts < 1 ) { goto cleanup; };
     try {
-			midiin->ignoreTypes(false, false, false);  //don,t ignore sysex messages, but ignore other crap like active-sensing
+			midiin->ignoreTypes(false, true, true);  //don,t ignore sysex messages, but ignore other crap like active-sensing
 			midiin->openPort(midiInPort, clientName);             // open the midi in port			
 			midiin->setCallback(&midicallback);    // set the callback 
 			//SLEEP(5);
 			sendSyxMsg(sysxOutMsg, midiOutPort);      // send the data request message out	
 			int x = 0;
+			unsigned int s = 1;
 			unsigned int t = 1;
       while (x<loopCount && sysxBuffer.size()/2 < count)  // wait until exact bytes received or timeout
       {
       SLEEP(5);
+      s = (this->sysxBuffer.size()*50)/count;
       t = (x*200)/loopCount;
-      emit setStatusProgress(t);    
+      if (s>t) {t=s;};
+      emit setStatusProgress(t);
        x++;
       };                   // time it takes to get all sysx messages in.			
       

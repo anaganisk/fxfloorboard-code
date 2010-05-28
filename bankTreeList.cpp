@@ -1,7 +1,7 @@
 /****************************************************************************
 **  
-** Copyright (C) 2007, 2008, 2009 Colin Willcocks. 
-** Copyright (C) 2005, 2006, 2007 Uco Mesdag.
+** Copyright (C) 2007~2010 Colin Willcocks. 
+** Copyright (C) 2005~2007 Uco Mesdag.
 ** All rights reserved.
 ** This file is part of "GT-8 Fx FloorBoard".
 **
@@ -120,13 +120,13 @@ void bankTreeList::setOpenItems(QTreeWidgetItem *item)
 	int c = openPatchTreeItems.size();
 	int b = openBankTreeItems.size();
 	int a = 0;
-	if(treeList->isExpanded(treeList->model()->index(0, 0)) && 
-		treeList->isExpanded(treeList->model()->index(1, 0)))
+	if(treeList->isExpanded(treeList->model()->index(1, 0)) && 
+		treeList->isExpanded(treeList->model()->index(2, 0)))
 	{
 		a = 2;
 	}
-	else if(treeList->isExpanded(treeList->model()->index(0, 0)) || 
-		treeList->isExpanded(treeList->model()->index(1, 0)))
+	else if(treeList->isExpanded(treeList->model()->index(1, 0)) || 
+		treeList->isExpanded(treeList->model()->index(2, 0)))
 	{
 		a = 1;
 	};
@@ -302,34 +302,30 @@ QTreeWidget* bankTreeList::newTreeList()
     
   QTreeWidgetItem *temp = new QTreeWidgetItem(newTreeList);
 	temp->setText(0, "Temp");
+	temp->setWhatsThis(0, tr("Temporary Buffer.<br>a single mouse click will set the Write/Sync button to send to the buffer only,<br>a double click will load the current GT patch data."));
 
 	QTreeWidgetItem *user = new QTreeWidgetItem(newTreeList);
 	user->setText(0, "User");
-	user->setWhatsThis(0, "User Banks");
-	//user->setIcon(...);
+	user->setWhatsThis(0, tr("User Banks.<br>expand the Bank to view a section of Banks."));
 
     QList<QTreeWidgetItem *> userBankRanges;
     for (int a=1; a<=bankTotalUser; a++)
 	{
 		QTreeWidgetItem* bankRange = new QTreeWidgetItem; // don't pass a parent here!
     bankRange->setText(0, QString::QString("Bank U").append(QString::number(a, 10)).append("-U").append(QString::number(a+4, 10)) );
-  
-		bankRange->setWhatsThis(0, "what the ?");
-		//bankRange->setIcon(QIcon(":/images/gt6b_icon_1.png"));
+  bankRange->setWhatsThis(0, tr("User Banks.<br>expand the Bank to view a section of Patch Banks"));
 
 		for (int b=a; b<=(a+4); b++)
 				{
 			QTreeWidgetItem* bank = new QTreeWidgetItem(bankRange);
 			bank->setText(0, QString::QString("Bank ").append(QString::number(b, 10)));
-			bank->setWhatsThis(0, "");
-			//bank->setIcon(...);
+			bank->setWhatsThis(0, tr("User Bank.<br>expand the Bank to view the Patches"));
 
 			for (int c=1; c<=4; c++)
 			{
 				QTreeWidgetItem* patch = new QTreeWidgetItem(bank);
 				patch->setText(0, QString::QString("Patch ").append(QString::number(c, 10)));
-				patch->setWhatsThis(0, "");
-				//patch->setIcon(...);
+				patch->setWhatsThis(0, tr("User Patches.<br>a single mouse click will only change patch<br>a double mouse click will load the select patch from the GT."));
 			};
 		}; 
 		userBankRanges << bankRange;
@@ -340,30 +336,26 @@ QTreeWidget* bankTreeList::newTreeList()
 
 	QTreeWidgetItem *preset = new QTreeWidgetItem(newTreeList);
 	preset->setText(0, "Preset");
-	preset->setWhatsThis(0, "Preset Banks");
-	//user->setIcon(...);
+	preset->setWhatsThis(0, tr("Preset Banks.<br>expand the Bank to view a section of Banks."));
 
     QList<QTreeWidgetItem *> presetBankRanges;
     for (int a=(bankTotalUser+1); a<=bankTotalAll; a++)
 	{
 		QTreeWidgetItem* bankRange = new QTreeWidgetItem; // don't pass a parent here!
 		bankRange->setText(0, QString::QString("Bank P").append(QString::number(a, 10)).append("-P").append(QString::number(a+4, 10)) );
-		bankRange->setWhatsThis(0, "");
-		//bankRange->setIcon(...);
+		bankRange->setWhatsThis(0, tr("Preset Banks.<br>expand the Bank to view a section of Patch Banks"));
 
 		for (int b=a; b<=(a+4); b++)
 		{
 			QTreeWidgetItem* bank = new QTreeWidgetItem(bankRange);
 			bank->setText(0, QString::QString("Bank ").append(QString::number(b, 10)));
-			bank->setWhatsThis(0, "");
-			//bank->setIcon(...);
+			bank->setWhatsThis(0, tr("Preset Bank.<br>expand the Bank to view the Patches"));
 
 			for (int c=1; c<=4; c++)
 			{
 				QTreeWidgetItem* patch = new QTreeWidgetItem(bank);
 				patch->setText(0, QString::QString("Patch ").append(QString::number(c, 10)));
-				patch->setWhatsThis(0, "");
-				//patch->setIcon(...);
+				patch->setWhatsThis(0, tr("Preset Patches.<br>a single mouse click will only change patch<br>a double mouse click will load the select patch from the GT."));
 			};
 		};
 		presetBankRanges << bankRange;
@@ -583,7 +575,7 @@ void bankTreeList::connectedSignal()
 
 		this->currentPatchTreeItems.clear();
 		this->currentPatchTreeItems = this->openPatchTreeItems;
-		//qSort(this->currentPatchTreeItems);
+		qSort(this->currentPatchTreeItems);
 		this->updatePatchNames("");
 	}; 
   requestPatch(); 
