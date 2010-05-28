@@ -37,6 +37,7 @@ stompBox::stompBox(QWidget *parent, unsigned int id, QString imagePath, QPoint s
 	this->stompPos = stompPos;	
 	this->setFixedSize(stompSize);
 	this->editDialog = new editWindow();
+	this->setWhatsThis(tr("StompBox effect<br>most can be dragged to a new chain position by holding down the mouse button while dragging the stompbox,<br>release the mouse button over the new location.<br>a double mouse click will open the effect edit page."));
 	
 	this->pathSwitch = new customButton(tr(""), false, QPoint(60, 60), this, ":/images/pathswitch.png");
 	this->pathSwitch->hide();

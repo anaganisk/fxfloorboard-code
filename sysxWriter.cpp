@@ -25,6 +25,7 @@
 #include <QDataStream>
 #include <QByteArray>
 #include <QMessageBox>
+#include <QApplication>
 #include "sysxWriter.h"	
 #include "fileDialog.h"
 #include "globalVariables.h"
@@ -51,10 +52,8 @@ bool sysxWriter::readFile()
 	QFile file(fileName);
     if (file.open(QIODevice::ReadOnly))
 	{
-		QByteArray data = file.readAll();     // read the pre-selected file, copy to 'data'
-		QByteArray default_data;
+		this->data = file.readAll();     // read the pre-selected file, copy to 'data'
 		QByteArray GXB_default;
-		QByteArray hextable;
 		QFile file(":default.syx");           // Read the default GT-10B sysx file .
     if (file.open(QIODevice::ReadOnly))
 	  {	default_data = file.readAll(); };
@@ -162,7 +161,7 @@ bool sysxWriter::readFile()
 		sysxIO->setFileName(this->fileName);
 		this->fileSource = sysxIO->getFileSource();
 		return true;
-		}	else if (data.size() == 684){      // if the file size = gt-6b patch
+		}	else if ((data.size() == 684) || (data.size() == 912)){      // if the file size = gt-6b patch
 		
 	QMessageBox *msgBox = new QMessageBox();
 	msgBox->setWindowTitle(QObject::tr("Patch file conversion"));
@@ -289,7 +288,7 @@ bool sysxWriter::readFile()
 	
 	/*
 	
-	temp.clear();                            // Convert GT8 Chain items to GT10 format 
+	temp.clear();                            // Convert GT6B Chain items to GT10 format 
 			r = gt6b_data.at(665);
     temp.append(Qhex.mid(r+164, 1)); 
     		r = gt6b_data.at(666);
@@ -453,22 +452,8 @@ bool sysxWriter::readFile()
     if (file.open(QIODevice::ReadOnly))
 	{	data = file.readAll(); };
 	QByteArray temp;                         // TRANSLATION of GT-10B SMF PATCHES, data read from smf patch **************
-	if ( smf_data.at(37) != data.at(5) ){    // check if a valid GT-10B file
-  QMessageBox *msgBox = new QMessageBox();
-	msgBox->setWindowTitle(QObject::tr("SMF file import"));
-	msgBox->setIcon(QMessageBox::Warning);
-	msgBox->setTextFormat(Qt::RichText);
-	QString msgText;
-	msgText.append("<font size='+1'><b>");
-	msgText.append(QObject::tr("This is not a GT-10B patch!"));
-	msgText.append("<b></font><br>");
-	msgText.append(QObject::tr("this file is a GT-10 Guitar version<br>"));
-	msgText.append(QObject::tr("*Loading this file may have unpredictable results*."));
-	msgBox->setText(msgText);
-	msgBox->setStandardButtons(QMessageBox::Ok);
-	msgBox->exec();  
-  };
-  
+	bool isGT10 = false;
+  if ( smf_data.at(37) != data.at(5) ){ isGT10 = true; };    // check if a valid GT-10B file.  
   index = 1;
   int patchCount = (smf_data.size()-32)/1806;
   if (patchCount>1)
@@ -531,17 +516,24 @@ bool sysxWriter::readFile()
 	data.replace(942, 100, temp);           // replace gt10 address "09"...
 	temp = smf_data.mid(a+1403, 128);          // copy SMF part1...
 	data.replace(1083,128, temp);            // replace gt10 address "0A"...
-	temp = smf_data.mid(a+1531, 44);           // copy SMF part1...
+	if(isGT10 != true) {
+  temp = smf_data.mid(a+1531, 44);           // copy SMF part1...
 	temp.append(smf_data.mid(a+1591,84));      // copy SMF part2...
-	data.replace(1224, 128, temp);           // replace gt10 address "0B"...
+  data.replace(1224, 128, temp);           // replace gt10 address "0B"...
 	temp = smf_data.mid(a+1675, 128);          // copy SMF part1...
 	data.replace(1365,128, temp);            // replace gt10 address "0C"...
+	} else {
+  temp = smf_data.mid(a+1531, 18);           // copy SMF part1...
+  data.replace(1224, 18, temp);           // replace gt10 address "0B"...chain only.
+  };
 	
     if (index>0)
     {
+    default_data = data;
+    if(isGT10 == true) {convertFromGT10(); };
     SysxIO *sysxIO = SysxIO::Instance();
     QString area = "Structure";
-		sysxIO->setFileSource(area, data);
+		sysxIO->setFileSource(area, default_data);
 		sysxIO->setFileName(this->fileName);
 		this->fileSource = sysxIO->getFileSource();
 		return true;  
@@ -549,9 +541,13 @@ bool sysxWriter::readFile()
   } 
   else if (isGXB)      // if the read file is a Boss Librarian type. ***************************************
   {
+  bool isGT10 = false;
+  char f = data.at(2);
+  char g = hextable.at(71);
+  if (f == g ) { isGT10 = true;  };   // test file header for GXB or GXG type.
   index=1;
-  unsigned char msb = (char)data[34];     // find patch count msb bit in GXG file at byte 34
-  unsigned char lsb = (char)data[35];     // find patch count lsb bit in GXG file at byte 35
+  unsigned char msb = (char)data[34];     // find patch count msb bit in GXB file at byte 34
+  unsigned char lsb = (char)data[35];     // find patch count lsb bit in GXB file at byte 35
   bool ok;
   int patchCount;
   patchCount = (256*QString::number(msb, 16).toUpper().toInt(&ok, 16)) + (QString::number(lsb, 16).toUpper().toInt(&ok, 16));
@@ -620,36 +616,43 @@ bool sysxWriter::readFile()
    default_data.replace(942, 128, temp);     //address "09" +
    temp = data.mid(a+1280, 128);
    default_data.replace(1083, 128, temp);    //address "0A" +      
-   temp = data.mid(a+1408, 128);
+   if (isGT10 != true) {
+   temp = data.mid(a+1408, 128);   
    default_data.replace(1224, 128, temp);    //address "0B" +     
    temp = data.mid(a+1536, 128);
    default_data.replace(1365, 128, temp);    //address "0C" +  
+   } else {
+    temp = data.mid(a+1408, 18);   
+   default_data.replace(1224, 18, temp);    //address "0B" Chain only 
+   };
    
-   temp = data.mid(32, 1);
-   int z = a+1701;
-   int y = data.indexOf( temp, (a+1701));          // copy user text, first two sections only, section terminated by "00"
-   int x = data.indexOf( temp, (a+1701)) + 1; 
-   int w = data.indexOf( temp, (x+1));
-   temp = data.mid(z, (y-z) );
-   marker = data.mid(31, 1);    //"20"
-   if (temp.size()>0 )
-    {      
-      for (int u = (32-(y-z));u>0; u--)
-      { temp.append(marker); };
-      if (temp.size()>32) {temp=temp.mid(0, 32); }
-      default_data.replace(1647, (y-z), temp);       // paste text 1
-    };   
+    // copy user text, first two sections only, sections seperated/terminated by "00"
+   temp = data.mid(32, 1);                    //copy "00"
+   int z = a+1701;                            //start position of first text dialog.
+   int y = data.indexOf( temp, (a+1701));     //end position of first text dialog.
+   int x = data.indexOf( temp, (a+1701)) + 1; //start position of second text dialog.
+   int w = data.indexOf( temp, (x+1));        //end position of second text dialog.
+   temp = data.mid(z, (y-z) );                //copy first text dialog.
+   marker = data.mid(31, 1);                  //copy "20"
+   if ((y-z)>2 )
+    {
+       for (int u = (128-(y-z));u>0; u--)
+       { temp.append(marker); };
+      if (temp.size()>128) {temp=temp.mid(0, 128); };
+      default_data.replace(1506, 128, temp);   // paste text 1
+    };
     temp = data.mid(x, (w-x) );
-    if (temp.size()>0 )
-    {      
-      for (int u = (128-(w-x));u>0; u--)
+    if ((w-x)>2 )
+    {
+      for (int u = (32-(w-x));u>0; u--)
       { temp.append(marker); };
-      if (temp.size()>128) {temp=temp.mid(0, 128); }
-      default_data.replace(1506, (w-x), temp);            // paste text 2
+      if (temp.size()>32) {temp=temp.mid(0, 32); };
+      default_data.replace(1647, 32, temp);    // paste text 2
     };
     
     if (index>0)
     {
+    if (isGT10 == true) { convertFromGT10(); };
     SysxIO *sysxIO = SysxIO::Instance();
     QString area = "Structure";
 		sysxIO->setFileSource(area, default_data);
@@ -938,30 +941,21 @@ void sysxWriter::writeGXB(QString fileName)
    temp = out.mid(1224, 128);
    GXB_default.replace(a+1408, 128, temp);    //address "0B" +       
    temp = out.mid(1365, 128);
-   GXB_default.replace(a+1536, 128, temp);    //address "0C" +  
-   /*
-   temp = GXB_default.mid(32, 1);
-   int z = 1701;
-   int y = data.indexOf( temp, (1701));          // copy user text, first two sections only, section terminated by "00"
-   int x = data.indexOf( temp, (1701)) + 1; 
-   int w = data.indexOf( temp, (x+1));
-   temp = out.mid(z, (y-z) );
-   marker = out.mid(31, 1);    //"20"
-   if (temp.size()>0 )
-    {      
-      for (int u = (32-(y-z));u>0; u--)
-      { temp.append(marker); };
-      if (temp.size()>32) {temp=temp.mid(0, 32); }
-      GXB_default.replace(1647, (y-z), temp);       // paste text 1
-    };   
-    temp = out.mid(x, (w-x) );
-    if (temp.size()>0 )
-    {      
-      for (int u = (128-(w-x));u>0; u--)
-      { temp.append(marker); };
-      if (temp.size()>128) {temp=temp.mid(0, 128); }
-      GXB_default.replace(1506, (w-x), temp);            // paste text 2
-    };     */
+   GXB_default.replace(a+1536, 128, temp);    //address "0C" + 
+    
+  // copy user text, first two sections only, section terminated by "00"
+   QByteArray marker = GXB_default.mid(32, 1);     //copy "00" for position marker.
+   int z = a+1701;
+   int y = GXB_default.indexOf( marker, (a+1701));
+
+   temp = out.mid(1506, 128 );
+   GXB_default.replace(a+1701, (y-z), temp);       // paste text 1
+
+   int x = GXB_default.indexOf( marker, (y+1));
+   int w = GXB_default.indexOf( marker, (x+1));
+
+   temp = out.mid(1647, 32 );
+   GXB_default.replace(x+1, (w-x), temp);       
 		file.write(GXB_default);
 	};
 
@@ -981,4 +975,77 @@ QString sysxWriter::getFileName()
 {
 	return fileName;	
 };
+
+void sysxWriter::convertFromGT10()
+{
+  QByteArray temp;
+  temp = default_data.mid(75, 2);
+  default_data.replace(91, 2, temp); // move CS: on/off & type.
+  temp = default_data.mid(81, 2);
+  default_data.replace(93, 2, temp); // move CS: tone and level.
+  temp = default_data.mid(77, 2);
+  default_data.replace(95, 2, temp); // move CS: comp sustain & attack.
+  temp = default_data.mid(79, 1);
+  default_data.replace(97, 1, temp); // move CS: threshold.
+  temp = default_data.mid(80, 1);
+  default_data.replace(100, 1, temp); // move CS: release. 
+   
+  temp = default_data.mid(152, 1);
+  default_data.replace(232, 1, temp); // move pre on/off.  
+  temp = default_data.mid(168, 5);
+  default_data.replace(233, 5, temp); // move pre type ~ treble.  
+  temp = default_data.mid(174, 2);
+  default_data.replace(238, 2, temp); // move pre level & bright.  
+  temp = default_data.mid(176, 4);
+  default_data.replace(252, 4, temp); // move gain & solo sw & solo level & spkr type.  
+  temp = default_data.mid(180, 1);
+  default_data.replace(257, 1, temp); // move mic type.  
+  temp = default_data.mid(181, 1);
+  default_data.replace(256, 1, temp); // move mic distance.  
+  temp = default_data.mid(182, 1);
+  default_data.replace(248, 1, temp); // move mic position.  
+  temp = default_data.mid(183, 2);
+  default_data.replace(249, 2, temp); // move mic & direct levels.
+  
+  char r = default_data.at(168);
+	temp = hextable.mid((544+r), 1);
+  default_data.replace(233, 1, temp); // replace preamp type with equivalent.  
+  temp = default_data.mid(153, 1);
+  default_data.replace(1189, 1, temp); // move  channel mode.  
+  temp = default_data.mid(154, 1);
+  default_data.replace(1192, 1, temp); // move  channel select.  
+  temp = default_data.mid(156, 1);
+  default_data.replace(1194, 1, temp); // move  dynamic sense.  
+  temp = default_data.mid(206, 1);
+  default_data.replace(1191, 1, temp); // move preamp B level to B ch level.  
+  temp = default_data.mid(238, 1);
+  default_data.replace(1190, 1, temp); // move preamp A level to ch A level.
+  
+  r = default_data.at(294);
+	temp = hextable.mid((608+r), 1);
+  default_data.replace(294, 1, temp); // replace  FX1 Type.
+  
+   r = default_data.at(689);
+	temp = hextable.mid((608+r), 1);
+  default_data.replace(689, 1, temp); // replace  FX2 Type.
+  
+  
+  
+  QMessageBox *msgBox = new QMessageBox();
+	msgBox->setWindowTitle(QObject::tr("GT-10 File Import/Conversion"));
+	msgBox->setIcon(QMessageBox::Warning);
+	msgBox->setTextFormat(Qt::RichText);
+	QString msgText;
+	msgText.append("<font size='+1'><b>");
+	msgText.append(QObject::tr("<b>This is not a GT-10B patch!</b>"));
+	msgText.append("<b></font><br>");
+	msgText.append(QObject::tr("this file is a GT-10 Guitar version<br>"));
+	msgText.append(QObject::tr("*Loading this file may have unpredictable results !!*.<br>"));
+	msgText.append(QObject::tr("*with the possibility of the program crashing*.<br>"));
+	msgText.append(QObject::tr("*coversions are not perfect and some data can be out-of-range*.<br>"));
+	msgBox->setText(msgText);
+	msgBox->setStandardButtons(QMessageBox::Ok);
+	msgBox->exec();
+};
+
 

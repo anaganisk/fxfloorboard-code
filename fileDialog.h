@@ -58,7 +58,7 @@ private:
   QStackedWidget *pagesWidget;
   QByteArray fileData;
   QByteArray default_data;
-  QString type;
+  QString file_format;
 };
 
 #endif // FILEDIALOG_H

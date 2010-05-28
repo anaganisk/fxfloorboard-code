@@ -62,11 +62,11 @@ public slots:
 	void upload();
 	void summaryPage();
 	void help();
+	void whatsThis();
 	void homepage();
 	void donate();
 	void license();
 	void about();
-	void print();
 
 private:
 	void createActions();
@@ -94,6 +94,7 @@ private:
 	QAction *uploadAct;
 	QAction *summaryAct;
 	QAction *helpAct;
+	QAction *whatsThisAct;
 	QAction *homepageAct;
 	QAction *donationAct;
 	QAction *licenseAct;

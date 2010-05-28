@@ -27,16 +27,16 @@
 
 fileDialog::fileDialog(QString fileName, QList<QString> patchList, QByteArray fileData, QByteArray default_data, QString type)
 {
-    //QObject::connect(this, SIGNAL(patchIndex(int)),
-                //this->parent(), SLOT(patchIndex(int)));
+  this->file_format = type;
   this->fileData = fileData;
   this->default_data = default_data;
-  this->type = type;
   QLabel *patchLabel = new QLabel(tr("Select patch to load"));
   QLabel *nameLabel = new QLabel(fileName);
   QComboBox *patchCombo = new QComboBox;
   patchCombo->setMaxVisibleItems(200);
   patchCombo->addItems(patchList);
+  patchCombo->setWhatsThis(tr("To auditon a multi-patch *.gxg file, hover the mouse cursor over a patch and the patch data will be loaded into the GT temporary buffer"
+                              "<br>a click on the patch will load it into the editor."));
 
   QObject::connect(patchCombo, SIGNAL(currentIndexChanged(int)),
                 this, SLOT(valueChanged(int)));
@@ -46,6 +46,7 @@ fileDialog::fileDialog(QString fileName, QList<QString> patchList, QByteArray fi
 
   QPushButton *cancelButton = new QPushButton(tr("Cancel"));
   connect(cancelButton, SIGNAL(clicked()), this, SLOT(cancel()));
+  cancelButton->setWhatsThis(tr("Selecting this will close the patch load window and reset the GT back to the current editor patch."));
 
 
         QHBoxLayout *horizontalLayout = new QHBoxLayout;
@@ -74,10 +75,17 @@ void fileDialog::valueChanged(int value)
   this->close();
 };
 
+void fileDialog::cancel()
+{
+  SysxIO *sysxIO = SysxIO::Instance();
+  sysxIO->patchListValue = 0;
+  sysxIO->writeToBuffer();
+  this->close();
+};
+
 void fileDialog::highlighted(int value)
 {
-
- if (type == "gxb")
+ if (file_format == "gxb")
     {
     QByteArray marker = fileData.mid(170, 2);      //copy marker key to find "06A5" which marks the start of each patch block
     unsigned int a = fileData.indexOf(marker, 0); // locate patch start position from the start of the file
@@ -150,13 +158,6 @@ void fileDialog::highlighted(int value)
  };
 };
 
-
- void fileDialog::cancel()
-{
-  SysxIO *sysxIO = SysxIO::Instance();
-  sysxIO->patchListValue = 0;
-  this->close();
-};
 
 
 

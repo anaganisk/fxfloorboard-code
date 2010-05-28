@@ -42,6 +42,7 @@ public:
 	void writeSystemFile(QString fileName);
 	void writeSMF(QString fileName);
 	void writeGXB(QString fileName);
+	void convertFromGT10();
 	QString getFileName();
 	int index;
 	
@@ -52,7 +53,10 @@ private:
 	QString fileName;
 	SysxData fileSource;
 	SysxData systemSource;
-	QList<QString> patchList;	 
+	QList<QString> patchList;	
+  QByteArray data;
+  QByteArray default_data;
+  QByteArray hextable; 
 };
 
 #endif // SYSXWRITER_H

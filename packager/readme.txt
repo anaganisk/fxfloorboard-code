@@ -4,14 +4,17 @@ GT-10BFxFloorBoard Copyright (C) 2007~2010 Colin Willcocks (gumtownbassman@yahoo
 =======
 
 
-GT-10BFxFloorBoard version 20100510: 10 May 2010
+GT-10BFxFloorBoard version 20100525: 25 May 2010
 
 PLEASE FEEL FREE TO DONATE, YOU MAY FREELY USE THIS SOFTWARE, 
  JUST KEEP IN MIND THE 7000 HOURS SPENT OVER 4 YEARS GETTING IT HERE,
  SO FAR WITH LITTLE REWARD. I WOULD LOVE A BEER!!!. :-)
  
  ******************LATEST FEATURE***********************
- *Patch auditioning of Bulk *.GXB format files.
+ *Whats This Help dialog added, with the press of the [F1] button. 
+ *Auditioning of Patches within Bulk Files, high-lighted file is sent to the GT-10B for instant auditioning before loading. 
+ *Temp Clipboard copied events are saved to file and are re-loaded on FxFloorbOard startup. 
+ *Text Dialog for Printing or Saving to File complete patch settings list. 
  *Revised midi I/O system.  
  *Added Bulk File support for saving and loading, complete patch and system & global data backups and restoration now possible. 
  *5 way clipboard added for patch storage and partial patch pasting of individual effects. 

@@ -43,7 +43,8 @@ menuPage::menuPage(QWidget *parent, unsigned int id, QString imagePath, QPoint s
 	this->id = id;
 	this->imagePath = imagePath;
 	this->stompSize = QPixmap(imagePath).size();
-	this->stompPos = stompPos;	
+	this->stompPos = stompPos;
+  this->setWhatsThis(tr("Deep editing of the selected effect<br>pressing this button will open an edit page<br>allowing detailed setting of this effects parameters."));	
 
 	this->setFixedSize(stompSize);
 
