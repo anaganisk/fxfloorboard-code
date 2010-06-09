@@ -36,6 +36,7 @@ stompBox::stompBox(QWidget *parent, unsigned int id, QString imagePath, QPoint s
 
 	this->setFixedSize(stompSize);
 	this->editDialog = new editWindow();
+	this->setWhatsThis(tr("StompBox effect<br>most can be dragged to a new chain position by holding down the mouse button while dragging the stompbox,<br>release the mouse button over the new location.<br>a double mouse click will open the effect edit page."));
 
 	QObject::connect(this, SIGNAL( valueChanged(QString, QString, QString) ), this->parent(), SIGNAL( valueChanged(QString, QString, QString) ));
 	

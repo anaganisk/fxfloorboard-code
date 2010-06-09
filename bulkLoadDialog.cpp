@@ -160,7 +160,7 @@ bulkLoadDialog::bulkLoadDialog()
     if (file.open(QIODevice::ReadOnly))
 	{
 		this->data = file.readAll();     // read the pre-selected file, copy to 'data'
-		QFile file(":default.syx");           // Read the default GT-3 sysx file .
+		QFile file(":default.syx");           // Read the default GT-6 sysx file .
     if (file.open(QIODevice::ReadOnly))
 	  {	default_data = file.readAll(); };
 	 	  
@@ -252,11 +252,11 @@ void bulkLoadDialog::sendData()
    QString address;
    QString msg;
    QString v;
-   QString addrMSB = "07";
+   QString addrMSB = "06";
    QString replyMsg;
    for (int a=startList;a<(finishList+1);a++)
    {
-      if (z>128) {z=z-128; addrMSB = "08"; };          // next address range when > 07 7F.
+      if (z>128) {z=z-128; addrMSB = "07"; };          // next address range when > 07 7F.
       address = QString::number(z-1, 16).toUpper();
       if (address.size()<2){ address.prepend("0"); };
       int b = a*patchSize;                                // multiples of patch size.

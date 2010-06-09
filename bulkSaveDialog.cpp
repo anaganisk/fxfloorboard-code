@@ -221,7 +221,7 @@ void bulkSaveDialog::updatePatch(QString replyMsg)
   this->progressLabel->setText(patchText);                        //display the patch number and name.
   
   patchNumber = tr("File build size = ");
-  int size = (bulk.size()/2)+patchSize;
+  int size = (bulk.size()/2);
   patchNumber.append(QString::number(size, 10).toUpper() );
   patchNumber.append(tr(" bytes"));
   this->bytesLabel->setText(patchNumber);                         //display the bulk data size.

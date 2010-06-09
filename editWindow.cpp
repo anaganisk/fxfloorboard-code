@@ -53,30 +53,35 @@ editWindow::editWindow(QWidget *parent)
 	this->closeButton = new customControlLabel;
 	this->closeButton->setButton(true);
 	this->closeButton->setImage(":/images/closebutton.png");
+	this->closeButton->setWhatsThis(tr("Will close the current edit page window."));
 	
 	this->temp1_Button = new customControlLabel;
 	this->temp1_Button->setButton(true);
 	this->temp1_Button->setImage(":/images/pushbutton_dark.png");
 	this->temp1_Button->setText(tr("Temp 1 Partial"));
 	this->temp1_Button->setAlignment(Qt::AlignCenter);
+	this->temp1_Button->setWhatsThis(tr("Effect Partial Paste Button<br>will paste only the currently displayed effect part from the selected Temp clipboard."));
 		
 	this->temp2_Button = new customControlLabel;
 	this->temp2_Button->setButton(true);
 	this->temp2_Button->setImage(":/images/pushbutton_dark.png");
 	this->temp2_Button->setText(tr("Temp 2 Partial"));
 	this->temp2_Button->setAlignment(Qt::AlignCenter);
+	this->temp2_Button->setWhatsThis(tr("Effect Partial Paste Button<br>will paste only the currently displayed effect part from the selected Temp clipboard."));
 	
 	this->temp3_Button = new customControlLabel;
 	this->temp3_Button->setButton(true);
 	this->temp3_Button->setImage(":/images/pushbutton_dark.png");
 	this->temp3_Button->setText(tr("Temp 3 Partial"));
 	this->temp3_Button->setAlignment(Qt::AlignCenter);
+	this->temp3_Button->setWhatsThis(tr("Effect Partial Paste Button<br>will paste only the currently displayed effect part from the selected Temp clipboard."));
 	
 	this->temp4_Button = new customControlLabel;
 	this->temp4_Button->setButton(true);
 	this->temp4_Button->setImage(":/images/pushbutton_dark.png");
 	this->temp4_Button->setText(tr("Temp 4 Partial"));
 	this->temp4_Button->setAlignment(Qt::AlignCenter);
+	this->temp4_Button->setWhatsThis(tr("Effect Partial Paste Button<br>will paste only the currently displayed effect part from the selected Temp clipboard."));
 
   QHBoxLayout *buttonLayout = new QHBoxLayout;
 	buttonLayout->addWidget(this->temp1_Button);

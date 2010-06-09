@@ -59,29 +59,36 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
 	this->patchNumDisplay->setLabelPosition(true);
 	this->patchNumDisplay->setMainObjectName("bankMain");
 	this->patchNumDisplay->setSubObjectName("bankSub");
+	this->patchNumDisplay->setWhatsThis(tr("Patch Number Display.<br>displays the currently selected patch<br>and patch write memory location."));
 	this->patchDisplay = new customDisplay(QRect(85, patchDisplayRowOffset, 150, 34), this);
 	this->patchDisplay->setMainObjectName("nameMain");
 	this->patchDisplay->setSubObjectName("nameSub");
+	this->patchDisplay->setWhatsThis(tr("Patch Number Display.<br>displays the currently selected patch<br>and patch write memory location."));
 	this->valueDisplay = new customDisplay(QRect(245, patchDisplayRowOffset, 150, 34), this);
 	this->valueDisplay->setMainObjectName("valueMain");
 	this->valueDisplay->setSubObjectName("valueSub");
+	this->valueDisplay->setWhatsThis(tr("Patch Number Display.<br>displays the currently selected patch<br>and patch write memory location."));
 	
 	this->temp1Display = new customLabelDisplay(QRect(10, tempRowOffset+17, 170, 18), this);
 	this->temp1Display->setLabelPosition(true);
 	this->temp1Display->setMainObjectName("nameMain");
 	this->temp1Display->setMainText(tr("Empty"), Qt::AlignCenter);
+	this->temp1Display->setWhatsThis(tr("Name of the currently stored patch in the clipboard."));
 	this->temp2Display = new customLabelDisplay(QRect(190, tempRowOffset+17, 170, 18), this);
 	this->temp2Display->setLabelPosition(true);
 	this->temp2Display->setMainObjectName("nameMain");
 	this->temp2Display->setMainText(tr("Empty"), Qt::AlignCenter);
+	this->temp2Display->setWhatsThis(tr("Name of the currently stored patch in the clipboard."));
 	this->temp3Display = new customLabelDisplay(QRect(370, tempRowOffset+17, 170, 18), this);
 	this->temp3Display->setLabelPosition(true);
 	this->temp3Display->setMainObjectName("nameMain");
 	this->temp3Display->setMainText(tr("Empty"), Qt::AlignCenter);
+	this->temp3Display->setWhatsThis(tr("Name of the currently stored patch in the clipboard."));
 	this->temp4Display = new customLabelDisplay(QRect(550, tempRowOffset+17, 170, 18), this);
 	this->temp4Display->setLabelPosition(true);
 	this->temp4Display->setMainObjectName("nameMain");
 	this->temp4Display->setMainText(tr("Empty"), Qt::AlignCenter);
+	this->temp1Display->setWhatsThis(tr("Name of the currently stored patch in the clipboard."));
 	
   Preferences *preferences = Preferences::Instance();
 	QString version = preferences->getPreferences("General", "Application", "version");
@@ -90,38 +97,65 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
 
 	initPatch = new initPatchListMenu(QRect(405, patchDisplayRowOffset+19, 168, 15), this);
   renameWidget *nameEdit = new renameWidget(this); 
-  nameEdit->setGeometry(85, patchDisplayRowOffset, 150, 34); 
+  nameEdit->setGeometry(85, patchDisplayRowOffset, 150, 34);
+  nameEdit->setWhatsThis(tr("Clicking on this will open<br>a text dialog window<br>allowing user text input.")); 
   customRenameWidget *userDialog = new customRenameWidget(this, "18", "00", "00", "Structure", "20");
-  userDialog->setGeometry(500, editButtonRowOffset+5, 262, 25); 
+  userDialog->setGeometry(500, editButtonRowOffset+5, 262, 25);
+  userDialog->setWhatsThis(tr("Clicking on this will open<br>a text dialog window<br>allowing user text input.")); 
   customRenameWidget *patchDialog = new customRenameWidget(this, "17", "00", "00", "Structure", "80");
-  patchDialog->setGeometry(10, bottomOffset, 750, 25);  
+  patchDialog->setGeometry(10, bottomOffset, 750, 25);
+  patchDialog->setWhatsThis(tr("Clicking on this will open<br>a text dialog window<br>allowing user text input."));  
  
  	this->connectButton = new customButton(tr("Bulk Mode"), false, QPoint(405, patchDisplayRowOffset), this, ":/images/greenledbutton.png");
-	this->writeButton = new customButton(tr("Write/Sync"), false, QPoint(494, patchDisplayRowOffset), this, ":/images/ledbutton.png");
-	this->assign_Button = new customButton(tr("Assigns"), false, QPoint(584, patchDisplayRowOffset), this, ":/images/pushbutton.png");
-	this->system_midi_Button = new customButton(tr("Custom Settings"), false, QPoint(673, patchDisplayRowOffset), this, ":/images/pushbutton.png");
-	this->system_Button = new customButton(tr("System Settings"), false, QPoint(673, patchDisplayRowOffset+19), this, ":/images/pushbutton.png");
-	this->fv_Button = new customButton(tr("Foot Volume"), false, QPoint(584, patchDisplayRowOffset+19), this, ":/images/pushbutton.png");
+	this->connectButton->setWhatsThis(tr("Connect Button<br>used to establish a continuous midi connection<br>when lit green, the connection is valid"));
+  this->writeButton = new customButton(tr("Write/Sync"), false, QPoint(494, patchDisplayRowOffset), this, ":/images/ledbutton.png");
+	this->writeButton->setWhatsThis(tr("Write/Sync Button<br>if the patch number displays [temp buffer]<br>the current patch is sent to the GT temporary memory only<br>or else the patch will be written to the displayed patch memory location."));
+  this->assign_Button = new customButton(tr("Assigns"), false, QPoint(584, patchDisplayRowOffset), this, ":/images/pushbutton.png");
+	this->assign_Button->setWhatsThis(tr("Deep editing of the selected effect<br>pressing this button will open an edit page<br>allowing detailed setting of this effects parameters."));
+  this->system_midi_Button = new customButton(tr("Custom Settings"), false, QPoint(673, patchDisplayRowOffset), this, ":/images/pushbutton.png");
+	this->system_midi_Button->setWhatsThis(tr("Deep editing of the selected effect<br>pressing this button will open an edit page<br>allowing detailed setting of this effects parameters."));
+  this->system_Button = new customButton(tr("System Settings"), false, QPoint(673, patchDisplayRowOffset+19), this, ":/images/pushbutton.png");
+	this->system_Button->setWhatsThis(tr("Deep editing of the selected effect<br>pressing this button will open an edit page<br>allowing detailed setting of this effects parameters."));      
+  this->fv_Button = new customButton(tr("Foot Volume"), false, QPoint(584, patchDisplayRowOffset+19), this, ":/images/pushbutton.png");
+	this->fv_Button->setWhatsThis(tr("Deep editing of the selected effect<br>pressing this button will open an edit page<br>allowing detailed setting of this effects parameters."));
 	
 	this->preamp1_Button = new customButton(tr("PreAmp"), false, QPoint(10, editButtonRowOffset), this, ":/images/pushbutton.png");
-	this->pedal_Button = new customButton(tr("Wah"), false, QPoint(10, editButtonRowOffset+18), this, ":/images/pushbutton.png");
-	this->eq_Button = new customButton(tr("Equalizer"), false, QPoint(100, editButtonRowOffset), this, ":/images/pushbutton.png");
-	this->chorus_Button = new customButton(tr("Chorus"), false, QPoint(100, editButtonRowOffset+18), this, ":/images/pushbutton.png");
-	this->distortion_Button = new customButton(tr("Distortion"), false, QPoint(190,editButtonRowOffset), this, ":/images/pushbutton.png");
-	this->ns1_Button = new customButton(tr("NoiseSupp"), false, QPoint(190, editButtonRowOffset+18), this, ":/images/pushbutton.png");
-	this->fx1_Button = new customButton(tr("FX 1"), false, QPoint(280, editButtonRowOffset), this, ":/images/pushbutton.png");
-	this->fx2_Button = new customButton(tr("FX 2"), false, QPoint(280, editButtonRowOffset+18), this, ":/images/pushbutton.png");
-	this->reverb_Button = new customButton(tr("Reverb"), false, QPoint(370, editButtonRowOffset), this, ":/images/pushbutton.png");
-	this->delay_Button = new customButton(tr("Delay"), false, QPoint(370, editButtonRowOffset+18), this, ":/images/pushbutton.png");
+	this->preamp1_Button->setWhatsThis(tr("Deep editing of the selected effect<br>pressing this button will open an edit page<br>allowing detailed setting of this effects parameters."));      
+  this->pedal_Button = new customButton(tr("Wah"), false, QPoint(10, editButtonRowOffset+18), this, ":/images/pushbutton.png");
+	this->pedal_Button->setWhatsThis(tr("Deep editing of the selected effect<br>pressing this button will open an edit page<br>allowing detailed setting of this effects parameters."));
+  this->eq_Button = new customButton(tr("Equalizer"), false, QPoint(100, editButtonRowOffset), this, ":/images/pushbutton.png");
+	this->eq_Button->setWhatsThis(tr("Deep editing of the selected effect<br>pressing this button will open an edit page<br>allowing detailed setting of this effects parameters."));
+  this->chorus_Button = new customButton(tr("Chorus"), false, QPoint(100, editButtonRowOffset+18), this, ":/images/pushbutton.png");
+	this->chorus_Button->setWhatsThis(tr("Deep editing of the selected effect<br>pressing this button will open an edit page<br>allowing detailed setting of this effects parameters."));
+  this->distortion_Button = new customButton(tr("Distortion"), false, QPoint(190,editButtonRowOffset), this, ":/images/pushbutton.png");
+	this->distortion_Button->setWhatsThis(tr("Deep editing of the selected effect<br>pressing this button will open an edit page<br>allowing detailed setting of this effects parameters."));
+  this->ns1_Button = new customButton(tr("NoiseSupp"), false, QPoint(190, editButtonRowOffset+18), this, ":/images/pushbutton.png");
+	this->ns1_Button->setWhatsThis(tr("Deep editing of the selected effect<br>pressing this button will open an edit page<br>allowing detailed setting of this effects parameters."));
+  this->fx1_Button = new customButton(tr("FX 1"), false, QPoint(280, editButtonRowOffset), this, ":/images/pushbutton.png");
+	this->fx1_Button->setWhatsThis(tr("Deep editing of the selected effect<br>pressing this button will open an edit page<br>allowing detailed setting of this effects parameters."));
+  this->fx2_Button = new customButton(tr("FX 2"), false, QPoint(280, editButtonRowOffset+18), this, ":/images/pushbutton.png");
+	this->fx2_Button->setWhatsThis(tr("Deep editing of the selected effect<br>pressing this button will open an edit page<br>allowing detailed setting of this effects parameters."));
+  this->reverb_Button = new customButton(tr("Reverb"), false, QPoint(370, editButtonRowOffset), this, ":/images/pushbutton.png");
+	this->reverb_Button->setWhatsThis(tr("Deep editing of the selected effect<br>pressing this button will open an edit page<br>allowing detailed setting of this effects parameters."));
+  this->delay_Button = new customButton(tr("Delay"), false, QPoint(370, editButtonRowOffset+18), this, ":/images/pushbutton.png");
+	this->delay_Button->setWhatsThis(tr("Deep editing of the selected effect<br>pressing this button will open an edit page<br>allowing detailed setting of this effects parameters."));
 	
 	this->temp1_copy_Button = new customButton(tr("Temp-1 Copy"), false, QPoint(10, tempRowOffset), this, ":/images/pushbutton.png");
-	this->temp1_paste_Button = new customButton(tr("Temp-1 Paste"), false, QPoint(100, tempRowOffset), this, ":/images/pushbutton.png");
-	this->temp2_copy_Button = new customButton(tr("Temp-2 Copy"), false, QPoint(190, tempRowOffset), this, ":/images/pushbutton.png");
+	this->temp1_copy_Button->setWhatsThis(tr("Copy current patch to clipboard<br>pressing this button will save the current patch to a clipboard<br>the clipboard is saved to file and is re-loaded<br>on the next session startup."));
+  this->temp1_paste_Button = new customButton(tr("Temp-1 Paste"), false, QPoint(100, tempRowOffset), this, ":/images/pushbutton.png");
+	this->temp1_paste_Button->setWhatsThis(tr("Paste current patch from clipboard<br>pressing this button will load the current patch to a clipboard<br>the clipboard is re-loaded<br>from the previous session copy."));
+  this->temp2_copy_Button = new customButton(tr("Temp-2 Copy"), false, QPoint(190, tempRowOffset), this, ":/images/pushbutton.png");
+  this->temp2_copy_Button->setWhatsThis(tr("Copy current patch to clipboard<br>pressing this button will save the current patch to a clipboard<br>the clipboard is saved to file and is re-loaded<br>on the next session startup."));
   this->temp2_paste_Button = new customButton(tr("Temp-2 Paste"), false, QPoint(280, tempRowOffset), this, ":/images/pushbutton.png");
+  this->temp2_paste_Button->setWhatsThis(tr("Paste current patch from clipboard<br>pressing this button will load the current patch to a clipboard<br>the clipboard is re-loaded<br>from the previous session copy."));
   this->temp3_copy_Button = new customButton(tr("Temp-3 Copy"), false, QPoint(370, tempRowOffset), this, ":/images/pushbutton.png");
+  this->temp3_copy_Button->setWhatsThis(tr("Copy current patch to clipboard<br>pressing this button will save the current patch to a clipboard<br>the clipboard is saved to file and is re-loaded<br>on the next session startup."));
   this->temp3_paste_Button = new customButton(tr("Temp-3 Paste"), false, QPoint(460, tempRowOffset), this, ":/images/pushbutton.png");
+  this->temp3_paste_Button->setWhatsThis(tr("Paste current patch from clipboard<br>pressing this button will load the current patch to a clipboard<br>the clipboard is re-loaded<br>from the previous session copy."));
   this->temp4_copy_Button = new customButton(tr("Temp-4 Copy"), false, QPoint(550, tempRowOffset), this, ":/images/pushbutton.png");
+  this->temp4_copy_Button->setWhatsThis(tr("Copy current patch to clipboard<br>pressing this button will save the current patch to a clipboard<br>the clipboard is saved to file and is re-loaded<br>on the next session startup."));
   this->temp4_paste_Button = new customButton(tr("Temp-4 Paste"), false, QPoint(640, tempRowOffset), this, ":/images/pushbutton.png");
+	this->temp4_paste_Button->setWhatsThis(tr("Paste current patch from clipboard<br>pressing this button will load the current patch to a clipboard<br>the clipboard is re-loaded<br>from the previous session copy."));
 	
 	SysxIO *sysxIO = SysxIO::Instance();
 	QObject::connect(this, SIGNAL(setStatusSymbol(int)), sysxIO, SIGNAL(setStatusSymbol(int)));
@@ -157,9 +191,10 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
 	QObject::connect(this->temp4_copy_Button, SIGNAL(valueChanged(bool)),  this, SLOT(temp4_copy(bool)));
 	QObject::connect(this->temp4_paste_Button, SIGNAL(valueChanged(bool)), this, SLOT(temp4_paste(bool)));
 
-	QString midiIn = preferences->getPreferences("Midi", "MidiIn", "device");
-	QString midiOut = preferences->getPreferences("Midi", "MidiOut", "device");
-	if(midiIn!="" && midiOut!="") {autoconnect(); };
+  set_temp();
+	//QString midiIn = preferences->getPreferences("Midi", "MidiIn", "device");
+	//QString midiOut = preferences->getPreferences("Midi", "MidiOut", "device");
+	//if(midiIn!="" && midiOut!="") {autoconnect(); };
   };
 
 QPoint floorBoardDisplay::getPos()
@@ -228,7 +263,7 @@ void floorBoardDisplay::setPatchNumDisplay(int bank, int patch)
 	{
 		if(bank <= bankTotalUser)
 		{
-			this->patchNumDisplay->resetAllColor();
+			this->patchNumDisplay->setAllColor(QColor(0,255,204));
 			this->patchNumDisplay->setSubText(tr("User"));
 		}
 		else
@@ -238,28 +273,11 @@ void floorBoardDisplay::setPatchNumDisplay(int bank, int patch)
 		};
 
 		QString str;
-		if (deviceType == "GT-6B"){
-		if(bank < 11)
-		{ str.append("U"); }
-		else if(bank < 21)
-		{ str.append("u"); }
-		else 
-		{ str.append("P"); };
-		if (bank < 10)
-		{str.append(QString::number(bank, 10));}
-		else if (bank < 20)
-		{str.append(QString::number(bank-10, 10));}
-	    else if (bank < 30)
-		{str.append(QString::number(bank-20, 10));}
-		else 
-		{str.append(QString::number(bank-30, 10));};
-		} else {
-    		if(bank < 10)
+    if(bank < 10)
 		{
 			str.append("0");
 		};
 		str.append(QString::number(bank, 10));
-		};
 		str.append(":");
 		str.append(QString::number(patch, 10));
 
@@ -272,6 +290,123 @@ void floorBoardDisplay::setPatchNumDisplay(int bank, int patch)
 		QString str = tr("Buffer");
 		this->patchNumDisplay->setMainText(str, Qt::AlignCenter);
 	};
+};
+
+void floorBoardDisplay::set_temp()
+{
+  SysxIO *sysxIO = SysxIO::Instance();
+  QByteArray data;
+	
+  QFile file1("temp-1.syx");   // Read the default sysx file so we don't start empty handed.
+  if (file1.open(QIODevice::ReadOnly))
+	{	data = file1.readAll(); };
+	
+	QList<QString> sysxBuffer; 
+	for(int i=0;i<data.size();i++)
+	{
+		unsigned char byte = (char)data[i];
+		unsigned int n = (int)byte;
+		QString hex = QString::number(n, 16).toUpper();     // convert QByteArray to QString
+		if (hex.length() < 2) hex.prepend("0");
+		sysxBuffer.append(hex);
+  };
+	if( data.size() == patchSize + 228)
+	{
+	 QString patchText;
+	 unsigned char r;
+	 unsigned int a = sysxNameOffset; // locate patch text start position from the start of the file
+	 for (int b=0;b<nameLength;b++)
+           {
+             r = (char)data[a+b];
+             patchText.append(r);         // extract the text characters from the current patch name.
+           };
+   this->temp1Display->setMainText(patchText, Qt::AlignCenter); 
+   sysxIO->temp1_sysxMsg = sysxBuffer;
+  };
+  
+  data.clear();
+  QFile file2("temp-2.syx");   // Read the default sysx file so we don't start empty handed.
+  if (file2.open(QIODevice::ReadOnly))
+	{	data = file2.readAll(); };
+	
+	sysxBuffer.clear(); 
+	for(int i=0;i<data.size();i++)
+	{
+		unsigned char byte = (char)data[i];
+		unsigned int n = (int)byte;
+		QString hex = QString::number(n, 16).toUpper();     // convert QByteArray to QString
+		if (hex.length() < 2) hex.prepend("0");
+		sysxBuffer.append(hex);
+  };
+	if( data.size() == patchSize + 228)
+	{
+	 QString patchText;
+	 unsigned char r;
+	 unsigned int a = sysxNameOffset; // locate patch text start position from the start of the file
+	 for (int b=0;b<nameLength;b++)
+           {
+             r = (char)data[a+b];
+             patchText.append(r);         // extract the text characters from the current patch name.
+           };
+   this->temp2Display->setMainText(patchText, Qt::AlignCenter); 
+   sysxIO->temp2_sysxMsg = sysxBuffer;
+  };
+	
+	data.clear();
+	QFile file3("temp-3.syx");   // Read the default sysx file so we don't start empty handed.
+  if (file3.open(QIODevice::ReadOnly))
+	{	data = file3.readAll(); };
+	
+	sysxBuffer.clear(); 
+	for(int i=0;i<data.size();i++)
+	{
+		unsigned char byte = (char)data[i];
+		unsigned int n = (int)byte;
+		QString hex = QString::number(n, 16).toUpper();     // convert QByteArray to QString
+		if (hex.length() < 2) hex.prepend("0");
+		sysxBuffer.append(hex);
+  };
+	if( data.size() == patchSize + 228)
+	{
+	 QString patchText;
+	 unsigned char r;
+	 unsigned int a = sysxNameOffset; // locate patch text start position from the start of the file
+	 for (int b=0;b<nameLength;b++)
+           {
+             r = (char)data[a+b];
+             patchText.append(r);         // extract the text characters from the current patch name.
+           };
+   this->temp3Display->setMainText(patchText, Qt::AlignCenter); 
+   sysxIO->temp3_sysxMsg = sysxBuffer;
+  };
+	
+	data.clear();
+	QFile file4("temp-4.syx");   // Read the default sysx file so we don't start empty handed.
+  if (file4.open(QIODevice::ReadOnly))
+	{	data = file4.readAll(); };
+	
+	sysxBuffer.clear(); 
+	for(int i=0;i<data.size();i++)
+	{
+		unsigned char byte = (char)data[i];
+		unsigned int n = (int)byte;
+		QString hex = QString::number(n, 16).toUpper();     // convert QByteArray to QString
+		if (hex.length() < 2) hex.prepend("0");
+		sysxBuffer.append(hex);
+  };
+	if( data.size() == patchSize + 228)
+	{
+	 QString patchText;
+	 unsigned char r;
+	 unsigned int a = sysxNameOffset; // locate patch text start position from the start of the file
+	 for (int b=0;b<nameLength;b++)
+           {
+             r = (char)data[a+b];
+             patchText.append(r);         // extract the text characters from the current patch name.
+           };
+   this->temp4Display->setMainText(patchText, Qt::AlignCenter); 
+   sysxIO->temp4_sysxMsg = sysxBuffer;
+  };
 };
 
 void floorBoardDisplay::temp1_copy(bool value)
@@ -303,7 +438,8 @@ void floorBoardDisplay::temp1_copy(bool value)
 	{
 	this->patchName = sysxIO->getCurrentPatchName();
   this->temp1Display->setMainText(patchName, Qt::AlignCenter);  
-  sysxIO->temp1_sysxMsg = sysxMsg;  
+  sysxIO->temp1_sysxMsg = sysxMsg;
+  save_temp("temp-1.syx", sysxMsg);  
   } else {
   QApplication::beep();
   QString size = QString::number(sysxMsg.size(), 10); 
@@ -366,7 +502,8 @@ void floorBoardDisplay::temp2_copy(bool value)
 	{
 	this->patchName = sysxIO->getCurrentPatchName();
   this->temp2Display->setMainText(patchName, Qt::AlignCenter);  
-  sysxIO->temp2_sysxMsg = sysxMsg;  
+  sysxIO->temp2_sysxMsg = sysxMsg;
+  save_temp("temp-2.syx", sysxMsg);  
   } else {
   QApplication::beep(); 
     QString size = QString::number(sysxMsg.size(), 10); 
@@ -430,7 +567,8 @@ void floorBoardDisplay::temp3_copy(bool value)
 	{
 	this->patchName = sysxIO->getCurrentPatchName();
   this->temp3Display->setMainText(patchName, Qt::AlignCenter);  
-  sysxIO->temp3_sysxMsg = sysxMsg;  
+  sysxIO->temp3_sysxMsg = sysxMsg;
+  save_temp("temp-3.syx", sysxMsg);  
   } else {
   QApplication::beep(); 
   QString size = QString::number(sysxMsg.size(), 10); 
@@ -493,7 +631,8 @@ void floorBoardDisplay::temp4_copy(bool value)
 	{
 	this->patchName = sysxIO->getCurrentPatchName();
   this->temp4Display->setMainText(patchName, Qt::AlignCenter);  
-  sysxIO->temp4_sysxMsg = sysxMsg;  
+  sysxIO->temp4_sysxMsg = sysxMsg;
+  save_temp("temp-4.syx", sysxMsg);   
   } else {
   QApplication::beep(); 
   QString size = QString::number(sysxMsg.size(), 10); 
@@ -525,6 +664,26 @@ void floorBoardDisplay::temp4_paste(bool value)
    QApplication::beep();
    sysxIO->emitStatusdBugMessage(tr("patch must be copied to Temp-4 clipboard first"));
 	};
+};
+
+void floorBoardDisplay::save_temp(QString fileName, QList<QString> sysxMsg)
+ {
+   QFile file(fileName);
+    if (file.open(QIODevice::WriteOnly))
+	{		
+		QByteArray out;
+		unsigned int count=0;		
+			QList<QString> data = sysxMsg;
+			for (QList<QString>::iterator code = data.begin(); code != data.end(); ++code)
+			{
+				QString str(*code);
+				bool ok;
+				unsigned int n = str.toInt(&ok, 16);
+				out[count] = (char)n;
+				count++;
+			};
+		file.write(out);
+	}; 
 };
 
 void floorBoardDisplay::updateDisplay()

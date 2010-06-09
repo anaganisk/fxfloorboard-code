@@ -90,6 +90,7 @@ HEADERS += ./editPage.h \
     ./stompbox_pre.h \
     ./stompbox_rv.h \
     ./stompbox_wah.h \
+    ./summaryDialog.h \
     ./SysxIO.h \
     ./SysxIODestroyer.h \
     ./sysxWriter.h \
@@ -162,6 +163,7 @@ SOURCES += ./editPage.cpp \
     ./stompbox_pre.cpp \
     ./stompbox_rv.cpp \
     ./stompbox_wah.cpp \
+    ./summaryDialog.cpp \
     ./SysxIO.cpp \
     ./SysxIODestroyer.cpp \
     ./sysxWriter.cpp \

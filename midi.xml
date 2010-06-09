@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<!-- edited with XMLSpy v2009 sp1 (http://www.altova.com) by col (x) -->
+<!-- edited with XMLSpy v2009 sp1 (http://www.altova.com) by x (x) -->
 <SysX desc="GT6 Midi implementation" version="1.0" customdesc="">
 	<Header>
 		<DATA value="00" abbr="" desc="" customdesc="">
@@ -1574,7 +1574,7 @@
 					<PARAM value="00" name="Off" desc="" customdesc=""/>
 					<PARAM value="01" name="On" desc="" customdesc=""/>
 				</DATA>
-				<DATA value="01" name="" abbr="" desc="(Reserved)" customdesc="(Reserved)">
+				<DATA value="01" name="" abbr="" desc="" customdesc="(Reserved)">
 					<PARAM value="range" name="00/64/00/100" desc="" customdesc=""/>
 				</DATA>
 				<DATA value="02" name="" abbr="" desc="FX1:FX Select" customdesc="select">
@@ -1680,7 +1680,7 @@
 					<PARAM value="range" name="00/64/00/100" desc=" %"/>
 				</DATA>
 				<DATA value="1C" name="" abbr="" desc="FB: Vibrato depth" customdesc="Vibrato depth">
-					<PARAM value="range" name="00/64/-50/+50" desc=" dB"/>
+					<PARAM value="range" name="00/64/-50/+50" desc=""/>
 				</DATA>
 				<DATA value="1D" name="" abbr="" desc="AFB: Freq 1" customdesc="Freq 1">
 					<PARAM value="range" name="00/64/00/100" desc=" %" customdesc=""/>
@@ -1729,7 +1729,7 @@
 					<PARAM value="00" name="Off" desc="" customdesc=""/>
 					<PARAM value="01" name="On" desc="" customdesc=""/>
 				</DATA>
-				<DATA value="01" name="" abbr="" desc="(Reserved)" customdesc="(Reserved)">
+				<DATA value="01" name="" abbr="" desc="" customdesc="(Reserved)">
 					<PARAM value="range" name="00/64/00/100" desc="" customdesc=""/>
 				</DATA>
 				<DATA value="02" name="" abbr="" desc="Fx Select" customdesc="Select">
@@ -1816,7 +1816,7 @@
 					<PARAM value="00" name="Off" desc="" customdesc=""/>
 					<PARAM value="01" name="On" desc="" customdesc=""/>
 				</DATA>
-				<DATA value="01" name="" abbr="" desc="(Reserved)" customdesc="(Reserved)">
+				<DATA value="01" name="" abbr="" desc="" customdesc="(Reserved)">
 					<PARAM value="range" name="00/64/00/100" desc="" customdesc=""/>
 				</DATA>
 				<DATA value="02" name="" abbr="" desc="Type" customdesc="type">
@@ -1859,7 +1859,7 @@
 					<PARAM value="00" name="Off" desc=""/>
 					<PARAM value="01" name="On" desc=""/>
 				</DATA>
-				<DATA value="01" name="Pre-Amp" abbr="" desc="(Reserved)" customdesc="(Reserved)">
+				<DATA value="01" name="Pre-Amp" abbr="" desc="" customdesc="(Reserved)">
 					<PARAM value="range" name="00/64/00/100" desc="" customdesc=""/>
 				</DATA>
 				<DATA value="02" name="Pre-Amp" abbr="" desc="PRE :PreAmp Type" customdesc="type">
@@ -1954,7 +1954,7 @@
 					<PARAM value="00" name="Off" desc="" customdesc=""/>
 					<PARAM value="01" name="On" desc="" customdesc=""/>
 				</DATA>
-				<DATA value="01" name="" abbr="" desc="(Reserved)" customdesc="(Reserved)">
+				<DATA value="01" name="" abbr="" desc="" customdesc="(Reserved)">
 					<PARAM value="range" name="00/64/00/100" desc="" customdesc=""/>
 				</DATA>
 				<DATA value="02" name="" abbr="" desc="Low EQ" customdesc="low eq">
@@ -2042,7 +2042,7 @@
 					<PARAM value="00" name="Off" desc="" customdesc=""/>
 					<PARAM value="01" name="On" desc="" customdesc=""/>
 				</DATA>
-				<DATA value="01" name="" abbr="" desc="(Reserved)" customdesc="(Reserved)">
+				<DATA value="01" name="" abbr="" desc="" customdesc="(Reserved)">
 					<PARAM value="range" name="00/64/00/100" desc="" customdesc=""/>
 				</DATA>
 				<DATA value="02" name="" abbr="" desc="FX2:FX Select" customdesc="select">
@@ -2237,6 +2237,7 @@
 						<PARAM value="33" name="1/4" desc="1/4"/>
 					</DATA>
 				</DATA>
+				<DATA value="16" name="" abbr="" desc="" customdesc=""/>
 				<DATA value="17" name="" abbr="" desc="HR :Voice1:Feedback" customdesc="feedback">
 					<PARAM value="range" name="00/64/00/100" desc=" %" customdesc="V1 F.B."/>
 				</DATA>
@@ -2321,6 +2322,7 @@
 						<PARAM value="33" name="1/4" desc="1/4"/>
 					</DATA>
 				</DATA>
+				<DATA value="1B" name="" abbr="" desc="" customdesc=""/>
 				<DATA value="1C" name="" abbr="" desc="HR :Voice2:Level" customdesc="level">
 					<PARAM value="range" name="00/64/00/100" desc=" %" customdesc=""/>
 				</DATA>
@@ -2376,6 +2378,7 @@
 						<PARAM value="33" name="1/4" desc="1/4" customdesc="1/4"/>
 					</DATA>
 				</DATA>
+				<DATA value="24" name="" abbr="" desc="" customdesc=""/>
 				<DATA value="25" name="" abbr="" desc="PS :PS1 Feedback" customdesc="feedback">
 					<PARAM value="range" name="00/64/00/100" desc=" %" customdesc=""/>
 				</DATA>
@@ -2412,6 +2415,7 @@
 						<PARAM value="33" name="1/4" desc="1/4" customdesc="1/4"/>
 					</DATA>
 				</DATA>
+				<DATA value="2B" name="" abbr="" desc="" customdesc=""/>
 				<DATA value="2C" name="" abbr="" desc="PS :Voice2:Level" customdesc="level">
 					<PARAM value="range" name="00/64/00/100" desc=" %" customdesc=""/>
 				</DATA>
@@ -2593,6 +2597,7 @@
 						<PARAM value="17" name="1.0*bpm" desc="1.0*bpm" customdesc=""/>
 					</DATA>
 				</DATA>
+				<DATA value="47" name="" abbr="" desc="" customdesc=""/>
 				<DATA value="48" name="" abbr="" desc="SDD :feedback" customdesc="feedback">
 					<PARAM value="range" name="00/64/00/100" desc=" %" customdesc=""/>
 				</DATA>
@@ -2936,7 +2941,7 @@
 					<PARAM value="00" name="Off" desc="" customdesc=""/>
 					<PARAM value="01" name="On" desc="" customdesc=""/>
 				</DATA>
-				<DATA value="01" name="" abbr="" desc="Quick Setting" customdesc="(Reserved)">
+				<DATA value="01" name="" abbr="" desc="" customdesc="(Reserved)">
 					<PARAM value="range" name="00/64/00/100" desc="" customdesc=""/>
 				</DATA>
 				<DATA value="02" name="" abbr="" desc="DLY :Type" customdesc="type">
@@ -2991,7 +2996,7 @@
 					<PARAM value="00" name="Off" desc="" customdesc=""/>
 					<PARAM value="01" name="On" desc="" customdesc=""/>
 				</DATA>
-				<DATA value="01" name="" abbr="" desc="(Reserved)" customdesc="(Reserved)">
+				<DATA value="01" name="" abbr="" desc="" customdesc="(Reserved)">
 					<PARAM value="range" name="00/64/00/100" desc="" customdesc=""/>
 				</DATA>
 				<DATA value="02" name="" abbr="" desc="Mode" customdesc="mode">
@@ -3043,7 +3048,7 @@
 					<PARAM value="00" name="Off" desc="" customdesc=""/>
 					<PARAM value="01" name="On" desc="" customdesc=""/>
 				</DATA>
-				<DATA value="01" name="" abbr="" desc="Quick Setting" customdesc="(Reserved)">
+				<DATA value="01" name="" abbr="" desc="" customdesc="(Reserved)">
 					<PARAM value="range" name="00/64/00/100" desc="" customdesc=""/>
 				</DATA>
 				<DATA value="02" name="" abbr="" desc="REV :Type" customdesc="type">
@@ -3108,12 +3113,13 @@
 				</DATA>
 				<DATA value="04" name="" abbr="" desc="Master bpm" customdesc="master bpm">
 					<DATA value="00" name="" abbr="" desc="Master bpm(LSB)" customdesc="">
-						<PARAM value="range" name="00/7F/40/167" desc="40 - 250" customdesc="bpm"/>
+						<PARAM value="range" name="00/7F/40/167" desc="" customdesc="bpm"/>
 					</DATA>
 					<DATA value="01" name="" abbr="" desc="Master bpm(LSB)" customdesc="">
-						<PARAM value="range" name="00/52/168/250" desc="40 - 250" customdesc="bpm"/>
+						<PARAM value="range" name="00/52/168/250" desc="" customdesc="bpm"/>
 					</DATA>
 				</DATA>
+				<DATA value="05" name="" abbr="" desc="" customdesc=""/>
 				<DATA value="06" name="" abbr="" desc="FV :Level" customdesc="FV Level">
 					<PARAM value="range" name="00/64/00/100" desc=" %" customdesc=""/>
 				</DATA>
@@ -3240,7 +3246,7 @@
 		</LSB>
 		<LSB value="0C" name="Expression Pedal" abbr="EXP PDL" desc="EXP PDL" customdesc="">
 			<LSB value="00" name="" abbr="" desc="Address MSB" customdesc="">
-				<DATA value="00" name="" abbr="" desc="On/Off" customdesc="On/Off">
+				<DATA value="00" name="" abbr="" desc="Expression Pedal" customdesc="On/Off">
 					<PARAM value="00" name="Off" desc="  Off   "/>
 					<PARAM value="01" name="On" desc="  On"/>
 				</DATA>
@@ -3254,14 +3260,14 @@
 		</LSB>
 		<LSB value="0D" name="Expression Pedal Switch" abbr="EXP PDL SW" desc="EXP PDL SW" customdesc="">
 			<LSB value="00" name="" abbr="" desc="Address MSB" customdesc="">
-				<DATA value="00" name="EXP PDL SW" abbr="" desc="EXP PDL SW" customdesc="On/Off">
+				<DATA value="00" name="" abbr="" desc="EXP PDL SW" customdesc="On/Off">
 					<PARAM value="00" name="Off" desc="  Off   "/>
 					<PARAM value="01" name="On" desc="  On"/>
 				</DATA>
-				<DATA value="01" name="EXP PDL SW" abbr="" desc="EXP PDL SW" customdesc="Quick setting">
+				<DATA value="01" name="" abbr="" desc="" customdesc="Quick setting">
 					<PARAM value="range" name="00/64/00/100" desc="" customdesc=""/>
 				</DATA>
-				<DATA value="02" name="EXP PDL SW" abbr="" desc="EXP PDL SW" customdesc="Target">
+				<DATA value="02" name="" abbr="" desc="EXP SW Target" customdesc="Target">
 					<DATA value="00" name="" abbr="" desc="Target(LSB)">
 						<PARAM value="00" name="FX1 : On/Off" desc="00" customdesc="00"/>
 						<PARAM value="01" name="FX1 :Fx Select" desc="00" customdesc="02"/>
@@ -3504,8 +3510,8 @@
 						<PARAM value="6C" name="Effect Level Dec 2" desc="0F" customdesc="00"/>
 					</DATA>
 				</DATA>
-				<DATA value="03" name="EXP PDL SW" abbr="" desc="EXP PDL SW" customdesc="Target"/>
-				<DATA value="04" name="EXP PDL SW" abbr="Min MSB" desc="EXP PDL SW" customdesc="Min">
+				<DATA value="03" name="" abbr="" desc="" customdesc=""/>
+				<DATA value="04" name="" abbr="" desc="EXP SW Min" customdesc="Min">
 					<DATA value="00" name="" abbr="" desc="" customdesc="">
 						<PARAM value="range" name="00/7F/00/127" desc="" customdesc=""/>
 					</DATA>
@@ -3601,8 +3607,8 @@
 						<PARAM value="54" name="whole note" desc="" customdesc=""/>
 					</DATA>
 				</DATA>
-				<DATA value="05" name="EXP PDL SW" abbr="Min LSB" desc="EXP PDL SW" customdesc="Min"/>
-				<DATA value="06" name="EXP PDL SW" abbr="Max MSB" desc="EXP PDL SW" customdesc="Max">
+				<DATA value="05" name="" abbr="" desc="" customdesc=""/>
+				<DATA value="06" name="" abbr="" desc="EXP SW Max" customdesc="Max">
 					<DATA value="00" name="" abbr="" desc="" customdesc="">
 						<PARAM value="range" name="00/7F/00/127" desc="" customdesc=""/>
 					</DATA>
@@ -3698,8 +3704,8 @@
 						<PARAM value="54" name="whole note" desc="" customdesc=""/>
 					</DATA>
 				</DATA>
-				<DATA value="07" name="EXP PDL SW" abbr="Max LSB" desc="EXP PDL SW" customdesc="Max"/>
-				<DATA value="08" name="EXP PDL SW" abbr="" desc="EXP PDL SW" customdesc="Source Mode">
+				<DATA value="07" name="" abbr="" desc="" customdesc=""/>
+				<DATA value="08" name="" abbr="" desc="EXP SW Source Mode" customdesc="Source Mode">
 					<PARAM value="00" name="Normal" desc="Normal"/>
 					<PARAM value="01" name="Toggle" desc="Toggle"/>
 				</DATA>
@@ -3707,14 +3713,14 @@
 		</LSB>
 		<LSB value="0E" name="CTL Pedal" abbr="CTL PDL" desc="CTL PDL" customdesc="">
 			<LSB value="00" name="" abbr="" desc="Address MSB" customdesc="">
-				<DATA value="00" name="CTL PDL" abbr="" desc="CTL PDL" customdesc="On/Off">
+				<DATA value="00" name="" abbr="" desc="CTL PDL" customdesc="On/Off">
 					<PARAM value="00" name="Off" desc="  Off   "/>
 					<PARAM value="01" name="On" desc="  On"/>
 				</DATA>
-				<DATA value="01" name="CTL PDL" abbr="" desc="CTL PDL" customdesc="Quick setting">
+				<DATA value="01" name="" abbr="" desc="" customdesc="Quick setting">
 					<PARAM value="range" name="00/64/00/100" desc="" customdesc=""/>
 				</DATA>
-				<DATA value="02" name="CTL PDL" abbr="" desc="CTL PDL" customdesc="Target">
+				<DATA value="02" name="" abbr="" desc="CTL PDL Target" customdesc="Target">
 					<DATA value="00" name="" abbr="" desc="Target(LSB)">
 						<PARAM value="00" name="FX1 : On/Off" desc="00" customdesc="00"/>
 						<PARAM value="01" name="FX1 :Fx Select" desc="00" customdesc="02"/>
@@ -3957,8 +3963,8 @@
 						<PARAM value="6C" name="Effect Level Dec 2" desc="0F" customdesc="00"/>
 					</DATA>
 				</DATA>
-				<DATA value="03" name="CTL PDL" abbr="" desc="CTL PDL" customdesc="Target"/>
-				<DATA value="04" name="CTL PDL" abbr="Min MSB" desc="CTL PDL" customdesc="Min">
+				<DATA value="03" name="" abbr="" desc="" customdesc=""/>
+				<DATA value="04" name="" abbr="" desc="CTL PDL Min" customdesc="Min">
 					<DATA value="00" name="" abbr="" desc="" customdesc="">
 						<PARAM value="range" name="00/7F/00/127" desc="" customdesc=""/>
 					</DATA>
@@ -4054,8 +4060,8 @@
 						<PARAM value="54" name="whole note" desc="" customdesc=""/>
 					</DATA>
 				</DATA>
-				<DATA value="05" name="CTL PDL" abbr="Min LSB" desc="CTL PDL" customdesc="Min"/>
-				<DATA value="06" name="CTL PDL" abbr="Max MSB" desc="CTL PDL" customdesc="Max">
+				<DATA value="05" name="" abbr="" desc="" customdesc=""/>
+				<DATA value="06" name="" abbr="" desc="CTL PDL Max" customdesc="Max">
 					<DATA value="00" name="" abbr="" desc="" customdesc="">
 						<PARAM value="range" name="00/7F/00/127" desc="" customdesc=""/>
 					</DATA>
@@ -4151,8 +4157,8 @@
 						<PARAM value="54" name="whole note" desc="" customdesc=""/>
 					</DATA>
 				</DATA>
-				<DATA value="07" name="CTL PDL" abbr="Max LSB" desc="CTL PDL" customdesc="Max"/>
-				<DATA value="08" name="CTL PDL" abbr="" desc="CTL PDL" customdesc="Source Mode">
+				<DATA value="07" name="" abbr="" desc="" customdesc=""/>
+				<DATA value="08" name="" abbr="" desc="CTL PDL Source Mode" customdesc="Source Mode">
 					<PARAM value="00" name="Normal   " desc="Normal   "/>
 					<PARAM value="01" name="Toggle   " desc="Toggle   "/>
 				</DATA>
@@ -4164,10 +4170,10 @@
 					<PARAM value="00" name="Off" desc="Off" customdesc=""/>
 					<PARAM value="01" name="On" desc="On" customdesc=""/>
 				</DATA>
-				<DATA value="01" name="Assign-1" abbr="" desc="Assign-1" customdesc="Quick setting">
+				<DATA value="01" name="Assign-1" abbr="" desc="" customdesc="Quick setting">
 					<PARAM value="range" name="00/64/00/100" desc="" customdesc=""/>
 				</DATA>
-				<DATA value="02" name="Assign-1" abbr="" desc="Assign-1" customdesc="Target">
+				<DATA value="02" name="Assign-1" abbr="" desc="Target" customdesc="Target">
 					<DATA value="00" name="" abbr="" desc="Target(LSB)">
 						<PARAM value="00" name="FX1 : On/Off" desc="00" customdesc="00"/>
 						<PARAM value="01" name="FX1 :Fx Select" desc="00" customdesc="02"/>
@@ -4410,8 +4416,8 @@
 						<PARAM value="6C" name="Effect Level Dec 2" desc="0F" customdesc="00"/>
 					</DATA>
 				</DATA>
-				<DATA value="03" name="Assign-1" abbr="Target LSB" desc="Assign-1" customdesc="Target"/>
-				<DATA value="04" name="Assign-1" abbr="Min MSB" desc="Assign-1" customdesc="Min">
+				<DATA value="03" name="Assign-1" abbr="" desc="" customdesc=""/>
+				<DATA value="04" name="Assign-1" abbr="" desc="Min" customdesc="Min">
 					<DATA value="00" name="" abbr="" desc="" customdesc="">
 						<PARAM value="range" name="00/7F/00/127" desc="" customdesc=""/>
 					</DATA>
@@ -4507,8 +4513,8 @@
 						<PARAM value="54" name="whole note" desc="" customdesc=""/>
 					</DATA>
 				</DATA>
-				<DATA value="05" name="Assign-1" abbr="Min LSB" desc="Assign-1" customdesc="Min"/>
-				<DATA value="06" name="Assign-1" abbr="Max MSB" desc="Assign-1" customdesc="Max">
+				<DATA value="05" name="Assign-1" abbr="" desc="" customdesc=""/>
+				<DATA value="06" name="Assign-1" abbr="" desc="Max" customdesc="Max">
 					<DATA value="00" name="" abbr="" desc="" customdesc="">
 						<PARAM value="range" name="00/7F/00/127" desc="" customdesc=""/>
 					</DATA>
@@ -4604,8 +4610,8 @@
 						<PARAM value="54" name="whole note" desc="" customdesc=""/>
 					</DATA>
 				</DATA>
-				<DATA value="07" name="Assign-1" abbr="Max LSB" desc="Assign-1" customdesc="Max"/>
-				<DATA value="08" name="Assign-1" abbr="" desc="Assign-1" customdesc="Source">
+				<DATA value="07" name="Assign-1" abbr="" desc="" customdesc=""/>
+				<DATA value="08" name="Assign-1" abbr="" desc="Source" customdesc="Source">
 					<PARAM value="00" name="" desc="EXP PEDAL" customdesc=""/>
 					<PARAM value="01" name="" desc="EXP PEDAL SW" customdesc=""/>
 					<PARAM value="02" name="" desc="CTL PEDAL" customdesc=""/>
@@ -4676,14 +4682,14 @@
 					<PARAM value="43" name="" desc=" CC#94 Midi Controller" customdesc=""/>
 					<PARAM value="44" name="" desc=" CC#95 Midi Controller   " customdesc=""/>
 				</DATA>
-				<DATA value="09" name="Assign-1" abbr="" desc="Assign-1" customdesc="Source Mode  ">
+				<DATA value="09" name="Assign-1" abbr="" desc="Source Mode  " customdesc="Source Mode  ">
 					<PARAM value="00" name="Normal" desc="Normal" customdesc=""/>
 					<PARAM value="01" name="Toggle" desc="Toggle" customdesc=""/>
 				</DATA>
-				<DATA value="0A" name="Assign-1" abbr="" desc="Assign-1" customdesc="Act Rng Lo">
+				<DATA value="0A" name="Assign-1" abbr="" desc="Act Rng Lo" customdesc="Act Rng Lo">
 					<PARAM value="range" name="00/7F/00/127" desc="" customdesc=""/>
 				</DATA>
-				<DATA value="0B" name="Assign-1" abbr="" desc="Assign-1" customdesc="Act Rng Hi">
+				<DATA value="0B" name="Assign-1" abbr="" desc="Act Rng Hi" customdesc="Act Rng Hi">
 					<PARAM value="range" name="00/7F/00/127" desc="" customdesc=""/>
 				</DATA>
 			</LSB>
@@ -4694,10 +4700,10 @@
 					<PARAM value="00" name="Off" desc="Off" customdesc=""/>
 					<PARAM value="01" name="On" desc="On" customdesc=""/>
 				</DATA>
-				<DATA value="01" name="Assign-2" abbr="" desc="Assign-2" customdesc="Quick setting">
+				<DATA value="01" name="Assign-2" abbr="" desc="" customdesc="Quick setting">
 					<PARAM value="range" name="00/64/00/100" desc="" customdesc=""/>
 				</DATA>
-				<DATA value="02" name="Assign-2" abbr="" desc="Assign-2" customdesc="Target">
+				<DATA value="02" name="Assign-2" abbr="" desc="Target" customdesc="Target">
 					<DATA value="00" name="" abbr="" desc="Target(LSB)">
 						<PARAM value="00" name="FX1 : On/Off" desc="00" customdesc="00"/>
 						<PARAM value="01" name="FX1 :Fx Select" desc="00" customdesc="02"/>
@@ -4940,8 +4946,8 @@
 						<PARAM value="6C" name="Effect Level Dec 2" desc="0F" customdesc="00"/>
 					</DATA>
 				</DATA>
-				<DATA value="03" name="Assign-2" abbr="Target LSB" desc="Assign-2" customdesc="Target"/>
-				<DATA value="04" name="Assign-2" abbr="Min MSB" desc="Assign-2" customdesc="Min">
+				<DATA value="03" name="Assign-2" abbr="" desc="" customdesc=""/>
+				<DATA value="04" name="Assign-2" abbr="" desc="Min" customdesc="Min">
 					<DATA value="00" name="" abbr="" desc="" customdesc="">
 						<PARAM value="range" name="00/7F/00/127" desc="" customdesc=""/>
 					</DATA>
@@ -5037,8 +5043,8 @@
 						<PARAM value="54" name="whole note" desc="" customdesc=""/>
 					</DATA>
 				</DATA>
-				<DATA value="05" name="Assign-2" abbr="Min LSB" desc="Assign-2" customdesc="Min"/>
-				<DATA value="06" name="Assign-2" abbr="Max MSB" desc="Assign-2" customdesc="Max">
+				<DATA value="05" name="Assign-2" abbr="" desc="" customdesc=""/>
+				<DATA value="06" name="Assign-2" abbr="" desc="Max" customdesc="Max">
 					<DATA value="00" name="" abbr="" desc="" customdesc="">
 						<PARAM value="range" name="00/7F/00/127" desc="" customdesc=""/>
 					</DATA>
@@ -5134,8 +5140,8 @@
 						<PARAM value="54" name="whole note" desc="" customdesc=""/>
 					</DATA>
 				</DATA>
-				<DATA value="07" name="Assign-2" abbr="Max LSB" desc="Assign-2" customdesc="Max"/>
-				<DATA value="08" name="Assign-2" abbr="" desc="Assign-2" customdesc="Source">
+				<DATA value="07" name="Assign-2" abbr="" desc="" customdesc=""/>
+				<DATA value="08" name="Assign-2" abbr="" desc="Source" customdesc="Source">
 					<PARAM value="00" name="" desc="EXP PEDAL" customdesc=""/>
 					<PARAM value="01" name="" desc="EXP PEDAL SW" customdesc=""/>
 					<PARAM value="02" name="" desc="CTL PEDAL" customdesc=""/>
@@ -5206,14 +5212,14 @@
 					<PARAM value="43" name="" desc=" CC#94 Midi Controller" customdesc=""/>
 					<PARAM value="44" name="" desc=" CC#95 Midi Controller   " customdesc=""/>
 				</DATA>
-				<DATA value="09" name="Assign-2" abbr="" desc="Assign-2" customdesc="Source Mode  ">
+				<DATA value="09" name="Assign-2" abbr="" desc="Source Mode  " customdesc="Source Mode  ">
 					<PARAM value="00" name="Normal" desc="Normal" customdesc="Normal"/>
 					<PARAM value="01" name="Toggle         " desc="Toggle         " customdesc="Toggle         "/>
 				</DATA>
-				<DATA value="0A" name="Assign-2" abbr="" desc="Assign-2" customdesc="Act Rng Lo">
+				<DATA value="0A" name="Assign-2" abbr="" desc="Act Rng Lo" customdesc="Act Rng Lo">
 					<PARAM value="range" name="00/7F/00/127" desc="" customdesc=""/>
 				</DATA>
-				<DATA value="0B" name="Assign-2" abbr="" desc="Assign-2" customdesc="Act Rng Hi">
+				<DATA value="0B" name="Assign-2" abbr="" desc="Act Rng Hi" customdesc="Act Rng Hi">
 					<PARAM value="range" name="00/7F/00/127" desc="" customdesc=""/>
 				</DATA>
 			</LSB>
@@ -5224,10 +5230,10 @@
 					<PARAM value="00" name="Off" desc="Off" customdesc=""/>
 					<PARAM value="01" name="On" desc="On" customdesc=""/>
 				</DATA>
-				<DATA value="01" name="Assign-3" abbr="" desc="Assign-3" customdesc="Quick setting">
+				<DATA value="01" name="Assign-3" abbr="" desc="" customdesc="Quick setting">
 					<PARAM value="range" name="00/64/00/100" desc="" customdesc=""/>
 				</DATA>
-				<DATA value="02" name="Assign-3" abbr="" desc="Assign-3" customdesc="Target">
+				<DATA value="02" name="Assign-3" abbr="" desc="Target" customdesc="Target">
 					<DATA value="00" name="" abbr="" desc="Target(LSB)">
 						<PARAM value="00" name="FX1 : On/Off" desc="00" customdesc="00"/>
 						<PARAM value="01" name="FX1 :Fx Select" desc="00" customdesc="02"/>
@@ -5470,8 +5476,8 @@
 						<PARAM value="6C" name="Effect Level Dec 2" desc="0F" customdesc="00"/>
 					</DATA>
 				</DATA>
-				<DATA value="03" name="Assign-3" abbr="Target LSB" desc="Assign-3" customdesc="Target"/>
-				<DATA value="04" name="Assign-3" abbr="Min MSB" desc="Assign-3" customdesc="Min">
+				<DATA value="03" name="Assign-3" abbr="" desc="" customdesc=""/>
+				<DATA value="04" name="Assign-3" abbr="" desc="Min" customdesc="Min">
 					<DATA value="00" name="" abbr="" desc="" customdesc="">
 						<PARAM value="range" name="00/7F/00/127" desc="" customdesc=""/>
 					</DATA>
@@ -5567,8 +5573,8 @@
 						<PARAM value="54" name="whole note" desc="" customdesc=""/>
 					</DATA>
 				</DATA>
-				<DATA value="05" name="Assign-3" abbr="Min LSB" desc="Assign-3" customdesc="Min"/>
-				<DATA value="06" name="Assign-3" abbr="Max MSB" desc="Assign-3" customdesc="Max">
+				<DATA value="05" name="Assign-3" abbr="" desc="" customdesc=""/>
+				<DATA value="06" name="Assign-3" abbr="" desc="Max" customdesc="Max">
 					<DATA value="00" name="" abbr="" desc="" customdesc="">
 						<PARAM value="range" name="00/7F/00/127" desc="" customdesc=""/>
 					</DATA>
@@ -5664,8 +5670,8 @@
 						<PARAM value="54" name="whole note" desc="" customdesc=""/>
 					</DATA>
 				</DATA>
-				<DATA value="07" name="Assign-3" abbr="Max LSB" desc="Assign-3" customdesc="Max"/>
-				<DATA value="08" name="Assign-3" abbr="" desc="Assign-3" customdesc="Source">
+				<DATA value="07" name="Assign-3" abbr="" desc="" customdesc=""/>
+				<DATA value="08" name="Assign-3" abbr="" desc="Source" customdesc="Source">
 					<PARAM value="00" name="" desc="EXP PEDAL" customdesc=""/>
 					<PARAM value="01" name="" desc="EXP PEDAL SW" customdesc=""/>
 					<PARAM value="02" name="" desc="CTL PEDAL" customdesc=""/>
@@ -5736,14 +5742,14 @@
 					<PARAM value="43" name="" desc=" CC#94 Midi Controller" customdesc=""/>
 					<PARAM value="44" name="" desc=" CC#95 Midi Controller   " customdesc=""/>
 				</DATA>
-				<DATA value="09" name="Assign-3" abbr="" desc="Assign-3" customdesc="Source Mode  ">
+				<DATA value="09" name="Assign-3" abbr="" desc="Source Mode  " customdesc="Source Mode  ">
 					<PARAM value="00" name="Normal" desc="Normal" customdesc="Normal"/>
 					<PARAM value="01" name="Toggle         " desc="Toggle         " customdesc="Toggle         "/>
 				</DATA>
-				<DATA value="0A" name="Assign-3" abbr="" desc="Assign-3" customdesc="Act Rng Lo">
+				<DATA value="0A" name="Assign-3" abbr="" desc="Act Rng Lo" customdesc="Act Rng Lo">
 					<PARAM value="range" name="00/7F/00/127" desc="" customdesc=""/>
 				</DATA>
-				<DATA value="0B" name="Assign-3" abbr="" desc="Assign-3" customdesc="Act Rng Hi">
+				<DATA value="0B" name="Assign-3" abbr="" desc="Act Rng Hi" customdesc="Act Rng Hi">
 					<PARAM value="range" name="00/7F/00/127" desc="" customdesc=""/>
 				</DATA>
 			</LSB>
@@ -5754,10 +5760,10 @@
 					<PARAM value="00" name="Off" desc="Off" customdesc=""/>
 					<PARAM value="01" name="On" desc="On" customdesc=""/>
 				</DATA>
-				<DATA value="01" name="Assign-4" abbr="" desc="Assign-4" customdesc="Quick setting">
+				<DATA value="01" name="Assign-4" abbr="" desc="" customdesc="Quick setting">
 					<PARAM value="range" name="00/64/00/100" desc="" customdesc=""/>
 				</DATA>
-				<DATA value="02" name="Assign-4" abbr="" desc="Assign-4" customdesc="Target">
+				<DATA value="02" name="Assign-4" abbr="" desc="Target" customdesc="Target">
 					<DATA value="00" name="" abbr="" desc="Target(LSB)">
 						<PARAM value="00" name="FX1 : On/Off" desc="00" customdesc="00"/>
 						<PARAM value="01" name="FX1 :Fx Select" desc="00" customdesc="02"/>
@@ -6000,8 +6006,8 @@
 						<PARAM value="6C" name="Effect Level Dec 2" desc="0F" customdesc="00"/>
 					</DATA>
 				</DATA>
-				<DATA value="03" name="Assign-4" abbr="Target LSB" desc="Assign-4" customdesc="Target"/>
-				<DATA value="04" name="Assign-4" abbr="Min MSB" desc="Assign-4" customdesc="Min">
+				<DATA value="03" name="Assign-4" abbr="" desc="" customdesc=""/>
+				<DATA value="04" name="Assign-4" abbr="" desc="Min" customdesc="Min">
 					<DATA value="00" name="" abbr="" desc="" customdesc="">
 						<PARAM value="range" name="00/7F/00/127" desc="" customdesc=""/>
 					</DATA>
@@ -6097,8 +6103,8 @@
 						<PARAM value="54" name="whole note" desc="" customdesc=""/>
 					</DATA>
 				</DATA>
-				<DATA value="05" name="Assign-4" abbr="Min LSB" desc="Assign-4" customdesc="Min"/>
-				<DATA value="06" name="Assign-4" abbr="Max MSB" desc="Assign-4" customdesc="Max">
+				<DATA value="05" name="Assign-4" abbr="" desc="" customdesc=""/>
+				<DATA value="06" name="Assign-4" abbr="" desc="Max" customdesc="Max">
 					<DATA value="00" name="" abbr="" desc="" customdesc="">
 						<PARAM value="range" name="00/7F/00/127" desc="" customdesc=""/>
 					</DATA>
@@ -6194,8 +6200,8 @@
 						<PARAM value="54" name="whole note" desc="" customdesc=""/>
 					</DATA>
 				</DATA>
-				<DATA value="07" name="Assign-4" abbr="Max LSB" desc="Assign-4" customdesc="Max"/>
-				<DATA value="08" name="Assign-4" abbr="" desc="Assign-4" customdesc="Source">
+				<DATA value="07" name="Assign-4" abbr="" desc="" customdesc=""/>
+				<DATA value="08" name="Assign-4" abbr="" desc="Source" customdesc="Source">
 					<PARAM value="00" name="" desc="EXP PEDAL" customdesc=""/>
 					<PARAM value="01" name="" desc="EXP PEDAL SW" customdesc=""/>
 					<PARAM value="02" name="" desc="CTL PEDAL" customdesc=""/>
@@ -6266,14 +6272,14 @@
 					<PARAM value="43" name="" desc=" CC#94 Midi Controller" customdesc=""/>
 					<PARAM value="44" name="" desc=" CC#95 Midi Controller   " customdesc=""/>
 				</DATA>
-				<DATA value="09" name="Assign-4" abbr="" desc="Assign-4" customdesc="Source Mode  ">
+				<DATA value="09" name="Assign-4" abbr="" desc="Source Mode  " customdesc="Source Mode  ">
 					<PARAM value="00" name="Normal" desc="Normal" customdesc="Normal"/>
 					<PARAM value="01" name="Toggle         " desc="Toggle         " customdesc="Toggle         "/>
 				</DATA>
-				<DATA value="0A" name="Assign-4" abbr="" desc="Assign-4" customdesc="Act Rng Lo">
+				<DATA value="0A" name="Assign-4" abbr="" desc="Act Rng Lo" customdesc="Act Rng Lo">
 					<PARAM value="range" name="00/7F/00/127" desc="" customdesc=""/>
 				</DATA>
-				<DATA value="0B" name="Assign-4" abbr="" desc="Assign-4" customdesc="Act Rng Hi">
+				<DATA value="0B" name="Assign-4" abbr="" desc="Act Rng Hi" customdesc="Act Rng Hi">
 					<PARAM value="range" name="00/7F/00/127" desc="" customdesc=""/>
 				</DATA>
 			</LSB>
@@ -6284,10 +6290,10 @@
 					<PARAM value="00" name="Off" desc="Off" customdesc=""/>
 					<PARAM value="01" name="On" desc="On" customdesc=""/>
 				</DATA>
-				<DATA value="01" name="Assign-5" abbr="" desc="Assign-5" customdesc="Quick setting">
+				<DATA value="01" name="Assign-5" abbr="" desc="" customdesc="Quick setting">
 					<PARAM value="range" name="00/64/00/100" desc="" customdesc=""/>
 				</DATA>
-				<DATA value="02" name="Assign-5" abbr="" desc="Assign-5" customdesc="Target">
+				<DATA value="02" name="Assign-5" abbr="" desc="Target" customdesc="Target">
 					<DATA value="00" name="" abbr="" desc="Target(LSB)">
 						<PARAM value="00" name="FX1 : On/Off" desc="00" customdesc="00"/>
 						<PARAM value="01" name="FX1 :Fx Select" desc="00" customdesc="02"/>
@@ -6530,8 +6536,8 @@
 						<PARAM value="6C" name="Effect Level Dec 2" desc="0F" customdesc="00"/>
 					</DATA>
 				</DATA>
-				<DATA value="03" name="Assign-5" abbr="Target LSB" desc="Assign-5" customdesc="Target"/>
-				<DATA value="04" name="Assign-5" abbr="Min MSB" desc="Assign-5" customdesc="Min">
+				<DATA value="03" name="Assign-5" abbr="" desc="" customdesc=""/>
+				<DATA value="04" name="Assign-5" abbr="" desc="Min" customdesc="Min">
 					<DATA value="00" name="" abbr="" desc="" customdesc="">
 						<PARAM value="range" name="00/7F/00/127" desc="" customdesc=""/>
 					</DATA>
@@ -6627,8 +6633,8 @@
 						<PARAM value="54" name="whole note" desc="" customdesc=""/>
 					</DATA>
 				</DATA>
-				<DATA value="05" name="Assign-5" abbr="Min LSB" desc="Assign-5" customdesc="Min"/>
-				<DATA value="06" name="Assign-5" abbr="Max MSB" desc="Assign-5" customdesc="Max">
+				<DATA value="05" name="Assign-5" abbr="" desc="" customdesc=""/>
+				<DATA value="06" name="Assign-5" abbr="" desc="Max" customdesc="Max">
 					<DATA value="00" name="" abbr="" desc="" customdesc="">
 						<PARAM value="range" name="00/7F/00/127" desc="" customdesc=""/>
 					</DATA>
@@ -6724,8 +6730,8 @@
 						<PARAM value="54" name="whole note" desc="" customdesc=""/>
 					</DATA>
 				</DATA>
-				<DATA value="07" name="Assign-5" abbr="Max LSB" desc="Assign-5" customdesc="Max"/>
-				<DATA value="08" name="Assign-5" abbr="" desc="Assign-5" customdesc="Source">
+				<DATA value="07" name="Assign-5" abbr="" desc="" customdesc=""/>
+				<DATA value="08" name="Assign-5" abbr="" desc="Source" customdesc="Source">
 					<PARAM value="00" name="" desc="EXP PEDAL" customdesc=""/>
 					<PARAM value="01" name="" desc="EXP PEDAL SW" customdesc=""/>
 					<PARAM value="02" name="" desc="CTL PEDAL" customdesc=""/>
@@ -6796,14 +6802,14 @@
 					<PARAM value="43" name="" desc=" CC#94 Midi Controller" customdesc=""/>
 					<PARAM value="44" name="" desc=" CC#95 Midi Controller   " customdesc=""/>
 				</DATA>
-				<DATA value="09" name="Assign-5" abbr="" desc="Assign-5" customdesc="Source Mode  ">
+				<DATA value="09" name="Assign-5" abbr="" desc="Source Mode  " customdesc="Source Mode  ">
 					<PARAM value="00" name="Normal" desc="Normal" customdesc="Normal"/>
 					<PARAM value="01" name="Toggle         " desc="Toggle         " customdesc="Toggle         "/>
 				</DATA>
-				<DATA value="0A" name="Assign-5" abbr="" desc="Assign-5" customdesc="Act Rng Lo">
+				<DATA value="0A" name="Assign-5" abbr="" desc="Act Rng Lo" customdesc="Act Rng Lo">
 					<PARAM value="range" name="00/7F/00/127" desc="" customdesc=""/>
 				</DATA>
-				<DATA value="0B" name="Assign-5" abbr="" desc="Assign-5" customdesc="Act Rng Hi">
+				<DATA value="0B" name="Assign-5" abbr="" desc="Act Rng Hi" customdesc="Act Rng Hi">
 					<PARAM value="range" name="00/7F/00/127" desc="" customdesc=""/>
 				</DATA>
 			</LSB>
@@ -6814,10 +6820,10 @@
 					<PARAM value="00" name="Off" desc="Off" customdesc=""/>
 					<PARAM value="01" name="On" desc="On" customdesc=""/>
 				</DATA>
-				<DATA value="01" name="Assign-6" abbr="" desc="Assign-6" customdesc="Quick setting">
+				<DATA value="01" name="Assign-6" abbr="" desc="" customdesc="Quick setting">
 					<PARAM value="range" name="00/64/00/100" desc="" customdesc=""/>
 				</DATA>
-				<DATA value="02" name="Assign-6" abbr="" desc="Assign-6" customdesc="Target">
+				<DATA value="02" name="Assign-6" abbr="" desc="Target" customdesc="Target">
 					<DATA value="00" name="" abbr="" desc="Target(LSB)">
 						<PARAM value="00" name="FX1 : On/Off" desc="00" customdesc="00"/>
 						<PARAM value="01" name="FX1 :Fx Select" desc="00" customdesc="02"/>
@@ -7060,8 +7066,8 @@
 						<PARAM value="6C" name="Effect Level Dec 2" desc="0F" customdesc="00"/>
 					</DATA>
 				</DATA>
-				<DATA value="03" name="Assign-6" abbr="Target LSB" desc="Assign-6" customdesc="Target"/>
-				<DATA value="04" name="Assign-6" abbr="Min MSB" desc="Assign-6" customdesc="Min">
+				<DATA value="03" name="Assign-6" abbr="" desc="" customdesc=""/>
+				<DATA value="04" name="Assign-6" abbr="" desc="Min" customdesc="Min">
 					<DATA value="00" name="" abbr="" desc="" customdesc="">
 						<PARAM value="range" name="00/7F/00/127" desc="" customdesc=""/>
 					</DATA>
@@ -7157,8 +7163,8 @@
 						<PARAM value="54" name="whole note" desc="" customdesc=""/>
 					</DATA>
 				</DATA>
-				<DATA value="05" name="Assign-6" abbr="Min LSB" desc="Assign-6" customdesc="Min"/>
-				<DATA value="06" name="Assign-6" abbr="Max MSB" desc="Assign-6" customdesc="Max">
+				<DATA value="05" name="Assign-6" abbr="" desc="" customdesc=""/>
+				<DATA value="06" name="Assign-6" abbr="" desc="Max" customdesc="Max">
 					<DATA value="00" name="" abbr="" desc="" customdesc="">
 						<PARAM value="range" name="00/7F/00/127" desc="" customdesc=""/>
 					</DATA>
@@ -7254,8 +7260,8 @@
 						<PARAM value="54" name="whole note" desc="" customdesc=""/>
 					</DATA>
 				</DATA>
-				<DATA value="07" name="Assign-6" abbr="Max LSB" desc="Assign-6" customdesc="Max"/>
-				<DATA value="08" name="Assign-6" abbr="" desc="Assign-6" customdesc="Source">
+				<DATA value="07" name="Assign-6" abbr="" desc="" customdesc=""/>
+				<DATA value="08" name="Assign-6" abbr="" desc="Source" customdesc="Source">
 					<PARAM value="00" name="" desc="EXP PEDAL" customdesc=""/>
 					<PARAM value="01" name="" desc="EXP PEDAL SW" customdesc=""/>
 					<PARAM value="02" name="" desc="CTL PEDAL" customdesc=""/>
@@ -7326,14 +7332,14 @@
 					<PARAM value="43" name="" desc=" CC#94 Midi Controller" customdesc=""/>
 					<PARAM value="44" name="" desc=" CC#95 Midi Controller   " customdesc=""/>
 				</DATA>
-				<DATA value="09" name="Assign-6" abbr="" desc="Assign-6" customdesc="Source Mode  ">
+				<DATA value="09" name="Assign-6" abbr="" desc="Source Mode  " customdesc="Source Mode  ">
 					<PARAM value="00" name="Normal" desc="Normal" customdesc="Normal"/>
 					<PARAM value="01" name="Toggle         " desc="Toggle         " customdesc="Toggle         "/>
 				</DATA>
-				<DATA value="0A" name="Assign-6" abbr="" desc="Assign-6" customdesc="Act Rng Lo">
+				<DATA value="0A" name="Assign-6" abbr="" desc="Act Rng Lo" customdesc="Act Rng Lo">
 					<PARAM value="range" name="00/7F/00/127" desc="" customdesc=""/>
 				</DATA>
-				<DATA value="0B" name="Assign-6" abbr="" desc="Assign-6" customdesc="Act Rng Hi">
+				<DATA value="0B" name="Assign-6" abbr="" desc="Act Rng Hi" customdesc="Act Rng Hi">
 					<PARAM value="range" name="00/7F/00/127" desc="" customdesc=""/>
 				</DATA>
 			</LSB>
@@ -7344,10 +7350,10 @@
 					<PARAM value="00" name="Off" desc="Off" customdesc=""/>
 					<PARAM value="01" name="On" desc="On" customdesc=""/>
 				</DATA>
-				<DATA value="01" name="Assign-7" abbr="" desc="Assign-7" customdesc="Quick setting">
+				<DATA value="01" name="Assign-7" abbr="" desc="" customdesc="Quick setting">
 					<PARAM value="range" name="00/64/00/100" desc="" customdesc=""/>
 				</DATA>
-				<DATA value="02" name="Assign-7" abbr="" desc="Assign-7" customdesc="Target">
+				<DATA value="02" name="Assign-7" abbr="" desc="Target" customdesc="Target">
 					<DATA value="00" name="" abbr="" desc="Target(LSB)">
 						<PARAM value="00" name="FX1 : On/Off" desc="00" customdesc="00"/>
 						<PARAM value="01" name="FX1 :Fx Select" desc="00" customdesc="02"/>
@@ -7590,8 +7596,8 @@
 						<PARAM value="6C" name="Effect Level Dec 2" desc="0F" customdesc="00"/>
 					</DATA>
 				</DATA>
-				<DATA value="03" name="Assign-7" abbr="Target LSB" desc="Assign-7" customdesc="Target"/>
-				<DATA value="04" name="Assign-7" abbr="Min MSB" desc="Assign-7" customdesc="Min">
+				<DATA value="03" name="Assign-7" abbr="" desc="" customdesc=""/>
+				<DATA value="04" name="Assign-7" abbr="" desc="Min" customdesc="Min">
 					<DATA value="00" name="" abbr="" desc="" customdesc="">
 						<PARAM value="range" name="00/7F/00/127" desc="" customdesc=""/>
 					</DATA>
@@ -7687,8 +7693,8 @@
 						<PARAM value="54" name="whole note" desc="" customdesc=""/>
 					</DATA>
 				</DATA>
-				<DATA value="05" name="Assign-7" abbr="Min LSB" desc="Assign-7" customdesc="Min"/>
-				<DATA value="06" name="Assign-7" abbr="Max MSB" desc="Assign-7" customdesc="Max">
+				<DATA value="05" name="Assign-7" abbr="" desc="" customdesc=""/>
+				<DATA value="06" name="Assign-7" abbr="" desc="Max" customdesc="Max">
 					<DATA value="00" name="" abbr="" desc="" customdesc="">
 						<PARAM value="range" name="00/7F/00/127" desc="" customdesc=""/>
 					</DATA>
@@ -7784,8 +7790,8 @@
 						<PARAM value="54" name="whole note" desc="" customdesc=""/>
 					</DATA>
 				</DATA>
-				<DATA value="07" name="Assign-7" abbr="Max LSB" desc="Assign-7" customdesc="Max"/>
-				<DATA value="08" name="Assign-7" abbr="" desc="Assign-7" customdesc="Source">
+				<DATA value="07" name="Assign-7" abbr="" desc="" customdesc=""/>
+				<DATA value="08" name="Assign-7" abbr="" desc="Source" customdesc="Source">
 					<PARAM value="00" name="" desc="EXP PEDAL" customdesc=""/>
 					<PARAM value="01" name="" desc="EXP PEDAL SW" customdesc=""/>
 					<PARAM value="02" name="" desc="CTL PEDAL" customdesc=""/>
@@ -7856,14 +7862,14 @@
 					<PARAM value="43" name="" desc=" CC#94 Midi Controller" customdesc=""/>
 					<PARAM value="44" name="" desc=" CC#95 Midi Controller   " customdesc=""/>
 				</DATA>
-				<DATA value="09" name="Assign-7" abbr="" desc="Assign-7" customdesc="Source Mode  ">
+				<DATA value="09" name="Assign-7" abbr="" desc="Source Mode  " customdesc="Source Mode  ">
 					<PARAM value="00" name="Normal" desc="Normal" customdesc="Normal"/>
 					<PARAM value="01" name="Toggle         " desc="Toggle         " customdesc="Toggle         "/>
 				</DATA>
-				<DATA value="0A" name="Assign-7" abbr="" desc="Assign-7" customdesc="Act Rng Lo">
+				<DATA value="0A" name="Assign-7" abbr="" desc="Act Rng Lo" customdesc="Act Rng Lo">
 					<PARAM value="range" name="00/7F/00/127" desc="" customdesc=""/>
 				</DATA>
-				<DATA value="0B" name="Assign-7" abbr="" desc="Assign-7" customdesc="Act Rng Hi">
+				<DATA value="0B" name="Assign-7" abbr="" desc="Act Rng Hi" customdesc="Act Rng Hi">
 					<PARAM value="range" name="00/7F/00/127" desc="" customdesc=""/>
 				</DATA>
 			</LSB>
@@ -7874,10 +7880,10 @@
 					<PARAM value="00" name="Off" desc="Off" customdesc=""/>
 					<PARAM value="01" name="On" desc="On" customdesc=""/>
 				</DATA>
-				<DATA value="01" name="Assign-8" abbr="" desc="Assign-8" customdesc="Quick setting">
+				<DATA value="01" name="Assign-8" abbr="" desc="" customdesc="Quick setting">
 					<PARAM value="range" name="00/64/00/100" desc="" customdesc=""/>
 				</DATA>
-				<DATA value="02" name="Assign-8" abbr="" desc="Assign-8" customdesc="Target">
+				<DATA value="02" name="Assign-8" abbr="" desc="Target" customdesc="Target">
 					<DATA value="00" name="" abbr="" desc="Target(LSB)">
 						<PARAM value="00" name="FX1 : On/Off" desc="00" customdesc="00"/>
 						<PARAM value="01" name="FX1 :Fx Select" desc="00" customdesc="02"/>
@@ -8120,8 +8126,8 @@
 						<PARAM value="6C" name="Effect Level Dec 2" desc="0F" customdesc="00"/>
 					</DATA>
 				</DATA>
-				<DATA value="03" name="Assign-8" abbr="Target LSB" desc="Assign-8" customdesc="Target"/>
-				<DATA value="04" name="Assign-8" abbr="Min MSB" desc="Assign-8" customdesc="Min">
+				<DATA value="03" name="Assign-8" abbr="" desc="" customdesc=""/>
+				<DATA value="04" name="Assign-8" abbr="" desc="Min" customdesc="Min">
 					<DATA value="00" name="" abbr="" desc="" customdesc="">
 						<PARAM value="range" name="00/7F/00/127" desc="" customdesc=""/>
 					</DATA>
@@ -8217,8 +8223,8 @@
 						<PARAM value="54" name="whole note" desc="" customdesc=""/>
 					</DATA>
 				</DATA>
-				<DATA value="05" name="Assign-8" abbr="Min LSB" desc="Assign-8" customdesc="Min"/>
-				<DATA value="06" name="Assign-8" abbr="Max MSB" desc="Assign-8" customdesc="Max">
+				<DATA value="05" name="Assign-8" abbr="" desc="" customdesc=""/>
+				<DATA value="06" name="Assign-8" abbr="" desc="Max" customdesc="Max">
 					<DATA value="00" name="" abbr="" desc="" customdesc="">
 						<PARAM value="range" name="00/7F/00/127" desc="" customdesc=""/>
 					</DATA>
@@ -8314,8 +8320,8 @@
 						<PARAM value="54" name="whole note" desc="" customdesc=""/>
 					</DATA>
 				</DATA>
-				<DATA value="07" name="Assign-8" abbr="Max LSB" desc="Assign-8" customdesc="Max"/>
-				<DATA value="08" name="Assign-8" abbr="" desc="Assign-8" customdesc="Source">
+				<DATA value="07" name="Assign-8" abbr="" desc="" customdesc=""/>
+				<DATA value="08" name="Assign-8" abbr="" desc="Source" customdesc="Source">
 					<PARAM value="00" name="" desc="EXP PEDAL" customdesc=""/>
 					<PARAM value="01" name="" desc="EXP PEDAL SW" customdesc=""/>
 					<PARAM value="02" name="" desc="CTL PEDAL" customdesc=""/>
@@ -8386,14 +8392,14 @@
 					<PARAM value="43" name="" desc=" CC#94 Midi Controller" customdesc=""/>
 					<PARAM value="44" name="" desc=" CC#95 Midi Controller   " customdesc=""/>
 				</DATA>
-				<DATA value="09" name="Assign-8" abbr="" desc="Assign-8" customdesc="Source Mode  ">
+				<DATA value="09" name="Assign-8" abbr="" desc="Source Mode  " customdesc="Source Mode  ">
 					<PARAM value="00" name="Normal" desc="Normal" customdesc="Normal"/>
 					<PARAM value="01" name="Toggle         " desc="Toggle         " customdesc="Toggle         "/>
 				</DATA>
-				<DATA value="0A" name="Assign-8" abbr="" desc="Assign-8" customdesc="Act Rng Lo">
+				<DATA value="0A" name="Assign-8" abbr="" desc="Act Rng Lo" customdesc="Act Rng Lo">
 					<PARAM value="range" name="00/7F/00/127" desc="" customdesc=""/>
 				</DATA>
-				<DATA value="0B" name="Assign-8" abbr="" desc="Assign-8" customdesc="Act Rng Hi">
+				<DATA value="0B" name="Assign-8" abbr="" desc="Act Rng Hi" customdesc="Act Rng Hi">
 					<PARAM value="range" name="00/7F/00/127" desc="" customdesc=""/>
 				</DATA>
 			</LSB>
