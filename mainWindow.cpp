@@ -31,17 +31,12 @@
 #include "bulkSaveDialog.h"
 #include "bulkLoadDialog.h"
 #include "summaryDialog.h"
+#include "summaryDialog2.h"
 #include "globalVariables.h"
 
 
 mainWindow::mainWindow(QWidget *parent)
-    : QWidget(parent)
-/* For a stange reason when deriving from QMainWindow
-        the performance is dead slow???
-
-mainWindow::mainWindow(QWidget *parent)
-        : QMainWindow(parent) */
-{
+    : QWidget(parent){
         floorBoard *fxsBoard = new floorBoard(this);
 
 
@@ -84,7 +79,6 @@ mainWindow::mainWindow(QWidget *parent)
 
 
         this->setWindowTitle(deviceType + tr(" Fx FloorBoard"));
-        //this->setCentralWidget(fxsBoard);
 
         this->createActions();
         this->createMenus();
@@ -96,12 +90,8 @@ mainWindow::mainWindow(QWidget *parent)
         mainLayout->addWidget(statusBar);
         mainLayout->setMargin(0);
         mainLayout->setSpacing(0);
-        //mainLayout->setSizeConstraint(QLayout::SetFixedSize);
         setLayout(mainLayout);
         this->statusBar->setWhatsThis("StatusBar<br>midi activity is displayed here<br>and some status messages are displayed.");
-        //QWhatsThis::enterWhatsThisMode();
-        //this->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-
         QObject::connect(fxsBoard, SIGNAL( sizeChanged(QSize, QSize) ),
                 this, SLOT( updateSize(QSize, QSize) ) );
 };
@@ -165,20 +155,10 @@ void mainWindow::createActions()
         saveAsAct->setWhatsThis(tr("Save the document under a new name"));
         connect(saveAsAct, SIGNAL(triggered()), this, SLOT(saveAs()));
 
-        /*importSMFAct = new QAction(QIcon(":/images/fileopen.png"), tr("&Import SMF... (*.mid)"), this);
-        importSMFAct->setShortcut(tr("Ctrl+I"));
-        importSMFAct->setStatusTip(tr("Import an existing SMF"));
-        connect(importSMFAct, SIGNAL(triggered()), this, SLOT(importSMF()));*/
-
         exportSMFAct = new QAction(QIcon(":/images/filesave.png"), tr("Save As &SMF Patch... (*.mid)"), this);
         exportSMFAct->setShortcut(tr("Ctrl+Shift+E"));
         exportSMFAct->setWhatsThis(tr("Export as a Standard Midi File"));
         connect(exportSMFAct, SIGNAL(triggered()), this, SLOT(exportSMF()));
-
-        /*openGXGAct = new QAction(QIcon(":/images/fileopen.png"), tr("&Open GXG... (*.gxg *.gxb)"), this);
-        openGXGAct->setShortcut(tr("Ctrl+K"));
-        openGXGAct->setStatusTip(tr("Import a Boss Librarian File"));
-        connect(openGXGAct, SIGNAL(triggered()), this, SLOT(openGXG()));*/
 
         saveGXGAct = new QAction(QIcon(":/images/filesave.png"), tr("Save As GXG Patch... (*.gxg)"), this);
         saveGXGAct->setShortcut(tr("Ctrl+Shift+G"));
@@ -197,7 +177,7 @@ void mainWindow::createActions()
 
         bulkLoadAct = new QAction(QIcon(":/images/fileopen.png"), tr("&Load Bulk Patch File to GT-10..."), this);
         bulkLoadAct->setShortcut(tr("Ctrl+B"));
-        bulkLoadAct->setWhatsThis(tr("Load Bulk Data to GT-10B"));
+        bulkLoadAct->setWhatsThis(tr("Load Bulk Data to GT-10"));
         connect(bulkLoadAct, SIGNAL(triggered()), this, SLOT(bulkLoad()));
 
         bulkSaveAct = new QAction(QIcon(":/images/filesave.png"), tr("Save Bulk GT-10 Patches to File..."), this);
@@ -222,6 +202,13 @@ void mainWindow::createActions()
         summaryAct = new QAction(QIcon(":/images/copy.png"), tr("Summary Page Text"), this);
         summaryAct->setWhatsThis(tr("Display the current patch parameters<br>in a readable text format, which<br>can be printed or saved to file."));
         connect(summaryAct, SIGNAL(triggered()), this, SLOT(summaryPage()));
+
+        // rrr: insert May 2010
+        // Disassemble the Efects Signal Chain Path A & B
+        // and Show Only Effects which are ON
+        summaryAct2 = new QAction(QIcon(":/images/copy.png"), tr("Summary Page Text2"), this);
+        summaryAct2->setStatusTip(tr("........"));
+        connect(summaryAct2, SIGNAL(triggered()), this, SLOT(summaryPage2()));
 
         helpAct = new QAction(QIcon(":/images/help.png"), tr("GT-10 Fx FloorBoard &Help"), this);
         helpAct->setShortcut(tr("Ctrl+F1"));
@@ -290,6 +277,7 @@ void mainWindow::createMenus()
         toolsMenu->addAction(uploadAct);
         fileMenu->addSeparator();
         toolsMenu->addAction(summaryAct);
+        toolsMenu->addAction(summaryAct2);
         menuBar->addMenu(toolsMenu);
 
 
@@ -562,7 +550,7 @@ void mainWindow::systemLoad()
                 this,
                 tr("Choose a file"),
                 dir,
-                tr("GT10 System Data File (*.GT10_system_syx)"));
+                deviceType + tr(" System Data File (*.GT10_system_syx)"));
         if (!fileName.isEmpty())
         {
                 file.setFile(fileName);
@@ -584,12 +572,12 @@ void mainWindow::systemLoad()
                                         msgText.append("<font size='+1'><b>");
                                         msgText.append(tr("You have chosen to load a SYSTEM DATA file."));
                                         msgText.append("<b></font><br>");
-                                        msgText.append(tr("This will overwrite the SYSTEM DATA currently stored in the GT-10<br>"));
-                                        msgText.append(tr (" and can't be undone.<br>"));
-                                        msgText.append(tr("Select 'NO' to only update the Editor - Select 'YES' to update the GT-10 memory<br>"));
+                                        msgText.append(tr("This will overwrite the SYSTEM DATA currently stored in the ")+ deviceType);
+                                        msgText.append(tr ("<br> and can't be undone.<br>"));
+                                        msgText.append(tr("Select 'NO' to only update the Editor - Select 'YES' to update the GT System<br>"));
 
 
-                                        msgBox->setInformativeText(tr("Are you sure you want to write to the GT-10?"));
+                                        msgBox->setInformativeText(tr("Are you sure you want to write to the ")+ deviceType);
                                         msgBox->setText(msgText);
                                         msgBox->setStandardButtons(QMessageBox::Yes | QMessageBox::No);
 
@@ -614,11 +602,12 @@ void mainWindow::systemLoad()
 
 void mainWindow::systemSave()
 {
+
+
 SysxIO *sysxIO = SysxIO::Instance();
      if (sysxIO->isConnected())
                {
   sysxIO->systemDataRequest();
-  //SLEEP(3000);
 
         Preferences *preferences = Preferences::Instance();
         QString dir = preferences->getPreferences("General", "Files", "dir");
@@ -767,6 +756,14 @@ void mainWindow::summaryPage()
    summary->show();
 };
 
+void mainWindow::summaryPage2()
+{
+   summaryDialog2 *summary2 = new summaryDialog2();
+   summary2->setMinimumWidth(800);
+   summary2->setMinimumHeight(750); // a little taller
+   summary2->show();
+};
+
 void mainWindow::homepage()
 {
         Preferences *preferences = Preferences::Instance();
@@ -798,8 +795,8 @@ void mainWindow::about()
         QFile file(":about");
         if(file.open(QIODevice::ReadOnly))
         {
-                QMessageBox::about(this, tr("GT-10 Fx FloorBoard - About"),
-                        tr("GT-10 Fx FloorBoard - ") + tr("version") + " " + version + "<br>" + file.readAll());
+                QMessageBox::about(this, deviceType + tr(" Fx FloorBoard - About"),
+                        deviceType + tr(" Fx FloorBoard - ") + tr("version") + " " + version + "<br>" + file.readAll());
         };
 };
 

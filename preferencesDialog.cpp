@@ -34,7 +34,7 @@ preferencesDialog::preferencesDialog()
 	contentsWidget->setMovement(QListView::Static);
 	contentsWidget->setSpacing(10);
 	contentsWidget->setFixedHeight(330);
-	contentsWidget->setFixedWidth(85); // 70 to 75 for OS X.
+	contentsWidget->setFixedWidth(85); 
 
 	GeneralPage *generalSettings = new GeneralPage;
 	MidiPage *midiSettings = new MidiPage;
@@ -51,9 +51,6 @@ preferencesDialog::preferencesDialog()
 	pagesWidget->addWidget(midiSettings);
 	pagesWidget->addWidget(windowSettings);
 	pagesWidget->addWidget(languageSettings);
-	/*pagesWidget->addWidget(new GeneralPage);
-	pagesWidget->addWidget(new MidiPage);
-	pagesWidget->addWidget(new WindowPage);*/ 
 	
 	QPushButton *okButton = new QPushButton(tr("Ok"));
 	QPushButton *cancelButton = new QPushButton(tr("Cancel"));

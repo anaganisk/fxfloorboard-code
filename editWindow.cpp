@@ -314,7 +314,8 @@ editPage* editWindow::page()
 void editWindow::closeEvent(QCloseEvent* ce)
 {
 
-        ce->accept();
+        //ce->accept();
+    ce->~QCloseEvent();
 };
 
 void editWindow::hideWindow()

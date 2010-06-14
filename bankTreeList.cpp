@@ -757,7 +757,7 @@ void bankTreeList::connectedSignal()
                 qSort(this->currentPatchTreeItems);
                 this->updatePatchNames("");
         };
-  requestPatch();
+  //requestPatch();
 };
 
 /********************************** updateTree() ********************************

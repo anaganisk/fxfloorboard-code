@@ -938,7 +938,7 @@ void SysxIO::sendSysx(QString sysxMsg)
 void SysxIO::receiveSysx(QString sysxMsg)
 {
 	 /*DeBugGING OUTPUT */
-	Preferences *preferences = Preferences::Instance(); // Load the preferences.
+/*	Preferences *preferences = Preferences::Instance(); // Load the preferences.
 	if(preferences->getPreferences("Midi", "DBug", "bool")=="true")
 	{
 	if (sysxMsg.size() > 0){
@@ -968,7 +968,7 @@ void SysxIO::receiveSysx(QString sysxMsg)
 			msgBox->setStandardButtons(QMessageBox::Ok);
 			msgBox->exec();
 		};
-	};	
+	};	  */
    emit sysxReply(sysxMsg);		
 };
 

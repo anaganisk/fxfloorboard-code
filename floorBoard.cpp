@@ -796,7 +796,7 @@ void floorBoard::updateStompBoxes()
 
 void floorBoard::setEditDialog(editWindow* editDialog)
 {
-  this->oldDialog = this->editDialog;
+        this->oldDialog = this->editDialog;
         this->editDialog = editDialog;
         this->editDialog->setParent(this);
         this->centerEditDialog();

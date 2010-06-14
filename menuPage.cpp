@@ -63,20 +63,11 @@ menuPage::menuPage(QWidget *parent, unsigned int id, QString imagePath, QPoint s
 
         QObject::connect(this, SIGNAL( setEditDialog(editWindow*) ), this->parent(), SLOT( setEditDialog(editWindow*) ));
 
-  QObject::connect(this->menuButton, SIGNAL(valueChanged(bool)), this, SLOT(menuButtonSignal(bool)));
+        QObject::connect(this->menuButton, SIGNAL(valueChanged(bool)), this, SLOT(menuButtonSignal(bool)));
 
-  QObject::connect(this->menuButton, SIGNAL(valueChanged(bool)), this->parent(), SLOT(menuButtonSignal()));
+        QObject::connect(this->menuButton, SIGNAL(valueChanged(bool)), this->parent(), SLOT(menuButtonSignal()));
 
-  //QObject::connect(this->parent(), SIGNAL(master_buttonSignal(bool)), this, SLOT(master_ButtonSignal(bool) ));
-  //QObject::connect(this->parent(), SIGNAL(master_buttonSignal(bool)), this->parent(), SLOT(menuButtonSignal()));
-
-  //QObject::connect(this->parent(), SIGNAL(fx1_autoriff_buttonSignal(bool)), this, SLOT(fx1_autoriff_ButtonSignal(bool) ));
-  //QObject::connect(this->parent(), SIGNAL(fx1_autoriff_buttonSignal(bool)), this->parent(), SLOT(menuButtonSignal()));
-
-  //QObject::connect(this->parent(), SIGNAL(fx2_autoriff_buttonSignal(bool)), this, SLOT(fx2_autoriff_ButtonSignal(bool) ));
-  //QObject::connect(this->parent(), SIGNAL(fx2_autoriff_buttonSignal(bool)), this->parent(), SLOT(menuButtonSignal()));
-
-  SysxIO *sysxIO = SysxIO::Instance();
+        SysxIO *sysxIO = SysxIO::Instance();
         QObject::connect(this, SIGNAL(setStatusSymbol(int)), sysxIO, SIGNAL(setStatusSymbol(int)));
         QObject::connect(this, SIGNAL(setStatusProgress(int)), sysxIO, SIGNAL(setStatusProgress(int)));
         QObject::connect(this, SIGNAL(setStatusMessage(QString)), sysxIO, SIGNAL(setStatusMessage(QString)));
@@ -106,9 +97,9 @@ void menuPage::master_ButtonSignal(bool value)
     if (this->id == 23)
     {
       emitValueChanged(this->hex1, this->hex2, "00", "void");
-            this->editDialog->setWindow(tr("Master"));
+      this->editDialog->setWindow(tr("Master"));
       emit setEditDialog(this->editDialog);
-    };
+     };
 };
 
 void menuPage::fx1_autoriff_ButtonSignal(bool value)
@@ -116,7 +107,7 @@ void menuPage::fx1_autoriff_ButtonSignal(bool value)
     if (this->id == 21)
     {
       emitValueChanged(this->hex1, this->hex2, "00", "void");
-            this->editDialog->setWindow(tr("FX1 AutoRiff"));
+      this->editDialog->setWindow(tr("FX1 AutoRiff"));
       emit setEditDialog(this->editDialog);
     };
 };
@@ -126,48 +117,45 @@ void menuPage::fx2_autoriff_ButtonSignal(bool value)
     if (this->id == 22)
     {
       emitValueChanged(this->hex1, this->hex2, "00", "void");
-            this->editDialog->setWindow(tr("FX2 AutoRiff"));
+      this->editDialog->setWindow(tr("FX2 AutoRiff"));
       emit setEditDialog(this->editDialog);
     };
 };
 
 void menuPage::menuButtonSignal(bool value)
 {
-          if(this->id > 19)
+  if(this->id > 19)
     {
       emitValueChanged(this->hex1, this->hex2, "00", "void");
-            this->editDialog->setWindow(this->fxName);
-
-
-
+      this->editDialog->setWindow(this->fxName);
       emit setEditDialog(this->editDialog);
     };
     SysxIO *sysxIO = SysxIO::Instance();
           if((this->id == 19 || this->id == 18) && sysxIO->deviceReady())
           {
     QString replyMsg;
+    emitValueChanged(this->hex1, this->hex2, "00", "void");
+    this->editDialog->setWindow(this->fxName);
+    emit setEditDialog(this->editDialog);
            if (sysxIO->isConnected())
                {
                 emit setStatusSymbol(2);
-                      emit setStatusMessage(tr("Request System data"));
+                emit setStatusMessage(tr("Request System data"));
                 sysxIO->setDeviceReady(false); // Reserve the device for interaction.
-                      QObject::disconnect(sysxIO, SIGNAL(sysxReply(QString)));
-                      QObject::connect(sysxIO, SIGNAL(sysxReply(QString)), this, SLOT(systemReply(QString)));
-                      sysxIO->sendSysx(systemRequest); // GT-10 System area data Request.
-
-          emitValueChanged(this->hex1, this->hex2, "00", "void");
-                this->editDialog->setWindow(this->fxName);
-                      emit setEditDialog(this->editDialog);
-         }
+                QObject::disconnect(sysxIO, SIGNAL(sysxReply(QString)));
+                QObject::connect(sysxIO, SIGNAL(sysxReply(QString)), this, SLOT(systemReply(QString)));
+                sysxIO->sendSysx(systemRequest); // GT-10 System area data Request.
+              }
          else
-            {
-              QString snork = tr("Ensure connection is active and retry");
+             {
+              QString snork = tr("Ensure connection is active and retry<br>");
+              snork.append(tr("System data not transfered, current settings are to be used<br>"));
               QMessageBox *msgBox = new QMessageBox();
-                                msgBox->setWindowTitle(deviceType + tr(" not connected !!"));
-                                msgBox->setIcon(QMessageBox::Information);
-                                msgBox->setText(snork);
-                                msgBox->setStandardButtons(QMessageBox::Ok);
-                                msgBox->exec();
+              msgBox->setWindowTitle(deviceType + tr(" midi connection not found!!"));
+              msgBox->setIcon(QMessageBox::Information);
+              msgBox->setText(snork);
+              msgBox->setStandardButtons(QMessageBox::Ok);
+              msgBox->exec();
              };
     };
 };
@@ -181,13 +169,13 @@ void menuPage::systemReply(QString replyMsg)
         if(sysxIO->noError())
         {
         if(replyMsg.size()/2 == 2236)
-                {
+        {
                 /* TRANSLATE SYSX MESSAGE FORMAT to 128 byte data blocks */
         QString header = "F0410000002F12";
         QString footer ="00F7";
         QString addressMsb = replyMsg.mid(14,4); // read  MSb word at bits 7 & 8 from sysxReply (which is "0000")
         QString part1 = replyMsg.mid(22, 256); //from 11, copy 128 bits (values are doubled for QString)
-  part1.prepend("0000").prepend(addressMsb).prepend(header).append(footer);
+        part1.prepend("0000").prepend(addressMsb).prepend(header).append(footer);
         QString part2 = replyMsg.mid(278, 226);
         QString part2B = replyMsg.mid(530, 30);
         part2.prepend("0100").prepend(addressMsb).prepend(header).append(part2B).append(footer);
@@ -200,8 +188,8 @@ void menuPage::systemReply(QString replyMsg)
         part5.prepend("0000").prepend(addressMsb).prepend(header).append(footer);
         QString part6 = replyMsg.mid(1296, 228);   //
         part6.prepend("0100").prepend(addressMsb).prepend(header).append(footer);
-  QString part7 = replyMsg.mid(1550, 256);  //
-  part7.prepend("0200").prepend(addressMsb).prepend(header).append(footer);
+        QString part7 = replyMsg.mid(1550, 256);  //
+        part7.prepend("0200").prepend(addressMsb).prepend(header).append(footer);
         QString part8 = replyMsg.mid(1806,228);    // spare
         part8.prepend("0300").prepend(addressMsb).prepend(header).append(footer);
         addressMsb = "0002"; // new address range "00 02 00 00"  midi area
@@ -230,43 +218,36 @@ void menuPage::systemReply(QString replyMsg)
 
         replyMsg = "";
         replyMsg.append(part1).append(part2).append(part3).append(part4).append(part5)
-  .append(part6).append(part7).append(part8).append(part10).append(part11)
-  .append(part12).append(part13).append(part14).append(part15).append(part16).append(part17).append(part18);
+        .append(part6).append(part7).append(part8).append(part10).append(part11)
+        .append(part12).append(part13).append(part14).append(part15).append(part16).append(part17).append(part18);
 
         QString reBuild = "";       /* Add correct checksum to patch strings */
-  QString sysxEOF = "";
-  QString hex = "";
-  int msgLength = replyMsg.length()/2;
-  for(int i=0;i<msgLength*2;++i)
-  {
+        QString sysxEOF = "";
+        QString hex = "";
+        int msgLength = replyMsg.length()/2;
+        for(int i=0;i<msgLength*2;++i)
+        {
         hex.append(replyMsg.mid(i*2, 2));
         sysxEOF = (replyMsg.mid((i*2)+4, 2));
-  if (sysxEOF == "F7")
-    {
-        int dataSize = 0; bool ok;
-          for(int h=checksumOffset;h<hex.size()-1;++h)
-          { dataSize += hex.mid(h*2, 2).toInt(&ok, 16); };
-                QString base = "80";                       // checksum calculate.
-          unsigned int sum = dataSize % base.toInt(&ok, 16);
-        if(sum!=0) { sum = base.toInt(&ok, 16) - sum; };
-          QString checksum = QString::number(sum, 16).toUpper();
-           if(checksum.length()<2) {checksum.prepend("0");};
-        hex.append(checksum);
-        hex.append("F7");
-        reBuild.append(hex);
-
-                hex = "";
-                sysxEOF = "";
-                i=i+2;
-    };
-  };
-        replyMsg = reBuild.simplified().toUpper().remove("0X").remove(" ");
-
-
-
-
-
-
+          if (sysxEOF == "F7")
+            {
+              int dataSize = 0; bool ok;
+              for(int h=checksumOffset;h<hex.size()-1;++h)
+              { dataSize += hex.mid(h*2, 2).toInt(&ok, 16); };
+              QString base = "80";                       // checksum calculate.
+              unsigned int sum = dataSize % base.toInt(&ok, 16);
+              if(sum!=0) { sum = base.toInt(&ok, 16) - sum; };
+              QString checksum = QString::number(sum, 16).toUpper();
+              if(checksum.length()<2) {checksum.prepend("0");};
+              hex.append(checksum);
+              hex.append("F7");
+              reBuild.append(hex);
+              hex = "";
+              sysxEOF = "";
+              i=i+2;
+            };
+        };
+                replyMsg = reBuild.simplified().toUpper().remove("0X").remove(" ");
                 QString area = "System";
                 sysxIO->setFileSource(area, replyMsg);		// Set the source to the data received.
                 //sysxIO->setFileSource(area, sysxMsg.getSystemSource());
@@ -274,22 +255,16 @@ void menuPage::systemReply(QString replyMsg)
                 sysxIO->setDevice(true);				// Patch received from the device so this is set to true.
                 sysxIO->setSyncStatus(true);			// We can't be more in sync than right now! :)
                 emit systemUpdateSignal();
-
-
-
-
                 }
                 else
                 {
-                        //notConnected();
-
                         QMessageBox *msgBox = new QMessageBox();
                         msgBox->setWindowTitle(deviceType + tr(" Fx FloorBoard connection Error !!"));
                         msgBox->setIcon(QMessageBox::Warning);
                         msgBox->setTextFormat(Qt::RichText);
                         QString msgText;
                         msgText.append("<font size='+1'><b>");
-                        msgText.append(tr("The Boss ") + deviceType + tr(" Effects Processor was not found."));
+                        msgText.append(tr("The Boss ") + deviceType + tr(" System data was not transfered !!."));
                         msgText.append("<b></font><br>");
                         msgBox->setText(msgText);
                         msgBox->setStandardButtons(QMessageBox::Ok);

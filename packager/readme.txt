@@ -4,7 +4,7 @@ GT-10FxFloorBoard Copyright (C) 2007~2010 Colin Willcocks (gumtownbassman@yahoo.
 =======
 
 
-GT-10FxFloorBoard version 20100524: 24 May 2010
+GT-10FxFloorBoard version 20100611: 11 June 2010
 *****************************************************
 PLEASE FEEL FREE TO DONATE, YOU MAY FREELY USE THIS SOFTWARE, 
  JUST KEEP IN MIND THE 7000 HOURS SPENT OVER 4 YEARS GETTING IT HERE,
@@ -28,7 +28,7 @@ you can email patches and custom system settings saved files to the above addres
    the associated clipBoard and replaces the current settings for that one effect only.
 
 ********** USEFUL INFORMATION *************
-
+* version 20100611 fixed patch write bug - stopped popup error dialog when there was no error. 
 
 ********* FIRST USE CONNECTION HINTS ************** 
  

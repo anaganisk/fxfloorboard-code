@@ -1232,29 +1232,29 @@ void floorBoardDisplay::patchChangeFailed()
 
 void floorBoardDisplay::resetDevice(QString replyMsg)
 {
-        SysxIO *sysxIO = SysxIO::Instance();
-        QObject::disconnect(sysxIO, SIGNAL(sysxReply(QString)),	this, SLOT(resetDevice(QString)));
+      SysxIO *sysxIO = SysxIO::Instance();
+      QObject::disconnect(sysxIO, SIGNAL(sysxReply(QString)),	this, SLOT(resetDevice(QString)));
 
-                        if(sysxIO->getBank() != sysxIO->getLoadedBank() || sysxIO->getPatch() != sysxIO->getLoadedPatch())
+        if(sysxIO->getBank() != sysxIO->getLoadedBank() || sysxIO->getPatch() != sysxIO->getLoadedPatch())
           {
-                   sysxIO->setLoadedBank(sysxIO->getBank());
-                   sysxIO->setLoadedPatch(sysxIO->getPatch());
+            sysxIO->setLoadedBank(sysxIO->getBank());
+            sysxIO->setLoadedPatch(sysxIO->getPatch());
           };
-
-   emit setStatusProgress(33); // time wasting sinusidal statusbar progress
-                SLEEP(100);
-                emit setStatusProgress(66);
-                SLEEP(100);
-                emit setStatusProgress(100);
-                SLEEP(100);
-                emit setStatusProgress(75);
-                SLEEP(100);
-                emit setStatusProgress(42);
-                SLEEP(100);
-                emit setStatusProgress(25);
-                SLEEP(100);
-        sysxIO->setDeviceReady(true);	// Free the device after finishing interaction.
-        emit connectedSignal();			// Emit this signal to tell we are still connected and to update the patch names in case they have changed.
+          
+    emit setStatusProgress(33); // time wasting sinusidal statusbar progress
+    SLEEP(100);
+    emit setStatusProgress(66);
+    SLEEP(100);
+    emit setStatusProgress(100);
+    SLEEP(100);
+    emit setStatusProgress(75);
+    SLEEP(100);
+    emit setStatusProgress(42);
+    SLEEP(100);
+    emit setStatusProgress(25);
+    SLEEP(100);
+    sysxIO->setDeviceReady(true);	// Free the device after finishing interaction.
+    emit connectedSignal();			// Emit this signal to tell we are still connected and to update the patch names in case they have changed.
 };
 
 void floorBoardDisplay::patchSelectSignal(int bank, int patch)

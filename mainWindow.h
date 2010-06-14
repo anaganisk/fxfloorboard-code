@@ -61,6 +61,8 @@ public slots:
         void settings();
         void upload();
         void summaryPage();
+        // rrr: insert May 2010
+        void summaryPage2();
         void help();
         void whatsThis();
         void homepage();
@@ -94,6 +96,8 @@ private:
         QAction *settingsAct;
         QAction *uploadAct;
         QAction *summaryAct;
+        // rrr: insert May 2010
+        QAction *summaryAct2;
         QAction *helpAct;
         QAction *whatsThisAct;
         QAction *homepageAct;
