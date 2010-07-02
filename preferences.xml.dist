@@ -2,7 +2,7 @@
 <!-- Preferences of the GT-10 Fx FloorBoard application. -->
 <Preferences>
 	<General>
-		<Application version="20100611"/>
+		<Application version="20100702"/>
 		<Donate url="http://gtx.tinfoilmusic.net/donate.html"/>
 		<Files dir=""/>
 		<Help url="GT-10FxFloorBoard_help.html"/>
@@ -11,12 +11,17 @@
 		<Upload url="http://www.bossgtcentral.com/dm"/>
 		<Webpage url="http://gtx.tinfoilmusic.net/"/>
 	</General>
+	<Language>
+    <Locale select="0"/>
+  </Language>
 	<Midi>
+	  <BulkFinish patch="200"/>
+	  <BulkStart patch="1"/>
+		<DBug bool="false"/>
+		<Delay set="30"/>
 		<MidiIn device=""/>
 		<MidiOut device=""/>
-		<DBug bool="false"/>
-		<Time set="80"/>
-		<Delay set="30"/>
+		<Time set="80"/>		
 	</Midi>
 	<Window>
     <Collapsed bool="true" defaultwidth="1210" width="1210"/>
@@ -25,8 +30,5 @@
     <Size height="" minheight="548" minwidth="1014" width=""/>
     <Splash bool="true"/>
   </Window>
-  <Language>
-    <Locale select="0"/>
-  </Language>
 </Preferences>
  

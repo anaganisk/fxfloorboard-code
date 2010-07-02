@@ -28,6 +28,7 @@ HEADERS += ./editPage.h \
     ./globalVariables.h \
     ./mainWindow.h \
     ./bankTreeList.h \
+    ./bulkEditDialog.h \
     ./bulkLoadDialog.h \
     ./bulkSaveDialog.h \
     ./customButton.h \
@@ -113,6 +114,7 @@ SOURCES += ./editPage.cpp \
     ./main.cpp \
     ./mainWindow.cpp \
     ./bankTreeList.cpp \
+    ./bulkEditDialog.cpp \
     ./bulkLoadDialog.cpp \
     ./bulkSaveDialog.cpp \
     ./customButton.cpp \

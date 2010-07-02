@@ -48,9 +48,8 @@ public:
 	void patchPos(int pos, int len, QString t_hex1, QString t_hex3);
 
 signals:
-        /*virtual*/ void dialogUpdateSignal();
-        /*virtual*/ void updateSignal();
-        //void updateSignal_2();
+  void dialogUpdateSignal();
+  void updateSignal();
 	void updateDisplay(QString text);
 	void closeWindow();
 	
@@ -59,6 +58,7 @@ public slots:
 	void pageUpdateSignal();
 	virtual void closeEvent(QCloseEvent* ce);
 	void hideWindow();
+	void bulkEdit();
 	void temp1();
 	void temp2();
 	void temp3();
@@ -80,6 +80,7 @@ private:
 	QLabel* comboBoxLabel;
 	QStackedWidget* pagesWidget;
 	QComboBox* pageComboBox;
+	customControlLabel* bulkEdit_Button;
 	customControlLabel* swap_Button;
 	customControlLabel* temp1_Button;
 	customControlLabel* temp2_Button;

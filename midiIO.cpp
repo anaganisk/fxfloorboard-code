@@ -295,10 +295,10 @@ void midiIO::receiveMsg(QString sysxInMsg, int midiInPort)
 #endif
 
         if (msgType == "patch"){ loopCount = x*200; count = patchReplySize; }
-   else if(msgType == "system"){ loopCount = x*400; count = systemSize; } // native gt-pro system size, then trimmed to 4313 later.
+   else if(msgType == "system"){ loopCount = x*400; count = systemSize; } // native gt system size, then trimmed later.
    else if (msgType == "name") { loopCount = x*20; count = 29; }
    else if (msgType == "identity") { loopCount = x*100; count = 15; }
-                         else  { loopCount = x*150; count = 34; };
+                         else  { loopCount = x*10; count = 0; };
 
     RtMidiIn *midiin = 0;
     const std::string clientName = "FxFloorBoard";
