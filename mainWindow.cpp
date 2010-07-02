@@ -752,7 +752,7 @@ void mainWindow::settings()
                 QString midiOut = QString::number(dialog->midiSettings->midiOutCombo->currentIndex() - 1, 10);
                 QString midiTimeSet =QString::number(dialog->midiSettings->midiTimeSpinBox->value());
                 QString receiveTimeout =QString::number(dialog->midiSettings->midiDelaySpinBox->value());
-                 QString lang;
+                QString lang;
     if (dialog->languageSettings->chineseButton->isChecked() ) {lang="3"; }
     else if (dialog->languageSettings->germanButton->isChecked() ) {lang="2"; }
     else if (dialog->languageSettings->frenchButton->isChecked() ) {lang="1"; }
@@ -768,6 +768,8 @@ void mainWindow::settings()
                 preferences->setPreferences("Midi", "DBug", "bool", dBug);
                 preferences->setPreferences("Midi", "Time", "set", midiTimeSet);
                 preferences->setPreferences("Midi", "Delay", "set", receiveTimeout);
+                //preferences->setPreferences("Midi", "BulkStart", "patch", "1");
+                //preferences->setPreferences("Midi", "BulkFinish", "patch", "200");
                 preferences->setPreferences("Window", "Restore", "sidepanel", sidepanel);
                 preferences->setPreferences("Window", "Restore", "window", window);
                 preferences->setPreferences("Window", "Splash", "bool", splash);

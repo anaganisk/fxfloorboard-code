@@ -41,7 +41,7 @@ class bulkEditDialog : public QDialog
 	Q_OBJECT
   
 public:
-	bulkEditDialog();
+	bulkEditDialog(int partStart, int partLength, QString partHex1, QString partHex3);
   QString msg;
   
 signals:
@@ -52,7 +52,7 @@ signals:
                     
 public slots:
   void sendData();
-  void updatePatch();
+  void prepareData();
   void bulkStatusProgress(int value);
   void sendSequence(QString value); 
   void sendPatch(QString data);
@@ -63,8 +63,6 @@ private slots:
 private: 
   QComboBox *startPatchCombo;
 	QComboBox *finishPatchCombo;
-  QComboBox *startRangeComboBox;
-	QComboBox *patchRangeSpinBox;
 	QLineEdit *finishRange;
   QProgressBar *progressBar;
   QLabel *progressLabel;
@@ -72,30 +70,25 @@ private:
   QPushButton *startButton;
   QPushButton *cancelButton; 
   QPushButton *completedButton;
-  int startList;
-  int finishList;
-  int bankStart;
+  unsigned int start;
+  unsigned int finish;
 	int patchRange;
 	int progress;
-	QString bulkData;	
-	QString bulk;
+	unsigned int partialStart;
+	unsigned int partialLength;
 	int range;
 	int patch;
-	int bank;
-	int patchCount;
-	int steps;
+	int bank;	
+	unsigned int steps;
 	int dataSent;
-	QString fileName;
-	void loadGXB();
-	void loadSYX();
-	void loadSMF();
-	QByteArray data;
-	QByteArray default_data;
-	QByteArray hextable;
-	QByteArray sysxPatches;
+	QString patchName;
+	QString partialData;
+	QString bulk;
 	QList<QString> patchList;	 
-	QList<QString> userList;
 	bool failed;
+	QString hex1;
+	QString hex3;
+	QString addrMSB;
 };
 
 #endif // bulkEditDialog_H

@@ -109,7 +109,7 @@ editWindow::editWindow(QWidget *parent)
 	this->closeButton->setWhatsThis(tr("Will close the current edit page window."));
 	
 	QHBoxLayout *buttonLayout = new QHBoxLayout;
-        //buttonLayout->addWidget(this->bulkEdit_Button);
+  buttonLayout->addWidget(this->bulkEdit_Button);
 	//buttonLayout->addWidget(this->swap_Button);
 	buttonLayout->addWidget(this->temp1_Button);
 	buttonLayout->addWidget(this->temp2_Button);
@@ -328,7 +328,7 @@ void editWindow::bulkEdit()
      if (sysxIO->isConnected())
 	       {
 	
-		bulkEditDialog *editDialog = new bulkEditDialog(); 
+		bulkEditDialog *editDialog = new bulkEditDialog(this->position, this->length, this->temp_hex1, this->temp_hex3); 
             editDialog->exec(); 
 	}
          else

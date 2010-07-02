@@ -132,8 +132,8 @@ void bankTreeList::setOpenItems(QTreeWidgetItem *item)
                 type = "bank";
         };
 
-        int c = openPatchTreeItems.size();
-        int b = openBankTreeItems.size();
+        int c = openPatchTreeItems.size()/4;
+        int b = openBankTreeItems.size()/4;
         int a = 0;
         if(treeList->isExpanded(treeList->model()->index(1, 0)) &&
                 treeList->isExpanded(treeList->model()->index(2, 0)))

@@ -421,7 +421,7 @@ void midiIO::run()
       {
         emit setStatusdBugMessage(tr("re-trying data request"));
         repeat = repeat+1;
-        goto RECEIVE;
+        //goto RECEIVE;
       };
       emit midiFinished(); 
 		 }
