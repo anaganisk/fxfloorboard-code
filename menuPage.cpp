@@ -372,11 +372,18 @@ void menuPage::emitValueChanged(QString hex1, QString hex2, QString hex3, QStrin
 			emit dialogUpdateSignal();
 		}
 		else
-		{
-		  if (this->id == 18){this->fxName = tr("System settings"); this->area_mode = "System";   };
-		  if (this->id == 19){this->fxName = tr("System Midi");     this->area_mode = "System";   };
-		  if (this->id == 20){this->fxName = tr("Assigns");         this->area_mode = "Structure";};
-		  if (this->id == 21){this->fxName = tr("Master");          this->area_mode = "Structure";};
+		{                                                            
+		  if (this->id == 18){this->fxName = tr("System settings");  this->area_mode = "System";   };
+		  if (this->id == 19){this->fxName = tr("System Midi");      this->area_mode = "System";   };
+		  if (this->id == 20){this->fxName = tr("Master");           this->area_mode = "Structure";};
+		  if (this->id == 21){this->fxName = tr("Assign 1");         this->area_mode = "Structure";};
+		  if (this->id == 22){this->fxName = tr("Assign 2");         this->area_mode = "Structure";};
+		  if (this->id == 23){this->fxName = tr("Assign 3");         this->area_mode = "Structure";};
+		  if (this->id == 24){this->fxName = tr("Assign 4");         this->area_mode = "Structure";};
+		  if (this->id == 25){this->fxName = tr("Assign 5");         this->area_mode = "Structure";};
+		  if (this->id == 26){this->fxName = tr("Assign 6");         this->area_mode = "Structure";};
+		  if (this->id == 27){this->fxName = tr("Assign 7");         this->area_mode = "Structure";};
+		  if (this->id == 28){this->fxName = tr("Assign 8");         this->area_mode = "Structure";};
 		};
 	};
 

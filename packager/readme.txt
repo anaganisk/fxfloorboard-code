@@ -4,13 +4,14 @@ GT-10BFxFloorBoard Copyright (C) 2007~2010 Colin Willcocks (gumtownbassman@yahoo
 =======
 
 
-GT-10BFxFloorBoard version 20100525: 25 May 2010
+GT-10BFxFloorBoard version 20100703: 03 July 2010
 
 PLEASE FEEL FREE TO DONATE, YOU MAY FREELY USE THIS SOFTWARE, 
  JUST KEEP IN MIND THE 7000 HOURS SPENT OVER 4 YEARS GETTING IT HERE,
  SO FAR WITH LITTLE REWARD. I WOULD LOVE A BEER!!!. :-)
  
  ******************LATEST FEATURE***********************
+ *Bulk Patch Editing - One effect change can be applied to a series of patches in one operation. 
  *Whats This Help dialog added, with the press of the [F1] button. 
  *Auditioning of Patches within Bulk Files, high-lighted file is sent to the GT-10B for instant auditioning before loading. 
  *Temp Clipboard copied events are saved to file and are re-loaded on FxFloorbOard startup. 
@@ -20,6 +21,9 @@ PLEASE FEEL FREE TO DONATE, YOU MAY FREELY USE THIS SOFTWARE,
  *5 way clipboard added for patch storage and partial patch pasting of individual effects. 
 
 ******** USEFUL INFORMATION *************
+** version 20100702 The Bulk Patch Editing function should be used with caution 
+* as it can't be undone, and a Bulk Patch Backup is recommended before using it.
+
  
 a.) Connect the GT-10B via a USB cable, ensure the Boss usb driver software is installed and the SYSTEM>USB>Driver setting on the GT-10B is set to 'advanced'.
 

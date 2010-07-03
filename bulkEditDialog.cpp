@@ -297,7 +297,7 @@ void bulkEditDialog::prepareData()
             sysxMsg.append(hex);
           };
         };
-   if( sysxMsg.size()/2 == fullPatchSize && partialStart>0 && partialLength>0)
+   if(partialStart>0 && partialLength>0)
         {
         this->patchName = sysxIO->getCurrentPatchName();
         QString temp = sysxMsg.mid(this->partialStart, this->partialLength);

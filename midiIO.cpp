@@ -296,7 +296,7 @@ void midiIO::receiveMsg(QString sysxInMsg, int midiInPort)
    else if (msgType == "system") {loopCount = x*300; count = systemSize;}     // system reply size
    else if (msgType == "name")   {loopCount = x*10; count = nameReplySize;}   // name reply size
    else if (msgType == "identity")   {loopCount = x*100; count = 15;}   // id reply size
-                            else {loopCount = x*150; count = 34; };                            
+                            else {loopCount = x*10; count = 0; };                            
       RtMidiIn *midiin = 0;
       const std::string clientName = "FxFloorBoard";
       midiin = new RtMidiIn(clientName);		                   //RtMidi constructor
@@ -480,7 +480,8 @@ void midiIO::sendSysxMsg(QString sysxOutMsg, int midiOutPort, int midiInPort)
 		sysxEOF.clear();
 		    i=i+2;
     }; 
-  };    
+  };
+  this->count = 0;    
   if (sysxOutMsg.size() == 12){reBuild = sysxOutMsg;  msgType = "identity"; emit setStatusdBugMessage(tr("identity request")); };  // identity request not require checksum
 	this->sysxOutMsg = reBuild.simplified().toUpper();//.remove("0X").remove(" ");
   if (this->sysxOutMsg == systemRequestMsg ){msgType = "system"; setStatusdBugMessage(tr("system request")); }

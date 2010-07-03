@@ -60,7 +60,14 @@ HEADERS += ./editPage.h \
     ./floorPanelBarButton.h \
     ./initPatchListMenu.h \
     ./menuPage.h \
-    ./menuPage_assign.h \
+    ./menuPage_assign1.h \
+    ./menuPage_assign2.h \
+    ./menuPage_assign3.h \
+    ./menuPage_assign4.h \
+    ./menuPage_assign5.h \
+    ./menuPage_assign6.h \
+    ./menuPage_assign7.h \
+    ./menuPage_assign8.h \
     ./menuPage_master.h \
     ./menuPage_midi.h \
     ./menuPage_system.h \
@@ -143,7 +150,14 @@ SOURCES += ./editPage.cpp \
     ./floorPanelBarButton.cpp \
     ./initPatchListMenu.cpp \
     ./menuPage.cpp \
-    ./menuPage_assign.cpp \
+    ./menuPage_assign1.cpp \
+    ./menuPage_assign2.cpp \
+    ./menuPage_assign3.cpp \
+    ./menuPage_assign4.cpp \
+    ./menuPage_assign5.cpp \
+    ./menuPage_assign6.cpp \
+    ./menuPage_assign7.cpp \
+    ./menuPage_assign8.cpp \
     ./menuPage_master.cpp \
     ./menuPage_midi.cpp \
     ./menuPage_system.cpp \
