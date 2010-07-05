@@ -1,7 +1,7 @@
 /****************************************************************************
 **
 ** Copyright (C) 2007~2010 Colin Willcocks.
-** Copyright (C) 2005~2007 Uco Mesdag. 
+** Copyright (C) 2005~2007 Uco Mesdag.
 ** All rights reserved.
 ** This file is part of "GT-10 Fx FloorBoard".
 **
@@ -34,116 +34,124 @@
 
 class floorBoardDisplay : public QWidget
 {
-	Q_OBJECT
+        Q_OBJECT
 
 public:
-	floorBoardDisplay(QWidget *parent = 0, 
-		QPoint pos = QPoint::QPoint(0, 0));
-	QPoint getPos();
+        floorBoardDisplay(QWidget *parent = 0,
+                QPoint pos = QPoint::QPoint(0, 0));
+        QPoint getPos();
 
 public slots:
-	void setValueDisplay(QString fxName, QString valueName, QString value);
-	void setPatchDisplay(QString patchName);
-	void setPatchNumDisplay(int bank, int patch);
-	void setPos(QPoint newPos);
-	void updateDisplay();
-	void set_temp();
-	void temp1_copy(bool value);
-	void temp1_paste(bool value);
-	void temp2_copy(bool value);
-	void temp2_paste(bool value);
-	void temp3_copy(bool value);
-	void temp3_paste(bool value);
-	void temp4_copy(bool value);
-	void temp4_paste(bool value);
-	void temp5_copy(bool value);
-	void temp5_paste(bool value);
-	void save_temp(QString fileName, QString sysxMsg);
-	void autoconnect();   
-	void connectSignal(bool value);
-	void writeSignal(bool value);
-	void connectionResult(QString);
-	void autoConnectionResult(QString);
-	void resetDevice(QString replyMsg);
-	void patchSelectSignal(int bank, int patch);
-	void blinkSellectedPatch(bool active = true);
-	void patchLoadSignal(int bank, int patch);
-	void notConnected();
-	void patchChangeFailed();
-	void writeToBuffer();
-	void writeToMemory();
-	void valueChanged(bool value, QString hex1, QString hex2, QString hex3); // Not used.
+        void setValueDisplay(QString fxName, QString valueName, QString value);
+        void setPatchDisplay(QString patchName);
+        void setPatchNumDisplay(int bank, int patch);
+        void setPos(QPoint newPos);
+        void updateDisplay();
+        void set_temp();
+        void temp1_copy(bool value);
+        void temp1_paste(bool value);
+        void temp2_copy(bool value);
+        void temp2_paste(bool value);
+        void temp3_copy(bool value);
+        void temp3_paste(bool value);
+        void temp4_copy(bool value);
+        void temp4_paste(bool value);
+        void temp5_copy(bool value);
+        void temp5_paste(bool value);
+        void save_temp(QString fileName, QString sysxMsg);
+        void autoconnect();
+        void connectSignal(bool value);
+        void writeSignal(bool value);
+        void connectionResult(QString);
+        void autoConnectionResult(QString);
+        void resetDevice(QString replyMsg);
+        void patchSelectSignal(int bank, int patch);
+        void blinkSellectedPatch(bool active = true);
+        void patchLoadSignal(int bank, int patch);
+        void notConnected();
+        void patchChangeFailed();
+        void writeToBuffer();
+        void writeToMemory();
+        void valueChanged(bool value, QString hex1, QString hex2, QString hex3); // Not used.
 
 signals:
-	void updateSignal();
-	void dialogUpdateSignal();
-	void connectedSignal();
-	void notConnectedSignal();
-		
-	void setStatusSymbol(int value);
-	void setStatusProgress(int value);
+        void updateSignal();
+        void dialogUpdateSignal();
+        void connectedSignal();
+        void notConnectedSignal();
+
+        void setStatusSymbol(int value);
+        void setStatusProgress(int value);
   void setStatusMessage(QString message);
 
 private:
-	QPoint pos;
+        QPoint pos;
 
-	customDisplay *valueDisplay;
-	customDisplay *patchDisplay;
-	customDisplay *patchNumDisplay;
-	customLabelDisplay *temp1Display;
-	customLabelDisplay *temp2Display;
-	customLabelDisplay *temp3Display;
-	customLabelDisplay *temp4Display;
-	customLabelDisplay *temp5Display;
+        customDisplay *valueDisplay;
+        customDisplay *patchDisplay;
+        customDisplay *patchNumDisplay;
+        customLabelDisplay *temp1Display;
+        customLabelDisplay *temp2Display;
+        customLabelDisplay *temp3Display;
+        customLabelDisplay *temp4Display;
+        customLabelDisplay *temp5Display;
 
-	customButton *connectButton;
-	customButton *writeButton;
-	customButton *assign_Button;
-	customButton *system_midi_Button;
-	customButton *system_Button;
-	customButton *master_Button;
-	customButton *fx1_autoriff_Button;
-	customButton *fx2_autoriff_Button;
-	customButton *ch_mode_Button;
-	customButton *preamp1_Button;
-	customButton *preamp2_Button;
-	customButton *distortion_Button;
-	customButton *compressor_Button;
-	customButton *ns1_Button;
-	customButton *ns2_Button;
-	customButton *fx1_Button;
-	customButton *fx2_Button;
-	customButton *reverb_Button;
-	customButton *delay_Button;
-	customButton *chorus_Button;
-	customButton *sendreturn_Button;
-	customButton *eq_Button;
-	customButton *pedal_Button;
-	customButton *temp1_copy_Button;
-	customButton *temp1_paste_Button;
-	customButton *temp2_copy_Button;
-	customButton *temp2_paste_Button;
-	customButton *temp3_copy_Button;
-	customButton *temp3_paste_Button;
-	customButton *temp4_copy_Button;
-	customButton *temp4_paste_Button;
-	customButton *temp5_copy_Button;
-	customButton *temp5_paste_Button;
-	customButton *temp6_copy_Button;
-	customButton *temp6_paste_Button;
+        customButton *connectButton;
+        customButton *writeButton;
+        //customButton *assign_Button;
+        customButton *system_midi_Button;
+        customButton *system_Button;
+        customButton *master_Button;
+        customButton *fx1_autoriff_Button;
+        customButton *fx2_autoriff_Button;
+        customButton *ch_mode_Button;
+        customButton *preamp1_Button;
+        customButton *preamp2_Button;
+        customButton *distortion_Button;
+        customButton *compressor_Button;
+        customButton *ns1_Button;
+        customButton *ns2_Button;
+        customButton *fx1_Button;
+        customButton *fx2_Button;
+        customButton *reverb_Button;
+        customButton *delay_Button;
+        customButton *chorus_Button;
+        customButton *sendreturn_Button;
+        customButton *eq_Button;
+        customButton *pedal_Button;
+        customButton *assign1_Button;
+        customButton *assign2_Button;
+        customButton *assign3_Button;
+        customButton *assign4_Button;
+        customButton *assign5_Button;
+        customButton *assign6_Button;
+        customButton *assign7_Button;
+        customButton *assign8_Button;
+        customButton *temp1_copy_Button;
+        customButton *temp1_paste_Button;
+        customButton *temp2_copy_Button;
+        customButton *temp2_paste_Button;
+        customButton *temp3_copy_Button;
+        customButton *temp3_paste_Button;
+        customButton *temp4_copy_Button;
+        customButton *temp4_paste_Button;
+        customButton *temp5_copy_Button;
+        customButton *temp5_paste_Button;
+        customButton *temp6_copy_Button;
+        customButton *temp6_paste_Button;
 
-	bool connectButtonActive;
+        bool connectButtonActive;
   bool patchLoadError;
-	QTimer* timer;
-	int blinkCount;
-	bool currentSyncStatus;
-	initPatchListMenu *initPatch;
-	QString patchName;
-	QString temp1_sysxMsg;
-	QString temp2_sysxMsg;
-	QString temp3_sysxMsg;
-	QString temp4_sysxMsg;
-	QString temp5_sysxMsg;
-	};
+        QTimer* timer;
+        int blinkCount;
+        bool currentSyncStatus;
+        initPatchListMenu *initPatch;
+        QString patchName;
+        QString temp1_sysxMsg;
+        QString temp2_sysxMsg;
+        QString temp3_sysxMsg;
+        QString temp4_sysxMsg;
+        QString temp5_sysxMsg;
+        };
 
 #endif // FLOORBOARDDISPLAY_H

@@ -1,7 +1,7 @@
 /****************************************************************************
 **
 ** Copyright (C) 2007~2010 Colin Willcocks.
-** Copyright (C) 2005~2007 Uco Mesdag. 
+** Copyright (C) 2005~2007 Uco Mesdag.
 ** All rights reserved.
 ** This file is part of "GT-10 Fx FloorBoard".
 **
@@ -37,66 +37,63 @@ class menuPage : public QWidget
 
 public:
     menuPage(
-		QWidget *parent = 0,
-		unsigned int id = 0,
-		QString imagePath = ":/images/menuPage_stomp.png",
-		QPoint stompPos = QPoint::QPoint(100, 24));
-	void setPos(QPoint newPos);
-	void setImage(QString imagePath);
-	void setSize(QSize newSize);
-	void setId(unsigned int id);
+                QWidget *parent = 0,
+                unsigned int id = 0,
+                QString imagePath = ":/images/menuPage_stomp.png",
+                QPoint stompPos = QPoint::QPoint(100, 24));
+        void setPos(QPoint newPos);
+        void setImage(QString imagePath);
+        void setSize(QSize newSize);
+        void setId(unsigned int id);
 
   void setLSB(QString hex1, QString hex2);
-	unsigned int getId();
+        unsigned int getId();
 
-	virtual void setEditPages() {};
-	editWindow* editDetails();
+        virtual void setEditPages() {};
+        editWindow* editDetails();
 
 public slots:
-	void updatePos(signed int offsetDif);
-	void valueChanged(int value, QString hex1, QString hex2, QString hex3);
-	void valueChanged(bool value, QString hex1, QString hex2, QString hex3);
-	//void valueChanged(int index);
-	virtual void updateSignal() {};
-	void setDisplayToFxName();
-	void master_ButtonSignal(bool value);	
-	void fx1_autoriff_ButtonSignal(bool value);	
-	void fx2_autoriff_ButtonSignal(bool value);	
-	void menuButtonSignal(bool value);  
+        void updatePos(signed int offsetDif);
+        void valueChanged(int value, QString hex1, QString hex2, QString hex3);
+        void valueChanged(bool value, QString hex1, QString hex2, QString hex3);
+        //void valueChanged(int index);
+        virtual void updateSignal() {};
+        void setDisplayToFxName();
+        void menuButtonSignal(bool value);
   void systemReply(QString);
-		
+
 signals:
-	void valueChanged(QString fxName, QString valueName, QString valueStr);
-	void currentIndexChanged(int index);
-	void dialogUpdateSignal();
-	void setEditDialog(editWindow* editDialog);
-	//void notConnectedSignal();
-	void setStatusSymbol(int value);
-	void setStatusProgress(int value);
+        void valueChanged(QString fxName, QString valueName, QString valueStr);
+        void currentIndexChanged(int index);
+        void dialogUpdateSignal();
+        void setEditDialog(editWindow* editDialog);
+        //void notConnectedSignal();
+        void setStatusSymbol(int value);
+        void setStatusProgress(int value);
   void setStatusMessage(QString message);
   void systemUpdateSignal();
 
 protected:
-	void paintEvent(QPaintEvent *event);
-	//void mousePressEvent(QMouseEvent *event);
+        void paintEvent(QPaintEvent *event);
+        //void mousePressEvent(QMouseEvent *event);
 
 private:
 
-	void emitValueChanged(QString hex1, QString hex2, QString hex3, QString valueHex);
-	editWindow *editDialog;
-	QString imagePath;
-	QSize stompSize;
-	QPoint stompPos; 
-	unsigned int id;
+        void emitValueChanged(QString hex1, QString hex2, QString hex3, QString valueHex);
+        editWindow *editDialog;
+        QString imagePath;
+        QSize stompSize;
+        QPoint stompPos;
+        unsigned int id;
 
-	QPoint dragStartPosition;
-	QPixmap image;
-	QString hex1;
-	QString hex2;
-	QString hex3;
-	QString fxName;
-	
-	customButton *menuButton;
+        QPoint dragStartPosition;
+        QPixmap image;
+        QString hex1;
+        QString hex2;
+        QString hex3;
+        QString fxName;
+        QString area_mode;
+        customButton *menuButton;
 };
 
 #endif // MENUPAGE_H

@@ -92,36 +92,6 @@ editWindow* menuPage::editDetails()
         return this->editDialog;
 };
 
-void menuPage::master_ButtonSignal(bool value)
-{
-    if (this->id == 23)
-    {
-      emitValueChanged(this->hex1, this->hex2, "00", "void");
-      this->editDialog->setWindow(tr("Master"));
-      emit setEditDialog(this->editDialog);
-     };
-};
-
-void menuPage::fx1_autoriff_ButtonSignal(bool value)
-{
-    if (this->id == 21)
-    {
-      emitValueChanged(this->hex1, this->hex2, "00", "void");
-      this->editDialog->setWindow(tr("FX1 AutoRiff"));
-      emit setEditDialog(this->editDialog);
-    };
-};
-
-void menuPage::fx2_autoriff_ButtonSignal(bool value)
-{
-    if (this->id == 22)
-    {
-      emitValueChanged(this->hex1, this->hex2, "00", "void");
-      this->editDialog->setWindow(tr("FX2 AutoRiff"));
-      emit setEditDialog(this->editDialog);
-    };
-};
-
 void menuPage::menuButtonSignal(bool value)
 {
   if(this->id > 19)
@@ -133,17 +103,20 @@ void menuPage::menuButtonSignal(bool value)
     SysxIO *sysxIO = SysxIO::Instance();
           if((this->id == 19 || this->id == 18) && sysxIO->deviceReady())
           {
-    QString replyMsg;
-    emitValueChanged(this->hex1, this->hex2, "00", "void");
-    this->editDialog->setWindow(this->fxName);
-    emit setEditDialog(this->editDialog);
+            emit setStatusMessage(tr("Opening Page..."));
+	          emit setStatusSymbol(3);
+            QString replyMsg;
+            emitValueChanged(this->hex1, this->hex2, "00", "void");
+            this->editDialog->setWindow(this->fxName);
+            emit setEditDialog(this->editDialog);
            if (sysxIO->isConnected())
                {
-                emit setStatusSymbol(2);
-                emit setStatusMessage(tr("Request System data"));
                 sysxIO->setDeviceReady(false); // Reserve the device for interaction.
                 QObject::disconnect(sysxIO, SIGNAL(sysxReply(QString)));
                 QObject::connect(sysxIO, SIGNAL(sysxReply(QString)), this, SLOT(systemReply(QString)));
+                emit setStatusProgress(100);
+	              emit setStatusSymbol(2);
+		            emit setStatusMessage(tr("Request System data"));
                 sysxIO->sendSysx(systemRequest); // GT-10 System area data Request.
               }
          else
@@ -156,6 +129,9 @@ void menuPage::menuButtonSignal(bool value)
               msgBox->setText(snork);
               msgBox->setStandardButtons(QMessageBox::Ok);
               msgBox->exec();
+              emit setStatusMessage(tr("Not Connected"));
+	            emit setStatusSymbol(0);
+
              };
     };
 };
@@ -381,12 +357,20 @@ void menuPage::emitValueChanged(QString hex1, QString hex2, QString hex3, QStrin
                 }
                 else
                 {
-                  if (this->id == 18)this->fxName = tr("System settings");
-                  if (this->id == 19)this->fxName = tr("System Midi");
-                  if (this->id == 20)this->fxName = tr("Assigns");
-                  if (this->id == 21)this->fxName = tr("FX1 AutoRiff User");
-      if (this->id == 22)this->fxName = tr("FX2 AutoRiff User");
-      if (this->id == 23)this->fxName = tr("Master");
+                  if (this->id == 18){this->fxName = tr("System settings");   this->area_mode = "System";   };
+                  if (this->id == 19){this->fxName = tr("System Midi");       this->area_mode = "System";   };
+                  if (this->id == 20){this->fxName = tr("Master");            this->area_mode = "Structure";};
+                  if (this->id == 21){this->fxName = tr("Assign 1");          this->area_mode = "Structure";};
+		              if (this->id == 22){this->fxName = tr("Assign 2");          this->area_mode = "Structure";};
+		              if (this->id == 23){this->fxName = tr("Assign 3");          this->area_mode = "Structure";};
+		              if (this->id == 24){this->fxName = tr("Assign 4");          this->area_mode = "Structure";};
+		              if (this->id == 25){this->fxName = tr("Assign 5");          this->area_mode = "Structure";};
+		              if (this->id == 26){this->fxName = tr("Assign 6");          this->area_mode = "Structure";};
+		              if (this->id == 27){this->fxName = tr("Assign 7");          this->area_mode = "Structure";};
+		              if (this->id == 28){this->fxName = tr("Assign 8");          this->area_mode = "Structure";};
+                  if (this->id == 29){this->fxName = tr("FX1 AutoRiff User"); this->area_mode = "Structure";};
+                  if (this->id == 30){this->fxName = tr("FX2 AutoRiff User"); this->area_mode = "Structure";};
+      
                 };
         };
 

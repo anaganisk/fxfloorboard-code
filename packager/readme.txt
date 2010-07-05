@@ -4,7 +4,7 @@ GT-10FxFloorBoard Copyright (C) 2007~2010 Colin Willcocks (gumtownbassman@yahoo.
 =======
 
 
-GT-10FxFloorBoard version 20100611: 11 June 2010
+GT-10FxFloorBoard version 20100702: 02 July 2010
 *****************************************************
 PLEASE FEEL FREE TO DONATE, YOU MAY FREELY USE THIS SOFTWARE, 
  JUST KEEP IN MIND THE 7000 HOURS SPENT OVER 4 YEARS GETTING IT HERE,
@@ -13,6 +13,7 @@ but then patches created by you for sharing with all would be nice too.
 you can email patches and custom system settings saved files to the above address.
 ***********************************************************************************
  ********* LATEST FEATURES ADDED****************************************************
+ *Bulk Patch Editing - One effect change can be applied to a series of patches in one operation. 
  *Whats This Help dialog added, with the press of the [F1] button. 
  *Auditioning of Patches within Bulk Files, high-lighted file is sent to the GT-10 for instant auditioning before loading. 
  *Temp Clipboard copied events are saved to file and are re-loaded on FxFloorbOard startup. 
@@ -28,6 +29,9 @@ you can email patches and custom system settings saved files to the above addres
    the associated clipBoard and replaces the current settings for that one effect only.
 
 ********** USEFUL INFORMATION *************
+* version 20100702 The Bulk Patch Editing function should be used with caution 
+* as it can't be undone, and a Bulk Patch Backup is recommended before using it.
+* 
 * version 20100611 fixed patch write bug - stopped popup error dialog when there was no error. 
 
 ********* FIRST USE CONNECTION HINTS ************** 

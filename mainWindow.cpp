@@ -277,7 +277,7 @@ void mainWindow::createMenus()
         toolsMenu->addAction(uploadAct);
         fileMenu->addSeparator();
         toolsMenu->addAction(summaryAct);
-        toolsMenu->addAction(summaryAct2);
+        //toolsMenu->addAction(summaryAct2);
         menuBar->addMenu(toolsMenu);
 
 

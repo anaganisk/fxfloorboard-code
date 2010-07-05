@@ -1,7 +1,7 @@
 /****************************************************************************
 **
 ** Copyright (C) 2007~2010 Colin Willcocks.
-** Copyright (C) 2005~2007 Uco Mesdag. 
+** Copyright (C) 2005~2007 Uco Mesdag.
 ** All rights reserved.
 ** This file is part of "GT-10 Fx FloorBoard".
 **
@@ -35,53 +35,53 @@ class customControlTarget : public QWidget
     Q_OBJECT
 
 public:
-    customControlTarget(QWidget *parent = 0, 
-		QString hex1 = "void",
-		QString hex2 = "void",
-		QString hex3 = "void",
-		QString background = "normal", 
-		QString direction = "min", 
-		int lenght = 40);
+    customControlTarget(QWidget *parent = 0,
+                QString hex1 = "void",
+                QString hex2 = "void",
+                QString hex3 = "void",
+                QString background = "normal",
+                QString direction = "min",
+                int lenght = 40);
 
 protected:
-	void paintEvent(QPaintEvent *event);
+        void paintEvent(QPaintEvent *event);
 
 public slots:
-	void dialogUpdateSignal();
-	void knobSignal(QString, QString, QString);
+        void knobSignal(QString, QString, QString);
+        void dialogUpdateSignal();
 
 signals:
-	void updateSignal();
-	void updateDisplayTarget(QString text);
-	void updateDisplayMin(QString text);
-	void updateDisplayMax(QString text);
-	void updateTarget(QString hexMsb, QString hex2, QString hexLsb);
-	void updateHex(QString hexMsb, QString hex2, QString hexLsb);
+        void updateSignal();
+        void updateDisplayTarget(QString text);
+        void updateDisplayMin(QString text);
+        void updateDisplayMax(QString text);
+        void updateTarget(QString hexMsb, QString hex2, QString hexLsb);
+        void updateHex(QString hexMsb, QString hex2, QString hexLsb);
 
 private:
-	customControlLabel* label;
-	customControlLabel* labelMin;
-	customControlLabel* labelMax;
-	QLineEdit* display;
-	customTargetListMenu* displayCombo;
-	QLineEdit* displayMin;
-	QLineEdit* displayMax;
-	customKnobTarget* knobTarget;
-	customKnobTarget* knobMin;
-	customKnobTarget* knobMax;
-	QString hex1;
-	QString hex2;
-	QString hex3;
-	QString hex4;
-	QString hex5;
-	QString hexMin;
-	QString hexMax;
-	QString hexMsb;
-	QString hexLsb;
-	QString hexTarget;
-	QString hexTemp1;
-	QString hexTemp2;
-	QString direction;
+        customControlLabel* label;
+        customControlLabel* labelMin;
+        customControlLabel* labelMax;
+        //QLineEdit* display;
+        customTargetListMenu* displayCombo;
+        QLineEdit* displayMin;
+        QLineEdit* displayMax;
+        customKnobTarget* knobTarget;
+        customKnobTarget* knobMin;
+        customKnobTarget* knobMax;
+        QString hex1;
+        QString hex2;
+        QString hex3;
+        QString hex4;
+        QString hex5;
+        QString hexMin;
+        QString hexMax;
+        QString hexMsb;
+        QString hexLsb;
+        QString hexTarget;
+        QString hexTemp1;
+        QString hexTemp2;
+        QString direction;
 };
 
 #endif // customControlTarget_H

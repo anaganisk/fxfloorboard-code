@@ -359,7 +359,7 @@ void editWindow::temp1()
   if (!sysxIO->temp1_sysxMsg.isEmpty() && !temp_hex1.isEmpty() && !temp_hex1.contains("void") )
   {
   QString temp = sysxIO->temp1_sysxMsg.mid(this->position, this->length);
-  sysxIO->setFileSource("Structure", this->temp_hex1, "00", this->temp_hex3, temp);
+  
 
   QList< QList<QString> > patchData = sysxIO->getFileSource().hex; // Get the loaded patch data.
   QList<QString> patchAddress = sysxIO->getFileSource().address;
@@ -383,7 +383,8 @@ void editWindow::temp1()
                 };
         };
   sysxMsg = sysxMsg.replace(this->position, this->length, temp);
-  sysxIO->setFileSource("Structure", sysxMsg );
+  sysxIO->setFileSource("Structure", this->temp_hex1, "00", this->temp_hex3, temp);
+  sysxIO->setFileSource("Structure", sysxMsg );   
   emit dialogUpdateSignal();
   }
   else
@@ -400,7 +401,7 @@ void editWindow::temp2()
   if (!sysxIO->temp2_sysxMsg.isEmpty() && !temp_hex1.isEmpty() && !temp_hex1.contains("void")  )
   {
   QString temp = sysxIO->temp2_sysxMsg.mid(this->position, this->length);
-  sysxIO->setFileSource("Structure", this->temp_hex1, "00", this->temp_hex3, temp);
+  
   QList< QList<QString> > patchData = sysxIO->getFileSource().hex; // Get the loaded patch data.
   QList<QString> patchAddress = sysxIO->getFileSource().address;
         QString addr1 = tempBulkWrite;  // temp address
@@ -423,6 +424,7 @@ void editWindow::temp2()
                 };
         };
   sysxMsg = sysxMsg.replace(this->position, this->length, temp);
+  sysxIO->setFileSource("Structure", this->temp_hex1, "00", this->temp_hex3, temp);
   sysxIO->setFileSource("Structure", sysxMsg );
   emit dialogUpdateSignal();
   }
@@ -440,7 +442,7 @@ void editWindow::temp3()
   if (!sysxIO->temp3_sysxMsg.isEmpty() && !temp_hex1.isEmpty() && !temp_hex1.contains("void")  )
   {
   QString temp = sysxIO->temp3_sysxMsg.mid(this->position, this->length);
-  sysxIO->setFileSource("Structure", this->temp_hex1, "00", this->temp_hex3, temp);
+  
   QList< QList<QString> > patchData = sysxIO->getFileSource().hex; // Get the loaded patch data.
   QList<QString> patchAddress = sysxIO->getFileSource().address;
         QString addr1 = tempBulkWrite;  // temp address
@@ -463,6 +465,7 @@ void editWindow::temp3()
                 };
         };
   sysxMsg = sysxMsg.replace(this->position, this->length, temp);
+  sysxIO->setFileSource("Structure", this->temp_hex1, "00", this->temp_hex3, temp);
   sysxIO->setFileSource("Structure", sysxMsg );
   emit dialogUpdateSignal();
   }
@@ -480,7 +483,7 @@ void editWindow::temp4()
   if (!sysxIO->temp4_sysxMsg.isEmpty() && !temp_hex1.isEmpty() && !temp_hex1.contains("void")  )
   {
   QString temp = sysxIO->temp4_sysxMsg.mid(this->position, this->length);
-  sysxIO->setFileSource("Structure", this->temp_hex1, "00", this->temp_hex3, temp);
+  
   QList< QList<QString> > patchData = sysxIO->getFileSource().hex; // Get the loaded patch data.
   QList<QString> patchAddress = sysxIO->getFileSource().address;
         QString addr1 = tempBulkWrite;  // temp address
@@ -503,6 +506,7 @@ void editWindow::temp4()
                 };
         };
   sysxMsg = sysxMsg.replace(this->position, this->length, temp);
+  sysxIO->setFileSource("Structure", this->temp_hex1, "00", this->temp_hex3, temp);
   sysxIO->setFileSource("Structure", sysxMsg );
   emit dialogUpdateSignal();
   }
@@ -520,7 +524,7 @@ void editWindow::temp5()
   if (!sysxIO->temp5_sysxMsg.isEmpty() && !temp_hex1.isEmpty() && !temp_hex1.contains("void")  )
   {
   QString temp = sysxIO->temp5_sysxMsg.mid(this->position, this->length);
-  sysxIO->setFileSource("Structure", this->temp_hex1, "00", this->temp_hex3, temp);
+ 
   QList< QList<QString> > patchData = sysxIO->getFileSource().hex; // Get the loaded patch data.
   QList<QString> patchAddress = sysxIO->getFileSource().address;
         QString addr1 = tempBulkWrite;  // temp address
@@ -543,6 +547,7 @@ void editWindow::temp5()
                 };
         };
   sysxMsg = sysxMsg.replace(this->position, this->length, temp);
+   sysxIO->setFileSource("Structure", this->temp_hex1, "00", this->temp_hex3, temp);
   sysxIO->setFileSource("Structure", sysxMsg );
   emit dialogUpdateSignal();
   }
@@ -558,9 +563,9 @@ void editWindow::swap_pre()
   SysxIO *sysxIO = SysxIO::Instance();
 
   QList< QList<QString> > patchData = sysxIO->getFileSource().hex; // Get the loaded patch data.
-  QList<QString> patchAddress = sysxIO->getFileSource().address;
-        QString addr1 = tempBulkWrite;  // temp address
-        QString addr2 = QString::number(0, 16).toUpper();
+  //QList<QString> patchAddress = sysxIO->getFileSource().address;
+  QString addr1 = tempBulkWrite;  // temp address
+  QString addr2 = QString::number(0, 16).toUpper();
   QString sysxMsg;
         for(int i=0;i<patchData.size();++i)
         {
@@ -580,14 +585,13 @@ void editWindow::swap_pre()
         };
   QString pre_A = sysxMsg.mid(336, 58);
   QString pre_B = sysxMsg.mid(400, 58);
-  sysxMsg = sysxMsg.replace(336, 58, pre_B);
-  sysxMsg = sysxMsg.replace(400, 58, pre_A);
+  sysxMsg.replace(336, 58, pre_B);
+  sysxMsg.replace(400, 58, pre_A);
+
+  QString Msg = sysxMsg.mid(336, 122);
+  sysxIO->setFileSource("Structure", "01", "00", "10", Msg);
   sysxIO->setFileSource("Structure", sysxMsg );
   emit dialogUpdateSignal();
-
-  sysxMsg = sysxMsg.mid(304, 154);
-  sysxIO->setFileSource("Structure", "01", "00", "00", sysxMsg);
-  //emit dialogUpdateSignal();
 };
 void editWindow::patchPos(int pos, int len, QString t_hex1, QString t_hex3)
 {

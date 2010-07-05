@@ -1,9 +1,9 @@
 /****************************************************************************
 **
 ** Copyright (C) 2007~2010 Colin Willcocks.
-** Copyright (C) 2005~2007 Uco Mesdag.
+** Copyright (C) 2005~2007 Uco Mesdag. 
 ** All rights reserved.
-** This file is part of "GT-10 Fx FloorBoard".
+** This file is part of "GT-10B Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -21,34 +21,23 @@
 **
 ****************************************************************************/
 
-#include "customSplashScreen.h"
+#ifndef MENUPAGE_ASSIGN1_H
+#define MENUPAGE_ASSIGN1_H
 
-customSplashScreen::customSplashScreen(const QPixmap& pixmap)
+#include <QtGui>
+#include <QWidget>
+#include "menuPage.h"
+
+class  menuPage_assign1 : public menuPage
 {
-        QSplashScreen::setPixmap(pixmap);
+    Q_OBJECT
+
+public:
+	menuPage_assign1(QWidget *parent);
+	void setEditPages();
+
+public slots:
+	void updateSignal();
 };
 
-customSplashScreen::~customSplashScreen()
-{
-};
-
-void customSplashScreen::drawContents(QPainter *painter)
-{
-        QPixmap textPix = QSplashScreen::pixmap();
-        painter->setPen(this->color);
-        //painter->drawText(r, this->alignement, this->message);
-        painter->drawText(this->rect, this->alignement, this->message);
-};
-
-void customSplashScreen::showStatusMessage(const QString &message, const QColor &color)
-{
-    this->message = message;
-        this->color = color;
-        this->showMessage(this->message, this->alignement, this->color);
-};
-
-void customSplashScreen::setMessageRect(QRect rect, int alignement)
-{
-        this->rect = rect;
-        this->alignement = alignement;
-};
+#endif // MENUPAGE_ASSIGN1_H

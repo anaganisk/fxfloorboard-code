@@ -3,7 +3,7 @@
 ** Copyright (C) 2007~2010 Colin Willcocks.
 ** Copyright (C) 2005~2007 Uco Mesdag. 
 ** All rights reserved.
-** This file is part of "GT-10B Fx FloorBoard".
+** This file is part of "GT-10 Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -29,7 +29,7 @@
 #include "bulkEditDialog.h"
 #include "Preferences.h"
 #include "globalVariables.h"
-#include "sysxIO.h"
+#include "SysxIO.h"
 
 
 bulkEditDialog::bulkEditDialog(int partStart, int partLength, QString partHex1, QString partHex3)
@@ -301,7 +301,7 @@ void bulkEditDialog::prepareData()
         {
         this->patchName = sysxIO->getCurrentPatchName();
         QString temp = sysxMsg.mid(this->partialStart, this->partialLength);
-        this->partialData = "F04100000030126000" + this->hex1 + this->hex3 + temp + "00F7";
+        this->partialData = "F0410000002F126000" + this->hex1 + this->hex3 + temp + "00F7";
         } else {
   QApplication::beep();
   QString size = QString::number(sysxMsg.size()/2, 10);
