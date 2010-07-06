@@ -4,7 +4,7 @@ GT-10FxFloorBoard Copyright (C) 2007~2010 Colin Willcocks (gumtownbassman@yahoo.
 =======
 
 
-GT-10FxFloorBoard version 20100702: 02 July 2010
+GT-10FxFloorBoard version 20100706: 06 July 2010
 *****************************************************
 PLEASE FEEL FREE TO DONATE, YOU MAY FREELY USE THIS SOFTWARE, 
  JUST KEEP IN MIND THE 7000 HOURS SPENT OVER 4 YEARS GETTING IT HERE,
@@ -13,6 +13,7 @@ but then patches created by you for sharing with all would be nice too.
 you can email patches and custom system settings saved files to the above address.
 ***********************************************************************************
  ********* LATEST FEATURES ADDED****************************************************
+ *Separate Assign edit-pages for Bulk Patch editing of individual Assigns. 
  *Bulk Patch Editing - One effect change can be applied to a series of patches in one operation. 
  *Whats This Help dialog added, with the press of the [F1] button. 
  *Auditioning of Patches within Bulk Files, high-lighted file is sent to the GT-10 for instant auditioning before loading. 

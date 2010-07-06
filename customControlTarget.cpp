@@ -3,7 +3,7 @@
 ** Copyright (C) 2007~2010 Colin Willcocks.
 ** Copyright (C) 2005~2007 Uco Mesdag.
 ** All rights reserved.
-** This file is part of "GT-10 Fx FloorBoard".
+** This file is part of "GT-10B Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -30,6 +30,7 @@ customControlTarget::customControlTarget(QWidget *parent,
                                          QString background, QString direction, int lenght)
                                              : QWidget(parent)
 {
+
     this->displayCombo = new customTargetListMenu(this, hex1, hex2, hex3, hexMsb, hexLsb);
     this->displayMin = new QLineEdit(this);
     this->displayMax = new QLineEdit(this);
@@ -56,8 +57,11 @@ customControlTarget::customControlTarget(QWidget *parent,
     this->hexMin = QString::number((hex3.toInt(&ok, 16) + 2), 16).toUpper(); // go forward 2 to select target Min address
     if(this->hexMin.length() < 2) this->hexMin.prepend("0");                         // prepend with "0" if single digit.
 
+
+
     SysxIO *sysxIO = SysxIO::Instance();
     int value = sysxIO->getSourceValue("Structure", this->hex1, this->hex2, this->hex3);        // read target value as integer from sysx.
+
     QString valueHex = QString::number(value, 16).toUpper();                        // convert to hex qstring.
     if(valueHex.length() < 2) valueHex.prepend("0");
 
@@ -79,6 +83,12 @@ customControlTarget::customControlTarget(QWidget *parent,
     this->hexLsb = items.customdesc;                                                  //
 
     this->knobTarget = new customKnobTarget(this, hex1, hex2, hex3, hexMsb, hexLsb, "target");                // create knob with target address
+
+
+
+
+
+
     this->label->setText("TARGET");
     this->label->setAlignment(Qt::AlignCenter);
 
@@ -105,7 +115,6 @@ customControlTarget::customControlTarget(QWidget *parent,
     targetLayout->setSpacing(0);
     targetLayout->addWidget(this->label, 0, Qt::AlignCenter);
     targetLayout->addWidget(this->knobTarget, 0, Qt::AlignCenter);
-    //targetLayout->addWidget(this->display, 0, Qt::AlignCenter);
     targetLayout->addWidget(this->displayCombo, 0, Qt::AlignCenter);
     targetLayout->addStretch(0);
 
@@ -147,8 +156,8 @@ customControlTarget::customControlTarget(QWidget *parent,
     //QObject::connect(this, SIGNAL( updateDisplayTarget(QString) ),
                      //this->display, SLOT( setText(QString) ));
 
-    //QObject::connect(this, SIGNAL( updateDisplayTarget(QString) ),
-                     //this, SIGNAL( updateSignal() ));
+    QObject::connect(this, SIGNAL( updateDisplayTarget(QString) ),
+                     this, SIGNAL( updateSignal() ));
 
     QObject::connect(this, SIGNAL( updateDisplayMin(QString) ),
                      this->displayMin, SLOT( setText(QString) ));
@@ -248,3 +257,4 @@ void customControlTarget::dialogUpdateSignal()
     valueStr = midiTable->getValue("Structure", hexMsb, hex2, hexLsb, valueHex);
     emit updateDisplayMax(valueStr);                                           // initial value only is displayed under knob
 };
+
