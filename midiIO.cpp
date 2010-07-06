@@ -421,7 +421,7 @@ void midiIO::run()
       {
         emit setStatusdBugMessage(tr("re-trying data request"));
         repeat = repeat+1;
-        //goto RECEIVE;
+        goto RECEIVE;
       };
       emit midiFinished(); 
 		 }
@@ -482,11 +482,15 @@ void midiIO::sendSysxMsg(QString sysxOutMsg, int midiOutPort, int midiInPort)
     }; 
   };
   this->count = 0;    
-  if (sysxOutMsg.size() == 12){reBuild = sysxOutMsg;  msgType = "identity"; emit setStatusdBugMessage(tr("identity request")); };  // identity request not require checksum
+  if (sysxOutMsg.size() == 12)
+  {reBuild = sysxOutMsg;  msgType = "identity"; emit setStatusdBugMessage(tr("identity request")); };  // identity request not require checksum
 	this->sysxOutMsg = reBuild.simplified().toUpper();//.remove("0X").remove(" ");
-  if (this->sysxOutMsg == systemRequestMsg ){msgType = "system"; setStatusdBugMessage(tr("system request")); }
-  if((sysxOutMsg.size() == 34) && (sysxOutMsg.contains(patchRequestDataSize)) && (sysxOutMsg.mid((sysxAddressOffset*2-2), 2) == "11")) { msgType = "patch"; emit setStatusdBugMessage(tr("patch request")); };    
-  if((sysxOutMsg.size() == 34) && (sysxOutMsg.contains("00000010")) && (sysxOutMsg.mid((sysxAddressOffset*2-2), 2) == "11")) { msgType = "name"; emit setStatusdBugMessage(tr("name request")); };   
+  if (this->sysxOutMsg == systemRequestMsg )
+  {msgType = "system"; setStatusdBugMessage(tr("system request")); }
+  if((sysxOutMsg.size() == 34) && (sysxOutMsg.contains(patchRequestDataSize)) && (sysxOutMsg.mid((sysxAddressOffset*2-2), 2) == "11")) 
+  { msgType = "patch"; emit setStatusdBugMessage(tr("patch request")); };    
+  if((sysxOutMsg.size() == 34) && (sysxOutMsg.contains("00000010")) && (sysxOutMsg.mid((sysxAddressOffset*2-2), 2) == "11")) 
+  { msgType = "name"; emit setStatusdBugMessage(tr("name request")); };   
    
 	this->midiOutPort = midiOutPort;
 	this->midiInPort = midiInPort;

@@ -35,15 +35,8 @@
 
  mainWindow::mainWindow(QWidget *parent)
     : QWidget(parent)
-/* For a stange reason when deriving from QMainWindow
-        the performance is dead slow??? */
-
-//mainWindow::mainWindow(QWidget *parent)
-        //: QMainWindow(parent)
 {
         floorBoard *fxsBoard = new floorBoard(this);
-  //fxsBoard->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-
 
         /* Loads the stylesheet for the current platform if present */
 #ifdef Q_OS_WIN
@@ -83,7 +76,6 @@
 
 
         this->setWindowTitle(deviceType + tr(" Fx FloorBoard"));
-        //this->setCentralWidget(fxsBoard);
 
         this->createActions();
         this->createMenus();
@@ -586,14 +578,14 @@ void mainWindow::systemLoad()
                                         msgBox->setTextFormat(Qt::RichText);
                                         QString msgText;
                                         msgText.append("<font size='+1'><b>");
-                                        msgText.append(tr("You have chosen to load a BULK DATA backup file."));
+                                        msgText.append(tr("You have chosen to load a SYSTEM DATA file."));
                                         msgText.append("<b></font><br>");
-                                        msgText.append(tr("This will overwrite the GT-10B DATA currently stored in the GT-10B<br>"));
-                                        msgText.append(tr (" and can't be undone.<br>"));
-                                        msgText.append(tr("Select 'NO' to only update the Editor - Select 'YES' to update the GT-10B memory<br>"));
+                                        msgText.append(tr("This will overwrite the SYSTEM DATA currently stored in the ")+ deviceType);
+                                        msgText.append(tr ("<br> and can't be undone.<br>"));
+                                        msgText.append(tr("Select 'NO' to only update the Editor - Select 'YES' to update the GT System<br>"));
 
 
-                                        msgBox->setInformativeText(tr("Are you sure you want to write to the GT-10B?"));
+                                        msgBox->setInformativeText(tr("Are you sure you want to write to the ")+ deviceType);
                                         msgBox->setText(msgText);
                                         msgBox->setStandardButtons(QMessageBox::Yes | QMessageBox::No);
 
@@ -666,42 +658,10 @@ void mainWindow::bulkLoad()
 {
    SysxIO *sysxIO = SysxIO::Instance();
      if (sysxIO->isConnected())
-               {
-
-                bulkLoadDialog *loadDialog = new bulkLoadDialog();
+          {
+            bulkLoadDialog *loadDialog = new bulkLoadDialog();
             loadDialog->exec();
-
-                /*if(file.readFile())
-                {
-                        // DO SOMETHING AFTER READING THE FILE (UPDATE THE GUI)
-
-                  SysxIO *sysxIO = SysxIO::Instance();
-                        sysxIO->setFileName(fileName);
-
-                        QMessageBox *msgBox = new QMessageBox();
-                                        msgBox->setWindowTitle(deviceType + tr(" Fx FloorBoard"));
-                                        msgBox->setIcon(QMessageBox::Warning);
-                                        msgBox->setTextFormat(Qt::RichText);
-                                        QString msgText;
-                                        msgText.append("<font size='+1'><b>");
-                                        msgText.append(tr("You have chosen to load a BULK DATA file."));
-                                        msgText.append("<b></font><br>");
-                                        msgText.append(tr("This will overwrite the SYSTEM or PATCH DATA currently stored in the GT-10B<br>"));
-                                        msgText.append(tr (" and can't be undone.<br>"));
-                                        //msgText.append(tr("Select 'NO' to only update the Editor - Select 'YES' to update the GT-10B memory<br>"));
-
-
-                                        msgBox->setInformativeText(tr("Are you sure you want to write to the GT-10B?"));
-                                        msgBox->setText(msgText);
-                                        msgBox->setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-
-                                        if(msgBox->exec() == QMessageBox::Yes)
-                                        {	// Accepted to overwrite system data.
-                                        sysxIO->systemWrite();
-                                        };
-                };
-        };      */
-        }
+          }
          else
              {
               QString snork = tr("Ensure connection is active and retry");
@@ -768,8 +728,6 @@ void mainWindow::settings()
                 preferences->setPreferences("Midi", "DBug", "bool", dBug);
                 preferences->setPreferences("Midi", "Time", "set", midiTimeSet);
                 preferences->setPreferences("Midi", "Delay", "set", receiveTimeout);
-                //preferences->setPreferences("Midi", "BulkStart", "patch", "1");
-                //preferences->setPreferences("Midi", "BulkFinish", "patch", "200");
                 preferences->setPreferences("Window", "Restore", "sidepanel", sidepanel);
                 preferences->setPreferences("Window", "Restore", "window", window);
                 preferences->setPreferences("Window", "Splash", "bool", splash);
@@ -827,8 +785,8 @@ void mainWindow::about()
         QFile file(":about");
         if(file.open(QIODevice::ReadOnly))
         {
-                QMessageBox::about(this, tr("GT-10B Fx FloorBoard - About"),
-                        tr("GT-10B Fx FloorBoard, ") + tr("version") + " " + version + "<br>" + file.readAll());
+                QMessageBox::about(this, deviceType + tr(" Fx FloorBoard - About"),
+                        deviceType + tr(" Fx FloorBoard - ") + tr("version") + " " + version + "<br>" + file.readAll());
         };
 };
 

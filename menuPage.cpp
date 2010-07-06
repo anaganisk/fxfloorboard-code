@@ -131,14 +131,15 @@ void menuPage::menuButtonSignal(bool value)
          }
          else
              {
-              QString snork = tr("Ensure connection is active and retry");
+              QString snork = tr("Ensure connection is active and retry<br>");
+              snork.append(tr("System data not transfered, current settings are to be used<br>"));
               QMessageBox *msgBox = new QMessageBox();
-			        msgBox->setWindowTitle(deviceType + tr(" not connected !!"));
-		        	msgBox->setIcon(QMessageBox::Information);
-		        	msgBox->setText(snork);
-		        	msgBox->setStandardButtons(QMessageBox::Ok);
-		        	msgBox->exec(); 
-		        	emit setStatusMessage(tr("Not Connected"));
+              msgBox->setWindowTitle(deviceType + tr(" midi connection not found!!"));
+              msgBox->setIcon(QMessageBox::Information);
+              msgBox->setText(snork);
+              msgBox->setStandardButtons(QMessageBox::Ok);
+              msgBox->exec();
+              emit setStatusMessage(tr("Not Connected"));
 	            emit setStatusSymbol(0);
               };  
     };
@@ -256,7 +257,7 @@ void menuPage::systemReply(QString replyMsg)
 			msgBox->setTextFormat(Qt::RichText);
 			QString msgText;
 			msgText.append("<font size='+1'><b>");
-			msgText.append(tr("The Boss ") + deviceType + tr(" Effects Processor was not found."));
+			msgText.append(tr("The Boss ") + deviceType + tr(" System data was not transfered !!."));
 			msgText.append("<b></font><br>");
 			msgBox->setText(msgText);
 			msgBox->setStandardButtons(QMessageBox::Ok);

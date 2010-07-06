@@ -23,7 +23,6 @@
 
 #include "editPage.h"
 #include <QLabel>
-#include "bulkEditDialog.h"
 #include "customSwitch.h"
 #include "customControlKnob.h"
 #include "customControlTarget.h"
@@ -224,10 +223,10 @@ void editPage::addLabel(int row, int column, int rowSpan, int columnSpan, QStrin
 
 void editPage::valueChanged(bool value, QString hex1, QString hex2, QString hex3)
 {
- 	//value;
-	//hex1;
-	//hex2;
-	//hex3;
+ 	value = value;
+	hex1 = hex1;
+  hex2 = hex2;
+	hex3 = hex3;
 }; 
 
 void editPage::newGroupBox(QString title, Qt::Alignment alignment)

@@ -825,7 +825,4 @@ void stompBox::getStompOrder()
 	this->stompOrderHex = stompOrderHex;
 };
 
- void stompBox::test()
- {
-   QApplication::beep();
- };
+ 

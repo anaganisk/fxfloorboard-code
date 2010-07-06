@@ -47,7 +47,8 @@ protected:
 
 public slots:
 	void valueChanged(int index);
-	void dialogUpdateSignal();
+        void dialogUpdateSignal(QString valueStr);
+        void comboUpdateSignal();
 
 signals:
 	void updateSignal();
@@ -57,7 +58,6 @@ signals:
 
 private:
 	void setComboBox();
-	customControlLabel* label;
 	customComboBox* controlListComboBox;
 	QString hex1;
 	QString hex2;

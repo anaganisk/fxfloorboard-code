@@ -73,7 +73,7 @@ customTargetListMenu::customTargetListMenu(QWidget *parent,
 		mainLayout->addWidget(this->controlListComboBox, 0, Qt::AlignCenter);
 
 		this->setLayout(mainLayout);
-		this->setFixedHeight(12 + 15);
+                this->setFixedHeight(15);
 		
 	}
   else
@@ -85,11 +85,11 @@ customTargetListMenu::customTargetListMenu(QWidget *parent,
 		mainLayout->addWidget(this->controlListComboBox, 0, Qt::AlignCenter);
 
 		this->setLayout(mainLayout);
-		this->setFixedHeight(12 + 15);
+                this->setFixedHeight(15);
 		
 	};
 
-	//QObject::connect(this->parent(), SIGNAL( dialogUpdateSignal() ), this, SLOT( dialogUpdateSignal() ));
+        //QObject::connect(this->parent(), SIGNAL( updateDisplayTarget(QString) ), this, SLOT( dialogUpdateSignal(QString) ));
 
 	QObject::connect(this, SIGNAL( updateSignal() ), this->parent(), SIGNAL( updateSignal() ));
 
@@ -97,9 +97,9 @@ customTargetListMenu::customTargetListMenu(QWidget *parent,
 
 	QObject::connect(this->controlListComboBox, SIGNAL(currentIndexChanged(int)), this, SIGNAL(currentIndexChanged(int)));
 
-  QObject::connect(this->parent(), SIGNAL(updateSignal()), this, SLOT(dialogUpdateSignal()));
+        QObject::connect(this->parent(), SIGNAL(updateSignal()), this, SLOT(comboUpdateSignal()));
   
-  QObject::connect(this, SIGNAL( updateTarget(QString, QString, QString) ),
+        QObject::connect(this, SIGNAL( updateTarget(QString, QString, QString) ),
                 this->parent(), SIGNAL( updateTarget(QString, QString, QString) ));
 }
 
@@ -235,7 +235,7 @@ void customTargetListMenu::setComboBox()
 	int maxWidth = QFontMetrics( this->font() ).width( longestItem );
 	if(maxWidth < 30) { maxWidth = 30; };
 
-  this->controlListComboBox->setFixedWidth(120);
+  this->controlListComboBox->setFixedWidth(150);
 
   this->controlListComboBox->setFixedHeight(15);
 	this->controlListComboBox->setEditable(false);
@@ -296,15 +296,28 @@ void customTargetListMenu::valueChanged(int index)
   
   emit updateTarget(hexMsb, hex2, hexLsb);                       // hexMsb & hexLsb are lookup address for label value
   emit updateTarget(hexMsb, hex2, hexLsb);
-  emit updateSignal();
+  //emit updateSignal();
 }
 
-void customTargetListMenu::dialogUpdateSignal()
+void customTargetListMenu::dialogUpdateSignal(QString valueStr)
 {
-	SysxIO *sysxIO = SysxIO::Instance();
-	
-	int index = sysxIO->getSourceValue(this->area, this->hex1, this->hex2, this->hex3);
+        bool ok;
+        //SysxIO *sysxIO = SysxIO::Instance();
+        int index = valueStr.toInt(&ok, 16);
+        //int index = sysxIO->getSourceValue(this->area, this->hex1, this->hex2, this->hex3);
 	this->controlListComboBox->setCurrentIndex(index);
-	//this->valueChanged(index); 
+        //emit updateSignal();
+        //this->valueChanged(index);
+}
+
+void customTargetListMenu::comboUpdateSignal()
+{
+
+        SysxIO *sysxIO = SysxIO::Instance();
+
+        int index = sysxIO->getSourceValue(this->area, this->hex1, this->hex2, this->hex3);
+        this->controlListComboBox->setCurrentIndex(index);
+
+
 }
 

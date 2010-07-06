@@ -43,13 +43,13 @@ void customComboBox::showPopup()
  	if( this->view()->verticalScrollBar()->isVisible() )
  	{
  		this->setMaxVisibleItems(this->maxVisibleItems() - 1);
- 		popupWidth = popupWidth + 10;
+ 		popupWidth = popupWidth + 40;
  	};
 
  	if( this->view()->verticalScrollBar()->isVisibleTo(this) )
  	{
  		this->setMaxVisibleItems(this->maxVisibleItems() - 1);
- 		popupWidth = popupWidth + 10;
+ 		popupWidth = popupWidth + 40;
  	};
 
    if(popupWidth < 40) { popupWidth = 40; };

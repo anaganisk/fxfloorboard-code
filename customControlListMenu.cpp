@@ -151,11 +151,8 @@ void customControlListMenu::setComboBox()
 	};
 	int maxWidth = QFontMetrics( this->font() ).width( longestItem );
         if(maxWidth < 20) { maxWidth = 20; };
-#ifdef Q_OS_WIN
- 	this->controlListComboBox->setFixedWidth(maxWidth + 30);
-#else
- 	this->controlListComboBox->setFixedWidth(maxWidth + 10);
-#endif
+        
+ 	this->controlListComboBox->setFixedWidth(maxWidth + 25);
   this->controlListComboBox->setFixedHeight(15);
 	this->controlListComboBox->setEditable(false);
 	this->controlListComboBox->setFrame(false);
@@ -197,7 +194,7 @@ void customControlListMenu::dialogUpdateSignal()
 	
 	int index = sysxIO->getSourceValue(this->area, this->hex1, this->hex2, this->hex3);
 	this->controlListComboBox->setCurrentIndex(index);
-	//this->valueChanged(index); 
+	this->valueChanged(index); 
 }
   
   

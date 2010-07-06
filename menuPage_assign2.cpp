@@ -28,7 +28,7 @@ menuPage_assign2::menuPage_assign2(QWidget *parent)
 {
   setLSB("0B", "30");
   editDetails()->patchPos(2544, 32, "0B", "30");    //192 sysx file offset and data length of chorus parameters x2,
-        setEditPages();
+  setEditPages();
 };
 
 void menuPage_assign2::updateSignal()
@@ -39,31 +39,29 @@ void menuPage_assign2::updateSignal()
 void menuPage_assign2::setEditPages()
 {
         editDetails()->page()->newGroupBox(tr("Assign 2"));
-        editDetails()->page()->newGroupBox(tr(""));          
+        editDetails()->page()->newGroupBox(tr(""));
         editDetails()->page()->newStackControl(0);
         editDetails()->page()->addSwitch(0, 0, 1, 1, "0B", "00", "30", "middle", Qt::AlignCenter);
         editDetails()->page()->addStackControl();
         editDetails()->page()->addGroupBox(0, 0, 1, 1);
         editDetails()->page()->insertStackField(0, 0, 1, 2, 1);
-        editDetails()->page()->addGroupBox(0, 0, 2, 1);
+        editDetails()->page()->addGroupBox(0, 0, 1, 1);
 
         editDetails()->addPage();
-        
-        //editDetails()->page()->newStackField(0);
-        //editDetails()->page()->addStackField();
-        
+
+
         editDetails()->page()->newStackField(0);
         editDetails()->page()->newGroupBox("Assign 2 Target");
         editDetails()->page()->addTarget(0, 0, 1, 3, "0B", "00", "31", "target","target", 120); // Target
         editDetails()->page()->addGroupBox(0, 0, 1, 1);
         editDetails()->page()->newGroupBox("Assign 2 Source");
-        editDetails()->page()->newStackControl(2);
-        editDetails()->page()->addComboBox(1, 0, 1, 1, "0B", "00", "37");                    // Source
+        editDetails()->page()->newStackControl(1);
+        editDetails()->page()->addComboBox(0, 0, 1, 1, "0B", "00", "37");                    // Source
         editDetails()->page()->addStackControl();
-  editDetails()->page()->addComboBox(1, 1, 1, 1, "0B", "00", "38");                    // Source Mode
-  editDetails()->page()->addRange(1, 2, 1, 2, "0B", "00", "39", "Structure");         // min/max range widget
-  editDetails()->page()->addGroupBox(0, 1, 1, 1);
-  editDetails()->page()->insertStackField(1, 1, 0, 1, 2);
+        editDetails()->page()->addComboBox(0, 1, 1, 1, "0B", "00", "38");                    // Source Mode
+        editDetails()->page()->addRange(0, 2, 1, 2, "0B", "00", "39", "Structure");         // min/max range widget
+        editDetails()->page()->addGroupBox(0, 1, 1, 1);
+        editDetails()->page()->insertStackField(1, 1, 0, 1, 2);
         editDetails()->page()->addStackField();
 
         editDetails()->page()->newStackField(1);editDetails()->page()->addStackField();
@@ -74,22 +72,22 @@ void menuPage_assign2::setEditPages()
         editDetails()->page()->newStackField(1);editDetails()->page()->addStackField();
         editDetails()->page()->newStackField(1);editDetails()->page()->addStackField();
         editDetails()->page()->newStackField(1);
-  editDetails()->page()->newGroupBox("Assign 2 Internal Pedal");
+        editDetails()->page()->newGroupBox("Assign 2 Internal Pedal");
         editDetails()->page()->addComboBox(0, 0, 1, 1, "0B", "00", "3B");                    // Internal Pedal Trigger
-  editDetails()->page()->addKnob(0, 1, 1, 1, "0B", "00", "3C");                        // Internal Pedal Time
+        editDetails()->page()->addKnob(0, 1, 1, 1, "0B", "00", "3C");                        // Internal Pedal Time
         editDetails()->page()->addComboBox(0, 2, 1, 1, "0B", "00", "3D");                    // Internal Pedal Curve
         editDetails()->page()->addGroupBox(0, 0, 1, 1);
-  editDetails()->page()->addStackField();
+        editDetails()->page()->addStackField();
         editDetails()->page()->newStackField(1);
-  editDetails()->page()->newGroupBox("Assign 2 Wave Pedal");
+        editDetails()->page()->newGroupBox("Assign 2 Wave Pedal");
         editDetails()->page()->addKnob(1, 0, 1, 1, "0B", "00", "3E", "normal","right", 105);// Wave Form Rate
         editDetails()->page()->addComboBox(1, 1, 1, 1, "0B", "00", "3F");                    // Wave Form
         editDetails()->page()->addGroupBox(0, 0, 1, 1);
-  editDetails()->page()->addStackField();
+        editDetails()->page()->addStackField();
         editDetails()->page()->newStackField(1);
-  editDetails()->page()->newGroupBox("Input");
+        editDetails()->page()->newGroupBox("Input");
         editDetails()->page()->addKnob(0, 0, 1, 1, "0C", "00", "20", "normal","right", 85);
         editDetails()->page()->addGroupBox(0, 0, 1, 1);
-  editDetails()->page()->addStackField();
-
+        editDetails()->page()->addStackField();
 };
+

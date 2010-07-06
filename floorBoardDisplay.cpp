@@ -1379,10 +1379,10 @@ void floorBoardDisplay::notConnected()
 	emit setStatusMessage(tr("Not connected"));	
 };
 
-/*void floorBoardDisplay::valueChanged(bool value, QString hex1, QString hex2, QString hex3)
+void floorBoardDisplay::valueChanged(bool value, QString hex1, QString hex2, QString hex3)
 {
-	value;
-	hex1;
-	hex2;
-	hex3;
-};*/
+	value = value;
+	hex1 = hex1;
+	hex2 = hex2;
+	hex3 = hex3;
+};

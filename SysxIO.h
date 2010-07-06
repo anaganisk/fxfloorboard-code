@@ -151,7 +151,6 @@ private:
 	void processSpooler();
 
 	SysxData fileSource;
-	SysxData temp1_Source;
 	SysxData systemSource;
 	QString fileName;
 

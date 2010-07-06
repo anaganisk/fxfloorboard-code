@@ -22,9 +22,6 @@
 ****************************************************************************/
 
 #include <QApplication>
-#include <QFile>
-#include <QDataStream>
-#include <QByteArray>
 #include <QMessageBox>
 #include "SysxIO.h"
 #include "SysxIODestroyer.h"
@@ -1016,7 +1013,7 @@ void SysxIO::returnPatchName(QString sysxMsg)
 	}
 	else if (sysxMsg.size()/2 > 0 && sysxMsg.size()/2 != 29)
   {name = "bad data";} 
-  else {name = "no reply"; };  
+  else {name = tr("no reply"); };  
 	emit patchName(name);	
 };
 
@@ -1035,18 +1032,18 @@ void SysxIO::requestPatch(int bank, int patch)
 /***************************** errorSignal() ******************************
 * Displays all midi related error messages.
 ****************************************************************************/
-void SysxIO::errorSignal(QString windowTitle, QString errorMsg)
+void SysxIO::errorSignal(QString errorType, QString errorMsg)
 {
-		emit setStatusdBugMessage(this->errorType + "  " + this->errorMsg);
-		this->errorType = "";
-		this->errorMsg = "";	
+		setNoError(false);
+		emit setStatusdBugMessage(errorType + "  " + errorMsg);
+    this->errorType = "";
+		this->errorMsg = "";
 };
 
 void SysxIO::errorReturn(QString errorType, QString errorMsg)
 {
 		setNoError(false);
 		emit setStatusdBugMessage(this->errorType + "  " + this->errorMsg);
-    emit setStatusdBugMessage("");
 		this->errorType = "";
 		this->errorMsg = "";
 };
@@ -1283,6 +1280,8 @@ void SysxIO::systemReply(QString replyMsg)
 			msgText.append("<font size='+1'><b>");
 			msgText.append(tr("The Boss ") + deviceType + tr(" Effects Processor was not found."));
 			msgText.append("<b></font><br>");
+			msgText.append(tr("any saved system data will be as shown on screen<br>"));
+			msgText.append(tr("and the GT-10 system data might not be in sync<br>"));
 			msgBox->setText(msgText);
 			msgBox->setStandardButtons(QMessageBox::Ok);
 			msgBox->exec();

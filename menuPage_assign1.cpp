@@ -26,7 +26,7 @@
 menuPage_assign1::menuPage_assign1(QWidget *parent)
     : menuPage(parent)
 {
-  setLSB("0B", "00");
+  setLSB("0B", "20");
   editDetails()->patchPos(2512, 32, "0B", "20");    //192 sysx file offset and data length of chorus parameters x2,
         setEditPages();
 };
@@ -38,61 +38,49 @@ void menuPage_assign1::updateSignal()
 
 void menuPage_assign1::setEditPages()
 {
-        editDetails()->page()->newGroupBox(tr("Assign 1")); 
-        editDetails()->page()->newGroupBox(tr(""));        
-        editDetails()->page()->newStackControl(0);
-        editDetails()->page()->addSwitch(0, 0, 1, 1, "0B", "00", "20", "middle", Qt::AlignCenter);
-        editDetails()->page()->addStackControl();
-        editDetails()->page()->addGroupBox(0, 0, 1, 1);
-        editDetails()->page()->insertStackField(0, 0, 1, 2, 1);
-        editDetails()->page()->addGroupBox(0, 0, 2, 1);
+    editDetails()->page()->newGroupBox(tr("Assign 1"));
+    editDetails()->page()->newGroupBox(tr(""));
+    editDetails()->page()->addSwitch(0, 0, 1, 1, "0B", "00", "20", "middle", Qt::AlignCenter);
+    editDetails()->page()->addGroupBox(0, 0, 1, 1);
+    editDetails()->page()->newGroupBox("Assign 1 Target");
+    editDetails()->page()->addTarget(0, 0, 1, 3, "0B", "00", "21", "target","target", 120); // Target
+    editDetails()->page()->addGroupBox(0, 1, 1, 1);
+    editDetails()->page()->newGroupBox("Assign 1 Source");
+    editDetails()->page()->newStackControl(0);
+    editDetails()->page()->addComboBox(0, 0, 1, 1, "0B", "00", "27");                    // Source
+    editDetails()->page()->addStackControl();
+    editDetails()->page()->addComboBox(0, 1, 1, 1, "0B", "00", "28");                    // Source Mode
+    editDetails()->page()->addRange(0, 2, 1, 2, "0B", "00", "29", "Structure");         // min/max range widget
+    editDetails()->page()->addGroupBox(0, 2, 1, 1);
+    editDetails()->page()->insertStackField(0, 1, 1, 1, 2);
+    editDetails()->page()->addGroupBox(0, 0, 2, 1);
 
-        editDetails()->addPage();
-                                                   // and hex1 & hex3 address start point.
+    editDetails()->addPage();
 
-        //editDetails()->page()->newStackField(0);
-        //editDetails()->page()->addStackField();
-        
-  editDetails()->page()->newStackField(0);
-  editDetails()->page()->newGroupBox("Assign 1 Target");
-        editDetails()->page()->addTarget(0, 0, 1, 3, "0B", "00", "21", "target","target", 120); // Target
-        editDetails()->page()->addGroupBox(0, 0, 1, 1);
-        editDetails()->page()->newGroupBox("Assign 1 Source");
-        editDetails()->page()->newStackControl(1);
-        editDetails()->page()->addComboBox(1, 0, 1, 1, "0B", "00", "27");                    // Source
-        editDetails()->page()->addStackControl();
-  editDetails()->page()->addComboBox(1, 1, 1, 1, "0B", "00", "28");                    // Source Mode
-  editDetails()->page()->addRange(1, 2, 1, 2, "0B", "00", "29", "Structure");         // min/max range widget
-  editDetails()->page()->addGroupBox(0, 1, 1, 1);
-  editDetails()->page()->insertStackField(1, 1, 0, 1, 2);
-        editDetails()->page()->addStackField();
 
-        editDetails()->page()->newStackField(1);editDetails()->page()->addStackField();
-        editDetails()->page()->newStackField(1);editDetails()->page()->addStackField();
-        editDetails()->page()->newStackField(1);editDetails()->page()->addStackField();
-        editDetails()->page()->newStackField(1);editDetails()->page()->addStackField();
-        editDetails()->page()->newStackField(1);editDetails()->page()->addStackField();
-        editDetails()->page()->newStackField(1);editDetails()->page()->addStackField();
-        editDetails()->page()->newStackField(1);editDetails()->page()->addStackField();
-        editDetails()->page()->newStackField(1);
-  editDetails()->page()->newGroupBox("Assign 1 Internal Pedal");
-        editDetails()->page()->addComboBox(0, 0, 1, 1, "0B", "00", "2B");                    // Internal Pedal Trigger
-  editDetails()->page()->addKnob(0, 1, 1, 1, "0B", "00", "2C");                        // Internal Pedal Time
-        editDetails()->page()->addComboBox(0, 2, 1, 1, "0B", "00", "2D");                    // Internal Pedal Curve
-        editDetails()->page()->addGroupBox(0, 0, 1, 1);
-  editDetails()->page()->addStackField();
-        editDetails()->page()->newStackField(1);
-  editDetails()->page()->newGroupBox("Assign 1 Wave Pedal");
-        editDetails()->page()->addKnob(1, 0, 1, 1, "0B", "00", "2E", "normal","right", 105);// Wave Form Rate
-        editDetails()->page()->addComboBox(1, 1, 1, 1, "0B", "00", "2F");                    // Wave Form
-        editDetails()->page()->addGroupBox(0, 0, 1, 1);
-  editDetails()->page()->addStackField();
-        editDetails()->page()->newStackField(1);
-  editDetails()->page()->newGroupBox("Input");
-        editDetails()->page()->addKnob(0, 0, 1, 1, "0C", "00", "20", "normal","right", 85);
-        editDetails()->page()->addGroupBox(0, 0, 1, 1);
-  editDetails()->page()->addStackField();
-
-  editDetails()->page()->newStackField(0);
-  editDetails()->page()->addStackField();
+    editDetails()->page()->newStackField(0);editDetails()->page()->addStackField();
+    editDetails()->page()->newStackField(0);editDetails()->page()->addStackField();
+    editDetails()->page()->newStackField(0);editDetails()->page()->addStackField();
+    editDetails()->page()->newStackField(0);editDetails()->page()->addStackField();
+    editDetails()->page()->newStackField(0);editDetails()->page()->addStackField();
+    editDetails()->page()->newStackField(0);editDetails()->page()->addStackField();
+    editDetails()->page()->newStackField(0);editDetails()->page()->addStackField();
+    editDetails()->page()->newStackField(0);
+    editDetails()->page()->newGroupBox("Assign 1 Internal Pedal");
+    editDetails()->page()->addComboBox(0, 0, 1, 1, "0B", "00", "2B");                    // Internal Pedal Trigger
+    editDetails()->page()->addKnob(0, 1, 1, 1, "0B", "00", "2C");                        // Internal Pedal Time
+    editDetails()->page()->addComboBox(0, 2, 1, 1, "0B", "00", "2D");                    // Internal Pedal Curve
+    editDetails()->page()->addGroupBox(0, 0, 1, 1);
+    editDetails()->page()->addStackField();
+    editDetails()->page()->newStackField(0);
+    editDetails()->page()->newGroupBox("Assign 1 Wave Pedal");
+    editDetails()->page()->addKnob(1, 0, 1, 1, "0B", "00", "2E", "normal","right", 105);// Wave Form Rate
+    editDetails()->page()->addComboBox(1, 1, 1, 1, "0B", "00", "2F");                    // Wave Form
+    editDetails()->page()->addGroupBox(0, 0, 1, 1);
+    editDetails()->page()->addStackField();
+    editDetails()->page()->newStackField(0);
+    editDetails()->page()->newGroupBox("Input");
+    editDetails()->page()->addKnob(0, 0, 1, 1, "0C", "00", "20", "normal","right", 85);
+    editDetails()->page()->addGroupBox(0, 0, 1, 1);
+    editDetails()->page()->addStackField();
 };

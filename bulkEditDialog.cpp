@@ -29,7 +29,7 @@
 #include "bulkEditDialog.h"
 #include "Preferences.h"
 #include "globalVariables.h"
-#include "sysxIO.h"
+#include "SysxIO.h"
 
 
 bulkEditDialog::bulkEditDialog(int partStart, int partLength, QString partHex1, QString partHex3)

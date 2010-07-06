@@ -801,9 +801,9 @@ void bankTreeList::updateTree(QTreeWidgetItem *item)
                         this, SLOT(updatePatchNames(QString)));
 
                 //this->currentPatchTreeItems.append(item);  //3 lines of mods added below
-                this->currentPatchTreeItems.clear();  //xtra
-                this->currentPatchTreeItems = this->openPatchTreeItems; //xtra
-                qSort(this->currentPatchTreeItems);  // xtra
+                this->currentPatchTreeItems.clear();
+                this->currentPatchTreeItems = this->openPatchTreeItems;
+                qSort(this->currentPatchTreeItems);
                 this->updatePatchNames("");
         }
         else

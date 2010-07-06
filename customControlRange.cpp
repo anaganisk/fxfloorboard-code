@@ -47,7 +47,7 @@ customControlRange::customControlRange(QWidget *parent,
 	bool ok;
   QString hexTemp;
   this->hexMin = hex3;
-	{hexTemp = QString::number((hex3.toInt(&ok, 16) + 1), 16).toUpper(); };// go forward 2 to select range Max address
+	hexTemp = QString::number((hex3.toInt(&ok, 16) + 1), 16).toUpper();    // go forward 2 to select range Max address
 	if(hexTemp.length() < 2) hexTemp.prepend("0");                         // prepend with "0" if single digit.
 	this->hexMax = hexTemp;
 	
