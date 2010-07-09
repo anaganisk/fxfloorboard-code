@@ -30,6 +30,7 @@
 #include "bulkSaveDialog.h"
 #include "bulkLoadDialog.h"
 #include "summaryDialog.h"
+#include "summaryDialogPatchList.h"
 #include "globalVariables.h"
 
 
@@ -218,9 +219,13 @@ void mainWindow::createActions()
         uploadAct->setWhatsThis(tr("Upload any saved patch file to a shared patch library<br>via the internet."));
         connect(uploadAct, SIGNAL(triggered()), this, SLOT(upload()));
 
-        summaryAct = new QAction(QIcon(":/images/copy.png"), tr("Summary Page Text"), this);
+        summaryAct = new QAction(QIcon(":/images/copy.png"), tr("Patch Text Summary"), this);
         summaryAct->setWhatsThis(tr("Display the current patch parameters<br>in a readable text format, which<br>can be printed or saved to file."));
         connect(summaryAct, SIGNAL(triggered()), this, SLOT(summaryPage()));
+
+        summaryPatchListAct = new QAction(QIcon(":/images/copy.png"), tr("GT-10B Patch List Summary"), this);
+        summaryPatchListAct->setWhatsThis(tr("Display the current GT-10B patch listing<br>in a readable text format, which<br>can be printed or saved to file."));
+        connect(summaryPatchListAct, SIGNAL(triggered()), this, SLOT(summaryPatchList()));
 
         helpAct = new QAction(QIcon(":/images/help.png"), tr("GT-10B Fx FloorBoard &Help"), this);
         helpAct->setShortcut(tr("Ctrl+F1"));
@@ -288,6 +293,7 @@ void mainWindow::createMenus()
         toolsMenu->addAction(uploadAct);
         fileMenu->addSeparator();
         toolsMenu->addAction(summaryAct);
+        toolsMenu->addAction(summaryPatchListAct);
         menuBar->addMenu(toolsMenu);
 
         QMenu *helpMenu = new QMenu(tr("&Help"), this);
@@ -766,6 +772,15 @@ void mainWindow::summaryPage()
    summary->setMinimumHeight(650);
    summary->show();
 };
+
+void mainWindow::summaryPatchList()
+{
+   summaryDialogPatchList *summaryPatchList = new summaryDialogPatchList();
+   summaryPatchList->setMinimumWidth(800);
+   summaryPatchList->setMinimumHeight(650);
+   summaryPatchList->show();
+};
+
 void mainWindow::donate()
 {
         Preferences *preferences = Preferences::Instance();

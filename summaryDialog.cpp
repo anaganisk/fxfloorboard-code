@@ -73,19 +73,31 @@ summaryDialog::summaryDialog(QWidget *parent)
 
   QList<QString> fxChain = sysxIO->getFileSource("Structure", "0B", "00");
 
-  QString chain = "<br><br><b>Signal Chain =</b>";
+  QString chainText = "<br><br><b>**********Signal Chain**********</b><br>Input = ";
+  QString chainData;
+  QString chain;
   for(int i= sysxDataOffset;i< (sysxDataOffset + 18);i++ )
   {
+     chainData.append(fxChain.at(i));
      chain.append(" [");
      chain.append( midiTable->getMidiMap("Structure", "0B", "00", "00", fxChain.at(i)).name );
      chain.append("]");
   };
+  QString part;
+  for(int x=0;x<chainData.size();x++)
+  {
+    part.append(chainData.at(x));
+    ++x;
+  };
+  int i = part.indexOf("4")+sysxDataOffset;
+  QString g = ( midiTable->getMidiMap("Structure", "0B", "00", "00", fxChain.at(i)).name );
+  chain.replace("["+g, "<br>Channel B = ["+g);
   chain.remove("[CH_B]");
-  chain.replace("CN_S", "A/B Split");
-  chain.replace("CN_M", "A/B Merge");
+  chain.replace("[CN_S]", "[A/B Split]<br>Channel A = ");
+  chain.replace("[CN_M]", "<br>Output = [A/B Merge]");
   chain.replace("CH_A", "PreAmp");
   chain.replace("LP", "S/R");
-
+  text.append(chainText);
   text.append(chain);
 
   text.append("<br><br><b><u>**********Channel Control***********</b></u><br>");

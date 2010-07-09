@@ -1,6 +1,66 @@
-GT10BFxFloorBoard Copyright (C) 2007, 2008, 2009 Colin Willcocks (colin.willcocks@gmail.com). 
-based on the GT8 FxFloorBoard Copyright (C)2006 2007 Uco Mesdag <ucomesdag@gmail.com>.
-All rights reserved.
+
+GT-10BFxFloorBoard Copyright (C) 2007~2010 Colin Willcocks (gumtownbassman@yahoo.com).
+ All rights reserved.
+=======
+
+
+GT-10BFxFloorBoard version 20100706: 06 July 2010
+
+PLEASE FEEL FREE TO DONATE, YOU MAY FREELY USE THIS SOFTWARE, 
+ JUST KEEP IN MIND THE 7000 HOURS SPENT OVER 4 YEARS GETTING IT HERE,
+ SO FAR WITH LITTLE REWARD. I WOULD LOVE A BEER!!!. :-)
+ 
+ ******************LATEST FEATURE***********************
+ *Bulk Patch Editing - One effect change can be applied to a series of patches in one operation. 
+ *Whats This Help dialog added, with the press of the [F1] button. 
+ *Auditioning of Patches within Bulk Files, high-lighted file is sent to the GT-10B for instant auditioning before loading. 
+ *Temp Clipboard copied events are saved to file and are re-loaded on FxFloorbOard startup. 
+ *Text Dialog for Printing or Saving to File complete patch settings list. 
+ *Revised midi I/O system.  
+ *Added Bulk File support for saving and loading, complete patch and system & global data backups and restoration now possible. 
+ *5 way clipboard added for patch storage and partial patch pasting of individual effects. 
+
+******** USEFUL INFORMATION *************
+** version 20100702 The Bulk Patch Editing function should be used with caution 
+* as it can't be undone, and a Bulk Patch Backup is recommended before using it.
+
+ 
+a.) Connect the GT-10B via a USB cable, ensure the Boss usb driver software is installed and the SYSTEM>USB>Driver setting on the GT-10B is set to 'advanced'.
+
+b.) In most cases the program should select GT-10B device and connect automaticaly, if not, then follow the next two steps.
+Start the FxFloorBoard program, for the Menu select Preferences/Midi and select the GT-10B midi device for midi input and output.
+
+c.) Select the editor program "Connect" button, it should stay "on" if all connections are correct.
+
+d.) Open the Patch-Tree side panel by clicking your mouse pointer on the 'yellow arrow', the Patch-Tree has items which will expand when you click on the [+] symbols.
+ When the tree items expand, you will see the patch names appear as the editor requests this information from the GT-10B.
+
+e.) A single mouse pointer click on the Patch-Tree name will change the GT-10B to that selected patch only - sound played through the GT-10B will have the sound of that patch.
+ 
+f.) A double click on the patch name will load the patch information from the GT-10B into the editor, all the patch settings will update the editor GUI.
+
+g.) Any knob turning will change the sound of the effect being adjusted, when the desired sound is achieved, you can either save the patch to the GT-10B or save the patch to file on disk.
+
+h.) To save the patch to the GT-10B press the "write/sync" button.
+
+GT10B-FxFloorBoard: 
+NOTE: THIS IS AN UNPAID PROJECT, SO FAR INVESTING OVER 7000 HOURS OF MY TIME OVER 4 YEARS, I WILL NOT ACCEPT LIABILITY FOR ANY DATA LOSS, TO THE BEST OF MY KNOWLEDGE EVERYTHING SHOULD WORK CORRECTLY, BUT SOME FUNCTIONS MAY BE INCORRECT, IF ANYTHING IS FOUND TO NOT FUNCTION CORRECTLY, PLEASE ADVISE ME. 
+
+saved files can be saved/loaded as syx or mid
+the GT-10BFxFloorBoard will also open (guitar version) GT-10 SMF (.mid) files, but with unpredicable reasults.
+
+layout increased to fit 17 chain events, may be a problem for low screen resolutions. (i use 1280 X 800)
+
+This project is a continuing session of evolution.
+
+patch tree to the left side should give patch change on single click and (when 'connected' button active), double click should request patch transfer.
+opening each bank node should request patch names (while 'connected'). preset patches may not be accessable.
+
+patch rename by doubleclicking name display panel.
+
+IF YOU FIND A BUG OR HAVE SOME ISSUES......
+reply email to gumtownbassman@yahoo.com
+
 
 This program is free software; you can redistribute it and/or modify it under 
 the terms of the GNU General Public License as published by the Free Software 
@@ -46,7 +106,7 @@ LINUX:
 CONTACT:
 ------
 
-Colin Willcocks <colin.willcocks@gmail.com>
+Colin Willcocks <gumtownbassman@yahoo.com>
 
 
 DISCLAIMER:
@@ -58,9 +118,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 LEGAL:
 ------
 
-GT10B FxFloorBoard Copyright (C)2007 2008 Colin Willcocks <gumtownbassman@yahoo.com>.
-based on the GT8 FxFloorBoard Copyright (C)2006 2007 Uco Mesdag <ucomesdag@gmail.com>.
+GT-10B FxFloorBoard Copyright (C)2007~2010 Colin Willcocks <gumtownbassman@yahoo.com>.
+based on the GT-8 FxFloorBoard Copyright (C)2006~2007 Uco Mesdag <ucomesdag@gmail.com>.
 
 Windows(TM), Windows 95(TM), Windows 98(TM), Windows ME(TM), Windows NT(TM), 
-Windows 2000(TM) and Windows XP(TM) and Windows Vista(TM) are Copyright (C)Microsoft Corporation. 
+Windows 2000(TM), Windows XP(TM), Windows Vista(TM) and Windows 7(TM) are Copyright (C)Microsoft Corporation. 
 All rights reserved.

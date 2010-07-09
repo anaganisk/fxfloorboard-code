@@ -417,7 +417,8 @@ void midiIO::run()
       };
 			dataReceive = true;
 			receiveMsg(sysxInMsg, midiInPort);
-			if((this->sysxBuffer.size()/2 != count) && (repeat<3))
+			Preferences *preferences = Preferences::Instance(); // Load the preferences.
+			if((this->sysxBuffer.size()/2 != count) && (repeat<3) && preferences->getPreferences("Midi", "DBug", "bool")!="true")
       {
         emit setStatusdBugMessage(tr("re-trying data request"));
         repeat = repeat+1;

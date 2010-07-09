@@ -95,6 +95,7 @@ HEADERS += ./editPage.h \
     ./stompbox_rv.h \
     ./stompbox_pdl.h \
     ./summaryDialog.h \
+    ./summaryDialogPatchList.h \
     ./midiIO.h \
     ./MidiTable.h \
     ./MidiTableDestroyer.h \
@@ -185,6 +186,7 @@ SOURCES += ./editPage.cpp \
     ./stompbox_rv.cpp \
     ./stompbox_pdl.cpp \
     ./summaryDialog.cpp \
+    ./summaryDialogPatchList.cpp \
     ./midiIO.cpp \
     ./MidiTable.cpp \
     ./MidiTableDestroyer.cpp \
