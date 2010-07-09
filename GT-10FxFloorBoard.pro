@@ -81,6 +81,16 @@ linux-g++ {
 	 INCLUDEPATH += ./linux
 	message(Including Linux specific headers and sources...)
 }
+linux-g++-64 {
+        LIBS += -lasound
+	message("ALSA LIBRARIES SHOULD BE INSTALLED or ERROR will Occur") 
+	message("Please install the ALSA Audio System packages if not present") 	
+ 
+	 HEADERS += 
+	 SOURCES += ./linux/RtMidi.cpp 
+	 INCLUDEPATH += ./linux
+	message(Including Linux specific headers and sources...)
+}
 macx {
 	LIBS += -framework CoreMidi -framework CoreAudio -framework CoreFoundation
 	message("X-Code LIBRARIES SHOULD BE INSTALLED or ERROR will Occur") 

@@ -288,10 +288,10 @@ void midiIO::receiveMsg(QString sysxInMsg, int midiInPort)
 {
         count = 0;
         emit setStatusSymbol(3);
-#ifdef Q_OS_MAC
-        int x = 2;
-#else
+#ifdef Q_OS_WIN
         int x = 1;
+#else
+        int x = 3;
 #endif
 
         if (msgType == "patch"){ loopCount = x*200; count = patchReplySize; }
@@ -419,7 +419,9 @@ void midiIO::run()
       };
       dataReceive = true;
                         receiveMsg(sysxInMsg, midiInPort);
-                        if((this->sysxBuffer.size()/2 != count) && (repeat<3))
+      Preferences *preferences = Preferences::Instance(); // Load the preferences.
+			if((this->sysxBuffer.size()/2 != count) && (repeat<3) && preferences->getPreferences("Midi", "DBug", "bool")!="true")
+
       {
         emit setStatusdBugMessage(tr("re-trying data request"));
         repeat = repeat+1;

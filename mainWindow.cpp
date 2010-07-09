@@ -32,6 +32,7 @@
 #include "bulkLoadDialog.h"
 #include "summaryDialog.h"
 #include "summaryDialog2.h"
+#include "summaryDialogPatchList.h"
 #include "globalVariables.h"
 
 
@@ -199,7 +200,7 @@ void mainWindow::createActions()
         uploadAct->setWhatsThis(tr("Upload any saved patch file to a shared patch library<br>via the internet."));
         connect(uploadAct, SIGNAL(triggered()), this, SLOT(upload()));
 
-        summaryAct = new QAction(QIcon(":/images/copy.png"), tr("Summary Page Text"), this);
+        summaryAct = new QAction(QIcon(":/images/copy.png"), tr("Patch Text Summary"), this);
         summaryAct->setWhatsThis(tr("Display the current patch parameters<br>in a readable text format, which<br>can be printed or saved to file."));
         connect(summaryAct, SIGNAL(triggered()), this, SLOT(summaryPage()));
 
@@ -209,6 +210,10 @@ void mainWindow::createActions()
         summaryAct2 = new QAction(QIcon(":/images/copy.png"), tr("Summary Page Text2"), this);
         summaryAct2->setStatusTip(tr("........"));
         connect(summaryAct2, SIGNAL(triggered()), this, SLOT(summaryPage2()));
+        
+        summaryPatchListAct = new QAction(QIcon(":/images/copy.png"), tr("GT-10 Patch List Summary"), this);
+        summaryPatchListAct->setWhatsThis(tr("Display the GT-10 patch listing names<br>in a readable text format, which<br>can be printed or saved to file."));
+        connect(summaryPatchListAct, SIGNAL(triggered()), this, SLOT(summaryPatchList()));
 
         helpAct = new QAction(QIcon(":/images/help.png"), tr("GT-10 Fx FloorBoard &Help"), this);
         helpAct->setShortcut(tr("Ctrl+F1"));
@@ -278,6 +283,7 @@ void mainWindow::createMenus()
         fileMenu->addSeparator();
         toolsMenu->addAction(summaryAct);
         //toolsMenu->addAction(summaryAct2);
+        toolsMenu->addAction(summaryPatchListAct);
         menuBar->addMenu(toolsMenu);
 
 
@@ -763,6 +769,14 @@ void mainWindow::summaryPage2()
    summary2->setMinimumHeight(750); // a little taller
    summary2->show();
 };
+
+void mainWindow::summaryPatchList()
+{
+   summaryDialogPatchList *summaryPatchList = new summaryDialogPatchList();
+   summaryPatchList->setMinimumWidth(800);
+   summaryPatchList->setMinimumHeight(650);
+   summaryPatchList->show();
+};   
 
 void mainWindow::homepage()
 {
