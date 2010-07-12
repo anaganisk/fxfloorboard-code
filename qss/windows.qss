@@ -249,6 +249,31 @@ margin-top: 8px;
 padding: 2px;
 background-color: rgb(3,22,207); /*(172,42,72);*/
 }
+
+/* CUSTOM TABBOX STYLE */
+
+QTabBar#tabBox::title {
+subcontrol-origin: border;
+subcontrol-position: top left;
+position: relative;
+margin-left: 2px;
+margin-right: 2px;
+top: -7px;
+left: 5px;
+}
+QTabBar#tabBar {
+font-family: Arial;
+font-size: 12px;
+font-weight: bold;
+color: rgb(255,255,255);
+border-width: 1px;
+border-style: solid;
+border-color:  rgb(255,255,255);
+border-radius: 5px;
+margin-top: 8px;
+padding: 2px;
+background-color: rgb(3,22,207); /*(172,42,72);*/
+}
  
 /* CUSTOM CONTROLLABEL STYLE */
 

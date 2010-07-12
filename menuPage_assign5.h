@@ -1,9 +1,9 @@
 /****************************************************************************
-**  
-** Copyright (C) 2007~2010 Colin Willcocks. 
-** Copyright (C) 2005~2007 Uco Mesdag.
+**
+** Copyright (C) 2007~2010 Colin Willcocks.
+** Copyright (C) 2005~2007 Uco Mesdag. 
 ** All rights reserved.
-** This file is part of "GT-8 Fx FloorBoard".
+** This file is part of "GT-10B Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -21,23 +21,23 @@
 **
 ****************************************************************************/
 
-#ifndef MENUPAGE_ASSIGN_H
-#define MENUPAGE_ASSIGN_H
+#ifndef MENUPAGE_ASSIGN5_H
+#define MENUPAGE_ASSIGN5_H
 
 #include <QtGui>
 #include <QWidget>
 #include "menuPage.h"
 
-class  menuPage_assign : public menuPage
+class  menuPage_assign5 : public menuPage
 {
     Q_OBJECT
 
 public:
-	menuPage_assign(QWidget *parent);
+	menuPage_assign5(QWidget *parent);
 	void setEditPages();
 
 public slots:
 	void updateSignal();
 };
 
-#endif // MENUPAGE_ASSIGN_H
+#endif // MENUPAGE_ASSIGN5_H

@@ -2,7 +2,7 @@
 <!-- Preferences of the GT-8 Fx FloorBoard application. -->
 <Preferences>
 	<General>
-		<Application version="20100527"/>
+		<Application version="20100712"/>
 		<Donate url="http://gtx.tinfoilmusic.net/donate.html"/>
 		<Files dir=""/>
 		<Help url="GT-8EditorManual_E.htm"/>
@@ -11,11 +11,13 @@
 		<Webpage url="http://gtx.tinfoilmusic.net/"/>
 	</General>
 	<Midi>
+	  <BulkFinish patch="140"/>
+	  <BulkStart patch="1"/>
+	  <DBug bool="false"/>
+	  <Delay set="20"/>
 		<MidiIn device=""/>
-		<MidiOut device=""/>
-		<DBug bool="false"/>
-		<System byte1="3" byte2="0" byte3="0" byte4="0"/>
-		<Delay set="20"/>
+		<MidiOut device=""/>		
+		<System byte1="3" byte2="0" byte3="0" byte4="0"/>		
 	</Midi>
 	<Window>
     <Collapsed bool="true" defaultwidth="975" width="975"/>

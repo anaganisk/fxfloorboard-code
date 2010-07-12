@@ -104,22 +104,7 @@ void menuPage::menuButtonSignal(bool value)
 	  if((this->id == 19 || this->id == 18) && sysxIO->deviceReady())
 	  {
     QString replyMsg;
-    QString sysRequest = systemRequest;//"F0410000461100000000";   // header and Address.
-    /*Preferences *preferences = Preferences::Instance();// Load the preferences.
-	  int sys_byte1 = preferences->getPreferences("Midi", "System", "byte1").toInt();
-	  QString byte1 = QString::number(sys_byte1, 16).toUpper();
-	  if (byte1.size()<2) {byte1.prepend("0");};
-	  int sys_byte2 = preferences->getPreferences("Midi", "System", "byte2").toInt();
-	  QString byte2 = QString::number(sys_byte2, 16).toUpper();
-	  if (byte2.size()<2) {byte2.prepend("0");};
-	  int sys_byte3 = preferences->getPreferences("Midi", "System", "byte3").toInt();
-	  QString byte3 = QString::number(sys_byte3, 16).toUpper();
-	  if (byte3.size()<2) {byte3.prepend("0");};
-	  int sys_byte4 = preferences->getPreferences("Midi", "System", "byte4").toInt();
-	  QString byte4 = QString::number(sys_byte4, 16).toUpper();
-	  if (byte4.size()<2) {byte4.prepend("0");};
-	  sysRequest.append(byte1).append(byte2).append(byte3).append(byte4);
-	  sysRequest.append("7FF7");     */
+    QString sysRequest = systemRequest;
 	   if (sysxIO->isConnected())
 	       {
 	        emit setStatusSymbol(2);
@@ -135,7 +120,8 @@ void menuPage::menuButtonSignal(bool value)
          }
          else
             {
-              QString snork = tr("Ensure connection is set and retry");
+              QString snork = tr("Ensure connection is set and retry<br>");
+              snork.append(tr("System data not transfered, current settings are to be used<br>"));
               QMessageBox *msgBox = new QMessageBox();
 			        msgBox->setWindowTitle(deviceType + tr(" not connected !!"));
 		        	msgBox->setIcon(QMessageBox::Information);
@@ -203,14 +189,6 @@ void menuPage::systemReply(QString replyMsg)
 		sysxIO->setDevice(true);				// Patch received from the device so this is set to true.
 		sysxIO->setSyncStatus(true);			// We can't be more in sync than right now! :)
 		emit systemUpdateSignal();
-		
-	/*QString text = "data size after resizing = ";
-  text.append(QString::number(replyMsg.size()/2, 10));	
-  QMessageBox *msgBox = new QMessageBox();
-	msgBox->setWindowTitle(QObject::tr("deBug"));
-	msgBox->setText(text);
-	msgBox->setStandardButtons(QMessageBox::Ok);
-	msgBox->exec();     */
 		}
 		else
 		{
@@ -340,11 +318,17 @@ void menuPage::emitValueChanged(QString hex1, QString hex2, QString hex3, QStrin
 		else
 		{
 		 
-		  if (this->id == 18)this->fxName = tr("System settings");
-		  if (this->id == 19)this->fxName = tr("Custom Settings");
-		  if (this->id == 20)this->fxName = tr("Assigns");
-		  //if (this->id == 23)this->fxName = "Pedal"; 
-				 //midiTable->getMidiMap("Structure", hex1, hex2, hex3).name;//hex1).customdesc;
+		  if (this->id == 18){this->fxName = tr("System settings");  this->area_mode = "System";};
+		  if (this->id == 19){this->fxName = tr("Custom Settings");  this->area_mode = "System";};
+		  if (this->id == 21){this->fxName = tr("Assign 1");         this->area_mode = "Structure";};
+		  if (this->id == 22){this->fxName = tr("Assign 2");         this->area_mode = "Structure";};
+		  if (this->id == 23){this->fxName = tr("Assign 3");         this->area_mode = "Structure";};
+		  if (this->id == 24){this->fxName = tr("Assign 4");         this->area_mode = "Structure";};
+		  if (this->id == 25){this->fxName = tr("Assign 5");         this->area_mode = "Structure";};
+		  if (this->id == 26){this->fxName = tr("Assign 6");         this->area_mode = "Structure";};
+		  if (this->id == 27){this->fxName = tr("Assign 7");         this->area_mode = "Structure";};
+		  if (this->id == 28){this->fxName = tr("Assign 8");         this->area_mode = "Structure";};
+
 		};
 	};
 

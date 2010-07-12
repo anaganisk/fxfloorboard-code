@@ -25,6 +25,7 @@
 #include "MidiTable.h"
 #include "SysxIO.h"
 #include "globalVariables.h"
+#include "bulkEditDialog.h"
 
 editWindow::editWindow(QWidget *parent)
     : QWidget(parent)
@@ -50,6 +51,13 @@ editWindow::editWindow(QWidget *parent)
 	this->pageComboBox->setFrame(false);
 	this->pageComboBox->setVisible(false);
 	
+	this->bulkEdit_Button = new customControlLabel;
+	this->bulkEdit_Button->setButton(true);
+	this->bulkEdit_Button->setImage(":/images/pushbutton_dark.png");
+	this->bulkEdit_Button->setText(tr("Bulk Write"));
+	this->bulkEdit_Button->setAlignment(Qt::AlignCenter); 
+	this->bulkEdit_Button->setWhatsThis(tr("Write a common effect setting across multiple patches directly to the ")+ deviceType);
+	
   this->swap_Button = new customControlLabel;
 	this->swap_Button->setButton(true);
 	this->swap_Button->setImage(":/images/pushbutton_dark.png");
@@ -62,28 +70,32 @@ editWindow::editWindow(QWidget *parent)
 	this->temp1_Button->setImage(":/images/pushbutton_dark.png");
 	this->temp1_Button->setText(tr("Temp 1 Partial"));
 	this->temp1_Button->setAlignment(Qt::AlignCenter);
-	this->temp1_Button->setWhatsThis(tr("Effect Partial Paste Button<br>will paste only the currently displayed effect part from the selected Temp clipboard."));
+	this->temp1_Button->setWhatsThis(tr("Effect Partial Paste Button<br>will paste only the currently displayed effect part from the selected Temp clipboard."
+	 "<br>can be used to quicky compare settings between patches."));
 		
 	this->temp2_Button = new customControlLabel;
 	this->temp2_Button->setButton(true);
 	this->temp2_Button->setImage(":/images/pushbutton_dark.png");
 	this->temp2_Button->setText(tr("Temp 2 Partial"));
 	this->temp2_Button->setAlignment(Qt::AlignCenter);
-	this->temp2_Button->setWhatsThis(tr("Effect Partial Paste Button<br>will paste only the currently displayed effect part from the selected Temp clipboard."));
+	this->temp2_Button->setWhatsThis(tr("Effect Partial Paste Button<br>will paste only the currently displayed effect part from the selected Temp clipboard."
+	 "<br>can be used to quicky compare settings between patches."));
 
 	this->temp3_Button = new customControlLabel;
 	this->temp3_Button->setButton(true);
 	this->temp3_Button->setImage(":/images/pushbutton_dark.png");
 	this->temp3_Button->setText(tr("Temp 3 Partial"));
 	this->temp3_Button->setAlignment(Qt::AlignCenter);
-	this->temp3_Button->setWhatsThis(tr("Effect Partial Paste Button<br>will paste only the currently displayed effect part from the selected Temp clipboard."));
+	this->temp3_Button->setWhatsThis(tr("Effect Partial Paste Button<br>will paste only the currently displayed effect part from the selected Temp clipboard."
+	 "<br>can be used to quicky compare settings between patches."));
 
 	this->temp4_Button = new customControlLabel;
 	this->temp4_Button->setButton(true);
 	this->temp4_Button->setImage(":/images/pushbutton_dark.png");
 	this->temp4_Button->setText(tr("Temp 4 Partial"));
 	this->temp4_Button->setAlignment(Qt::AlignCenter);
-	this->temp4_Button->setWhatsThis(tr("Effect Partial Paste Button<br>will paste only the currently displayed effect part from the selected Temp clipboard."));
+	this->temp4_Button->setWhatsThis(tr("Effect Partial Paste Button<br>will paste only the currently displayed effect part from the selected Temp clipboard."
+	 "<br>can be used to quicky compare settings between patches."));
 
 	this->closeButton = new customControlLabel;
 	this->closeButton->setButton(true);
@@ -91,6 +103,7 @@ editWindow::editWindow(QWidget *parent)
 	this->closeButton->setWhatsThis(tr("Will close the current edit page window."));
 
 	QHBoxLayout *buttonLayout = new QHBoxLayout;
+	buttonLayout->addWidget(this->bulkEdit_Button);
 	buttonLayout->addWidget(this->swap_Button);
 	buttonLayout->addWidget(this->temp1_Button);
 	buttonLayout->addWidget(this->temp2_Button);
@@ -132,6 +145,7 @@ editWindow::editWindow(QWidget *parent)
 
 	QObject::connect(this->pageComboBox, SIGNAL(activated(int)), this->pagesWidget, SLOT(setCurrentIndex(int)));
 
+  QObject::connect(this->bulkEdit_Button, SIGNAL(mouseReleased()), this, SLOT(bulkEdit()));
   QObject::connect(this->swap_Button, SIGNAL(mouseReleased()), this, SLOT(swap_pre()));
 	QObject::connect(this->temp1_Button, SIGNAL(mouseReleased()), this, SLOT(temp1()));
 	QObject::connect(this->temp2_Button, SIGNAL(mouseReleased()), this, SLOT(temp2()));
@@ -197,6 +211,7 @@ void editWindow::addPage(QString hex1, QString hex2, QString hex3, QString hex4,
   
    if (this->area != "Structure" || this->temp_hex1.isEmpty() || this->temp_hex1.contains("void"))
     {
+      this->bulkEdit_Button->hide();
       this->temp1_Button->hide();
       this->temp2_Button->hide();
       this->temp3_Button->hide();
@@ -293,15 +308,34 @@ void editWindow::closeEvent(QCloseEvent* ce)
 	ce->accept();
 };
 
+void editWindow::bulkEdit()
+{
+     SysxIO *sysxIO = SysxIO::Instance();
+     if (sysxIO->isConnected())
+	       {
+	
+		bulkEditDialog *editDialog = new bulkEditDialog(this->position, this->length, this->temp_hex1, this->temp_hex3); 
+            editDialog->exec(); 
+	}
+         else
+             {
+              QString snork = tr("Ensure connection is active and retry");
+              QMessageBox *msgBox = new QMessageBox();
+			        msgBox->setWindowTitle(deviceType + tr(" not connected !!"));
+		        	msgBox->setIcon(QMessageBox::Information);
+		        	msgBox->setText(snork);
+		        	msgBox->setStandardButtons(QMessageBox::Ok);
+		        	msgBox->exec(); 
+              }; 
+};
+
 void editWindow::temp1()     // paste partial patch effect only data
 {
   
   SysxIO *sysxIO = SysxIO::Instance();
   if (!sysxIO->temp1_sysxMsg.isEmpty() && !temp_hex1.isEmpty() && !temp_hex1.contains("void") )   //check we are sending from a proper address
   {
-  QList<QString> temp = sysxIO->temp1_sysxMsg.mid(this->position/2, this->length/2);   // copy the effct only section from the temp 1 saved patch.
-  sysxIO->setFileSource("Structure", this->temp_hex1, "00", this->temp_hex3, temp);
-  
+  QList<QString> temp = sysxIO->temp1_sysxMsg.mid(this->position/2, this->length/2);   // copy the effct only section from the temp 1 saved patch.  
   QList< QList<QString> > patchData = sysxIO->getFileSource().hex; // Get the loaded patch data.
   QString addr1 = tempBulkWrite;  // temp address
 	QString addr2 = QString::number(0, 16).toUpper();
@@ -333,6 +367,7 @@ void editWindow::temp1()     // paste partial patch effect only data
   };  
   sysxMsg = sysxMsg.replace(this->position, this->length, msg);  
   sysxIO->setFileSource("Structure", sysxMsg );
+  sysxIO->setFileSource("Structure", this->temp_hex1, "00", this->temp_hex3, temp);
   emit dialogUpdateSignal();
   } 
   else 
@@ -349,7 +384,6 @@ void editWindow::temp2()
   if (!sysxIO->temp2_sysxMsg.isEmpty() && !temp_hex1.isEmpty() && !temp_hex1.contains("void")  )
   {
   QList<QString> temp = sysxIO->temp2_sysxMsg.mid(this->position/2, this->length/2);
-  sysxIO->setFileSource("Structure", this->temp_hex1, "00", this->temp_hex3, temp);
   QList< QList<QString> > patchData = sysxIO->getFileSource().hex; // Get the loaded patch data.
   QString addr1 = tempBulkWrite;  // temp address
 	QString addr2 = QString::number(0, 16).toUpper();
@@ -381,6 +415,7 @@ void editWindow::temp2()
   };  
   sysxMsg = sysxMsg.replace(this->position, this->length, msg); 
   sysxIO->setFileSource("Structure", sysxMsg );
+  sysxIO->setFileSource("Structure", this->temp_hex1, "00", this->temp_hex3, temp);
   emit dialogUpdateSignal();
   } 
   else 
@@ -397,7 +432,6 @@ void editWindow::temp3()
   if (!sysxIO->temp3_sysxMsg.isEmpty() && !temp_hex1.isEmpty() && !temp_hex1.contains("void")  )
   {
   QList<QString> temp = sysxIO->temp3_sysxMsg.mid(this->position/2, this->length/2);
-  sysxIO->setFileSource("Structure", this->temp_hex1, "00", this->temp_hex3, temp);
   QList< QList<QString> > patchData = sysxIO->getFileSource().hex; // Get the loaded patch data.
   QString addr1 = tempBulkWrite;  // temp address
 	QString addr2 = QString::number(0, 16).toUpper();
@@ -429,6 +463,7 @@ void editWindow::temp3()
   };  
   sysxMsg = sysxMsg.replace(this->position, this->length, msg);
   sysxIO->setFileSource("Structure", sysxMsg );
+  sysxIO->setFileSource("Structure", this->temp_hex1, "00", this->temp_hex3, temp);
   emit dialogUpdateSignal();
   } 
   else 
@@ -445,7 +480,6 @@ void editWindow::temp4()
   if (!sysxIO->temp4_sysxMsg.isEmpty() && !temp_hex1.isEmpty() && !temp_hex1.contains("void")  )
   {
   QList<QString> temp = sysxIO->temp4_sysxMsg.mid(this->position/2, this->length/2);
-  sysxIO->setFileSource("Structure", this->temp_hex1, "00", this->temp_hex3, temp);
   QList< QList<QString> > patchData = sysxIO->getFileSource().hex; // Get the loaded patch data.
   QString addr1 = tempBulkWrite;  // temp address
 	QString addr2 = QString::number(0, 16).toUpper();
@@ -477,6 +511,7 @@ void editWindow::temp4()
   };  
   sysxMsg = sysxMsg.replace(this->position, this->length, msg); 
   sysxIO->setFileSource("Structure", sysxMsg );
+  sysxIO->setFileSource("Structure", this->temp_hex1, "00", this->temp_hex3, temp);
   emit dialogUpdateSignal();
   } 
   else 

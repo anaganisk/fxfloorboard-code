@@ -40,7 +40,7 @@ public:
 		QString imagePathFloor = ":/images/floor.png",
 		QString imagePathStompBG = ":/images/stompbg.png",
 		QString imagePathInfoBar = ":/images/infobar.png",
-		unsigned int marginStompBoxesTop = 115,
+		unsigned int marginStompBoxesTop = 135,
 		unsigned int marginStompBoxesBottom = 72,
 		unsigned int marginStompBoxesWidth = 25,
 		unsigned int panelBarOffset = 10,

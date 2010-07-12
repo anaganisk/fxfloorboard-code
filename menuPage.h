@@ -39,7 +39,7 @@ public:
     menuPage(
 		QWidget *parent = 0,
 		unsigned int id = 0,
-		QString imagePath = ":/images/system_pushbutton.png",
+		QString imagePath = ":/images/menuPage_stomp.png",
 		QPoint stompPos = QPoint::QPoint(100, 24));
 	void setPos(QPoint newPos);
 	void setImage(QString imagePath);
@@ -94,7 +94,7 @@ private:
 	QString hex2;
 	QString hex3;
 	QString fxName;
-
+  QString area_mode;
 	customButton *menuButton;
 };
 
