@@ -39,7 +39,7 @@ void menuPage_system::updateSignal()
 void menuPage_system::setEditPages()
 {
 	editDetails()->page()->addLabel(0, 0, 1, 1, tr("***CAUTION*** Settings changes are automatically written to GT-10B"));
-  editDetails()->page()->newGroupBox("settings");
+  editDetails()->page()->newGroupBox("Global settings");
   editDetails()->page()->addKnob(0, 0, 1, 1, "00", "00", "00", "System"); // lcd contrast
   editDetails()->page()->addLabel(0, 1, 1, 1, "     ");
 	editDetails()->page()->addComboBox(0, 2, 1, 1, "00", "00", "10", "System"); // preamp mode
@@ -262,7 +262,7 @@ void menuPage_system::setEditPages()
   
   ////// PREAMP #1 //////////PREAMP #1 //////////PREAMP #1 //////////PREAMP #1 //////////PREAMP #1 //////////
   editDetails()->page()->addLabel(0, 1, 1, 1, tr("***CAUTION*** Settings changes are automatically written to GT-10B"));
-  editDetails()->page()->newGroupBox("Effect");
+  editDetails()->page()->newGroupBox("System PreAmp 1");
   editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "02", "4D", "System");   // off/on effect
   editDetails()->page()->newStackControl(0);
   editDetails()->page()->addComboBox(1, 0, 1, 1, "01", "02", "4E", "System");       // Type select
@@ -286,7 +286,7 @@ void menuPage_system::setEditPages()
 	editDetails()->page()->addComboBox(0, 0, 1, 2, "01", "02", "5C", "System");       // Bass Spkr type
 	editDetails()->page()->addKnob(0, 2, 1, 1, "01", "02", "5D", "System");           // mic position
 	editDetails()->page()->addKnob(0, 3, 1, 1, "01", "02", "5E", "System");           // mic level
-	editDetails()->page()->addKnob(0, 4, 1, 1, "01", "00", "16", "System");           // Bottom level
+	editDetails()->page()->addKnob(0, 4, 1, 1, "01", "00", "15", "System");           // Bottom level
 	editDetails()->page()->addKnob(0, 5, 1, 1, "01", "02", "5F", "System");           // GTR direct
 	editDetails()->page()->addGroupBox(1, 0, 1, 3);  
 	editDetails()->page()->addStackField();
@@ -309,7 +309,7 @@ void menuPage_system::setEditPages()
 	editDetails()->page()->addComboBox(0, 0, 1, 2, "01", "02", "5C", "System");       // Bass Spkr type
 	editDetails()->page()->addKnob(0, 2, 1, 1, "01", "02", "5D", "System");           // mic position
 	editDetails()->page()->addKnob(0, 3, 1, 1, "01", "02", "5E", "System");           // mic level
-	editDetails()->page()->addKnob(0, 4, 1, 1, "01", "00", "16", "System");           // Bottom level
+	editDetails()->page()->addKnob(0, 4, 1, 1, "01", "00", "15", "System");           // Bottom level
 	editDetails()->page()->addKnob(0, 5, 1, 1, "01", "02", "5F", "System");           // GTR direct
 	editDetails()->page()->addGroupBox(1, 0, 1, 3);  
 	editDetails()->page()->addStackField();
@@ -331,7 +331,7 @@ void menuPage_system::setEditPages()
 	editDetails()->page()->addComboBox(0, 0, 1, 2, "01", "02", "5C", "System");       // Bass Spkr type
 	editDetails()->page()->addKnob(0, 2, 1, 1, "01", "02", "5D", "System");           // mic position
 	editDetails()->page()->addKnob(0, 3, 1, 1, "01", "02", "5E", "System");           // mic level
-	editDetails()->page()->addKnob(0, 4, 1, 1, "01", "00", "16", "System");           // Bottom level
+	editDetails()->page()->addKnob(0, 4, 1, 1, "01", "00", "15", "System");           // Bottom level
 	editDetails()->page()->addKnob(0, 5, 1, 1, "01", "02", "5F", "System");           // GTR direct
 	editDetails()->page()->addGroupBox(1, 0, 1, 3);  
 	editDetails()->page()->addStackField();
@@ -355,7 +355,7 @@ void menuPage_system::setEditPages()
 	editDetails()->page()->addComboBox(0, 0, 1, 2, "01", "02", "5C", "System");       // Bass Spkr type
 	editDetails()->page()->addKnob(0, 2, 1, 1, "01", "02", "5D", "System");           // mic position
 	editDetails()->page()->addKnob(0, 3, 1, 1, "01", "02", "5E", "System");           // mic level
-	editDetails()->page()->addKnob(0, 4, 1, 1, "01", "00", "16", "System");           // Bottom level
+	editDetails()->page()->addKnob(0, 4, 1, 1, "01", "00", "15", "System");           // Bottom level
 	editDetails()->page()->addKnob(0, 5, 1, 1, "01", "02", "5F", "System");           // GTR direct
 	editDetails()->page()->addGroupBox(1, 0, 1, 3);  
 	editDetails()->page()->addStackField();
@@ -376,7 +376,7 @@ void menuPage_system::setEditPages()
 	editDetails()->page()->addComboBox(0, 0, 1, 2, "01", "02", "5C", "System");       // Bass Spkr type
 	editDetails()->page()->addKnob(0, 2, 1, 1, "01", "02", "5D", "System");           // mic position
 	editDetails()->page()->addKnob(0, 3, 1, 1, "01", "02", "5E", "System");           // mic level
-	editDetails()->page()->addKnob(0, 4, 1, 1, "01", "00", "16", "System");           // Bottom level
+	editDetails()->page()->addKnob(0, 4, 1, 1, "01", "00", "15", "System");           // Bottom level
 	editDetails()->page()->addKnob(0, 5, 1, 1, "01", "02", "5F", "System");           // GTR direct
 	editDetails()->page()->addGroupBox(1, 0, 1, 3);  
 	editDetails()->page()->addStackField();
@@ -398,7 +398,7 @@ void menuPage_system::setEditPages()
 	editDetails()->page()->addComboBox(0, 0, 1, 2, "01", "02", "5C", "System");       // Bass Spkr type
 	editDetails()->page()->addKnob(0, 2, 1, 1, "01", "02", "5D", "System");           // mic position
 	editDetails()->page()->addKnob(0, 3, 1, 1, "01", "02", "5E", "System");           // mic level
-	editDetails()->page()->addKnob(0, 4, 1, 1, "01", "00", "16", "System");           // Bottom level
+	editDetails()->page()->addKnob(0, 4, 1, 1, "01", "00", "15", "System");           // Bottom level
 	editDetails()->page()->addKnob(0, 5, 1, 1, "01", "02", "5F", "System");           // GTR direct
 	editDetails()->page()->addGroupBox(1, 0, 1, 3);  
 	editDetails()->page()->addStackField();
@@ -420,7 +420,7 @@ void menuPage_system::setEditPages()
 	editDetails()->page()->addComboBox(0, 0, 1, 2, "01", "02", "5C", "System");       // Bass Spkr type
 	editDetails()->page()->addKnob(0, 2, 1, 1, "01", "02", "5D", "System");           // mic position
 	editDetails()->page()->addKnob(0, 3, 1, 1, "01", "02", "5E", "System");           // mic level
-	editDetails()->page()->addKnob(0, 4, 1, 1, "01", "00", "16", "System");           // Bottom level
+	editDetails()->page()->addKnob(0, 4, 1, 1, "01", "00", "15", "System");           // Bottom level
 	editDetails()->page()->addKnob(0, 5, 1, 1, "01", "02", "5F", "System");           // GTR direct
 	editDetails()->page()->addGroupBox(1, 0, 1, 3);  
 	editDetails()->page()->addStackField();
@@ -433,7 +433,7 @@ void menuPage_system::setEditPages()
 	editDetails()->page()->addKnob(0, 1, 1, 1, "01", "02", "50", "System");           //bass
 	editDetails()->page()->addKnob(0, 2, 1, 1, "01", "02", "51", "System");           // mid
 	editDetails()->page()->addKnob(0, 3, 1, 1, "01", "02", "52", "System");           // treble
-	editDetails()->page()->addKnob(0, 4, 1, 1, "01", "00", "15", "System");           // GTR presence
+	editDetails()->page()->addKnob(0, 4, 1, 1, "01", "00", "14", "System");           // GTR presence
 	editDetails()->page()->addGroupBox(0, 0, 1, 2);
 	editDetails()->page()->newGroupBox("Level");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "02", "53", "System");     // effect level
@@ -442,7 +442,7 @@ void menuPage_system::setEditPages()
 	editDetails()->page()->addComboBox(0, 0, 1, 2, "01", "02", "5C", "System");       // Bass Spkr type
 	editDetails()->page()->addKnob(0, 2, 1, 1, "01", "02", "5D", "System");           // mic position
 	editDetails()->page()->addKnob(0, 3, 1, 1, "01", "02", "5E", "System");           // mic level
-	editDetails()->page()->addKnob(0, 4, 1, 1, "01", "00", "16", "System");           // Bottom level
+	editDetails()->page()->addKnob(0, 4, 1, 1, "01", "00", "15", "System");           // Bottom level
 	editDetails()->page()->addKnob(0, 5, 1, 1, "01", "02", "5F", "System");           // GTR direct
 	editDetails()->page()->addGroupBox(1, 0, 1, 3);  
 	editDetails()->page()->addStackField();
@@ -455,24 +455,24 @@ void menuPage_system::setEditPages()
 	editDetails()->page()->addKnob(0, 1, 1, 1, "01", "02", "50", "System");           //bass
 	editDetails()->page()->addKnob(0, 2, 1, 1, "01", "02", "51", "System");           // mid
 	editDetails()->page()->addKnob(0, 3, 1, 1, "01", "02", "52", "System");           // treble
-	editDetails()->page()->addKnob(0, 4, 1, 1, "01", "00", "15", "System");           // GTR presence
-	editDetails()->page()->addComboBox(1, 0, 1, 1, "01", "00", "18", "System");       // gain sw
+	editDetails()->page()->addKnob(0, 4, 1, 1, "01", "00", "14", "System");           // GTR presence
+	editDetails()->page()->addComboBox(1, 0, 1, 1, "01", "00", "17", "System");       // gain sw
 	editDetails()->page()->addSwitch(1, 4, 1, 1, "01", "02", "57", "System");       // Bright sw
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->page()->newGroupBox("SOLO");
-	editDetails()->page()->addSwitch(1, 0, 1, 1, "01", "00", "19", "System");         // solo sw
-	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "1A", "System");           // solo level
+	editDetails()->page()->addSwitch(1, 0, 1, 1, "01", "00", "18", "System");         // solo sw
+	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "19", "System");           // solo level
   editDetails()->page()->addGroupBox(0, 1, 1, 1);
 	editDetails()->page()->newGroupBox("Level");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "02", "53", "System");     // effect level
 	editDetails()->page()->addGroupBox(0, 2, 1, 1);  
 	editDetails()->page()->newGroupBox("Speaker Cabinet");
-	editDetails()->page()->addComboBox(0, 0, 1, 2, "01", "00", "1B", "System");       // GTR spkr type
-	editDetails()->page()->addComboBox(0, 2, 1, 2, "01", "00", "1C", "System");       // mic type
-	editDetails()->page()->addComboBox(0, 5, 1, 1, "01", "00", "1D", "System");       // mic distance
+	editDetails()->page()->addComboBox(0, 0, 1, 2, "01", "00", "1A", "System");       // GTR spkr type
+	editDetails()->page()->addComboBox(0, 2, 1, 2, "01", "00", "1B", "System");       // mic type
+	editDetails()->page()->addComboBox(0, 5, 1, 1, "01", "00", "1C", "System");       // mic distance
 	editDetails()->page()->addKnob(0, 6, 1, 1, "01", "02", "5D", "System");           // mic position
 	editDetails()->page()->addKnob(0, 7, 1, 1, "01", "02", "5E", "System");           // mic level
-	editDetails()->page()->addKnob(0, 8, 1, 1, "01", "00", "16", "System");           // Bottom level
+	editDetails()->page()->addKnob(0, 8, 1, 1, "01", "00", "15", "System");           // Bottom level
 	editDetails()->page()->addKnob(0, 9, 1, 1, "01", "02", "5F", "System");           // GTR direct
 	editDetails()->page()->addGroupBox(1, 0, 1, 3);  
 	editDetails()->page()->addStackField();
@@ -484,24 +484,24 @@ void menuPage_system::setEditPages()
 	editDetails()->page()->addKnob(0, 1, 1, 1, "01", "02", "50", "System");           //bass
 	editDetails()->page()->addKnob(0, 2, 1, 1, "01", "02", "51", "System");           // mid
 	editDetails()->page()->addKnob(0, 3, 1, 1, "01", "02", "52", "System");           // treble
-	editDetails()->page()->addKnob(0, 4, 1, 1, "01", "00", "15", "System");           // GTR presence
-	editDetails()->page()->addComboBox(1, 0, 1, 1, "01", "00", "18", "System");       // gain sw
+	editDetails()->page()->addKnob(0, 4, 1, 1, "01", "00", "14", "System");           // GTR presence
+	editDetails()->page()->addComboBox(1, 0, 1, 1, "01", "00", "17", "System");       // gain sw
 	editDetails()->page()->addSwitch(1, 4, 1, 1, "01", "02", "57", "System");       // Bright sw
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->page()->newGroupBox("SOLO");
-	editDetails()->page()->addSwitch(1, 0, 1, 1, "01", "00", "19", "System");         // solo sw
-	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "1A", "System");           // solo level
+	editDetails()->page()->addSwitch(1, 0, 1, 1, "01", "00", "18", "System");         // solo sw
+	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "19", "System");           // solo level
   editDetails()->page()->addGroupBox(0, 1, 1, 1);
 	editDetails()->page()->newGroupBox("Level");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "02", "53", "System");     // effect level
 	editDetails()->page()->addGroupBox(0, 2, 1, 1);  
 	editDetails()->page()->newGroupBox("Speaker Cabinet");
-	editDetails()->page()->addComboBox(0, 0, 1, 2, "01", "00", "1B", "System");       // GTR spkr type
-	editDetails()->page()->addComboBox(0, 2, 1, 2, "01", "00", "1C", "System");       // mic type
-	editDetails()->page()->addComboBox(0, 5, 1, 1, "01", "00", "1D", "System");       // mic distance
+	editDetails()->page()->addComboBox(0, 0, 1, 2, "01", "00", "1A", "System");       // GTR spkr type
+	editDetails()->page()->addComboBox(0, 2, 1, 2, "01", "00", "1B", "System");       // mic type
+	editDetails()->page()->addComboBox(0, 5, 1, 1, "01", "00", "1C", "System");       // mic distance
 	editDetails()->page()->addKnob(0, 6, 1, 1, "01", "02", "5D", "System");           // mic position
 	editDetails()->page()->addKnob(0, 7, 1, 1, "01", "02", "5E", "System");           // mic level
-	editDetails()->page()->addKnob(0, 8, 1, 1, "01", "00", "16", "System");           // Bottom level
+	editDetails()->page()->addKnob(0, 8, 1, 1, "01", "00", "15", "System");           // Bottom level
 	editDetails()->page()->addKnob(0, 9, 1, 1, "01", "02", "5F", "System");           // GTR direct
 	editDetails()->page()->addGroupBox(1, 0, 1, 3);  
 	editDetails()->page()->addStackField();
@@ -514,23 +514,23 @@ void menuPage_system::setEditPages()
 	editDetails()->page()->addKnob(0, 1, 1, 1, "01", "02", "50", "System");           //bass
 	editDetails()->page()->addKnob(0, 2, 1, 1, "01", "02", "51", "System");           // mid
 	editDetails()->page()->addKnob(0, 3, 1, 1, "01", "02", "52", "System");           // treble
-	editDetails()->page()->addKnob(0, 4, 1, 1, "01", "00", "15", "System");           // GTR presence
-	editDetails()->page()->addComboBox(1, 0, 1, 1, "01", "00", "18", "System");       // gain sw
+	editDetails()->page()->addKnob(0, 4, 1, 1, "01", "00", "14", "System");           // GTR presence
+	editDetails()->page()->addComboBox(1, 0, 1, 1, "01", "00", "17", "System");       // gain sw
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->page()->newGroupBox("SOLO");
-	editDetails()->page()->addSwitch(1, 0, 1, 1, "01", "00", "19", "System");         // solo sw
-	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "1A", "System");           // solo level
+	editDetails()->page()->addSwitch(1, 0, 1, 1, "01", "00", "18", "System");         // solo sw
+	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "19", "System");           // solo level
   editDetails()->page()->addGroupBox(0, 1, 1, 1);
 	editDetails()->page()->newGroupBox("Level");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "02", "53", "System");     // effect level
 	editDetails()->page()->addGroupBox(0, 2, 1, 1);  
 	editDetails()->page()->newGroupBox("Speaker Cabinet");
-	editDetails()->page()->addComboBox(0, 0, 1, 2, "01", "00", "1B", "System");       // GTR spkr type
-	editDetails()->page()->addComboBox(0, 2, 1, 2, "01", "00", "1C", "System");       // mic type
-	editDetails()->page()->addComboBox(0, 5, 1, 1, "01", "00", "1D", "System");       // mic distance
+	editDetails()->page()->addComboBox(0, 0, 1, 2, "01", "00", "1A", "System");       // GTR spkr type
+	editDetails()->page()->addComboBox(0, 2, 1, 2, "01", "00", "1B", "System");       // mic type
+	editDetails()->page()->addComboBox(0, 5, 1, 1, "01", "00", "1C", "System");       // mic distance
 	editDetails()->page()->addKnob(0, 6, 1, 1, "01", "02", "5D", "System");           // mic position
 	editDetails()->page()->addKnob(0, 7, 1, 1, "01", "02", "5E", "System");           // mic level
-	editDetails()->page()->addKnob(0, 8, 1, 1, "01", "00", "16", "System");           // Bottom level
+	editDetails()->page()->addKnob(0, 8, 1, 1, "01", "00", "15", "System");           // Bottom level
 	editDetails()->page()->addKnob(0, 9, 1, 1, "01", "02", "5F", "System");           // GTR direct
 	editDetails()->page()->addGroupBox(1, 0, 1, 3);  
 	editDetails()->page()->addStackField();
@@ -542,23 +542,23 @@ void menuPage_system::setEditPages()
 	editDetails()->page()->addKnob(0, 1, 1, 1, "01", "02", "50", "System");           //bass
 	editDetails()->page()->addKnob(0, 2, 1, 1, "01", "02", "51", "System");           // mid
 	editDetails()->page()->addKnob(0, 3, 1, 1, "01", "02", "52", "System");           // treble
-	editDetails()->page()->addKnob(0, 4, 1, 1, "01", "00", "15", "System");           // GTR presence
-	editDetails()->page()->addComboBox(1, 0, 1, 1, "01", "00", "18", "System");       // gain sw
+	editDetails()->page()->addKnob(0, 4, 1, 1, "01", "00", "14", "System");           // GTR presence
+	editDetails()->page()->addComboBox(1, 0, 1, 1, "01", "00", "17", "System");       // gain sw
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 	editDetails()->page()->newGroupBox("SOLO");
-	editDetails()->page()->addSwitch(1, 0, 1, 1, "01", "00", "19", "System");         // solo sw
-	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "1A", "System");           // solo level
+	editDetails()->page()->addSwitch(1, 0, 1, 1, "01", "00", "18", "System");         // solo sw
+	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "19", "System");           // solo level
   editDetails()->page()->addGroupBox(0, 1, 1, 1);
 	editDetails()->page()->newGroupBox("Level");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "02", "53", "System");     // effect level
 	editDetails()->page()->addGroupBox(0, 2, 1, 1);  
 	editDetails()->page()->newGroupBox("Speaker Cabinet");
-	editDetails()->page()->addComboBox(0, 0, 1, 2, "01", "00", "1B", "System");       // GTR spkr type
-	editDetails()->page()->addComboBox(0, 2, 1, 2, "01", "00", "1C", "System");       // mic type
-	editDetails()->page()->addComboBox(0, 4, 1, 2, "01", "00", "1D", "System");       // mic distance
+	editDetails()->page()->addComboBox(0, 0, 1, 2, "01", "00", "1A", "System");       // GTR spkr type
+	editDetails()->page()->addComboBox(0, 2, 1, 2, "01", "00", "1B", "System");       // mic type
+	editDetails()->page()->addComboBox(0, 4, 1, 2, "01", "00", "1C", "System");       // mic distance
 	editDetails()->page()->addKnob(0, 6, 1, 1, "01", "02", "5D", "System");           // mic position
 	editDetails()->page()->addKnob(0, 7, 1, 1, "01", "02", "5E", "System");           // mic level
-	editDetails()->page()->addKnob(0, 8, 1, 1, "01", "00", "16", "System");           // Bottom level
+	editDetails()->page()->addKnob(0, 8, 1, 1, "01", "00", "15", "System");           // Bottom level
 	editDetails()->page()->addKnob(0, 9, 1, 1, "01", "02", "5F", "System");           // GTR direct
 	editDetails()->page()->addGroupBox(1, 0, 1, 3);  
 	editDetails()->page()->addStackField();
@@ -569,7 +569,7 @@ void menuPage_system::setEditPages()
 	
 	 ////// PREAMP #2 //////////PREAMP #2 //////////PREAMP #2 //////////PREAMP #2 //////////PREAMP #2 //////////
   editDetails()->page()->addLabel(0, 1, 1, 1, tr("***CAUTION*** Settings changes are automatically written to GT-10B"));
-  editDetails()->page()->newGroupBox("Effect");
+  editDetails()->page()->newGroupBox("System PreAmp 2");
   editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "03", "00", "System");   // off/on effect
   editDetails()->page()->newStackControl(0);
   editDetails()->page()->addComboBox(1, 0, 1, 1, "01", "03", "01", "System");       // Type select
@@ -876,7 +876,7 @@ void menuPage_system::setEditPages()
 	
 	 ////// PREAMP #3 //////////PREAMP #3 //////////PREAMP #3 //////////PREAMP #3 //////////PREAMP #3 //////////
 	editDetails()->page()->addLabel(0, 1, 1, 1, tr("***CAUTION*** Settings changes are automatically written to GT-10B"));
-  editDetails()->page()->newGroupBox("Effect");
+  editDetails()->page()->newGroupBox("System PreAmp 3");
   editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "04", "00", "System");   // off/on effect
   editDetails()->page()->newStackControl(0);
   editDetails()->page()->addComboBox(1, 0, 1, 1, "01", "04", "01", "System");       // Type select

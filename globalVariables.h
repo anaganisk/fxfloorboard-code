@@ -61,6 +61,7 @@ const int systemSize = 2261;    // size of bytes for system data.
 const int nameReplySize = 29;    // size of bytes for name data.
 const QString patchRequestDataSize = "00000D64";
 const QString systemRequestMsg = "F0410000003011000000000002090075F7";
+const QString totalClone = "F0410000003011000000007002000075F7";
 //const int maxWait = 40;			 // Maximum times we loop through the receive handle before we give up waiting.(for whole patch) tempory used by midi prefs
 //const int minWait = 5;			 // Minimum times we loop through the receive handle before we give up waiting.(for small data)   "      "       "       "
 const int maxRetry = 4;			   // Maximum times we retry to load a patch in case of a transfer error .

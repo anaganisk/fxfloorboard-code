@@ -296,7 +296,7 @@ void midiIO::receiveMsg(QString sysxInMsg, int midiInPort)
    else if (msgType == "system") {loopCount = x*300; count = systemSize;}     // system reply size
    else if (msgType == "name")   {loopCount = x*10; count = nameReplySize;}   // name reply size
    else if (msgType == "identity")   {loopCount = x*100; count = 15;}   // id reply size
-                            else {loopCount = x*10; count = 0; };                            
+                            else {loopCount = x*1; count = 1; };                            
       RtMidiIn *midiin = 0;
       const std::string clientName = "FxFloorBoard";
       midiin = new RtMidiIn(clientName);		                   //RtMidi constructor

@@ -132,7 +132,7 @@ void menuPage::menuButtonSignal(bool value)
          else
              {
               QString snork = tr("Ensure connection is active and retry<br>");
-              snork.append(tr("System data not transfered, current settings are to be used<br>"));
+              snork.append(tr("System data not transfered, default settings are to be used<br>"));
               QMessageBox *msgBox = new QMessageBox();
               msgBox->setWindowTitle(deviceType + tr(" midi connection not found!!"));
               msgBox->setIcon(QMessageBox::Information);
@@ -140,6 +140,8 @@ void menuPage::menuButtonSignal(bool value)
               msgBox->setStandardButtons(QMessageBox::Ok);
               msgBox->exec();
               emit setStatusMessage(tr("Not Connected"));
+              this->editDialog->setWindow(this->fxName);
+	       	    emit setEditDialog(this->editDialog);  
 	            emit setStatusSymbol(0);
               };  
     };

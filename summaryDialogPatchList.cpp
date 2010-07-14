@@ -82,12 +82,12 @@ summaryDialogPatchList::summaryDialogPatchList(QWidget *parent)
   QPushButton *printButton = new QPushButton(tr("Print"));
   connect(printButton, SIGNAL(clicked()), this, SLOT(printFile()));
   printButton->setWhatsThis(tr("Will Print the current Dialog to the prefered printer<br>printed text will be simular to the screen layout."));
-  printButton->hide();
+  //printButton->hide();
 
   QPushButton *saveAsButton = new QPushButton(tr("Save As"));
   connect(saveAsButton, SIGNAL(clicked()), this, SLOT(saveAs()));
   saveAsButton->setWhatsThis(tr("Will save the current dialog page to file in a *.txt format."));
-  saveAsButton->hide();
+  //saveAsButton->hide();
 
         QHBoxLayout *horizontalLayout = new QHBoxLayout;
         horizontalLayout->addWidget(textDialog);
@@ -121,19 +121,20 @@ QString text;
                         QString b = QString::number(this->bank);
                         if (b.size() < 2) { b.prepend("0"); };
                         QString p = QString::number(this->patch);
+                               
                         this->patchList.append("<br>[U"+b+":"+p+"] ");
                         this->patchList.append(name);       // Set the patch name of the item in the list.
                         text.append("<br>[U"+b+":"+p+"] ");
-                        text.append(name);       // Set the patch name of the item in the list.                        
-                        textDialog->setText(text);
-                     
-                      patch = patch+1;
-                      count = count+1;
-                      if (patch == 5) 
-                      {
-                        patch = 1;
-                        bank = bank+1;
-                      };
+                        text.append(name);       // Set the patch name of the item in the list. 
+                        patch = patch+1;
+                        count = count+1;
+                        if (patch == 5) 
+                        {
+                          patch = 1;
+                          bank = bank+1;
+                          this->patchList.append("<br>");
+                        };                                       
+                        textDialog->setText(text);                      
                 };
 
                 if(count < 200) // As long as we have items in the list we continue, duh! :)
@@ -152,9 +153,9 @@ QString text;
                     this->patchList.prepend(dateTimeString+"<br>");
                     this->patchList.prepend("Boss "+deviceType+" Patch List <br>");
                     textDialog->setText(this->patchList);
-                    cancelButton->show();
-                    printButton->show();
-                    saveAsButton->show();
+                    //cancelButton->show();
+                    //printButton->show();
+                    //saveAsButton->show(); 
                   };
 };
 
