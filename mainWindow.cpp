@@ -33,6 +33,7 @@
 #include "summaryDialog.h"
 #include "summaryDialog2.h"
 #include "summaryDialogPatchList.h"
+#include "summaryDialogSystem.h"
 #include "globalVariables.h"
 
 
@@ -211,6 +212,10 @@ void mainWindow::createActions()
         summaryAct2->setStatusTip(tr("........"));
         connect(summaryAct2, SIGNAL(triggered()), this, SLOT(summaryPage2()));
         
+        summarySystemAct = new QAction(QIcon(":/images/copy.png"), tr("System/Global Text Summary"), this);
+        summarySystemAct->setWhatsThis(tr("Display the current System and Global parameters<br>in a readable text format, which<br>can be printed or saved to file."));
+        connect(summarySystemAct, SIGNAL(triggered()), this, SLOT(summarySystemPage()));
+        
         summaryPatchListAct = new QAction(QIcon(":/images/copy.png"), tr("GT-10 Patch List Summary"), this);
         summaryPatchListAct->setWhatsThis(tr("Display the GT-10 patch listing names<br>in a readable text format, which<br>can be printed or saved to file."));
         connect(summaryPatchListAct, SIGNAL(triggered()), this, SLOT(summaryPatchList()));
@@ -283,6 +288,7 @@ void mainWindow::createMenus()
         fileMenu->addSeparator();
         toolsMenu->addAction(summaryAct);
         //toolsMenu->addAction(summaryAct2);
+        toolsMenu->addAction(summarySystemAct);
         toolsMenu->addAction(summaryPatchListAct);
         menuBar->addMenu(toolsMenu);
 
@@ -768,6 +774,14 @@ void mainWindow::summaryPage2()
    summary2->setMinimumWidth(800);
    summary2->setMinimumHeight(750); // a little taller
    summary2->show();
+};
+
+void mainWindow::summarySystemPage()
+{
+   summaryDialogSystem *summarySystem = new summaryDialogSystem();
+   summarySystem->setMinimumWidth(800);
+   summarySystem->setMinimumHeight(650);
+   summarySystem->show();
 };
 
 void mainWindow::summaryPatchList()

@@ -76,19 +76,33 @@ summaryDialog::summaryDialog(QWidget *parent)
 
   QList<QString> fxChain = sysxIO->getFileSource("Structure", "0B", "00");
 
-  QString chain = "<br><br><b>Signal Chain =</b>";
-for(int i= sysxDataOffset;i< (sysxDataOffset + 18);i++ )
+  QString chainText = "<br><br><b>**********Signal Chain**********</b><br>Input = ";
+  QString chainData;
+  QString chain;
+  for(int i= sysxDataOffset;i< (sysxDataOffset + 18);i++ )
   {
+     chainData.append(fxChain.at(i));
      chain.append(" [");
      chain.append( midiTable->getMidiMap("Structure", "0B", "00", "00", fxChain.at(i)).name );
      chain.append("]");
   };
-  chain.replace("CN_S", "A/B Split");
-  chain.replace("CN_M", "A/B Merge");
-  chain.replace("CH_A", "PreAmp A");
+  QString part;
+  for(int x=0;x<chainData.size();x++)
+  {
+    part.append(chainData.at(x));
+    ++x;
+  };
+  int i = part.indexOf("4")+sysxDataOffset;
+  QString g = ( midiTable->getMidiMap("Structure", "0B", "00", "00", fxChain.at(i)).name );
+  chain.replace("["+g, "<br>Channel B = ["+g);
   chain.replace("CH_B", "PreAmp B");
+  chain.replace("[CN_S]", "[A/B Split]<br>Channel A = ");
+  chain.replace("[CN_M]", "<br>Output = [A/B Merge]");
+  chain.replace("CH_A", "PreAmp A");
+  chain.replace("LP", "S/R");
+  text.append(chainText);
   text.append(chain);
-
+  
   text.append("<br><br><b><u>**********PreAmp/Channel Control***********</b></u>");
   address= "01";
   start = 0;
@@ -352,14 +366,16 @@ void summaryDialog::makeList()
       {
         QString pos = QString::number(i, 16).toUpper();
         if(pos.size()<2){ pos.prepend("0"); };
-        QString txt =  midiTable->getMidiMap("Structure", address, "00", pos).desc;
+        QString txt =  midiTable->getMidiMap("Structure", address, "00", pos).customdesc;
         if(!txt.isEmpty() && txt != "")
         {
+        QString pretxt =  midiTable->getMidiMap("Structure", address, "00", pos).desc;
         int value = sysxIO->getSourceValue("Structure", address, "00", pos);
         QString valueHex = QString::number(value, 16).toUpper();
         if(valueHex.length() < 2) {valueHex.prepend("0"); };
          text.append("<br>");
          text.append("[");
+         if(!pretxt.isEmpty() && txt != "") { text.append(pretxt + " "); };
          text.append(txt);
          text.append("] = ");
          text.append(midiTable->getValue("Structure", address, "00", pos, valueHex) );

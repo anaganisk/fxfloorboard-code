@@ -64,7 +64,7 @@ void stompbox_cs::setEditPages()
 	editDetails()->page()->addKnob(0, 2, 1, 1, "00", "00", "46");
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 
-	editDetails()->page()->newGroupBox("Level");
+	editDetails()->page()->newGroupBox("Effect");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "00", "00", "47");
 	editDetails()->page()->addGroupBox(0, 1, 1, 1);
 	editDetails()->page()->addStackField();
@@ -78,7 +78,7 @@ void stompbox_cs::setEditPages()
 	editDetails()->page()->addKnob(0, 2, 1, 1, "00", "00", "46");
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 
-	editDetails()->page()->newGroupBox("Level");
+	editDetails()->page()->newGroupBox("Effect");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "00", "00", "47");
 	editDetails()->page()->addGroupBox(0, 1, 1, 1);
 	editDetails()->page()->addStackField();

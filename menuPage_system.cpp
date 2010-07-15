@@ -37,8 +37,9 @@ void menuPage_system::updateSignal()
 };
 
 void menuPage_system::setEditPages()
-{          
-	editDetails()->page()->addLabel(0, 0, 1, 1, "***CAUTION*** Settings changes are automatically written to GT-10");
+{ 
+  QString text = tr("***CAUTION*** Settings changes are automatically written to GT-10 when changed");         
+	editDetails()->page()->addLabel(0, 0, 1, 1, text);
   editDetails()->page()->newGroupBox("settings");
   editDetails()->page()->addKnob(0, 0, 1, 1, "00", "00", "00", "System"); // lcd contrast
   editDetails()->page()->addLabel(0, 1, 1, 1, "     ");
@@ -106,7 +107,7 @@ void menuPage_system::setEditPages()
 
 
 	
-	editDetails()->page()->newGroupBox("User Options  ***CAUTION*** Settings changes are automatically written to GT-10");
+	editDetails()->page()->newGroupBox("User Options " + text);
 	editDetails()->page()->newGroupBox("Output");
   editDetails()->page()->addComboBox(0, 0, 1, 1, "00", "00", "4E", "System"); // output mode
   editDetails()->page()->addLabel(0, 1, 1, 1, "     ");
@@ -142,7 +143,7 @@ void menuPage_system::setEditPages()
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
   editDetails()->addPage("00", "00", "01", "01", "System");
 	
-	editDetails()->page()->newGroupBox("Internal Pedals  ***CAUTION*** Settings changes are automatically written to GT-10");
+	editDetails()->page()->newGroupBox("Internal Pedals " + text);
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "00", "00", "7A", "System"); // exp1 pdl
 	editDetails()->page()->addComboBox(0, 1, 1, 1, "00", "01", "10", "System"); // exp1 setting
 	editDetails()->page()->addComboBox(0, 2, 1, 1, "00", "01", "11", "System"); // exp1 function
@@ -150,8 +151,6 @@ void menuPage_system::setEditPages()
 	editDetails()->page()->addKnob(0, 4, 1, 1, "00", "01", "15", "System"); // exp1 max
 	editDetails()->page()->addComboBox(0, 5, 1, 1, "00", "01", "17", "System"); // exp1 src mode
 	editDetails()->page()->addRange(0, 6, 1, 2, "00", "01", "18", "System");         // min/max range widget
-	//editDetails()->page()->addKnob(0, 6, 1, 1, "00", "01", "18", "System"); // exp1 act range lo
-	//editDetails()->page()->addKnob(0, 7, 1, 1, "00", "01", "19", "System"); // exp1 act range hi
 	
 	editDetails()->page()->addComboBox(1, 0, 1, 1, "00", "00", "7B", "System"); // exp1 pdl sw
 	editDetails()->page()->addComboBox(1, 1, 1, 1, "00", "01", "20", "System"); // exp1 sw setting
@@ -160,8 +159,6 @@ void menuPage_system::setEditPages()
 	editDetails()->page()->addKnob(1, 4, 1, 1, "00", "01", "25", "System"); // exp1 sw max
 	editDetails()->page()->addComboBox(1, 5, 1, 1, "00", "01", "27", "System"); // exp1 sw src mode
 	editDetails()->page()->addRange(1, 6, 1, 2, "00", "01", "28", "System");         // min/max range widget
-	//editDetails()->page()->addKnob(1, 6, 1, 1, "00", "01", "28", "System"); // exp1 sw act range lo
-	//editDetails()->page()->addKnob(1, 7, 1, 1, "00", "01", "29", "System"); // exp1 sw act range hi
 	
 	editDetails()->page()->addComboBox(2, 0, 1, 1, "00", "00", "7C", "System"); // ctrl 1
   editDetails()->page()->addComboBox(2, 1, 1, 1, "00", "01", "30", "System"); // ctl1 setting
@@ -170,8 +167,6 @@ void menuPage_system::setEditPages()
 	editDetails()->page()->addKnob(2, 4, 1, 1, "00", "01", "35", "System"); // ctl1 max
 	editDetails()->page()->addComboBox(2, 5, 1, 1, "00", "01", "37", "System"); // ctl1 src mode
 	editDetails()->page()->addRange(2, 6, 1, 2, "00", "01", "38", "System");         // min/max range widget
-	//editDetails()->page()->addKnob(2, 6, 1, 1, "00", "01", "38", "System"); // ctl1 act range lo
-	//editDetails()->page()->addKnob(2, 7, 1, 1, "00", "01", "39", "System"); // ctl1 act range hi
 	
 	editDetails()->page()->addComboBox(3, 0, 1, 1, "00", "00", "7D", "System"); // ctrl 2
 	editDetails()->page()->addComboBox(3, 1, 1, 1, "00", "01", "40", "System"); // ctl2 setting
@@ -180,12 +175,11 @@ void menuPage_system::setEditPages()
 	editDetails()->page()->addKnob(3, 4, 1, 1, "00", "01", "45", "System"); // ctl2 max
 	editDetails()->page()->addComboBox(3, 5, 1, 1, "00", "01", "47", "System"); // ctl2 src mode
 	editDetails()->page()->addRange(3, 6, 1, 2, "00", "01", "48", "System");         // min/max range widget
-	//editDetails()->page()->addKnob(3, 6, 1, 1, "00", "01", "48", "System"); // ctl2 act range lo
-	//editDetails()->page()->addKnob(3, 7, 1, 1, "00", "01", "49", "System"); // ctl2 act range hi 
+	
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
   editDetails()->addPage("00", "00", "01", "02", "System");
 	
-	editDetails()->page()->newGroupBox("External pedals  ***CAUTION*** Settings changes are automatically written to GT-10");
+	editDetails()->page()->newGroupBox("External pedals " + text);
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "00", "00", "7E", "System"); // exp2 pdl
   editDetails()->page()->addComboBox(0, 1, 1, 1, "00", "01", "50", "System"); // exp2 setting
 	editDetails()->page()->addComboBox(0, 2, 1, 1, "00", "01", "51", "System"); // exp2 function
@@ -193,8 +187,6 @@ void menuPage_system::setEditPages()
 	editDetails()->page()->addKnob(0, 4, 1, 1, "00", "01", "55", "System"); // exp2 max
 	editDetails()->page()->addComboBox(0, 5, 1, 1, "00", "01", "57", "System"); // exp2 src mode
 	editDetails()->page()->addRange(0, 6, 1, 2, "00", "01", "58", "System");         // min/max range widget
-	//editDetails()->page()->addKnob(0, 6, 1, 1, "00", "01", "58", "System"); // exp2 act range lo
-	//editDetails()->page()->addKnob(0, 7, 1, 1, "00", "01", "59", "System"); // exp2 act range hi
 	
 	editDetails()->page()->addComboBox(1, 0, 1, 1, "00", "00", "7F", "System"); // ctrl 3
 	editDetails()->page()->addComboBox(1, 1, 1, 1, "00", "01", "60", "System"); // ctl3 setting
@@ -203,8 +195,6 @@ void menuPage_system::setEditPages()
 	editDetails()->page()->addKnob(1, 4, 1, 1, "00", "01", "65", "System"); // ctl3 max
 	editDetails()->page()->addComboBox(1, 5, 1, 1, "00", "01", "67", "System"); // ctl3 src mode
 	editDetails()->page()->addRange(1, 6, 1, 2, "00", "01", "68", "System");         // min/max range widget
-	//editDetails()->page()->addKnob(1, 6, 1, 1, "00", "01", "68", "System"); // ctl3 act range lo
-	//editDetails()->page()->addKnob(1, 7, 1, 1, "00", "01", "69", "System"); // ctl3 act range hi
 	
 	editDetails()->page()->addComboBox(2, 0, 1, 1, "00", "01", "00", "System"); // ctrl 4
 	editDetails()->page()->addComboBox(2, 1, 1, 1, "00", "01", "70", "System"); // ctl4 setting
@@ -213,14 +203,13 @@ void menuPage_system::setEditPages()
 	editDetails()->page()->addKnob(2, 4, 1, 1, "00", "01", "75", "System"); // ctl4 max
 	editDetails()->page()->addComboBox(2, 5, 1, 1, "00", "01", "77", "System"); // ctl4 src mode
 	editDetails()->page()->addRange(2, 6, 1, 2, "00", "01", "78", "System");         // min/max range widget
-	//editDetails()->page()->addKnob(2, 6, 1, 1, "00", "01", "78", "System"); // ctl4 act range lo
-	//editDetails()->page()->addKnob(2, 7, 1, 1, "00", "01", "79", "System"); // ctl4 act range hi
+	
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
   editDetails()->addPage("00", "00", "01", "03", "System"); 
   
   
-  editDetails()->page()->newGroupBox("User Category Names  ***CAUTION*** Settings changes are automatically written to GT-10");
-   //editDetails()->page()->addLabel(0, 0, 1, 1, "THIS AREA IS STILL UNDER CONSTRUCTION !!");
+  editDetails()->page()->newGroupBox("User Category Names " + text);
+ 
   editDetails()->page()->addNameEdit(0, 0, 1, 1, "00", "02", "00", "System", "8"); //user catagory #1
   editDetails()->page()->addLabel(0, 1, 1, 1, "     ");
   editDetails()->page()->addNameEdit(0, 2, 1, 1, "00", "02", "08", "System", "8"); //user catagory #2
@@ -237,7 +226,7 @@ void menuPage_system::setEditPages()
   editDetails()->page()->addGroupBox(0, 0, 1, 1);
   editDetails()->addPage("00", "00", "01", "04", "System"); 
   
-  editDetails()->page()->newGroupBox("MANUAL and OD/DS variations  ***CAUTION*** Settings changes are automatically written to GT-10");
+  editDetails()->page()->newGroupBox("MANUAL and OD/DS variations " + text);
   editDetails()->page()->newGroupBox("MANUAL settings");
   editDetails()->page()->addComboBox(1, 0, 1, 1, "00", "02", "50", "System"); // manual pedal 1
 	editDetails()->page()->addComboBox(1, 1, 1, 1, "00", "02", "51", "System"); // manual pedal 2
@@ -275,8 +264,8 @@ void menuPage_system::setEditPages()
   editDetails()->addPage("00", "00", "01", "05", "System"); 
   
   
-  editDetails()->page()->addLabel(0, 0, 1, 3, "PreAmp Common settings ***CAUTION*** Settings changes are automatically written to GT-10");
-  editDetails()->page()->newGroupBox("PreAmp #1");
+  editDetails()->page()->addLabel(0, 0, 1, 3, "System PreAmp Common settings " + text);
+  editDetails()->page()->newGroupBox("System PreAmp 1");
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "00", "System", Qt::AlignCenter);   // off/on effect
 	editDetails()->page()->newStackControl(0);
 	editDetails()->page()->addComboBox(1, 0, 1, 1, "01", "00", "01", "System");   //mode
@@ -284,7 +273,7 @@ void menuPage_system::setEditPages()
 	editDetails()->page()->insertStackField(0, 2, 0, 1, 1);
 	editDetails()->page()->addGroupBox(1, 0, 1, 1);
 	
-  editDetails()->page()->newGroupBox("PreAmp #2");
+  editDetails()->page()->newGroupBox("System PreAmp 2");
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "01", "00", "System", Qt::AlignCenter);   // off/on effect
 	editDetails()->page()->newStackControl(1);
 	editDetails()->page()->addComboBox(1, 0, 1, 1, "01", "01", "01", "System");   //mode
@@ -292,7 +281,7 @@ void menuPage_system::setEditPages()
 	editDetails()->page()->insertStackField(1, 2, 0, 1, 1);
 	editDetails()->page()->addGroupBox(1, 1, 1, 1);
 	
-	editDetails()->page()->newGroupBox("PreAmp #3");
+	editDetails()->page()->newGroupBox("System PreAmp 3");
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "02", "00", "System", Qt::AlignCenter);   // off/on effect
 	editDetails()->page()->newStackControl(2);
 	editDetails()->page()->addComboBox(1, 0, 1, 1, "01", "02", "01", "System");   //mode
@@ -357,7 +346,8 @@ void menuPage_system::setEditPages()
  /////////////////////////////////// preamp A #1 ///////////////////////////////////////////
   	
 	//editDetails()->page()->newGroupBox("Channel A");
-	editDetails()->page()->newGroupBox("Pre Amp Channel A #1");
+	editDetails()->page()->addLabel(0, 0, 1, 3, "System PreAmp " + text);
+	editDetails()->page()->newGroupBox("Pre Amp 1 Channel A");
 	editDetails()->page()->newStackControl(0);
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "01", "00", "10");        //pre type
 	editDetails()->page()->addStackControl();
@@ -372,7 +362,7 @@ void menuPage_system::setEditPages()
  
   editDetails()->page()->insertStackField(0, 1, 0, 1, 1);                // bright button
 
-	editDetails()->page()->newGroupBox("Speaker Channel A #1");
+	editDetails()->page()->newGroupBox("Speaker 1 Channel A");
 	editDetails()->page()->newStackControl(1);
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "01", "00", "1B", "System");
 	editDetails()->page()->addStackControl();
@@ -548,7 +538,7 @@ void menuPage_system::setEditPages()
   editDetails()->page()->addStackField();
   
 	editDetails()->page()->newStackField(0); // custom
-	editDetails()->page()->newGroupBox("Custom PreAmp");
+	editDetails()->page()->newGroupBox("Custom System PreAmp");
 	editDetails()->page()->newStackControl(2);
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "01", "00", "21", "System");
 	editDetails()->page()->addStackControl();
@@ -576,7 +566,7 @@ void menuPage_system::setEditPages()
 	editDetails()->page()->newStackField(1);editDetails()->page()->addStackField();
 	editDetails()->page()->newStackField(1);editDetails()->page()->addStackField();
 	editDetails()->page()->newStackField(1);
-  editDetails()->page()->newGroupBox("Custom Speaker");
+  editDetails()->page()->newGroupBox("Custom System Speaker");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "2A", "System");
 	editDetails()->page()->addKnob(1, 0, 1, 1, "01", "00", "29", "System");
 	editDetails()->page()->addKnob(2, 0, 1, 2, "01", "00", "28", "System");
@@ -604,7 +594,8 @@ void menuPage_system::setEditPages()
   
   /////////////////////////////////////////////////// preamp B #1 //////////////////////////////////////////////
   //editDetails()->page()->newGroupBox("Channel B");
-	editDetails()->page()->newGroupBox("Pre Amp Channel B #1");
+  editDetails()->page()->addLabel(0, 0, 1, 3, "System PreAmp " + text);
+	editDetails()->page()->newGroupBox("Pre Amp 1 Channel B");
 	editDetails()->page()->newStackControl(0); 
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "01", "00", "30", "System");  // pre type
 	editDetails()->page()->addStackControl();
@@ -619,7 +610,7 @@ void menuPage_system::setEditPages()
 	
   editDetails()->page()->insertStackField(0, 1, 0, 1, 1);                 // bright switch
   	
-	editDetails()->page()->newGroupBox("Speaker Channel B #1");
+	editDetails()->page()->newGroupBox("Speaker 1 Channel B");
 	editDetails()->page()->newStackControl(1);
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "01", "00", "3B", "System");   // speaker type
 	editDetails()->page()->addStackControl();
@@ -800,7 +791,7 @@ void menuPage_system::setEditPages()
   editDetails()->page()->addStackField();
   
 	editDetails()->page()->newStackField(0); // custom
-	editDetails()->page()->newGroupBox("Custom PreAmp");
+	editDetails()->page()->newGroupBox("Custom System PreAmp");
 	editDetails()->page()->newStackControl(2);
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "01", "00", "41", "System");
 	editDetails()->page()->addStackControl();
@@ -829,7 +820,7 @@ void menuPage_system::setEditPages()
 	editDetails()->page()->newStackField(1);editDetails()->page()->addStackField();
 	editDetails()->page()->newStackField(1);editDetails()->page()->addStackField();
 	editDetails()->page()->newStackField(1);
-  editDetails()->page()->newGroupBox("Custom Speaker");
+  editDetails()->page()->newGroupBox("Custom System Speaker");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "4A", "System");
 	editDetails()->page()->addKnob(1, 0, 1, 1, "01", "00", "49", "System");
 	editDetails()->page()->addKnob(2, 0, 1, 2, "01", "00", "48", "System");
@@ -858,7 +849,8 @@ void menuPage_system::setEditPages()
   /////////////////////////////////// preamp A #2 ///////////////////////////////////////////
   	
 	//editDetails()->page()->newGroupBox("Channel A");
-	editDetails()->page()->newGroupBox("Pre Amp Channel A #2");
+	editDetails()->page()->addLabel(0, 0, 1, 3, "System PreAmp " + text);
+	editDetails()->page()->newGroupBox("Pre Amp 2 Channel A");
 	editDetails()->page()->newStackControl(0);
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "01", "01", "10", "System");        //pre type
 	editDetails()->page()->addStackControl();
@@ -873,7 +865,7 @@ void menuPage_system::setEditPages()
  
   editDetails()->page()->insertStackField(0, 1, 0, 1, 1);                // bright button
 
-	editDetails()->page()->newGroupBox("Speaker Channel A #2");
+	editDetails()->page()->newGroupBox("Speaker 2 Channel A");
 	editDetails()->page()->newStackControl(1);
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "01", "01", "1B", "System");
 	editDetails()->page()->addStackControl();
@@ -1049,7 +1041,7 @@ void menuPage_system::setEditPages()
   editDetails()->page()->addStackField();
   
 	editDetails()->page()->newStackField(0); // custom
-	editDetails()->page()->newGroupBox("Custom PreAmp");
+	editDetails()->page()->newGroupBox("Custom System PreAmp");
 	editDetails()->page()->newStackControl(2);
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "01", "01", "21", "System");
 	editDetails()->page()->addStackControl();
@@ -1077,7 +1069,7 @@ void menuPage_system::setEditPages()
 	editDetails()->page()->newStackField(1);editDetails()->page()->addStackField();
 	editDetails()->page()->newStackField(1);editDetails()->page()->addStackField();
 	editDetails()->page()->newStackField(1);
-  editDetails()->page()->newGroupBox("Custom Speaker");
+  editDetails()->page()->newGroupBox("Custom System Speaker");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "01", "2A", "System");
 	editDetails()->page()->addKnob(1, 0, 1, 1, "01", "01", "29", "System");
 	editDetails()->page()->addKnob(2, 0, 1, 2, "01", "01", "28", "System");
@@ -1106,7 +1098,8 @@ void menuPage_system::setEditPages()
   
   /////////////////////////////////////////////////// preamp B #2 //////////////////////////////////////////////
   //editDetails()->page()->newGroupBox("Channel B");
-	editDetails()->page()->newGroupBox("Pre Amp Channel B #2");
+  editDetails()->page()->addLabel(0, 0, 1, 3, "System PreAmp " + text);
+	editDetails()->page()->newGroupBox("Pre Amp 2 Channel B");
 	editDetails()->page()->newStackControl(0); 
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "01", "01", "30", "System");  // pre type
 	editDetails()->page()->addStackControl();
@@ -1121,7 +1114,7 @@ void menuPage_system::setEditPages()
 	
   editDetails()->page()->insertStackField(0, 1, 0, 1, 1);                 // bright switch
   	
-	editDetails()->page()->newGroupBox("Speaker Channel B #2");
+	editDetails()->page()->newGroupBox("Speaker 2 Channel B");
 	editDetails()->page()->newStackControl(1);
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "01", "01", "3B", "System");   // speaker type
 	editDetails()->page()->addStackControl();
@@ -1302,7 +1295,7 @@ void menuPage_system::setEditPages()
   editDetails()->page()->addStackField();
   
 	editDetails()->page()->newStackField(0); // custom
-	editDetails()->page()->newGroupBox("Custom PreAmp");
+	editDetails()->page()->newGroupBox("Custom System PreAmp");
 	editDetails()->page()->newStackControl(2);
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "01", "01", "41", "System");
 	editDetails()->page()->addStackControl();
@@ -1331,7 +1324,7 @@ void menuPage_system::setEditPages()
 	editDetails()->page()->newStackField(1);editDetails()->page()->addStackField();
 	editDetails()->page()->newStackField(1);editDetails()->page()->addStackField();
 	editDetails()->page()->newStackField(1);
-  editDetails()->page()->newGroupBox("Custom Speaker");
+  editDetails()->page()->newGroupBox("Custom System Speaker");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "01", "4A", "System");
 	editDetails()->page()->addKnob(1, 0, 1, 1, "01", "01", "49", "System");
 	editDetails()->page()->addKnob(2, 0, 1, 2, "01", "01", "48", "System");
@@ -1360,7 +1353,8 @@ void menuPage_system::setEditPages()
  /////////////////////////////////// preamp A #3 ///////////////////////////////////////////
   	
 	//editDetails()->page()->newGroupBox("Channel A");
-	editDetails()->page()->newGroupBox("Pre Amp Channel A #3");
+	editDetails()->page()->addLabel(0, 0, 1, 3, "System PreAmp " + text);
+	editDetails()->page()->newGroupBox("Pre Amp 3 Channel A");
 	editDetails()->page()->newStackControl(0);
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "01", "02", "10", "System");        //pre type
 	editDetails()->page()->addStackControl();
@@ -1375,7 +1369,7 @@ void menuPage_system::setEditPages()
  
   editDetails()->page()->insertStackField(0, 1, 0, 1, 1);                // bright button
 
-	editDetails()->page()->newGroupBox("Speaker Channel A #3");
+	editDetails()->page()->newGroupBox("Speaker 3 Channel A");
 	editDetails()->page()->newStackControl(1);
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "01", "02", "1B", "System");
 	editDetails()->page()->addStackControl();
@@ -1551,7 +1545,7 @@ void menuPage_system::setEditPages()
   editDetails()->page()->addStackField();
   
 	editDetails()->page()->newStackField(0); // custom
-	editDetails()->page()->newGroupBox("Custom PreAmp");
+	editDetails()->page()->newGroupBox("Custom System PreAmp");
 	editDetails()->page()->newStackControl(2);
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "01", "02", "21", "System");
 	editDetails()->page()->addStackControl();
@@ -1579,7 +1573,7 @@ void menuPage_system::setEditPages()
 	editDetails()->page()->newStackField(1);editDetails()->page()->addStackField();
 	editDetails()->page()->newStackField(1);editDetails()->page()->addStackField();
 	editDetails()->page()->newStackField(1);
-  editDetails()->page()->newGroupBox("Custom Speaker");
+  editDetails()->page()->newGroupBox("Custom System Speaker");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "02", "2A", "System");
 	editDetails()->page()->addKnob(1, 0, 1, 1, "01", "02", "29", "System");
 	editDetails()->page()->addKnob(2, 0, 1, 2, "01", "02", "28", "System");
@@ -1607,7 +1601,8 @@ void menuPage_system::setEditPages()
   
   /////////////////////////////////////////////////// preamp B #3 //////////////////////////////////////////////
   //editDetails()->page()->newGroupBox("Channel B");
-	editDetails()->page()->newGroupBox("Pre Amp Channel B #3");
+  editDetails()->page()->addLabel(0, 0, 1, 3, "System PreAmp " + text);
+	editDetails()->page()->newGroupBox("Pre Amp 3 Channel B");
 	editDetails()->page()->newStackControl(0); 
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "01", "02", "30", "System");  // pre type
 	editDetails()->page()->addStackControl();
@@ -1622,7 +1617,7 @@ void menuPage_system::setEditPages()
 	
   editDetails()->page()->insertStackField(0, 1, 0, 1, 1);                 // bright switch
   	
-	editDetails()->page()->newGroupBox("Speaker Channel B #3");
+	editDetails()->page()->newGroupBox("Speaker 3 Channel B");
 	editDetails()->page()->newStackControl(1);
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "01", "02", "3B", "System");   // speaker type
 	editDetails()->page()->addStackControl();
@@ -1803,7 +1798,7 @@ void menuPage_system::setEditPages()
   editDetails()->page()->addStackField();
   
 	editDetails()->page()->newStackField(0); // custom
-	editDetails()->page()->newGroupBox("Custom PreAmp");
+	editDetails()->page()->newGroupBox("Custom System PreAmp");
 	editDetails()->page()->newStackControl(2);
 	editDetails()->page()->addComboBox(0, 0, 1, 1, "01", "02", "41", "System");
 	editDetails()->page()->addStackControl();
@@ -1832,7 +1827,7 @@ void menuPage_system::setEditPages()
 	editDetails()->page()->newStackField(1);editDetails()->page()->addStackField();
 	editDetails()->page()->newStackField(1);editDetails()->page()->addStackField();
 	editDetails()->page()->newStackField(1);
-  editDetails()->page()->newGroupBox("Custom Speaker");
+  editDetails()->page()->newGroupBox("Custom System Speaker");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "02", "4A", "System");
 	editDetails()->page()->addKnob(1, 0, 1, 1, "01", "02", "49", "System");
 	editDetails()->page()->addKnob(2, 0, 1, 2, "01", "02", "48", "System");

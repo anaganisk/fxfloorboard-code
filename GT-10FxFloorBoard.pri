@@ -106,6 +106,7 @@ HEADERS += ./editPage.h \
     ./summaryDialog.h \
     ./summaryDialog2.h \
     ./summaryDialogPatchList.h \
+    ./summaryDialogSystem.h \
     ./SysxIO.h \
     ./SysxIODestroyer.h \
     ./sysxWriter.h \
@@ -195,6 +196,7 @@ SOURCES += ./editPage.cpp \
     ./summaryDialog.cpp \
     ./summaryDialog2.cpp \
     ./summaryDialogPatchList.cpp \
+    ./summaryDialogSystem.cpp \
     ./midiIO.cpp \
     ./MidiTable.cpp \
     ./MidiTableDestroyer.cpp \

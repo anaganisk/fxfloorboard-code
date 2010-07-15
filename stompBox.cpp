@@ -521,53 +521,10 @@ void stompBox::setComboBox(QString hex1, QString hex2, QString hex3, QRect geome
                 this, SLOT(valueChanged(int)));
 };
 
-/*void stompBox::setComboBox2(QString hex1, QString hex2, QString hex3, QRect geometry)
-{
-        this->hex1 = hex1;
-        this->hex2 = hex2;
-        this->hex3 = hex3;
-
-        MidiTable *midiTable = MidiTable::Instance();
-        Midi items = midiTable->getMidiMap("Structure", hex1, hex2, hex3);
-
-        this->stompComboBox2 = new customComboBox(this);
-        this->stompComboBox2->setObjectName("smallcombo");
-
-        int itemcount = 0;
-        for(itemcount=0;itemcount<items.level.size();itemcount++ )
-        {
-                QString item;
-                QString desc = items.level.at(itemcount).desc;
-                QString customdesc = items.level.at(itemcount).customdesc;
-                if(!customdesc.isEmpty())
-                {
-                        item = customdesc;
-                }
-                else
-                {
-                        item = desc;
-                };
-                this->stompComboBox2->addItem(item);
-        };
-
-        this->stompComboBox2->setGeometry(geometry);
-        this->stompComboBox2->setEditable(false);
-        this->stompComboBox2->setFrame(false);
-        this->stompComboBox2->setMaxVisibleItems(itemcount);
-
-        QObject::connect(this->stompComboBox2, SIGNAL(currentIndexChanged2(int)),
-                this, SLOT(valueChanged2(int)));
-}; */
-
 void stompBox::setComboBoxCurrentIndex(int index)
 {
         this->stompComboBox->setCurrentIndex(index);
 };
-
-/*void stompBox::setComboBoxCurrentIndex2(int index)
-{
-        this->stompComboBox2->setCurrentIndex(index);
-};*/
 
 void stompBox::setKnob1(QString hex1, QString hex2, QString hex3)
 {
@@ -654,20 +611,6 @@ void stompBox::updateComboBox(QString hex1, QString hex2, QString hex3)
         QObject::connect(this->stompComboBox, SIGNAL(currentIndexChanged(int)),
                 this, SLOT(valueChanged(int)));
 };
-
-/*void stompBox::updateComboBox2(QString hex1, QString hex2, QString hex3)
-{
-        QObject::disconnect(this->stompComboBox2, SIGNAL(currentIndexChanged2(int)), // To prevent sending a signal when loading a patch.
-                this, SLOT(valueChanged2(int)));
-
-        SysxIO *sysxIO = SysxIO::Instance();
-        QString area;
-        setComboBoxCurrentIndex2(sysxIO->getSourceValue(area, hex1, hex2, hex3));
-
-        QObject::connect(this->stompComboBox2, SIGNAL(currentIndexChanged2(int)),
-                this, SLOT(valueChanged2(int)));
-};*/
-
 
 void stompBox::updateKnob1(QString hex1, QString hex2, QString hex3)
 {
@@ -806,31 +749,6 @@ void stompBox::valueChanged(int index)
         this->stompComboBox->setEditText(desc);
 };
 
-/*void stompBox::valueChanged2(int index)
-{
-        QString valueHex = QString::number(index, 16).toUpper();
-        if(valueHex.length() < 2) valueHex.prepend("0");
-
-        SysxIO *sysxIO = SysxIO::Instance();
-        QString area;
-        sysxIO->setFileSource(area, this->hex1, this->hex2, this->hex3, valueHex);
-
-        emitValueChanged(this->hex1, this->hex2, this->hex3, valueHex);
-
-        MidiTable *midiTable = MidiTable::Instance();
-        Midi items = midiTable->getMidiMap("Structure", this->hex1, this->hex2, this->hex3);
-
-        QString desc = items.level.at(index).desc;
-        QString customdesc = items.level.at(index).customdesc;
-        if(customdesc.isEmpty())
-        {
-                customdesc = desc;
-        };
-
-        this->stompComboBox2->setCurrentIndex(index);
-        this->stompComboBox2->setEditText(desc);
-};*/
-
 void stompBox::emitValueChanged(QString hex1, QString hex2, QString hex3, QString valueHex)
 {
         QString valueName, valueStr;
@@ -841,6 +759,7 @@ void stompBox::emitValueChanged(QString hex1, QString hex2, QString hex3, QStrin
                 {
                         Midi items = midiTable->getMidiMap("Structure", hex1, hex2, hex3);
                         valueName = items.desc;
+                        valueName.append(" " + items.customdesc);
                         //this->fxName = midiTable->getMidiMap("Structure", hex1, hex2, hex3).name;
                         valueStr = midiTable->getValue("Structure", hex1, hex2, hex3, valueHex);
                         emit dialogUpdateSignal();
