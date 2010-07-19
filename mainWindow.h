@@ -61,7 +61,6 @@ public slots:
         void settings();
         void upload();
         void summaryPage();       
-        void summaryPage2();    // rrr: insert May 2010
         void summarySystemPage();
         void summaryPatchList();
         void help();

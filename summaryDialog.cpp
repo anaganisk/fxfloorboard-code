@@ -33,6 +33,7 @@ summaryDialog::summaryDialog(QWidget *parent)
                   : QWidget(parent)
 {
   this->mode = "Compact";
+  this->filter = "off";
   this->textDialog = new QTextEdit(parent);
   textDialog->setReadOnly(true);
   //textDialog->setWordWrapMode(QTextOption::NoWrap);
@@ -58,13 +59,19 @@ summaryDialog::summaryDialog(QWidget *parent)
   ******QString "sysxMsg" contains current patch data *****
   ******************************************************/
   MidiTable *midiTable = MidiTable::Instance();
-  text = "<b>Boss GT-10 Patch Summary</b>    ";
   QDateTime dateTime = QDateTime::currentDateTime();
-  QString dateTimeString = dateTime.toString();
-  text.append(dateTimeString);
+  text = dateTime.toString();
+  text.append("<br>");   
+   small_text = text;
+   small_text.append("<b><u>Boss GT-10 Compact Patch Summary</u></b><br>");
+   small_text.append("a listing of active only effects.<br>");
+   large_text = text;
+   large_text.append("<b><u>Boss GT-10 Complete Patch Summary</u></b><br>");
+   large_text.append("a list of all parameters with-in this patch.<br>");
+  
 
   QString patchName = sysxIO->getCurrentPatchName();
-  text.append("<br><br><b>Patch name: " + patchName + "</b>");
+  text = "<br><b><u>Patch name = </u>" + patchName + "</b>";
 
   text.append("<br><br><b>Patch Mode Output Select = </b>");
   int value = sysxIO->getSourceValue("Structure", "00", "00", "11");
@@ -76,7 +83,7 @@ summaryDialog::summaryDialog(QWidget *parent)
 
   QList<QString> fxChain = sysxIO->getFileSource("Structure", "0B", "00");
 
-  QString chainText = "<br><br><b>**********Signal Chain**********</b><br>Input = ";
+  QString chainText = "<br><br><b>**********Signal Chain**********</b><br>Input = -> ";
   QString chainData;
   QString chain;
   for(int i= sysxDataOffset;i< (sysxDataOffset + 18);i++ )
@@ -99,32 +106,46 @@ summaryDialog::summaryDialog(QWidget *parent)
   chain.replace("[CN_S]", "[A/B Split]<br>Channel A = ");
   chain.replace("[CN_M]", "<br>Output = [A/B Merge]");
   chain.replace("CH_A", "PreAmp A");
-  chain.replace("LP", "S/R");
+  chain.replace("LP", "Send/Return");
+  chain.replace("CS", "Comp");
+  chain.replace("PDL", "PDL/WAH");
+  chain.replace("OD", "Dist/ODrive");
+  chain.replace("NS_1", "N.Supp 1");
+  chain.replace("NS_2", "N.Supp 2");
+  chain.replace("FV", "Foot Vol");
+  chain.replace("DD", "Delay");
+  chain.replace("RV", "Reverb");
+  chain.replace("CE", "Chorus");
+  chain.replace("DGT", "DGT/USB");
+  
   text.append(chainText);
-  text.append(chain);
+  text.append(chain + " ->");
   small_text.append(text);
   large_text.append(text);
   
   this->effect = "off";
   text = "<br><br><b><u>**********PreAmp/Channel Control***********</b></u>";
+  text2 = text;
   address= "01";
   start = 0;
   finish = 5;
   makeList();
 
   text.append("<br><br><b><u>**********Pre Amp A***********</b></u>");
+  text2.append("<br><br><b><u>**********Pre Amp A***********</b></u>");
   address= "01";
   start = 16;
   finish = 45;
   makeList();
 
   text.append("<br><br><b><u>**********Pre Amp B***********</b></u>");
+  text2.append("<br><br><b><u>**********Pre Amp B***********</b></u>");
   address= "01";
   start = 48;
   finish = 77;
   makeList();
   
-  large_text.append(text);
+  large_text.append(text2);
   if(effect == "on") { small_text.append(text); };
 
   this->effect = "off";
@@ -199,7 +220,7 @@ summaryDialog::summaryDialog(QWidget *parent)
   large_text.append(text);
   if(effect == "on") { small_text.append(text); };
  
-  this->effect = "off";
+  this->effect = "on";
   text = "<br><br><b><u>**********Master***********</b></u>";
   address= "0A";
   start = 96;
@@ -237,6 +258,7 @@ summaryDialog::summaryDialog(QWidget *parent)
  
   this->effect = "off";
   text = "<br><br><b><u>**********FX-1***********</b></u>";
+  text2 = text;
   address= "02";
   start = 0;
   finish = 110;
@@ -249,11 +271,13 @@ summaryDialog::summaryDialog(QWidget *parent)
   start = 29;
   finish = 65;
   makeList();
-  large_text.append(text);
+  large_text.append(text2);
   if(effect == "on") { small_text.append(text); };
+  this->filter = "off";
  
   this->effect = "off";
   text = "<br><br><b><u>**********FX-2***********</b></u>";
+  text2 = text;
   address= "06";
   start = 0;
   finish = 110;
@@ -266,8 +290,9 @@ summaryDialog::summaryDialog(QWidget *parent)
   start = 29;
   finish = 65;
   makeList();
-  large_text.append(text);
+  large_text.append(text2);
   if(effect == "on") { small_text.append(text); };
+  this->filter = "off";
  
   this->effect = "off";
   text = "<br><br><b><u>**********Assign 1***********</b></u>";
@@ -417,6 +442,10 @@ summaryDialog::summaryDialog(QWidget *parent)
   connect(printButton, SIGNAL(clicked()), this, SLOT(printFile()));
   printButton->setWhatsThis(tr("Will Print the current Dialog to the prefered printer<br>printed text will be simular to the screen layout."));
 
+  QPushButton *printPreviewButton = new QPushButton(tr("Print Preview"));
+  connect(printPreviewButton, SIGNAL(clicked()), this, SLOT(printPreview()));
+  printPreviewButton->setWhatsThis(tr("Will Print the current Dialog to the prefered printer<br>printed text will be simular to the screen layout."));
+
   QPushButton *saveAsButton = new QPushButton(tr("Save As"));
   connect(saveAsButton, SIGNAL(clicked()), this, SLOT(saveAs()));
   saveAsButton->setWhatsThis(tr("Will save the current dialog page to file in a *.txt format."));
@@ -430,13 +459,15 @@ summaryDialog::summaryDialog(QWidget *parent)
 
         QHBoxLayout *buttonsLayout = new QHBoxLayout;
         buttonsLayout->addStretch(1);
+        buttonsLayout->addWidget(printPreviewButton);
+        buttonsLayout->addSpacing(12);
         buttonsLayout->addWidget(printButton);
         buttonsLayout->addSpacing(12);
         buttonsLayout->addWidget(saveAsButton);
         buttonsLayout->addSpacing(12);
-        buttonsLayout->addWidget(cancelButton);
-        buttonsLayout->addSpacing(12);
         buttonsLayout->addWidget(viewButton);
+        buttonsLayout->addSpacing(12);
+        buttonsLayout->addWidget(cancelButton);
 
         QVBoxLayout *mainLayout = new QVBoxLayout;
         mainLayout->addLayout(horizontalLayout);
@@ -450,28 +481,37 @@ summaryDialog::summaryDialog(QWidget *parent)
 
 void summaryDialog::makeList()
 {
-    
+    // construct a text string using address and locator parameters to read from midi.xml
     SysxIO *sysxIO = SysxIO::Instance();
     MidiTable *midiTable = MidiTable::Instance();
-    for(int i=start;i<finish;i++ )
+    for(int i=start;i<finish;i++ )  //start and finish range defined above.
       {
+        QString temp;
         QString pos = QString::number(i, 16).toUpper();
         if(pos.size()<2){ pos.prepend("0"); };
-        QString txt =  midiTable->getMidiMap("Structure", address, "00", pos).customdesc;
-        if(!txt.isEmpty() && txt != "")
+        QString txt = midiTable->getMidiMap("Structure", address, "00", pos).customdesc;  //trawl through midi.xml 
+        if(!txt.isEmpty() && txt != "") // skip the empty midi.xml .desc section and move to the next.
         {
         QString pretxt =  midiTable->getMidiMap("Structure", address, "00", pos).desc;
         int value = sysxIO->getSourceValue("Structure", address, "00", pos);
         QString valueHex = QString::number(value, 16).toUpper();
         if(valueHex.length() < 2) {valueHex.prepend("0"); };
-         text.append("<br>");
-         text.append("[");
-         if(!pretxt.isEmpty() && txt != "") { text.append(pretxt + " "); };
-         text.append(txt);
-         text.append("] = ");
+         temp.append("<br>");
+         temp.append("[");
+         if(!pretxt.isEmpty() && txt != "") { temp.append(pretxt + " "); };
+         temp.append(txt);
+         temp.append("] = ");
          QString x = midiTable->getValue("Structure", address, "00", pos, valueHex);
-         text.append(x);
-         if(i == start && x == "On") { this->effect = "on"; };
+         {temp.append(x); };
+         text2.append(temp);        
+         
+          if (this->filter != "off") 
+          {
+            if (pretxt == this->filter) { text.append(temp); };
+          } else if(!pretxt.contains("Custom:")){text.append(temp); };
+          if(i == start && x == "On") { this->effect = "on"; }; // first byte is usually the effect on/off switch
+         if((pretxt == "FX1:" || pretxt == "FX2:") && (txt == "Type"))
+          {this->filter = midiTable->getMidiMap("Structure", address, "00", pos, valueHex).desc;};
         };
       };
 };
@@ -503,6 +543,19 @@ void summaryDialog::view()
      QPrintDialog *dialog = new QPrintDialog(&printer, this);
      //QPrintPreviewDialog *dialog = new QPrintPreviewDialog(&printer, this);
      dialog->setWindowTitle(tr("Print Document"));
+     if (dialog->exec() != QDialog::Accepted) { return; }
+     else { textDialog->print(&printer); };
+ #endif
+ };
+ 
+  void summaryDialog::printPreview()
+ {
+   #ifndef QT_NO_PRINTER
+
+     QPrinter printer;
+     //QPrintDialog *dialog = new QPrintDialog(&printer, this);
+     QPrintPreviewDialog *dialog = new QPrintPreviewDialog(&printer, this);
+     dialog->setWindowTitle(tr("Print Preview"));
      if (dialog->exec() != QDialog::Accepted) { return; }
      else { textDialog->print(&printer); };
  #endif

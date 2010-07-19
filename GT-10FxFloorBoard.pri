@@ -104,7 +104,6 @@ HEADERS += ./editPage.h \
     ./RtError.h \
     ./RtMidi.h \
     ./summaryDialog.h \
-    ./summaryDialog2.h \
     ./summaryDialogPatchList.h \
     ./summaryDialogSystem.h \
     ./SysxIO.h \
@@ -194,7 +193,6 @@ SOURCES += ./editPage.cpp \
     ./stompbox_pdl.cpp \
     ./stompbox_rv.cpp \ 
     ./summaryDialog.cpp \
-    ./summaryDialog2.cpp \
     ./summaryDialogPatchList.cpp \
     ./summaryDialogSystem.cpp \
     ./midiIO.cpp \

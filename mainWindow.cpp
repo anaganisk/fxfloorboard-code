@@ -31,7 +31,6 @@
 #include "bulkSaveDialog.h"
 #include "bulkLoadDialog.h"
 #include "summaryDialog.h"
-#include "summaryDialog2.h"
 #include "summaryDialogPatchList.h"
 #include "summaryDialogSystem.h"
 #include "globalVariables.h"
@@ -204,13 +203,6 @@ void mainWindow::createActions()
         summaryAct = new QAction(QIcon(":/images/copy.png"), tr("Patch Text Summary"), this);
         summaryAct->setWhatsThis(tr("Display the current patch parameters<br>in a readable text format, which<br>can be printed or saved to file."));
         connect(summaryAct, SIGNAL(triggered()), this, SLOT(summaryPage()));
-
-        // rrr: insert May 2010
-        // Disassemble the Efects Signal Chain Path A & B
-        // and Show Only Effects which are ON
-        summaryAct2 = new QAction(QIcon(":/images/copy.png"), tr("Summary Page Text2"), this);
-        summaryAct2->setStatusTip(tr("........"));
-        connect(summaryAct2, SIGNAL(triggered()), this, SLOT(summaryPage2()));
         
         summarySystemAct = new QAction(QIcon(":/images/copy.png"), tr("System/Global Text Summary"), this);
         summarySystemAct->setWhatsThis(tr("Display the current System and Global parameters<br>in a readable text format, which<br>can be printed or saved to file."));
@@ -262,13 +254,8 @@ void mainWindow::createMenus()
   QMenu *fileMenu = new QMenu(tr("&File"), this);
         fileMenu->addAction(openAct);
         fileMenu->addSeparator();
-        //fileMenu->addAction(saveAct);
         fileMenu->addAction(saveAsAct);
-        //fileMenu->addSeparator();
-        //fileMenu->addAction(importSMFAct);
         fileMenu->addAction(exportSMFAct);
-        //fileMenu->addSeparator();
-        //fileMenu->addAction(openGXGAct);
         fileMenu->addAction(saveGXGAct);
         fileMenu->addSeparator();
         fileMenu->addAction(bulkLoadAct);
@@ -287,7 +274,6 @@ void mainWindow::createMenus()
         toolsMenu->addAction(uploadAct);
         fileMenu->addSeparator();
         toolsMenu->addAction(summaryAct);
-        //toolsMenu->addAction(summaryAct2);
         toolsMenu->addAction(summarySystemAct);
         toolsMenu->addAction(summaryPatchListAct);
         menuBar->addMenu(toolsMenu);
@@ -766,14 +752,6 @@ void mainWindow::summaryPage()
    summary->setMinimumWidth(800);
    summary->setMinimumHeight(650);
    summary->show();
-};
-
-void mainWindow::summaryPage2()
-{
-   summaryDialog2 *summary2 = new summaryDialog2();
-   summary2->setMinimumWidth(800);
-   summary2->setMinimumHeight(750); // a little taller
-   summary2->show();
 };
 
 void mainWindow::summarySystemPage()
