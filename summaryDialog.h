@@ -47,9 +47,8 @@ public:
   QTextDocument *document;
   QPrintDialog *dialog;
 
-
 public slots:
-  void valueChanged(int value);
+  void view();
   void cancel();
   void printFile();
   void saveAs();
@@ -57,9 +56,13 @@ public slots:
 private:
 void makeList();
 QString text;
+QString small_text;
+QString large_text;
 QString address;
 int start;
 int finish;
+QString mode;
+QString effect;
 };
 
 #endif // FILEDIALOG_H

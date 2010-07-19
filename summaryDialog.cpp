@@ -32,7 +32,7 @@
 summaryDialog::summaryDialog(QWidget *parent)
                   : QWidget(parent)
 {
-
+  this->mode = "Compact";
   this->textDialog = new QTextEdit(parent);
   textDialog->setReadOnly(true);
   //textDialog->setWordWrapMode(QTextOption::NoWrap);
@@ -102,8 +102,11 @@ summaryDialog::summaryDialog(QWidget *parent)
   chain.replace("LP", "S/R");
   text.append(chainText);
   text.append(chain);
+  small_text.append(text);
+  large_text.append(text);
   
-  text.append("<br><br><b><u>**********PreAmp/Channel Control***********</b></u>");
+  this->effect = "off";
+  text = "<br><br><b><u>**********PreAmp/Channel Control***********</b></u>";
   address= "01";
   start = 0;
   finish = 5;
@@ -120,80 +123,120 @@ summaryDialog::summaryDialog(QWidget *parent)
   start = 48;
   finish = 77;
   makeList();
+  
+  large_text.append(text);
+  if(effect == "on") { small_text.append(text); };
 
-  text.append("<br><br><b><u>**********Compressor***********</b></u>");
+  this->effect = "off";
+  text = "<br><br><b><u>**********Compressor***********</b></u>";
   address= "00";
   start = 64;
   finish = 72;
   makeList();
-
-  text.append("<br><br><b><u>**********Distortion***********</b></u>");
+  large_text.append(text);
+  if(effect == "on") { small_text.append(text); };
+ 
+  this->effect = "off";
+  text = "<br><br><b><u>**********Distortion***********</b></u>";
   address= "00";
   start = 112;
   finish = 126;
   makeList();
-
-  text.append("<br><br><b><u>**********Equalizer***********</b></u>");
+  large_text.append(text);
+  if(effect == "on") { small_text.append(text); };
+ 
+  this->effect = "off";
+  text = "<br><br><b><u>**********Equalizer***********</b></u>";
   address= "01";
   start = 112;
   finish = 124;
   makeList();
-
-  text.append("<br><br><b><u>**********Delay***********</b></u>");
+  large_text.append(text);
+  if(effect == "on") { small_text.append(text); };
+ 
+  this->effect = "off";
+  text = "<br><br><b><u>**********Delay***********</b></u>";
   address= "0A";
   start = 0;
   finish = 25;
   makeList();
-
-  text.append("<br><br><b><u>**********Chorus***********</b></u>");
+  large_text.append(text);
+  if(effect == "on") { small_text.append(text); };
+ 
+  this->effect = "off";
+  text = "<br><br><b><u>**********Chorus***********</b></u>";
   address= "0A";
   start = 32;
   finish = 40;
   makeList();
-
-  text.append("<br><br><b><u>**********Reverb***********</b></u>");
+  large_text.append(text);
+  if(effect == "on") { small_text.append(text); };
+ 
+  this->effect = "off";
+  text = "<br><br><b><u>**********Reverb***********</b></u>";
   address= "0A";
   start = 48;
   finish = 60;
   makeList();
-
-  text.append("<br><br><b><u>**********Pedal FX***********</b></u>");
+  large_text.append(text);
+  if(effect == "on") { small_text.append(text); };
+ 
+  this->effect = "off";
+  text = "<br><br><b><u>**********Pedal FX***********</b></u>";
   address= "0A";
   start = 64;
   finish = 94;
   makeList();
-
-  text.append("<br><br><b><u>**********Misc Settings***********</b></u>");
+  large_text.append(text);
+  if(effect == "on") { small_text.append(text); };
+ 
+  this->effect = "off";
+  text = "<br><br><b><u>**********Misc Settings***********</b></u>";
   address= "0C";
   start = 32;
   finish = 35;
   makeList();
-
-  text.append("<br><br><b><u>**********Master***********</b></u>");
+  large_text.append(text);
+  if(effect == "on") { small_text.append(text); };
+ 
+  this->effect = "off";
+  text = "<br><br><b><u>**********Master***********</b></u>";
   address= "0A";
   start = 96;
   finish = 106;
   makeList();
-
-  text.append("<br><br><b><u>**********Noise Suppressor 1***********</b></u>");
+  large_text.append(text);
+  if(effect == "on") { small_text.append(text); };
+ 
+  this->effect = "off";
+  text = "<br><br><b><u>**********Noise Suppressor 1***********</b></u>";
   address= "0A";
   start = 113;
   finish = 117;
   makeList();
-
-  text.append("<br><br><b><u>**********Noise Suppressor 2***********</b></u>");
+  large_text.append(text);
+  if(effect == "on") { small_text.append(text); };
+ 
+  this->effect = "off";
+  text = "<br><br><b><u>**********Noise Suppressor 2***********</b></u>";
   address= "0A";
   start = 117;
   finish = 121;
   makeList();
-
-  text.append("<br><br><b><u>**********Send/Return***********</b></u>");
+  large_text.append(text);
+  if(effect == "on") { small_text.append(text); };
+ 
+  this->effect = "off";
+  text = "<br><br><b><u>**********Send/Return***********</b></u>";
   address= "0A";
   start = 121;
   finish = 125;
   makeList();
-
-  text.append("<br><br><b><u>**********FX-1***********</b></u>");
+  large_text.append(text);
+  if(effect == "on") { small_text.append(text); };
+ 
+  this->effect = "off";
+  text = "<br><br><b><u>**********FX-1***********</b></u>";
   address= "02";
   start = 0;
   finish = 110;
@@ -206,8 +249,11 @@ summaryDialog::summaryDialog(QWidget *parent)
   start = 29;
   finish = 65;
   makeList();
-
-  text.append("<br><br><b><u>**********FX-2***********</b></u>");
+  large_text.append(text);
+  if(effect == "on") { small_text.append(text); };
+ 
+  this->effect = "off";
+  text = "<br><br><b><u>**********FX-2***********</b></u>";
   address= "06";
   start = 0;
   finish = 110;
@@ -220,56 +266,83 @@ summaryDialog::summaryDialog(QWidget *parent)
   start = 29;
   finish = 65;
   makeList();
-
-  text.append("<br><br><b><u>**********Assign 1***********</b></u>");
+  large_text.append(text);
+  if(effect == "on") { small_text.append(text); };
+ 
+  this->effect = "off";
+  text = "<br><br><b><u>**********Assign 1***********</b></u>";
   address= "0B";
   start = 32;
   finish = 48;
   makeList();
-
-  text.append("<br><br><b><u>**********Assign 2***********</b></u>");
+  large_text.append(text);
+  if(effect == "on") { small_text.append(text); };
+ 
+  this->effect = "off";
+  text = "<br><br><b><u>**********Assign 2***********</b></u>";
   address= "0B";
   start = 48;
   finish = 64;
   makeList();
-
-  text.append("<br><br><b><u>**********Assign 3***********</b></u>");
+  large_text.append(text);
+  if(effect == "on") { small_text.append(text); };
+ 
+  this->effect = "off";
+  text = "<br><br><b><u>**********Assign 3***********</b></u>";
   address= "0B";
   start = 64;
   finish = 80;
   makeList();
-
-  text.append("<br><br><b><u>**********Assign 4***********</b></u>");
+  large_text.append(text);
+  if(effect == "on") { small_text.append(text); };
+ 
+  this->effect = "off";
+  text = "<br><br><b><u>**********Assign 4***********</b></u>";
   address= "0B";
   start = 80;
   finish = 96;
   makeList();
-
-  text.append("<br><br><b><u>**********Assign 5***********</b></u>");
+  large_text.append(text);
+  if(effect == "on") { small_text.append(text); };
+ 
+  this->effect = "off";
+  text = "<br><br><b><u>**********Assign 5***********</b></u>";
   address= "0B";
   start = 96;
   finish = 112;
   makeList();
-
-  text.append("<br><br><b><u>**********Assign 6***********</b></u>");
+  large_text.append(text);
+  if(effect == "on") { small_text.append(text); };
+ 
+  this->effect = "off";
+  text = "<br><br><b><u>**********Assign 6***********</b></u>";
   address= "0B";
   start = 112;
   finish = 128;
   makeList();
-
-  text.append("<br><br><b><u>**********Assign 7***********</b></u>");
+  large_text.append(text);
+  if(effect == "on") { small_text.append(text); };
+ 
+  this->effect = "off";
+  text = "<br><br><b><u>**********Assign 7***********</b></u>";
   address= "0C";
   start = 0;
   finish = 16;
   makeList();
+  large_text.append(text);
+  if(effect == "on") { small_text.append(text); };
 
-  text.append("<br><br><b><u>**********Assign 8***********</b></u>");
+  this->effect = "off";
+  text = "<br><br><b><u>**********Assign 8***********</b></u>";
   address= "0C";
   start = 16;
   finish = 32;
   makeList();
-
-  text.append("<br><br><b><u>**********FX-1 Harmonist User***********</b></u>");
+  large_text.append(text);
+  if(effect == "on") { small_text.append(text); };
+ 
+  this->effect = "off";
+  text = "<br><br><b><u>**********FX-1 Harmonist User***********</b></u>";
   address= "02";
   start = 110;
   finish = 128;
@@ -278,8 +351,11 @@ summaryDialog::summaryDialog(QWidget *parent)
   start = 0;
   finish = 6;
   makeList();
-
-  text.append("<br><br><b><u>**********FX-2 Harmonist User***********</b></u>");
+  large_text.append(text);
+  if(effect == "on") { small_text.append(text); };
+ 
+  this->effect = "off";
+  text = "<br><br><b><u>**********FX-2 Harmonist User***********</b></u>";
   address= "06";
   start = 110;
   finish = 128;
@@ -288,8 +364,11 @@ summaryDialog::summaryDialog(QWidget *parent)
   start = 0;
   finish = 6;
   makeList();
-
-  text.append("<br><br><b><u>**********FX-1 AutoRiff User Scales***********</b></u>");
+  large_text.append(text);
+  if(effect == "on") { small_text.append(text); };
+ 
+  this->effect = "off";
+  text = "<br><br><b><u>**********FX-1 AutoRiff User Scales***********</b></u>";
   address= "03";
   start = 92;
   finish = 128;
@@ -302,8 +381,11 @@ summaryDialog::summaryDialog(QWidget *parent)
   start = 0;
   finish = 28;
   makeList();
+  large_text.append(text);
+  if(effect == "on") { small_text.append(text); };
 
-  text.append("<br><br><b><u>**********FX-2 AutoRiff User Scales***********</b></u>");
+  this->effect = "off";
+  text = "<br><br><b><u>**********FX-2 AutoRiff User Scales***********</b></u>";
   address= "07";
   start = 92;
   finish = 128;
@@ -316,11 +398,14 @@ summaryDialog::summaryDialog(QWidget *parent)
   start = 0;
   finish = 28;
   makeList();
-
-  text.append("<br><br><b><u>**********Patch Data***********</b></u><br>");
+  large_text.append(text);
+  if(effect == "on") { small_text.append(text); };
+   
+  text = "<br><br><b><u>**********Patch Data***********</b></u><br>";
   text.append(sysxMsg);
+  large_text.append(text);
 
-  textDialog->setText(text);
+  textDialog->setText(small_text);
   textDialog->show();
 
 
@@ -335,8 +420,11 @@ summaryDialog::summaryDialog(QWidget *parent)
   QPushButton *saveAsButton = new QPushButton(tr("Save As"));
   connect(saveAsButton, SIGNAL(clicked()), this, SLOT(saveAs()));
   saveAsButton->setWhatsThis(tr("Will save the current dialog page to file in a *.txt format."));
-
-
+  
+  QPushButton *viewButton = new QPushButton(tr("Change View"));
+  connect(viewButton, SIGNAL(clicked()), this, SLOT(view()));
+  viewButton->setWhatsThis(tr("Will Expand the summary dialog to include all patch parameters."));
+  
         QHBoxLayout *horizontalLayout = new QHBoxLayout;
         horizontalLayout->addWidget(textDialog);
 
@@ -347,6 +435,8 @@ summaryDialog::summaryDialog(QWidget *parent)
         buttonsLayout->addWidget(saveAsButton);
         buttonsLayout->addSpacing(12);
         buttonsLayout->addWidget(cancelButton);
+        buttonsLayout->addSpacing(12);
+        buttonsLayout->addWidget(viewButton);
 
         QVBoxLayout *mainLayout = new QVBoxLayout;
         mainLayout->addLayout(horizontalLayout);
@@ -360,6 +450,7 @@ summaryDialog::summaryDialog(QWidget *parent)
 
 void summaryDialog::makeList()
 {
+    
     SysxIO *sysxIO = SysxIO::Instance();
     MidiTable *midiTable = MidiTable::Instance();
     for(int i=start;i<finish;i++ )
@@ -378,16 +469,25 @@ void summaryDialog::makeList()
          if(!pretxt.isEmpty() && txt != "") { text.append(pretxt + " "); };
          text.append(txt);
          text.append("] = ");
-         text.append(midiTable->getValue("Structure", address, "00", pos, valueHex) );
-
+         QString x = midiTable->getValue("Structure", address, "00", pos, valueHex);
+         text.append(x);
+         if(i == start && x == "On") { this->effect = "on"; };
         };
       };
-      //text.append("<br>");
 };
 
-void summaryDialog::valueChanged(int value)
+void summaryDialog::view()
 {
-
+  if (mode == "Compact")
+  {
+    textDialog->setText(large_text);
+    this->mode = "Expanded";
+  } 
+  else 
+  {
+    textDialog->setText(small_text);
+    this->mode = "Compact";
+  };
 };
 
  void summaryDialog::cancel()
