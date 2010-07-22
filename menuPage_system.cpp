@@ -128,5 +128,14 @@ void menuPage_system::setEditPages()
   editDetails()->page()->addKnob(0, 3, 1, 1, "08", "01", "03", "System02"); // range high
   editDetails()->page()->addKnob(0, 4, 1, 1, "08", "01", "04", "System02"); // presence
   editDetails()->page()->addGroupBox(2, 0, 1, 2);
+  
+  editDetails()->page()->newGroupBox("Custom Wah 3");
+  editDetails()->page()->addComboBox(0, 0, 1, 1, "08", "02", "00", "System02"); // wah type
+  editDetails()->page()->addKnob(0, 1, 1, 1, "08", "02", "01", "System02"); // Q
+  editDetails()->page()->addKnob(0, 2, 1, 1, "08", "02", "02", "System02"); // range low
+  editDetails()->page()->addKnob(0, 3, 1, 1, "08", "02", "03", "System02"); // range high
+  editDetails()->page()->addKnob(0, 4, 1, 1, "08", "02", "04", "System02"); // presence
+  editDetails()->page()->addGroupBox(3, 0, 1, 2);
+  
 	editDetails()->addPage("1A", "00", "01", "03");
 };

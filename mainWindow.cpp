@@ -28,6 +28,8 @@
 #include "SysxIO.h"
 #include "bulkSaveDialog.h"
 #include "bulkLoadDialog.h"
+#include "summaryDialog.h"
+#include "summaryDialogSystem.h"
 #include "globalVariables.h"
 
 mainWindow::mainWindow(QWidget *parent)
@@ -195,6 +197,14 @@ void mainWindow::createActions()
 	settingsAct->setShortcut(tr("Ctrl+P"));
 	settingsAct->setStatusTip(tr("...."));
 	connect(settingsAct, SIGNAL(triggered()), this, SLOT(settings()));
+	
+	summaryAct = new QAction(QIcon(":/images/copy.png"), tr("Patch Text Summary"), this);
+  summaryAct->setWhatsThis(tr("Display the current patch parameters<br>in a readable text format, which<br>can be printed or saved to file."));
+  connect(summaryAct, SIGNAL(triggered()), this, SLOT(summaryPage()));
+        
+  summarySystemAct = new QAction(QIcon(":/images/copy.png"), tr("System/Global Text Summary"), this);
+  summarySystemAct->setWhatsThis(tr("Display the current System and Global parameters<br>in a readable text format, which<br>can be printed or saved to file."));
+  connect(summarySystemAct, SIGNAL(triggered()), this, SLOT(summarySystemPage()));
 
 	helpAct = new QAction(QIcon(":/images/help.png"), deviceType + tr(" Fx FloorBoard &Help"), this);
 	helpAct->setShortcut(tr("Ctrl+F1"));
@@ -243,6 +253,9 @@ void mainWindow::createMenus()
 	QMenu *toolsMenu = new QMenu(tr("&Tools"), this);
 	toolsMenu->addAction(settingsAct);
 	toolsMenu->addAction(uploadAct);
+	fileMenu->addSeparator();
+  toolsMenu->addAction(summaryAct);
+  toolsMenu->addAction(summarySystemAct);
 	menuBar->addMenu(toolsMenu);
   
 	QMenu *helpMenu = new QMenu(tr("&Help"), this);
@@ -563,8 +576,24 @@ void mainWindow::settings()
 		preferences->setPreferences("Window", "Restore", "sidepanel", sidepanel);
 		preferences->setPreferences("Window", "Restore", "window", window);
 		preferences->setPreferences("Window", "Splash", "bool", splash);
-		
+		preferences->savePreferences();
 	};
+};
+
+void mainWindow::summaryPage()
+{
+   summaryDialog *summary = new summaryDialog();
+   summary->setMinimumWidth(800);
+   summary->setMinimumHeight(650);
+   summary->show();
+};
+
+void mainWindow::summarySystemPage()
+{
+   summaryDialogSystem *summarySystem = new summaryDialogSystem();
+   summarySystem->setMinimumWidth(800);
+   summarySystem->setMinimumHeight(650);
+   summarySystem->show();
 };
 
 /* HELP MENU */

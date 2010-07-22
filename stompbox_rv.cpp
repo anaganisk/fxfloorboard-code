@@ -28,12 +28,12 @@ stompbox_rv::stompbox_rv(QWidget *parent)
 {
 	/* REVERB */
 	setImage(":/images/rv.png");
-	setLSB("04", "00");
+	setLSB("04", "10");
 	setKnob1("04", "00", "14");
 	setKnob2("04", "00", "15");
 	setComboBox("04", "00", "12");
 	setButton("04", "00", "10");
-	editDetails()->patchPos(240, 46, "04", "00");
+	editDetails()->patchPos(272, 14, "04", "10");
 	setEditPages();
 };
 

@@ -47,6 +47,7 @@ public slots:
 	void setPatchNumDisplay(int bank, int patch);
 	void setPos(QPoint newPos);
 	void updateDisplay();
+	void set_temp();
 	void temp1_copy(bool value);
 	void temp1_paste(bool value);
 	void temp2_copy(bool value);
@@ -55,6 +56,7 @@ public slots:
 	void temp3_paste(bool value);
 	void temp4_copy(bool value);
 	void temp4_paste(bool value);
+	void save_temp(QString fileName, QList<QString> sysxMsg);
 	void autoconnect();   
 	void connectSignal(bool value);
 	void writeSignal(bool value);
@@ -107,6 +109,14 @@ private:
 	customButton *chorus_Button;
 	customButton *eq_Button;
 	customButton *pedal_Button;
+	customButton *assign1_Button;
+	customButton *assign2_Button;
+	customButton *assign3_Button;
+	customButton *assign4_Button;
+	customButton *assign5_Button;
+	customButton *assign6_Button;
+	customButton *assign7_Button;
+	customButton *assign8_Button;
 	bool connectButtonActive;
   bool patchLoadError;
 	QTimer* timer;

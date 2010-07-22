@@ -101,6 +101,7 @@ public:
 	QList<QString> temp3_sysxMsg;
 	QList<QString> temp4_sysxMsg;
 	QString bulk;
+	SysxData systemSource;
 
 public slots:
 	void errorSignal(QString errorType, QString errorMsg);
@@ -142,7 +143,7 @@ private:
 	void processSpooler();
 
 	SysxData fileSource;
-	SysxData systemSource;
+	
 	QString fileName;
 
 	bool connected;

@@ -402,14 +402,14 @@ if (area.contains("System"))
 void SysxIO::setFileSource(QString area, QString hex1, QString hex2, QString hex3, QList<QString> hexData)
 {
   QString sysxMsg;
-  
+  QList<QString> sysxList;
 	QString address;
 	address.append(hex1);
 	address.append(hex2);
 
   if (area == "Structure")
   {
-	QList<QString> sysxList = this->fileSource.hex.at(this->fileSource.address.indexOf(address));
+	sysxList = this->fileSource.hex.at(this->fileSource.address.indexOf(address));
 	if(hexData.size() + sysxDataOffset + 2 == sysxList.size())
 	{
 		bool ok;
@@ -426,8 +426,9 @@ void SysxIO::setFileSource(QString area, QString hex1, QString hex2, QString hex
 		sysxList.replace(sysxList.size() - 2, getCheckSum(dataSize));
 
 		this->fileSource.hex.replace(this->fileSource.address.indexOf(address), sysxList);
+    };
     } else {
-    QList<QString> sysxList = this->systemSource.hex.at(this->systemSource.address.indexOf(address));
+    sysxList = this->systemSource.hex.at(this->systemSource.address.indexOf(address));
 	if(hexData.size() + sysxDataOffset + 2 == sysxList.size())
 	{
 		bool ok;
@@ -468,7 +469,6 @@ void SysxIO::setFileSource(QString area, QString hex1, QString hex2, QString hex
 		{
 			this->sendSpooler.append(sysxMsg);
 		};
-	};
 };
 
 QList<QString> SysxIO::getSourceItems(QString area, QString hex1, QString hex2)
@@ -480,23 +480,8 @@ QList<QString> SysxIO::getSourceItems(QString area, QString hex1, QString hex2)
 int SysxIO::getSourceValue(QString area, QString hex1, QString hex2, QString hex3)
 {
 	MidiTable *midiTable = MidiTable::Instance();
-
 	bool ok;
   if (!area.contains("System"))  {area = "Structure"; };
-	/*if(hex1 != "01")
-	{
-		QString prevHex = QString::number((hex1.toInt(&ok, 16) - 1), 16).toUpper();
-		if(prevHex.length() < 2) prevHex.prepend("0");
-		if(midiTable->getMidiMap(area).id.contains(prevHex))
-		{
-			if(midiTable->getMidiMap(area, hex1).name == midiTable->getMidiMap(area, prevHex).name)
-			{
-				hex1 = prevHex;
-				hex3 = QString::number(hex3.toInt(&ok, 16) + QString("7F").toInt(&ok, 16) + 1, 16);
-			};
-		};
-	};  */
-
 	int value;
 	QList<QString> items = this->getSourceItems(area, hex1, hex2);
 	if(midiTable->isData(area, hex1, hex2, hex3))
@@ -1020,31 +1005,10 @@ void SysxIO::receiveSysx(QString sysxMsg)
 	Preferences *preferences = Preferences::Instance(); // Load the preferences.
 	if(preferences->getPreferences("Midi", "DBug", "bool")=="true")
 	{
-	if (sysxMsg.size() > 0){
-			QString snork;
-			for(int i=0;i<sysxMsg.size();++i)
-			{
-				snork.append(sysxMsg.mid(i, 2));
-				snork.append(" ");
-				i++;
-			};
-			snork.replace("F7", "F7 }\n");
-			snork.replace("F0", "{ F0");
-			snork.append(tr("<br>{ size="));
-			snork.append(QString::number(sysxMsg.size()/2, 10));
-			snork.append("}");	
-			snork.append(tr("<br> midi data received"));
-			if (sysxMsg == dBug){
-				snork.append(tr("<br> WARNING: midi data received = data sent"));
-				snork.append(tr("<br> caused by a midi loopback, port change is required"));
-			};
-			QMessageBox *msgBox = new QMessageBox();
-			msgBox->setWindowTitle(tr("dBug Result from formatted syx message"));
-			msgBox->setIcon(QMessageBox::Information);
-			msgBox->setText(snork);
-			msgBox->setStandardButtons(QMessageBox::Ok);
-			msgBox->exec();
-		};
+	QString size = QString::number(sysxMsg.size()/2, 10);
+	QString dBug = "data size = ";
+	dBug.append(size);
+	if(size != "0") {	emitStatusdBugMessage(dBug); };
 	};			
 };
 
@@ -1243,7 +1207,7 @@ void SysxIO::systemDataRequest()
          }
          else
              {
-              QString snork = tr("Ensure connection is active and retry");
+              QString snork = tr("Ensure 'Bulk Mode' is active and retry");
               QMessageBox *msgBox = new QMessageBox();
 			        msgBox->setWindowTitle(deviceType + tr(" not connected !!"));
 		        	msgBox->setIcon(QMessageBox::Information);
@@ -1279,7 +1243,7 @@ void SysxIO::systemReply(QString replyMsg)
 			msgBox->setTextFormat(Qt::RichText);
 			QString msgText;
 			msgText.append("<font size='+1'><b>");
-			msgText.append(tr("The Boss ") + deviceType + tr(" Effects Processor was not found."));
+			msgText.append(tr("The Boss ") + deviceType + tr(" System Data was not transfered."));
 			msgText.append("<b></font><br>");
 			msgBox->setText(msgText);
 			msgBox->setStandardButtons(QMessageBox::Ok);

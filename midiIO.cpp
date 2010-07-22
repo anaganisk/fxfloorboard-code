@@ -171,12 +171,16 @@ void midiIO::sendSyxMsg(QString sysxOutMsg, int midiOutPort)
     QString hex;
     int wait = 0; 
     int close = 20;
+    int s = sysxOutMsg.size()/100;
+    int p=0;
+    int retryCount = 0;
     std::vector<unsigned char> message;	
-		message.reserve(1024);
+		message.reserve(256);
 		int msgLength = sysxOutMsg.length()/2;
 		char *ptr  = new char[msgLength];		// Convert QString to char* (hex value) 
     int nPorts = midiMsgOut->getPortCount();   // Check available ports.
     if ( nPorts < 1 ) { goto cleanup; };
+RETRY:
     try {    
         midiMsgOut->openPort(midiOutPort, clientName);	// Open selected port.         		    
 		      for(int i=0;i<msgLength*2;++i)
@@ -187,7 +191,9 @@ void midiIO::sendSyxMsg(QString sysxOutMsg, int midiOutPort)
 		      	n = hex.toInt(&ok, 16);
 			      *ptr = (char)n;
 		      	message.push_back(*ptr);		// insert the char* string into a std::vector
-            wait = wait + 1;	
+            wait = wait + 1;
+            p=p+s;
+            emit setStatusProgress(wait);		
 			      if(hex == "F7")
              {
                 midiMsgOut->sendMessage(&message);  // send the midi data as a std::vector
@@ -202,6 +208,9 @@ void midiIO::sendSyxMsg(QString sysxOutMsg, int midiOutPort)
 	    }
  catch (RtError &error)
    {
+    SLEEP(100);
+    retryCount = retryCount + 1;
+    if (retryCount < 10) { goto RETRY; };
 	  error.printMessage();
 	  emit errorSignal(tr("Syx Output Error"), tr("data error"));
 	  goto cleanup;
@@ -288,7 +297,8 @@ void midiIO::receiveMsg(QString sysxInMsg, int midiInPort)
 	       if(msgType == "patch")  { loopCount = x*500; count = patchSize; } 
     else if(msgType == "system") { loopCount = x*900; count = 2237; }
     else if(msgType == "name")   { loopCount = x*500; count = patchSize; }
-                            else { loopCount = x*100; count = 13; };
+    else if (msgType == "identity")   {loopCount = x*100; count = 13;}   // id reply size
+                            else {loopCount = x*1; count = 1; }; 
 		
       RtMidiIn *midiin = 0;	
 	  const std::string clientName = "FxFloorBoard";
@@ -303,11 +313,14 @@ void midiIO::receiveMsg(QString sysxInMsg, int midiInPort)
 			sendSyxMsg(sysxOutMsg, midiOutPort);      // send the data request message out	
 			
 			int x = 0;
+			unsigned int s = 1;
       unsigned int t = 1;	
 			while (x<loopCount && this->sysxBuffer.size()/2 < count)  // wait until exact bytes received or timeout
       {
       SLEEP(5);
+      s = (this->sysxBuffer.size()*50)/count;
       t = (x*200)/loopCount;
+      if (s>t) {t=s;};
       emit setStatusProgress(t);  	
       x++;
       };                 // time it takes to get all sysx messages in.		
@@ -408,7 +421,8 @@ void midiIO::run()
 			};
 					dataReceive = true;
 					receiveMsg(sysxInMsg, midiInPort);
-					if((this->sysxBuffer.size()/2 != count) && (repeat<3))
+						Preferences *preferences = Preferences::Instance(); // Load the preferences.
+			if((this->sysxBuffer.size()/2 != count) && (repeat<3) && preferences->getPreferences("Midi", "DBug", "bool")!="true")
       {
         emit setStatusdBugMessage(tr("re-trying data request"));
         repeat = repeat+1;
@@ -472,10 +486,11 @@ void midiIO::sendSysxMsg(QString sysxOutMsg, int midiOutPort, int midiInPort)
 		sysxEOF.clear();
 		i=i+2;
     }; 
-  };  
+  };
+  this->count = 0;  
   msgType = "";  
-  if (sysxOutMsg == idRequestString){reBuild = sysxOutMsg;  msgType = ""; emit setStatusdBugMessage(tr("identity request")); }/* else {multiple = true; }; */ // identity request not require checksum
-	this->sysxOutMsg = reBuild.simplified().toUpper().remove("0X").remove(" ");
+  if (sysxOutMsg == idRequestString){reBuild = sysxOutMsg;  msgType = "identity"; emit setStatusdBugMessage(tr("identity request")); }/* else {multiple = true; }; */ // identity request not require checksum
+	this->sysxOutMsg = reBuild.simplified().toUpper();
 	
   if(sysxOutMsg != idRequestString && (sysxOutMsg.contains(patchRequestSize)) && (sysxOutMsg.mid((sysxAddressOffset*2-2), 2) == "11")) { msgType = "patch"; emit setStatusdBugMessage(tr("patch request")); };
     

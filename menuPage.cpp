@@ -274,8 +274,15 @@ void menuPage::emitValueChanged(QString hex1, QString hex2, QString hex3, QStrin
 		{		 
 		  if (this->id == 18)this->fxName = tr("System settings");
 		  if (this->id == 19)this->fxName = tr("Custom Settings");
-		  if (this->id == 20)this->fxName = tr("Assigns");
-		  if (this->id == 21)this->fxName = tr("Master"); 
+		  if (this->id == 20)this->fxName = tr("Master");
+		  if (this->id == 21)this->fxName = tr("Assign 1");
+      if (this->id == 22)this->fxName = tr("Assign 2");
+      if (this->id == 23)this->fxName = tr("Assign 3");
+      if (this->id == 24)this->fxName = tr("Assign 4");
+      if (this->id == 25)this->fxName = tr("Assign 5");
+      if (this->id == 26)this->fxName = tr("Assign 6");
+      if (this->id == 27)this->fxName = tr("Assign 7");
+      if (this->id == 28)this->fxName = tr("Assign 8"); 
 		};
 	};
 	emit valueChanged(this->fxName, valueName, valueStr);

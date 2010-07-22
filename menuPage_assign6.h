@@ -1,6 +1,6 @@
 /****************************************************************************
 **
-** Copyright (C) 2006~2010 Colin Willcocks.
+** Copyright (C) 2007~2010 Colin Willcocks.
 ** Copyright (C) 2005~2007 Uco Mesdag. 
 ** All rights reserved.
 ** This file is part of "GT-6B Fx FloorBoard".
@@ -21,23 +21,23 @@
 **
 ****************************************************************************/
 
-#ifndef MENUPAGE_ASSIGN_H
-#define MENUPAGE_ASSIGN_H
+#ifndef MENUPAGE_ASSIGN6_H
+#define MENUPAGE_ASSIGN6_H
 
 #include <QtGui>
 #include <QWidget>
 #include "menuPage.h"
 
-class  menuPage_assign : public menuPage
+class  menuPage_assign6 : public menuPage
 {
     Q_OBJECT
 
 public:
-	menuPage_assign(QWidget *parent);
+	menuPage_assign6(QWidget *parent);
 	void setEditPages();
 
 public slots:
 	void updateSignal();
 };
 
-#endif // MENUPAGE_ASSIGN_H
+#endif // MENUPAGE_ASSIGN6_H

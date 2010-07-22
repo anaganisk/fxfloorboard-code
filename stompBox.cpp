@@ -628,17 +628,7 @@ void stompBox::emitValueChanged(QString hex1, QString hex2, QString hex3, QStrin
 			Midi items = midiTable->getMidiMap("Structure", hex1, hex2, hex3);
 			valueName = items.desc;
 			if(hex1 == "09") // NoiseSuppressor is part of MASTER -> correcting the name for consistency.
-			{
-				this->fxName = tr("Noise Suppressor");
-				if(items.desc == "NS :Effect")
-				{
-					valueName = "On/Off";
-				}
-				else
-				{
-					valueName = items.desc.remove("NS :");
-				};
-			}
+			{ this->fxName = tr("Noise Suppressor"); }
 			else
 			{
 				this->fxName = midiTable->getMidiMap("Structure", hex1).name;
@@ -660,10 +650,6 @@ void stompBox::emitValueChanged(QString hex1, QString hex2, QString hex3, QStrin
 			{
 				this->fxName = tr("Noise Suppressor");
 			}
-			else if(this->hex1 == "0C") // Expression Pedal -> correcting the name for consistency.
-			{
-				this->fxName = tr("Foot Volume");
-			}
 			else
 			{
 				this->fxName = midiTable->getMidiMap("Structure", hex1).name;
@@ -674,15 +660,14 @@ void stompBox::emitValueChanged(QString hex1, QString hex2, QString hex3, QStrin
 	{
 		this->fxName = "Bugger!!!";
 	};
-		if(hex1 == "04" && hex3 >= "10") // Rename the Pre amp to Speaker Cabinet, shared memory location
+	 bool ok;
+		if(hex1 == "04") // Rename the Preamp to Speaker Cabinet, shared memory location
 			{
-				this->fxName = tr("Speaker Cabinet");
-			}
-		if(hex1 == "04" && hex3 <= "0F" && hex3 >= "01") // Rename the Pre amp to Speaker Cabinet, shared memory location
-			{
-				this->fxName = tr("Pre Amplifier");
-			}
-			
+			if(hex3.toInt(&ok, 16) > 15)
+			 { this->fxName = tr("Speaker Cabinet"); }; 
+       //if(hex3.toInt(&ok, 10) < 17)
+       //{ this->fxName = tr("Pre Amplifier"); };
+		  };   
 	emit valueChanged(this->fxName, valueName, valueStr);
 };
 

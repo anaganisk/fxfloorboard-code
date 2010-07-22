@@ -68,7 +68,7 @@ const int sellectionBlinkInterval = 500;	// Interval (ms) the item blinks.
 /* Patch addresses */
 const QString chainAddress = "0A";
 const QString nameAddress = "0B";
-const QString tempBulkWrite = "0A";
+const QString tempBulkWrite = "0B"; // supposed to be "0A" but does not work.
 const QString tempDataWrite = "0B";
 
 #endif // GLOBALVARIABLES_H

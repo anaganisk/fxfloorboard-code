@@ -25,6 +25,7 @@
 #include "MidiTable.h"
 #include "SysxIO.h"
 #include "globalVariables.h"
+#include "bulkEditDialog.h"
 
 editWindow::editWindow(QWidget *parent)
     : QWidget(parent)
@@ -49,6 +50,12 @@ editWindow::editWindow(QWidget *parent)
 	this->pageComboBox->setEditable(false);
 	this->pageComboBox->setFrame(false);
 	this->pageComboBox->setVisible(false);
+	
+	this->bulkEdit_Button = new customControlLabel;
+	this->bulkEdit_Button->setButton(true);
+	this->bulkEdit_Button->setImage(":/images/pushbutton_dark.png");
+	this->bulkEdit_Button->setText(tr("Bulk Write"));
+	this->bulkEdit_Button->setAlignment(Qt::AlignCenter); 
 	
 	this->temp1_Button = new customControlLabel;
 	this->temp1_Button->setButton(true);
@@ -79,6 +86,7 @@ editWindow::editWindow(QWidget *parent)
 	this->closeButton->setImage(":/images/closebutton.png");
 	
 	QHBoxLayout *buttonLayout = new QHBoxLayout;
+	buttonLayout->addWidget(this->bulkEdit_Button);
 	buttonLayout->addWidget(this->temp1_Button);
 	buttonLayout->addWidget(this->temp2_Button);
 	buttonLayout->addWidget(this->temp3_Button);
@@ -119,6 +127,7 @@ editWindow::editWindow(QWidget *parent)
 
 	QObject::connect(this->pageComboBox, SIGNAL(activated(int)), this->pagesWidget, SLOT(setCurrentIndex(int)));
 	
+	QObject::connect(this->bulkEdit_Button, SIGNAL(mouseReleased()), this, SLOT(bulkEdit()));
 	QObject::connect(this->temp1_Button, SIGNAL(mouseReleased()), this, SLOT(temp1()));
 	QObject::connect(this->temp2_Button, SIGNAL(mouseReleased()), this, SLOT(temp2()));
 	QObject::connect(this->temp3_Button, SIGNAL(mouseReleased()), this, SLOT(temp3()));
@@ -185,6 +194,7 @@ void editWindow::addPage(QString hex1, QString hex2, QString hex3, QString hex4,
 	
 	 if (this->area != "Structure" || this->temp_hex1.isEmpty() || this->temp_hex1.contains("void"))
     {
+      this->bulkEdit_Button->hide();
       this->temp1_Button->hide();
       this->temp2_Button->hide();
       this->temp3_Button->hide();
@@ -273,6 +283,27 @@ editPage* editWindow::page()
 void editWindow::closeEvent(QCloseEvent* ce)
 {
 	ce->accept();
+};
+
+void editWindow::bulkEdit()
+{
+     SysxIO *sysxIO = SysxIO::Instance();
+     if (sysxIO->isConnected())
+	       {
+	
+		bulkEditDialog *editDialog = new bulkEditDialog(this->position, this->length, this->temp_hex1, this->temp_hex3); 
+            editDialog->exec(); 
+	}
+         else
+             {
+              QString snork = tr("Ensure Bulk Mode is set and retry");
+              QMessageBox *msgBox = new QMessageBox();
+			        msgBox->setWindowTitle(deviceType + tr(" Bulk Mode required !!"));
+		        	msgBox->setIcon(QMessageBox::Information);
+		        	msgBox->setText(snork);
+		        	msgBox->setStandardButtons(QMessageBox::Ok);
+		        	msgBox->exec(); 
+              }; 
 };
 
 void editWindow::temp1()     // paste partial patch effect only data

@@ -48,7 +48,14 @@
 #include "stompbox_fv.h"
 #include "stompbox_ns.h"
 
-#include "menuPage_assign.h"
+#include "menuPage_assign1.h"
+#include "menuPage_assign2.h"
+#include "menuPage_assign3.h"
+#include "menuPage_assign4.h"
+#include "menuPage_assign5.h"
+#include "menuPage_assign6.h"
+#include "menuPage_assign7.h"
+#include "menuPage_assign8.h"
 #include "menuPage_midi.h"
 #include "menuPage_system.h"
 
@@ -195,11 +202,13 @@ void floorBoard::setFloorBoard() {
 	this->minSize = QSize::QSize(imageInfoBar.width() + borderWidth + panelBarOffset, imageFloor.height());
 
 	// Draw InfoBar
-		QRectF sourceInfoBar(0.0, 0.0, imageInfoBar.width(), imageInfoBar.height());
+	QRectF sourceInfoBar(0.0, 0.0, imageInfoBar.width(), imageInfoBar.height());
 	QRectF targetInfoBar(offset, 0.0, imageInfoBar.width(), imageInfoBar.height());
 	QRectF targetInfoBar2(offset, imageInfoBar.height()-4, imageInfoBar.width(), imageInfoBar.height());
+	QRectF targetInfoBar3(offset, (imageInfoBar.height()*2)-8, imageInfoBar.width(), imageInfoBar.height()/2);
 	painter.drawPixmap(targetInfoBar, imageInfoBar, sourceInfoBar);
 	painter.drawPixmap(targetInfoBar2, imageInfoBar, sourceInfoBar);
+	painter.drawPixmap(targetInfoBar3, imageInfoBar, sourceInfoBar);
 
 	// Draw LiberianBar
 	QRectF sourceLiberianBar(0.0, 0.0, imageInfoBar.width(), imageInfoBar.height());
@@ -674,21 +683,49 @@ void floorBoard::setEditDialog(editWindow* editDialog)
 void floorBoard::centerEditDialog()
 {
 	int x = this->displayPos.x() + (((this->floorSize.width() - this->displayPos.x()) - this->editDialog->width()) / 2);
-  int y = this->pos.y() + ((this->floorSize.height() /*- this->infoBarHeight*/ - this->editDialog->height()) / 2);
+	int y = this->pos.y() + (((this->floorSize.height() + this->infoBarHeight/2) - this->editDialog->height()) / 2);
 	this->editDialog->move(x, y);
 };
 
 void floorBoard::initMenuPages()
 {
-		QVector<menuPage *> initMenuPages(3);
+		QVector<menuPage *> initMenuPages(10);
 	this->menuPages = initMenuPages.toList();
 	
+	/* MENU_PAGES */
+	int assignButtonVerticalPos = 83;
+	int assignButtonHorizonalOffset = 372;
+	menuPage *assign8 = new menuPage_assign8(this);
+	assign8->setId(28);
+	assign8->setPos(QPoint(assignButtonHorizonalOffset + 640, assignButtonVerticalPos));
+	menuPage *assign7 = new menuPage_assign7(this);
+	assign7->setId(27);
+	assign7->setPos(QPoint(assignButtonHorizonalOffset + 550, assignButtonVerticalPos));
+	menuPage *assign6 = new menuPage_assign6(this);
+	assign6->setId(26);
+	assign6->setPos(QPoint(assignButtonHorizonalOffset + 460, assignButtonVerticalPos));
+	menuPage *assign5 = new menuPage_assign5(this);
+	assign5->setId(25);
+	assign5->setPos(QPoint(assignButtonHorizonalOffset + 370, assignButtonVerticalPos));
+	menuPage *assign4 = new menuPage_assign4(this);
+	assign4->setId(24);
+	assign4->setPos(QPoint(assignButtonHorizonalOffset + 280, assignButtonVerticalPos));
+	menuPage *assign3 = new menuPage_assign3(this);
+	assign3->setId(23);
+	assign3->setPos(QPoint(assignButtonHorizonalOffset + 190, assignButtonVerticalPos));
+	menuPage *assign2 = new menuPage_assign2(this);
+	assign2->setId(22);
+	assign2->setPos(QPoint(assignButtonHorizonalOffset + 100, assignButtonVerticalPos));
+	menuPage *assign1 = new menuPage_assign1(this);
+	assign1->setId(21);
+	assign1->setPos(QPoint(assignButtonHorizonalOffset + 10, assignButtonVerticalPos));
+	
 	/* EDITPAGES */
-	menuPage *assign = new menuPage_assign(this);
-	assign->setId(20);
-	assign->setPos(QPoint(956, 5));
+	//menuPage *assign = new menuPage_assign(this);
+	//assign->setId(20);
+	//assign->setPos(QPoint(956, 5));
 	menuPage *midi = new menuPage_midi(this);
-	midi->setId(21);
+	midi->setId(20);
 	midi->setPos(QPoint(956, 24)); 
 	menuPage *system = new menuPage_system(this);
 	system->setId(18);
