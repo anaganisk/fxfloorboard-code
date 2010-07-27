@@ -30,6 +30,7 @@
 #include <QTextDocument>
 #include <QLabel>
 #include <QPrintDialog>
+#include <QPrintPreviewDialog>
 #include <QPrinter>
 #include "SysxIO.h"
 
@@ -49,17 +50,24 @@ public:
 
 
 public slots:
-  void valueChanged(int value);
+  void view();
   void cancel();
   void printFile();
+  void printPreview();
   void saveAs();
 
 private:
 void makeList();
 QString text;
+QString text2;
+QString small_text;
+QString large_text;
 QString address;
 int start;
 int finish;
+QString mode;
+QString effect;
+QString filter;
 };
 
 #endif // FILEDIALOG_H

@@ -222,7 +222,7 @@ void customTargetListMenu::setComboBox()
 	int maxWidth = QFontMetrics( this->font() ).width( longestItem );
 	if(maxWidth < 30) { maxWidth = 30; };
 
-  this->controlListComboBox->setFixedWidth(120);
+  this->controlListComboBox->setFixedWidth(150);
 
   this->controlListComboBox->setFixedHeight(15);
 	this->controlListComboBox->setEditable(false);

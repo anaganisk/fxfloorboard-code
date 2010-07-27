@@ -78,7 +78,7 @@ customControlTarget::customControlTarget(QWidget *parent,
 	
 	this->knobTarget = new customKnobTarget(this, hex1, hex2, hex3, hexMsb, hexLsb, "target");                // create knob with target address
 	this->display->setObjectName("editdisplay");
-	this->display->setFixedWidth(120);
+	this->display->setFixedWidth(150);
 	this->display->setFixedHeight(15);
 	this->display->setAlignment(Qt::AlignLeft);
 	this->display->setDisabled(true);

@@ -51,8 +51,8 @@ void menuPage_assign2::setEditPages()
     editDetails()->page()->addStackControl();
     editDetails()->page()->addComboBox(0, 1, 1, 1, "17", "00", "09");                    // Source Mode
     editDetails()->page()->addRange(0, 2, 1, 2, "17", "00", "0A", "Structure");         // min/max range widget
-    editDetails()->page()->addGroupBox(0, 2, 1, 1);
-    editDetails()->page()->insertStackField(0, 1, 1, 1, 2);
+    editDetails()->page()->addGroupBox(1, 1, 1, 1);
+    editDetails()->page()->insertStackField(0, 2, 1, 1, 1);
     editDetails()->page()->addGroupBox(0, 0, 2, 1);
 
     editDetails()->addPage();
