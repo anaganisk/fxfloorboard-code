@@ -31,6 +31,7 @@
 #include "bulkLoadDialog.h"
 #include "summaryDialog.h"
 #include "summaryDialogPatchList.h"
+#include "summaryDialogSystem.h"
 #include "globalVariables.h"
 
 mainWindow::mainWindow(QWidget *parent)
@@ -213,7 +214,10 @@ void mainWindow::createActions()
   summaryAct->setWhatsThis(tr("Display the current patch parameters<br>in a readable text format, which<br>can be printed or saved to file."));
   connect(summaryAct, SIGNAL(triggered()), this, SLOT(summaryPage()));
   
-  
+  summarySystemAct = new QAction(QIcon(":/images/copy.png"), tr("System/Global Text Summary"), this);
+  summarySystemAct->setWhatsThis(tr("Display the current System and Global parameters<br>in a readable text format, which<br>can be printed or saved to file."));
+  connect(summarySystemAct, SIGNAL(triggered()), this, SLOT(summarySystemPage()));
+
   summaryPatchListAct = new QAction(QIcon(":/images/copy.png"), tr("GT-8 Patch List Summary"), this);
   summaryPatchListAct->setWhatsThis(tr("Display the current GT-8 patch listing<br>in a readable text format, which<br>can be printed or saved to file."));
   connect(summaryPatchListAct, SIGNAL(triggered()), this, SLOT(summaryPatchList()));
@@ -280,6 +284,7 @@ void mainWindow::createMenus()
 	toolsMenu->addAction(uploadAct);
 	fileMenu->addSeparator();
   toolsMenu->addAction(summaryAct);
+  toolsMenu->addAction(summarySystemAct);
   toolsMenu->addAction(summaryPatchListAct);
 	menuBar->addMenu(toolsMenu);
 
@@ -639,6 +644,14 @@ void mainWindow::summaryPage()
    summary->setMinimumWidth(800);
    summary->setMinimumHeight(650);
    summary->show();
+};
+
+void mainWindow::summarySystemPage()
+{
+   summaryDialogSystem *summarySystem = new summaryDialogSystem();
+   summarySystem->setMinimumWidth(800);
+   summarySystem->setMinimumHeight(650);
+   summarySystem->show();
 };
 
 void mainWindow::summaryPatchList()

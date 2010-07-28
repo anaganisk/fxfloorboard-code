@@ -151,7 +151,7 @@ void bulkEditDialog::comboValueChanged(int value)
   Preferences *preferences = Preferences::Instance();
   this->start = this->startPatchCombo->currentIndex();
   this->finish = this->finishPatchCombo->currentIndex();
-  if(start>138){start=138; };
+  if(start>139){start=139; };
   if(finish<1){finish=1; };
   if(start>finish){start = finish-1; };
   if(finish<start){finish = start+1; };
@@ -172,7 +172,7 @@ void bulkEditDialog::sendData()
   cancelButton->hide();
   progress = 0;
   patch = 1;
-  range = (140)/((finish-start)+1);   
+  range = (200)/((finish-start)+1);   
 	bank = (start+(patchPerBank-1));
   patch = bank/patchPerBank; patch = patch*patchPerBank; patch=bank-patch;
   patchRange = start;

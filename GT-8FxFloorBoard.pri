@@ -102,6 +102,7 @@ HEADERS += ./mainWindow.h \
     ./stompbox_wah.h \
     ./summaryDialog.h \
     ./summaryDialogPatchList.h \
+    ./summaryDialogSystem.h \
     ./SysxIO.h \
     ./SysxIODestroyer.h \
     ./sysxWriter.h \
@@ -187,6 +188,7 @@ SOURCES += ./main.cpp \
     ./stompbox_wah.cpp \
     ./summaryDialog.cpp \
     ./summaryDialogPatchList.cpp \
+    ./summaryDialogSystem.cpp \
     ./SysxIO.cpp \
     ./SysxIODestroyer.cpp \
     ./sysxWriter.cpp \

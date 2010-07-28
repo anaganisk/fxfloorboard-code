@@ -25,8 +25,6 @@
 #define MAINWINDOW_H          
 
 #include <QMainWindow>
-#include <QPrintDialog>
-#include <QPrinter>
 #include "floorBoard.h"
 #include "sysxWriter.h"
 #include "MidiTable.h"
@@ -57,6 +55,7 @@ public slots:
 	void settings();
 	void upload();
 	void summaryPage();
+	void summarySystemPage();
 	void summaryPatchList();
 	void help();
 	void whatsThis();
@@ -86,6 +85,7 @@ private:
 	QAction *settingsAct;
 	QAction *uploadAct;
 	QAction *summaryAct;
+	QAction *summarySystemAct;
 	QAction *summaryPatchListAct;
 	QAction *helpAct;
 	QAction *whatsThisAct;

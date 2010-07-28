@@ -80,7 +80,7 @@ public:
 	QString getPatchChangeMsg(int bank, int patch);
 	void setCurrentPatchName(QString patchName);
 	QString getCurrentPatchName();
-	
+	SysxData systemSource;
 
 	void sendMidi(QString midiMsg);
 	void sendSysx(QString sysxMsg);
@@ -146,7 +146,7 @@ private:
 	void processSpooler();
 
 	SysxData fileSource;
-	SysxData systemSource;
+	
 	QString fileName;
 
 	bool connected;
