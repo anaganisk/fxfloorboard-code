@@ -204,7 +204,7 @@ summaryDialogSystem::summaryDialogSystem(QWidget *parent)
         mainLayout->addLayout(buttonsLayout);
         setLayout(mainLayout);
 
-        setWindowTitle(deviceType + tr(" Patch List Summary"));
+        setWindowTitle(deviceType + tr(" System and Global List Summary"));
 };
 
 void summaryDialogSystem::systemReply(QString replyMsg)

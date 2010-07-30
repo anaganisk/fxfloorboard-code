@@ -897,16 +897,18 @@ void sysxWriter::writeGXG(QString fileName)
    // copy user text, first two sections only, section terminated by "00"
    QByteArray marker = GXG_default.mid(32, 1);     //copy "00" for position marker.
    int z = a+1701;
-   int y = GXG_default.indexOf( marker, (a+1701));
+   //int y = GXG_default.indexOf( marker, (a+1701));
 
-   temp = out.mid(1774, 128 );
-   GXG_default.replace(a+1701, (y-z), temp);       // paste text 1
+   temp = out.mid(1774, 128 );   // copy first text section from patch
+   //GXG_default.replace(a+1701, (y-z), temp);       // paste text 1
+   GXG_default.replace(a+1701, 128, temp);       // paste text 1
 
-   int x = GXG_default.indexOf( marker, (y+1));
-   int w = GXG_default.indexOf( marker, (x+1));
+   //int x = GXG_default.indexOf( marker, (y+1));
+   //int w = GXG_default.indexOf( marker, (x+1));
 
-   temp = out.mid(1915, 32 );
-   GXG_default.replace(x+1, (w-x), temp);          // paste text 2
+   temp = out.mid(1915, 32 );     // copy second text section from patch
+   //GXG_default.replace(x+1, (w-x), temp);          // paste text 2
+   GXG_default.replace(a+1830, 32, temp);          // paste text 2
 
    file.write(GXG_default);
   };

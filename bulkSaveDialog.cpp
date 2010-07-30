@@ -416,7 +416,14 @@ void bulkSaveDialog::writeGXG()         // ************************************ 
    temp = out.mid(b+1492, 128);
    GXG_default.replace(a+1408, 128, temp);    //address "0B" +       
    temp = out.mid(b+1633, 128);
-   GXG_default.replace(a+1536, 128, temp);    //address "0C" +  
+   GXG_default.replace(a+1536, 128, temp);    //address "0C" +
+   temp.clear();
+   QString hexStr = "06";
+   temp.append((char)(hexStr.toInt(&ok, 16))); 
+   hexStr = "B1";
+   temp.append((char)(hexStr.toInt(&ok, 16)));   
+   GXG_default.replace(162, 2, temp);     // replace patch size index
+    
    b=b+patchSize;                                  // increment point to next *.syx patch in bulk.
    bulkFile.append(GXG_default.mid(160, 1713)); // copy most of the patch + index except for 4 text chars on end.
    bulkFile.append(GXG_default.mid(80, 4));     // copy 4 bytes of "00" from no-where special.

@@ -163,7 +163,7 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
   this->sendreturn_Button->setWhatsThis(tr("Deep editing of the selected effect<br>pressing this button will open an edit page<br>allowing detailed setting of this effects parameters."));
   this->eq_Button = new customButton(tr("Equalizer"), false, QPoint(640, editButtonRowOffset), this, ":/images/pushbutton.png");
   this->eq_Button->setWhatsThis(tr("Deep editing of the selected effect<br>pressing this button will open an edit page<br>allowing detailed setting of this effects parameters."));
-  this->pedal_Button = new customButton(tr("Pedal/Wha"), false, QPoint(640, editButtonRowOffset+18), this, ":/images/pushbutton.png");
+  this->pedal_Button = new customButton(tr("Pedal/Wah"), false, QPoint(640, editButtonRowOffset+18), this, ":/images/pushbutton.png");
   this->pedal_Button->setWhatsThis(tr("Deep editing of the selected effect<br>pressing this button will open an edit page<br>allowing detailed setting of this effects parameters."));
 
   this->assign1_Button = new customButton(tr("Assign 1"), false, QPoint(10, assignButtonRowOffset), this, ":/images/pushbutton.png");

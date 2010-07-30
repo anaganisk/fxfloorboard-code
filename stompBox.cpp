@@ -787,7 +787,7 @@ void stompBox::updateStompPath()
         if (this->id == 7) {this->hexdata_A = "07"; this->hexdata_B = "47"; this->namedata = "DD";   this->fxName = tr("Delay");};
         if (this->id == 8) {this->hexdata_A = "08"; this->hexdata_B = "48"; this->namedata = "CE";   this->fxName = tr("Chorus");};
         if (this->id == 9) {this->hexdata_A = "09"; this->hexdata_B = "49"; this->namedata = "RV";   this->fxName = tr("Reverb");};
-        if (this->id == 10){this->hexdata_A = "0A"; this->hexdata_B = "4A"; this->namedata = "PDL";  this->fxName = tr("Pedal");};
+        if (this->id == 10){this->hexdata_A = "0A"; this->hexdata_B = "4A"; this->namedata = "PDL";  this->fxName = tr("Pedal/Wah");};
         if (this->id == 11){this->hexdata_A = "0B"; this->hexdata_B = "4B"; this->namedata = "FV";   this->fxName = tr("Volume");};
         if (this->id == 12){this->hexdata_A = "0C"; this->hexdata_B = "4C"; this->namedata = "NS_1"; this->fxName = tr("Noise Suppressor 1");};
         if (this->id == 13){this->hexdata_A = "0D"; this->hexdata_B = "4D"; this->namedata = "NS_2"; this->fxName = tr("Noise Suppressor 2");};

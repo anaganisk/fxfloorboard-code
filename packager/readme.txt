@@ -4,7 +4,7 @@ GT-10FxFloorBoard Copyright (C) 2007~2010 Colin Willcocks (gumtownbassman@yahoo.
 =======
 
 
-GT-10FxFloorBoard version 20100706: 06 July 2010
+GT-10FxFloorBoard version 20100720: 20 July 2010
 *****************************************************
 PLEASE FEEL FREE TO DONATE, YOU MAY FREELY USE THIS SOFTWARE, 
  JUST KEEP IN MIND THE 7000 HOURS SPENT OVER 4 YEARS GETTING IT HERE,
@@ -13,6 +13,7 @@ but then patches created by you for sharing with all would be nice too.
 you can email patches and custom system settings saved files to the above address.
 ***********************************************************************************
  ********* LATEST FEATURES ADDED****************************************************
+ *Added more Text Summary Dialog features. 
  *Separate Assign edit-pages for Bulk Patch editing of individual Assigns. 
  *Bulk Patch Editing - One effect change can be applied to a series of patches in one operation. 
  *Whats This Help dialog added, with the press of the [F1] button. 
@@ -22,14 +23,15 @@ you can email patches and custom system settings saved files to the above addres
  *New Framework with better Windows 7 and Mac Snow Leopard support, auto temp buffer request on connect. 
  *Multi Language support for French, German, and Chinese. 
  *Bulk File save/restore in 3 formats *.gxg, *.mid & *.syx so your Boss Librarian can use the Bulk files 
- and the FxFloorBoard can load in Bulk backups of patches, system and Global data. 
- The editor now supports using Boss Librarian *.gxg files.
- ClipBoard buttons have been added to the main page selectin bar (below) and can copy up to
-  5 opened patches for quick comparison. 
-  The editpages have 5 patch pertial paste buttons added, where the single effect part only part is copyed from
-   the associated clipBoard and replaces the current settings for that one effect only.
+        and the FxFloorBoard can load in Bulk backups of patches, system and Global data. 
+ *The editor now supports using Boss Librarian *.gxg files.
+ *ClipBoard buttons have been added to the main page selectin bar (below) and can copy up to
+        5 opened patches for quick comparison. 
+ *The editpages have 5 patch pertial paste buttons added, where the single effect part only part is copyed from
+        the associated clipBoard and replaces the current settings for that one effect only.
 
 ********** USEFUL INFORMATION *************
+* version 20100720 fixed bulk *.gxg file save bug.
 * version 20100702 The Bulk Patch Editing function should be used with caution 
 * as it can't be undone, and a Bulk Patch Backup is recommended before using it.
 * 

@@ -83,7 +83,7 @@ summaryDialog::summaryDialog(QWidget *parent)
 
   QList<QString> fxChain = sysxIO->getFileSource("Structure", "0B", "00");
 
-  QString chainText = "<br><br><b>**********Signal Chain**********</b><br>Input = -> ";
+  QString chainText = "<br><br><b><u>**********Signal Chain**********</u></b><br>Input = -> ";
   QString chainData;
   QString chain;
   for(int i= sysxDataOffset;i< (sysxDataOffset + 18);i++ )
@@ -459,8 +459,8 @@ summaryDialog::summaryDialog(QWidget *parent)
 
         QHBoxLayout *buttonsLayout = new QHBoxLayout;
         buttonsLayout->addStretch(1);
-        buttonsLayout->addWidget(printPreviewButton);
-        buttonsLayout->addSpacing(12);
+        //buttonsLayout->addWidget(printPreviewButton);
+        //buttonsLayout->addSpacing(12);
         buttonsLayout->addWidget(printButton);
         buttonsLayout->addSpacing(12);
         buttonsLayout->addWidget(saveAsButton);

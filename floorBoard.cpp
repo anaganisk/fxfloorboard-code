@@ -862,7 +862,7 @@ void floorBoard::initMenuPages()
 	     assign1->setPos(QPoint(assignButtonHorizonalOffset + 10, assignButtonVerticalPos));
 
         menuPage *master = new menuPage_master(this);
-        master->setId(23);
+        master->setId(20);
         master->setPos(QPoint(1061, 24));
 
         menuPage *autoriff = new menuPage_autoriff(this);
