@@ -516,6 +516,9 @@ void summaryDialog::makeList()
       };
 };
 
+summaryDialog::~summaryDialog()
+{};
+
 void summaryDialog::view()
 {
   if (mode == "Compact")

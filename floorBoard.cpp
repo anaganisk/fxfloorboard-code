@@ -828,11 +828,11 @@ void floorBoard::initMenuPages()
         /* MENU_PAGES */
         menuPage *system = new menuPage_system(this);
         system->setId(18);
-        system->setPos(QPoint(1239, 5));
+        system->setPos(QPoint(1224, 5));
 
         menuPage *midi = new menuPage_midi(this);
         midi->setId(19);
-        midi->setPos(QPoint(1150, 5));
+        midi->setPos(QPoint(1135, 5));
         
         int assignButtonVerticalPos = 84;
 	      int assignButtonHorizonalOffset = 479;
@@ -863,15 +863,15 @@ void floorBoard::initMenuPages()
 
         menuPage *master = new menuPage_master(this);
         master->setId(20);
-        master->setPos(QPoint(1061, 24));
+        master->setPos(QPoint(1046, 24));
 
         menuPage *autoriff = new menuPage_autoriff(this);
         autoriff->setId(29);
-        autoriff->setPos(QPoint(1150, 24));
+        autoriff->setPos(QPoint(1135, 24));
 
         menuPage *autoriff_FX2 = new menuPage_autoriff_FX2(this);
         autoriff_FX2->setId(30);
-        autoriff_FX2->setPos(QPoint(1239, 24));
+        autoriff_FX2->setPos(QPoint(1224, 24));
 
         
 

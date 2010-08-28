@@ -28,6 +28,7 @@
 #include <QWidget>
 #include <QTimer>
 #include "customButton.h"
+#include "customControlListMenu.h"
 #include "customDisplay.h"
 #include "customLabelDisplay.h"
 #include "initPatchListMenu.h"
@@ -82,11 +83,10 @@ signals:
 
         void setStatusSymbol(int value);
         void setStatusProgress(int value);
-  void setStatusMessage(QString message);
+        void setStatusMessage(QString message);
 
 private:
         QPoint pos;
-
         customDisplay *valueDisplay;
         customDisplay *patchDisplay;
         customDisplay *patchNumDisplay;
@@ -95,7 +95,8 @@ private:
         customLabelDisplay *temp3Display;
         customLabelDisplay *temp4Display;
         customLabelDisplay *temp5Display;
-
+        customControlListMenu *output;
+        customControlListMenu *catagory;
         customButton *connectButton;
         customButton *writeButton;
         //customButton *assign_Button;
@@ -141,7 +142,7 @@ private:
         customButton *temp6_paste_Button;
 
         bool connectButtonActive;
-  bool patchLoadError;
+        bool patchLoadError;
         QTimer* timer;
         int blinkCount;
         bool currentSyncStatus;

@@ -44,10 +44,11 @@ class summaryDialog : public QWidget
 
 public:
   summaryDialog(QWidget *parent = 0);
+  ~summaryDialog();
   QTextEdit *textDialog;
   QTextDocument *document;
   QPrintDialog *dialog;
-
+                                                            
 public slots:
   void view();
   void cancel();

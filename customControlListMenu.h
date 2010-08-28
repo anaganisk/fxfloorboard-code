@@ -39,6 +39,8 @@ public:
 		QString hex2 = "void",
 		QString hex3 = "void",
 		QString direction = "bottom");
+		
+		customComboBox* controlListComboBox;
 
 protected:
 	void paintEvent(QPaintEvent *event);
@@ -55,7 +57,7 @@ signals:
 private:
 	void setComboBox();
 	customControlLabel* label;
-	customComboBox* controlListComboBox;
+
 	QString hex1;
 	QString hex2;
 	QString hex3;
