@@ -2,7 +2,7 @@
 <!-- Preferences of the GT-6 Fx FloorBoard application. -->
 <Preferences>
 	<General>
-		<Application version="20100609"/>
+		<Application version="20100901"/>
 		<Donate url="http://gtx.tinfoilmusic.net/donate.html"/>
 		<Files dir=""/>
 		<Help url="GT-6EditorManual_E.htm"/>
@@ -14,6 +14,8 @@
     <Locale select="0"/>
   </Language>
 	<Midi>
+	  <BulkFinish patch="140"/>
+	  <BulkStart patch="139"/>
 	  <DBug bool="false"/>
 	  <Delay set="0"/>
 		<MidiIn device=""/>

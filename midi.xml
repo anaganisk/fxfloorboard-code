@@ -657,60 +657,60 @@
 		<LSB value="02" name="Global" abbr="Global" desc="Global" customdesc="  ">
 			<LSB value="00" name="Global" abbr="" desc="" customdesc="">
 				<Msb value="00" name="Global" abbr="" desc="" customdesc="Global">
-					<Msb value="00" name="Global" abbr="" desc="Low EQ" customdesc="Low EQ">
+					<Msb value="00" name="Global" abbr="" desc="Global " customdesc="Low EQ">
 						<PARAM value="range" name="00/28/-20/+20" desc=" dB" customdesc=""/>
 					</Msb>
-					<Msb value="01" name="Global" abbr="" desc="High EQ" customdesc="High EQ">
+					<Msb value="01" name="Global" abbr="" desc="Global " customdesc="High EQ">
 						<PARAM value="range" name="00/28/-20/+20" desc=" dB" customdesc=""/>
 					</Msb>
-					<Msb value="02" name="Global" abbr="" desc="NS Threshold" customdesc="NS Threshold">
+					<Msb value="02" name="Global" abbr="" desc="Global " customdesc="NS Threshold">
 						<PARAM value="range" name="00/28/-20/+20" desc=" dB" customdesc=""/>
 					</Msb>
-					<Msb value="03" name="Global" abbr="" desc="Reverb Level" customdesc="Reverb Level">
+					<Msb value="03" name="Global" abbr="" desc="Global " customdesc="Reverb Level">
 						<PARAM value="range" name="00/64/00/200" desc="" customdesc=""/>
 					</Msb>
 				</Msb>
 			</LSB>
 			<LSB value="01" name="System" abbr="" desc="" customdesc="">
 				<Msb value="00" name="system" abbr="" desc="" customdesc="system">
-					<Msb value="00" name="system" abbr="" desc="LCD contrast" customdesc="LCD contrast">
+					<Msb value="00" name="system" abbr="" desc="System " customdesc="LCD contrast">
 						<PARAM value="range" name="00/0F/1/16" desc="" customdesc=""/>
 					</Msb>
-					<Msb value="01" name="system" abbr="" desc="Bank extent" customdesc="Bank extent">
+					<Msb value="01" name="system" abbr="" desc="System " customdesc="Bank extent">
 						<PARAM value="range" name="00/54/1/85" desc="" customdesc=""/>
 					</Msb>
-					<Msb value="02" name="system" abbr="" desc="Patch change Mode" customdesc="Patch change Mode">
+					<Msb value="02" name="system" abbr="" desc="System " customdesc="Patch change Mode">
 						<PARAM value="00" name="wait" desc="wait" customdesc="wait"/>
 						<PARAM value="01" name="immediate" desc="immediate" customdesc="immediate"/>
 					</Msb>
-					<Msb value="03" name="system" abbr="" desc="EXP pedal Hold" customdesc="EXP pedal Hold">
+					<Msb value="03" name="system" abbr="" desc="System " customdesc="EXP pedal Hold">
 						<PARAM value="00" name="Off" desc="Off" customdesc="Off"/>
 						<PARAM value="01" name="On" desc="On" customdesc="On"/>
 					</Msb>
-					<Msb value="04" name="system" abbr="" desc="Dial Function" customdesc="Dial Function">
+					<Msb value="04" name="system" abbr="" desc="System " customdesc="Dial Function">
 						<PARAM value="00" name="Patch &amp; Value" desc="Patch &amp; Value" customdesc="Patch &amp; Value"/>
 						<PARAM value="01" name="Value only" desc="Value only" customdesc="Value only"/>
 					</Msb>
-					<Msb value="05" name="system" abbr="" desc="Knob Mode" customdesc="Knob Mode">
+					<Msb value="05" name="system" abbr="" desc="System " customdesc="Knob Mode">
 						<PARAM value="00" name="immediate" desc="immediate" customdesc="immediate"/>
 						<PARAM value="01" name="current setting" desc="current setting" customdesc="current setting"/>
 					</Msb>
-					<Msb value="06" name="system" abbr="" desc="Pedal Tuner SW" customdesc="Pedal Tuner SW">
+					<Msb value="06" name="system" abbr="" desc="System " customdesc="Pedal Tuner SW">
 						<PARAM value="00" name="Off" desc="Off" customdesc="Off"/>
 						<PARAM value="01" name="On" desc="On" customdesc="On"/>
 					</Msb>
-					<Msb value="07" name="system" abbr="" desc="Amp SW Mode" customdesc="Amp SW Mode">
+					<Msb value="07" name="system" abbr="" desc="System " customdesc="Amp SW Mode">
 						<PARAM value="00" name="Amp On/Off" desc="Amp On/Off" customdesc="Amp On/Off"/>
 						<PARAM value="01" name="Toggle to knobs" desc="Toggle to knobs" customdesc="Toggle to knobs"/>
 					</Msb>
-					<Msb value="08" name="system" abbr="" desc="Sub CTL1 Function" customdesc="Sub CTL1 Function">
+					<Msb value="08" name="system" abbr="" desc="System " customdesc="Sub CTL1 Function">
 						<PARAM value="00" name="Assignable" desc="Assignable" customdesc="Assignable"/>
 						<PARAM value="01" name="MANUAL on/off" desc="MANUAL on/off" customdesc="MANUAL on/off"/>
 						<PARAM value="02" name="TUNER on/off" desc="TUNER on/off" customdesc="TUNER on/off"/>
 						<PARAM value="03" name="MIDI start/stop" desc="MIDI start/stop" customdesc="MIDI start/stop"/>
 						<PARAM value="04" name="MMC play/stop" desc="MMC play/stop" customdesc="MMC play/stop"/>
 					</Msb>
-					<Msb value="09" name="system" abbr="" desc="Sub CTL2 Function" customdesc="Sub CTL2 Function">
+					<Msb value="09" name="system" abbr="" desc="System " customdesc="Sub CTL2 Function">
 						<PARAM value="00" name="Assignable" desc="Assignable" customdesc="Assignable"/>
 						<PARAM value="01" name="MANUAL on/off" desc="MANUAL on/off" customdesc="MANUAL on/off"/>
 						<PARAM value="02" name="TUNER on/off" desc="TUNER on/off" customdesc="TUNER on/off"/>
@@ -721,762 +721,1125 @@
 			</LSB>
 			<LSB value="02" name="Midi" abbr="" desc="" customdesc="">
 				<Msb value="00" name="Midi" abbr="" desc="" customdesc="Midi">
-					<Msb value="00" name="Midi" abbr="" desc="MIDI SETTING" customdesc="RX Channel">
-						<PARAM value="00" name="" desc="1" customdesc=""/>
-						<PARAM value="01" name="" desc="2" customdesc=""/>
-						<PARAM value="02" name="" desc="3" customdesc=""/>
-						<PARAM value="03" name="" desc="4" customdesc=""/>
-						<PARAM value="04" name="" desc="5" customdesc=""/>
-						<PARAM value="05" name="" desc="6" customdesc=""/>
-						<PARAM value="06" name="" desc="7" customdesc=""/>
-						<PARAM value="07" name="" desc="8" customdesc=""/>
-						<PARAM value="08" name="" desc="9" customdesc=""/>
-						<PARAM value="09" name="" desc="10" customdesc=""/>
-						<PARAM value="0A" name="" desc="11" customdesc=""/>
-						<PARAM value="0B" name="" desc="12" customdesc=""/>
-						<PARAM value="0C" name="" desc="13" customdesc=""/>
-						<PARAM value="0D" name="" desc="14" customdesc=""/>
-						<PARAM value="0E" name="" desc="15" customdesc=""/>
-						<PARAM value="0F" name="" desc="16" customdesc=""/>
+					<Msb value="00" name="Midi" abbr="" desc="Midi " customdesc="RX Channel">
+						<PARAM value="00" name="1" desc="1" customdesc=""/>
+						<PARAM value="01" name="2" desc="2" customdesc=""/>
+						<PARAM value="02" name="3" desc="3" customdesc=""/>
+						<PARAM value="03" name="4" desc="4" customdesc=""/>
+						<PARAM value="04" name="5" desc="5" customdesc=""/>
+						<PARAM value="05" name="6" desc="6" customdesc=""/>
+						<PARAM value="06" name="7" desc="7" customdesc=""/>
+						<PARAM value="07" name="8" desc="8" customdesc=""/>
+						<PARAM value="08" name="9" desc="9" customdesc=""/>
+						<PARAM value="09" name="10" desc="10" customdesc=""/>
+						<PARAM value="0A" name="11" desc="11" customdesc=""/>
+						<PARAM value="0B" name="12" desc="12" customdesc=""/>
+						<PARAM value="0C" name="13" desc="13" customdesc=""/>
+						<PARAM value="0D" name="14" desc="14" customdesc=""/>
+						<PARAM value="0E" name="15" desc="15" customdesc=""/>
+						<PARAM value="0F" name="16" desc="16" customdesc=""/>
 					</Msb>
-					<Msb value="01" name="Midi" abbr="" desc="MIDI SETTING" customdesc="OMNI Mode">
+					<Msb value="01" name="Midi" abbr="" desc="Midi " customdesc="OMNI Mode">
 						<PARAM value="00" name="Off" desc="Off" customdesc=""/>
 						<PARAM value="01" name="On" desc="On" customdesc=""/>
 					</Msb>
-					<Msb value="02" name="Midi" abbr="" desc="MIDI SETTING" customdesc="TX Channel">
-						<PARAM value="00" name="" desc="1" customdesc=""/>
-						<PARAM value="01" name="" desc="2" customdesc=""/>
-						<PARAM value="02" name="" desc="3" customdesc=""/>
-						<PARAM value="03" name="" desc="4" customdesc=""/>
-						<PARAM value="04" name="" desc="5" customdesc=""/>
-						<PARAM value="05" name="" desc="6" customdesc=""/>
-						<PARAM value="06" name="" desc="7" customdesc=""/>
-						<PARAM value="07" name="" desc="8" customdesc=""/>
-						<PARAM value="08" name="" desc="9" customdesc=""/>
-						<PARAM value="09" name="" desc="10" customdesc=""/>
-						<PARAM value="0A" name="" desc="11" customdesc=""/>
-						<PARAM value="0B" name="" desc="12" customdesc=""/>
-						<PARAM value="0C" name="" desc="13" customdesc=""/>
-						<PARAM value="0D" name="" desc="14" customdesc=""/>
-						<PARAM value="0E" name="" desc="15" customdesc=""/>
-						<PARAM value="0F" name="" desc="16" customdesc=""/>
-						<PARAM value="10" name="" desc="Rx  " customdesc=""/>
+					<Msb value="02" name="Midi" abbr="" desc="Midi " customdesc="TX Channel">
+						<PARAM value="00" name="1" desc="1" customdesc=""/>
+						<PARAM value="01" name="2" desc="2" customdesc=""/>
+						<PARAM value="02" name="3" desc="3" customdesc=""/>
+						<PARAM value="03" name="4" desc="4" customdesc=""/>
+						<PARAM value="04" name="5" desc="5" customdesc=""/>
+						<PARAM value="05" name="6" desc="6" customdesc=""/>
+						<PARAM value="06" name="7" desc="7" customdesc=""/>
+						<PARAM value="07" name="8" desc="8" customdesc=""/>
+						<PARAM value="08" name="9" desc="9" customdesc=""/>
+						<PARAM value="09" name="10" desc="10" customdesc=""/>
+						<PARAM value="0A" name="11" desc="11" customdesc=""/>
+						<PARAM value="0B" name="12" desc="12" customdesc=""/>
+						<PARAM value="0C" name="13" desc="13" customdesc=""/>
+						<PARAM value="0D" name="14" desc="14" customdesc=""/>
+						<PARAM value="0E" name="15" desc="15" customdesc=""/>
+						<PARAM value="0F" name="16" desc="16" customdesc=""/>
+						<PARAM value="10" name="Rx  " desc="Rx  " customdesc=""/>
 					</Msb>
-					<Msb value="03" name="Midi" abbr="" desc="MIDI SETTING" customdesc="Sync Clock">
+					<Msb value="03" name="Midi" abbr="" desc="Midi " customdesc="Sync Clock">
 						<PARAM value="00" name="Auto" desc="Auto" customdesc=""/>
 						<PARAM value="01" name="Internal" desc="Internal" customdesc=""/>
 					</Msb>
-					<Msb value="04" name="Midi" abbr="" desc="MIDI SETTING" customdesc="PC Out">
+					<Msb value="04" name="Midi" abbr="" desc="Midi " customdesc="PC Out">
 						<PARAM value="00" name="Off" desc="Off" customdesc=""/>
 						<PARAM value="01" name="On" desc="On" customdesc=""/>
 					</Msb>
-					<Msb value="05" name="Midi" abbr="" desc="MIDI SETTING" customdesc="EXP1 Out">
-						<PARAM value="00" name="" desc="Off" customdesc=""/>
-						<PARAM value="01" name="" desc=" CC#01 Midi Controller" customdesc=""/>
-						<PARAM value="02" name="" desc=" CC#02 Midi Controller" customdesc=""/>
-						<PARAM value="03" name="" desc=" CC#03 Midi Controller" customdesc=""/>
-						<PARAM value="04" name="" desc=" CC#04 Midi Controller" customdesc=""/>
-						<PARAM value="05" name="" desc=" CC#05 Midi Controller" customdesc=""/>
-						<PARAM value="06" name="" desc=" CC#06 Midi Controller" customdesc=""/>
-						<PARAM value="07" name="" desc=" CC#07 Midi Controller" customdesc=""/>
-						<PARAM value="08" name="" desc=" CC#08 Midi Controller" customdesc=""/>
-						<PARAM value="09" name="" desc=" CC#09 Midi Controller" customdesc=""/>
-						<PARAM value="0A" name="" desc=" CC#10 Midi Controller" customdesc=""/>
-						<PARAM value="0B" name="" desc=" CC#11 Midi Controller" customdesc=""/>
-						<PARAM value="0C" name="" desc=" CC#12 Midi Controller" customdesc=""/>
-						<PARAM value="0D" name="" desc=" CC#13 Midi Controller" customdesc=""/>
-						<PARAM value="0E" name="" desc=" CC#14 Midi Controller" customdesc=""/>
-						<PARAM value="0F" name="" desc=" CC#15 Midi Controller" customdesc=""/>
-						<PARAM value="10" name="" desc=" CC#16 Midi Controller" customdesc=""/>
-						<PARAM value="11" name="" desc=" CC#17 Midi Controller" customdesc=""/>
-						<PARAM value="12" name="" desc=" CC#18 Midi Controller" customdesc=""/>
-						<PARAM value="13" name="" desc=" CC#19 Midi Controller" customdesc=""/>
-						<PARAM value="14" name="" desc=" CC#20 Midi Controller" customdesc=""/>
-						<PARAM value="15" name="" desc=" CC#21 Midi Controller" customdesc=""/>
-						<PARAM value="16" name="" desc=" CC#22 Midi Controller" customdesc=""/>
-						<PARAM value="17" name="" desc=" CC#23 Midi Controller" customdesc=""/>
-						<PARAM value="18" name="" desc=" CC#24 Midi Controller" customdesc=""/>
-						<PARAM value="19" name="" desc=" CC#25 Midi Controller" customdesc=""/>
-						<PARAM value="1A" name="" desc=" CC#26 Midi Controller" customdesc=""/>
-						<PARAM value="1B" name="" desc=" CC#27 Midi Controller" customdesc=""/>
-						<PARAM value="1C" name="" desc=" CC#28 Midi Controller" customdesc=""/>
-						<PARAM value="1D" name="" desc=" CC#29 Midi Controller" customdesc=""/>
-						<PARAM value="1E" name="" desc=" CC#30 Midi Controller" customdesc=""/>
-						<PARAM value="1F" name="" desc=" CC#31 Midi Controller" customdesc=""/>
-						<PARAM value="20" name="" desc=" CC#33 Midi Controller" customdesc=""/>
-						<PARAM value="21" name="" desc=" CC#34 Midi Controller" customdesc=""/>
-						<PARAM value="22" name="" desc=" CC#35 Midi Controller" customdesc=""/>
-						<PARAM value="23" name="" desc=" CC#36 Midi Controller" customdesc=""/>
-						<PARAM value="24" name="" desc=" CC#37 Midi Controller" customdesc=""/>
-						<PARAM value="25" name="" desc=" CC#38 Midi Controller" customdesc=""/>
-						<PARAM value="26" name="" desc=" CC#39 Midi Controller" customdesc=""/>
-						<PARAM value="27" name="" desc=" CC#40 Midi Controller" customdesc=""/>
-						<PARAM value="28" name="" desc=" CC#41 Midi Controller" customdesc=""/>
-						<PARAM value="29" name="" desc=" CC#42 Midi Controller" customdesc=""/>
-						<PARAM value="2A" name="" desc=" CC#43 Midi Controller" customdesc=""/>
-						<PARAM value="2B" name="" desc=" CC#44 Midi Controller" customdesc=""/>
-						<PARAM value="2C" name="" desc=" CC#45 Midi Controller" customdesc=""/>
-						<PARAM value="2D" name="" desc=" CC#46 Midi Controller" customdesc=""/>
-						<PARAM value="2E" name="" desc=" CC#47 Midi Controller" customdesc=""/>
-						<PARAM value="2F" name="" desc=" CC#48 Midi Controller" customdesc=""/>
-						<PARAM value="30" name="" desc=" CC#49 Midi Controller" customdesc=""/>
-						<PARAM value="31" name="" desc=" CC#50 Midi Controller" customdesc=""/>
-						<PARAM value="32" name="" desc=" CC#51 Midi Controller" customdesc=""/>
-						<PARAM value="33" name="" desc=" CC#52 Midi Controller" customdesc=""/>
-						<PARAM value="34" name="" desc=" CC#53 Midi Controller" customdesc=""/>
-						<PARAM value="35" name="" desc=" CC#54 Midi Controller" customdesc=""/>
-						<PARAM value="36" name="" desc=" CC#55 Midi Controller" customdesc=""/>
-						<PARAM value="37" name="" desc=" CC#56 Midi Controller" customdesc=""/>
-						<PARAM value="38" name="" desc=" CC#57 Midi Controller" customdesc=""/>
-						<PARAM value="39" name="" desc=" CC#58 Midi Controller" customdesc=""/>
-						<PARAM value="3A" name="" desc=" CC#59 Midi Controller" customdesc=""/>
-						<PARAM value="3B" name="" desc=" CC#60 Midi Controller" customdesc=""/>
-						<PARAM value="3C" name="" desc=" CC#61 Midi Controller" customdesc=""/>
-						<PARAM value="3D" name="" desc=" CC#62 Midi Controller" customdesc=""/>
-						<PARAM value="3E" name="" desc=" CC#63 Midi Controller" customdesc=""/>
-						<PARAM value="3F" name="" desc=" CC#64 Midi Controller" customdesc=""/>
-						<PARAM value="40" name="" desc=" CC#65 Midi Controller" customdesc=""/>
-						<PARAM value="41" name="" desc=" CC#66 Midi Controller" customdesc=""/>
-						<PARAM value="42" name="" desc=" CC#67 Midi Controller" customdesc=""/>
-						<PARAM value="43" name="" desc=" CC#68 Midi Controller" customdesc=""/>
-						<PARAM value="44" name="" desc=" CC#69 Midi Controller" customdesc=""/>
-						<PARAM value="45" name="" desc=" CC#70 Midi Controller" customdesc=""/>
-						<PARAM value="46" name="" desc=" CC#71 Midi Controller" customdesc=""/>
-						<PARAM value="47" name="" desc=" CC#72 Midi Controller" customdesc=""/>
-						<PARAM value="48" name="" desc=" CC#73 Midi Controller" customdesc=""/>
-						<PARAM value="49" name="" desc=" CC#74 Midi Controller" customdesc=""/>
-						<PARAM value="4A" name="" desc=" CC#75 Midi Controller" customdesc=""/>
-						<PARAM value="4B" name="" desc=" CC#76 Midi Controller" customdesc=""/>
-						<PARAM value="4C" name="" desc=" CC#77 Midi Controller" customdesc=""/>
-						<PARAM value="4D" name="" desc=" CC#78 Midi Controller" customdesc=""/>
-						<PARAM value="4E" name="" desc=" CC#79 Midi Controller" customdesc=""/>
-						<PARAM value="4F" name="" desc=" CC#80 Midi Controller" customdesc=""/>
-						<PARAM value="50" name="" desc=" CC#81 Midi Controller" customdesc=""/>
-						<PARAM value="51" name="" desc=" CC#82 Midi Controller" customdesc=""/>
-						<PARAM value="52" name="" desc=" CC#83 Midi Controller" customdesc=""/>
-						<PARAM value="53" name="" desc=" CC#84 Midi Controller" customdesc=""/>
-						<PARAM value="54" name="" desc=" CC#85 Midi Controller" customdesc=""/>
-						<PARAM value="55" name="" desc=" CC#86 Midi Controller" customdesc=""/>
-						<PARAM value="56" name="" desc=" CC#87 Midi Controller" customdesc=""/>
-						<PARAM value="57" name="" desc=" CC#88 Midi Controller" customdesc=""/>
-						<PARAM value="58" name="" desc=" CC#89 Midi Controller" customdesc=""/>
-						<PARAM value="59" name="" desc=" CC#90 Midi Controller" customdesc=""/>
-						<PARAM value="5A" name="" desc=" CC#91 Midi Controller" customdesc=""/>
-						<PARAM value="5B" name="" desc=" CC#92 Midi Controller" customdesc=""/>
-						<PARAM value="5C" name="" desc=" CC#93 Midi Controller" customdesc=""/>
-						<PARAM value="5D" name="" desc=" CC#94 Midi Controller" customdesc=""/>
-						<PARAM value="5E" name="" desc=" CC#95 Midi Controller      " customdesc=""/>
+					<Msb value="05" name="Midi" abbr="" desc="Midi " customdesc="EXP1 Out">
+						<PARAM value="00" name="Off" desc="Off" customdesc=""/>
+						<PARAM value="01" name=" CC#01 Midi Controller" desc=" CC#01 Midi Controller" customdesc=""/>
+						<PARAM value="02" name=" CC#02 Midi Controller" desc=" CC#02 Midi Controller" customdesc=""/>
+						<PARAM value="03" name=" CC#03 Midi Controller" desc=" CC#03 Midi Controller" customdesc=""/>
+						<PARAM value="04" name=" CC#04 Midi Controller" desc=" CC#04 Midi Controller" customdesc=""/>
+						<PARAM value="05" name=" CC#05 Midi Controller" desc=" CC#05 Midi Controller" customdesc=""/>
+						<PARAM value="06" name=" CC#06 Midi Controller" desc=" CC#06 Midi Controller" customdesc=""/>
+						<PARAM value="07" name=" CC#07 Midi Controller" desc=" CC#07 Midi Controller" customdesc=""/>
+						<PARAM value="08" name=" CC#08 Midi Controller" desc=" CC#08 Midi Controller" customdesc=""/>
+						<PARAM value="09" name=" CC#09 Midi Controller" desc=" CC#09 Midi Controller" customdesc=""/>
+						<PARAM value="0A" name=" CC#10 Midi Controller" desc=" CC#10 Midi Controller" customdesc=""/>
+						<PARAM value="0B" name=" CC#11 Midi Controller" desc=" CC#11 Midi Controller" customdesc=""/>
+						<PARAM value="0C" name=" CC#12 Midi Controller" desc=" CC#12 Midi Controller" customdesc=""/>
+						<PARAM value="0D" name=" CC#13 Midi Controller" desc=" CC#13 Midi Controller" customdesc=""/>
+						<PARAM value="0E" name=" CC#14 Midi Controller" desc=" CC#14 Midi Controller" customdesc=""/>
+						<PARAM value="0F" name=" CC#15 Midi Controller" desc=" CC#15 Midi Controller" customdesc=""/>
+						<PARAM value="10" name=" CC#16 Midi Controller" desc=" CC#16 Midi Controller" customdesc=""/>
+						<PARAM value="11" name=" CC#17 Midi Controller" desc=" CC#17 Midi Controller" customdesc=""/>
+						<PARAM value="12" name=" CC#18 Midi Controller" desc=" CC#18 Midi Controller" customdesc=""/>
+						<PARAM value="13" name=" CC#19 Midi Controller" desc=" CC#19 Midi Controller" customdesc=""/>
+						<PARAM value="14" name=" CC#20 Midi Controller" desc=" CC#20 Midi Controller" customdesc=""/>
+						<PARAM value="15" name=" CC#21 Midi Controller" desc=" CC#21 Midi Controller" customdesc=""/>
+						<PARAM value="16" name=" CC#22 Midi Controller" desc=" CC#22 Midi Controller" customdesc=""/>
+						<PARAM value="17" name=" CC#23 Midi Controller" desc=" CC#23 Midi Controller" customdesc=""/>
+						<PARAM value="18" name=" CC#24 Midi Controller" desc=" CC#24 Midi Controller" customdesc=""/>
+						<PARAM value="19" name=" CC#25 Midi Controller" desc=" CC#25 Midi Controller" customdesc=""/>
+						<PARAM value="1A" name=" CC#26 Midi Controller" desc=" CC#26 Midi Controller" customdesc=""/>
+						<PARAM value="1B" name=" CC#27 Midi Controller" desc=" CC#27 Midi Controller" customdesc=""/>
+						<PARAM value="1C" name=" CC#28 Midi Controller" desc=" CC#28 Midi Controller" customdesc=""/>
+						<PARAM value="1D" name=" CC#29 Midi Controller" desc=" CC#29 Midi Controller" customdesc=""/>
+						<PARAM value="1E" name=" CC#30 Midi Controller" desc=" CC#30 Midi Controller" customdesc=""/>
+						<PARAM value="1F" name=" CC#31 Midi Controller" desc=" CC#31 Midi Controller" customdesc=""/>
+						<PARAM value="20" name=" CC#33 Midi Controller" desc=" CC#33 Midi Controller" customdesc=""/>
+						<PARAM value="21" name=" CC#34 Midi Controller" desc=" CC#34 Midi Controller" customdesc=""/>
+						<PARAM value="22" name=" CC#35 Midi Controller" desc=" CC#35 Midi Controller" customdesc=""/>
+						<PARAM value="23" name=" CC#36 Midi Controller" desc=" CC#36 Midi Controller" customdesc=""/>
+						<PARAM value="24" name=" CC#37 Midi Controller" desc=" CC#37 Midi Controller" customdesc=""/>
+						<PARAM value="25" name=" CC#38 Midi Controller" desc=" CC#38 Midi Controller" customdesc=""/>
+						<PARAM value="26" name=" CC#39 Midi Controller" desc=" CC#39 Midi Controller" customdesc=""/>
+						<PARAM value="27" name=" CC#40 Midi Controller" desc=" CC#40 Midi Controller" customdesc=""/>
+						<PARAM value="28" name=" CC#41 Midi Controller" desc=" CC#41 Midi Controller" customdesc=""/>
+						<PARAM value="29" name=" CC#42 Midi Controller" desc=" CC#42 Midi Controller" customdesc=""/>
+						<PARAM value="2A" name=" CC#43 Midi Controller" desc=" CC#43 Midi Controller" customdesc=""/>
+						<PARAM value="2B" name=" CC#44 Midi Controller" desc=" CC#44 Midi Controller" customdesc=""/>
+						<PARAM value="2C" name=" CC#45 Midi Controller" desc=" CC#45 Midi Controller" customdesc=""/>
+						<PARAM value="2D" name=" CC#46 Midi Controller" desc=" CC#46 Midi Controller" customdesc=""/>
+						<PARAM value="2E" name=" CC#47 Midi Controller" desc=" CC#47 Midi Controller" customdesc=""/>
+						<PARAM value="2F" name=" CC#48 Midi Controller" desc=" CC#48 Midi Controller" customdesc=""/>
+						<PARAM value="30" name=" CC#49 Midi Controller" desc=" CC#49 Midi Controller" customdesc=""/>
+						<PARAM value="31" name=" CC#50 Midi Controller" desc=" CC#50 Midi Controller" customdesc=""/>
+						<PARAM value="32" name=" CC#51 Midi Controller" desc=" CC#51 Midi Controller" customdesc=""/>
+						<PARAM value="33" name=" CC#52 Midi Controller" desc=" CC#52 Midi Controller" customdesc=""/>
+						<PARAM value="34" name=" CC#53 Midi Controller" desc=" CC#53 Midi Controller" customdesc=""/>
+						<PARAM value="35" name=" CC#54 Midi Controller" desc=" CC#54 Midi Controller" customdesc=""/>
+						<PARAM value="36" name=" CC#55 Midi Controller" desc=" CC#55 Midi Controller" customdesc=""/>
+						<PARAM value="37" name=" CC#56 Midi Controller" desc=" CC#56 Midi Controller" customdesc=""/>
+						<PARAM value="38" name=" CC#57 Midi Controller" desc=" CC#57 Midi Controller" customdesc=""/>
+						<PARAM value="39" name=" CC#58 Midi Controller" desc=" CC#58 Midi Controller" customdesc=""/>
+						<PARAM value="3A" name=" CC#59 Midi Controller" desc=" CC#59 Midi Controller" customdesc=""/>
+						<PARAM value="3B" name=" CC#60 Midi Controller" desc=" CC#60 Midi Controller" customdesc=""/>
+						<PARAM value="3C" name=" CC#61 Midi Controller" desc=" CC#61 Midi Controller" customdesc=""/>
+						<PARAM value="3D" name=" CC#62 Midi Controller" desc=" CC#62 Midi Controller" customdesc=""/>
+						<PARAM value="3E" name=" CC#63 Midi Controller" desc=" CC#63 Midi Controller" customdesc=""/>
+						<PARAM value="3F" name=" CC#64 Midi Controller" desc=" CC#64 Midi Controller" customdesc=""/>
+						<PARAM value="40" name=" CC#65 Midi Controller" desc=" CC#65 Midi Controller" customdesc=""/>
+						<PARAM value="41" name=" CC#66 Midi Controller" desc=" CC#66 Midi Controller" customdesc=""/>
+						<PARAM value="42" name=" CC#67 Midi Controller" desc=" CC#67 Midi Controller" customdesc=""/>
+						<PARAM value="43" name=" CC#68 Midi Controller" desc=" CC#68 Midi Controller" customdesc=""/>
+						<PARAM value="44" name=" CC#69 Midi Controller" desc=" CC#69 Midi Controller" customdesc=""/>
+						<PARAM value="45" name=" CC#70 Midi Controller" desc=" CC#70 Midi Controller" customdesc=""/>
+						<PARAM value="46" name=" CC#71 Midi Controller" desc=" CC#71 Midi Controller" customdesc=""/>
+						<PARAM value="47" name=" CC#72 Midi Controller" desc=" CC#72 Midi Controller" customdesc=""/>
+						<PARAM value="48" name=" CC#73 Midi Controller" desc=" CC#73 Midi Controller" customdesc=""/>
+						<PARAM value="49" name=" CC#74 Midi Controller" desc=" CC#74 Midi Controller" customdesc=""/>
+						<PARAM value="4A" name=" CC#75 Midi Controller" desc=" CC#75 Midi Controller" customdesc=""/>
+						<PARAM value="4B" name=" CC#76 Midi Controller" desc=" CC#76 Midi Controller" customdesc=""/>
+						<PARAM value="4C" name=" CC#77 Midi Controller" desc=" CC#77 Midi Controller" customdesc=""/>
+						<PARAM value="4D" name=" CC#78 Midi Controller" desc=" CC#78 Midi Controller" customdesc=""/>
+						<PARAM value="4E" name=" CC#79 Midi Controller" desc=" CC#79 Midi Controller" customdesc=""/>
+						<PARAM value="4F" name=" CC#80 Midi Controller" desc=" CC#80 Midi Controller" customdesc=""/>
+						<PARAM value="50" name=" CC#81 Midi Controller" desc=" CC#81 Midi Controller" customdesc=""/>
+						<PARAM value="51" name=" CC#82 Midi Controller" desc=" CC#82 Midi Controller" customdesc=""/>
+						<PARAM value="52" name=" CC#83 Midi Controller" desc=" CC#83 Midi Controller" customdesc=""/>
+						<PARAM value="53" name=" CC#84 Midi Controller" desc=" CC#84 Midi Controller" customdesc=""/>
+						<PARAM value="54" name=" CC#85 Midi Controller" desc=" CC#85 Midi Controller" customdesc=""/>
+						<PARAM value="55" name=" CC#86 Midi Controller" desc=" CC#86 Midi Controller" customdesc=""/>
+						<PARAM value="56" name=" CC#87 Midi Controller" desc=" CC#87 Midi Controller" customdesc=""/>
+						<PARAM value="57" name=" CC#88 Midi Controller" desc=" CC#88 Midi Controller" customdesc=""/>
+						<PARAM value="58" name=" CC#89 Midi Controller" desc=" CC#89 Midi Controller" customdesc=""/>
+						<PARAM value="59" name=" CC#90 Midi Controller" desc=" CC#90 Midi Controller" customdesc=""/>
+						<PARAM value="5A" name=" CC#91 Midi Controller" desc=" CC#91 Midi Controller" customdesc=""/>
+						<PARAM value="5B" name=" CC#92 Midi Controller" desc=" CC#92 Midi Controller" customdesc=""/>
+						<PARAM value="5C" name=" CC#93 Midi Controller" desc=" CC#93 Midi Controller" customdesc=""/>
+						<PARAM value="5D" name=" CC#94 Midi Controller" desc=" CC#94 Midi Controller" customdesc=""/>
+						<PARAM value="5E" name=" CC#95 Midi Controller      " desc=" CC#95 Midi Controller      " customdesc=""/>
 					</Msb>
-					<Msb value="06" name="Midi" abbr="" desc="MIDI SETTING" customdesc="EXP SW Out">
-						<PARAM value="00" name="" desc="Off" customdesc=""/>
-						<PARAM value="01" name="" desc=" CC#01 Midi Controller" customdesc=""/>
-						<PARAM value="02" name="" desc=" CC#02 Midi Controller" customdesc=""/>
-						<PARAM value="03" name="" desc=" CC#03 Midi Controller" customdesc=""/>
-						<PARAM value="04" name="" desc=" CC#04 Midi Controller" customdesc=""/>
-						<PARAM value="05" name="" desc=" CC#05 Midi Controller" customdesc=""/>
-						<PARAM value="06" name="" desc=" CC#06 Midi Controller" customdesc=""/>
-						<PARAM value="07" name="" desc=" CC#07 Midi Controller" customdesc=""/>
-						<PARAM value="08" name="" desc=" CC#08 Midi Controller" customdesc=""/>
-						<PARAM value="09" name="" desc=" CC#09 Midi Controller" customdesc=""/>
-						<PARAM value="0A" name="" desc=" CC#10 Midi Controller" customdesc=""/>
-						<PARAM value="0B" name="" desc=" CC#11 Midi Controller" customdesc=""/>
-						<PARAM value="0C" name="" desc=" CC#12 Midi Controller" customdesc=""/>
-						<PARAM value="0D" name="" desc=" CC#13 Midi Controller" customdesc=""/>
-						<PARAM value="0E" name="" desc=" CC#14 Midi Controller" customdesc=""/>
-						<PARAM value="0F" name="" desc=" CC#15 Midi Controller" customdesc=""/>
-						<PARAM value="10" name="" desc=" CC#16 Midi Controller" customdesc=""/>
-						<PARAM value="11" name="" desc=" CC#17 Midi Controller" customdesc=""/>
-						<PARAM value="12" name="" desc=" CC#18 Midi Controller" customdesc=""/>
-						<PARAM value="13" name="" desc=" CC#19 Midi Controller" customdesc=""/>
-						<PARAM value="14" name="" desc=" CC#20 Midi Controller" customdesc=""/>
-						<PARAM value="15" name="" desc=" CC#21 Midi Controller" customdesc=""/>
-						<PARAM value="16" name="" desc=" CC#22 Midi Controller" customdesc=""/>
-						<PARAM value="17" name="" desc=" CC#23 Midi Controller" customdesc=""/>
-						<PARAM value="18" name="" desc=" CC#24 Midi Controller" customdesc=""/>
-						<PARAM value="19" name="" desc=" CC#25 Midi Controller" customdesc=""/>
-						<PARAM value="1A" name="" desc=" CC#26 Midi Controller" customdesc=""/>
-						<PARAM value="1B" name="" desc=" CC#27 Midi Controller" customdesc=""/>
-						<PARAM value="1C" name="" desc=" CC#28 Midi Controller" customdesc=""/>
-						<PARAM value="1D" name="" desc=" CC#29 Midi Controller" customdesc=""/>
-						<PARAM value="1E" name="" desc=" CC#30 Midi Controller" customdesc=""/>
-						<PARAM value="1F" name="" desc=" CC#31 Midi Controller" customdesc=""/>
-						<PARAM value="20" name="" desc=" CC#33 Midi Controller" customdesc=""/>
-						<PARAM value="21" name="" desc=" CC#34 Midi Controller" customdesc=""/>
-						<PARAM value="22" name="" desc=" CC#35 Midi Controller" customdesc=""/>
-						<PARAM value="23" name="" desc=" CC#36 Midi Controller" customdesc=""/>
-						<PARAM value="24" name="" desc=" CC#37 Midi Controller" customdesc=""/>
-						<PARAM value="25" name="" desc=" CC#38 Midi Controller" customdesc=""/>
-						<PARAM value="26" name="" desc=" CC#39 Midi Controller" customdesc=""/>
-						<PARAM value="27" name="" desc=" CC#40 Midi Controller" customdesc=""/>
-						<PARAM value="28" name="" desc=" CC#41 Midi Controller" customdesc=""/>
-						<PARAM value="29" name="" desc=" CC#42 Midi Controller" customdesc=""/>
-						<PARAM value="2A" name="" desc=" CC#43 Midi Controller" customdesc=""/>
-						<PARAM value="2B" name="" desc=" CC#44 Midi Controller" customdesc=""/>
-						<PARAM value="2C" name="" desc=" CC#45 Midi Controller" customdesc=""/>
-						<PARAM value="2D" name="" desc=" CC#46 Midi Controller" customdesc=""/>
-						<PARAM value="2E" name="" desc=" CC#47 Midi Controller" customdesc=""/>
-						<PARAM value="2F" name="" desc=" CC#48 Midi Controller" customdesc=""/>
-						<PARAM value="30" name="" desc=" CC#49 Midi Controller" customdesc=""/>
-						<PARAM value="31" name="" desc=" CC#50 Midi Controller" customdesc=""/>
-						<PARAM value="32" name="" desc=" CC#51 Midi Controller" customdesc=""/>
-						<PARAM value="33" name="" desc=" CC#52 Midi Controller" customdesc=""/>
-						<PARAM value="34" name="" desc=" CC#53 Midi Controller" customdesc=""/>
-						<PARAM value="35" name="" desc=" CC#54 Midi Controller" customdesc=""/>
-						<PARAM value="36" name="" desc=" CC#55 Midi Controller" customdesc=""/>
-						<PARAM value="37" name="" desc=" CC#56 Midi Controller" customdesc=""/>
-						<PARAM value="38" name="" desc=" CC#57 Midi Controller" customdesc=""/>
-						<PARAM value="39" name="" desc=" CC#58 Midi Controller" customdesc=""/>
-						<PARAM value="3A" name="" desc=" CC#59 Midi Controller" customdesc=""/>
-						<PARAM value="3B" name="" desc=" CC#60 Midi Controller" customdesc=""/>
-						<PARAM value="3C" name="" desc=" CC#61 Midi Controller" customdesc=""/>
-						<PARAM value="3D" name="" desc=" CC#62 Midi Controller" customdesc=""/>
-						<PARAM value="3E" name="" desc=" CC#63 Midi Controller" customdesc=""/>
-						<PARAM value="3F" name="" desc=" CC#64 Midi Controller" customdesc=""/>
-						<PARAM value="40" name="" desc=" CC#65 Midi Controller" customdesc=""/>
-						<PARAM value="41" name="" desc=" CC#66 Midi Controller" customdesc=""/>
-						<PARAM value="42" name="" desc=" CC#67 Midi Controller" customdesc=""/>
-						<PARAM value="43" name="" desc=" CC#68 Midi Controller" customdesc=""/>
-						<PARAM value="44" name="" desc=" CC#69 Midi Controller" customdesc=""/>
-						<PARAM value="45" name="" desc=" CC#70 Midi Controller" customdesc=""/>
-						<PARAM value="46" name="" desc=" CC#71 Midi Controller" customdesc=""/>
-						<PARAM value="47" name="" desc=" CC#72 Midi Controller" customdesc=""/>
-						<PARAM value="48" name="" desc=" CC#73 Midi Controller" customdesc=""/>
-						<PARAM value="49" name="" desc=" CC#74 Midi Controller" customdesc=""/>
-						<PARAM value="4A" name="" desc=" CC#75 Midi Controller" customdesc=""/>
-						<PARAM value="4B" name="" desc=" CC#76 Midi Controller" customdesc=""/>
-						<PARAM value="4C" name="" desc=" CC#77 Midi Controller" customdesc=""/>
-						<PARAM value="4D" name="" desc=" CC#78 Midi Controller" customdesc=""/>
-						<PARAM value="4E" name="" desc=" CC#79 Midi Controller" customdesc=""/>
-						<PARAM value="4F" name="" desc=" CC#80 Midi Controller" customdesc=""/>
-						<PARAM value="50" name="" desc=" CC#81 Midi Controller" customdesc=""/>
-						<PARAM value="51" name="" desc=" CC#82 Midi Controller" customdesc=""/>
-						<PARAM value="52" name="" desc=" CC#83 Midi Controller" customdesc=""/>
-						<PARAM value="53" name="" desc=" CC#84 Midi Controller" customdesc=""/>
-						<PARAM value="54" name="" desc=" CC#85 Midi Controller" customdesc=""/>
-						<PARAM value="55" name="" desc=" CC#86 Midi Controller" customdesc=""/>
-						<PARAM value="56" name="" desc=" CC#87 Midi Controller" customdesc=""/>
-						<PARAM value="57" name="" desc=" CC#88 Midi Controller" customdesc=""/>
-						<PARAM value="58" name="" desc=" CC#89 Midi Controller" customdesc=""/>
-						<PARAM value="59" name="" desc=" CC#90 Midi Controller" customdesc=""/>
-						<PARAM value="5A" name="" desc=" CC#91 Midi Controller" customdesc=""/>
-						<PARAM value="5B" name="" desc=" CC#92 Midi Controller" customdesc=""/>
-						<PARAM value="5C" name="" desc=" CC#93 Midi Controller" customdesc=""/>
-						<PARAM value="5D" name="" desc=" CC#94 Midi Controller" customdesc=""/>
-						<PARAM value="5E" name="" desc=" CC#95 Midi Controller      " customdesc=""/>
+					<Msb value="06" name="Midi" abbr="" desc="Midi " customdesc="EXP SW Out">
+						<PARAM value="00" name="Off" desc="Off" customdesc=""/>
+						<PARAM value="01" name=" CC#01 Midi Controller" desc=" CC#01 Midi Controller" customdesc=""/>
+						<PARAM value="02" name=" CC#02 Midi Controller" desc=" CC#02 Midi Controller" customdesc=""/>
+						<PARAM value="03" name=" CC#03 Midi Controller" desc=" CC#03 Midi Controller" customdesc=""/>
+						<PARAM value="04" name=" CC#04 Midi Controller" desc=" CC#04 Midi Controller" customdesc=""/>
+						<PARAM value="05" name=" CC#05 Midi Controller" desc=" CC#05 Midi Controller" customdesc=""/>
+						<PARAM value="06" name=" CC#06 Midi Controller" desc=" CC#06 Midi Controller" customdesc=""/>
+						<PARAM value="07" name=" CC#07 Midi Controller" desc=" CC#07 Midi Controller" customdesc=""/>
+						<PARAM value="08" name=" CC#08 Midi Controller" desc=" CC#08 Midi Controller" customdesc=""/>
+						<PARAM value="09" name=" CC#09 Midi Controller" desc=" CC#09 Midi Controller" customdesc=""/>
+						<PARAM value="0A" name=" CC#10 Midi Controller" desc=" CC#10 Midi Controller" customdesc=""/>
+						<PARAM value="0B" name=" CC#11 Midi Controller" desc=" CC#11 Midi Controller" customdesc=""/>
+						<PARAM value="0C" name=" CC#12 Midi Controller" desc=" CC#12 Midi Controller" customdesc=""/>
+						<PARAM value="0D" name=" CC#13 Midi Controller" desc=" CC#13 Midi Controller" customdesc=""/>
+						<PARAM value="0E" name=" CC#14 Midi Controller" desc=" CC#14 Midi Controller" customdesc=""/>
+						<PARAM value="0F" name=" CC#15 Midi Controller" desc=" CC#15 Midi Controller" customdesc=""/>
+						<PARAM value="10" name=" CC#16 Midi Controller" desc=" CC#16 Midi Controller" customdesc=""/>
+						<PARAM value="11" name=" CC#17 Midi Controller" desc=" CC#17 Midi Controller" customdesc=""/>
+						<PARAM value="12" name=" CC#18 Midi Controller" desc=" CC#18 Midi Controller" customdesc=""/>
+						<PARAM value="13" name=" CC#19 Midi Controller" desc=" CC#19 Midi Controller" customdesc=""/>
+						<PARAM value="14" name=" CC#20 Midi Controller" desc=" CC#20 Midi Controller" customdesc=""/>
+						<PARAM value="15" name=" CC#21 Midi Controller" desc=" CC#21 Midi Controller" customdesc=""/>
+						<PARAM value="16" name=" CC#22 Midi Controller" desc=" CC#22 Midi Controller" customdesc=""/>
+						<PARAM value="17" name=" CC#23 Midi Controller" desc=" CC#23 Midi Controller" customdesc=""/>
+						<PARAM value="18" name=" CC#24 Midi Controller" desc=" CC#24 Midi Controller" customdesc=""/>
+						<PARAM value="19" name=" CC#25 Midi Controller" desc=" CC#25 Midi Controller" customdesc=""/>
+						<PARAM value="1A" name=" CC#26 Midi Controller" desc=" CC#26 Midi Controller" customdesc=""/>
+						<PARAM value="1B" name=" CC#27 Midi Controller" desc=" CC#27 Midi Controller" customdesc=""/>
+						<PARAM value="1C" name=" CC#28 Midi Controller" desc=" CC#28 Midi Controller" customdesc=""/>
+						<PARAM value="1D" name=" CC#29 Midi Controller" desc=" CC#29 Midi Controller" customdesc=""/>
+						<PARAM value="1E" name=" CC#30 Midi Controller" desc=" CC#30 Midi Controller" customdesc=""/>
+						<PARAM value="1F" name=" CC#31 Midi Controller" desc=" CC#31 Midi Controller" customdesc=""/>
+						<PARAM value="20" name=" CC#33 Midi Controller" desc=" CC#33 Midi Controller" customdesc=""/>
+						<PARAM value="21" name=" CC#34 Midi Controller" desc=" CC#34 Midi Controller" customdesc=""/>
+						<PARAM value="22" name=" CC#35 Midi Controller" desc=" CC#35 Midi Controller" customdesc=""/>
+						<PARAM value="23" name=" CC#36 Midi Controller" desc=" CC#36 Midi Controller" customdesc=""/>
+						<PARAM value="24" name=" CC#37 Midi Controller" desc=" CC#37 Midi Controller" customdesc=""/>
+						<PARAM value="25" name=" CC#38 Midi Controller" desc=" CC#38 Midi Controller" customdesc=""/>
+						<PARAM value="26" name=" CC#39 Midi Controller" desc=" CC#39 Midi Controller" customdesc=""/>
+						<PARAM value="27" name=" CC#40 Midi Controller" desc=" CC#40 Midi Controller" customdesc=""/>
+						<PARAM value="28" name=" CC#41 Midi Controller" desc=" CC#41 Midi Controller" customdesc=""/>
+						<PARAM value="29" name=" CC#42 Midi Controller" desc=" CC#42 Midi Controller" customdesc=""/>
+						<PARAM value="2A" name=" CC#43 Midi Controller" desc=" CC#43 Midi Controller" customdesc=""/>
+						<PARAM value="2B" name=" CC#44 Midi Controller" desc=" CC#44 Midi Controller" customdesc=""/>
+						<PARAM value="2C" name=" CC#45 Midi Controller" desc=" CC#45 Midi Controller" customdesc=""/>
+						<PARAM value="2D" name=" CC#46 Midi Controller" desc=" CC#46 Midi Controller" customdesc=""/>
+						<PARAM value="2E" name=" CC#47 Midi Controller" desc=" CC#47 Midi Controller" customdesc=""/>
+						<PARAM value="2F" name=" CC#48 Midi Controller" desc=" CC#48 Midi Controller" customdesc=""/>
+						<PARAM value="30" name=" CC#49 Midi Controller" desc=" CC#49 Midi Controller" customdesc=""/>
+						<PARAM value="31" name=" CC#50 Midi Controller" desc=" CC#50 Midi Controller" customdesc=""/>
+						<PARAM value="32" name=" CC#51 Midi Controller" desc=" CC#51 Midi Controller" customdesc=""/>
+						<PARAM value="33" name=" CC#52 Midi Controller" desc=" CC#52 Midi Controller" customdesc=""/>
+						<PARAM value="34" name=" CC#53 Midi Controller" desc=" CC#53 Midi Controller" customdesc=""/>
+						<PARAM value="35" name=" CC#54 Midi Controller" desc=" CC#54 Midi Controller" customdesc=""/>
+						<PARAM value="36" name=" CC#55 Midi Controller" desc=" CC#55 Midi Controller" customdesc=""/>
+						<PARAM value="37" name=" CC#56 Midi Controller" desc=" CC#56 Midi Controller" customdesc=""/>
+						<PARAM value="38" name=" CC#57 Midi Controller" desc=" CC#57 Midi Controller" customdesc=""/>
+						<PARAM value="39" name=" CC#58 Midi Controller" desc=" CC#58 Midi Controller" customdesc=""/>
+						<PARAM value="3A" name=" CC#59 Midi Controller" desc=" CC#59 Midi Controller" customdesc=""/>
+						<PARAM value="3B" name=" CC#60 Midi Controller" desc=" CC#60 Midi Controller" customdesc=""/>
+						<PARAM value="3C" name=" CC#61 Midi Controller" desc=" CC#61 Midi Controller" customdesc=""/>
+						<PARAM value="3D" name=" CC#62 Midi Controller" desc=" CC#62 Midi Controller" customdesc=""/>
+						<PARAM value="3E" name=" CC#63 Midi Controller" desc=" CC#63 Midi Controller" customdesc=""/>
+						<PARAM value="3F" name=" CC#64 Midi Controller" desc=" CC#64 Midi Controller" customdesc=""/>
+						<PARAM value="40" name=" CC#65 Midi Controller" desc=" CC#65 Midi Controller" customdesc=""/>
+						<PARAM value="41" name=" CC#66 Midi Controller" desc=" CC#66 Midi Controller" customdesc=""/>
+						<PARAM value="42" name=" CC#67 Midi Controller" desc=" CC#67 Midi Controller" customdesc=""/>
+						<PARAM value="43" name=" CC#68 Midi Controller" desc=" CC#68 Midi Controller" customdesc=""/>
+						<PARAM value="44" name=" CC#69 Midi Controller" desc=" CC#69 Midi Controller" customdesc=""/>
+						<PARAM value="45" name=" CC#70 Midi Controller" desc=" CC#70 Midi Controller" customdesc=""/>
+						<PARAM value="46" name=" CC#71 Midi Controller" desc=" CC#71 Midi Controller" customdesc=""/>
+						<PARAM value="47" name=" CC#72 Midi Controller" desc=" CC#72 Midi Controller" customdesc=""/>
+						<PARAM value="48" name=" CC#73 Midi Controller" desc=" CC#73 Midi Controller" customdesc=""/>
+						<PARAM value="49" name=" CC#74 Midi Controller" desc=" CC#74 Midi Controller" customdesc=""/>
+						<PARAM value="4A" name=" CC#75 Midi Controller" desc=" CC#75 Midi Controller" customdesc=""/>
+						<PARAM value="4B" name=" CC#76 Midi Controller" desc=" CC#76 Midi Controller" customdesc=""/>
+						<PARAM value="4C" name=" CC#77 Midi Controller" desc=" CC#77 Midi Controller" customdesc=""/>
+						<PARAM value="4D" name=" CC#78 Midi Controller" desc=" CC#78 Midi Controller" customdesc=""/>
+						<PARAM value="4E" name=" CC#79 Midi Controller" desc=" CC#79 Midi Controller" customdesc=""/>
+						<PARAM value="4F" name=" CC#80 Midi Controller" desc=" CC#80 Midi Controller" customdesc=""/>
+						<PARAM value="50" name=" CC#81 Midi Controller" desc=" CC#81 Midi Controller" customdesc=""/>
+						<PARAM value="51" name=" CC#82 Midi Controller" desc=" CC#82 Midi Controller" customdesc=""/>
+						<PARAM value="52" name=" CC#83 Midi Controller" desc=" CC#83 Midi Controller" customdesc=""/>
+						<PARAM value="53" name=" CC#84 Midi Controller" desc=" CC#84 Midi Controller" customdesc=""/>
+						<PARAM value="54" name=" CC#85 Midi Controller" desc=" CC#85 Midi Controller" customdesc=""/>
+						<PARAM value="55" name=" CC#86 Midi Controller" desc=" CC#86 Midi Controller" customdesc=""/>
+						<PARAM value="56" name=" CC#87 Midi Controller" desc=" CC#87 Midi Controller" customdesc=""/>
+						<PARAM value="57" name=" CC#88 Midi Controller" desc=" CC#88 Midi Controller" customdesc=""/>
+						<PARAM value="58" name=" CC#89 Midi Controller" desc=" CC#89 Midi Controller" customdesc=""/>
+						<PARAM value="59" name=" CC#90 Midi Controller" desc=" CC#90 Midi Controller" customdesc=""/>
+						<PARAM value="5A" name=" CC#91 Midi Controller" desc=" CC#91 Midi Controller" customdesc=""/>
+						<PARAM value="5B" name=" CC#92 Midi Controller" desc=" CC#92 Midi Controller" customdesc=""/>
+						<PARAM value="5C" name=" CC#93 Midi Controller" desc=" CC#93 Midi Controller" customdesc=""/>
+						<PARAM value="5D" name=" CC#94 Midi Controller" desc=" CC#94 Midi Controller" customdesc=""/>
+						<PARAM value="5E" name=" CC#95 Midi Controller      " desc=" CC#95 Midi Controller      " customdesc=""/>
 					</Msb>
-					<Msb value="07" name="Midi" abbr="" desc="MIDI SETTING" customdesc="CTL Out">
-						<PARAM value="00" name="" desc="Off" customdesc=""/>
-						<PARAM value="01" name="" desc=" CC#01 Midi Controller" customdesc=""/>
-						<PARAM value="02" name="" desc=" CC#02 Midi Controller" customdesc=""/>
-						<PARAM value="03" name="" desc=" CC#03 Midi Controller" customdesc=""/>
-						<PARAM value="04" name="" desc=" CC#04 Midi Controller" customdesc=""/>
-						<PARAM value="05" name="" desc=" CC#05 Midi Controller" customdesc=""/>
-						<PARAM value="06" name="" desc=" CC#06 Midi Controller" customdesc=""/>
-						<PARAM value="07" name="" desc=" CC#07 Midi Controller" customdesc=""/>
-						<PARAM value="08" name="" desc=" CC#08 Midi Controller" customdesc=""/>
-						<PARAM value="09" name="" desc=" CC#09 Midi Controller" customdesc=""/>
-						<PARAM value="0A" name="" desc=" CC#10 Midi Controller" customdesc=""/>
-						<PARAM value="0B" name="" desc=" CC#11 Midi Controller" customdesc=""/>
-						<PARAM value="0C" name="" desc=" CC#12 Midi Controller" customdesc=""/>
-						<PARAM value="0D" name="" desc=" CC#13 Midi Controller" customdesc=""/>
-						<PARAM value="0E" name="" desc=" CC#14 Midi Controller" customdesc=""/>
-						<PARAM value="0F" name="" desc=" CC#15 Midi Controller" customdesc=""/>
-						<PARAM value="10" name="" desc=" CC#16 Midi Controller" customdesc=""/>
-						<PARAM value="11" name="" desc=" CC#17 Midi Controller" customdesc=""/>
-						<PARAM value="12" name="" desc=" CC#18 Midi Controller" customdesc=""/>
-						<PARAM value="13" name="" desc=" CC#19 Midi Controller" customdesc=""/>
-						<PARAM value="14" name="" desc=" CC#20 Midi Controller" customdesc=""/>
-						<PARAM value="15" name="" desc=" CC#21 Midi Controller" customdesc=""/>
-						<PARAM value="16" name="" desc=" CC#22 Midi Controller" customdesc=""/>
-						<PARAM value="17" name="" desc=" CC#23 Midi Controller" customdesc=""/>
-						<PARAM value="18" name="" desc=" CC#24 Midi Controller" customdesc=""/>
-						<PARAM value="19" name="" desc=" CC#25 Midi Controller" customdesc=""/>
-						<PARAM value="1A" name="" desc=" CC#26 Midi Controller" customdesc=""/>
-						<PARAM value="1B" name="" desc=" CC#27 Midi Controller" customdesc=""/>
-						<PARAM value="1C" name="" desc=" CC#28 Midi Controller" customdesc=""/>
-						<PARAM value="1D" name="" desc=" CC#29 Midi Controller" customdesc=""/>
-						<PARAM value="1E" name="" desc=" CC#30 Midi Controller" customdesc=""/>
-						<PARAM value="1F" name="" desc=" CC#31 Midi Controller" customdesc=""/>
-						<PARAM value="20" name="" desc=" CC#33 Midi Controller" customdesc=""/>
-						<PARAM value="21" name="" desc=" CC#34 Midi Controller" customdesc=""/>
-						<PARAM value="22" name="" desc=" CC#35 Midi Controller" customdesc=""/>
-						<PARAM value="23" name="" desc=" CC#36 Midi Controller" customdesc=""/>
-						<PARAM value="24" name="" desc=" CC#37 Midi Controller" customdesc=""/>
-						<PARAM value="25" name="" desc=" CC#38 Midi Controller" customdesc=""/>
-						<PARAM value="26" name="" desc=" CC#39 Midi Controller" customdesc=""/>
-						<PARAM value="27" name="" desc=" CC#40 Midi Controller" customdesc=""/>
-						<PARAM value="28" name="" desc=" CC#41 Midi Controller" customdesc=""/>
-						<PARAM value="29" name="" desc=" CC#42 Midi Controller" customdesc=""/>
-						<PARAM value="2A" name="" desc=" CC#43 Midi Controller" customdesc=""/>
-						<PARAM value="2B" name="" desc=" CC#44 Midi Controller" customdesc=""/>
-						<PARAM value="2C" name="" desc=" CC#45 Midi Controller" customdesc=""/>
-						<PARAM value="2D" name="" desc=" CC#46 Midi Controller" customdesc=""/>
-						<PARAM value="2E" name="" desc=" CC#47 Midi Controller" customdesc=""/>
-						<PARAM value="2F" name="" desc=" CC#48 Midi Controller" customdesc=""/>
-						<PARAM value="30" name="" desc=" CC#49 Midi Controller" customdesc=""/>
-						<PARAM value="31" name="" desc=" CC#50 Midi Controller" customdesc=""/>
-						<PARAM value="32" name="" desc=" CC#51 Midi Controller" customdesc=""/>
-						<PARAM value="33" name="" desc=" CC#52 Midi Controller" customdesc=""/>
-						<PARAM value="34" name="" desc=" CC#53 Midi Controller" customdesc=""/>
-						<PARAM value="35" name="" desc=" CC#54 Midi Controller" customdesc=""/>
-						<PARAM value="36" name="" desc=" CC#55 Midi Controller" customdesc=""/>
-						<PARAM value="37" name="" desc=" CC#56 Midi Controller" customdesc=""/>
-						<PARAM value="38" name="" desc=" CC#57 Midi Controller" customdesc=""/>
-						<PARAM value="39" name="" desc=" CC#58 Midi Controller" customdesc=""/>
-						<PARAM value="3A" name="" desc=" CC#59 Midi Controller" customdesc=""/>
-						<PARAM value="3B" name="" desc=" CC#60 Midi Controller" customdesc=""/>
-						<PARAM value="3C" name="" desc=" CC#61 Midi Controller" customdesc=""/>
-						<PARAM value="3D" name="" desc=" CC#62 Midi Controller" customdesc=""/>
-						<PARAM value="3E" name="" desc=" CC#63 Midi Controller" customdesc=""/>
-						<PARAM value="3F" name="" desc=" CC#64 Midi Controller" customdesc=""/>
-						<PARAM value="40" name="" desc=" CC#65 Midi Controller" customdesc=""/>
-						<PARAM value="41" name="" desc=" CC#66 Midi Controller" customdesc=""/>
-						<PARAM value="42" name="" desc=" CC#67 Midi Controller" customdesc=""/>
-						<PARAM value="43" name="" desc=" CC#68 Midi Controller" customdesc=""/>
-						<PARAM value="44" name="" desc=" CC#69 Midi Controller" customdesc=""/>
-						<PARAM value="45" name="" desc=" CC#70 Midi Controller" customdesc=""/>
-						<PARAM value="46" name="" desc=" CC#71 Midi Controller" customdesc=""/>
-						<PARAM value="47" name="" desc=" CC#72 Midi Controller" customdesc=""/>
-						<PARAM value="48" name="" desc=" CC#73 Midi Controller" customdesc=""/>
-						<PARAM value="49" name="" desc=" CC#74 Midi Controller" customdesc=""/>
-						<PARAM value="4A" name="" desc=" CC#75 Midi Controller" customdesc=""/>
-						<PARAM value="4B" name="" desc=" CC#76 Midi Controller" customdesc=""/>
-						<PARAM value="4C" name="" desc=" CC#77 Midi Controller" customdesc=""/>
-						<PARAM value="4D" name="" desc=" CC#78 Midi Controller" customdesc=""/>
-						<PARAM value="4E" name="" desc=" CC#79 Midi Controller" customdesc=""/>
-						<PARAM value="4F" name="" desc=" CC#80 Midi Controller" customdesc=""/>
-						<PARAM value="50" name="" desc=" CC#81 Midi Controller" customdesc=""/>
-						<PARAM value="51" name="" desc=" CC#82 Midi Controller" customdesc=""/>
-						<PARAM value="52" name="" desc=" CC#83 Midi Controller" customdesc=""/>
-						<PARAM value="53" name="" desc=" CC#84 Midi Controller" customdesc=""/>
-						<PARAM value="54" name="" desc=" CC#85 Midi Controller" customdesc=""/>
-						<PARAM value="55" name="" desc=" CC#86 Midi Controller" customdesc=""/>
-						<PARAM value="56" name="" desc=" CC#87 Midi Controller" customdesc=""/>
-						<PARAM value="57" name="" desc=" CC#88 Midi Controller" customdesc=""/>
-						<PARAM value="58" name="" desc=" CC#89 Midi Controller" customdesc=""/>
-						<PARAM value="59" name="" desc=" CC#90 Midi Controller" customdesc=""/>
-						<PARAM value="5A" name="" desc=" CC#91 Midi Controller" customdesc=""/>
-						<PARAM value="5B" name="" desc=" CC#92 Midi Controller" customdesc=""/>
-						<PARAM value="5C" name="" desc=" CC#93 Midi Controller" customdesc=""/>
-						<PARAM value="5D" name="" desc=" CC#94 Midi Controller" customdesc=""/>
-						<PARAM value="5E" name="" desc=" CC#95 Midi Controller      " customdesc=""/>
+					<Msb value="07" name="Midi" abbr="" desc="Midi " customdesc="CTL Out">
+						<PARAM value="00" name="Off" desc="Off" customdesc=""/>
+						<PARAM value="01" name=" CC#01 Midi Controller" desc=" CC#01 Midi Controller" customdesc=""/>
+						<PARAM value="02" name=" CC#02 Midi Controller" desc=" CC#02 Midi Controller" customdesc=""/>
+						<PARAM value="03" name=" CC#03 Midi Controller" desc=" CC#03 Midi Controller" customdesc=""/>
+						<PARAM value="04" name=" CC#04 Midi Controller" desc=" CC#04 Midi Controller" customdesc=""/>
+						<PARAM value="05" name=" CC#05 Midi Controller" desc=" CC#05 Midi Controller" customdesc=""/>
+						<PARAM value="06" name=" CC#06 Midi Controller" desc=" CC#06 Midi Controller" customdesc=""/>
+						<PARAM value="07" name=" CC#07 Midi Controller" desc=" CC#07 Midi Controller" customdesc=""/>
+						<PARAM value="08" name=" CC#08 Midi Controller" desc=" CC#08 Midi Controller" customdesc=""/>
+						<PARAM value="09" name=" CC#09 Midi Controller" desc=" CC#09 Midi Controller" customdesc=""/>
+						<PARAM value="0A" name=" CC#10 Midi Controller" desc=" CC#10 Midi Controller" customdesc=""/>
+						<PARAM value="0B" name=" CC#11 Midi Controller" desc=" CC#11 Midi Controller" customdesc=""/>
+						<PARAM value="0C" name=" CC#12 Midi Controller" desc=" CC#12 Midi Controller" customdesc=""/>
+						<PARAM value="0D" name=" CC#13 Midi Controller" desc=" CC#13 Midi Controller" customdesc=""/>
+						<PARAM value="0E" name=" CC#14 Midi Controller" desc=" CC#14 Midi Controller" customdesc=""/>
+						<PARAM value="0F" name=" CC#15 Midi Controller" desc=" CC#15 Midi Controller" customdesc=""/>
+						<PARAM value="10" name=" CC#16 Midi Controller" desc=" CC#16 Midi Controller" customdesc=""/>
+						<PARAM value="11" name=" CC#17 Midi Controller" desc=" CC#17 Midi Controller" customdesc=""/>
+						<PARAM value="12" name=" CC#18 Midi Controller" desc=" CC#18 Midi Controller" customdesc=""/>
+						<PARAM value="13" name=" CC#19 Midi Controller" desc=" CC#19 Midi Controller" customdesc=""/>
+						<PARAM value="14" name=" CC#20 Midi Controller" desc=" CC#20 Midi Controller" customdesc=""/>
+						<PARAM value="15" name=" CC#21 Midi Controller" desc=" CC#21 Midi Controller" customdesc=""/>
+						<PARAM value="16" name=" CC#22 Midi Controller" desc=" CC#22 Midi Controller" customdesc=""/>
+						<PARAM value="17" name=" CC#23 Midi Controller" desc=" CC#23 Midi Controller" customdesc=""/>
+						<PARAM value="18" name=" CC#24 Midi Controller" desc=" CC#24 Midi Controller" customdesc=""/>
+						<PARAM value="19" name=" CC#25 Midi Controller" desc=" CC#25 Midi Controller" customdesc=""/>
+						<PARAM value="1A" name=" CC#26 Midi Controller" desc=" CC#26 Midi Controller" customdesc=""/>
+						<PARAM value="1B" name=" CC#27 Midi Controller" desc=" CC#27 Midi Controller" customdesc=""/>
+						<PARAM value="1C" name=" CC#28 Midi Controller" desc=" CC#28 Midi Controller" customdesc=""/>
+						<PARAM value="1D" name=" CC#29 Midi Controller" desc=" CC#29 Midi Controller" customdesc=""/>
+						<PARAM value="1E" name=" CC#30 Midi Controller" desc=" CC#30 Midi Controller" customdesc=""/>
+						<PARAM value="1F" name=" CC#31 Midi Controller" desc=" CC#31 Midi Controller" customdesc=""/>
+						<PARAM value="20" name=" CC#33 Midi Controller" desc=" CC#33 Midi Controller" customdesc=""/>
+						<PARAM value="21" name=" CC#34 Midi Controller" desc=" CC#34 Midi Controller" customdesc=""/>
+						<PARAM value="22" name=" CC#35 Midi Controller" desc=" CC#35 Midi Controller" customdesc=""/>
+						<PARAM value="23" name=" CC#36 Midi Controller" desc=" CC#36 Midi Controller" customdesc=""/>
+						<PARAM value="24" name=" CC#37 Midi Controller" desc=" CC#37 Midi Controller" customdesc=""/>
+						<PARAM value="25" name=" CC#38 Midi Controller" desc=" CC#38 Midi Controller" customdesc=""/>
+						<PARAM value="26" name=" CC#39 Midi Controller" desc=" CC#39 Midi Controller" customdesc=""/>
+						<PARAM value="27" name=" CC#40 Midi Controller" desc=" CC#40 Midi Controller" customdesc=""/>
+						<PARAM value="28" name=" CC#41 Midi Controller" desc=" CC#41 Midi Controller" customdesc=""/>
+						<PARAM value="29" name=" CC#42 Midi Controller" desc=" CC#42 Midi Controller" customdesc=""/>
+						<PARAM value="2A" name=" CC#43 Midi Controller" desc=" CC#43 Midi Controller" customdesc=""/>
+						<PARAM value="2B" name=" CC#44 Midi Controller" desc=" CC#44 Midi Controller" customdesc=""/>
+						<PARAM value="2C" name=" CC#45 Midi Controller" desc=" CC#45 Midi Controller" customdesc=""/>
+						<PARAM value="2D" name=" CC#46 Midi Controller" desc=" CC#46 Midi Controller" customdesc=""/>
+						<PARAM value="2E" name=" CC#47 Midi Controller" desc=" CC#47 Midi Controller" customdesc=""/>
+						<PARAM value="2F" name=" CC#48 Midi Controller" desc=" CC#48 Midi Controller" customdesc=""/>
+						<PARAM value="30" name=" CC#49 Midi Controller" desc=" CC#49 Midi Controller" customdesc=""/>
+						<PARAM value="31" name=" CC#50 Midi Controller" desc=" CC#50 Midi Controller" customdesc=""/>
+						<PARAM value="32" name=" CC#51 Midi Controller" desc=" CC#51 Midi Controller" customdesc=""/>
+						<PARAM value="33" name=" CC#52 Midi Controller" desc=" CC#52 Midi Controller" customdesc=""/>
+						<PARAM value="34" name=" CC#53 Midi Controller" desc=" CC#53 Midi Controller" customdesc=""/>
+						<PARAM value="35" name=" CC#54 Midi Controller" desc=" CC#54 Midi Controller" customdesc=""/>
+						<PARAM value="36" name=" CC#55 Midi Controller" desc=" CC#55 Midi Controller" customdesc=""/>
+						<PARAM value="37" name=" CC#56 Midi Controller" desc=" CC#56 Midi Controller" customdesc=""/>
+						<PARAM value="38" name=" CC#57 Midi Controller" desc=" CC#57 Midi Controller" customdesc=""/>
+						<PARAM value="39" name=" CC#58 Midi Controller" desc=" CC#58 Midi Controller" customdesc=""/>
+						<PARAM value="3A" name=" CC#59 Midi Controller" desc=" CC#59 Midi Controller" customdesc=""/>
+						<PARAM value="3B" name=" CC#60 Midi Controller" desc=" CC#60 Midi Controller" customdesc=""/>
+						<PARAM value="3C" name=" CC#61 Midi Controller" desc=" CC#61 Midi Controller" customdesc=""/>
+						<PARAM value="3D" name=" CC#62 Midi Controller" desc=" CC#62 Midi Controller" customdesc=""/>
+						<PARAM value="3E" name=" CC#63 Midi Controller" desc=" CC#63 Midi Controller" customdesc=""/>
+						<PARAM value="3F" name=" CC#64 Midi Controller" desc=" CC#64 Midi Controller" customdesc=""/>
+						<PARAM value="40" name=" CC#65 Midi Controller" desc=" CC#65 Midi Controller" customdesc=""/>
+						<PARAM value="41" name=" CC#66 Midi Controller" desc=" CC#66 Midi Controller" customdesc=""/>
+						<PARAM value="42" name=" CC#67 Midi Controller" desc=" CC#67 Midi Controller" customdesc=""/>
+						<PARAM value="43" name=" CC#68 Midi Controller" desc=" CC#68 Midi Controller" customdesc=""/>
+						<PARAM value="44" name=" CC#69 Midi Controller" desc=" CC#69 Midi Controller" customdesc=""/>
+						<PARAM value="45" name=" CC#70 Midi Controller" desc=" CC#70 Midi Controller" customdesc=""/>
+						<PARAM value="46" name=" CC#71 Midi Controller" desc=" CC#71 Midi Controller" customdesc=""/>
+						<PARAM value="47" name=" CC#72 Midi Controller" desc=" CC#72 Midi Controller" customdesc=""/>
+						<PARAM value="48" name=" CC#73 Midi Controller" desc=" CC#73 Midi Controller" customdesc=""/>
+						<PARAM value="49" name=" CC#74 Midi Controller" desc=" CC#74 Midi Controller" customdesc=""/>
+						<PARAM value="4A" name=" CC#75 Midi Controller" desc=" CC#75 Midi Controller" customdesc=""/>
+						<PARAM value="4B" name=" CC#76 Midi Controller" desc=" CC#76 Midi Controller" customdesc=""/>
+						<PARAM value="4C" name=" CC#77 Midi Controller" desc=" CC#77 Midi Controller" customdesc=""/>
+						<PARAM value="4D" name=" CC#78 Midi Controller" desc=" CC#78 Midi Controller" customdesc=""/>
+						<PARAM value="4E" name=" CC#79 Midi Controller" desc=" CC#79 Midi Controller" customdesc=""/>
+						<PARAM value="4F" name=" CC#80 Midi Controller" desc=" CC#80 Midi Controller" customdesc=""/>
+						<PARAM value="50" name=" CC#81 Midi Controller" desc=" CC#81 Midi Controller" customdesc=""/>
+						<PARAM value="51" name=" CC#82 Midi Controller" desc=" CC#82 Midi Controller" customdesc=""/>
+						<PARAM value="52" name=" CC#83 Midi Controller" desc=" CC#83 Midi Controller" customdesc=""/>
+						<PARAM value="53" name=" CC#84 Midi Controller" desc=" CC#84 Midi Controller" customdesc=""/>
+						<PARAM value="54" name=" CC#85 Midi Controller" desc=" CC#85 Midi Controller" customdesc=""/>
+						<PARAM value="55" name=" CC#86 Midi Controller" desc=" CC#86 Midi Controller" customdesc=""/>
+						<PARAM value="56" name=" CC#87 Midi Controller" desc=" CC#87 Midi Controller" customdesc=""/>
+						<PARAM value="57" name=" CC#88 Midi Controller" desc=" CC#88 Midi Controller" customdesc=""/>
+						<PARAM value="58" name=" CC#89 Midi Controller" desc=" CC#89 Midi Controller" customdesc=""/>
+						<PARAM value="59" name=" CC#90 Midi Controller" desc=" CC#90 Midi Controller" customdesc=""/>
+						<PARAM value="5A" name=" CC#91 Midi Controller" desc=" CC#91 Midi Controller" customdesc=""/>
+						<PARAM value="5B" name=" CC#92 Midi Controller" desc=" CC#92 Midi Controller" customdesc=""/>
+						<PARAM value="5C" name=" CC#93 Midi Controller" desc=" CC#93 Midi Controller" customdesc=""/>
+						<PARAM value="5D" name=" CC#94 Midi Controller" desc=" CC#94 Midi Controller" customdesc=""/>
+						<PARAM value="5E" name=" CC#95 Midi Controller      " desc=" CC#95 Midi Controller      " customdesc=""/>
 					</Msb>
-					<Msb value="08" name="Midi" abbr="" desc="MIDI SETTING" customdesc="Sub CTL1 Out">
-						<PARAM value="00" name="" desc="Off" customdesc=""/>
-						<PARAM value="01" name="" desc=" CC#01 Midi Controller" customdesc=""/>
-						<PARAM value="02" name="" desc=" CC#02 Midi Controller" customdesc=""/>
-						<PARAM value="03" name="" desc=" CC#03 Midi Controller" customdesc=""/>
-						<PARAM value="04" name="" desc=" CC#04 Midi Controller" customdesc=""/>
-						<PARAM value="05" name="" desc=" CC#05 Midi Controller" customdesc=""/>
-						<PARAM value="06" name="" desc=" CC#06 Midi Controller" customdesc=""/>
-						<PARAM value="07" name="" desc=" CC#07 Midi Controller" customdesc=""/>
-						<PARAM value="08" name="" desc=" CC#08 Midi Controller" customdesc=""/>
-						<PARAM value="09" name="" desc=" CC#09 Midi Controller" customdesc=""/>
-						<PARAM value="0A" name="" desc=" CC#10 Midi Controller" customdesc=""/>
-						<PARAM value="0B" name="" desc=" CC#11 Midi Controller" customdesc=""/>
-						<PARAM value="0C" name="" desc=" CC#12 Midi Controller" customdesc=""/>
-						<PARAM value="0D" name="" desc=" CC#13 Midi Controller" customdesc=""/>
-						<PARAM value="0E" name="" desc=" CC#14 Midi Controller" customdesc=""/>
-						<PARAM value="0F" name="" desc=" CC#15 Midi Controller" customdesc=""/>
-						<PARAM value="10" name="" desc=" CC#16 Midi Controller" customdesc=""/>
-						<PARAM value="11" name="" desc=" CC#17 Midi Controller" customdesc=""/>
-						<PARAM value="12" name="" desc=" CC#18 Midi Controller" customdesc=""/>
-						<PARAM value="13" name="" desc=" CC#19 Midi Controller" customdesc=""/>
-						<PARAM value="14" name="" desc=" CC#20 Midi Controller" customdesc=""/>
-						<PARAM value="15" name="" desc=" CC#21 Midi Controller" customdesc=""/>
-						<PARAM value="16" name="" desc=" CC#22 Midi Controller" customdesc=""/>
-						<PARAM value="17" name="" desc=" CC#23 Midi Controller" customdesc=""/>
-						<PARAM value="18" name="" desc=" CC#24 Midi Controller" customdesc=""/>
-						<PARAM value="19" name="" desc=" CC#25 Midi Controller" customdesc=""/>
-						<PARAM value="1A" name="" desc=" CC#26 Midi Controller" customdesc=""/>
-						<PARAM value="1B" name="" desc=" CC#27 Midi Controller" customdesc=""/>
-						<PARAM value="1C" name="" desc=" CC#28 Midi Controller" customdesc=""/>
-						<PARAM value="1D" name="" desc=" CC#29 Midi Controller" customdesc=""/>
-						<PARAM value="1E" name="" desc=" CC#30 Midi Controller" customdesc=""/>
-						<PARAM value="1F" name="" desc=" CC#31 Midi Controller" customdesc=""/>
-						<PARAM value="20" name="" desc=" CC#33 Midi Controller" customdesc=""/>
-						<PARAM value="21" name="" desc=" CC#34 Midi Controller" customdesc=""/>
-						<PARAM value="22" name="" desc=" CC#35 Midi Controller" customdesc=""/>
-						<PARAM value="23" name="" desc=" CC#36 Midi Controller" customdesc=""/>
-						<PARAM value="24" name="" desc=" CC#37 Midi Controller" customdesc=""/>
-						<PARAM value="25" name="" desc=" CC#38 Midi Controller" customdesc=""/>
-						<PARAM value="26" name="" desc=" CC#39 Midi Controller" customdesc=""/>
-						<PARAM value="27" name="" desc=" CC#40 Midi Controller" customdesc=""/>
-						<PARAM value="28" name="" desc=" CC#41 Midi Controller" customdesc=""/>
-						<PARAM value="29" name="" desc=" CC#42 Midi Controller" customdesc=""/>
-						<PARAM value="2A" name="" desc=" CC#43 Midi Controller" customdesc=""/>
-						<PARAM value="2B" name="" desc=" CC#44 Midi Controller" customdesc=""/>
-						<PARAM value="2C" name="" desc=" CC#45 Midi Controller" customdesc=""/>
-						<PARAM value="2D" name="" desc=" CC#46 Midi Controller" customdesc=""/>
-						<PARAM value="2E" name="" desc=" CC#47 Midi Controller" customdesc=""/>
-						<PARAM value="2F" name="" desc=" CC#48 Midi Controller" customdesc=""/>
-						<PARAM value="30" name="" desc=" CC#49 Midi Controller" customdesc=""/>
-						<PARAM value="31" name="" desc=" CC#50 Midi Controller" customdesc=""/>
-						<PARAM value="32" name="" desc=" CC#51 Midi Controller" customdesc=""/>
-						<PARAM value="33" name="" desc=" CC#52 Midi Controller" customdesc=""/>
-						<PARAM value="34" name="" desc=" CC#53 Midi Controller" customdesc=""/>
-						<PARAM value="35" name="" desc=" CC#54 Midi Controller" customdesc=""/>
-						<PARAM value="36" name="" desc=" CC#55 Midi Controller" customdesc=""/>
-						<PARAM value="37" name="" desc=" CC#56 Midi Controller" customdesc=""/>
-						<PARAM value="38" name="" desc=" CC#57 Midi Controller" customdesc=""/>
-						<PARAM value="39" name="" desc=" CC#58 Midi Controller" customdesc=""/>
-						<PARAM value="3A" name="" desc=" CC#59 Midi Controller" customdesc=""/>
-						<PARAM value="3B" name="" desc=" CC#60 Midi Controller" customdesc=""/>
-						<PARAM value="3C" name="" desc=" CC#61 Midi Controller" customdesc=""/>
-						<PARAM value="3D" name="" desc=" CC#62 Midi Controller" customdesc=""/>
-						<PARAM value="3E" name="" desc=" CC#63 Midi Controller" customdesc=""/>
-						<PARAM value="3F" name="" desc=" CC#64 Midi Controller" customdesc=""/>
-						<PARAM value="40" name="" desc=" CC#65 Midi Controller" customdesc=""/>
-						<PARAM value="41" name="" desc=" CC#66 Midi Controller" customdesc=""/>
-						<PARAM value="42" name="" desc=" CC#67 Midi Controller" customdesc=""/>
-						<PARAM value="43" name="" desc=" CC#68 Midi Controller" customdesc=""/>
-						<PARAM value="44" name="" desc=" CC#69 Midi Controller" customdesc=""/>
-						<PARAM value="45" name="" desc=" CC#70 Midi Controller" customdesc=""/>
-						<PARAM value="46" name="" desc=" CC#71 Midi Controller" customdesc=""/>
-						<PARAM value="47" name="" desc=" CC#72 Midi Controller" customdesc=""/>
-						<PARAM value="48" name="" desc=" CC#73 Midi Controller" customdesc=""/>
-						<PARAM value="49" name="" desc=" CC#74 Midi Controller" customdesc=""/>
-						<PARAM value="4A" name="" desc=" CC#75 Midi Controller" customdesc=""/>
-						<PARAM value="4B" name="" desc=" CC#76 Midi Controller" customdesc=""/>
-						<PARAM value="4C" name="" desc=" CC#77 Midi Controller" customdesc=""/>
-						<PARAM value="4D" name="" desc=" CC#78 Midi Controller" customdesc=""/>
-						<PARAM value="4E" name="" desc=" CC#79 Midi Controller" customdesc=""/>
-						<PARAM value="4F" name="" desc=" CC#80 Midi Controller" customdesc=""/>
-						<PARAM value="50" name="" desc=" CC#81 Midi Controller" customdesc=""/>
-						<PARAM value="51" name="" desc=" CC#82 Midi Controller" customdesc=""/>
-						<PARAM value="52" name="" desc=" CC#83 Midi Controller" customdesc=""/>
-						<PARAM value="53" name="" desc=" CC#84 Midi Controller" customdesc=""/>
-						<PARAM value="54" name="" desc=" CC#85 Midi Controller" customdesc=""/>
-						<PARAM value="55" name="" desc=" CC#86 Midi Controller" customdesc=""/>
-						<PARAM value="56" name="" desc=" CC#87 Midi Controller" customdesc=""/>
-						<PARAM value="57" name="" desc=" CC#88 Midi Controller" customdesc=""/>
-						<PARAM value="58" name="" desc=" CC#89 Midi Controller" customdesc=""/>
-						<PARAM value="59" name="" desc=" CC#90 Midi Controller" customdesc=""/>
-						<PARAM value="5A" name="" desc=" CC#91 Midi Controller" customdesc=""/>
-						<PARAM value="5B" name="" desc=" CC#92 Midi Controller" customdesc=""/>
-						<PARAM value="5C" name="" desc=" CC#93 Midi Controller" customdesc=""/>
-						<PARAM value="5D" name="" desc=" CC#94 Midi Controller" customdesc=""/>
-						<PARAM value="5E" name="" desc=" CC#95 Midi Controller      " customdesc=""/>
+					<Msb value="08" name="Midi" abbr="" desc="Midi " customdesc="Sub CTL1 Out">
+						<PARAM value="00" name="Off" desc="Off" customdesc=""/>
+						<PARAM value="01" name=" CC#01 Midi Controller" desc=" CC#01 Midi Controller" customdesc=""/>
+						<PARAM value="02" name=" CC#02 Midi Controller" desc=" CC#02 Midi Controller" customdesc=""/>
+						<PARAM value="03" name=" CC#03 Midi Controller" desc=" CC#03 Midi Controller" customdesc=""/>
+						<PARAM value="04" name=" CC#04 Midi Controller" desc=" CC#04 Midi Controller" customdesc=""/>
+						<PARAM value="05" name=" CC#05 Midi Controller" desc=" CC#05 Midi Controller" customdesc=""/>
+						<PARAM value="06" name=" CC#06 Midi Controller" desc=" CC#06 Midi Controller" customdesc=""/>
+						<PARAM value="07" name=" CC#07 Midi Controller" desc=" CC#07 Midi Controller" customdesc=""/>
+						<PARAM value="08" name=" CC#08 Midi Controller" desc=" CC#08 Midi Controller" customdesc=""/>
+						<PARAM value="09" name=" CC#09 Midi Controller" desc=" CC#09 Midi Controller" customdesc=""/>
+						<PARAM value="0A" name=" CC#10 Midi Controller" desc=" CC#10 Midi Controller" customdesc=""/>
+						<PARAM value="0B" name=" CC#11 Midi Controller" desc=" CC#11 Midi Controller" customdesc=""/>
+						<PARAM value="0C" name=" CC#12 Midi Controller" desc=" CC#12 Midi Controller" customdesc=""/>
+						<PARAM value="0D" name=" CC#13 Midi Controller" desc=" CC#13 Midi Controller" customdesc=""/>
+						<PARAM value="0E" name=" CC#14 Midi Controller" desc=" CC#14 Midi Controller" customdesc=""/>
+						<PARAM value="0F" name=" CC#15 Midi Controller" desc=" CC#15 Midi Controller" customdesc=""/>
+						<PARAM value="10" name=" CC#16 Midi Controller" desc=" CC#16 Midi Controller" customdesc=""/>
+						<PARAM value="11" name=" CC#17 Midi Controller" desc=" CC#17 Midi Controller" customdesc=""/>
+						<PARAM value="12" name=" CC#18 Midi Controller" desc=" CC#18 Midi Controller" customdesc=""/>
+						<PARAM value="13" name=" CC#19 Midi Controller" desc=" CC#19 Midi Controller" customdesc=""/>
+						<PARAM value="14" name=" CC#20 Midi Controller" desc=" CC#20 Midi Controller" customdesc=""/>
+						<PARAM value="15" name=" CC#21 Midi Controller" desc=" CC#21 Midi Controller" customdesc=""/>
+						<PARAM value="16" name=" CC#22 Midi Controller" desc=" CC#22 Midi Controller" customdesc=""/>
+						<PARAM value="17" name=" CC#23 Midi Controller" desc=" CC#23 Midi Controller" customdesc=""/>
+						<PARAM value="18" name=" CC#24 Midi Controller" desc=" CC#24 Midi Controller" customdesc=""/>
+						<PARAM value="19" name=" CC#25 Midi Controller" desc=" CC#25 Midi Controller" customdesc=""/>
+						<PARAM value="1A" name=" CC#26 Midi Controller" desc=" CC#26 Midi Controller" customdesc=""/>
+						<PARAM value="1B" name=" CC#27 Midi Controller" desc=" CC#27 Midi Controller" customdesc=""/>
+						<PARAM value="1C" name=" CC#28 Midi Controller" desc=" CC#28 Midi Controller" customdesc=""/>
+						<PARAM value="1D" name=" CC#29 Midi Controller" desc=" CC#29 Midi Controller" customdesc=""/>
+						<PARAM value="1E" name=" CC#30 Midi Controller" desc=" CC#30 Midi Controller" customdesc=""/>
+						<PARAM value="1F" name=" CC#31 Midi Controller" desc=" CC#31 Midi Controller" customdesc=""/>
+						<PARAM value="20" name=" CC#33 Midi Controller" desc=" CC#33 Midi Controller" customdesc=""/>
+						<PARAM value="21" name=" CC#34 Midi Controller" desc=" CC#34 Midi Controller" customdesc=""/>
+						<PARAM value="22" name=" CC#35 Midi Controller" desc=" CC#35 Midi Controller" customdesc=""/>
+						<PARAM value="23" name=" CC#36 Midi Controller" desc=" CC#36 Midi Controller" customdesc=""/>
+						<PARAM value="24" name=" CC#37 Midi Controller" desc=" CC#37 Midi Controller" customdesc=""/>
+						<PARAM value="25" name=" CC#38 Midi Controller" desc=" CC#38 Midi Controller" customdesc=""/>
+						<PARAM value="26" name=" CC#39 Midi Controller" desc=" CC#39 Midi Controller" customdesc=""/>
+						<PARAM value="27" name=" CC#40 Midi Controller" desc=" CC#40 Midi Controller" customdesc=""/>
+						<PARAM value="28" name=" CC#41 Midi Controller" desc=" CC#41 Midi Controller" customdesc=""/>
+						<PARAM value="29" name=" CC#42 Midi Controller" desc=" CC#42 Midi Controller" customdesc=""/>
+						<PARAM value="2A" name=" CC#43 Midi Controller" desc=" CC#43 Midi Controller" customdesc=""/>
+						<PARAM value="2B" name=" CC#44 Midi Controller" desc=" CC#44 Midi Controller" customdesc=""/>
+						<PARAM value="2C" name=" CC#45 Midi Controller" desc=" CC#45 Midi Controller" customdesc=""/>
+						<PARAM value="2D" name=" CC#46 Midi Controller" desc=" CC#46 Midi Controller" customdesc=""/>
+						<PARAM value="2E" name=" CC#47 Midi Controller" desc=" CC#47 Midi Controller" customdesc=""/>
+						<PARAM value="2F" name=" CC#48 Midi Controller" desc=" CC#48 Midi Controller" customdesc=""/>
+						<PARAM value="30" name=" CC#49 Midi Controller" desc=" CC#49 Midi Controller" customdesc=""/>
+						<PARAM value="31" name=" CC#50 Midi Controller" desc=" CC#50 Midi Controller" customdesc=""/>
+						<PARAM value="32" name=" CC#51 Midi Controller" desc=" CC#51 Midi Controller" customdesc=""/>
+						<PARAM value="33" name=" CC#52 Midi Controller" desc=" CC#52 Midi Controller" customdesc=""/>
+						<PARAM value="34" name=" CC#53 Midi Controller" desc=" CC#53 Midi Controller" customdesc=""/>
+						<PARAM value="35" name=" CC#54 Midi Controller" desc=" CC#54 Midi Controller" customdesc=""/>
+						<PARAM value="36" name=" CC#55 Midi Controller" desc=" CC#55 Midi Controller" customdesc=""/>
+						<PARAM value="37" name=" CC#56 Midi Controller" desc=" CC#56 Midi Controller" customdesc=""/>
+						<PARAM value="38" name=" CC#57 Midi Controller" desc=" CC#57 Midi Controller" customdesc=""/>
+						<PARAM value="39" name=" CC#58 Midi Controller" desc=" CC#58 Midi Controller" customdesc=""/>
+						<PARAM value="3A" name=" CC#59 Midi Controller" desc=" CC#59 Midi Controller" customdesc=""/>
+						<PARAM value="3B" name=" CC#60 Midi Controller" desc=" CC#60 Midi Controller" customdesc=""/>
+						<PARAM value="3C" name=" CC#61 Midi Controller" desc=" CC#61 Midi Controller" customdesc=""/>
+						<PARAM value="3D" name=" CC#62 Midi Controller" desc=" CC#62 Midi Controller" customdesc=""/>
+						<PARAM value="3E" name=" CC#63 Midi Controller" desc=" CC#63 Midi Controller" customdesc=""/>
+						<PARAM value="3F" name=" CC#64 Midi Controller" desc=" CC#64 Midi Controller" customdesc=""/>
+						<PARAM value="40" name=" CC#65 Midi Controller" desc=" CC#65 Midi Controller" customdesc=""/>
+						<PARAM value="41" name=" CC#66 Midi Controller" desc=" CC#66 Midi Controller" customdesc=""/>
+						<PARAM value="42" name=" CC#67 Midi Controller" desc=" CC#67 Midi Controller" customdesc=""/>
+						<PARAM value="43" name=" CC#68 Midi Controller" desc=" CC#68 Midi Controller" customdesc=""/>
+						<PARAM value="44" name=" CC#69 Midi Controller" desc=" CC#69 Midi Controller" customdesc=""/>
+						<PARAM value="45" name=" CC#70 Midi Controller" desc=" CC#70 Midi Controller" customdesc=""/>
+						<PARAM value="46" name=" CC#71 Midi Controller" desc=" CC#71 Midi Controller" customdesc=""/>
+						<PARAM value="47" name=" CC#72 Midi Controller" desc=" CC#72 Midi Controller" customdesc=""/>
+						<PARAM value="48" name=" CC#73 Midi Controller" desc=" CC#73 Midi Controller" customdesc=""/>
+						<PARAM value="49" name=" CC#74 Midi Controller" desc=" CC#74 Midi Controller" customdesc=""/>
+						<PARAM value="4A" name=" CC#75 Midi Controller" desc=" CC#75 Midi Controller" customdesc=""/>
+						<PARAM value="4B" name=" CC#76 Midi Controller" desc=" CC#76 Midi Controller" customdesc=""/>
+						<PARAM value="4C" name=" CC#77 Midi Controller" desc=" CC#77 Midi Controller" customdesc=""/>
+						<PARAM value="4D" name=" CC#78 Midi Controller" desc=" CC#78 Midi Controller" customdesc=""/>
+						<PARAM value="4E" name=" CC#79 Midi Controller" desc=" CC#79 Midi Controller" customdesc=""/>
+						<PARAM value="4F" name=" CC#80 Midi Controller" desc=" CC#80 Midi Controller" customdesc=""/>
+						<PARAM value="50" name=" CC#81 Midi Controller" desc=" CC#81 Midi Controller" customdesc=""/>
+						<PARAM value="51" name=" CC#82 Midi Controller" desc=" CC#82 Midi Controller" customdesc=""/>
+						<PARAM value="52" name=" CC#83 Midi Controller" desc=" CC#83 Midi Controller" customdesc=""/>
+						<PARAM value="53" name=" CC#84 Midi Controller" desc=" CC#84 Midi Controller" customdesc=""/>
+						<PARAM value="54" name=" CC#85 Midi Controller" desc=" CC#85 Midi Controller" customdesc=""/>
+						<PARAM value="55" name=" CC#86 Midi Controller" desc=" CC#86 Midi Controller" customdesc=""/>
+						<PARAM value="56" name=" CC#87 Midi Controller" desc=" CC#87 Midi Controller" customdesc=""/>
+						<PARAM value="57" name=" CC#88 Midi Controller" desc=" CC#88 Midi Controller" customdesc=""/>
+						<PARAM value="58" name=" CC#89 Midi Controller" desc=" CC#89 Midi Controller" customdesc=""/>
+						<PARAM value="59" name=" CC#90 Midi Controller" desc=" CC#90 Midi Controller" customdesc=""/>
+						<PARAM value="5A" name=" CC#91 Midi Controller" desc=" CC#91 Midi Controller" customdesc=""/>
+						<PARAM value="5B" name=" CC#92 Midi Controller" desc=" CC#92 Midi Controller" customdesc=""/>
+						<PARAM value="5C" name=" CC#93 Midi Controller" desc=" CC#93 Midi Controller" customdesc=""/>
+						<PARAM value="5D" name=" CC#94 Midi Controller" desc=" CC#94 Midi Controller" customdesc=""/>
+						<PARAM value="5E" name=" CC#95 Midi Controller      " desc=" CC#95 Midi Controller      " customdesc=""/>
 					</Msb>
-					<Msb value="09" name="Midi" abbr="" desc="MIDI SETTING" customdesc="Sub CTL2 Out">
-						<PARAM value="00" name="" desc="Off" customdesc=""/>
-						<PARAM value="01" name="" desc=" CC#01 Midi Controller" customdesc=""/>
-						<PARAM value="02" name="" desc=" CC#02 Midi Controller" customdesc=""/>
-						<PARAM value="03" name="" desc=" CC#03 Midi Controller" customdesc=""/>
-						<PARAM value="04" name="" desc=" CC#04 Midi Controller" customdesc=""/>
-						<PARAM value="05" name="" desc=" CC#05 Midi Controller" customdesc=""/>
-						<PARAM value="06" name="" desc=" CC#06 Midi Controller" customdesc=""/>
-						<PARAM value="07" name="" desc=" CC#07 Midi Controller" customdesc=""/>
-						<PARAM value="08" name="" desc=" CC#08 Midi Controller" customdesc=""/>
-						<PARAM value="09" name="" desc=" CC#09 Midi Controller" customdesc=""/>
-						<PARAM value="0A" name="" desc=" CC#10 Midi Controller" customdesc=""/>
-						<PARAM value="0B" name="" desc=" CC#11 Midi Controller" customdesc=""/>
-						<PARAM value="0C" name="" desc=" CC#12 Midi Controller" customdesc=""/>
-						<PARAM value="0D" name="" desc=" CC#13 Midi Controller" customdesc=""/>
-						<PARAM value="0E" name="" desc=" CC#14 Midi Controller" customdesc=""/>
-						<PARAM value="0F" name="" desc=" CC#15 Midi Controller" customdesc=""/>
-						<PARAM value="10" name="" desc=" CC#16 Midi Controller" customdesc=""/>
-						<PARAM value="11" name="" desc=" CC#17 Midi Controller" customdesc=""/>
-						<PARAM value="12" name="" desc=" CC#18 Midi Controller" customdesc=""/>
-						<PARAM value="13" name="" desc=" CC#19 Midi Controller" customdesc=""/>
-						<PARAM value="14" name="" desc=" CC#20 Midi Controller" customdesc=""/>
-						<PARAM value="15" name="" desc=" CC#21 Midi Controller" customdesc=""/>
-						<PARAM value="16" name="" desc=" CC#22 Midi Controller" customdesc=""/>
-						<PARAM value="17" name="" desc=" CC#23 Midi Controller" customdesc=""/>
-						<PARAM value="18" name="" desc=" CC#24 Midi Controller" customdesc=""/>
-						<PARAM value="19" name="" desc=" CC#25 Midi Controller" customdesc=""/>
-						<PARAM value="1A" name="" desc=" CC#26 Midi Controller" customdesc=""/>
-						<PARAM value="1B" name="" desc=" CC#27 Midi Controller" customdesc=""/>
-						<PARAM value="1C" name="" desc=" CC#28 Midi Controller" customdesc=""/>
-						<PARAM value="1D" name="" desc=" CC#29 Midi Controller" customdesc=""/>
-						<PARAM value="1E" name="" desc=" CC#30 Midi Controller" customdesc=""/>
-						<PARAM value="1F" name="" desc=" CC#31 Midi Controller" customdesc=""/>
-						<PARAM value="20" name="" desc=" CC#33 Midi Controller" customdesc=""/>
-						<PARAM value="21" name="" desc=" CC#34 Midi Controller" customdesc=""/>
-						<PARAM value="22" name="" desc=" CC#35 Midi Controller" customdesc=""/>
-						<PARAM value="23" name="" desc=" CC#36 Midi Controller" customdesc=""/>
-						<PARAM value="24" name="" desc=" CC#37 Midi Controller" customdesc=""/>
-						<PARAM value="25" name="" desc=" CC#38 Midi Controller" customdesc=""/>
-						<PARAM value="26" name="" desc=" CC#39 Midi Controller" customdesc=""/>
-						<PARAM value="27" name="" desc=" CC#40 Midi Controller" customdesc=""/>
-						<PARAM value="28" name="" desc=" CC#41 Midi Controller" customdesc=""/>
-						<PARAM value="29" name="" desc=" CC#42 Midi Controller" customdesc=""/>
-						<PARAM value="2A" name="" desc=" CC#43 Midi Controller" customdesc=""/>
-						<PARAM value="2B" name="" desc=" CC#44 Midi Controller" customdesc=""/>
-						<PARAM value="2C" name="" desc=" CC#45 Midi Controller" customdesc=""/>
-						<PARAM value="2D" name="" desc=" CC#46 Midi Controller" customdesc=""/>
-						<PARAM value="2E" name="" desc=" CC#47 Midi Controller" customdesc=""/>
-						<PARAM value="2F" name="" desc=" CC#48 Midi Controller" customdesc=""/>
-						<PARAM value="30" name="" desc=" CC#49 Midi Controller" customdesc=""/>
-						<PARAM value="31" name="" desc=" CC#50 Midi Controller" customdesc=""/>
-						<PARAM value="32" name="" desc=" CC#51 Midi Controller" customdesc=""/>
-						<PARAM value="33" name="" desc=" CC#52 Midi Controller" customdesc=""/>
-						<PARAM value="34" name="" desc=" CC#53 Midi Controller" customdesc=""/>
-						<PARAM value="35" name="" desc=" CC#54 Midi Controller" customdesc=""/>
-						<PARAM value="36" name="" desc=" CC#55 Midi Controller" customdesc=""/>
-						<PARAM value="37" name="" desc=" CC#56 Midi Controller" customdesc=""/>
-						<PARAM value="38" name="" desc=" CC#57 Midi Controller" customdesc=""/>
-						<PARAM value="39" name="" desc=" CC#58 Midi Controller" customdesc=""/>
-						<PARAM value="3A" name="" desc=" CC#59 Midi Controller" customdesc=""/>
-						<PARAM value="3B" name="" desc=" CC#60 Midi Controller" customdesc=""/>
-						<PARAM value="3C" name="" desc=" CC#61 Midi Controller" customdesc=""/>
-						<PARAM value="3D" name="" desc=" CC#62 Midi Controller" customdesc=""/>
-						<PARAM value="3E" name="" desc=" CC#63 Midi Controller" customdesc=""/>
-						<PARAM value="3F" name="" desc=" CC#64 Midi Controller" customdesc=""/>
-						<PARAM value="40" name="" desc=" CC#65 Midi Controller" customdesc=""/>
-						<PARAM value="41" name="" desc=" CC#66 Midi Controller" customdesc=""/>
-						<PARAM value="42" name="" desc=" CC#67 Midi Controller" customdesc=""/>
-						<PARAM value="43" name="" desc=" CC#68 Midi Controller" customdesc=""/>
-						<PARAM value="44" name="" desc=" CC#69 Midi Controller" customdesc=""/>
-						<PARAM value="45" name="" desc=" CC#70 Midi Controller" customdesc=""/>
-						<PARAM value="46" name="" desc=" CC#71 Midi Controller" customdesc=""/>
-						<PARAM value="47" name="" desc=" CC#72 Midi Controller" customdesc=""/>
-						<PARAM value="48" name="" desc=" CC#73 Midi Controller" customdesc=""/>
-						<PARAM value="49" name="" desc=" CC#74 Midi Controller" customdesc=""/>
-						<PARAM value="4A" name="" desc=" CC#75 Midi Controller" customdesc=""/>
-						<PARAM value="4B" name="" desc=" CC#76 Midi Controller" customdesc=""/>
-						<PARAM value="4C" name="" desc=" CC#77 Midi Controller" customdesc=""/>
-						<PARAM value="4D" name="" desc=" CC#78 Midi Controller" customdesc=""/>
-						<PARAM value="4E" name="" desc=" CC#79 Midi Controller" customdesc=""/>
-						<PARAM value="4F" name="" desc=" CC#80 Midi Controller" customdesc=""/>
-						<PARAM value="50" name="" desc=" CC#81 Midi Controller" customdesc=""/>
-						<PARAM value="51" name="" desc=" CC#82 Midi Controller" customdesc=""/>
-						<PARAM value="52" name="" desc=" CC#83 Midi Controller" customdesc=""/>
-						<PARAM value="53" name="" desc=" CC#84 Midi Controller" customdesc=""/>
-						<PARAM value="54" name="" desc=" CC#85 Midi Controller" customdesc=""/>
-						<PARAM value="55" name="" desc=" CC#86 Midi Controller" customdesc=""/>
-						<PARAM value="56" name="" desc=" CC#87 Midi Controller" customdesc=""/>
-						<PARAM value="57" name="" desc=" CC#88 Midi Controller" customdesc=""/>
-						<PARAM value="58" name="" desc=" CC#89 Midi Controller" customdesc=""/>
-						<PARAM value="59" name="" desc=" CC#90 Midi Controller" customdesc=""/>
-						<PARAM value="5A" name="" desc=" CC#91 Midi Controller" customdesc=""/>
-						<PARAM value="5B" name="" desc=" CC#92 Midi Controller" customdesc=""/>
-						<PARAM value="5C" name="" desc=" CC#93 Midi Controller" customdesc=""/>
-						<PARAM value="5D" name="" desc=" CC#94 Midi Controller" customdesc=""/>
-						<PARAM value="5E" name="" desc=" CC#95 Midi Controller      " customdesc=""/>
+					<Msb value="09" name="Midi" abbr="" desc="Midi " customdesc="Sub CTL2 Out">
+						<PARAM value="00" name="Off" desc="Off" customdesc=""/>
+						<PARAM value="01" name=" CC#01 Midi Controller" desc=" CC#01 Midi Controller" customdesc=""/>
+						<PARAM value="02" name=" CC#02 Midi Controller" desc=" CC#02 Midi Controller" customdesc=""/>
+						<PARAM value="03" name=" CC#03 Midi Controller" desc=" CC#03 Midi Controller" customdesc=""/>
+						<PARAM value="04" name=" CC#04 Midi Controller" desc=" CC#04 Midi Controller" customdesc=""/>
+						<PARAM value="05" name=" CC#05 Midi Controller" desc=" CC#05 Midi Controller" customdesc=""/>
+						<PARAM value="06" name=" CC#06 Midi Controller" desc=" CC#06 Midi Controller" customdesc=""/>
+						<PARAM value="07" name=" CC#07 Midi Controller" desc=" CC#07 Midi Controller" customdesc=""/>
+						<PARAM value="08" name=" CC#08 Midi Controller" desc=" CC#08 Midi Controller" customdesc=""/>
+						<PARAM value="09" name=" CC#09 Midi Controller" desc=" CC#09 Midi Controller" customdesc=""/>
+						<PARAM value="0A" name=" CC#10 Midi Controller" desc=" CC#10 Midi Controller" customdesc=""/>
+						<PARAM value="0B" name=" CC#11 Midi Controller" desc=" CC#11 Midi Controller" customdesc=""/>
+						<PARAM value="0C" name=" CC#12 Midi Controller" desc=" CC#12 Midi Controller" customdesc=""/>
+						<PARAM value="0D" name=" CC#13 Midi Controller" desc=" CC#13 Midi Controller" customdesc=""/>
+						<PARAM value="0E" name=" CC#14 Midi Controller" desc=" CC#14 Midi Controller" customdesc=""/>
+						<PARAM value="0F" name=" CC#15 Midi Controller" desc=" CC#15 Midi Controller" customdesc=""/>
+						<PARAM value="10" name=" CC#16 Midi Controller" desc=" CC#16 Midi Controller" customdesc=""/>
+						<PARAM value="11" name=" CC#17 Midi Controller" desc=" CC#17 Midi Controller" customdesc=""/>
+						<PARAM value="12" name=" CC#18 Midi Controller" desc=" CC#18 Midi Controller" customdesc=""/>
+						<PARAM value="13" name=" CC#19 Midi Controller" desc=" CC#19 Midi Controller" customdesc=""/>
+						<PARAM value="14" name=" CC#20 Midi Controller" desc=" CC#20 Midi Controller" customdesc=""/>
+						<PARAM value="15" name=" CC#21 Midi Controller" desc=" CC#21 Midi Controller" customdesc=""/>
+						<PARAM value="16" name=" CC#22 Midi Controller" desc=" CC#22 Midi Controller" customdesc=""/>
+						<PARAM value="17" name=" CC#23 Midi Controller" desc=" CC#23 Midi Controller" customdesc=""/>
+						<PARAM value="18" name=" CC#24 Midi Controller" desc=" CC#24 Midi Controller" customdesc=""/>
+						<PARAM value="19" name=" CC#25 Midi Controller" desc=" CC#25 Midi Controller" customdesc=""/>
+						<PARAM value="1A" name=" CC#26 Midi Controller" desc=" CC#26 Midi Controller" customdesc=""/>
+						<PARAM value="1B" name=" CC#27 Midi Controller" desc=" CC#27 Midi Controller" customdesc=""/>
+						<PARAM value="1C" name=" CC#28 Midi Controller" desc=" CC#28 Midi Controller" customdesc=""/>
+						<PARAM value="1D" name=" CC#29 Midi Controller" desc=" CC#29 Midi Controller" customdesc=""/>
+						<PARAM value="1E" name=" CC#30 Midi Controller" desc=" CC#30 Midi Controller" customdesc=""/>
+						<PARAM value="1F" name=" CC#31 Midi Controller" desc=" CC#31 Midi Controller" customdesc=""/>
+						<PARAM value="20" name=" CC#33 Midi Controller" desc=" CC#33 Midi Controller" customdesc=""/>
+						<PARAM value="21" name=" CC#34 Midi Controller" desc=" CC#34 Midi Controller" customdesc=""/>
+						<PARAM value="22" name=" CC#35 Midi Controller" desc=" CC#35 Midi Controller" customdesc=""/>
+						<PARAM value="23" name=" CC#36 Midi Controller" desc=" CC#36 Midi Controller" customdesc=""/>
+						<PARAM value="24" name=" CC#37 Midi Controller" desc=" CC#37 Midi Controller" customdesc=""/>
+						<PARAM value="25" name=" CC#38 Midi Controller" desc=" CC#38 Midi Controller" customdesc=""/>
+						<PARAM value="26" name=" CC#39 Midi Controller" desc=" CC#39 Midi Controller" customdesc=""/>
+						<PARAM value="27" name=" CC#40 Midi Controller" desc=" CC#40 Midi Controller" customdesc=""/>
+						<PARAM value="28" name=" CC#41 Midi Controller" desc=" CC#41 Midi Controller" customdesc=""/>
+						<PARAM value="29" name=" CC#42 Midi Controller" desc=" CC#42 Midi Controller" customdesc=""/>
+						<PARAM value="2A" name=" CC#43 Midi Controller" desc=" CC#43 Midi Controller" customdesc=""/>
+						<PARAM value="2B" name=" CC#44 Midi Controller" desc=" CC#44 Midi Controller" customdesc=""/>
+						<PARAM value="2C" name=" CC#45 Midi Controller" desc=" CC#45 Midi Controller" customdesc=""/>
+						<PARAM value="2D" name=" CC#46 Midi Controller" desc=" CC#46 Midi Controller" customdesc=""/>
+						<PARAM value="2E" name=" CC#47 Midi Controller" desc=" CC#47 Midi Controller" customdesc=""/>
+						<PARAM value="2F" name=" CC#48 Midi Controller" desc=" CC#48 Midi Controller" customdesc=""/>
+						<PARAM value="30" name=" CC#49 Midi Controller" desc=" CC#49 Midi Controller" customdesc=""/>
+						<PARAM value="31" name=" CC#50 Midi Controller" desc=" CC#50 Midi Controller" customdesc=""/>
+						<PARAM value="32" name=" CC#51 Midi Controller" desc=" CC#51 Midi Controller" customdesc=""/>
+						<PARAM value="33" name=" CC#52 Midi Controller" desc=" CC#52 Midi Controller" customdesc=""/>
+						<PARAM value="34" name=" CC#53 Midi Controller" desc=" CC#53 Midi Controller" customdesc=""/>
+						<PARAM value="35" name=" CC#54 Midi Controller" desc=" CC#54 Midi Controller" customdesc=""/>
+						<PARAM value="36" name=" CC#55 Midi Controller" desc=" CC#55 Midi Controller" customdesc=""/>
+						<PARAM value="37" name=" CC#56 Midi Controller" desc=" CC#56 Midi Controller" customdesc=""/>
+						<PARAM value="38" name=" CC#57 Midi Controller" desc=" CC#57 Midi Controller" customdesc=""/>
+						<PARAM value="39" name=" CC#58 Midi Controller" desc=" CC#58 Midi Controller" customdesc=""/>
+						<PARAM value="3A" name=" CC#59 Midi Controller" desc=" CC#59 Midi Controller" customdesc=""/>
+						<PARAM value="3B" name=" CC#60 Midi Controller" desc=" CC#60 Midi Controller" customdesc=""/>
+						<PARAM value="3C" name=" CC#61 Midi Controller" desc=" CC#61 Midi Controller" customdesc=""/>
+						<PARAM value="3D" name=" CC#62 Midi Controller" desc=" CC#62 Midi Controller" customdesc=""/>
+						<PARAM value="3E" name=" CC#63 Midi Controller" desc=" CC#63 Midi Controller" customdesc=""/>
+						<PARAM value="3F" name=" CC#64 Midi Controller" desc=" CC#64 Midi Controller" customdesc=""/>
+						<PARAM value="40" name=" CC#65 Midi Controller" desc=" CC#65 Midi Controller" customdesc=""/>
+						<PARAM value="41" name=" CC#66 Midi Controller" desc=" CC#66 Midi Controller" customdesc=""/>
+						<PARAM value="42" name=" CC#67 Midi Controller" desc=" CC#67 Midi Controller" customdesc=""/>
+						<PARAM value="43" name=" CC#68 Midi Controller" desc=" CC#68 Midi Controller" customdesc=""/>
+						<PARAM value="44" name=" CC#69 Midi Controller" desc=" CC#69 Midi Controller" customdesc=""/>
+						<PARAM value="45" name=" CC#70 Midi Controller" desc=" CC#70 Midi Controller" customdesc=""/>
+						<PARAM value="46" name=" CC#71 Midi Controller" desc=" CC#71 Midi Controller" customdesc=""/>
+						<PARAM value="47" name=" CC#72 Midi Controller" desc=" CC#72 Midi Controller" customdesc=""/>
+						<PARAM value="48" name=" CC#73 Midi Controller" desc=" CC#73 Midi Controller" customdesc=""/>
+						<PARAM value="49" name=" CC#74 Midi Controller" desc=" CC#74 Midi Controller" customdesc=""/>
+						<PARAM value="4A" name=" CC#75 Midi Controller" desc=" CC#75 Midi Controller" customdesc=""/>
+						<PARAM value="4B" name=" CC#76 Midi Controller" desc=" CC#76 Midi Controller" customdesc=""/>
+						<PARAM value="4C" name=" CC#77 Midi Controller" desc=" CC#77 Midi Controller" customdesc=""/>
+						<PARAM value="4D" name=" CC#78 Midi Controller" desc=" CC#78 Midi Controller" customdesc=""/>
+						<PARAM value="4E" name=" CC#79 Midi Controller" desc=" CC#79 Midi Controller" customdesc=""/>
+						<PARAM value="4F" name=" CC#80 Midi Controller" desc=" CC#80 Midi Controller" customdesc=""/>
+						<PARAM value="50" name=" CC#81 Midi Controller" desc=" CC#81 Midi Controller" customdesc=""/>
+						<PARAM value="51" name=" CC#82 Midi Controller" desc=" CC#82 Midi Controller" customdesc=""/>
+						<PARAM value="52" name=" CC#83 Midi Controller" desc=" CC#83 Midi Controller" customdesc=""/>
+						<PARAM value="53" name=" CC#84 Midi Controller" desc=" CC#84 Midi Controller" customdesc=""/>
+						<PARAM value="54" name=" CC#85 Midi Controller" desc=" CC#85 Midi Controller" customdesc=""/>
+						<PARAM value="55" name=" CC#86 Midi Controller" desc=" CC#86 Midi Controller" customdesc=""/>
+						<PARAM value="56" name=" CC#87 Midi Controller" desc=" CC#87 Midi Controller" customdesc=""/>
+						<PARAM value="57" name=" CC#88 Midi Controller" desc=" CC#88 Midi Controller" customdesc=""/>
+						<PARAM value="58" name=" CC#89 Midi Controller" desc=" CC#89 Midi Controller" customdesc=""/>
+						<PARAM value="59" name=" CC#90 Midi Controller" desc=" CC#90 Midi Controller" customdesc=""/>
+						<PARAM value="5A" name=" CC#91 Midi Controller" desc=" CC#91 Midi Controller" customdesc=""/>
+						<PARAM value="5B" name=" CC#92 Midi Controller" desc=" CC#92 Midi Controller" customdesc=""/>
+						<PARAM value="5C" name=" CC#93 Midi Controller" desc=" CC#93 Midi Controller" customdesc=""/>
+						<PARAM value="5D" name=" CC#94 Midi Controller" desc=" CC#94 Midi Controller" customdesc=""/>
+						<PARAM value="5E" name=" CC#95 Midi Controller      " desc=" CC#95 Midi Controller      " customdesc=""/>
 					</Msb>
-					<Msb value="0A" name="Midi" abbr="" desc="MIDI SETTING" customdesc="Program Map">
+					<Msb value="0A" name="Midi" abbr="" desc="Midi " customdesc="Program Map">
 						<PARAM value="00" name="Fixed" desc="Fixed" customdesc="Fixed"/>
 						<PARAM value="01" name="Programmable" desc="Programmable" customdesc="Programmable"/>
 					</Msb>
 				</Msb>
+				<Msb value="01" name="Midi" abbr="" desc="" customdesc="Midi"/>
+				<Msb value="02" name="Midi" abbr="" desc="" customdesc="Midi"/>
+				<Msb value="03" name="Midi" abbr="" desc="" customdesc="Midi"/>
+				<Msb value="04" name="Midi" abbr="" desc="" customdesc="Midi"/>
+				<Msb value="05" name="Midi" abbr="" desc="" customdesc="Midi"/>
+				<Msb value="06" name="Midi" abbr="" desc="" customdesc="Midi"/>
+				<Msb value="07" name="Midi" abbr="" desc="" customdesc="Midi"/>
+				<Msb value="08" name="Midi" abbr="" desc="" customdesc="Midi"/>
+				<Msb value="09" name="Midi" abbr="" desc="" customdesc="Midi"/>
+				<Msb value="0A" name="Midi" abbr="" desc="" customdesc="Midi"/>
+				<Msb value="0B" name="Midi" abbr="" desc="" customdesc="Midi"/>
+				<Msb value="0C" name="Midi" abbr="" desc="" customdesc="Midi"/>
+				<Msb value="0D" name="Midi" abbr="" desc="" customdesc="Midi"/>
+				<Msb value="0E" name="Midi" abbr="" desc="" customdesc="Midi"/>
+				<Msb value="0F" name="Midi" abbr="" desc="" customdesc="Midi"/>
+				<Msb value="10" name="Midi Map" abbr="" desc="" customdesc="Midi">
+					<DATA value="00" name="" abbr="" desc="" customdesc="">
+						<PARAM value="00" name="U01-1" desc="U01-1"/>
+						<PARAM value="01" name="U01-2" desc="U01-2"/>
+						<PARAM value="02" name="U01-3" desc="U01-3"/>
+						<PARAM value="03" name="U01-4" desc="U01-4"/>
+						<PARAM value="04" name="U02-1" desc="U02-1"/>
+						<PARAM value="05" name="U02-2" desc="U02-2"/>
+						<PARAM value="06" name="U02-3" desc="U02-3"/>
+						<PARAM value="07" name="U02-4" desc="U02-4"/>
+						<PARAM value="08" name="U03-1" desc="U03-1"/>
+						<PARAM value="09" name="U03-2" desc="U03-2"/>
+						<PARAM value="0A" name="U03-3" desc="U03-3"/>
+						<PARAM value="0B" name="U03-4" desc="U03-4"/>
+						<PARAM value="0C" name="U04-1" desc="U04-1"/>
+						<PARAM value="0D" name="U04-2" desc="U04-2"/>
+						<PARAM value="0E" name="U04-3" desc="U04-3"/>
+						<PARAM value="0F" name="U04-4" desc="U04-4"/>
+						<PARAM value="10" name="U05-1" desc="U05-1"/>
+						<PARAM value="11" name="U05-2" desc="U05-2"/>
+						<PARAM value="12" name="U05-3" desc="U05-3"/>
+						<PARAM value="13" name="U05-4" desc="U05-4"/>
+						<PARAM value="14" name="U06-1" desc="U06-1"/>
+						<PARAM value="15" name="U06-2" desc="U06-2"/>
+						<PARAM value="16" name="U06-3" desc="U06-3"/>
+						<PARAM value="17" name="U06-4" desc="U06-4"/>
+						<PARAM value="18" name="U07-1" desc="U07-1"/>
+						<PARAM value="19" name="U07-2" desc="U07-2"/>
+						<PARAM value="1A" name="U07-3" desc="U07-3"/>
+						<PARAM value="1B" name="U07-4" desc="U07-4"/>
+						<PARAM value="1C" name="U08-1" desc="U08-1"/>
+						<PARAM value="1D" name="U08-2" desc="U08-2"/>
+						<PARAM value="1E" name="U08-3" desc="U08-3"/>
+						<PARAM value="1F" name="U08-4" desc="U08-4"/>
+						<PARAM value="20" name="U09-1" desc="U09-1"/>
+						<PARAM value="21" name="U09-2" desc="U09-2"/>
+						<PARAM value="22" name="U09-3" desc="U09-3"/>
+						<PARAM value="23" name="U09-4" desc="U09-4"/>
+						<PARAM value="24" name="U10-1" desc="U10-1"/>
+						<PARAM value="25" name="U10-2" desc="U10-2"/>
+						<PARAM value="26" name="U10-3" desc="U10-3"/>
+						<PARAM value="27" name="U10-4" desc="U10-4"/>
+						<PARAM value="28" name="U11-1" desc="U11-1"/>
+						<PARAM value="29" name="U11-2" desc="U11-2"/>
+						<PARAM value="2A" name="U11-3" desc="U11-3"/>
+						<PARAM value="2B" name="U11-4" desc="U11-4"/>
+						<PARAM value="2C" name="U12-1" desc="U12-1"/>
+						<PARAM value="2D" name="U12-2" desc="U12-2"/>
+						<PARAM value="2E" name="U12-3" desc="U12-3"/>
+						<PARAM value="2F" name="U12-4" desc="U12-4"/>
+						<PARAM value="30" name="U13-1" desc="U13-1"/>
+						<PARAM value="31" name="U13-2" desc="U13-2"/>
+						<PARAM value="32" name="U13-3" desc="U13-3"/>
+						<PARAM value="33" name="U13-4" desc="U13-4"/>
+						<PARAM value="34" name="U14-1" desc="U14-1"/>
+						<PARAM value="35" name="U14-2" desc="U14-2"/>
+						<PARAM value="36" name="U14-3" desc="U14-3"/>
+						<PARAM value="37" name="U14-4" desc="U14-4"/>
+						<PARAM value="38" name="U15-1" desc="U15-1"/>
+						<PARAM value="39" name="U15-2" desc="U15-2"/>
+						<PARAM value="3A" name="U15-3" desc="U15-3"/>
+						<PARAM value="3B" name="U15-4" desc="U15-4"/>
+						<PARAM value="3C" name="U16-1" desc="U16-1"/>
+						<PARAM value="3D" name="U16-2" desc="U16-2"/>
+						<PARAM value="3E" name="U16-3" desc="U16-3"/>
+						<PARAM value="3F" name="U16-4" desc="U16-4"/>
+						<PARAM value="40" name="U17-1" desc="U17-1"/>
+						<PARAM value="41" name="U17-2" desc="U17-2"/>
+						<PARAM value="42" name="U17-3" desc="U17-3"/>
+						<PARAM value="43" name="U17-4" desc="U17-4"/>
+						<PARAM value="44" name="U18-1" desc="U18-1"/>
+						<PARAM value="45" name="U18-2" desc="U18-2"/>
+						<PARAM value="46" name="U18-3" desc="U18-3"/>
+						<PARAM value="47" name="U18-4" desc="U18-4"/>
+						<PARAM value="48" name="U19-1" desc="U19-1"/>
+						<PARAM value="49" name="U19-2" desc="U19-2"/>
+						<PARAM value="4A" name="U19-3" desc="U19-3"/>
+						<PARAM value="4B" name="U19-4" desc="U19-4"/>
+						<PARAM value="4C" name="U20-1" desc="U20-1"/>
+						<PARAM value="4D" name="U20-2" desc="U20-2"/>
+						<PARAM value="4E" name="U20-3" desc="U20-3"/>
+						<PARAM value="4F" name="U20-4" desc="U20-4"/>
+						<PARAM value="50" name="U21-1" desc="U21-1"/>
+						<PARAM value="51" name="U21-2" desc="U21-2"/>
+						<PARAM value="52" name="U21-3" desc="U21-3"/>
+						<PARAM value="53" name="U21-4" desc="U21-4"/>
+						<PARAM value="54" name="U22-1" desc="U22-1"/>
+						<PARAM value="55" name="U22-2" desc="U22-2"/>
+						<PARAM value="56" name="U22-3" desc="U22-3"/>
+						<PARAM value="57" name="U22-4" desc="U22-4"/>
+						<PARAM value="58" name="U23-1" desc="U23-1"/>
+						<PARAM value="59" name="U23-2" desc="U23-2"/>
+						<PARAM value="5A" name="U23-3" desc="U23-3"/>
+						<PARAM value="5B" name="U23-4" desc="U23-4"/>
+						<PARAM value="5C" name="U24-1" desc="U24-1"/>
+						<PARAM value="5D" name="U24-2" desc="U24-2"/>
+						<PARAM value="5E" name="U24-3" desc="U24-3"/>
+						<PARAM value="5F" name="U24-4" desc="U24-4"/>
+						<PARAM value="60" name="U25-1" desc="U25-1"/>
+						<PARAM value="61" name="U25-2" desc="U25-2"/>
+						<PARAM value="62" name="U25-3" desc="U25-3"/>
+						<PARAM value="63" name="U25-4" desc="U25-4"/>
+						<PARAM value="64" name="U26-1" desc="U26-1"/>
+						<PARAM value="65" name="U26-2" desc="U26-2"/>
+						<PARAM value="66" name="U26-3" desc="U26-3"/>
+						<PARAM value="67" name="U26-4" desc="U26-4"/>
+						<PARAM value="68" name="U27-1" desc="U27-1"/>
+						<PARAM value="69" name="U27-2" desc="U27-2"/>
+						<PARAM value="6A" name="U27-3" desc="U27-3"/>
+						<PARAM value="6B" name="U27-4" desc="U27-4"/>
+						<PARAM value="6C" name="U28-1" desc="U28-1"/>
+						<PARAM value="6D" name="U28-2" desc="U28-2"/>
+						<PARAM value="6E" name="U28-3" desc="U28-3"/>
+						<PARAM value="6F" name="U28-4" desc="U28-4"/>
+						<PARAM value="70" name="U29-1" desc="U29-1"/>
+						<PARAM value="71" name="U29-2" desc="U29-2"/>
+						<PARAM value="72" name="U29-3" desc="U29-3"/>
+						<PARAM value="73" name="U29-4" desc="U29-4"/>
+						<PARAM value="74" name="U30-1" desc="U30-1"/>
+						<PARAM value="75" name="U30-2" desc="U30-2"/>
+						<PARAM value="76" name="U30-3" desc="U30-3"/>
+						<PARAM value="77" name="U30-4" desc="U30-4"/>
+						<PARAM value="78" name="U31-1" desc="U31-1"/>
+						<PARAM value="79" name="U31-2" desc="U31-2"/>
+						<PARAM value="7A" name="U31-3" desc="U31-3"/>
+						<PARAM value="7B" name="U31-4" desc="U31-4"/>
+						<PARAM value="7C" name="U32-1" desc="U32-1"/>
+						<PARAM value="7D" name="U32-2" desc="U32-2"/>
+						<PARAM value="7E" name="U32-3" desc="U32-3"/>
+						<PARAM value="7F" name="U32-4" desc="U32-4"/>
+					</DATA>
+					<DATA value="01" name="" abbr="" desc="" customdesc="">
+						<PARAM value="00" name="U33-1" desc="U33-1"/>
+						<PARAM value="01" name="U33-2" desc="U33-2"/>
+						<PARAM value="02" name="U33-3" desc="U33-3"/>
+						<PARAM value="03" name="U33-4" desc="U33-4"/>
+						<PARAM value="04" name="U34-1" desc="U34-1"/>
+						<PARAM value="05" name="U34-2" desc="U34-2"/>
+						<PARAM value="06" name="U34-3" desc="U34-3"/>
+						<PARAM value="07" name="U34-4" desc="U34-4"/>
+						<PARAM value="08" name="U35-1" desc="U35-1"/>
+						<PARAM value="09" name="U35-2" desc="U35-2"/>
+						<PARAM value="0A" name="U35-3" desc="U35-3"/>
+						<PARAM value="0B" name="U35-4" desc="U35-4"/>
+						<PARAM value="0C" name="P36-1" desc="P36-1"/>
+						<PARAM value="0D" name="P36-2" desc="P36-2"/>
+						<PARAM value="0E" name="P36-3" desc="P36-3"/>
+						<PARAM value="0F" name="P36-4" desc="P36-4"/>
+						<PARAM value="10" name="P37-1" desc="P37-1"/>
+						<PARAM value="11" name="P37-2" desc="P37-2"/>
+						<PARAM value="12" name="P37-3" desc="P37-3"/>
+						<PARAM value="13" name="P37-4" desc="P37-4"/>
+						<PARAM value="14" name="P38-1" desc="P38-1"/>
+						<PARAM value="15" name="P38-2" desc="P38-2"/>
+						<PARAM value="16" name="P38-3" desc="P38-3"/>
+						<PARAM value="17" name="P38-4" desc="P38-4"/>
+						<PARAM value="18" name="P39-1" desc="P39-1"/>
+						<PARAM value="19" name="P39-2" desc="P39-2"/>
+						<PARAM value="1A" name="P39-3" desc="P39-3"/>
+						<PARAM value="1B" name="P39-4" desc="P39-4"/>
+						<PARAM value="1C" name="P40-1" desc="P40-1"/>
+						<PARAM value="1D" name="P40-2" desc="P40-2"/>
+						<PARAM value="1E" name="P40-3" desc="P40-3"/>
+						<PARAM value="1F" name="P40-4" desc="P40-4"/>
+						<PARAM value="20" name="P41-1" desc="P41-1"/>
+						<PARAM value="21" name="P41-2" desc="P41-2"/>
+						<PARAM value="22" name="P41-3" desc="P41-3"/>
+						<PARAM value="23" name="P41-4" desc="P41-4"/>
+						<PARAM value="24" name="P42-1" desc="P42-1"/>
+						<PARAM value="25" name="P42-2" desc="P42-2"/>
+						<PARAM value="26" name="P42-3" desc="P42-3"/>
+						<PARAM value="27" name="P42-4" desc="P42-4"/>
+						<PARAM value="28" name="P43-1" desc="P43-1"/>
+						<PARAM value="29" name="P43-2" desc="P43-2"/>
+						<PARAM value="2A" name="P43-3" desc="P43-3"/>
+						<PARAM value="2B" name="P43-4" desc="P43-4"/>
+						<PARAM value="2C" name="P44-1" desc="P44-1"/>
+						<PARAM value="2D" name="P44-2" desc="P44-2"/>
+						<PARAM value="2E" name="P44-3" desc="P44-3"/>
+						<PARAM value="2F" name="P44-4" desc="P44-4"/>
+						<PARAM value="30" name="P45-1" desc="P45-1"/>
+						<PARAM value="31" name="P45-2" desc="P45-2"/>
+						<PARAM value="32" name="P45-3" desc="P45-3"/>
+						<PARAM value="33" name="P45-4" desc="P45-4"/>
+						<PARAM value="34" name="P46-1" desc="P46-1"/>
+						<PARAM value="35" name="P46-2" desc="P46-2"/>
+						<PARAM value="36" name="P46-3" desc="P46-3"/>
+						<PARAM value="37" name="P46-4" desc="P46-4"/>
+						<PARAM value="38" name="P47-1" desc="P47-1"/>
+						<PARAM value="39" name="P47-2" desc="P47-2"/>
+						<PARAM value="3A" name="P47-3" desc="P47-3"/>
+						<PARAM value="3B" name="P47-4" desc="P47-4"/>
+						<PARAM value="3C" name="P48-1" desc="P48-1"/>
+						<PARAM value="3D" name="P48-2" desc="P48-2"/>
+						<PARAM value="3E" name="P48-3" desc="P48-3"/>
+						<PARAM value="3F" name="P48-4" desc="P48-4"/>
+						<PARAM value="40" name="P49-1" desc="P49-1"/>
+						<PARAM value="41" name="P49-2" desc="P49-2"/>
+						<PARAM value="42" name="P49-3" desc="P49-3"/>
+						<PARAM value="43" name="P49-4" desc="P49-4"/>
+						<PARAM value="44" name="P50-1" desc="P50-1"/>
+						<PARAM value="45" name="P50-2" desc="P50-2"/>
+						<PARAM value="46" name="P50-3" desc="P50-3"/>
+						<PARAM value="47" name="P50-4" desc="P50-4"/>
+						<PARAM value="48" name="P51-1" desc="P51-1"/>
+						<PARAM value="49" name="P51-2" desc="P51-2"/>
+						<PARAM value="4A" name="P51-3" desc="P51-3"/>
+						<PARAM value="4B" name="P51-4" desc="P51-4"/>
+						<PARAM value="4C" name="P52-1" desc="P52-1"/>
+						<PARAM value="4D" name="P52-2" desc="P52-2"/>
+						<PARAM value="4E" name="P52-3" desc="P52-3"/>
+						<PARAM value="4F" name="P52-4" desc="P52-4"/>
+						<PARAM value="50" name="P53-1" desc="P53-1"/>
+						<PARAM value="51" name="P53-2" desc="P53-2"/>
+						<PARAM value="52" name="P53-3" desc="P53-3"/>
+						<PARAM value="53" name="P53-4" desc="P53-4"/>
+						<PARAM value="54" name="P54-1" desc="P54-1"/>
+						<PARAM value="55" name="P54-2" desc="P54-2"/>
+						<PARAM value="56" name="P54-3" desc="P54-3"/>
+						<PARAM value="57" name="P54-4" desc="P54-4"/>
+						<PARAM value="58" name="P55-1" desc="P55-1"/>
+						<PARAM value="59" name="P55-2" desc="P55-2"/>
+						<PARAM value="5A" name="P55-3" desc="P55-3"/>
+						<PARAM value="5B" name="P55-4" desc="P55-4"/>
+						<PARAM value="5C" name="P56-1" desc="P56-1"/>
+						<PARAM value="5D" name="P56-2" desc="P56-2"/>
+						<PARAM value="5E" name="P56-3" desc="P56-3"/>
+						<PARAM value="5F" name="P56-4" desc="P56-4"/>
+						<PARAM value="60" name="P57-1" desc="P57-1"/>
+						<PARAM value="61" name="P57-2" desc="P57-2"/>
+						<PARAM value="62" name="P57-3" desc="P57-3"/>
+						<PARAM value="63" name="P57-4" desc="P57-4"/>
+						<PARAM value="64" name="P58-1" desc="P58-1"/>
+						<PARAM value="65" name="P58-2" desc="P58-2"/>
+						<PARAM value="66" name="P58-3" desc="P58-3"/>
+						<PARAM value="67" name="P58-4" desc="P58-4"/>
+						<PARAM value="68" name="P59-1" desc="P59-1"/>
+						<PARAM value="69" name="P59-2" desc="P59-2"/>
+						<PARAM value="6A" name="P59-3" desc="P59-3"/>
+						<PARAM value="6B" name="P59-4" desc="P59-4"/>
+						<PARAM value="6C" name="P60-1" desc="P60-1"/>
+						<PARAM value="6D" name="P60-2" desc="P60-2"/>
+						<PARAM value="6E" name="P60-3" desc="P60-3"/>
+						<PARAM value="6F" name="P60-4" desc="P60-4"/>
+						<PARAM value="70" name="P61-1" desc="P61-1"/>
+						<PARAM value="71" name="P61-2" desc="P61-2"/>
+						<PARAM value="72" name="P61-3" desc="P61-3"/>
+						<PARAM value="73" name="P61-4" desc="P61-4"/>
+						<PARAM value="74" name="P62-1" desc="P62-1"/>
+						<PARAM value="75" name="P62-2" desc="P62-2"/>
+						<PARAM value="76" name="P62-3" desc="P62-3"/>
+						<PARAM value="77" name="P62-4" desc="P62-4"/>
+						<PARAM value="78" name="P63-1" desc="P63-1"/>
+						<PARAM value="79" name="P63-2" desc="P63-2"/>
+						<PARAM value="7A" name="P63-3" desc="P63-3"/>
+						<PARAM value="7B" name="P63-4" desc="P63-4"/>
+						<PARAM value="7C" name="P64-1" desc="P64-1"/>
+						<PARAM value="7D" name="P64-2" desc="P64-2"/>
+						<PARAM value="7E" name="P64-3" desc="P64-3"/>
+						<PARAM value="7F" name="P64-4" desc="P64-4"/>
+					</DATA>
+					<DATA value="02" name="" abbr="" desc="" customdesc="">
+						<PARAM value="00" name="P65-1" desc="P65-1"/>
+						<PARAM value="01" name="P65-2" desc="P65-2"/>
+						<PARAM value="02" name="P65-3" desc="P65-3"/>
+						<PARAM value="03" name="P65-4" desc="P65-4"/>
+						<PARAM value="04" name="P66-1" desc="P66-1"/>
+						<PARAM value="05" name="P66-2" desc="P66-2"/>
+						<PARAM value="06" name="P66-3" desc="P66-3"/>
+						<PARAM value="07" name="P66-4" desc="P66-4"/>
+						<PARAM value="08" name="P67-1" desc="P67-1"/>
+						<PARAM value="09" name="P67-2" desc="P67-2"/>
+						<PARAM value="0A" name="P67-3" desc="P67-3"/>
+						<PARAM value="0B" name="P67-4" desc="P67-4"/>
+						<PARAM value="0C" name="P68-1" desc="P68-1"/>
+						<PARAM value="0D" name="P68-2" desc="P68-2"/>
+						<PARAM value="0E" name="P68-3" desc="P68-3"/>
+						<PARAM value="0F" name="P68-4" desc="P68-4"/>
+						<PARAM value="10" name="P69-1" desc="P69-1"/>
+						<PARAM value="11" name="P69-2" desc="P69-2"/>
+						<PARAM value="12" name="P69-3" desc="P69-3"/>
+						<PARAM value="13" name="P69-4" desc="P69-4"/>
+						<PARAM value="14" name="P70-1" desc="P70-1"/>
+						<PARAM value="15" name="P70-2" desc="P70-2"/>
+						<PARAM value="16" name="P70-3" desc="P70-3"/>
+						<PARAM value="17" name="P70-4" desc="P70-4"/>
+						<PARAM value="18" name="P71-1" desc="P71-1"/>
+						<PARAM value="19" name="P71-2" desc="P71-2"/>
+						<PARAM value="1A" name="P71-3" desc="P71-3"/>
+						<PARAM value="1B" name="P71-4" desc="P71-4"/>
+						<PARAM value="1C" name="P72-1" desc="P72-1"/>
+						<PARAM value="1D" name="P72-2" desc="P72-2"/>
+						<PARAM value="1E" name="P72-3" desc="P72-3"/>
+						<PARAM value="1F" name="P72-4" desc="P72-4"/>
+						<PARAM value="20" name="P73-1" desc="P73-1"/>
+						<PARAM value="21" name="P73-2" desc="P73-2"/>
+						<PARAM value="22" name="P73-3" desc="P73-3"/>
+						<PARAM value="23" name="P73-4" desc="P73-4"/>
+						<PARAM value="24" name="P74-1" desc="P74-1"/>
+						<PARAM value="25" name="P74-2" desc="P74-2"/>
+						<PARAM value="26" name="P74-3" desc="P74-3"/>
+						<PARAM value="27" name="P74-4" desc="P74-4"/>
+						<PARAM value="28" name="P75-1" desc="P75-1"/>
+						<PARAM value="29" name="P75-2" desc="P75-2"/>
+						<PARAM value="2A" name="P75-3" desc="P75-3"/>
+						<PARAM value="2B" name="P75-4" desc="P75-4"/>
+						<PARAM value="2C" name="P76-1" desc="P76-1"/>
+						<PARAM value="2D" name="P76-2" desc="P76-2"/>
+						<PARAM value="2E" name="P76-3" desc="P76-3"/>
+						<PARAM value="2F" name="P76-4" desc="P76-4"/>
+						<PARAM value="30" name="P77-1" desc="P77-1"/>
+						<PARAM value="31" name="P77-2" desc="P77-2"/>
+						<PARAM value="32" name="P77-3" desc="P77-3"/>
+						<PARAM value="33" name="P77-4" desc="P77-4"/>
+						<PARAM value="34" name="P78-1" desc="P78-1"/>
+						<PARAM value="35" name="P78-2" desc="P78-2"/>
+						<PARAM value="36" name="P78-3" desc="P78-3"/>
+						<PARAM value="37" name="P78-4" desc="P78-4"/>
+						<PARAM value="38" name="P79-1" desc="P79-1"/>
+						<PARAM value="39" name="P79-2" desc="P79-2"/>
+						<PARAM value="3A" name="P79-3" desc="P79-3"/>
+						<PARAM value="3B" name="P79-4" desc="P79-4"/>
+						<PARAM value="3C" name="P80-1" desc="P80-1"/>
+						<PARAM value="3D" name="P80-2" desc="P80-2"/>
+						<PARAM value="3E" name="P80-3" desc="P80-3"/>
+						<PARAM value="3F" name="P80-4" desc="P80-4"/>
+						<PARAM value="40" name="P81-1" desc="P81-1"/>
+						<PARAM value="41" name="P81-2" desc="P81-2"/>
+						<PARAM value="42" name="P81-3" desc="P81-3"/>
+						<PARAM value="43" name="P81-4" desc="P81-4"/>
+						<PARAM value="44" name="P82-1" desc="P82-1"/>
+						<PARAM value="45" name="P82-2" desc="P82-2"/>
+						<PARAM value="46" name="P82-3" desc="P82-3"/>
+						<PARAM value="47" name="P82-4" desc="P82-4"/>
+						<PARAM value="48" name="P83-1" desc="P83-1"/>
+						<PARAM value="49" name="P83-2" desc="P83-2"/>
+						<PARAM value="4A" name="P83-3" desc="P83-3"/>
+						<PARAM value="4B" name="P83-4" desc="P83-4"/>
+						<PARAM value="4C" name="P84-1" desc="P84-1"/>
+						<PARAM value="4D" name="P84-2" desc="P84-2"/>
+						<PARAM value="4E" name="P84-3" desc="P84-3"/>
+						<PARAM value="4F" name="P84-4" desc="P84-4"/>
+						<PARAM value="50" name="P85-1" desc="P85-1"/>
+						<PARAM value="51" name="P85-2" desc="P85-2"/>
+						<PARAM value="52" name="P85-3" desc="P85-3"/>
+						<PARAM value="53" name="P85-4" desc="P85-4"/>
+					</DATA>
+				</Msb>
 			</LSB>
 			<LSB value="06" name="preamp" abbr="" desc="" customdesc="">
 				<Msb value="00" name="preamp 1" abbr="" desc="" customdesc="preamp 1">
-					<Msb value="00" name="preamp 1" abbr="" desc="CUSTOM PREAMP" customdesc="Type">
-						<PARAM value="00" name="" desc="JC Clean" customdesc=""/>
-						<PARAM value="01" name="" desc="TW Clean" customdesc=""/>
-						<PARAM value="02" name="" desc="Crunch" customdesc=""/>
-						<PARAM value="03" name="" desc="VO Lead" customdesc=""/>
-						<PARAM value="04" name="" desc="BG Lead" customdesc=""/>
-						<PARAM value="05" name="" desc="MS 1959 Stack" customdesc=""/>
-						<PARAM value="06" name="" desc="Modern Stack" customdesc=""/>
+					<Msb value="00" name="preamp 1" abbr="" desc="Custom " customdesc="Type">
+						<PARAM value="00" name="JC Clean" desc="JC Clean" customdesc=""/>
+						<PARAM value="01" name="TW Clean" desc="TW Clean" customdesc=""/>
+						<PARAM value="02" name="Crunch" desc="Crunch" customdesc=""/>
+						<PARAM value="03" name="VO Lead" desc="VO Lead" customdesc=""/>
+						<PARAM value="04" name="BG Lead" desc="BG Lead" customdesc=""/>
+						<PARAM value="05" name="MS 1959 Stack" desc="MS 1959 Stack" customdesc=""/>
+						<PARAM value="06" name="Modern Stack" desc="Modern Stack" customdesc=""/>
 					</Msb>
-					<Msb value="01" name="preamp 1" abbr="" desc="CUSTOM PREAMP" customdesc="Bottom">
+					<Msb value="01" name="preamp 1" abbr="" desc="Custom " customdesc="Bottom">
 						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
 					</Msb>
-					<Msb value="02" name="preamp 1" abbr="" desc="CUSTOM PREAMP" customdesc="Edge">
+					<Msb value="02" name="preamp 1" abbr="" desc="Custom " customdesc="Edge">
 						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
 					</Msb>
-					<Msb value="03" name="preamp 1" abbr="" desc="CUSTOM PREAMP" customdesc="Bass Freq">
+					<Msb value="03" name="preamp 1" abbr="" desc="Custom " customdesc="Bass Freq">
 						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
 					</Msb>
-					<Msb value="04" name="preamp 1" abbr="" desc="CUSTOM PREAMP" customdesc="Treb Freq">
+					<Msb value="04" name="preamp 1" abbr="" desc="Custom " customdesc="Treb Freq">
 						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
 					</Msb>
-					<Msb value="05" name="preamp 1" abbr="" desc="CUSTOM PREAMP" customdesc="Amp Low">
+					<Msb value="05" name="preamp 1" abbr="" desc="Custom " customdesc="Amp Low">
 						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
 					</Msb>
-					<Msb value="06" name="preamp 1" abbr="" desc="CUSTOM PREAMP" customdesc="Amp High">
+					<Msb value="06" name="preamp 1" abbr="" desc="Custom " customdesc="Amp High">
 						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
 					</Msb>
-					<Msb value="07" name="preamp 1" abbr="" desc="CUSTOM PREAMP" customdesc="Spkr Low">
+					<Msb value="07" name="preamp 1" abbr="" desc="Custom " customdesc="Spkr Low">
 						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
 					</Msb>
-					<Msb value="08" name="preamp 1" abbr="" desc="CUSTOM PREAMP" customdesc="Spkr High">
+					<Msb value="08" name="preamp 1" abbr="" desc="Custom " customdesc="Spkr High">
 						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
 					</Msb>
 				</Msb>
 				<Msb value="01" name="preamp 2" abbr="" desc="" customdesc="preamp 2">
-					<Msb value="00" name="preamp 2" abbr="" desc="CUSTOM PREAMP" customdesc="Type">
-						<PARAM value="00" name="" desc="JC Clean" customdesc=""/>
-						<PARAM value="01" name="" desc="TW Clean" customdesc=""/>
-						<PARAM value="02" name="" desc="Crunch" customdesc=""/>
-						<PARAM value="03" name="" desc="VO Lead" customdesc=""/>
-						<PARAM value="04" name="" desc="BG Lead" customdesc=""/>
-						<PARAM value="05" name="" desc="MS 1959 Stack" customdesc=""/>
-						<PARAM value="06" name="" desc="Modern Stack" customdesc=""/>
+					<Msb value="00" name="preamp 2" abbr="" desc="Custom " customdesc="Type">
+						<PARAM value="00" name="JC Clean" desc="JC Clean" customdesc=""/>
+						<PARAM value="01" name="TW Clean" desc="TW Clean" customdesc=""/>
+						<PARAM value="02" name="Crunch" desc="Crunch" customdesc=""/>
+						<PARAM value="03" name="VO Lead" desc="VO Lead" customdesc=""/>
+						<PARAM value="04" name="BG Lead" desc="BG Lead" customdesc=""/>
+						<PARAM value="05" name="MS 1959 Stack" desc="MS 1959 Stack" customdesc=""/>
+						<PARAM value="06" name="Modern Stack" desc="Modern Stack" customdesc=""/>
 					</Msb>
-					<Msb value="01" name="preamp 2" abbr="" desc="CUSTOM PREAMP" customdesc="Bottom">
+					<Msb value="01" name="preamp 2" abbr="" desc="Custom " customdesc="Bottom">
 						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
 					</Msb>
-					<Msb value="02" name="preamp 2" abbr="" desc="CUSTOM PREAMP" customdesc="Edge">
+					<Msb value="02" name="preamp 2" abbr="" desc="Custom " customdesc="Edge">
 						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
 					</Msb>
-					<Msb value="03" name="preamp 2" abbr="" desc="CUSTOM PREAMP" customdesc="Bass Freq">
+					<Msb value="03" name="preamp 2" abbr="" desc="Custom " customdesc="Bass Freq">
 						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
 					</Msb>
-					<Msb value="04" name="preamp 2" abbr="" desc="CUSTOM PREAMP" customdesc="Treb Freq">
+					<Msb value="04" name="preamp 2" abbr="" desc="Custom " customdesc="Treb Freq">
 						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
 					</Msb>
-					<Msb value="05" name="preamp 2" abbr="" desc="CUSTOM PREAMP" customdesc="Amp Low">
+					<Msb value="05" name="preamp 2" abbr="" desc="Custom " customdesc="Amp Low">
 						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
 					</Msb>
-					<Msb value="06" name="preamp 2" abbr="" desc="CUSTOM PREAMP" customdesc="Amp High">
+					<Msb value="06" name="preamp 2" abbr="" desc="Custom " customdesc="Amp High">
 						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
 					</Msb>
-					<Msb value="07" name="preamp 2" abbr="" desc="CUSTOM PREAMP" customdesc="Spkr Low">
+					<Msb value="07" name="preamp 2" abbr="" desc="Custom " customdesc="Spkr Low">
 						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
 					</Msb>
-					<Msb value="08" name="preamp 2" abbr="" desc="CUSTOM PREAMP" customdesc="Spkr High">
+					<Msb value="08" name="preamp 2" abbr="" desc="Custom " customdesc="Spkr High">
 						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
 					</Msb>
 				</Msb>
 				<Msb value="02" name="preamp 3" abbr="" desc="" customdesc="preamp 3">
-					<Msb value="00" name="preamp 3" abbr="" desc="CUSTOM PREAMP" customdesc="Type">
-						<PARAM value="00" name="" desc="JC Clean" customdesc=""/>
-						<PARAM value="01" name="" desc="TW Clean" customdesc=""/>
-						<PARAM value="02" name="" desc="Crunch" customdesc=""/>
-						<PARAM value="03" name="" desc="VO Lead" customdesc=""/>
-						<PARAM value="04" name="" desc="BG Lead" customdesc=""/>
-						<PARAM value="05" name="" desc="MS 1959 Stack" customdesc=""/>
-						<PARAM value="06" name="" desc="Modern Stack" customdesc=""/>
+					<Msb value="00" name="preamp 3" abbr="" desc="Custom " customdesc="Type">
+						<PARAM value="00" name="JC Clean" desc="JC Clean" customdesc=""/>
+						<PARAM value="01" name="TW Clean" desc="TW Clean" customdesc=""/>
+						<PARAM value="02" name="Crunch" desc="Crunch" customdesc=""/>
+						<PARAM value="03" name="VO Lead" desc="VO Lead" customdesc=""/>
+						<PARAM value="04" name="BG Lead" desc="BG Lead" customdesc=""/>
+						<PARAM value="05" name="MS 1959 Stack" desc="MS 1959 Stack" customdesc=""/>
+						<PARAM value="06" name="Modern Stack" desc="Modern Stack" customdesc=""/>
 					</Msb>
-					<Msb value="01" name="preamp 3" abbr="" desc="CUSTOM PREAMP" customdesc="Bottom">
+					<Msb value="01" name="preamp 3" abbr="" desc="Custom " customdesc="Bottom">
 						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
 					</Msb>
-					<Msb value="02" name="preamp 3" abbr="" desc="CUSTOM PREAMP" customdesc="Edge">
+					<Msb value="02" name="preamp 3" abbr="" desc="Custom " customdesc="Edge">
 						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
 					</Msb>
-					<Msb value="03" name="preamp 3" abbr="" desc="CUSTOM PREAMP" customdesc="Bass Freq">
+					<Msb value="03" name="preamp 3" abbr="" desc="Custom " customdesc="Bass Freq">
 						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
 					</Msb>
-					<Msb value="04" name="preamp 3" abbr="" desc="CUSTOM PREAMP" customdesc="Treb Freq">
+					<Msb value="04" name="preamp 3" abbr="" desc="Custom " customdesc="Treb Freq">
 						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
 					</Msb>
-					<Msb value="05" name="preamp 3" abbr="" desc="CUSTOM PREAMP" customdesc="Amp Low">
+					<Msb value="05" name="preamp 3" abbr="" desc="Custom " customdesc="Amp Low">
 						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
 					</Msb>
-					<Msb value="06" name="preamp 3" abbr="" desc="CUSTOM PREAMP" customdesc="Amp High">
+					<Msb value="06" name="preamp 3" abbr="" desc="Custom " customdesc="Amp High">
 						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
 					</Msb>
-					<Msb value="07" name="preamp 3" abbr="" desc="CUSTOM PREAMP" customdesc="Spkr Low">
+					<Msb value="07" name="preamp 3" abbr="" desc="Custom " customdesc="Spkr Low">
 						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
 					</Msb>
-					<Msb value="08" name="preamp 3" abbr="" desc="CUSTOM PREAMP" customdesc="Spkr High">
+					<Msb value="08" name="preamp 3" abbr="" desc="Custom " customdesc="Spkr High">
 						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
 					</Msb>
 				</Msb>
 			</LSB>
 			<LSB value="07" name="od/ds" abbr="" desc="" customdesc="">
 				<Msb value="00" name="odds 1" abbr="" desc="" customdesc="odds 1">
-					<Msb value="00" name="odds 1" abbr="" desc="CUSTOm ODDS" customdesc="Type">
-						<PARAM value="00" name="" desc="OD-1" customdesc=""/>
-						<PARAM value="01" name="" desc="OD-2" customdesc=""/>
-						<PARAM value="02" name="" desc="CRUNCH" customdesc=""/>
-						<PARAM value="03" name="" desc="DS-1" customdesc=""/>
-						<PARAM value="04" name="" desc="DS-2" customdesc=""/>
-						<PARAM value="05" name="" desc="Metal-1" customdesc=""/>
-						<PARAM value="06" name="" desc="Metal-2" customdesc=""/>
+					<Msb value="00" name="odds 1" abbr="" desc="Custom " customdesc="Type">
+						<PARAM value="00" name="OD-1" desc="OD-1" customdesc=""/>
+						<PARAM value="01" name="OD-2" desc="OD-2" customdesc=""/>
+						<PARAM value="02" name="CRUNCH" desc="CRUNCH" customdesc=""/>
+						<PARAM value="03" name="DS-1" desc="DS-1" customdesc=""/>
+						<PARAM value="04" name="DS-2" desc="DS-2" customdesc=""/>
+						<PARAM value="05" name="Metal-1" desc="Metal-1" customdesc=""/>
+						<PARAM value="06" name="Metal-2" desc="Metal-2" customdesc=""/>
 					</Msb>
-					<Msb value="01" name="odds 1" abbr="" desc="CUSTOm ODDS" customdesc="Bottom">
+					<Msb value="01" name="odds 1" abbr="" desc="Custom " customdesc="Bottom">
 						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
 					</Msb>
-					<Msb value="02" name="odds 1" abbr="" desc="CUSTOm ODDS" customdesc="Top">
+					<Msb value="02" name="odds 1" abbr="" desc="Custom " customdesc="Top">
 						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
 					</Msb>
-					<Msb value="03" name="odds 1" abbr="" desc="CUSTOm ODDS" customdesc="Low">
+					<Msb value="03" name="odds 1" abbr="" desc="Custom " customdesc="Low">
 						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
 					</Msb>
-					<Msb value="04" name="odds 1" abbr="" desc="CUSTOm ODDS" customdesc="High">
+					<Msb value="04" name="odds 1" abbr="" desc="Custom " customdesc="High">
 						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
 					</Msb>
 				</Msb>
 				<Msb value="01" name="odds 2" abbr="" desc="" customdesc="odds 2">
-					<Msb value="00" name="odds 2" abbr="" desc="CUSTOm ODDS" customdesc="Type">
-						<PARAM value="00" name="" desc="OD-1" customdesc=""/>
-						<PARAM value="01" name="" desc="OD-2" customdesc=""/>
-						<PARAM value="02" name="" desc="CRUNCH" customdesc=""/>
-						<PARAM value="03" name="" desc="DS-1" customdesc=""/>
-						<PARAM value="04" name="" desc="DS-2" customdesc=""/>
-						<PARAM value="05" name="" desc="Metal-1" customdesc=""/>
-						<PARAM value="06" name="" desc="Metal-2" customdesc=""/>
+					<Msb value="00" name="odds 2" abbr="" desc="Custom " customdesc="Type">
+						<PARAM value="00" name="OD-1" desc="OD-1" customdesc=""/>
+						<PARAM value="01" name="OD-2" desc="OD-2" customdesc=""/>
+						<PARAM value="02" name="CRUNCH" desc="CRUNCH" customdesc=""/>
+						<PARAM value="03" name="DS-1" desc="DS-1" customdesc=""/>
+						<PARAM value="04" name="DS-2" desc="DS-2" customdesc=""/>
+						<PARAM value="05" name="Metal-1" desc="Metal-1" customdesc=""/>
+						<PARAM value="06" name="Metal-2" desc="Metal-2" customdesc=""/>
 					</Msb>
-					<Msb value="01" name="odds 2" abbr="" desc="CUSTOm ODDS" customdesc="Bottom">
+					<Msb value="01" name="odds 2" abbr="" desc="Custom " customdesc="Bottom">
 						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
 					</Msb>
-					<Msb value="02" name="odds 2" abbr="" desc="CUSTOm ODDS" customdesc="Top">
+					<Msb value="02" name="odds 2" abbr="" desc="Custom " customdesc="Top">
 						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
 					</Msb>
-					<Msb value="03" name="odds 2" abbr="" desc="CUSTOm ODDS" customdesc="Low">
+					<Msb value="03" name="odds 2" abbr="" desc="Custom " customdesc="Low">
 						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
 					</Msb>
-					<Msb value="04" name="odds 2" abbr="" desc="CUSTOm ODDS" customdesc="High">
+					<Msb value="04" name="odds 2" abbr="" desc="Custom " customdesc="High">
 						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
 					</Msb>
 				</Msb>
 			</LSB>
 			<LSB value="08" name="wah" abbr="" desc="" customdesc="">
 				<Msb value="00" name="wah 1" abbr="" desc="" customdesc="wah 1">
-					<Msb value="00" name="wah 1" abbr="" desc="CUSTOM WAH" customdesc="Type">
-						<PARAM value="00" name="" desc="Cry Wah" customdesc=""/>
-						<PARAM value="01" name="" desc="VO Wah" customdesc=""/>
-						<PARAM value="02" name="" desc="FAT Wah" customdesc=""/>
-						<PARAM value="03" name="" desc="Light Wah" customdesc=""/>
-						<PARAM value="04" name="" desc="7String Wah" customdesc=""/>
+					<Msb value="00" name="wah 1" abbr="" desc="Custom " customdesc="Type">
+						<PARAM value="00" name="Cry Wah" desc="Cry Wah" customdesc=""/>
+						<PARAM value="01" name="VO Wah" desc="VO Wah" customdesc=""/>
+						<PARAM value="02" name="FAT Wah" desc="FAT Wah" customdesc=""/>
+						<PARAM value="03" name="Light Wah" desc="Light Wah" customdesc=""/>
+						<PARAM value="04" name="7String Wah" desc="7String Wah" customdesc=""/>
 					</Msb>
-					<Msb value="01" name="wah 1" abbr="" desc="CUSTOM WAH" customdesc="Q">
+					<Msb value="01" name="wah 1" abbr="" desc="Custom " customdesc="Q">
 						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
 					</Msb>
-					<Msb value="02" name="wah 1" abbr="" desc="CUSTOM WAH" customdesc="Range Low">
+					<Msb value="02" name="wah 1" abbr="" desc="Custom " customdesc="Range Low">
 						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
 					</Msb>
-					<Msb value="03" name="wah 1" abbr="" desc="CUSTOM WAH" customdesc="Range High">
+					<Msb value="03" name="wah 1" abbr="" desc="Custom " customdesc="Range High">
 						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
 					</Msb>
-					<Msb value="04" name="wah 1" abbr="" desc="CUSTOM WAH" customdesc="Presence">
+					<Msb value="04" name="wah 1" abbr="" desc="Custom " customdesc="Presence">
 						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
 					</Msb>
 				</Msb>
 				<Msb value="01" name="wah 2" abbr="" desc="" customdesc="wah 2">
-					<Msb value="00" name="wah 2" abbr="" desc="CUSTOM WAH" customdesc="Type">
-						<PARAM value="00" name="" desc="Cry Wah" customdesc=""/>
-						<PARAM value="01" name="" desc="VO Wah" customdesc=""/>
-						<PARAM value="02" name="" desc="FAT Wah" customdesc=""/>
-						<PARAM value="03" name="" desc="Light Wah" customdesc=""/>
-						<PARAM value="04" name="" desc="7String Wah" customdesc=""/>
+					<Msb value="00" name="wah 2" abbr="" desc="Custom " customdesc="Type">
+						<PARAM value="00" name="Cry Wah" desc="Cry Wah" customdesc=""/>
+						<PARAM value="01" name="VO Wah" desc="VO Wah" customdesc=""/>
+						<PARAM value="02" name="FAT Wah" desc="FAT Wah" customdesc=""/>
+						<PARAM value="03" name="Light Wah" desc="Light Wah" customdesc=""/>
+						<PARAM value="04" name="7String Wah" desc="7String Wah" customdesc=""/>
 					</Msb>
-					<Msb value="01" name="wah 2" abbr="" desc="CUSTOM WAH" customdesc="Q">
+					<Msb value="01" name="wah 2" abbr="" desc="Custom " customdesc="Q">
 						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
 					</Msb>
-					<Msb value="02" name="wah 2" abbr="" desc="CUSTOM WAH" customdesc="Range Low">
+					<Msb value="02" name="wah 2" abbr="" desc="Custom " customdesc="Range Low">
 						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
 					</Msb>
-					<Msb value="03" name="wah 2" abbr="" desc="CUSTOM WAH" customdesc="Range High">
+					<Msb value="03" name="wah 2" abbr="" desc="Custom " customdesc="Range High">
 						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
 					</Msb>
-					<Msb value="04" name="wah 2" abbr="" desc="CUSTOM WAH" customdesc="Presence">
+					<Msb value="04" name="wah 2" abbr="" desc="Custom " customdesc="Presence">
 						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
 					</Msb>
 				</Msb>
 				<Msb value="02" name="wah 3" abbr="" desc="" customdesc="wah 3">
-					<Msb value="00" name="wah 3" abbr="" desc="CUSTOM WAH" customdesc="Type">
-						<PARAM value="00" name="" desc="Cry Wah" customdesc=""/>
-						<PARAM value="01" name="" desc="VO Wah" customdesc=""/>
-						<PARAM value="02" name="" desc="FAT Wah" customdesc=""/>
-						<PARAM value="03" name="" desc="Light Wah" customdesc=""/>
-						<PARAM value="04" name="" desc="7String Wah" customdesc=""/>
+					<Msb value="00" name="wah 3" abbr="" desc="Custom " customdesc="Type">
+						<PARAM value="00" name="Cry Wah" desc="Cry Wah" customdesc=""/>
+						<PARAM value="01" name="VO Wah" desc="VO Wah" customdesc=""/>
+						<PARAM value="02" name="FAT Wah" desc="FAT Wah" customdesc=""/>
+						<PARAM value="03" name="Light Wah" desc="Light Wah" customdesc=""/>
+						<PARAM value="04" name="7String Wah" desc="7String Wah" customdesc=""/>
 					</Msb>
-					<Msb value="01" name="wah 3" abbr="" desc="CUSTOM WAH" customdesc="Q">
+					<Msb value="01" name="wah 3" abbr="" desc="Custom " customdesc="Q">
 						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
 					</Msb>
-					<Msb value="02" name="wah 3" abbr="" desc="CUSTOM WAH" customdesc="Range Low">
+					<Msb value="02" name="wah 3" abbr="" desc="Custom " customdesc="Range Low">
 						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
 					</Msb>
-					<Msb value="03" name="wah 3" abbr="" desc="CUSTOM WAH" customdesc="Range High">
+					<Msb value="03" name="wah 3" abbr="" desc="Custom " customdesc="Range High">
 						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
 					</Msb>
-					<Msb value="04" name="wah 3" abbr="" desc="CUSTOM WAH" customdesc="Presence">
+					<Msb value="04" name="wah 3" abbr="" desc="Custom " customdesc="Presence">
 						<PARAM value="range" name="00/0A/-50/50" desc="" customdesc=""/>
 					</Msb>
 				</Msb>
@@ -1485,7 +1848,7 @@
 		<LSB value="03" name="Manual" abbr="Manual" desc="Manual" customdesc="">
 			<LSB value="00" name="Manual" abbr="" desc="" customdesc="">
 				<Msb value="00" name="Manual" abbr="" desc="" customdesc="Manual">
-					<Msb value="00" name="Pedal 1" abbr="" desc="" customdesc="Pedal 1">
+					<Msb value="00" name="Pedal 1" abbr="" desc="Manual " customdesc="Pedal 1">
 						<PARAM value="00" name="FX1" desc="FX1" customdesc="FX1"/>
 						<PARAM value="01" name="Wah" desc="Wah" customdesc="Wah"/>
 						<PARAM value="02" name="OD/DS" desc="OD/DS" customdesc="OD/DS"/>
@@ -1498,7 +1861,7 @@
 						<PARAM value="09" name="Noise Suppressor" desc="Noise Suppressor" customdesc="Noise Suppressor"/>
 						<PARAM value="0A" name="Tuner" desc="Tuner" customdesc="Tuner"/>
 					</Msb>
-					<Msb value="01" name="Pedal 2" abbr="" desc="" customdesc="Pedal 2">
+					<Msb value="01" name="Pedal 2" abbr="" desc="Manual " customdesc="Pedal 2">
 						<PARAM value="00" name="FX1" desc="FX1" customdesc="FX1"/>
 						<PARAM value="01" name="Wah" desc="Wah" customdesc="Wah"/>
 						<PARAM value="02" name="OD/DS" desc="OD/DS" customdesc="OD/DS"/>
@@ -1511,7 +1874,7 @@
 						<PARAM value="09" name="Noise Suppressor" desc="Noise Suppressor" customdesc="Noise Suppressor"/>
 						<PARAM value="0A" name="Tuner" desc="Tuner" customdesc="Tuner"/>
 					</Msb>
-					<Msb value="02" name="Pedal 3" abbr="" desc="" customdesc="Pedal 3">
+					<Msb value="02" name="Pedal 3" abbr="" desc="Manual " customdesc="Pedal 3">
 						<PARAM value="00" name="FX1" desc="FX1" customdesc="FX1"/>
 						<PARAM value="01" name="Wah" desc="Wah" customdesc="Wah"/>
 						<PARAM value="02" name="OD/DS" desc="OD/DS" customdesc="OD/DS"/>
@@ -1524,7 +1887,7 @@
 						<PARAM value="09" name="Noise Suppressor" desc="Noise Suppressor" customdesc="Noise Suppressor"/>
 						<PARAM value="0A" name="Tuner" desc="Tuner" customdesc="Tuner"/>
 					</Msb>
-					<Msb value="03" name="Pedal 4" abbr="" desc="" customdesc="Pedal 4">
+					<Msb value="03" name="Pedal 4" abbr="" desc="Manual " customdesc="Pedal 4">
 						<PARAM value="00" name="FX1" desc="FX1" customdesc="FX1"/>
 						<PARAM value="01" name="Wah" desc="Wah" customdesc="Wah"/>
 						<PARAM value="02" name="OD/DS" desc="OD/DS" customdesc="OD/DS"/>
@@ -1537,7 +1900,7 @@
 						<PARAM value="09" name="Noise Suppressor" desc="Noise Suppressor" customdesc="Noise Suppressor"/>
 						<PARAM value="0A" name="Tuner" desc="Tuner" customdesc="Tuner"/>
 					</Msb>
-					<Msb value="04" name="Bank Up" abbr="" desc="" customdesc="Bank Up">
+					<Msb value="04" name="Bank Up" abbr="" desc="Manual " customdesc="Bank Up">
 						<PARAM value="00" name="FX1" desc="FX1" customdesc="FX1"/>
 						<PARAM value="01" name="Wah" desc="Wah" customdesc="Wah"/>
 						<PARAM value="02" name="OD/DS" desc="OD/DS" customdesc="OD/DS"/>
@@ -1550,7 +1913,7 @@
 						<PARAM value="09" name="Noise Suppressor" desc="Noise Suppressor" customdesc="Noise Suppressor"/>
 						<PARAM value="0A" name="Tuner" desc="Tuner" customdesc="Tuner"/>
 					</Msb>
-					<Msb value="05" name="Bank Down" abbr="" desc="" customdesc="Bank Down">
+					<Msb value="05" name="Bank Down" abbr="" desc="Manual " customdesc="Bank Down">
 						<PARAM value="00" name="FX1" desc="FX1" customdesc="FX1"/>
 						<PARAM value="01" name="Wah" desc="Wah" customdesc="Wah"/>
 						<PARAM value="02" name="OD/DS" desc="OD/DS" customdesc="OD/DS"/>

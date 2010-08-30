@@ -171,9 +171,11 @@ void midiIO::sendSyxMsg(QString sysxOutMsg, int midiOutPort)
     QString hex;
     int wait = 0; 
     int close = 20;
+    int s = sysxOutMsg.size()/100;
+    int p=0;
     int retryCount = 0;
     std::vector<unsigned char> message;	
-		message.reserve(1024);
+		message.reserve(256);
 		int msgLength = sysxOutMsg.length()/2;
 		char *ptr  = new char[msgLength];		// Convert QString to char* (hex value) 
     int nPorts = midiMsgOut->getPortCount();   // Check available ports.
@@ -190,7 +192,9 @@ RETRY:
 		      	n = hex.toInt(&ok, 16);
 			      *ptr = (char)n;
 		      	message.push_back(*ptr);		// insert the char* string into a std::vector
-            wait = wait + 1;	
+            wait = wait + 1;
+             p=p+s;
+            emit setStatusProgress(wait);	
 			      if(hex == "F7")
              {
                 midiMsgOut->sendMessage(&message);  // send the midi data as a std::vector
@@ -207,7 +211,7 @@ RETRY:
    {
     SLEEP(100);
     retryCount = retryCount + 1;
-    if (retryCount < 5) { goto RETRY; };
+    if (retryCount < 10) { goto RETRY; };
 	  error.printMessage();
 	  emit errorSignal(tr("Syx Output Error"), tr("data error"));
 	  goto cleanup;
@@ -311,11 +315,13 @@ void midiIO::receiveMsg(QString sysxInMsg, int midiInPort)
 			//SLEEP(minWait);
 			sendSyxMsg(sysxOutMsg, midiOutPort);      // send the data request message out				
 			int x = 0;
-      unsigned int t = 1;	
+      unsigned int t = 1;
+      unsigned int s = 1;	
 			while (x<loopCount && this->sysxBuffer.size()/2 < count)  // wait until exact bytes received or timeout
       {
       SLEEP(5+(minWait/4));
       t = (x*200)/loopCount;
+      if (s>t) {t=s;};
       emit setStatusProgress(t);  	
       x++;
       };                 // time it takes to get all sysx messages in.		
@@ -414,7 +420,8 @@ void midiIO::run()
 			};
 					dataReceive = true;
 					receiveMsg(sysxInMsg, midiInPort);
-				if((this->sysxBuffer.size()/2 != count) && (repeat<4))
+			Preferences *preferences = Preferences::Instance(); // Load the preferences.
+			if((this->sysxBuffer.size()/2 != count) && (repeat<3) && preferences->getPreferences("Midi", "DBug", "bool")!="true")
       {
         emit setStatusdBugMessage(tr("re-trying data request"));
         repeat = repeat+1;

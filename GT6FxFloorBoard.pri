@@ -28,6 +28,7 @@ HEADERS += ./editPage.h \
     ./globalVariables.h \
     ./mainWindow.h \
     ./bankTreeList.h \
+    ./bulkEditDialog.h \
     ./bulkLoadDialog.h \
     ./bulkSaveDialog.h \
     ./customButton.h \
@@ -61,7 +62,14 @@ HEADERS += ./editPage.h \
     ./floorPanelBarButton.h \
     ./initPatchListMenu.h \
     ./menuPage.h \
-    ./menuPage_assign.h \
+    ./menuPage_assign1.h \
+    ./menuPage_assign2.h \
+    ./menuPage_assign3.h \
+    ./menuPage_assign4.h \
+    ./menuPage_assign5.h \
+    ./menuPage_assign6.h \
+    ./menuPage_assign7.h \
+    ./menuPage_assign8.h \
     ./menuPage_midi.h \
     ./menuPage_system.h \
     ./midiIO.h \
@@ -91,6 +99,7 @@ HEADERS += ./editPage.h \
     ./stompbox_rv.h \
     ./stompbox_wah.h \
     ./summaryDialog.h \
+    ./summaryDialogSystem.h \
     ./SysxIO.h \
     ./SysxIODestroyer.h \
     ./sysxWriter.h \
@@ -103,6 +112,7 @@ SOURCES += ./editPage.cpp \
     ./main.cpp \
     ./mainWindow.cpp \
     ./bankTreeList.cpp \
+    ./bulkEditDialog.cpp \
     ./bulkLoadDialog.cpp \
     ./bulkSaveDialog.cpp \
     ./customButton.cpp \
@@ -136,7 +146,14 @@ SOURCES += ./editPage.cpp \
     ./floorPanelBarButton.cpp \
     ./initPatchListMenu.cpp \
     ./menuPage.cpp \
-    ./menuPage_assign.cpp \
+    ./menuPage_assign1.cpp \
+    ./menuPage_assign2.cpp \
+    ./menuPage_assign3.cpp \
+    ./menuPage_assign4.cpp \
+    ./menuPage_assign5.cpp \
+    ./menuPage_assign6.cpp \
+    ./menuPage_assign7.cpp \
+    ./menuPage_assign8.cpp \
     ./menuPage_midi.cpp \
     ./menuPage_system.cpp \
     ./midiIO.cpp \
@@ -164,6 +181,7 @@ SOURCES += ./editPage.cpp \
     ./stompbox_rv.cpp \
     ./stompbox_wah.cpp \
     ./summaryDialog.cpp \
+    ./summaryDialogSystem.cpp \ 
     ./SysxIO.cpp \
     ./SysxIODestroyer.cpp \
     ./sysxWriter.cpp \

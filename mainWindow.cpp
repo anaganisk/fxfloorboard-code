@@ -30,6 +30,7 @@
 #include "bulkLoadDialog.h"
 #include "globalVariables.h"
 #include "summaryDialog.h"
+#include "summaryDialogSystem.h"
 
 mainWindow::mainWindow(QWidget *parent)
     : QWidget(parent)
@@ -211,6 +212,10 @@ void mainWindow::createActions()
   summaryAct->setWhatsThis(tr("Display the current patch parameters<br>in a readable text format, which<br>can be printed or saved to file."));
   connect(summaryAct, SIGNAL(triggered()), this, SLOT(summaryPage()));
 
+  summarySystemAct = new QAction(QIcon(":/images/copy.png"), tr("System/Global Text Summary"), this);
+  summarySystemAct->setWhatsThis(tr("Display the current System and Global parameters<br>in a readable text format, which<br>can be printed or saved to file."));
+  connect(summarySystemAct, SIGNAL(triggered()), this, SLOT(summarySystemPage()));
+
 	helpAct = new QAction(QIcon(":/images/help.png"), deviceType + tr(" Fx FloorBoard &Help"), this);
 	helpAct->setShortcut(tr("Ctrl+F1"));
 	helpAct->setStatusTip(tr("Help page to assist with FxFloorBoard functions."));
@@ -271,6 +276,7 @@ void mainWindow::createMenus()
 	toolsMenu->addAction(uploadAct);
 	fileMenu->addSeparator();
   toolsMenu->addAction(summaryAct);
+  toolsMenu->addAction(summarySystemAct);
 	menuBar->addMenu(toolsMenu);
    
 
@@ -448,8 +454,7 @@ void mainWindow::bulkSave()
 void mainWindow::systemLoad()
 {
     SysxIO *sysxIO = SysxIO::Instance();
-     if (sysxIO->isConnected())
-	       {
+
 	Preferences *preferences = Preferences::Instance();
 	QString dir = preferences->getPreferences("General", "Files", "dir");
 
@@ -493,9 +498,9 @@ void mainWindow::systemLoad()
 		      };
 	   };
 	     };
-	}
-         else
-             {
+
+            if (!sysxIO->isConnected())
+	           {
               QString snork = tr("DATA TRANSFER REQUIRED<br>"); 
               snork.append(tr("Ensure connection is active, and<br>"));
               snork.append(tr("Bulk Mode is set on the ") + deviceType + "<br>");
@@ -593,7 +598,7 @@ void mainWindow::settings()
 		preferences->setPreferences("Window", "Restore", "sidepanel", sidepanel);
 		preferences->setPreferences("Window", "Restore", "window", window);
 		preferences->setPreferences("Window", "Splash", "bool", splash);
-		
+		preferences->savePreferences();
 	};
 };
 
@@ -621,6 +626,14 @@ void mainWindow::summaryPage()
    summary->setMinimumWidth(800);
    summary->setMinimumHeight(650);
    summary->show();
+};
+
+void mainWindow::summarySystemPage()
+{
+   summaryDialogSystem *summarySystem = new summaryDialogSystem();
+   summarySystem->setMinimumWidth(800);
+   summarySystem->setMinimumHeight(650);
+   summarySystem->show();
 };
 
 void mainWindow::homepage()

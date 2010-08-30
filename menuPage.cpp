@@ -132,8 +132,7 @@ void menuPage::menuButtonSignal(bool value)
 	  if (byte4.size()<2) {byte4.prepend("0");};
 	  sysRequest.append(byte1).append(byte2).append(byte3).append(byte4);
 	  sysRequest.append("7FF7");
-	   if (sysxIO->isConnected())
-	       {
+
 	        emit setStatusSymbol(2);
 		      emit setStatusMessage(tr("Requesting System data"));
 	       	sysxIO->setDeviceReady(false); // Reserve the device for interaction.
@@ -144,17 +143,7 @@ void menuPage::menuButtonSignal(bool value)
           emitValueChanged(this->hex1, this->hex2, "00", "void");
 	        this->editDialog->setWindow(this->fxName);
 		      emit setEditDialog(this->editDialog);  	        
-         }
-         else
-            {
-              QString snork = tr("Ensure Bulk Mode is set and retry");
-              QMessageBox *msgBox = new QMessageBox();
-			        msgBox->setWindowTitle(deviceType + tr(" not connected !!"));
-		        	msgBox->setIcon(QMessageBox::Information);
-		        	msgBox->setText(snork);
-		        	msgBox->setStandardButtons(QMessageBox::Ok);
-		        	msgBox->exec(); 
-             };  
+        
     };
 };
 
@@ -187,12 +176,13 @@ void menuPage::systemReply(QString replyMsg)
 		else
 		{
 			QMessageBox *msgBox = new QMessageBox();
-			msgBox->setWindowTitle(deviceType + tr(" Fx FloorBoard connection Error !!"));
+			msgBox->setWindowTitle(deviceType + tr(" SYSTEM DATA WAS NOT RECEIVED from the GT-6!!"));
 			msgBox->setIcon(QMessageBox::Warning);
 			msgBox->setTextFormat(Qt::RichText);
 			QString msgText;
 			msgText.append("<font size='+1'><b>");
-			msgText.append(tr("The Boss ") + deviceType + tr(" Effects Processor was not found."));
+			msgText.append(tr("The ") + deviceType + tr(" Editor settings may not be syncronized with the GT-6.<br>"));
+			msgText.append(tr("To retrieve System Data, set GT-6 and Editor to Bulk Mode"));
 			msgText.append("<b></font><br>");
 			msgBox->setText(msgText);
 			msgBox->setStandardButtons(QMessageBox::Ok);
@@ -311,7 +301,14 @@ void menuPage::emitValueChanged(QString hex1, QString hex2, QString hex3, QStrin
 		 
 		  if (this->id == 18)this->fxName = tr("System settings");
 		  if (this->id == 19)this->fxName = tr("Custom Settings");
-		  if (this->id == 20)this->fxName = tr("Assigns");
+		  if (this->id == 21)this->fxName = tr("Assign 1");
+      if (this->id == 22)this->fxName = tr("Assign 2");
+      if (this->id == 23)this->fxName = tr("Assign 3");
+      if (this->id == 24)this->fxName = tr("Assign 4");
+      if (this->id == 25)this->fxName = tr("Assign 5");
+      if (this->id == 26)this->fxName = tr("Assign 6");
+      if (this->id == 27)this->fxName = tr("Assign 7");
+      if (this->id == 28)this->fxName = tr("Assign 8"); 
 		};
 	};
 

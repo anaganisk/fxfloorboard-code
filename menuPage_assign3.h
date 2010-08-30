@@ -21,23 +21,23 @@
 **
 ****************************************************************************/
 
-#ifndef MENUPAGE_ASSIGN_H
-#define MENUPAGE_ASSIGN_H
+#ifndef MENUPAGE_ASSIGN3_H
+#define MENUPAGE_ASSIGN3_H
 
 #include <QtGui>
 #include <QWidget>
 #include "menuPage.h"
 
-class  menuPage_assign : public menuPage
+class  menuPage_assign3 : public menuPage
 {
     Q_OBJECT
 
 public:
-	menuPage_assign(QWidget *parent);
+	menuPage_assign3(QWidget *parent);
 	void setEditPages();
 
 public slots:
 	void updateSignal();
 };
 
-#endif // MENUPAGE_ASSIGN_H
+#endif // MENUPAGE_ASSIGN3_H

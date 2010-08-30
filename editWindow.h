@@ -57,6 +57,7 @@ public slots:
 	void valueChanged(int index);
 	void pageUpdateSignal();
 	virtual void closeEvent(QCloseEvent* ce);
+	void bulkEdit();
 	void temp1();
 	void temp2();
 	void temp3();
@@ -79,6 +80,7 @@ private:
 	customControlLabel* closeButton;
 	editPage* tempPage;
 	QList<editPage*> editPages;
+	customControlLabel* bulkEdit_Button;
 	customControlLabel* temp1_Button;
 	customControlLabel* temp2_Button;
 	customControlLabel* temp3_Button;

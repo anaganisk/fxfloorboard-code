@@ -109,6 +109,14 @@ private:
 	customButton *chorus_Button;
 	customButton *eq_Button;
 	customButton *pedal_Button;
+	customButton *assign1_Button;
+	customButton *assign2_Button;
+	customButton *assign3_Button;
+	customButton *assign4_Button;
+	customButton *assign5_Button;
+	customButton *assign6_Button;
+	customButton *assign7_Button;
+	customButton *assign8_Button;
   customButton *temp1_copy_Button;
 	customButton *temp1_paste_Button;
 	customButton *temp2_copy_Button;

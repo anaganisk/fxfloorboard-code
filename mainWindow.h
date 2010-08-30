@@ -54,6 +54,7 @@ public slots:
 	void settings();
 	void upload();
 	void summaryPage();
+	void summarySystemPage();
 	void help();
 	void whatsThis();
 	void homepage();
@@ -82,6 +83,7 @@ private:
 	QAction *settingsAct;
 	QAction *uploadAct;
 	QAction *summaryAct;
+	QAction *summarySystemAct;
 	QAction *helpAct;
 	QAction *whatsThisAct;
 	QAction *homepageAct;
