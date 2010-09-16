@@ -27,9 +27,7 @@
 #include "MidiTable.h"
 #include "SysxIO.h"
 #include "midiIO.h"
-
 #include "customRenameWidget.h"
-#include "customControlListMenu.h"
 #include "globalVariables.h"
 
 
@@ -113,10 +111,10 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
   customRenameWidget *patchDialog = new customRenameWidget(this, "0D", "00", "00", "Structure", "80"); 
   patchDialog->setGeometry(10, bottomOffset, 980, 25);   
   patchDialog->setWhatsThis(tr("Clicking on this will open<br>a text dialog window<br>allowing user text input."));
-  customControlListMenu *output = new customControlListMenu(this, "00", "00", "11", "top");
+  this->output = new customControlListMenu(this, "00", "00", "11", "top");
   output->setGeometry(860, patchDisplayRowOffset, 150, 30);
   output->setWhatsThis(tr("This is the Patch Mode setting of Output Select<br>this is only active if the SYSTEM setting<br>is set to Patch Mode.")); 
-  customControlListMenu *catagory = new customControlListMenu(this, "00", "00", "10", "right");
+  this->catagory = new customControlListMenu(this, "00", "00", "10", "right");
   catagory->setGeometry(860, patchDisplayRowOffset+19, 150, 30); 
 
  	this->connectButton = new customButton(tr("Connect"), false, QPoint(405, patchDisplayRowOffset), this, ":/images/greenledbutton.png");
@@ -445,7 +443,12 @@ void floorBoardDisplay::updateDisplay()
 		this->writeButton->setBlink(false);   //cjw
 		this->writeButton->setValue(false);
 	};  // to here
-    };
+	int index = sysxIO->getSourceValue("Structure", "00", "00", "11");
+  this->output->controlListComboBox->setCurrentIndex(index);
+  index = sysxIO->getSourceValue("Structure", "00", "00", "10");
+  this->catagory->controlListComboBox->setCurrentIndex(index);
+
+};
 
 void floorBoardDisplay::autoconnect()
 {

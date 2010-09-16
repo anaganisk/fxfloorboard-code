@@ -35,7 +35,7 @@ stompbox_eq::stompbox_eq(QWidget *parent)
 	setSlider4("01", "00", "79");
 	setSlider5("01", "00", "7B");
 	setButton("01", "00", "70");
-	editDetails()->patchPos(530, 24, "01", "70");    // sysx file offset and data length of chorus parameters x2,
+        editDetails()->patchPos(530, 24, "01", "71");    // sysx file offset and data length of chorus parameters x2,
 	setEditPages();
 };
 
@@ -52,7 +52,10 @@ void stompbox_eq::updateSignal()
 void stompbox_eq::setEditPages()
 {
   editDetails()->page()->newGroupBox("Effect", Qt::AlignTop | Qt::AlignHCenter);
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "70", "middle", Qt::AlignCenter);
+  editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "70", "middle", Qt::AlignCenter);
+  editDetails()->page()->addEQ(0, 1, 2, 4, "01", "00", "71");
+
+        /*
 	editDetails()->page()->addGroupBox(0, 0, 2, 1);
 
 	editDetails()->page()->newGroupBox("Equalizer");
@@ -80,8 +83,8 @@ void stompbox_eq::setEditPages()
 	editDetails()->page()->addGroupBox(0, 1, 2, 1);
 
 	editDetails()->page()->newGroupBox("Level");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "7B");
-	editDetails()->page()->addGroupBox(0, 2, 2, 1);
+        editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "7B");*/
+        editDetails()->page()->addGroupBox(0, 0, 2, 4);
 
 	editDetails()->addPage();
 	                                                // and hex1 & hex3 address start point.	

@@ -63,7 +63,7 @@ customKnobRange::customKnobRange(QWidget *parent, QString area, QString hex1, QS
 	QString imagePath(":/images/knob.png");
 	unsigned int imageRange = 63;
 	this->knob = new customRangeDial(0, rangeMin, range, 1, 10, knobPos, this, this->area, hex1, hex2, hex3, this->type, imagePath, imageRange);
-	this->setFixedSize(newBackGround->pixmap()->size() - QSize::QSize(0, 4)); // Correction needed h-4.
+        this->setFixedSize(newBackGround->pixmap()->size() - QSize(0, 4)); // Correction needed h-4.
 
 	QObject::connect(this, SIGNAL( updateSignal() ),
                 this->parent(), SIGNAL( updateSignal() ));

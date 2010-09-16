@@ -51,8 +51,8 @@ QT += xml
 
 #Platform dependent file(s)
 win32 {
-	exists("c:/Progra~1/MS_SDKs/Windows/v6.1/Lib/WinMM.Lib") {	# <-- Change the path to WinMM.Lib here!
-		LIBS += c:/Progra~1/MS_SDKs/Windows/v6.1/Lib/WinMM.Lib	# <-- Change the path here also!
+        exists("C:/Progra~1/MS_SDKs/Windows/v6.1/Lib/WinMM.Lib") {	# <-- Change the path to WinMM.Lib here!
+                LIBS += C:/Progra~1/MS_SDKs/Windows/v6.1/Lib/WinMM.Lib	# <-- Change the path here also!
      } else { 
         exists("c:/PROGRA~1/MICROS~3/VC/PLATFO~1/Lib/WinMM.Lib") { # Path vs2005 (Vista)
         	LIBS += c:/PROGRA~1/MICROS~3/VC/PLATFO~1/Lib/WinMM.Lib

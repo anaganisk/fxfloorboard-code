@@ -28,6 +28,7 @@
 #include <QWidget>
 #include <QTimer>
 #include "customButton.h"
+#include "customControlListMenu.h"
 #include "customDisplay.h"
 #include "customLabelDisplay.h"
 #include "renameWidget.h"
@@ -39,7 +40,7 @@ class floorBoardDisplay : public QWidget
 
 public:
 	floorBoardDisplay(QWidget *parent = 0, 
-		QPoint pos = QPoint::QPoint(0, 0));
+                QPoint pos = QPoint(0, 0));
 	QPoint getPos();
 	
 public slots:
@@ -96,16 +97,15 @@ private:
 	customLabelDisplay *temp3Display;
 	customLabelDisplay *temp4Display;
 	customLabelDisplay *temp5Display;
-
+  customControlListMenu *output;
+  customControlListMenu *catagory;
 	customButton *connectButton;
 	customButton *writeButton;
-	//customButton *assign_Button;
 	customButton *system_midi_Button;
 	customButton *system_Button;
 	customButton *master_Button;
 	customButton *ch_mode_Button;
 	customButton *preamp1_Button;
-	//customButton *preamp2_Button;
 	customButton *distortion_Button;
 	customButton *compressor_Button;
 	customButton *ns1_Button;

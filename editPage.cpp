@@ -24,6 +24,7 @@
 #include "editPage.h"
 #include <QLabel>
 #include "customSwitch.h"
+#include "customControlEQ.h"
 #include "customControlKnob.h"
 #include "customControlTarget.h"
 #include "customControlRange.h"
@@ -65,6 +66,26 @@ void editPage::paintEvent(QPaintEvent *)
 
 	QPainter painter(this);
 	painter.drawPixmap(target, image, source);*/
+};
+
+void editPage::addEQ(int row, int column, int rowSpan, int columnSpan,
+					   QString hex1, QString hex2, QString hex3, 
+					   QString background, QString direction, int lenght, 
+					   Qt::Alignment alignment)
+{
+	customControlEQ *eq = new customControlEQ(this, hex1, hex2, hex3, background, direction, lenght);
+	if(this->groupBoxMode)
+	{
+                this->groupBoxLayout->addWidget(eq, row, column, rowSpan, columnSpan, alignment);
+	}
+	else if(this->stackFieldMode)
+	{
+                this->stackField->addWidget(eq, row, column, rowSpan, columnSpan, alignment);
+	}
+	else
+	{
+                this->layout->addWidget(eq, row, column, rowSpan, columnSpan, alignment);
+	};
 };
 
 void editPage::addKnob(int row, int column, int rowSpan, int columnSpan,
