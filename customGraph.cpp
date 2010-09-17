@@ -23,7 +23,7 @@
 ****************************************************************************/
 
 #include "customGraph.h"
-#include <QMessageBox>
+//#include <QMessageBox>
 #include <QPainter>
 #include <QMouseEvent>
 
@@ -51,6 +51,7 @@ customGraph::customGraph (QWidget *parent, QString hex1, QString hex2,
         this->hex_9 = hex_9;
         this->hex_10 = hex_10;
         this->hex_11 = hex_11;
+
 }
 
 
@@ -62,6 +63,7 @@ customGraph::~customGraph (void)
 // Parameter accessors.
 void customGraph::setLowCut ( unsigned short iLowCut )
 {
+     if (iLowCut > 9) iLowCut = 9;
         if (m_iLowCut != iLowCut) {
                 m_iLowCut  = iLowCut;
                 update();
@@ -77,6 +79,7 @@ unsigned short customGraph::LowCut (void) const
 
 void customGraph::setLowGain ( unsigned short iLowGain )
 {
+     if (iLowGain > 40) iLowGain = 40;
         if (m_iLowGain != iLowGain) {
                 m_iLowGain  = iLowGain;
                 update();
@@ -92,6 +95,7 @@ unsigned short customGraph::LowGain (void) const
 
 void customGraph::setLowMidFreq ( unsigned short iLowMidFreq )
 {
+     if (iLowMidFreq > 27) iLowMidFreq = 27;
         if (m_iLowMidFreq != iLowMidFreq) {
                 m_iLowMidFreq  = iLowMidFreq;
                 update();
@@ -107,6 +111,7 @@ unsigned short customGraph::LowMidFreq (void) const
 
 void customGraph::setLowMidQ ( unsigned short iLowMidQ )
 {
+    if (iLowMidQ > 5) iLowMidQ = 5;
         if (m_iLowMidQ != iLowMidQ) {
                 m_iLowMidQ  = iLowMidQ;
                 update();
@@ -122,12 +127,10 @@ unsigned short customGraph::LowMidQ (void) const
 
 void customGraph::setLowMidGain ( unsigned short iLowMidGain )
 {
+    if (iLowMidGain > 40) iLowMidGain = 40;
         if (m_iLowMidGain != iLowMidGain) {
                 m_iLowMidGain  = iLowMidGain;
-                if (m_iHighMidFreq > iLowMidGain)
-                        setHighMidFreq(iLowMidGain);
-                else
-                        update();
+                update();
                 emit LowMidGainChanged(LowMidGain());
         }
 }
@@ -140,11 +143,12 @@ unsigned short customGraph::LowMidGain (void) const
 
 void customGraph::setHighMidFreq ( unsigned short iHighMidFreq )
 {
+    if (iHighMidFreq > 27) iHighMidFreq = 27;
         if (m_iHighMidFreq != iHighMidFreq) {
                 m_iHighMidFreq  = iHighMidFreq;
-                if (m_iHighMidGain < iHighMidFreq)
-                        setHighMidGain(iHighMidFreq);
-                else
+                //if (m_iHighMidGain < iHighMidFreq)
+                 //       setHighMidGain(iHighMidFreq);
+                //else
                         update();
                 emit HighMidFreqChanged(HighMidFreq());
         }
@@ -157,6 +161,7 @@ unsigned short customGraph::HighMidFreq (void) const
 
 void customGraph::setHighMidQ ( unsigned short iHighMidQ )
 {
+    if (iHighMidQ > 5) iHighMidQ = 5;
         if (m_iHighMidQ != iHighMidQ) {
                 m_iHighMidQ  = iHighMidQ;
                 update();
@@ -172,11 +177,12 @@ unsigned short customGraph::HighMidQ (void) const
 
 void customGraph::setHighMidGain ( unsigned short iHighMidGain )
 {
+    if (iHighMidGain > 40) iHighMidGain = 40;
         if (m_iHighMidGain != iHighMidGain) {
                 m_iHighMidGain  = iHighMidGain;
-                if (m_iHighMidFreq > iHighMidGain)
-                        setHighMidFreq(iHighMidGain);
-                else
+                //if (m_iHighMidFreq > iHighMidGain)
+                 //       setHighMidFreq(iHighMidGain);
+                //else
                         update();
                 emit HighMidGainChanged(HighMidGain());
         }
@@ -189,6 +195,7 @@ unsigned short customGraph::HighMidGain (void) const
 
 void customGraph::setHighGain ( unsigned short iHighGain )
 {
+    if (iHighGain > 40) iHighGain = 40;
         if (m_iHighGain != iHighGain) {
                 m_iHighGain  = iHighGain;
                 update();
@@ -203,6 +210,7 @@ unsigned short customGraph::HighGain (void) const
 
 void customGraph::setHighCut ( unsigned short iHighCut )
 {
+    if (iHighCut > 9) iHighCut = 9;
         if (m_iHighCut != iHighCut) {
                 m_iHighCut  = iHighCut;
                 update();
@@ -217,6 +225,7 @@ unsigned short customGraph::HighCut (void) const
 
 void customGraph::setLevel ( unsigned short iLevel )
 {
+    if (iLevel > 40) iLevel = 40;
         if (m_iLevel != iLevel) {
                 m_iLevel  = iLevel;
                 update();
@@ -238,75 +247,85 @@ void customGraph::paintEvent ( QPaintEvent *pPaintEvent )
     int h  = height();
     int w  = width();
 
-    int lc  = m_iLowCut;
-    int lg  = h - (m_iLowGain*2)-40;
+    int lc  = (m_iLowCut*32);
+    int lg  = h - (m_iLowGain*2) - 25;
 
     int lmf = (m_iLowMidFreq*20) + 5;
-    if(lmf < lc) {lmf = lc+7; };
-    int lmq = 80-(m_iLowMidQ*5);
-    int lmg = h - (m_iLowMidGain*4)-25;
+    int lmq = 90-(m_iLowMidQ*15);
+    int lmg = h - (m_iLowMidGain)-40;
 
     int hmf = (m_iHighMidFreq*20) + 5;
-    if (hmf < lmf) { hmf = lmf +7; };
+    int hmq = 90-(m_iHighMidQ*15);
+    int hmg = h - (m_iHighMidGain)-40;
 
-    int hmq = 40-(m_iHighMidQ*8);
-    int hmg = h - (m_iHighMidGain*4)-25;
+    int hg  = h - (m_iHighGain*2) - 25;
+    int hc  = w/2 + (m_iHighCut*32)+10;
 
-    int hg  = h - (m_iHighGain*2)-40;
-    int hc  = 40 + (m_iHighCut*62);
+    int lev = h/10 - (m_iLevel*2);
 
-    int lev = h - (m_iLevel*4)-120;
+    if (hmf+hmq > hc) hmf = hc - hmq;
+    if (lmf+lmq > hmf-hmq) lmf = hmf - hmq - lmq ;
+    if (lc > lmf-lmq) lmf = lc + lmq;
 
-    if (hmf > hc) {hmf = hc; };
 
     m_poly.putPoints(0, 10,
             lc-50,   h,
-            lc,  lg+lev,
+            lc,      lg+lev,
 
-            lmf-lmq, lg+lev,
-            lmf,     lmg+lev,
-            lmf+lmq, hmg+lev,
+            lmf-lmq, lmg+lev,
+            lmf,     ((h*100/99)-(m_iLowMidGain*3))+lev,
+            lmf+lmq, lmg+lev,
 
             hmf-hmq, hmg+lev,
-            hmf,     hmg+lev-20,
+            hmf,     ((h*100/99)-(m_iHighMidGain*3))+lev,
             hmf+hmq, hmg+lev,
 
-            hc,  hg+lev,
-            hc+50, h);
+            hc,      hg+lev,
+            hc+50,   h);
 
     QPainterPath path;
+    path.setFillRule(Qt::WindingFill);
     //path.addPolygon(m_poly);
     path.moveTo(m_poly.at(0));
     path.lineTo(m_poly.at(1));
-    path.cubicTo(m_poly.at(2), m_poly.at(3), m_poly.at(4));
-    path.cubicTo(m_poly.at(5), m_poly.at(6), m_poly.at(7));
-    path.lineTo(m_poly.at(8));
+    path.quadTo(m_poly.at(1), m_poly.at(2));
+    path.quadTo(m_poly.at(2), m_poly.at(3));
+    //path.cubicTo(m_poly.at(1), m_poly.at(2), m_poly.at(3));
+    //path.cubicTo(m_poly.at(3), m_poly.at(4), m_poly.at(5));
+    path.quadTo(m_poly.at(3), m_poly.at(4));
+    path.quadTo(m_poly.at(4), m_poly.at(5));
+    //path.cubicTo(m_poly.at(5), m_poly.at(6), m_poly.at(7));
+    path.quadTo(m_poly.at(5), m_poly.at(6));
+    path.quadTo(m_poly.at(6), m_poly.at(7));
+    path.quadTo(m_poly.at(7), m_poly.at(8));
     path.lineTo(m_poly.at(9));
 
     const QPalette& pal = palette();
-    const bool bDark = (pal.window().color().value() < 0x7f);
-    const QColor& rgbLite = (bDark ? Qt::darkYellow : Qt::yellow);
-    if (bDark) {painter.fillRect(0, 0, w, h, pal.dark().color()); };
+    painter.fillRect(0, 0, w, h, pal.dark().color());
 
-    painter.setPen(bDark ? Qt::gray : Qt::darkGray);
+    painter.setPen(Qt::yellow);
 
     QLinearGradient grad(0, 0, w << 1, h << 1);
-    grad.setColorAt(0.0f, rgbLite);
+    grad.setColorAt(0.0f, Qt::yellow);
     grad.setColorAt(1.0f, Qt::black);
 
     painter.setBrush(grad);
     painter.drawPath(path);
 
-    //painter.setBrush(pal.mid().color());
-
-    painter.setBrush(rgbLite); // pal.midlight().color()
+    painter.setBrush(Qt::red);
     painter.drawRect(nodeRect(1));
+    painter.setBrush(Qt::green);
     painter.drawRect(nodeRect(2));
+    painter.setBrush(Qt::red);
     painter.drawRect(nodeRect(3));
+    painter.setBrush(Qt::green);
     painter.drawRect(nodeRect(4));
     painter.drawRect(nodeRect(5));
+    painter.setBrush(Qt::red);
     painter.drawRect(nodeRect(6));
+    painter.setBrush(Qt::green);
     painter.drawRect(nodeRect(7));
+    painter.setBrush(Qt::red);
     painter.drawRect(nodeRect(8));
 
 
@@ -436,16 +455,14 @@ void customGraph::dragNode ( const QPoint& pos )
         }
 
         if (piRate && piLevel) {
-                int iRate = int(*piRate)
-                        - ((pos.x() - m_posDrag.x()) << 6) / (width() >> 2);
-                int iLevel = int(*piLevel)
-                        + ((m_posDrag.y() - pos.y()) << 7) / height();
+                int iRate = int(*piRate) + ((pos.x() - m_posDrag.x()) << 6) / (width() >> 2);
+                int iLevel = int(*piLevel) + ((m_posDrag.y() - pos.y()) << 7) / height();
                 if (iLevel < 0) iLevel = 0;
                 else
-                if (iLevel > 127) iLevel = 127;
+                if (iLevel > 40) iLevel = 40;
                 if (iRate < 0) iRate = 0;
                 else
-                if (iRate > 63) iRate = 63;
+                if (iRate > 30) iRate = 30;
                 if (*piRate  != (unsigned short) iRate ||
                         *piLevel != (unsigned short) iLevel) {
                         m_posDrag = pos;
@@ -504,38 +521,18 @@ void customGraph::updateSlot(  QString hex_1, QString hex_2, QString hex_3,
     this->hex_10 = hex_10;
     this->hex_11 = hex_11;
     bool ok;
-    setLowCut(this->hex_1.toShort(&ok, 16)*5 );
+    setLowCut(this->hex_1.toShort(&ok, 16));
     setLowGain(this->hex_2.toShort(&ok, 16));
     setLowMidFreq(this->hex_3.toShort(&ok, 16));
-    setLowMidQ(this->hex_4.toShort(&ok, 16)*3);
-    setLowMidGain(this->hex_5.toShort(&ok, 10));
-    setHighMidFreq(this->hex_6.toShort(&ok, 10));
-    setHighMidQ(this->hex_7.toShort(&ok, 10));
-    setHighMidGain(this->hex_8.toShort(&ok, 10));
-    setHighGain(this->hex_9.toShort(&ok, 10));
-    setHighCut(this->hex_10.toShort(&ok, 10));
-    setLevel(this->hex_11.toShort(&ok, 10));
-  //update();
+    setLowMidQ(this->hex_4.toShort(&ok, 16));
+    setLowMidGain(this->hex_5.toShort(&ok, 16));
+    setHighMidFreq(this->hex_6.toShort(&ok, 16));
+    setHighMidQ(this->hex_7.toShort(&ok, 16));
+    setHighMidGain(this->hex_8.toShort(&ok, 16));
+    setHighGain(this->hex_9.toShort(&ok, 16));
+    setHighCut(this->hex_10.toShort(&ok, 16));
+    setLevel(this->hex_11.toShort(&ok, 16));
 
- /* QMessageBox *msgBox = new QMessageBox();
-  msgBox->setWindowTitle(tr("GT-10B Fx FloorBoard"));
-  msgBox->setIcon(QMessageBox::Warning);
-  msgBox->setTextFormat(Qt::RichText);
-  QString msgText;
-   msgText.append("<br> hex_1 = ").append(hex_1);
-   msgText.append("<br> hex_2 = ").append(hex_2);
-   msgText.append("<br> hex_3 = ").append(hex_3);
-   msgText.append("<br> hex_4 = ").append(hex_4);
-   msgText.append("<br> hex_5 = ").append(hex_5);
-   msgText.append("<br> hex_6 = ").append(hex_6);
-   msgText.append("<br> hex_7 = ").append(hex_7);
-   msgText.append("<br> hex_8 = ").append(hex_8);
-   msgText.append("<br> hex_9 = ").append(hex_9);
-   msgText.append("<br> hex_10 = ").append(hex_10);
-   msgText.append("<br> hex_11 = ").append(hex_11);
-  msgBox->setText(msgText);
-  msgBox->setStandardButtons(QMessageBox::Ok);
-  msgBox->exec();*/
 }
 
 
