@@ -40,7 +40,7 @@ public:
                 QWidget *parent = 0,
                 unsigned int id = 0,
                 QString imagePath = ":/images/menuPage_stomp.png",
-                QPoint stompPos = QPoint::QPoint(100, 24));
+                QPoint stompPos = QPoint(100, 24));
         void setPos(QPoint newPos);
         void setImage(QString imagePath);
         void setSize(QSize newSize);

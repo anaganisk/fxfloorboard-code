@@ -24,6 +24,8 @@
 #include "editPage.h"
 #include <QLabel>
 #include "customSwitch.h"
+#include "customControlParaEQ.h"
+#include "customControlGraphicEQ.h"
 #include "customControlKnob.h"
 #include "customControlTarget.h"
 #include "customControlRange.h"
@@ -65,6 +67,46 @@ void editPage::paintEvent(QPaintEvent *)
 
 	QPainter painter(this);
 	painter.drawPixmap(target, image, source);*/
+};
+
+void editPage::addGraphicEQ(int row, int column, int rowSpan, int columnSpan,
+					   QString hex1, QString hex2, QString hex3, 
+					   QString background, QString direction, int lenght, 
+					   Qt::Alignment alignment)
+{
+        customControlGraphicEQ *GraphicEQ = new customControlGraphicEQ(this, hex1, hex2, hex3, background, direction, lenght);
+	if(this->groupBoxMode)
+	{
+                this->groupBoxLayout->addWidget(GraphicEQ, row, column, rowSpan, columnSpan, alignment);
+	}
+	else if(this->stackFieldMode)
+	{
+                this->stackField->addWidget(GraphicEQ, row, column, rowSpan, columnSpan, alignment);
+	}
+	else
+	{
+                this->layout->addWidget(GraphicEQ, row, column, rowSpan, columnSpan, alignment);
+	};
+};
+
+void editPage::addParaEQ(int row, int column, int rowSpan, int columnSpan,
+                                           QString hex1, QString hex2, QString hex3,
+                                           QString background, QString direction, int lenght,
+                                           Qt::Alignment alignment)
+{
+        customControlParaEQ *ParaEQ = new customControlParaEQ(this, hex1, hex2, hex3, background, direction, lenght);
+        if(this->groupBoxMode)
+        {
+                this->groupBoxLayout->addWidget(ParaEQ, row, column, rowSpan, columnSpan, alignment);
+        }
+        else if(this->stackFieldMode)
+        {
+                this->stackField->addWidget(ParaEQ, row, column, rowSpan, columnSpan, alignment);
+        }
+        else
+        {
+                this->layout->addWidget(ParaEQ, row, column, rowSpan, columnSpan, alignment);
+        };
 };
 
 void editPage::addKnob(int row, int column, int rowSpan, int columnSpan,

@@ -52,7 +52,7 @@ int main(int argc, char *argv[])
 	QPixmap splashMask(":images/splashmask.png");
 
 	customSplashScreen *splash = new customSplashScreen(splashImage);
-	splash->setMessageRect(QRect::QRect(7, 253, 415, 14), Qt::AlignCenter); // Setting the message position.
+	splash->setMessageRect(QRect(7, 253, 415, 14), Qt::AlignCenter); // Setting the message position.
 
 	QFont splashFont;
 	splashFont.setFamily("Arial");
@@ -103,7 +103,7 @@ int main(int argc, char *argv[])
 	window.setWindowFlags( Qt::WindowTitleHint 
 		| Qt::WindowMinimizeButtonHint 
 		| Qt::MSWindowsFixedSizeDialogHint );
-	window.setWindowIcon(QIcon::QIcon(":/images/windowicon.png"));
+	window.setWindowIcon(QIcon(":/images/windowicon.png"));
 
 	app.processEvents(); 
 

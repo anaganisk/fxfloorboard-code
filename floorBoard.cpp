@@ -104,7 +104,7 @@ floorBoard::floorBoard(QWidget *parent,
         panelBar->setPos(panelBarPos);
 
         dragBar *bar = new dragBar(this);
-        bar->setDragBarSize(QSize::QSize(4, panelBar->height() ));
+        bar->setDragBarSize(QSize(4, panelBar->height() ));
         bar->setDragBarMinOffset(2, 8);
         bar->setDragBarMaxOffset(offset - panelBarOffset + 5);
         initStomps();
@@ -140,7 +140,7 @@ floorBoard::floorBoard(QWidget *parent,
         QString defaultwidth = preferences->getPreferences("Window", "Collapsed", "defaultwidth");
         if(width.isEmpty()){ width = defaultwidth; }
 
-        this->l_floorSize = QSize::QSize(width.toInt(&ok, 10), floorSize.height());
+        this->l_floorSize = QSize(width.toInt(&ok, 10), floorSize.height());
 
         if(preferences->getPreferences("Window", "Restore", "sidepanel")=="true")
         {
@@ -159,7 +159,7 @@ floorBoard::floorBoard(QWidget *parent,
         }
         else
         {
-                //this->l_floorSize = QSize::QSize(defaultwidth.toInt(&ok, 10), floorSize.height());
+                //this->l_floorSize = QSize(defaultwidth.toInt(&ok, 10), floorSize.height());
                 this->setSize(minSize);
                 this->colapseState = false;
                 emit setCollapseState(false);
@@ -207,7 +207,7 @@ void floorBoard::setFloorBoard() {
 
         initSize(imageFloor.size());
         this->maxSize = floorSize;
-        this->minSize = QSize::QSize(imageInfoBar.width() + borderWidth + panelBarOffset, imageFloor.height());
+        this->minSize = QSize(imageInfoBar.width() + borderWidth + panelBarOffset, imageFloor.height());
 
         // Draw InfoBar
         QRectF sourceInfoBar(0.0, 0.0, imageInfoBar.width(), imageInfoBar.height());
@@ -238,16 +238,16 @@ void floorBoard::setFloorBoard() {
         this->image = buffer;
         this->floorHeight = imageFloor.height();
 
-        QPoint newPanelBarPos = QPoint::QPoint(offset - panelBarOffset, borderWidth);
+        QPoint newPanelBarPos = QPoint(offset - panelBarOffset, borderWidth);
         this->panelBarPos = newPanelBarPos;
 
-        QPoint newDisplayPos = QPoint::QPoint(offset, 0);
+        QPoint newDisplayPos = QPoint(offset, 0);
         this->displayPos = newDisplayPos;
 
-        QPoint newLiberainPos = QPoint::QPoint(offset, floorHeight);
+        QPoint newLiberainPos = QPoint(offset, floorHeight);
         this->liberainPos = newLiberainPos;
 
-        QRect newBankListRect = QRect::QRect(borderWidth, borderWidth, offset - panelBarOffset - (borderWidth*2), floorHeight - (borderWidth*2));
+        QRect newBankListRect = QRect(borderWidth, borderWidth, offset - panelBarOffset - (borderWidth*2), floorHeight - (borderWidth*2));
         emit resizeSignal(newBankListRect);
 };
 
@@ -305,15 +305,15 @@ void floorBoard::dropEvent(QDropEvent *event)
                 QSize stompSize;
                 QPoint topLeftOffset;
         dataStream >> stompId >> stompPos >> stompSize >> topLeftOffset;
-                QPoint dragPoint = (event->pos() - topLeftOffset) + QPoint::QPoint(stompSize.width()/2, stompSize.height()/2);
+                QPoint dragPoint = (event->pos() - topLeftOffset) + QPoint(stompSize.width()/2, stompSize.height()/2);
                 int stompSpacing = fxPos.at(1).x() - (fxPos.at(0).x() + stompSize.width());
 
                 int destIndex = -1; // Set to out of range by default.
                 int orgIndex = fx.indexOf(stompId);
                 for(int x=0;x<fx.size();x++)
         {
-            QRect dropRect = QRect::QRect(fxPos.at(x).x() - stompSpacing - (stompSize.width()/2), fxPos.at(x).y(), stompSize.width() + stompSpacing, stompSize.height());
-            QRect lastDropRect = QRect::QRect(fxPos.at(x).x() + (stompSize.width()/2), fxPos.at(x).y(), stompSize.width() + stompSpacing, stompSize.height());
+            QRect dropRect = QRect(fxPos.at(x).x() - stompSpacing - (stompSize.width()/2), fxPos.at(x).y(), stompSize.width() + stompSpacing, stompSize.height());
+            QRect lastDropRect = QRect(fxPos.at(x).x() + (stompSize.width()/2), fxPos.at(x).y(), stompSize.width() + stompSpacing, stompSize.height());
             if( dropRect.contains(dragPoint) )
             {
                 destIndex = fx.indexOf(fx.at(x));
@@ -509,7 +509,7 @@ void floorBoard::initSize(QSize floorSize)
                         y = y + stompSize.height() + spacingV;
                         x = x - (( stompSize.width() + spacingH ) * 9);
                 };
-                fxPos.append(QPoint::QPoint(offset + x, y - (this->infoBarHeight/2)));
+                fxPos.append(QPoint(offset + x, y - (this->infoBarHeight/2)));
         };
 
         this->fxPos = fxPos;
@@ -547,19 +547,19 @@ void floorBoard::setSize(QSize newSize)
 
         for(int i=0;i<fxPos.size();i++)
         {
-                fxPos[i] = fxPos[i] + QPoint::QPoint(offset - oldOffset, 0);
+                fxPos[i] = fxPos[i] + QPoint(offset - oldOffset, 0);
         };
         emit updateStompOffset(offset - oldOffset);
 
-        QPoint newPanelBarPos = QPoint::QPoint(offset - panelBarOffset, panelBarPos.y());
+        QPoint newPanelBarPos = QPoint(offset - panelBarOffset, panelBarPos.y());
         emit setFloorPanelBarPos(newPanelBarPos);
         this->panelBarPos = newPanelBarPos;
 
-        QPoint newDisplayPos = QPoint::QPoint(offset, displayPos.y());
+        QPoint newDisplayPos = QPoint(offset, displayPos.y());
         emit setDisplayPos(newDisplayPos);
         this->displayPos = newDisplayPos;
 
-        QPixmap buffer = QPixmap::QPixmap(floorSize);
+        QPixmap buffer = QPixmap(floorSize);
         QPainter painter(&buffer);
 
         // Redraw new resized floor
@@ -577,7 +577,7 @@ void floorBoard::setSize(QSize newSize)
         this->image = buffer;
         this->setFixedSize(floorSize);
 
-        QRect newBankListRect = QRect::QRect(borderWidth, borderWidth, offset - panelBarOffset - (borderWidth*2), floorHeight - (borderWidth*2));
+        QRect newBankListRect = QRect(borderWidth, borderWidth, offset - panelBarOffset - (borderWidth*2), floorHeight - (borderWidth*2));
         emit resizeSignal(newBankListRect);
 
         emit sizeChanged(floorSize, oldFloorSize);
@@ -602,7 +602,7 @@ void floorBoard::setWidth(int dist)
         }
         else
         {
-                newSize = QSize::QSize(floorSize.width() + dist, floorSize.height());
+                newSize = QSize(floorSize.width() + dist, floorSize.height());
                 this->l_floorSize = newSize;
                 this->colapseState = true;
                 emit setCollapseState(true);

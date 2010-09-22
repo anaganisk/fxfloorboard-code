@@ -182,6 +182,10 @@ void stompbox_fx2::setEditPages()
     // Parametric EQ
     editDetails()->page()->newStackField(0);
   editDetails()->page()->newGroupBox("Effect", Qt::AlignTop | Qt::AlignHCenter);
+   editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00", "middle", Qt::AlignCenter);
+    editDetails()->page()->addEQ(0, 1, 2, 4, "06", "00", "58");
+    editDetails()->page()->addGroupBox(0, 0, 2, 4);
+ /*
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "06", "00", "00", "middle", Qt::AlignCenter);
 	editDetails()->page()->addGroupBox(0, 0, 2, 1);
 
@@ -211,7 +215,7 @@ void stompbox_fx2::setEditPages()
 
 	editDetails()->page()->newGroupBox("Level");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "06", "00", "62");
-	editDetails()->page()->addGroupBox(0, 2, 2, 1);
+	editDetails()->page()->addGroupBox(0, 2, 2, 1);      */
   //editDetails()->addPage("06", "00", "01", "06");
   editDetails()->page()->addStackField();
 

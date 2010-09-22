@@ -52,6 +52,10 @@ void stompbox_eq::updateSignal()
 void stompbox_eq::setEditPages()
 {
     editDetails()->page()->newGroupBox("Effect", Qt::AlignTop | Qt::AlignHCenter);
+    editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "70", "middle", Qt::AlignCenter);
+  editDetails()->page()->addEQ(0, 1, 2, 4, "01", "00", "71");
+
+  /*
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "70", "middle", Qt::AlignCenter);
 	editDetails()->page()->addGroupBox(0, 0, 2, 1);
 
@@ -80,8 +84,8 @@ void stompbox_eq::setEditPages()
 	editDetails()->page()->addGroupBox(0, 1, 2, 1);
 
 	editDetails()->page()->newGroupBox("Level");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "7B");
-	editDetails()->page()->addGroupBox(0, 2, 2, 1);
+	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "7B");  */
+	editDetails()->page()->addGroupBox(0, 0, 2, 4);
 
 	editDetails()->addPage();	
 };

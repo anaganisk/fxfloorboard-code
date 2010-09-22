@@ -33,6 +33,8 @@ HEADERS += ./editPage.h \
     ./bulkSaveDialog.h \
     ./customButton.h \
     ./customComboBox.h \
+    ./customControlParaEQ.h \
+    ./customControlGraphicEQ.h \
     ./customControlKnob.h \
     ./customControlRange.h \
     ./customControlLabel.h \
@@ -41,6 +43,8 @@ HEADERS += ./editPage.h \
     ./customControlTarget.h \
     ./customDial.h \
     ./customDisplay.h \
+    ./customParaEQGraph.h \
+    ./customGraphicEQGraph.h \
     ./customKnob.h \
     ./customKnobTarget.h \
     ./customKnobRange.h \
@@ -127,6 +131,8 @@ SOURCES += ./editPage.cpp \
     ./bulkSaveDialog.cpp \
     ./customButton.cpp \
     ./customComboBox.cpp \
+    ./customControlParaEQ.cpp \
+    ./customControlGraphicEQ.cpp \
     ./customControlKnob.cpp \
     ./customControlLabel.cpp \
     ./customControlListMenu.cpp \
@@ -135,6 +141,8 @@ SOURCES += ./editPage.cpp \
     ./customControlTarget.cpp \
     ./customDial.cpp \
     ./customDisplay.cpp \
+    ./customParaEQGraph.cpp \
+    ./customGraphicEQGraph.cpp \
     ./customKnob.cpp \
     ./customKnobTarget.cpp \
     ./customKnobRange.cpp \
