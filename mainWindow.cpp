@@ -35,9 +35,11 @@
 #include "globalVariables.h"
 
 
- mainWindow::mainWindow(QWidget *parent)
-    : QWidget(parent)
+ mainWindow::mainWindow()
+
 {
+     createActions();
+     createMenus();
         floorBoard *fxsBoard = new floorBoard(this);
 
         /* Loads the stylesheet for the current platform if present */
@@ -77,20 +79,20 @@
 #endif
 
 
-        this->setWindowTitle(deviceType + tr(" Fx FloorBoard"));
+        setWindowTitle(deviceType + tr(" Fx FloorBoard"));
 
-        this->createActions();
-        this->createMenus();
-        this->createStatusBar();
 
-        QVBoxLayout *mainLayout = new QVBoxLayout;
-        mainLayout->setMenuBar(menuBar);
-        mainLayout->addWidget(fxsBoard);
-        mainLayout->addWidget(statusBar);
-        mainLayout->setMargin(0);
-        mainLayout->setSpacing(0);
-        setLayout(mainLayout);
-        this->statusBar->setWhatsThis("StatusBar<br>midi activity is displayed here<br>and some status messages are displayed.");
+        createStatusBar();
+
+        //QVBoxLayout *mainLayout = new QVBoxLayout;
+        //mainLayout->setMenuBar(menuBar);
+        //mainLayout->addWidget(fxsBoard);
+        //mainLayout->addWidget(statusBar);
+        //mainLayout->setMargin(0);
+        //mainLayout->setSpacing(0);
+        //setLayout(mainLayout);
+        setCentralWidget(fxsBoard);
+        statusBar()->setWhatsThis("StatusBar<br>midi activity is displayed here<br>and some status messages are displayed.");
  
         QObject::connect(fxsBoard, SIGNAL( sizeChanged(QSize, QSize) ),
                 this, SLOT( updateSize(QSize, QSize) ) );
@@ -271,9 +273,9 @@ void mainWindow::createActions()
 
 void mainWindow::createMenus()
 {
-    menuBar = new QMenuBar;
-
-        QMenu *fileMenu = new QMenu(tr("&File"), this);
+        //menuBar = new QMenuBar();
+        fileMenu = menuBar()->addMenu(tr("&File"));
+        //QMenu *fileMenu = new QMenu(tr("&File"));
         fileMenu->addAction(openAct);
         fileMenu->addSeparator();
         //fileMenu->addAction(saveAct);
@@ -289,10 +291,11 @@ void mainWindow::createMenus()
         fileMenu->addSeparator();
         fileMenu->addAction(exitAct);
         fileMenu->setWhatsThis(tr("File Saving and Loading,<br> and application Exit."));
-        menuBar->addMenu(fileMenu);
+        //menuBar->addMenu(fileMenu);
 
 
-        QMenu *toolsMenu = new QMenu(tr("&Tools"), this);
+        //QMenu *toolsMenu = new QMenu(tr("&Tools"), this);
+        toolsMenu = menuBar()->addMenu(tr("&Tools"));
         toolsMenu->addAction(settingsAct);
         fileMenu->addSeparator();
         toolsMenu->addAction(uploadAct);
@@ -300,9 +303,10 @@ void mainWindow::createMenus()
         toolsMenu->addAction(summaryAct);
         toolsMenu->addAction(summarySystemAct);
         toolsMenu->addAction(summaryPatchListAct);
-        menuBar->addMenu(toolsMenu);
+        //menuBar->addMenu(toolsMenu);
 
-        QMenu *helpMenu = new QMenu(tr("&Help"), this);
+        //QMenu *helpMenu = new QMenu(tr("&Help"), this);
+        helpMenu = menuBar()->addMenu(tr("&Help"));
         helpMenu->addAction(helpAct);
         helpMenu->addAction(whatsThisAct);
         helpMenu->addAction(homepageAct);
@@ -312,7 +316,7 @@ void mainWindow::createMenus()
         helpMenu->addSeparator();
         helpMenu->addAction(aboutAct);
         helpMenu->addAction(aboutQtAct);
-        menuBar->addMenu(helpMenu);
+        //menuBar->addMenu(helpMenu);
 };
 
 void mainWindow::createStatusBar()
@@ -330,9 +334,9 @@ void mainWindow::createStatusBar()
 
 
 
-        statusBar = new QStatusBar;
-        statusBar->addWidget(statusInfo);
-        statusBar->setSizeGripEnabled(false);
+        //statusBar = new QStatusBar;
+        statusBar()->addWidget(statusInfo);
+        statusBar()->setSizeGripEnabled(false);
 };
 
 /* FILE MENU */

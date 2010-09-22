@@ -152,71 +152,20 @@ void stompbox_fx1::setEditPages()
 	editDetails()->page()->addStackField();
 
 	// Graphic EQ 
-	  editDetails()->page()->newStackField(0);
+        editDetails()->page()->newStackField(0);
 	editDetails()->page()->newGroupBox("Effect", Qt::AlignTop | Qt::AlignHCenter);
 	editDetails()->page()->addSwitch(0, 0, 1, 1, "02", "00", "00", "middle", Qt::AlignCenter);
-	editDetails()->page()->addGroupBox(0, 0, 2, 1);
-
-	editDetails()->page()->newGroupBox("Equalizer");
-	editDetails()->page()->newGroupBox("Band");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "05", "00", "37");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "05", "00", "38");
-	editDetails()->page()->addKnob(0, 2, 1, 1, "05", "00", "39");
-	editDetails()->page()->addKnob(0, 3, 1, 1, "05", "00", "3A");
-	editDetails()->page()->addKnob(0, 4, 1, 1, "05", "00", "3B");
-	editDetails()->page()->addKnob(0, 5, 1, 1, "05", "00", "3C");
-	editDetails()->page()->addKnob(0, 6, 1, 1, "05", "00", "3D");
-	editDetails()->page()->addKnob(0, 7, 1, 1, "05", "00", "3E");
-	editDetails()->page()->addKnob(0, 8, 1, 1, "05", "00", "3F");
-	editDetails()->page()->addKnob(0, 9, 1, 1, "05", "00", "40");
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
-	editDetails()->page()->addGroupBox(0, 1, 2, 1);
-    
-	editDetails()->page()->newGroupBox("Level");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "05", "00", "36");
-	editDetails()->page()->addGroupBox(0, 2, 2, 1);
-	//editDetails()->addPage("02", "00", "01", "05");
-  editDetails()->page()->addStackField();
+        editDetails()->page()->addGraphicEQ(0, 1, 2, 4, "05", "00", "36");
+        editDetails()->page()->addGroupBox(0, 0, 2, 4);
+        editDetails()->page()->addStackField();
 
     // Parametric EQ
         editDetails()->page()->newStackField(0);
         editDetails()->page()->newGroupBox("Effect", Qt::AlignTop | Qt::AlignHCenter);
         editDetails()->page()->addSwitch(0, 0, 1, 1, "02", "00", "00", "middle", Qt::AlignCenter);
-        editDetails()->page()->addEQ(0, 1, 2, 4, "02", "00", "58");
+        editDetails()->page()->addParaEQ(0, 1, 2, 4, "02", "00", "58");
         editDetails()->page()->addGroupBox(0, 0, 2, 4);
-        /*editDetails()->page()->newGroupBox("Effect", Qt::AlignTop | Qt::AlignHCenter);
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "02", "00", "00", "middle", Qt::AlignCenter);
-	editDetails()->page()->addGroupBox(0, 0, 2, 1);
-
-	editDetails()->page()->newGroupBox("Equalizer");
-	editDetails()->page()->newGroupBox("Low");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "02", "00", "58");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "02", "00", "59");
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
-
-	editDetails()->page()->newGroupBox("Low-Middle");
-	editDetails()->page()->addKnob(1, 0, 1, 1, "02", "00", "5A");
-	editDetails()->page()->addKnob(2, 0, 1, 1, "02", "00", "5B");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "02", "00", "5C");
-	editDetails()->page()->addGroupBox(0, 1, 1, 1);
-
-	editDetails()->page()->newGroupBox("High-Middle");
-	editDetails()->page()->addKnob(1, 0, 1, 1, "02", "00", "5D");
-	editDetails()->page()->addKnob(2, 0, 1, 1, "02", "00", "5E");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "02", "00", "5F");
-	editDetails()->page()->addGroupBox(0, 2, 1, 1);
-
-	editDetails()->page()->newGroupBox("High");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "02", "00", "60");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "02", "00", "61");
-	editDetails()->page()->addGroupBox(0, 3, 1, 1);
-	editDetails()->page()->addGroupBox(0, 1, 2, 1);
-
-	editDetails()->page()->newGroupBox("Level");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "02", "00", "62");
-        editDetails()->page()->addGroupBox(0, 2, 2, 1);*/
-  //editDetails()->addPage("02", "00", "01", "06");
-  editDetails()->page()->addStackField();
+        editDetails()->page()->addStackField();
   
   // Enhancer
     editDetails()->page()->newStackField(0);

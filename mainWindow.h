@@ -31,13 +31,13 @@
 #include <QPrintDialog>
 #include <QPrinter>
 
-class mainWindow : public QWidget
-//class mainWindow : public QMainWindow
+//class mainWindow : public QWidget
+class mainWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    mainWindow(QWidget *parent = 0);
+    mainWindow();
 	~mainWindow();
 	void closeEvent(QCloseEvent* ce);
 
@@ -75,8 +75,8 @@ private:
 	void createMenus();
 	void createStatusBar();
 
-	QMenuBar *menuBar;
-	QStatusBar *statusBar;
+        //QMenuBar *menuBar;
+        //QStatusBar *statusBar;
 	QMenu *fileMenu;
 	QMenu *toolsMenu;
 	QMenu *helpMenu;

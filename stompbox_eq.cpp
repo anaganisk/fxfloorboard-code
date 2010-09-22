@@ -53,39 +53,7 @@ void stompbox_eq::setEditPages()
 {
   editDetails()->page()->newGroupBox("Effect", Qt::AlignTop | Qt::AlignHCenter);
   editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "70", "middle", Qt::AlignCenter);
-  editDetails()->page()->addEQ(0, 1, 2, 4, "01", "00", "71");
-
-        /*
-	editDetails()->page()->addGroupBox(0, 0, 2, 1);
-
-	editDetails()->page()->newGroupBox("Equalizer");
-	editDetails()->page()->newGroupBox("Low");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "01", "00", "72");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "71");
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
-
-	editDetails()->page()->newGroupBox("Low-Middle");
-	editDetails()->page()->addKnob(1, 0, 1, 1, "01", "00", "73");
-	editDetails()->page()->addKnob(2, 0, 1, 1, "01", "00", "74");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "75");
-	editDetails()->page()->addGroupBox(0, 1, 1, 1);
-
-	editDetails()->page()->newGroupBox("High-Middle");
-	editDetails()->page()->addKnob(1, 0, 1, 1, "01", "00", "76");
-	editDetails()->page()->addKnob(2, 0, 1, 1, "01", "00", "77");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "78");
-	editDetails()->page()->addGroupBox(0, 2, 1, 1);
-
-	editDetails()->page()->newGroupBox("High");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "79");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "01", "00", "7A");
-	editDetails()->page()->addGroupBox(0, 3, 1, 1);
-	editDetails()->page()->addGroupBox(0, 1, 2, 1);
-
-	editDetails()->page()->newGroupBox("Level");
-        editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "7B");*/
-        editDetails()->page()->addGroupBox(0, 0, 2, 4);
-
-	editDetails()->addPage();
-	                                                // and hex1 & hex3 address start point.	
+  editDetails()->page()->addParaEQ(0, 1, 2, 4, "01", "00", "71");
+  editDetails()->page()->addGroupBox(0, 0, 2, 4);
+  editDetails()->addPage();
 };

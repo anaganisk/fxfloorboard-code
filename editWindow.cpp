@@ -30,8 +30,8 @@
 editWindow::editWindow(QWidget *parent)
     : QWidget(parent)
 {
-	this->image = QPixmap(":images/editwindow.png");
-	this->setFixedSize(image.width(), image.height());
+        this->image = QPixmap(":images/editwindow.png");
+        this->setFixedSize(image.width(), image.height());
 	/*this->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 	this->setWindowFlags(Qt::WindowStaysOnTopHint
 		| Qt::WindowTitleHint

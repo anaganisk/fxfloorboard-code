@@ -184,7 +184,7 @@ floorBoard::~floorBoard()
 
 void floorBoard::paintEvent(QPaintEvent *)
 {
-	QRectF target(pos.x(), pos.y(), floorSize.width(), floorSize.height());
+        QRectF target(pos.x(), pos.y(), floorSize.width(), floorSize.height());
 	QRectF source(0.0, 0.0, floorSize.width(), floorSize.height());
 
 	QPainter painter(this);
@@ -584,7 +584,7 @@ void floorBoard::setSize(QSize newSize)
 	this->setFixedSize(floorSize);
 	
         QRect newBankListRect = QRect(borderWidth, borderWidth, offset - panelBarOffset - (borderWidth*2), floorHeight - (borderWidth*2));
-	emit resizeSignal(newBankListRect);
+        emit resizeSignal(newBankListRect);
 	
 	emit sizeChanged(floorSize, oldFloorSize);
 	this->centerEditDialog();
@@ -827,7 +827,7 @@ void floorBoard::centerEditDialog()
 {
 	int x = this->displayPos.x() + (((this->floorSize.width() - this->displayPos.x()) - this->editDialog->width()) / 2);
 	int y = this->pos.y() + (((this->floorSize.height() + this->infoBarHeight/2) - this->editDialog->height()) / 2);
-	this->editDialog->move(x, y);
+        this->editDialog->move(x, y);
 };
 
 void floorBoard::initMenuPages()
