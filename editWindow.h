@@ -31,7 +31,7 @@
 #include "editPage.h"
 #include "customControlLabel.h"
 
-class editWindow : public QWidget
+class editWindow : public QDialog
 {
     Q_OBJECT
 
@@ -94,6 +94,9 @@ private:
 	int length;
 	QString temp_hex1;
 	QString temp_hex3;
+        double w;
+        double h;
+        QVBoxLayout *mainLayout;
 };
 
 #endif // EDITWINDOW_H

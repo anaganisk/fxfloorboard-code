@@ -722,6 +722,8 @@ void mainWindow::settings()
                 QString dir = dialog->generalSettings->dirEdit->text();
                 QString sidepanel = (dialog->windowSettings->sidepanelCheckBox->checkState())?QString("true"):QString("false");
                 QString window = (dialog->windowSettings->windowCheckBox->checkState())?QString("true"):QString("false");
+                QString singleWindow = (dialog->windowSettings->singleWindowCheckBox->checkState())?QString("true"):QString("false");
+                QString widgetHelp = (dialog->windowSettings->widgetsCheckBox->checkState())?QString("true"):QString("false");
                 QString splash = (dialog->windowSettings->splashCheckBox->checkState())?QString("true"):QString("false");
                 QString dBug = (dialog->midiSettings->dBugCheckBox->checkState())?QString("true"):QString("false");
                 QString midiIn = QString::number(dialog->midiSettings->midiInCombo->currentIndex() - 1, 10); // -1 because there is a default entry at index 0
@@ -746,6 +748,8 @@ void mainWindow::settings()
                 preferences->setPreferences("Midi", "Delay", "set", receiveTimeout);
                 preferences->setPreferences("Window", "Restore", "sidepanel", sidepanel);
                 preferences->setPreferences("Window", "Restore", "window", window);
+                preferences->setPreferences("Window", "Single", "bool", singleWindow);
+                preferences->setPreferences("Window", "Widgets", "bool", widgetHelp);
                 preferences->setPreferences("Window", "Splash", "bool", splash);
                 preferences->savePreferences();
         };

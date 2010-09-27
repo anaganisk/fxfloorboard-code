@@ -86,5 +86,6 @@
         <file>qss/windows.qss</file>
         <file>system.syx</file>
         <file>images/EQ_graph.png</file>
+        <file>images/meshWindow.png</file>
     </qresource>
 </RCC>

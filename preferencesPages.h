@@ -58,6 +58,8 @@ public:
 	WindowPage(QWidget *parent = 0);
 	QCheckBox* windowCheckBox;
 	QCheckBox* sidepanelCheckBox;
+        QCheckBox* singleWindowCheckBox;
+        QCheckBox* widgetsCheckBox;
 	QCheckBox* splashCheckBox;
 };
 

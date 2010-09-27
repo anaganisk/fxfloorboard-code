@@ -25,8 +25,9 @@
 //#include <QMessageBox>
 #include <QPainter>
 #include <QMouseEvent>
+#include <QGraphicsPathItem>
 
-customParaEQGraph::customParaEQGraph (QWidget *parent) : /*m_poly(5), */loMid(11), m_iDragNode(-1)
+customParaEQGraph::customParaEQGraph (QWidget *parent) //: /*m_poly(5), */loMid(11), m_iDragNode(-1)
 {
 	QFrame::setFrameShape(QFrame::Panel);
         QFrame::setFrameShadow(QFrame::Sunken);
@@ -209,7 +210,6 @@ unsigned short customParaEQGraph::Level (void) const
 }
 
 
-// Draw curve.
 void customParaEQGraph::paintEvent ( QPaintEvent *pPaintEvent )
 {
     QPixmap image = QPixmap(":images/EQ_graph.png");
@@ -334,7 +334,7 @@ void customParaEQGraph::paintEvent ( QPaintEvent *pPaintEvent )
  //painter.setCompositionMode(QPainter::CompositionMode_DestinationOut);
     painter.setPen(Qt::yellow);
 
-    QPainterPath graph = (para_1+para_2+loHiCut);
+    QPainterPath graph = (loHiCut.subtracted(para_1));
     painter.setBrush(grad);
     //painter.drawPath(loHiCut);
     painter.drawPath((graph));
