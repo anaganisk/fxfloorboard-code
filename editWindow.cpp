@@ -26,17 +26,23 @@
 #include "SysxIO.h"
 #include "globalVariables.h"
 #include "bulkEditDialog.h"
+#include "Preferences.h"
 
 editWindow::editWindow(QWidget *parent)
-    : QWidget(parent)
+    : QDialog(parent)
 {
+
+     //this->w = image.width();
+     //this->h = image.height();
+     this->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+    Preferences *preferences = Preferences::Instance();
+    if(preferences->getPreferences("Window", "Single", "bool")=="true")
+    {
         this->image = QPixmap(":images/editwindow.png");
         this->setFixedSize(image.width(), image.height());
-        /*this->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-        this->setWindowFlags(Qt::WindowStaysOnTopHint
-                | Qt::WindowTitleHint
-                | Qt::WindowMinimizeButtonHint
-                | Qt::MSWindowsFixedSizeDialogHint);*/
+
+        this->setWindowFlags(Qt::WindowStaysOnTopHint);
+    } else { this->image = QPixmap(":images/meshWindow.png"); };
 
         this->title = new QLabel;
         this->title->setObjectName("title");
@@ -56,6 +62,9 @@ editWindow::editWindow(QWidget *parent)
 	      this->bulkEdit_Button->setImage(":/images/pushbutton_dark.png");
 	      this->bulkEdit_Button->setText(tr("Bulk Write"));
 	      this->bulkEdit_Button->setAlignment(Qt::AlignCenter); 
+              this->bulkEdit_Button->setWhatsThis(tr("Multiple Patch Edit Button<br>will write only the currently displayed effect part to a selection of User Patches."
+                                                  "<br>useful for applying common settings to a patch group."));
+
 
         this->swap_Button = new customControlLabel;
         this->swap_Button->setButton(true);

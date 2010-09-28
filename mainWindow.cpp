@@ -36,14 +36,16 @@
 #include "globalVariables.h"
 
 
-mainWindow::mainWindow(QWidget *parent)
-    : QWidget(parent){
+mainWindow::mainWindow()
+    {
+         createActions();
+     createMenus();
         floorBoard *fxsBoard = new floorBoard(this);
 
 
 
         /* Loads the stylesheet for the current platform if present */
-        #ifdef Q_OS_WIN
+#ifdef Q_OS_WIN
         /* This set the floorboard default style to the "plastique" style,
            as it comes the nearest what the stylesheet uses. */
         //fxsBoard->setStyle(QStyleFactory::create("plastique"));
@@ -54,9 +56,9 @@ mainWindow::mainWindow(QWidget *parent)
                         QString styleSheet = QLatin1String(file.readAll());
                         fxsBoard->setStyleSheet(styleSheet);
                 };
-        #endif
+#endif
 
-        #ifdef Q_WS_X11
+#ifdef Q_WS_X11
         fxsBoard->setStyle(QStyleFactory::create("plastique"));
                 if(QFile(":qss/linux.qss").exists())
                 {
@@ -65,9 +67,9 @@ mainWindow::mainWindow(QWidget *parent)
                         QString styleSheet = QLatin1String(file.readAll());
                         fxsBoard->setStyleSheet(styleSheet);
                 };
-        #endif
+#endif
 
-        #ifdef Q_WS_MAC
+#ifdef Q_WS_MAC
         fxsBoard->setStyle(QStyleFactory::create("plastique"));
                 if(QFile(":qss/macosx.qss").exists())
                 {
@@ -76,23 +78,27 @@ mainWindow::mainWindow(QWidget *parent)
                         QString styleSheet = QLatin1String(file.readAll());
                         fxsBoard->setStyleSheet(styleSheet);
                 };
-        #endif
+#endif
 
 
-        this->setWindowTitle(deviceType + tr(" Fx FloorBoard"));
+        setWindowTitle(deviceType + tr(" Fx FloorBoard"));
 
-        this->createActions();
-        this->createMenus();
-        this->createStatusBar();
 
-        QVBoxLayout *mainLayout = new QVBoxLayout;
-        mainLayout->setMenuBar(menuBar);
-        mainLayout->addWidget(fxsBoard);
-        mainLayout->addWidget(statusBar);
-        mainLayout->setMargin(0);
-        mainLayout->setSpacing(0);
-        setLayout(mainLayout);
-        this->statusBar->setWhatsThis("StatusBar<br>midi activity is displayed here<br>and some status messages are displayed.");
+
+        createStatusBar();
+
+
+
+        //QVBoxLayout *mainLayout = new QVBoxLayout;
+        //mainLayout->setMenuBar(menuBar);
+        //mainLayout->addWidget(fxsBoard);
+        //mainLayout->addWidget(statusBar);
+        //mainLayout->setMargin(0);
+        //mainLayout->setSpacing(0);
+        //setLayout(mainLayout);
+        setCentralWidget(fxsBoard);
+        statusBar()->setWhatsThis("StatusBar<br>midi activity is displayed here<br>and some status messages are displayed.");
+ 
         QObject::connect(fxsBoard, SIGNAL( sizeChanged(QSize, QSize) ),
                 this, SLOT( updateSize(QSize, QSize) ) );
 };
@@ -249,9 +255,9 @@ void mainWindow::createActions()
 
 void mainWindow::createMenus()
 {
-    menuBar = new QMenuBar;
-
-  QMenu *fileMenu = new QMenu(tr("&File"), this);
+          //menuBar = new QMenuBar();
+        fileMenu = menuBar()->addMenu(tr("&File"));
+        //QMenu *fileMenu = new QMenu(tr("&File"));
         fileMenu->addAction(openAct);
         fileMenu->addSeparator();
         fileMenu->addAction(saveAsAct);
@@ -265,21 +271,22 @@ void mainWindow::createMenus()
         fileMenu->addAction(systemSaveAct);
         fileMenu->addSeparator();
         fileMenu->addAction(exitAct);
-        menuBar->addMenu(fileMenu);
         fileMenu->setWhatsThis(tr("File Saving and Loading,<br> and application Exit."));
 
 
-        QMenu *toolsMenu = new QMenu(tr("&Tools"), this);
+        //QMenu *toolsMenu = new QMenu(tr("&Tools"), this);
+        toolsMenu = menuBar()->addMenu(tr("&Tools"));
         toolsMenu->addAction(settingsAct);
         toolsMenu->addAction(uploadAct);
         fileMenu->addSeparator();
         toolsMenu->addAction(summaryAct);
         toolsMenu->addAction(summarySystemAct);
         toolsMenu->addAction(summaryPatchListAct);
-        menuBar->addMenu(toolsMenu);
+        //menuBar->addMenu(toolsMenu);
 
 
-        QMenu *helpMenu = new QMenu(tr("&Help"), this);
+        //QMenu *helpMenu = new QMenu(tr("&Help"), this);
+        helpMenu = menuBar()->addMenu(tr("&Help"));
         helpMenu->addAction(helpAct);
         helpMenu->addAction(whatsThisAct);
         helpMenu->addAction(homepageAct);
@@ -291,7 +298,7 @@ void mainWindow::createMenus()
         helpMenu->addSeparator();
         helpMenu->addAction(aboutAct);
         helpMenu->addAction(aboutQtAct);
-        menuBar->addMenu(helpMenu);
+        //menuBar->addMenu(helpMenu);
 
 };
 
@@ -308,9 +315,9 @@ void mainWindow::createStatusBar()
         QObject::connect(sysxIO, SIGNAL(setStatusMessage(QString)), statusInfo, SLOT(setStatusMessage(QString)));
         QObject::connect(sysxIO, SIGNAL(setStatusdBugMessage(QString)), statusInfo, SLOT(setStatusdBugMessage(QString)));
 
-        statusBar = new QStatusBar;
-        statusBar->addWidget(statusInfo);
-        statusBar->setSizeGripEnabled(false);
+       //statusBar = new QStatusBar;
+        statusBar()->addWidget(statusInfo);
+        statusBar()->setSizeGripEnabled(false);
 };
 
 /* FILE MENU */
@@ -698,6 +705,8 @@ void mainWindow::settings()
                 QString dir = dialog->generalSettings->dirEdit->text();
                 QString sidepanel = (dialog->windowSettings->sidepanelCheckBox->checkState())?QString("true"):QString("false");
                 QString window = (dialog->windowSettings->windowCheckBox->checkState())?QString("true"):QString("false");
+                QString singleWindow = (dialog->windowSettings->singleWindowCheckBox->checkState())?QString("true"):QString("false");
+                QString widgetHelp = (dialog->windowSettings->widgetsCheckBox->checkState())?QString("true"):QString("false");
                 QString splash = (dialog->windowSettings->splashCheckBox->checkState())?QString("true"):QString("false");
                 QString dBug = (dialog->midiSettings->dBugCheckBox->checkState())?QString("true"):QString("false");
                 QString midiIn = QString::number(dialog->midiSettings->midiInCombo->currentIndex() - 1, 10); // -1 because there is a default entry at index 0
@@ -722,6 +731,8 @@ void mainWindow::settings()
                 preferences->setPreferences("Midi", "Delay", "set", receiveTimeout);
                 preferences->setPreferences("Window", "Restore", "sidepanel", sidepanel);
                 preferences->setPreferences("Window", "Restore", "window", window);
+                preferences->setPreferences("Window", "Single", "bool", singleWindow);
+                preferences->setPreferences("Window", "Widgets", "bool", widgetHelp);
                 preferences->setPreferences("Window", "Splash", "bool", splash);
                 preferences->savePreferences();
         };

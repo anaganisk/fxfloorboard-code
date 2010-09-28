@@ -805,19 +805,63 @@ void floorBoard::updateStompBoxes()
 
 void floorBoard::setEditDialog(editWindow* editDialog)
 {
+       QString styleSheet;
+#ifdef Q_OS_WIN
+        /* This set the floorboard default style to the "plastique" style,
+           as it comes the nearest what the stylesheet uses. */
+        //fxsBoard->setStyle(QStyleFactory::create("plastique"));
+                if(QFile(":qss/windows.qss").exists())
+                {
+                        QFile file(":qss/windows.qss");
+                        file.open(QFile::ReadOnly);
+                        styleSheet = QLatin1String(file.readAll());
+
+                };
+#endif
+
+#ifdef Q_WS_X11
+        fxsBoard->setStyle(QStyleFactory::create("plastique"));
+                if(QFile(":qss/linux.qss").exists())
+                {
+                        QFile file(":qss/linux.qss");
+                        file.open(QFile::ReadOnly);
+                        styleSheet = QLatin1String(file.readAll());
+                };
+#endif
+
+#ifdef Q_WS_MAC
+        fxsBoard->setStyle(QStyleFactory::create("plastique"));
+                if(QFile(":qss/macosx.qss").exists())
+                {
+                        QFile file(":qss/macosx.qss");
+                        file.open(QFile::ReadOnly);
+                        styleSheet = QLatin1String(file.readAll());
+                };
+#endif
+
         this->oldDialog = this->editDialog;
-        this->editDialog = editDialog;
+	this->editDialog = editDialog;
         this->editDialog->setParent(this);
+        Preferences *preferences = Preferences::Instance();
+         if(preferences->getPreferences("Window", "Single", "bool")!="true")
+          {
+            this->editDialog->setWindowFlags(Qt::Dialog | Qt::MSWindowsFixedSizeDialogHint);
+            this->editDialog->setStyleSheet(styleSheet);
+          };
         this->centerEditDialog();
-        this->editDialog->pageUpdateSignal();
-        this->editDialog->show();
+	this->editDialog->pageUpdateSignal();
+	this->editDialog->show();
 };
 
 void floorBoard::centerEditDialog()
 {
-        int x = this->displayPos.x() + (((this->floorSize.width() - this->displayPos.x()) - this->editDialog->width()) / 2);
-        int y = this->pos.y() + (((this->floorSize.height() + this->infoBarHeight/2) - this->editDialog->height()) / 2);
-  this->editDialog->move(x, y);
+    Preferences *preferences = Preferences::Instance();
+   if(preferences->getPreferences("Window", "Single", "bool")=="true")
+    {
+	int x = this->displayPos.x() + (((this->floorSize.width() - this->displayPos.x()) - this->editDialog->width()) / 2);
+	int y = this->pos.y() + (((this->floorSize.height() + this->infoBarHeight/2) - this->editDialog->height()) / 2);
+        this->editDialog->move(x, y);
+    };
 };
 
 void floorBoard::initMenuPages()
@@ -879,7 +923,9 @@ void floorBoard::initMenuPages()
 
 void floorBoard::menuButtonSignal()
 {
-   this->oldDialog->hide();
+   Preferences *preferences = Preferences::Instance();
+     if(preferences->getPreferences("Window", "Single", "bool")=="true")
+    { this->oldDialog->hide(); };
    this->editDialog->show();
 };
 

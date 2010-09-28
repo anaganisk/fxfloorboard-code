@@ -38,6 +38,7 @@ HEADERS += ./editPage.h \
     ./customControlKnob.h \
     ./customControlRange.h \
     ./customControlLabel.h \
+    ./customControlMasterEQ.h \
     ./customControlListMenu.h \
     ./customControlSwitch.h \
     ./customControlTarget.h \
@@ -50,6 +51,7 @@ HEADERS += ./editPage.h \
     ./customKnobRange.h \
     ./customLabelDisplay.h \
     ./customLed.h \
+    ./customMasterEQGraph.h \
     ./customRangeDial.h \
     ./customRenameDialog.h \
     ./customRenameWidget.h \
@@ -136,6 +138,7 @@ SOURCES += ./editPage.cpp \
     ./customControlKnob.cpp \
     ./customControlLabel.cpp \
     ./customControlListMenu.cpp \
+    ./customControlMasterEQ.cpp \
     ./customControlRange.cpp \
     ./customControlSwitch.cpp \
     ./customControlTarget.cpp \
@@ -148,6 +151,7 @@ SOURCES += ./editPage.cpp \
     ./customKnobRange.cpp \
     ./customLabelDisplay.cpp \
     ./customLed.cpp \
+    ./customMasterEQGraph.cpp \
     ./customRangeDial.cpp \
     ./customRenameDialog.cpp \
     ./customRenameWidget.cpp \

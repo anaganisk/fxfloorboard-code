@@ -31,7 +31,7 @@
 #include "editPage.h"
 #include "customControlLabel.h"
 
-class editWindow : public QWidget
+class editWindow : public QDialog
 {
     Q_OBJECT
 

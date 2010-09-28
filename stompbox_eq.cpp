@@ -26,66 +26,34 @@
 stompbox_eq::stompbox_eq(QWidget *parent)
     : stompBox(parent)
 {
-	/* EQ */
-	setImage(":/images/eq.png");
-	setLSB("01", "00");
-	setSlider1("01", "00", "72");
-	setSlider2("01", "00", "75");
-	setSlider3("01", "00", "78");
-	setSlider4("01", "00", "79");
-	setSlider5("01", "00", "7B");
-	setButton("01", "00", "70");
-	editDetails()->patchPos(530, 24, "01", "70");
-	setEditPages();
+    /* EQ */
+    setImage(":/images/eq.png");
+    setLSB("01", "00");
+    setSlider1("01", "00", "72");
+    setSlider2("01", "00", "75");
+    setSlider3("01", "00", "78");
+    setSlider4("01", "00", "79");
+    setSlider5("01", "00", "7B");
+    setButton("01", "00", "70");
+    editDetails()->patchPos(530, 24, "01", "70");
+    setEditPages();
 };
 
 void stompbox_eq::updateSignal()
 {
-	updateSlider1("01", "00", "72");
-	updateSlider2("01", "00", "75");
-	updateSlider3("01", "00", "78");
-	updateSlider4("01", "00", "79");
-	updateSlider5("01", "00", "7B");
-	updateButton("01", "00", "70");
+    updateSlider1("01", "00", "72");
+    updateSlider2("01", "00", "75");
+    updateSlider3("01", "00", "78");
+    updateSlider4("01", "00", "79");
+    updateSlider5("01", "00", "7B");
+    updateButton("01", "00", "70");
 };
 
 void stompbox_eq::setEditPages()
 {
     editDetails()->page()->newGroupBox("Effect", Qt::AlignTop | Qt::AlignHCenter);
     editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "70", "middle", Qt::AlignCenter);
-  editDetails()->page()->addEQ(0, 1, 2, 4, "01", "00", "71");
-
-  /*
-	editDetails()->page()->addSwitch(0, 0, 1, 1, "01", "00", "70", "middle", Qt::AlignCenter);
-	editDetails()->page()->addGroupBox(0, 0, 2, 1);
-
-	editDetails()->page()->newGroupBox("Equalizer");
-	editDetails()->page()->newGroupBox("Low");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "71");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "01", "00", "72");
-	editDetails()->page()->addGroupBox(0, 0, 1, 1);
-
-	editDetails()->page()->newGroupBox("Low-Middle");
-	editDetails()->page()->addKnob(1, 0, 1, 1, "01", "00", "73");
-	editDetails()->page()->addKnob(2, 0, 1, 1, "01", "00", "74");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "75");
-	editDetails()->page()->addGroupBox(0, 1, 1, 1);
-
-	editDetails()->page()->newGroupBox("High-Middle");
-	editDetails()->page()->addKnob(1, 0, 1, 1, "01", "00", "76");
-	editDetails()->page()->addKnob(2, 0, 1, 1, "01", "00", "77");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "78");
-	editDetails()->page()->addGroupBox(0, 2, 1, 1);
-
-	editDetails()->page()->newGroupBox("High");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "79");
-	editDetails()->page()->addKnob(0, 1, 1, 1, "01", "00", "7A");
-	editDetails()->page()->addGroupBox(0, 3, 1, 1);
-	editDetails()->page()->addGroupBox(0, 1, 2, 1);
-
-	editDetails()->page()->newGroupBox("Level");
-	editDetails()->page()->addKnob(0, 0, 1, 1, "01", "00", "7B");  */
-	editDetails()->page()->addGroupBox(0, 0, 2, 4);
-
-	editDetails()->addPage();	
+    editDetails()->page()->addParaEQ(0, 1, 2, 4, "01", "00", "71");
+    editDetails()->page()->addGroupBox(0, 0, 2, 4);
+    editDetails()->addPage();
 };

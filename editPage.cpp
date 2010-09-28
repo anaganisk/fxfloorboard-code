@@ -26,6 +26,7 @@
 #include "customSwitch.h"
 #include "customControlParaEQ.h"
 #include "customControlGraphicEQ.h"
+#include "customControlMasterEQ.h"
 #include "customControlKnob.h"
 #include "customControlTarget.h"
 #include "customControlRange.h"
@@ -106,6 +107,26 @@ void editPage::addParaEQ(int row, int column, int rowSpan, int columnSpan,
         else
         {
                 this->layout->addWidget(ParaEQ, row, column, rowSpan, columnSpan, alignment);
+        };
+};
+
+void editPage::addMasterEQ(int row, int column, int rowSpan, int columnSpan,
+                                           QString hex1, QString hex2, QString hex3,
+                                           QString background, QString direction, int lenght,
+                                           Qt::Alignment alignment)
+{
+        customControlMasterEQ *MasterEQ = new customControlMasterEQ(this, hex1, hex2, hex3, background, direction, lenght);
+        if(this->groupBoxMode)
+        {
+                this->groupBoxLayout->addWidget(MasterEQ, row, column, rowSpan, columnSpan, alignment);
+        }
+        else if(this->stackFieldMode)
+        {
+                this->stackField->addWidget(MasterEQ, row, column, rowSpan, columnSpan, alignment);
+        }
+        else
+        {
+                this->layout->addWidget(MasterEQ, row, column, rowSpan, columnSpan, alignment);
         };
 };
 

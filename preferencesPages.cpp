@@ -216,29 +216,33 @@ WindowPage::WindowPage(QWidget *parent)
 	QString windowRestore = preferences->getPreferences("Window", "Restore", "window");
 	QString sidepanelRestore = preferences->getPreferences("Window", "Restore", "sidepanel");
 	QString splashScreen = preferences->getPreferences("Window", "Splash", "bool");
+  QString SingleWindow = preferences->getPreferences("Window", "Single", "bool");
+  QString WidgetsUse = preferences->getPreferences("Window", "Widgets", "bool");
 
 	QGroupBox *windowGroup = new QGroupBox(QObject::tr("Window settings"));
 
 	QLabel *restoreDescriptionLabel = new QLabel(QObject::tr("Select if you want the window position to be saved on exit."));
 	QCheckBox *windowCheckBox = new QCheckBox(QObject::tr("Restore window"));
 	QCheckBox *sidepanelCheckBox = new QCheckBox(QObject::tr("Restore sidepanel"));
+  QCheckBox *singleWindowCheckBox = new QCheckBox(QObject::tr("Single Window Layout"));
+  QCheckBox *widgetsCheckBox = new QCheckBox(QObject::tr("Graphical Assistance"));
 	this->windowCheckBox = windowCheckBox;
 	this->sidepanelCheckBox = sidepanelCheckBox;
+  this->singleWindowCheckBox = singleWindowCheckBox;
+  this->widgetsCheckBox = widgetsCheckBox;
 
-	if(windowRestore=="true")
-	{
-		windowCheckBox->setChecked(true);
-	};
-	if(sidepanelRestore=="true")
-	{
-		sidepanelCheckBox->setChecked(true);
-	};
+        if(windowRestore=="true") { windowCheckBox->setChecked(true); };
+        if(sidepanelRestore=="true") { sidepanelCheckBox->setChecked(true); };
+        if(SingleWindow=="true") { singleWindowCheckBox->setChecked(true); };
+        if(WidgetsUse=="true") { widgetsCheckBox->setChecked(true); };
 
 	QVBoxLayout *restoreLayout = new QVBoxLayout;
 	restoreLayout->addWidget(restoreDescriptionLabel);
 	restoreLayout->addSpacing(12);
 	restoreLayout->addWidget(windowCheckBox);
 	restoreLayout->addWidget(sidepanelCheckBox);
+  restoreLayout->addWidget(singleWindowCheckBox);
+  restoreLayout->addWidget(widgetsCheckBox);
 	
 	QVBoxLayout *windowLayout = new QVBoxLayout;
 	windowLayout->addLayout(restoreLayout);
@@ -249,11 +253,8 @@ WindowPage::WindowPage(QWidget *parent)
 	QLabel *splashDescriptionLabel = new QLabel(QObject::tr("Disable or enable the splash screen."));
 	QCheckBox *splashCheckBox = new QCheckBox(QObject::tr("Splash screen"));
 	this->splashCheckBox = splashCheckBox;
-
-	if(splashScreen=="true")
-	{
-		splashCheckBox->setChecked(true);
-	};
+	
+        if(splashScreen=="true") { splashCheckBox->setChecked(true); };
 
 	QVBoxLayout *splashLayout = new QVBoxLayout;
 	splashLayout->addWidget(splashDescriptionLabel);

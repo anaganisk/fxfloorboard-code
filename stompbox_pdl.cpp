@@ -137,6 +137,8 @@ void stompbox_pdl::setEditPages()
         editDetails()->page()->newStackField(3);editDetails()->page()->addStackField();
         editDetails()->page()->newStackField(3);editDetails()->page()->addStackField();
         editDetails()->page()->newStackField(3);editDetails()->page()->addStackField();
+        editDetails()->page()->newStackField(3);editDetails()->page()->addStackField();
+        editDetails()->page()->newStackField(3);editDetails()->page()->addStackField();
         editDetails()->page()->newStackField(3);
         editDetails()->page()->newGroupBox("Custom Wah");
         editDetails()->page()->addComboBox(0, 0, 1, 1, "0A", "00", "4F");

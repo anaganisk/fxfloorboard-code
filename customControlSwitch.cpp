@@ -60,31 +60,31 @@ customControlSwitch::customControlSwitch(QWidget *parent,
 	}
 	else if(direction == "bottom")
 	{
-		this->label->setAlignment(Qt::AlignLeft);
+                this->label->setAlignment(Qt::AlignCenter);
 		
 		QVBoxLayout *mainLayout = new QVBoxLayout;
 		mainLayout->setMargin(0);
-		mainLayout->setSpacing(0);
-		mainLayout->addWidget(this->label, 0, Qt::AlignLeft);
-		mainLayout->addWidget(this->switchbutton, 0, Qt::AlignLeft);
+                mainLayout->setSpacing(5);
+                mainLayout->addWidget(this->label, 0, Qt::AlignCenter);
+                mainLayout->addWidget(this->switchbutton, 0, Qt::AlignCenter);
 		mainLayout->addStretch(0);
 
 		this->setLayout(mainLayout);
-		this->setFixedHeight(12 + 15);
+                //this->setFixedHeight(12 + 20);
 	}
 	else if(direction == "middle" || direction == "System")
 	{
-		this->label->setAlignment(Qt::AlignLeft);
+                this->label->setAlignment(Qt::AlignCenter);
 
 		QVBoxLayout *mainLayout = new QVBoxLayout;
 		mainLayout->setMargin(0);
 		mainLayout->setSpacing(0);
 		mainLayout->addStretch(0);
-		mainLayout->addWidget(this->label, 0, Qt::AlignLeft);
+                mainLayout->addWidget(this->label, 0, Qt::AlignCenter);
 		mainLayout->addWidget(this->switchbutton, 0, Qt::AlignCenter);
 
 		this->setLayout(mainLayout);
-		this->setFixedHeight(12 + 15);
+                //this->setFixedHeight(12 + 20);
 	};
 
 	QObject::connect(this->parent(), SIGNAL( dialogUpdateSignal() ),

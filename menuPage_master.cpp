@@ -41,12 +41,14 @@ void menuPage_master::setEditPages()
 {
   
 	editDetails()->page()->newGroupBox("Master");
-  editDetails()->page()->addKnob(0, 0, 1, 1, "0A", "00", "61");                        // master low
-  editDetails()->page()->addKnob(0, 1, 1, 1, "0A", "00", "62");                        // master mid gain
-  editDetails()->page()->addKnob(1, 1, 1, 1, "0A", "00", "63");                        // master mid Q
-  editDetails()->page()->addKnob(2, 1, 1, 1, "0A", "00", "64");                        // master mid freq
-  editDetails()->page()->addKnob(0, 2, 1, 1, "0A", "00", "65");                        // master high
-  editDetails()->page()->addKnob(0, 3, 1, 1, "0A", "00", "60");                        // master gain
+   editDetails()->page()->addMasterEQ(0, 1, 2, 4, "0A", "00", "60");
+    /*editDetails()->page()->addKnob(0, 0, 1, 1, "0A", "00", "61");                        // master low
+    editDetails()->page()->addKnob(0, 1, 1, 1, "0A", "00", "62");                        // master mid gain
+    editDetails()->page()->addKnob(1, 1, 1, 1, "0A", "00", "63");                        // master mid Q
+    editDetails()->page()->addKnob(2, 1, 1, 1, "0A", "00", "64");                        // master mid freq
+    editDetails()->page()->addKnob(0, 2, 1, 1, "0A", "00", "65");                        // master high
+    editDetails()->page()->addKnob(0, 3, 1, 1, "0A", "00", "60");  */                      // master gain
+                       // master gain
 	editDetails()->page()->addGroupBox(0, 0, 1, 1);
 
   editDetails()->page()->newGroupBox("Master");
