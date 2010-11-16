@@ -380,6 +380,7 @@ void customGraphicEQGraph::dragNode ( const QPoint& pos )
         break;
     case 8: // Band_8
         piLevel = &m_iBand_8;
+         break;
     case 9: // Band_9
         piLevel = &m_iBand_9;
         break;

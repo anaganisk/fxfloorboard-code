@@ -61,9 +61,9 @@ customKnobTarget::customKnobTarget(QWidget *parent,
 	newBackGround->move(bgPos);
 
 	QString imagePath(":/images/knob.png");
-	unsigned int imageRange = 63;
+        unsigned int imageRange = 100;
 	this->knob = new customTargetDial(0, rangeMin, range, 1, 10, knobPos, this, hex1, hex2, hex3, imagePath, imageRange, background);
-	this->setFixedSize(newBackGround->pixmap()->size() - QSize(0, 4)); // Correction needed h-4.
+        this->setFixedSize(newBackGround->pixmap()->size() - QSize(0, 4)); // Correction needed h-4.
 
 
 	QObject::connect(this, SIGNAL( updateSignal() ),

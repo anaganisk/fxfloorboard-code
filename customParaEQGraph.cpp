@@ -243,49 +243,10 @@ void customParaEQGraph::paintEvent ( QPaintEvent *pPaintEvent )
     //if (lc > lmf-lmq) lmf = lc + lmq;
 
 
-  /*  m_poly.putPoints(0, 5,
-            lc-50,   h+lev+63,
-            lc,      lg+lev,
-
-            //lmf-lmq, lmg+lev,
-            //lmf,     ((h*100/82)-(m_iLowMidGain*5))+lev,
-            //lmf+lmq, lmg+lev,
-            w/2,       (h*50/78)+lev,
-            //hmf-hmq, hmg+lev,
-            //hmf,     ((h*100/82)-(m_iHighMidGain*5))+lev,
-            //hmf+hmq, hmg+lev,
-
-            hc,      hg+lev,
-            hc+50,   h+lev+63);
-
-    QPainterPath path;
-    path.setFillRule(Qt::WindingFill);
-    path.addPolygon(m_poly);
-    //path.moveTo(m_poly.at(0));
-    //path.cubicTo(m_poly.at(0), m_poly.at(1), m_poly.at(2));
-    //path.cubicTo(m_poly.at(2), m_poly.at(3), m_poly.at(4));
-    //path.lineTo(m_poly.at(1));
-    //path.quadTo(m_poly.at(1), m_poly.at(2));
-    //path.cubicTo(m_poly.at(3), m_poly.at(4), m_poly.at(5));
-    //path.cubicTo(m_poly.at(4), m_poly.at(7), m_poly.at(8));
-    //path.lineTo(m_poly.at(9));
-    //path.moveTo(m_poly.at(0));
-    //path.lineTo(m_poly.at(1));
-    //path.quadTo(m_poly.at(1), m_poly.at(2));
-    //path.cubicTo(m_poly.at(5), m_poly.at(6), m_poly.at(7));
-    //path.quadTo(m_poly.at(7), m_poly.at(8));
-    //path.lineTo(m_poly.at(9));
-
-    //path.addText(m_poly.at(1), QFont("Arial"), QString("LowCut") );
-
-    const QPalette& pal = palette();
-    painter.fillRect(0, 0, w, h, pal.dark().color());
-
-    painter.setPen(Qt::yellow);
-*/
     QLinearGradient grad(0, 0, w << 1, h << 1);
     grad.setColorAt(0.0f, Qt::yellow);
     grad.setColorAt(1.0f, Qt::black);
+    painter.setPen(Qt::gray);
 
    /* painter.setBrush(grad);
     //painter.drawPath(path);*/
@@ -332,9 +293,8 @@ void customParaEQGraph::paintEvent ( QPaintEvent *pPaintEvent )
     //const QPalette& pal = palette();
     //painter.fillRect(0, 0, w, h, pal.dark().color());
  //painter.setCompositionMode(QPainter::CompositionMode_DestinationOut);
-    painter.setPen(Qt::yellow);
 
-    QPainterPath graph = (loHiCut.subtracted(para_1));
+    QPainterPath graph = (loHiCut.subtracted(para_1).subtracted(para_2));
     painter.setBrush(grad);
     //painter.drawPath(loHiCut);
     painter.drawPath((graph));

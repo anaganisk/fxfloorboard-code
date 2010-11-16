@@ -157,8 +157,8 @@ void customMasterEQGraph::paintEvent ( QPaintEvent *pPaintEvent )
     grad.setColorAt(0.0f, Qt::yellow);
     grad.setColorAt(1.0f, Qt::black);
 
-   /* painter.setBrush(grad);
-    //painter.drawPath(path);*/
+    painter.setBrush(grad);
+    //painter.drawPath(path);
 
     poly.putPoints(0, 11,
             0,       h,                         // [0]    horizonal, vertical
@@ -185,27 +185,31 @@ void customMasterEQGraph::paintEvent ( QPaintEvent *pPaintEvent )
     loHi.cubicTo(poly.at(7), poly.at(8), poly.at(9));
     loHi.lineTo(poly.at(10));
 
+
+
     QPainterPath Mid;
     Mid.moveTo(poly.at(4));
     Mid.cubicTo(poly.at(4), poly.at(5), poly.at(6));
 
-    painter.setPen(Qt::yellow);
+    painter.setPen(Qt::black);
 
-    QPainterPath graph = (loHi.subtracted(Mid));
+    //QPainterPath graph = (loHi.subtracted(Mid));
+    painter.drawPath(loHi);
+    grad.setColorAt(0.0f, Qt::red);
     painter.setBrush(grad);
-    painter.drawPath((graph));
+    painter.drawPath(Mid);
     painter.setBrush(Qt::red);
-    painter.drawRect(nodeRect(1));
+    //painter.drawRect(nodeRect(1));
     painter.drawRect(nodeRect(2));
-    painter.drawRect(nodeRect(3));
+    //painter.drawRect(nodeRect(3));
     painter.setBrush(Qt::green);
     painter.drawRect(nodeRect(4));
     painter.drawRect(nodeRect(5));
     painter.drawRect(nodeRect(6));
     painter.setBrush(Qt::blue);
-    painter.drawRect(nodeRect(7));
+    //painter.drawRect(nodeRect(7));
     painter.drawRect(nodeRect(8));
-    painter.drawRect(nodeRect(9));
+    //painter.drawRect(nodeRect(9));
 
 
     painter.end();
@@ -221,9 +225,9 @@ void customMasterEQGraph::mousePressEvent ( QMouseEvent *pMouseEvent )
             const QPoint& pos = pMouseEvent->pos();
             int iDragNode = nodeIndex(pos);
             if (iDragNode >= 0) {
-                    setCursor(iDragNode == 1 || iDragNode == 3 || iDragNode == 6 || iDragNode == 8
-                            ? Qt::SizeAllCursor
-                            : Qt::SizeHorCursor);
+                                 if (iDragNode == 1 || iDragNode == 5) {setCursor(Qt::SizeVerCursor); };
+                                 if (iDragNode == 2 || iDragNode == 4) {setCursor(Qt::SizeHorCursor); };
+                                 if (iDragNode == 3) {setCursor(Qt::SizeAllCursor); };
                     m_iDragNode = iDragNode;
                     m_posDrag = pos;
             }
@@ -306,8 +310,8 @@ void customMasterEQGraph::dragNode ( const QPoint& pos )
                 piLevel = &m_iLevel0;
                 break;
         case 5: // HighGain
-                piRate  = &m_iHighGain;
-                piLevel = &m_iLevel0;
+                piRate  = &m_iLevel0;
+                piLevel = &m_iHighGain;
                 break;
         }
 
