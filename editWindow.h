@@ -58,6 +58,7 @@ public slots:
 	void valueChanged(int index);
 	void pageUpdateSignal();
 	virtual void closeEvent(QCloseEvent* ce);
+	void bulkEdit();
 	void temp1();
 	void temp2();
 	void temp3();
@@ -74,6 +75,7 @@ private:
 	QString hex3;
 	QString area;
 	int pages;
+	customControlLabel* bulkEdit_Button;
 	customControlLabel* swap_Button;
 	customControlLabel* temp1_Button;
 	customControlLabel* temp2_Button;

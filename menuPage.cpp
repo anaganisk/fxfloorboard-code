@@ -220,7 +220,7 @@ void menuPage::setPos(QPoint newPos)
 void menuPage::updatePos(signed int offsetDif)
 { 
 	this->stompPos = this->pos();
-	QPoint newPos = stompPos + QPoint::QPoint(offsetDif, 0);
+        QPoint newPos = stompPos + QPoint(offsetDif, 0);
 	this->move(newPos);
 };
 	

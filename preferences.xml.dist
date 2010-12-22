@@ -2,7 +2,7 @@
 <!-- Preferences of the GT-Pro Fx FloorBoard application. -->
 <Preferences>
 	<General>
-		<Application version="20100427"/>
+		<Application version="20101001"/>
 		<Donate url="http://gtx.tinfoilmusic.net/donate.html"/>
 		<Files dir=""/>
 		<Help url="GT-ProEditorManual_E.htm"/>
@@ -14,6 +14,8 @@
     <Locale select="0"/>
   </Language>
 	<Midi>
+	  <BulkFinish patch="200"/>
+	  <BulkStart patch="1"/>
 		<MidiIn device=""/>
 		<MidiOut device=""/>
 		<DBug bool="false"/>
@@ -24,7 +26,9 @@
     <Collapsed bool="true" defaultwidth="990" width="990"/>
     <Position x="" y=""/>
     <Restore sidepanel="true" window="false"/>
+    <Single bool="false"/>
     <Size height="" minheight="548" minwidth="788" width=""/>
     <Splash bool="true"/>
+    <Widgets bool="true"/>
   </Window> 
 </Preferences>

@@ -1,14 +1,14 @@
 /**********************************************************************/
-/*! \class RtMidi  
+/*! \class RtMidi
     \brief An abstract base class for realtime MIDI input/output.
 
     This class implements some common functionality for the realtime
     MIDI input/output subclasses RtMidiIn and RtMidiOut.
-                                                                         
+
     RtMidi WWW site: http://music.mcgill.ca/~gary/rtmidi/
 
     RtMidi: realtime MIDI i/o C++ classes
-    Copyright (c) 2003-2009 Gary P. Scavone
+    Copyright (c) 2003-2010 Gary P. Scavone
 
     Permission is hereby granted, free of charge, to any person
     obtaining a copy of this software and associated documentation files
@@ -35,7 +35,7 @@
 */
 /**********************************************************************/
 
-// RtMidi: Version 1.0.8
+// RtMidi: Version 1.0.11
 
 #include "RtMidi.h"
 #include <sstream>
@@ -54,7 +54,6 @@ void RtMidi :: error( RtError::Type type )
   if (type == RtError::WARNING) {
     std::cerr << '\n' << errorString_ << "\n\n";
   }
-  
   else {
     std::cerr << '\n' << errorString_ << "\n\n";
     throw RtError( errorString_, type );
@@ -156,8 +155,6 @@ RtMidiOut :: RtMidiOut( const std::string clientName ) : RtMidi()
 
 // Thanks to Jean-Baptiste Berruchon for the sysex code.
 
-
-
 // The Windows MM API is based on the use of a callback function for
 // MIDI input.  We convert the system specific time stamps to delta
 // time values.
@@ -166,6 +163,9 @@ RtMidiOut :: RtMidiOut( const std::string clientName ) : RtMidi()
 #include <windows.h>
 #include <mmsystem.h>
 
+#define  RT_SYSEX_BUFFER_SIZE 1024
+#define  RT_SYSEX_BUFFER_COUNT 4
+
 // A structure to hold variables related to the CoreMIDI API
 // implementation.
 struct WinMidiData {
@@ -173,10 +173,8 @@ struct WinMidiData {
   HMIDIOUT outHandle;  // Handle to Midi Output Device
   DWORD lastTime;
   RtMidiIn::MidiMessage message;
-  LPMIDIHDR sysexBuffer;
+  LPMIDIHDR sysexBuffer[RT_SYSEX_BUFFER_COUNT];
 };
-
-#define  RT_SYSEX_BUFFER_SIZE 1024
 
 //*********************************************************************//
 //  API: Windows MM
@@ -189,7 +187,7 @@ static void CALLBACK midiInputCallback( HMIDIOUT hmin,
                                         DWORD midiMessage,
                                         DWORD timestamp )
 {
-  if ( inputStatus != MIM_DATA && inputStatus != MIM_LONGDATA ) return;
+  if ( inputStatus != MIM_DATA && inputStatus != MIM_LONGDATA && inputStatus != MIM_LONGERROR ) return;
 
   //RtMidiIn::RtMidiInData *data = static_cast<RtMidiIn::RtMidiInData *> (instancePtr);
   RtMidiIn::RtMidiInData *data = (RtMidiIn::RtMidiInData *)instancePtr;
@@ -229,13 +227,13 @@ static void CALLBACK midiInputCallback( HMIDIOUT hmin,
 
     // Copy bytes to our MIDI message.
     unsigned char *ptr = (unsigned char *) &midiMessage;
-    for ( int i=0; i<nBytes; i++ ) apiData->message.bytes.push_back( *ptr++ );
+    for ( int i=0; i<nBytes; ++i ) apiData->message.bytes.push_back( *ptr++ );
   }
-  else { // Sysex message ( MIM_LONGDATA )
+  else { // Sysex message ( MIM_LONGDATA or MIM_LONGERROR )
     MIDIHDR *sysex = ( MIDIHDR *) midiMessage; 
-    if ( !( data->ignoreFlags & 0x01 ) ) {  
+    if ( !( data->ignoreFlags & 0x01 ) && inputStatus != MIM_LONGERROR ) {  
       // Sysex message and we're not ignoring it
-      for ( int i=0; i<(int)sysex->dwBytesRecorded; i++ )
+      for ( int i=0; i<(int)sysex->dwBytesRecorded; ++i )
         apiData->message.bytes.push_back( sysex->lpData[i] );
     }
 
@@ -247,9 +245,9 @@ static void CALLBACK midiInputCallback( HMIDIOUT hmin,
     // buffer when an application closes and in this case, we should
     // avoid requeueing it, else the computer suddenly reboots after
     // one or two minutes.
-    if ( apiData->sysexBuffer->dwBytesRecorded > 0 ) {
-      //if ( sysex->dwBytesRecorded > 0 ) {
-      MMRESULT result = midiInAddBuffer( apiData->inHandle, apiData->sysexBuffer, sizeof(MIDIHDR) );
+	if ( apiData->sysexBuffer[sysex->dwUser]->dwBytesRecorded > 0 ) {
+    //if ( sysex->dwBytesRecorded > 0 ) {
+      MMRESULT result = midiInAddBuffer( apiData->inHandle, apiData->sysexBuffer[sysex->dwUser], sizeof(MIDIHDR) );
       if ( result != MMSYSERR_NOERROR )
         std::cerr << "\nRtMidiIn::midiInputCallback: error sending sysex to Midi device!!\n\n";
 
@@ -323,25 +321,28 @@ void RtMidiIn :: openPort( unsigned int portNumber, const std::string /*portName
     error( RtError::DRIVER_ERROR );
   }
 
-  // Allocate and init the sysex buffer.
-  data->sysexBuffer = (MIDIHDR*) new char[ sizeof(MIDIHDR) ];
-  data->sysexBuffer->lpData = new char[ RT_SYSEX_BUFFER_SIZE ];
-  data->sysexBuffer->dwBufferLength = RT_SYSEX_BUFFER_SIZE;
-  data->sysexBuffer->dwFlags = 0;
+  // Allocate and init the sysex buffers.
+  for ( int i=0; i<RT_SYSEX_BUFFER_COUNT; ++i ) {
+    data->sysexBuffer[i] = (MIDIHDR*) new char[ sizeof(MIDIHDR) ];
+    data->sysexBuffer[i]->lpData = new char[ RT_SYSEX_BUFFER_SIZE ];
+    data->sysexBuffer[i]->dwBufferLength = RT_SYSEX_BUFFER_SIZE;
+    data->sysexBuffer[i]->dwUser = i; // We use the dwUser parameter as buffer indicator
+    data->sysexBuffer[i]->dwFlags = 0;
 
-  result = midiInPrepareHeader( data->inHandle, data->sysexBuffer, sizeof(MIDIHDR) );
-  if ( result != MMSYSERR_NOERROR ) {
-    midiInClose( data->inHandle );
-    errorString_ = "RtMidiIn::openPort: error starting Windows MM MIDI input port (PrepareHeader).";
-    error( RtError::DRIVER_ERROR );
-  }
+    result = midiInPrepareHeader( data->inHandle, data->sysexBuffer[i], sizeof(MIDIHDR) );
+    if ( result != MMSYSERR_NOERROR ) {
+      midiInClose( data->inHandle );
+      errorString_ = "RtMidiIn::openPort: error starting Windows MM MIDI input port (PrepareHeader).";
+      error( RtError::DRIVER_ERROR );
+    }
 
-  // Register the buffer.
-  result = midiInAddBuffer( data->inHandle, data->sysexBuffer, sizeof(MIDIHDR) );
-  if ( result != MMSYSERR_NOERROR ) {
-    midiInClose( data->inHandle );
-    errorString_ = "RtMidiIn::openPort: error starting Windows MM MIDI input port (AddBuffer).";
-    error( RtError::DRIVER_ERROR );
+    // Register the buffer.
+    result = midiInAddBuffer( data->inHandle, data->sysexBuffer[i], sizeof(MIDIHDR) );
+    if ( result != MMSYSERR_NOERROR ) {
+      midiInClose( data->inHandle );
+      errorString_ = "RtMidiIn::openPort: error starting Windows MM MIDI input port (AddBuffer).";
+      error( RtError::DRIVER_ERROR );
+    }
   }
 
   result = midiInStart( data->inHandle );
@@ -368,13 +369,15 @@ void RtMidiIn :: closePort( void )
     midiInReset( data->inHandle );
     midiInStop( data->inHandle );
 
-    int result = midiInUnprepareHeader(data->inHandle, data->sysexBuffer, sizeof(MIDIHDR));
-    delete [] data->sysexBuffer->lpData;
-    delete [] data->sysexBuffer;
-    if ( result != MMSYSERR_NOERROR ) {
-      midiInClose( data->inHandle );
-      errorString_ = "RtMidiIn::openPort: error closing Windows MM MIDI input port (midiInUnprepareHeader).";
-      error( RtError::DRIVER_ERROR );
+    for ( int i=0; i<RT_SYSEX_BUFFER_COUNT; ++i ) {
+      int result = midiInUnprepareHeader(data->inHandle, data->sysexBuffer[i], sizeof(MIDIHDR));
+      delete [] data->sysexBuffer[i]->lpData;
+      delete [] data->sysexBuffer[i];
+      if ( result != MMSYSERR_NOERROR ) {
+        midiInClose( data->inHandle );
+        errorString_ = "RtMidiIn::openPort: error closing Windows MM MIDI input port (midiInUnprepareHeader).";
+        error( RtError::DRIVER_ERROR );
+      }
     }
 
     midiInClose( data->inHandle );
@@ -414,7 +417,7 @@ std::string RtMidiIn :: getPortName( unsigned int portNumber )
   // UNICODE (thanks to Eduardo Coutinho!).
   //std::string stringName = std::string( deviceCaps.szPname );
   char nameString[MAXPNAMELEN];
-  for( int i=0; i<MAXPNAMELEN; i++ )
+  for( int i=0; i<MAXPNAMELEN; ++i )
     nameString[i] = (char)( deviceCaps.szPname[i] );
 
   std::string stringName( nameString );
@@ -448,7 +451,7 @@ std::string RtMidiOut :: getPortName( unsigned int portNumber )
   // UNICODE (thanks to Eduardo Coutinho!).
   //std::string stringName = std::string( deviceCaps.szPname );
   char nameString[MAXPNAMELEN];
-  for( int i=0; i<MAXPNAMELEN; i++ )
+  for( int i=0; i<MAXPNAMELEN; ++i )
     nameString[i] = (char)( deviceCaps.szPname[i] );
 
   std::string stringName( nameString );
@@ -553,7 +556,7 @@ void RtMidiOut :: sendMessage( std::vector<unsigned char> *message )
     }
 
     // Copy data to buffer.
-    for ( unsigned int i=0; i<nBytes; i++ ) buffer[i] = message->at(i);
+    for ( unsigned int i=0; i<nBytes; ++i ) buffer[i] = message->at(i);
 
     // Create and prepare MIDIHDR structure.
     MIDIHDR sysex;
@@ -592,9 +595,9 @@ void RtMidiOut :: sendMessage( std::vector<unsigned char> *message )
     // Pack MIDI bytes into double word.
     DWORD packet;
     unsigned char *ptr = (unsigned char *) &packet;
-    for ( unsigned int i=0; i<nBytes; i++ ) {
+    for ( unsigned int i=0; i<nBytes; ++i ) {
       *ptr = message->at(i);
-      ptr++;
+      ++ptr;
     }
 
     // Send the message immediately.
@@ -605,5 +608,4 @@ void RtMidiOut :: sendMessage( std::vector<unsigned char> *message )
     }
   }
 }
-
 

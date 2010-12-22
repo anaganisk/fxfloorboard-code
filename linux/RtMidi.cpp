@@ -8,7 +8,7 @@
     RtMidi WWW site: http://music.mcgill.ca/~gary/rtmidi/
 
     RtMidi: realtime MIDI i/o C++ classes
-    Copyright (c) 2003-2009 Gary P. Scavone
+    Copyright (c) 2003-2010 Gary P. Scavone
 
     Permission is hereby granted, free of charge, to any person
     obtaining a copy of this software and associated documentation files
@@ -35,7 +35,7 @@
 */
 /**********************************************************************/
 
-// RtMidi: Version 1.0.9
+// RtMidi: Version 1.0.11
 
 #include "RtMidi.h"
 #include <sstream>
@@ -152,8 +152,6 @@ RtMidiOut :: RtMidiOut( const std::string clientName ) : RtMidi()
 
 // API information found at:
 //   - http://www.alsa-project.org/documentation.php#Library
-
-//#if defined(__LINUX_ALSASEQ__)
 
 // The ALSA Sequencer API is based on the use of a callback function for
 // MIDI input.
@@ -403,7 +401,7 @@ unsigned int portInfo( snd_seq_t *seq, snd_seq_port_info_t *pinfo, unsigned int 
       unsigned int caps = snd_seq_port_info_get_capability( pinfo );
       if ( ( caps & type ) != type ) continue;
       if ( count == portNumber ) return 1;
-      count++;
+      ++count;
 		}
 	}
 
@@ -586,8 +584,8 @@ RtMidiIn :: ~RtMidiIn()
   if ( data->vport >= 0 ) snd_seq_delete_port( data->seq, data->vport );
 #ifndef AVOID_TIMESTAMPING
   snd_seq_free_queue( data->seq, data->queue_id );
-  snd_seq_close( data->seq );
 #endif
+  snd_seq_close( data->seq );
   delete data;
 }
 
@@ -819,7 +817,7 @@ void RtMidiOut :: sendMessage( std::vector<unsigned char> *message )
   snd_seq_ev_set_source(&ev, data->vport);
   snd_seq_ev_set_subs(&ev);
   snd_seq_ev_set_direct(&ev);
-  for ( unsigned int i=0; i<nBytes; i++ ) data->buffer[i] = message->at(i);
+  for ( unsigned int i=0; i<nBytes; ++i ) data->buffer[i] = message->at(i);
   result = snd_midi_event_encode( data->coder, data->buffer, (long)nBytes, &ev );
   if ( result < (int)nBytes ) {
     errorString_ = "RtMidiOut::sendMessage: event parsing error!";
@@ -835,6 +833,4 @@ void RtMidiOut :: sendMessage( std::vector<unsigned char> *message )
   }
   snd_seq_drain_output(data->seq);
 }
-
-//#endif // __LINUX_ALSA__
 

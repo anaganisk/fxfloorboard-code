@@ -311,20 +311,20 @@ QTreeWidget* bankTreeList::newTreeList()
     for (int a=1; a<=bankTotalUser; a++)
 	{
 		QTreeWidgetItem* bankRange = new QTreeWidgetItem; // don't pass a parent here!
-    bankRange->setText(0, QString::QString("Bank U").append(QString::number(a, 10)).append("-U").append(QString::number(a+4, 10)) ); 
+    bankRange->setText(0, QString("Bank U").append(QString::number(a, 10)).append("-U").append(QString::number(a+4, 10)) );
 		bankRange->setWhatsThis(0, "what the ?");
 	
 		for (int b=a; b<=(a+4); b++)
 				{
 			QTreeWidgetItem* bank = new QTreeWidgetItem(bankRange);
-			bank->setText(0, QString::QString("Bank ").append(QString::number(b, 10)));
+                        bank->setText(0, QString("Bank ").append(QString::number(b, 10)));
 			bank->setWhatsThis(0, "");
 			//bank->setIcon(...);
 
 			for (int c=1; c<=10; c++)
 			{
 				QTreeWidgetItem* patch = new QTreeWidgetItem(bank);
-				patch->setText(0, QString::QString("Patch ").append(QString::number(c, 10)));
+                                patch->setText(0, QString("Patch ").append(QString::number(c, 10)));
 				patch->setWhatsThis(0, "");
 				//patch->setIcon(...);
 			};
@@ -344,21 +344,21 @@ QTreeWidget* bankTreeList::newTreeList()
     for (int a=(bankTotalUser+1); a<=bankTotalAll; a++)
 	{
 		QTreeWidgetItem* bankRange = new QTreeWidgetItem; // don't pass a parent here!
-		bankRange->setText(0, QString::QString("Bank P").append(QString::number(a, 10)).append("-P").append(QString::number(a+4, 10)) );
+                bankRange->setText(0, QString("Bank P").append(QString::number(a, 10)).append("-P").append(QString::number(a+4, 10)) );
 		bankRange->setWhatsThis(0, "");
 		//bankRange->setIcon(...);
 
 		for (int b=a; b<=(a+4); b++)
 		{
 			QTreeWidgetItem* bank = new QTreeWidgetItem(bankRange);
-			bank->setText(0, QString::QString("Bank ").append(QString::number(b, 10)));
+                        bank->setText(0, QString("Bank ").append(QString::number(b, 10)));
 			bank->setWhatsThis(0, "");
 			//bank->setIcon(...);
 
 			for (int c=1; c<=10; c++)
 			{
 				QTreeWidgetItem* patch = new QTreeWidgetItem(bank);
-				patch->setText(0, QString::QString("Patch ").append(QString::number(c, 10)));
+                                patch->setText(0, QString("Patch ").append(QString::number(c, 10)));
 				patch->setWhatsThis(0, "");
 				//patch->setIcon(...);
 			};

@@ -57,8 +57,7 @@ public:
 	  sysxIO->errorReturn(errorType, errorMsg);
 	 
     }
- 
-   
+    
   //! Returns the thrown error message type.
   virtual const Type& getType(void) { return type_; }
 
@@ -66,9 +65,9 @@ public:
   virtual const std::string& getMessage(void) { return message_; }
 
   //! Returns the thrown error message as a C string.
-  virtual const char *getMessageString(void) { return message_.c_str(); }
-  
-  
+  virtual const char *getMessageString(void) { return message_.c_str(); }  
 };
 
 #endif
+
+

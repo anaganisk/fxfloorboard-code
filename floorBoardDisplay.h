@@ -39,7 +39,7 @@ class floorBoardDisplay : public QWidget
 
 public:
 	floorBoardDisplay(QWidget *parent = 0, 
-		QPoint pos = QPoint::QPoint(0, 0));
+                QPoint pos = QPoint(0, 0));
 	QPoint getPos();
 
 public slots:

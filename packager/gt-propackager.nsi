@@ -2,8 +2,8 @@
 
 ; HM NIS Edit Wizard helper defines
 !define PRODUCT_NAME "GT-ProFxFloorBoard"
-!define PRODUCT_VERSION "20100427"
-!define PRODUCT_PUBLISHER "gumtown"
+!define PRODUCT_VERSION "20101001"
+!define PRODUCT_PUBLISHER "Colin Willcocks"
 !define PRODUCT_WEB_SITE "http://gtx.tinfoilmusic.net"
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\GT-ProFxFloorBoard.exe"
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
@@ -41,8 +41,6 @@
 !insertmacro MUI_LANGUAGE "English"
 !insertmacro MUI_LANGUAGE "French"
 !insertmacro MUI_LANGUAGE "German"
-!insertmacro MUI_LANGUAGE "Icelandic"
-!insertmacro MUI_LANGUAGE "SimpChinese"
 
 ; MUI end ------
 
@@ -63,6 +61,9 @@ Section "MainSection" SEC01
   File "preferences.xml.dist"
   File "mingwm10.dll"
   File "license.txt"
+  File "libstdc++-6.dll"
+  File "libgcc_s_dw2-1.dll"
+  File "GT-ProFxFloorBoard_help.doc"
   File "GT-ProFxFloorBoard.exe"
   CreateDirectory "$SMPROGRAMS\GT-ProFxFloorBoard"
   CreateShortCut "$SMPROGRAMS\GT-ProFxFloorBoard\GT-ProFxFloorBoard.lnk" "$INSTDIR\GT-ProFxFloorBoard.exe"
@@ -1443,6 +1444,8 @@ Section "MainSection" SEC01
   File "saved patches\Paul Hanson Patches\TinyWing CTLSngl.syx"
   File "saved patches\Paul Hanson Patches\Warm & Fat Stereo.syx"
   File "saved patches\Paul Hanson Patches\Wave Synthesizer.syx"
+  SetOutPath "$INSTDIR\saved patches"
+  File "saved patches\preferences.xml"
   SetOutPath "$INSTDIR\saved patches\Roomservice Strat Patches"
   File "saved patches\Roomservice Strat Patches\0101 Serengeti Part 1.syx"
   File "saved patches\Roomservice Strat Patches\0102 Serengeti Part 2.syx"
@@ -1892,6 +1895,7 @@ Section Uninstall
   Delete "$INSTDIR\saved patches\Roomservice Strat Patches\0103 Secrets Swirl.syx"
   Delete "$INSTDIR\saved patches\Roomservice Strat Patches\0102 Serengeti Part 2.syx"
   Delete "$INSTDIR\saved patches\Roomservice Strat Patches\0101 Serengeti Part 1.syx"
+  Delete "$INSTDIR\saved patches\preferences.xml"
   Delete "$INSTDIR\saved patches\Paul Hanson Patches\Wave Synthesizer.syx"
   Delete "$INSTDIR\saved patches\Paul Hanson Patches\Warm & Fat Stereo.syx"
   Delete "$INSTDIR\saved patches\Paul Hanson Patches\TinyWing CTLSngl.syx"
@@ -3226,6 +3230,9 @@ Section Uninstall
   Delete "$INSTDIR\GT-ProEditorManual_E_files\filelist.xml"
   Delete "$INSTDIR\GT-ProEditorManual_E.htm"
   Delete "$INSTDIR\GT-ProFxFloorBoard.exe"
+  Delete "$INSTDIR\GT-ProFxFloorBoard_help.doc"
+  Delete "$INSTDIR\libgcc_s_dw2-1.dll"
+  Delete "$INSTDIR\libstdc++-6.dll"
   Delete "$INSTDIR\license.txt"
   Delete "$INSTDIR\mingwm10.dll"
   Delete "$INSTDIR\preferences.xml.dist"

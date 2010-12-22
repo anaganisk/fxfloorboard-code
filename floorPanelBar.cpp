@@ -29,10 +29,10 @@ floorPanelBar::floorPanelBar(QWidget *parent, QString imagePathPanelBar, QSize p
     : QWidget(parent)
 {
 	this->imagePathPanelBar = imagePathPanelBar;
-	this->image = QPixmap::QPixmap(imagePathPanelBar);
+        this->image = QPixmap(imagePathPanelBar);
 
 	int yPos =  panelBarSize.height()/2;
-	floorPanelBarButton *button = new floorPanelBarButton(false, QPoint::QPoint(0, yPos - 22), this);
+        floorPanelBarButton *button = new floorPanelBarButton(false, QPoint(0, yPos - 22), this);
   button = button;
 
 	this->setFixedSize(panelBarSize);
@@ -57,7 +57,7 @@ void floorPanelBar::mousePressEvent(QMouseEvent *event)
 { 
 	if (event->button() == Qt::LeftButton) this->dragStartPosition = event->pos(); 
 	QPoint mousePoint = event->pos();
-	emit showDragBar( QPoint::QPoint(this->x() + mousePoint.x(), this->y()) );
+        emit showDragBar( QPoint(this->x() + mousePoint.x(), this->y()) );
 };
 
 void floorPanelBar::mouseDoubleClickEvent(QMouseEvent *event) 
@@ -74,7 +74,7 @@ void floorPanelBar::mouseMoveEvent(QMouseEvent *event)
 		(event->pos() - dragStartPosition).manhattanLength() > QApplication::startDragDistance() )
 	{
 		QPoint mousePoint = event->pos();
-		emit showDragBar( QPoint::QPoint(this->x() + mousePoint.x(), this->y()) );
+                emit showDragBar( QPoint(this->x() + mousePoint.x(), this->y()) );
 	};
 };
 

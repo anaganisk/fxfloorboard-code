@@ -26,6 +26,8 @@
 #include "MidiTable.h"
 #include "SysxIO.h"
 #include "globalVariables.h"
+#include "bulkEditDialog.h"
+#include "Preferences.h"
 
 editWindow::editWindow(QWidget *parent)
     : QWidget(parent)
@@ -51,53 +53,68 @@ editWindow::editWindow(QWidget *parent)
 	this->pageComboBox->setFrame(false);
 	this->pageComboBox->setVisible(false);
 	
-  this->swap_Button = new customControlLabel;
-	this->swap_Button->setButton(true);
-	this->swap_Button->setImage(":/images/pushbutton_dark.png");
-	this->swap_Button->setText(tr("Pre A/B swap"));
-	this->swap_Button->setAlignment(Qt::AlignCenter);
-	
-  this->temp1_Button = new customControlLabel;
-	this->temp1_Button->setButton(true);
-	this->temp1_Button->setImage(":/images/pushbutton_dark.png");
-	this->temp1_Button->setText(tr("Temp 1 Partial"));
-	this->temp1_Button->setAlignment(Qt::AlignCenter);
-		
-	this->temp2_Button = new customControlLabel;
-	this->temp2_Button->setButton(true);
-	this->temp2_Button->setImage(":/images/pushbutton_dark.png");
-	this->temp2_Button->setText(tr("Temp 2 Partial"));
-	this->temp2_Button->setAlignment(Qt::AlignCenter);
-	
-	this->temp3_Button = new customControlLabel;
-	this->temp3_Button->setButton(true);
-	this->temp3_Button->setImage(":/images/pushbutton_dark.png");
-	this->temp3_Button->setText(tr("Temp 3 Partial"));
-	this->temp3_Button->setAlignment(Qt::AlignCenter);
-	
-	this->temp4_Button = new customControlLabel;
-	this->temp4_Button->setButton(true);
-	this->temp4_Button->setImage(":/images/pushbutton_dark.png");
-	this->temp4_Button->setText(tr("Temp 4 Partial"));
-	this->temp4_Button->setAlignment(Qt::AlignCenter);
-	
+	this->bulkEdit_Button = new customControlLabel;
+  this->bulkEdit_Button->setButton(true);
+	this->bulkEdit_Button->setImage(":/images/pushbutton_dark.png");
+	this->bulkEdit_Button->setText(tr("Bulk Write"));
+	this->bulkEdit_Button->setAlignment(Qt::AlignCenter); 
+  this->bulkEdit_Button->setWhatsThis(tr("Multiple Patch Edit Button<br>will write only the currently displayed effect part to a selection of User Patches."
+                                                  "<br>useful for applying common settings to a patch group."));
+      this->swap_Button = new customControlLabel;
+        this->swap_Button->setButton(true);
+        this->swap_Button->setImage(":/images/pushbutton_dark.png");
+        this->swap_Button->setText(tr("Pre A/B swap"));
+        this->swap_Button->setAlignment(Qt::AlignCenter);
+        this->swap_Button->setWhatsThis(tr("Will swap the settings betweem PreAmp A and PreAmp B."));
 
 
+        this->temp1_Button = new customControlLabel;
+        this->temp1_Button->setButton(true);
+        this->temp1_Button->setImage(":/images/pushbutton_dark.png");
+        this->temp1_Button->setText(tr("Temp 1 Partial"));
+        this->temp1_Button->setAlignment(Qt::AlignCenter);
+        this->temp1_Button->setWhatsThis(tr("Effect Partial Paste Button<br>will paste only the currently displayed effect part from the selected Temp clipboard."
+                                            "<br>can be used to quicky compare settings between patches."));
+
+        this->temp2_Button = new customControlLabel;
+        this->temp2_Button->setButton(true);
+        this->temp2_Button->setImage(":/images/pushbutton_dark.png");
+        this->temp2_Button->setText(tr("Temp 2 Partial"));
+        this->temp2_Button->setAlignment(Qt::AlignCenter);
+        this->temp2_Button->setWhatsThis(tr("Effect Partial Paste Button<br>will paste only the currently displayed effect part from the selected Temp clipboard."
+                                            "<br>can be used to quicky compare settings between patches."));
 
 
+        this->temp3_Button = new customControlLabel;
+        this->temp3_Button->setButton(true);
+        this->temp3_Button->setImage(":/images/pushbutton_dark.png");
+        this->temp3_Button->setText(tr("Temp 3 Partial"));
+        this->temp3_Button->setAlignment(Qt::AlignCenter);
+        this->temp3_Button->setWhatsThis(tr("Effect Partial Paste Button<br>will paste only the currently displayed effect part from the selected Temp clipboard."
+                                            "<br>can be used to quicky compare settings between patches."));
 
 
+        this->temp4_Button = new customControlLabel;
+        this->temp4_Button->setButton(true);
+        this->temp4_Button->setImage(":/images/pushbutton_dark.png");
+        this->temp4_Button->setText(tr("Temp 4 Partial"));
+        this->temp4_Button->setAlignment(Qt::AlignCenter);
+        this->temp4_Button->setWhatsThis(tr("Effect Partial Paste Button<br>will paste only the currently displayed effect part from the selected Temp clipboard."
+                                            "<br>can be used to quicky compare settings between patches."));
 
-	this->closeButton = new customControlLabel;
-	this->closeButton->setButton(true);
-	this->closeButton->setImage(":/images/closebutton.png");
-	
-	QHBoxLayout *buttonLayout = new QHBoxLayout;
-	buttonLayout->addWidget(this->swap_Button);
-	buttonLayout->addWidget(this->temp1_Button);
-	buttonLayout->addWidget(this->temp2_Button);
-	buttonLayout->addWidget(this->temp3_Button);
-	buttonLayout->addWidget(this->temp4_Button);
+
+	      this->closeButton = new customControlLabel;
+        this->closeButton->setButton(true);
+        this->closeButton->setImage(":/images/closebutton.png");
+        this->closeButton->setWhatsThis(tr("Will close the current edit page window."));
+
+        QHBoxLayout *buttonLayout = new QHBoxLayout;
+        buttonLayout->addWidget(this->bulkEdit_Button);
+        buttonLayout->addWidget(this->swap_Button);
+        buttonLayout->addWidget(this->temp1_Button);
+        buttonLayout->addWidget(this->temp2_Button);
+        buttonLayout->addWidget(this->temp3_Button);
+        buttonLayout->addWidget(this->temp4_Button);
 
 
 	QHBoxLayout *headerLayout = new QHBoxLayout;
@@ -134,7 +151,8 @@ editWindow::editWindow(QWidget *parent)
 	this->tempPage = new editPage;
 
 	QObject::connect(this->pageComboBox, SIGNAL(activated(int)), this->pagesWidget, SLOT(setCurrentIndex(int)));
-
+	
+  QObject::connect(this->bulkEdit_Button, SIGNAL(mouseReleased()), this, SLOT(bulkEdit()));
   QObject::connect(this->swap_Button, SIGNAL(mouseReleased()), this, SLOT(swap_pre()));
 	QObject::connect(this->temp1_Button, SIGNAL(mouseReleased()), this, SLOT(temp1()));
 	QObject::connect(this->temp2_Button, SIGNAL(mouseReleased()), this, SLOT(temp2()));
@@ -201,6 +219,7 @@ void editWindow::addPage(QString hex1, QString hex2, QString hex3, QString hex4,
   
    if (this->area != "Structure" || this->temp_hex1.isEmpty() || this->temp_hex1.contains("void"))
     {
+      this->bulkEdit_Button->hide();
       this->temp1_Button->hide();
       this->temp2_Button->hide();
       this->temp3_Button->hide();
@@ -296,6 +315,27 @@ editPage* editWindow::page()
 void editWindow::closeEvent(QCloseEvent* ce)
 {
 	ce->accept();
+};
+
+void editWindow::bulkEdit()
+{
+     SysxIO *sysxIO = SysxIO::Instance();
+     if (sysxIO->isConnected())
+	       {
+	
+		bulkEditDialog *editDialog = new bulkEditDialog(this->position, this->length, this->temp_hex1, this->temp_hex3); 
+            editDialog->exec(); 
+	}
+         else
+             {
+              QString snork = tr("Ensure connection is active and retry");
+              QMessageBox *msgBox = new QMessageBox();
+			        msgBox->setWindowTitle(deviceType + tr(" not connected !!"));
+		        	msgBox->setIcon(QMessageBox::Information);
+		        	msgBox->setText(snork);
+		        	msgBox->setStandardButtons(QMessageBox::Ok);
+		        	msgBox->exec(); 
+              }; 
 };
 
 void editWindow::temp1()     // paste partial patch effect only data
