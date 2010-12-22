@@ -26,9 +26,9 @@
 #include "customSwitch.h"
 #include "customControlKnob.h"
 #include "customControlLabel.h"
-//#include "customControlRange.h"
+#include "customControlRange.h"
 #include "customControlSwitch.h"
-//#include "customControlTarget.h"
+#include "customControlTarget.h"
 #include "customControlListMenu.h"
 
 editPage::editPage(QWidget *parent)
@@ -86,7 +86,7 @@ void editPage::addKnob(int row, int column, int rowSpan, int columnSpan,
 	};
 };
 
-/*void editPage::addTarget(int row, int column, int rowSpan, int columnSpan,
+void editPage::addTarget(int row, int column, int rowSpan, int columnSpan,
 					   QString hex1, QString hex2, QString hex3, 
 					   QString background, QString hexMin, QString hexMax, 
 					   Qt::Alignment alignment)
@@ -125,7 +125,7 @@ void editPage::addRange(int row, int column, int rowSpan, int columnSpan,
 		this->layout->addWidget(range, row, column, rowSpan, columnSpan, alignment);
 	};
 };
-     */
+     
 void editPage::addSwitch(int row, int column, int rowSpan, int columnSpan,
 		QString hex1,
 		QString hex2,

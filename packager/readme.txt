@@ -4,7 +4,7 @@ GT-3FxFloorBoard Copyright (C) 2007~2010 Colin Willcocks (gumtownbassman@yahoo.c
 =======
 
 
-GT-3FxFloorBoard version 20100105: 05 January 2010
+GT-3FxFloorBoard version 20100522: 22 May 2010
 
 PLEASE FEEL FREE TO DONATE AS MANY TIMES AS YOU LIKE,
  YOU MAY FREELY USE THIS SOFTWARE,
@@ -20,6 +20,7 @@ SO I WILL NOT ACCEPT LIABILITY FOR ANY DATA LOSS.
 PLEASE MAKE SURE YOU HAVE A CURRENT COPY OF YOUR GT-3 PATCHES. 
 
 ************ LATEST FEATURES ***************
+Text Dialog save/print and Temp clipboard auto save to file added.
 Midi delay for slow or incompatable midi devices (M-Audio).
 Bulk Patch file save/load capable.
 Loading single patch from a Bulk file.

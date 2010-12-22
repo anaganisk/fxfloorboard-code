@@ -152,7 +152,8 @@ bool sysxWriter::readFile()
             msgText.clear();
             a=a+patchSize;                      // offset is set in front of marker
         };               
-    fileDialog *dialog = new fileDialog(fileName, patchList); 
+    QString type = "syx";
+    fileDialog *dialog = new fileDialog(fileName, patchList, data, default_data, type); 
     dialog->exec();    
     patchIndex(this->index);                          
    };       

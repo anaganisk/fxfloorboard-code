@@ -297,7 +297,7 @@ void midiIO::receiveMsg(QString sysxInMsg, int midiInPort)
   else if (msgType == "system"){ loopCount = x*900; count = 5258; } //gt-3 system size.
   else if (msgType == "name")  { loopCount = x*400; count = patchSize; }
   else if (msgType == "identity")   {loopCount = x*100; count = 15;}   // id reply size
-                          else { loopCount = x*150; count = 34; };
+                          else { loopCount = x*1; count = 0; };
 		RtMidiIn *midiin = 0;
     const std::string clientName = "FxFloorBoard";	
 	  midiin = new RtMidiIn(clientName);		   //RtMidi constructor
@@ -415,7 +415,7 @@ void midiIO::run()
 			};
 					dataReceive = true;
 					receiveMsg(sysxInMsg, midiInPort);
-			if((this->sysxBuffer.size()/2 != count) && (repeat<5))
+			if((this->sysxBuffer.size()/2 != count) && (repeat<3))
       {
         emit setStatusdBugMessage(tr("re-trying data request"));
         repeat = repeat+1;
@@ -483,18 +483,20 @@ void midiIO::sendSysxMsg(QString sysxOutMsg, int midiOutPort, int midiInPort)
   
 	this->sysxOutMsg = reBuild.simplified().toUpper();
 
-  if((sysxOutMsg.size() == 32) && sysxOutMsg != idRequestString &&(sysxOutMsg.contains(patchRequestSize)) && (sysxOutMsg.mid((sysxAddressOffset*2-2), 2) == "11")) { msgType = "patch";  emit setStatusdBugMessage(tr("patch request"));};
-    
-  //if((sysxOutMsg.size() == 32) && (sysxOutMsg.contains("00000010")) && (sysxOutMsg.mid((sysxAddressOffset*2-2), 2) == "11")) { msgType = "name";  emit setStatusdBugMessage("name request");};
-  
-  if (sysxOutMsg != idRequestString && sysxOutMsg.contains("F04100001B11000000000")) {msgType = "system";  emit setStatusdBugMessage(tr("system request"));};
+  if((sysxOutMsg.size() == 32) && sysxOutMsg != idRequestString &&(sysxOutMsg.contains(patchRequestSize)) && (sysxOutMsg.mid((sysxAddressOffset*2-2), 2) == "11"))
+   { msgType = "patch";  emit setStatusdBugMessage(tr("patch request")); };
+       
+  if (sysxOutMsg != idRequestString && sysxOutMsg.contains("F04100001B11000000000"))
+   {msgType = "system";  emit setStatusdBugMessage(tr("system request")); };
+   
+  if (!sysxOutMsg.contains("F04100001B")){emit setStatusSymbol(1); emit replyMsg(""); return; };
  
   this->midiOutPort = midiOutPort;
 	this->midiInPort = midiInPort;
 	this->midi = false;
 	Preferences *preferences = Preferences::Instance();// Load the preferences.
 	QString midiOut = preferences->getPreferences("Midi", "MidiOut", "device");
-  if(midiOut!="") {start();} else {
+  if(midiOut != "" && sysxOutMsg.contains("F04100001B")) {start();} else {
   emit setStatusSymbol(0);
   emit setStatusMessage(tr("no midi device set"));
   emit replyMsg("");}; 
@@ -510,7 +512,7 @@ void midiIO::sendMidi(QString midiMsg, int midiOutPort)
 	this->midi = true;
 	Preferences *preferences = Preferences::Instance();// Load the preferences.
 	QString midiOut = preferences->getPreferences("Midi", "MidiOut", "device");
-  if(midiOut!="") {start();} else { 
+  if(midiOut!="" && !midiMsg.isEmpty()) {start();} else { 
   emit setStatusSymbol(0);
   emit setStatusMessage(tr("no midi device set"));
    };

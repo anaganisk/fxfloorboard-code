@@ -47,7 +47,7 @@ void stompbox_fv::setEditPages()
 	
 	editDetails()->page()->newGroupBox("Master");
 	editDetails()->page()->addKnob(0, 0, 1, 1, "0A", "00", "00");         //Master level
-	//editDetails()->page()->addKnob(0, 1, 1, 1, "0A", "00", "01");         //Master bpm
+	editDetails()->page()->addKnob(0, 1, 1, 1, "0A", "00", "01");         //Master bpm
 	editDetails()->page()->addGroupBox(0, 2, 1, 2);
 	
 	editDetails()->page()->newGroupBox("Expression Pedal");

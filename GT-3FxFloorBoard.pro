@@ -39,13 +39,13 @@ MOC_DIR += ./generatedfiles/release
 OBJECTS_DIR += release
 UI_DIR += ./generatedfiles
 INCLUDEPATH += ./generatedfiles \
-	./generatedfiles/release \
-	.
-	
+        ./generatedfiles/release \
+        .
+
 TRANSLATIONS = language_fr.ts \
                language_ge.ts \
                language_ch.ts
-               
+
 CODECFORTR = UTF-8
 
 DEPENDPATH += .
@@ -54,12 +54,12 @@ QT += xml
 
 #Platform dependent file(s)
 win32 {
-	exists("c:/Progra~1/Micros~4/Windows/v6.1/Lib/WinMM.Lib") {	# <-- Change the path to WinMM.Lib here!
-		LIBS += c:/Progra~1/Micros~4/Windows/v6.1/Lib/WinMM.Lib	# <-- Change the path here also!
-     } else { 
+        exists("c:/Progra~1/MS_SDKs/Windows/v6.1/Lib/WinMM.Lib") {	# <-- Change the path to WinMM.Lib here!
+                LIBS += c:/Progra~1/MS_SDKs/Windows/v6.1/Lib/WinMM.Lib	# <-- Change the path here also!
+     } else {
         exists("c:/PROGRA~1/MICROS~3/VC/PLATFO~1/Lib/WinMM.Lib") { # Path vs2005 (Vista)
-        	LIBS += c:/PROGRA~1/MICROS~3/VC/PLATFO~1/Lib/WinMM.Lib
-        } else { 
+                LIBS += c:/PROGRA~1/MICROS~3/VC/PLATFO~1/Lib/WinMM.Lib
+        } else {
             LIBS += .\WinMM.Lib
             message("WINMM.LIB IS REQUIRED. IF NOT INSTALLED THEN")
             message("PLEASE DOWNLOAD AND INSTALL THE LATEST PLATFORM SDK")
@@ -67,37 +67,37 @@ win32 {
             message("CHANGE THE CORRECT (DOS) PATH TO WinMM.lib")
             message("IN THIS (GT-10BFxFloorBoard.pro) FILE WHERE INDICATED")
         }
-	}
-	 HEADERS += 
-   	            
-	 SOURCES += ./windows/RtMidi.cpp 
-	    
-	 INCLUDEPATH += ./windows
-	message(Including Windows specific headers and sources...)
+        }
+         HEADERS +=
+
+         SOURCES += ./windows/RtMidi.cpp
+
+         INCLUDEPATH += ./windows
+        message(Including Windows specific headers and sources...)
 }
 linux-g++ {
         LIBS += -lasound
-	message("ALSA LIBRARIES SHOULD BE INSTALLED or ERROR will Occur") 
-	message("Please install the ALSA Audio System packages if not present") 	
- 
-	 HEADERS += 
-	 
-	 SOURCES += ./linux/RtMidi.cpp 
-	            
-	 INCLUDEPATH += ./linux
-	message(Including Linux specific headers and sources...)
+        message("ALSA LIBRARIES SHOULD BE INSTALLED or ERROR will Occur")
+        message("Please install the ALSA Audio System packages if not present")
+
+         HEADERS +=
+
+         SOURCES += ./linux/RtMidi.cpp
+
+         INCLUDEPATH += ./linux
+        message(Including Linux specific headers and sources...)
 }
 macx {
-	LIBS += -framework CoreMidi -framework CoreAudio -framework CoreFoundation
-	message("X-Code LIBRARIES SHOULD BE INSTALLED or ERROR will Occur") 
-	message("Please install the X-Code Audio System packages if not present") 
-	 HEADERS += 
-	 
-	 SOURCES += ./macosx/RtMidi.cpp 
-	             
-	 INCLUDEPATH += ./macosx
-	ICON = GT-3FxFloorBoard.icns
-	message(Including Mac OS X specific headers and sources...)
+        LIBS += -framework CoreMidi -framework CoreAudio -framework CoreFoundation
+        message("X-Code LIBRARIES SHOULD BE INSTALLED or ERROR will Occur")
+        message("Please install the X-Code Audio System packages if not present")
+         HEADERS +=
+
+         SOURCES += ./macosx/RtMidi.cpp
+
+         INCLUDEPATH += ./macosx
+        ICON = GT-3FxFloorBoard.icns
+        message(Including Mac OS X specific headers and sources...)
 }
 
 #Include file(s)

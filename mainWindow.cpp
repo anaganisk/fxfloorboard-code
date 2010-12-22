@@ -28,6 +28,7 @@
 #include "SysxIO.h"
 #include "bulkSaveDialog.h"
 #include "bulkLoadDialog.h"
+#include "summaryDialog.h"
 #include "globalVariables.h"
 
 mainWindow::mainWindow(QWidget *parent)
@@ -44,7 +45,7 @@ mainWindow::mainWindow(QWidget *parent)
 	#ifdef Q_OS_WIN
 		/* This set the floorboard default style to the "plastique" style, 
 	   as it comes the nearest what the stylesheet uses. */
-	  fxsBoard->setStyle(QStyleFactory::create("plastique"));
+	  //fxsBoard->setStyle(QStyleFactory::create("plastique"));
 		if(QFile(":qss/windows.qss").exists())
 		{
 			QFile file(":qss/windows.qss");
@@ -94,10 +95,10 @@ mainWindow::mainWindow(QWidget *parent)
 	mainLayout->addWidget(statusBar);
 	mainLayout->setMargin(0);
 	mainLayout->setSpacing(0);
-	mainLayout->setSizeConstraint(QLayout::SetFixedSize);
+	//mainLayout->setSizeConstraint(QLayout::SetFixedSize);
 	setLayout(mainLayout);
 
-	this->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+	//this->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 
 	QObject::connect(fxsBoard, SIGNAL( sizeChanged(QSize, QSize) ),
                 this, SLOT( updateSize(QSize, QSize) ) );
@@ -184,6 +185,10 @@ void mainWindow::createActions()
 	uploadAct = new QAction(QIcon(":/images/upload.png"), tr("Upload patch to GT-Central"), this);
 	uploadAct->setStatusTip(tr("........"));
 	connect(uploadAct, SIGNAL(triggered()), this, SLOT(upload()));
+	
+	summaryAct = new QAction(QIcon(":/images/copy.png"), tr("Summary Page Text"), this);
+  summaryAct->setStatusTip(tr("........"));
+  connect(summaryAct, SIGNAL(triggered()), this, SLOT(summaryPage()));
 
 	exitAct = new QAction(QIcon(":/images/exit.png"),tr("E&xit"), this);
 	exitAct->setShortcut(tr("Ctrl+Q"));
@@ -241,6 +246,8 @@ void mainWindow::createMenus()
 	QMenu *toolsMenu = new QMenu(tr("&Tools"), this);
 	toolsMenu->addAction(settingsAct);
 	toolsMenu->addAction(uploadAct);
+	fileMenu->addSeparator();
+  toolsMenu->addAction(summaryAct);
 	menuBar->addMenu(toolsMenu);
    
 	QMenu *helpMenu = new QMenu(tr("&Help"), this);
@@ -583,6 +590,14 @@ void mainWindow::upload()
 {
 	Preferences *preferences = Preferences::Instance();
 	QDesktopServices::openUrl(QUrl( preferences->getPreferences("General", "Upload", "url") ));
+};
+
+void mainWindow::summaryPage()
+{
+   summaryDialog *summary = new summaryDialog();
+   summary->setMinimumWidth(800);
+   summary->setMinimumHeight(650);
+   summary->show();
 };
 
 void mainWindow::homepage()

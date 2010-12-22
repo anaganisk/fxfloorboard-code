@@ -2,7 +2,7 @@
 
 ; HM NIS Edit Wizard helper defines
 !define PRODUCT_NAME "GT-3FxFloorBoard"
-!define PRODUCT_VERSION "20100105"
+!define PRODUCT_VERSION "20100522"
 !define PRODUCT_PUBLISHER "gumtown"
 !define PRODUCT_WEB_SITE "http://gtx.tinfoilmusic.net"
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\GT-3fxfloorboard.exe"
@@ -1586,7 +1586,6 @@ Section "MainSection" SEC01
   SetOutPath "$INSTDIR\saved patches"
   File "saved patches\U2 E-Bow.syx"
   File "saved patches\u2.syx"
-  File "saved patches\u2set.txt"
   File "saved patches\unusual.syx"
   File "saved patches\User patches1.syx"
   File "saved patches\User011500.syx"

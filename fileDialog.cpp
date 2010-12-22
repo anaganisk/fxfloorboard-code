@@ -25,21 +25,27 @@
 #include "fileDialog.h"
 
 
-fileDialog::fileDialog(QString fileName, QList<QString> patchList)
+fileDialog::fileDialog(QString fileName, QList<QString> patchList, QByteArray fileData, QByteArray default_data, QString type)
 {
-    QObject::connect(this, SIGNAL(patchIndex(int)),
-                this->parent(), SLOT(patchIndex(int)));
+    //QObject::connect(this, SIGNAL(patchIndex(int)),
+                //this->parent(), SLOT(patchIndex(int)));
+  this->fileData = fileData;
+  this->default_data = default_data;
                 
   QLabel *patchLabel = new QLabel(tr("Select patch to load"));
   QLabel *nameLabel = new QLabel(fileName);
 	QComboBox *patchCombo = new QComboBox;
-	patchCombo->addItems(patchList); 
+	patchCombo->addItems(patchList);
+  patchCombo->setMaxVisibleItems(200); 
 	
   QObject::connect(patchCombo, SIGNAL(currentIndexChanged(int)),
                 this, SLOT(valueChanged(int)));
+                
+  QObject::connect(patchCombo, SIGNAL(highlighted(int)),
+                this, SLOT(highlighted(int)));
   
 	QPushButton *cancelButton = new QPushButton(tr("Cancel"));
-  connect(cancelButton, SIGNAL(clicked()), this, SLOT(cancel()));
+  connect(cancelButton, SIGNAL(clicked()), this, SLOT(close()));
   
  
 	QHBoxLayout *horizontalLayout = new QHBoxLayout;	
@@ -68,12 +74,28 @@ void fileDialog::valueChanged(int value)
   this->close();
 }; 
 
- void fileDialog::cancel()
+ void fileDialog::highlighted(int value)
 {
-  SysxIO *sysxIO = SysxIO::Instance();
-  sysxIO->patchListValue = 0;             
-  this->close();
-}; 
-
+    int a = 0;
+    if (value>1)
+    {
+      a = (value-1)*650;                    // offset is calculated.
+    };
+    QByteArray temp;
+    temp = fileData.mid(a, 650);
+    default_data.replace(0, 650, temp);      //copy patch data from bulk file
+    
+     if (value>0)
+     {
+     SysxIO *sysxIO = SysxIO::Instance();
+     QString area = "Structure";
+     sysxIO->setFileSource(area, default_data);
+     sysxIO->setFileName("file audition");
+     //this->fileSource = sysxIO->getFileSource();
+     sysxIO->writeToBuffer();
+     // QApplication::beep();
+     };
+// };
+};
 
 

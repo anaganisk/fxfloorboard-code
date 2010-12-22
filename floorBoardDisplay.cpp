@@ -101,7 +101,7 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
 	this->assign_Button = new customButton(tr("Assigns"), false, QPoint(584, patchDisplayRowOffset), this, ":/images/pushbutton.png");	
 	this->system_Button = new customButton(tr("System Settings"), false, QPoint(673, patchDisplayRowOffset), this, ":/images/pushbutton.png");
 	this->compressor_Button = new customButton(tr("Compressor"), false, QPoint(673, patchDisplayRowOffset+19), this, ":/images/pushbutton.png");
-	this->fv_Button = new customButton(tr("Foot Volume"), false, QPoint(584, patchDisplayRowOffset+19), this, ":/images/pushbutton.png");
+	this->fv_Button = new customButton(tr("Pedal/Master"), false, QPoint(584, patchDisplayRowOffset+19), this, ":/images/pushbutton.png");
 	
 	this->preamp1_Button = new customButton(tr("PreAmp"), false, QPoint(10, editButtonRowOffset), this, ":/images/pushbutton.png");
 	this->pedal_Button = new customButton(tr("Wah"), false, QPoint(10, editButtonRowOffset+18), this, ":/images/pushbutton.png");
@@ -161,7 +161,10 @@ floorBoardDisplay::floorBoardDisplay(QWidget *parent, QPoint pos)
 
   QString midiIn = preferences->getPreferences("Midi", "MidiIn", "device");
 	QString midiOut = preferences->getPreferences("Midi", "MidiOut", "device");
-	if(midiIn!="" && midiOut!="") {autoconnect(); };
+	
+	set_temp();
+	
+	//if(midiIn!="" && midiOut!="") {autoconnect(); };
   };
 
 QPoint floorBoardDisplay::getPos()
@@ -274,6 +277,124 @@ void floorBoardDisplay::setPatchNumDisplay(int bank, int patch)
 	};
 };
 
+void floorBoardDisplay::set_temp()
+{
+
+  SysxIO *sysxIO = SysxIO::Instance();
+  QByteArray data;
+	
+  QFile file1("temp-1.syx");   // Read the default GT-3 sysx file so we don't start empty handed.
+  if (file1.open(QIODevice::ReadOnly))
+	{	data = file1.readAll(); };
+	
+	QList<QString> sysxBuffer; 
+	for(int i=0;i<data.size();i++)
+	{
+		unsigned char byte = (char)data[i];
+		unsigned int n = (int)byte;
+		QString hex = QString::number(n, 16).toUpper();     // convert QByteArray to QString
+		if (hex.length() < 2) hex.prepend("0");
+		sysxBuffer.append(hex);
+  };
+	if( data.size() == patchSize+228)
+	{
+	 QString patchText;
+	 unsigned char r;
+	 unsigned int a = sysxNameOffset; // locate patch text start position from the start of the file
+	 for (int b=0;b<nameLength;b++)
+           {
+             r = (char)data[a+b];
+             patchText.append(r);         // extract the text characters from the current patch name.
+           };
+   this->temp1Display->setMainText(patchText, Qt::AlignCenter); 
+   sysxIO->temp1_sysxMsg = sysxBuffer;
+  };
+  
+  data.clear();
+  QFile file2("temp-2.syx");   // Read the default GT-3 sysx file so we don't start empty handed.
+  if (file2.open(QIODevice::ReadOnly))
+	{	data = file2.readAll(); };
+	
+	sysxBuffer.clear(); 
+	for(int i=0;i<data.size();i++)
+	{
+		unsigned char byte = (char)data[i];
+		unsigned int n = (int)byte;
+		QString hex = QString::number(n, 16).toUpper();     // convert QByteArray to QString
+		if (hex.length() < 2) hex.prepend("0");
+		sysxBuffer.append(hex);
+  };
+	if( data.size() == patchSize+228)
+	{
+	 QString patchText;
+	 unsigned char r;
+	 unsigned int a = sysxNameOffset; // locate patch text start position from the start of the file
+	 for (int b=0;b<nameLength;b++)
+           {
+             r = (char)data[a+b];
+             patchText.append(r);         // extract the text characters from the current patch name.
+           };
+   this->temp2Display->setMainText(patchText, Qt::AlignCenter); 
+   sysxIO->temp2_sysxMsg = sysxBuffer;
+  };
+	
+	data.clear();
+	QFile file3("temp-3.syx");   // Read the default GT-3 sysx file so we don't start empty handed.
+  if (file3.open(QIODevice::ReadOnly))
+	{	data = file3.readAll(); };
+	
+	sysxBuffer.clear(); 
+	for(int i=0;i<data.size();i++)
+	{
+		unsigned char byte = (char)data[i];
+		unsigned int n = (int)byte;
+		QString hex = QString::number(n, 16).toUpper();     // convert QByteArray to QString
+		if (hex.length() < 2) hex.prepend("0");
+		sysxBuffer.append(hex);
+  };
+	if( data.size() == patchSize+228)
+	{
+	 QString patchText;
+	 unsigned char r;
+	 unsigned int a = sysxNameOffset; // locate patch text start position from the start of the file
+	 for (int b=0;b<nameLength;b++)
+           {
+             r = (char)data[a+b];
+             patchText.append(r);         // extract the text characters from the current patch name.
+           };
+   this->temp3Display->setMainText(patchText, Qt::AlignCenter); 
+   sysxIO->temp3_sysxMsg = sysxBuffer;
+  };
+	
+	data.clear();
+	QFile file4("temp-4.syx");   // Read the default GT-3 sysx file so we don't start empty handed.
+  if (file4.open(QIODevice::ReadOnly))
+	{	data = file4.readAll(); };
+	
+	sysxBuffer.clear(); 
+	for(int i=0;i<data.size();i++)
+	{
+		unsigned char byte = (char)data[i];
+		unsigned int n = (int)byte;
+		QString hex = QString::number(n, 16).toUpper();     // convert QByteArray to QString
+		if (hex.length() < 2) hex.prepend("0");
+		sysxBuffer.append(hex);
+  };
+	if( data.size() == patchSize+228)
+	{
+	 QString patchText;
+	 unsigned char r;
+	 unsigned int a = sysxNameOffset; // locate patch text start position from the start of the file
+	 for (int b=0;b<nameLength;b++)
+           {
+             r = (char)data[a+b];
+             patchText.append(r);         // extract the text characters from the current patch name.
+           };
+   this->temp4Display->setMainText(patchText, Qt::AlignCenter); 
+   sysxIO->temp4_sysxMsg = sysxBuffer;
+  };
+};
+
 void floorBoardDisplay::temp1_copy(bool value)
 {
   SysxIO *sysxIO = SysxIO::Instance();
@@ -303,7 +424,8 @@ void floorBoardDisplay::temp1_copy(bool value)
 	{
 	this->patchName = sysxIO->getCurrentPatchName();
   this->temp1Display->setMainText(patchName, Qt::AlignCenter);  
-  sysxIO->temp1_sysxMsg = sysxMsg;  
+  sysxIO->temp1_sysxMsg = sysxMsg;
+  save_temp("temp-1.syx", sysxMsg);  
   } else {
   QApplication::beep();
   QString size = QString::number(sysxMsg.size(), 10); 
@@ -366,7 +488,8 @@ void floorBoardDisplay::temp2_copy(bool value)
 	{
 	this->patchName = sysxIO->getCurrentPatchName();
   this->temp2Display->setMainText(patchName, Qt::AlignCenter);  
-  sysxIO->temp2_sysxMsg = sysxMsg;  
+  sysxIO->temp2_sysxMsg = sysxMsg; 
+  save_temp("temp-2.syx", sysxMsg); 
   } else {
   QApplication::beep(); 
     QString size = QString::number(sysxMsg.size(), 10); 
@@ -430,7 +553,8 @@ void floorBoardDisplay::temp3_copy(bool value)
 	{
 	this->patchName = sysxIO->getCurrentPatchName();
   this->temp3Display->setMainText(patchName, Qt::AlignCenter);  
-  sysxIO->temp3_sysxMsg = sysxMsg;  
+  sysxIO->temp3_sysxMsg = sysxMsg; 
+  save_temp("temp-3.syx", sysxMsg); 
   } else {
   QApplication::beep(); 
   QString size = QString::number(sysxMsg.size(), 10); 
@@ -493,7 +617,8 @@ void floorBoardDisplay::temp4_copy(bool value)
 	{
 	this->patchName = sysxIO->getCurrentPatchName();
   this->temp4Display->setMainText(patchName, Qt::AlignCenter);  
-  sysxIO->temp4_sysxMsg = sysxMsg;  
+  sysxIO->temp4_sysxMsg = sysxMsg;
+  save_temp("temp-4.syx", sysxMsg);  
   } else {
   QApplication::beep(); 
   QString size = QString::number(sysxMsg.size(), 10); 
@@ -527,6 +652,27 @@ void floorBoardDisplay::temp4_paste(bool value)
 	};
 };
 
+void floorBoardDisplay::save_temp(QString fileName, QList<QString> sysxMsg)
+ {
+   QFile file(fileName);
+    if (file.open(QIODevice::WriteOnly))
+	{		
+		QByteArray out;
+		unsigned int count=0;		
+			QList<QString> data = sysxMsg;
+			for (QList<QString>::iterator code = data.begin(); code != data.end(); ++code)
+			{
+				QString str(*code);
+				bool ok;
+				unsigned int n = str.toInt(&ok, 16);
+				out[count] = (char)n;
+				count++;
+			};
+		file.write(out);
+	};
+ 
+ };
+   
 void floorBoardDisplay::updateDisplay()
 {
 	SysxIO *sysxIO = SysxIO::Instance();

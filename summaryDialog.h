@@ -1,9 +1,9 @@
 /****************************************************************************
 **
 ** Copyright (C) 2007~2010 Colin Willcocks.
-** Copyright (C) 2005~2007 Uco Mesdag. 
+** Copyright (C) 2005~2007 Uco Mesdag.
 ** All rights reserved.
-** This file is part of "GT-3 Fx FloorBoard".
+** This file is part of "GT-10B Fx FloorBoard".
 **
 ** This program is free software; you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -21,42 +21,45 @@
 **
 ****************************************************************************/
 
-#ifndef FILEDIALOG_H
-#define FILEDIALOG_H
+#ifndef SUMMARYDIALOG_H
+#define SUMMARYDIALOG_H
 
 #include <QDialog>
-#include <QComboBox>
+#include <QMainWindow>
+#include <QTextEdit>
+#include <QTextDocument>
 #include <QLabel>
-#include "SysxIO.h" 
+#include <QPrintDialog>
+#include <QPrinter>
+#include "SysxIO.h"
 
 class QListWidget;
 class QListWidgetItem;
 class QStackedWidget;
 
-class fileDialog : public QDialog
+class summaryDialog : public QWidget
 {
-	Q_OBJECT
+        Q_OBJECT
 
 public:
-	fileDialog(QString fileName, QList<QString> patchList, QByteArray fileData, QByteArray default_data, QString type);
-	QLabel *patchLabel;
-  QLabel *nameLabel; 
-  QComboBox *patchCombo;
-  //int index;
-signals:
-  //void currentIndex(int value);
-  void patchIndex(int value);
-                    
+  summaryDialog(QWidget *parent = 0);
+  QTextEdit *textDialog;
+  QTextDocument *document;
+  QPrintDialog *dialog;
+
+
 public slots:
   void valueChanged(int value);
-  void highlighted(int value);
-   
-private:   
-  QList<QString> patchList;
-	QListWidget *contentsWidget;
-	QStackedWidget *pagesWidget;
-	QByteArray fileData;
-  QByteArray default_data;
+  void cancel();
+  void printFile();
+  void saveAs();
+
+private:
+void makeList();
+QString text;
+QString address;
+int start;
+int finish;
 };
 
 #endif // FILEDIALOG_H
