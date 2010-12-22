@@ -73,12 +73,12 @@ void bankTreeList::updateSize(QRect newrect)
 
 void bankTreeList::setClosedItems(QTreeWidgetItem *item)
 {
-        if(item->childCount() == patchPerBank)
+        if((item->childCount() == patchPerBank) && (item->text(0).contains("Bank")) )
 	{
                 int index = openPatchTreeItems.indexOf(item);
-                //openPatchTreeItems.removeAt(index);
+                openPatchTreeItems.removeAt(index);
 	}
-        else if(item->childCount() ==6)
+        else if(item->childCount() == 5)
 	{
                 int index = openBankTreeItems.indexOf(item);
                 openBankTreeItems.removeAt(index);
@@ -105,13 +105,13 @@ void bankTreeList::closeChildren(QTreeWidgetItem *item)
 void bankTreeList::setOpenItems(QTreeWidgetItem *item)
 {
 	QString type = "root";
-	if(item->childCount() == patchPerBank)
+       if((item->childCount() == patchPerBank) && (item->text(0).contains("Bank")) )
 	{
 		openPatchTreeItems.append(item);
 		updateTree(item);
 		type = "patch";
 	}
-        else if(item->childCount() == 7)
+        else if(item->childCount() == 5)
 	{
 		openBankTreeItems.append(item);
 		type = "bank";
@@ -120,13 +120,13 @@ void bankTreeList::setOpenItems(QTreeWidgetItem *item)
 	int c = openPatchTreeItems.size();
 	int b = openBankTreeItems.size();
 	int a = 0;
-        if(treeList->isExpanded(treeList->model()->index(0, 0)) &&
-                treeList->isExpanded(treeList->model()->index(1, 0)))
+        if(treeList->isExpanded(treeList->model()->index(1, 0)) &&
+                treeList->isExpanded(treeList->model()->index(2, 0)))
 	{
 		a = 2;
 	}
-        else if(treeList->isExpanded(treeList->model()->index(0, 0)) ||
-                treeList->isExpanded(treeList->model()->index(1, 0)))
+        else if(treeList->isExpanded(treeList->model()->index(1, 0)) ||
+                treeList->isExpanded(treeList->model()->index(2, 0)))
 	{
 		a = 1;
 	};
@@ -153,10 +153,10 @@ void bankTreeList::setOpenItems(QTreeWidgetItem *item)
 			};
 			switch(c)
 			{
-				case 0: maxExpandedItems = 3; break;
-				case 1: maxExpandedItems = 2; break;
-				case 2: maxExpandedItems = 1; break;
-				case 3: maxExpandedItems = 1; break;
+                                case 0: maxExpandedItems = 5; break;
+                                case 1: maxExpandedItems = 4; break;
+                                case 2: maxExpandedItems = 3; break;
+                                case 3: maxExpandedItems = 3; break;
 			};
 			
 			while(b > maxExpandedItems)
@@ -173,36 +173,36 @@ void bankTreeList::setOpenItems(QTreeWidgetItem *item)
 		{	
 			switch(c)
 			{
-				case 0: maxExpandedItems = 3; break;
-				case 1: maxExpandedItems = 2; break;
-				case 2: maxExpandedItems = 1; break;
-				case 3: maxExpandedItems = 1; break;
+                                case 0: maxExpandedItems = 5; break;
+                                case 1: maxExpandedItems = 4; break;
+                                case 2: maxExpandedItems = 3; break;
+                                case 3: maxExpandedItems = 3; break;
 			};
 		}
 		else
 		{
-			if(treeList->isExpanded(treeList->model()->index(0, 0)))
+                        if(treeList->isExpanded(treeList->model()->index(1, 0)))
 			{
 				switch(c)
 				{
-					case 0: maxExpandedItems = 5; break;	
-					case 1: maxExpandedItems = 4; break;
-					case 2: maxExpandedItems = 3; break;
-					case 3: maxExpandedItems = 3; break;
-					case 4: maxExpandedItems = 2; break;
-					case 5: maxExpandedItems = 1; break;
+                                        case 0: maxExpandedItems = 7; break;
+                                        case 1: maxExpandedItems = 6; break;
+                                        case 2: maxExpandedItems = 5; break;
+                                        case 3: maxExpandedItems = 5; break;
+                                        case 4: maxExpandedItems = 4; break;
+                                        case 5: maxExpandedItems = 3; break;
 				};
 			}
 			else
 			{
 				switch(c)
 				{
-					case 0: maxExpandedItems = 4; break;	
-					case 1: maxExpandedItems = 4; break;
-					case 2: maxExpandedItems = 3; break;
-					case 3: maxExpandedItems = 3; break;
-					case 4: maxExpandedItems = 1; break;
-					case 5: maxExpandedItems = 1; break;
+                                        case 0: maxExpandedItems = 6; break;
+                                        case 1: maxExpandedItems = 6; break;
+                                        case 2: maxExpandedItems = 5; break;
+                                        case 3: maxExpandedItems = 5; break;
+                                        case 4: maxExpandedItems = 3; break;
+                                        case 5: maxExpandedItems = 3; break;
 				};
 			};
 		};
@@ -235,7 +235,7 @@ void bankTreeList::setOpenItems(QTreeWidgetItem *item)
 			};
 			if(allCollapsed)
 			{
-				openBankTreeItems.at(i)->setExpanded(false);
+                                openBankTreeItems.at(i)->setExpanded(false);
 				b = openBankTreeItems.size();
 				break;
 			};
@@ -246,9 +246,9 @@ void bankTreeList::setOpenItems(QTreeWidgetItem *item)
 		{	
 			switch(b)
 			{
-				case 1: maxExpandedItems = 3; break;
-				case 2: maxExpandedItems = 1; break;
-				case 3: maxExpandedItems = 0; break;
+                                case 1: maxExpandedItems = 5; break;
+                                case 2: maxExpandedItems = 3; break;
+                                case 3: maxExpandedItems = 2; break;
 			};
 		}
 		else
@@ -257,32 +257,32 @@ void bankTreeList::setOpenItems(QTreeWidgetItem *item)
 			{
 				switch(b)
 				{
-					case 1: maxExpandedItems = 5; break;
-					case 2: maxExpandedItems = 4; break;
-					case 3: maxExpandedItems = 3; break;
-					case 4: maxExpandedItems = 1; break;
+                                        case 1: maxExpandedItems = 7; break;
+                                        case 2: maxExpandedItems = 6; break;
+                                        case 3: maxExpandedItems = 5; break;
+                                        case 4: maxExpandedItems = 3; break;
 				};
 			}
 			else
 			{
 				switch(b)
 				{
-					case 1: maxExpandedItems = 4; break;
-					case 2: maxExpandedItems = 3; break;
-					case 3: maxExpandedItems = 3; break;
-					case 4: maxExpandedItems = 1; break;
+                                        case 1: maxExpandedItems = 6; break;
+                                        case 2: maxExpandedItems = 5; break;
+                                        case 3: maxExpandedItems = 4; break;
+                                        case 4: maxExpandedItems = 3; break;
 				};
 			};
 		};
 
 		if(maxExpandedItems == 0)
 		{
-			openBankTreeItems.first()->setExpanded(false);
+                        openBankTreeItems.first()->setExpanded(false);
 			maxExpandedItems = 1;
 		};
-		if(c > maxExpandedItems)
+                if(c > maxExpandedItems+5)
 		{
-			openPatchTreeItems.first()->setExpanded(false);
+                        openPatchTreeItems.first()->setExpanded(false);
 		};
 	};
 };
@@ -311,13 +311,13 @@ QTreeWidget* bankTreeList::newTreeList()
     for (int a=1; a<=bankTotalUser; a++)
 	{
 		QTreeWidgetItem* bankRange = new QTreeWidgetItem; // don't pass a parent here!
-                bankRange->setText(0, QString::QString("Group UG:").append(QString::number(f, 10)) );
+                bankRange->setText(0, QString("Group UG:").append(QString::number(f, 10)) );
                  f += 1;
                 int k = 1;
                 for (int b=a; b<=(a+4); b++)    //banks per group
 				{
 			QTreeWidgetItem* bank = new QTreeWidgetItem(bankRange);
-                        bank->setText(0, QString::QString("Bank ").append(QString::number(b, 10)).append(" UG:" + QString::number(f-1, 10)).append("-").append(QString::number(k, 10)));
+                        bank->setText(0, QString("Bank ").append(QString::number(b, 10)).append(" UG:" + QString::number(f-1, 10)).append("-").append(QString::number(k, 10)));
 			bank->setWhatsThis(0, "");
 			//bank->setIcon(...);
                          k += 1; if(k>=7){k=1;};
@@ -325,7 +325,7 @@ QTreeWidget* bankTreeList::newTreeList()
                         for (int c=1; c<=5; c++)
 			{
 				QTreeWidgetItem* patch = new QTreeWidgetItem(bank);
-                                patch->setText(0, QString::QString("Patch UG:" + QString::number(f-1, 10)).append("-").append(QString::number(k-1, 10)).append("-").append(QString::number(c, 10)));
+                                patch->setText(0, QString("Patch UG:" + QString::number(f-1, 10)).append("-").append(QString::number(k-1, 10)).append("-").append(QString::number(c, 10)));
 				patch->setWhatsThis(0, "");
 				//patch->setIcon(...);
 			};
@@ -348,21 +348,21 @@ QTreeWidget* bankTreeList::newTreeList()
     for (int a=(bankTotalUser+1); a<=bankTotalAll; a++)
 	{
 		QTreeWidgetItem* bankRange = new QTreeWidgetItem; // don't pass a parent here!
-                bankRange->setText(0, QString::QString("Group PG:").append(QString::number(f, 10)));
+                bankRange->setText(0, QString("Group PG:").append(QString::number(f, 10)));
 		bankRange->setWhatsThis(0, "");
                 f += 1;
                 int k = 1;
 		for (int b=a; b<=(a+4); b++)  //banks per group
 		{
 			QTreeWidgetItem* bank = new QTreeWidgetItem(bankRange);
-                        bank->setText(0, QString::QString("Bank ").append(QString::number(b, 10)).append(" PG:" + QString::number(f-1, 10)).append("-").append(QString::number(k, 10)));
+                        bank->setText(0, QString("Bank ").append(QString::number(b, 10)).append(" PG:" + QString::number(f-1, 10)).append("-").append(QString::number(k, 10)));
 			bank->setWhatsThis(0, "");
                          k += 1; if(k>6){k=1;};
 
                         for (int c=1; c<=5; c++)
 			{
 				QTreeWidgetItem* patch = new QTreeWidgetItem(bank);
-                                patch->setText(0, QString::QString("Patch PG:" + QString::number(f-1, 10)).append("-").append(QString::number(k-1, 10)).append("-").append(QString::number(c, 10)));
+                                patch->setText(0, QString("Patch PG:" + QString::number(f-1, 10)).append("-").append(QString::number(k-1, 10)).append("-").append(QString::number(c, 10)));
 				patch->setWhatsThis(0, "");
 				//patch->setIcon(...);
 			};
@@ -426,10 +426,10 @@ void bankTreeList::setItemDoubleClicked(QTreeWidgetItem *item, int column)
 		emit setStatusMessage(tr("Patch request"));
 
 		sysxIO->setDeviceReady(false);
-		sysxIO->setRequestName(item->text(0));	// Set the name of the patch we are going to load, so we can check if we have loaded the correct patch at the end.
+                //sysxIO->setRequestName(item->text(0));	// Set the name of the patch we are going to load, so we can check if we have loaded the correct patch at the end.
 
 		bool ok;
-		int bank = item->parent()->text(0).section(" ", 1, 1).trimmed().toInt(&ok, 10); // Get the bank
+                int bank = item->parent()->text(0).section(" ", 1, 1).trimmed().toInt(&ok, 10); // Get the bank
 		int patch = item->parent()->indexOfChild(item) + 1;								// and the patch number.
 		
 			requestPatch(bank, patch);
@@ -626,7 +626,7 @@ void bankTreeList::updatePatchNames(QString name)
 {		SysxIO *sysxIO = SysxIO::Instance();
 		if(!name.isEmpty() && sysxIO->isConnected()) //  If not empty we can assume that we did receive a patch name.
 		{
-			this->currentPatchTreeItems.at(listIndex)->child(itemIndex)->setText(0, name); // Set the patch name of the item in the tree list.
+                        this->currentPatchTreeItems.at(listIndex)->child(itemIndex)->setText(0, name); // Set the patch name of the item in the tree list.
 			if(itemIndex >= patchPerBank - 1) // If we reach the last patch in this bank we need to increment the bank and restart at patch 1.
 			{
 				this->listIndex++;

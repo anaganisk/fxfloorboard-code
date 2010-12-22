@@ -2,8 +2,8 @@
 <!-- Preferences of the GT-5 Fx FloorBoard application. -->
 <Preferences>
 	<General>
-		<Application version="20100211"/>
-		<Donate url="http://gtx.tinfoilmusic.net/donate.html"/>
+		<Application version="20101220"/>
+		<Donate url="http://fxfloorboard.sourceforge.net/donate.html"/>
 		<Files dir=""/>
 		<Help url="GT-5EditorManual_E.htm"/>
 		<Language code="en"/>

@@ -36,7 +36,7 @@ public:
 		double max = 100, 
 		double single = 1, 
 		double page = 10,
-		QPoint dialPos = QPoint::QPoint(0, 0), 
+                QPoint dialPos = QPoint(0, 0),
 		QWidget *parent = 0,
 		QString area = "Structure",
 		QString hex1 = "void",

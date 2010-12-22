@@ -29,7 +29,7 @@ stompbox_loop::stompbox_loop(QWidget *parent)
         /* LOOP */
 	setImage(":/images/loop.png");
         setLSB("01", "00");
-        setButton("00", "00", "00", QPoint::QPoint(0, 109), ":/images/pedal.png");
+        setButton("00", "00", "00", QPoint(0, 109), ":/images/pedal.png");
         setKnob1("01", "00", "1D");
         editDetails()->patchPos(75, 1, "01", "00");
 	setEditPages();

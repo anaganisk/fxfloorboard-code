@@ -53,7 +53,7 @@ int main(int argc, char *argv[])
 
 	customSplashScreen *splash = new customSplashScreen(splashImage);
 	//splash->setMessageRect(QRect::QRect(148, 300, 332, 14)); // Setting the message position.
-  splash->setMessageRect(QRect::QRect(7, 253, 415, 14), Qt::AlignCenter); 
+  splash->setMessageRect(QRect(7, 253, 415, 14), Qt::AlignCenter);
 	QFont splashFont;
 	splashFont.setFamily("Arial");
 	splashFont.setBold(true);
@@ -95,7 +95,7 @@ int main(int argc, char *argv[])
 
 	splash->showStatusMessage(QObject::tr("Loading midi mapping..."));
 	MidiTable *midiTable = MidiTable::Instance();
-	midiTable;
+        midiTable = midiTable;
 
 	app.processEvents(); 
 
@@ -103,7 +103,7 @@ int main(int argc, char *argv[])
 	window.setWindowFlags( Qt::WindowTitleHint 
 		| Qt::WindowMinimizeButtonHint 
 		| Qt::MSWindowsFixedSizeDialogHint );
-	window.setWindowIcon(QIcon::QIcon(":/images/windowicon.png"));
+        window.setWindowIcon(QIcon(":/images/windowicon.png"));
 
 	app.processEvents(); 
 
